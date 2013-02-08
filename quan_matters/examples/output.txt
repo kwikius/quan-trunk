@@ -1,0 +1,6 @@
+box_example.o: In function `Box::filled_weight() const':
+box_example.cpp:(.text._ZNK3Box13filled_weightEv[_ZNK3Box13filled_weightEv]+0x9f): undefined reference to `quan::acceleration_<double>::g'
+box_example.o: In function `Box::fill_level(quan::fixed_quantity<quan::meta::unit<quan::meta::abstract_quantity<quan::meta::dimension<quan::meta::rational<0, 1>, quan::meta::rational<0, 1>, quan::meta::rational<1, 1>, quan::meta::rational<0, 1>, quan::meta::rational<0, 1>, quan::meta::rational<0, 1>, quan::meta::rational<0, 1> >, quan::meta::components::of_mass>, quan::meta::conversion_factor<quan::meta::rational<0, 1>, quan::meta::rational<1, 1>, quan::meta::int32<0> > >, double> const&) const':
+box_example.cpp:(.text._ZNK3Box10fill_levelERKN4quan14fixed_quantityINS0_4meta4unitINS2_17abstract_quantityINS2_9dimensionINS2_8rationalILi0ELi1EEES7_NS6_ILi1ELi1EEES7_S7_S7_S7_EENS2_10components7of_massEEENS2_17conversion_factorIS7_S8_NS2_5int32ILi0EEEEEEEdEE[_ZNK3Box10fill_levelERKN4quan14fixed_quantityINS0_4meta4unitINS2_17abstract_quantityINS2_9dimensionINS2_8rationalILi0ELi1EEES7_NS6_ILi1ELi1EEES7_S7_S7_S7_EENS2_10components7of_massEEENS2_17conversion_factorIS7_S8_NS2_5int32ILi0EEEEEEEdEE]+0x22): undefined reference to `quan::acceleration_<double>::g'
+collect2: error: ld returned 1 exit status
+make: *** [box_example.exe] Error 1

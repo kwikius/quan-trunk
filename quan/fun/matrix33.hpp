@@ -1,0 +1,71 @@
+#ifndef QUAN_FUN_MATRIX33_HPP_INCLUDED
+#define QUAN_FUN_MATRIX33_HPP_INCLUDED
+
+#include <quan/fun/vector3.hpp>
+#include <quan/fun/vector9.hpp>
+
+namespace quan {namespace fun{
+
+    template <int R, int C, typename Seq> struct matrix;
+    
+    template<typename Seq>
+    struct matrix<3,3,Seq>{
+        typedef matrix type;
+        const static int rows = 3;
+        const static int cols = 3;
+        typedef Seq elements_type;
+        Seq elements;
+        //check num of elements
+        template <int R1, int C1, typename F = as_value>
+        struct type_at{
+            typedef typename at_seq<
+               rows * R1 + C1, Seq, F
+            >::type type;
+        };  
+
+        matrix():elements(
+            typename Seq::t0(),typename Seq::t1(),typename Seq::t2(),
+            typename Seq::t3(),typename Seq::t4(),typename Seq::t5(),
+            typename Seq::t6(),typename Seq::t7(),typename Seq::t8()
+        ){}
+        
+        template <
+            typename T0, typename T1, typename T2, 
+            typename T3, typename T4, typename T5,
+            typename T6, typename T7, typename T8
+        >
+        matrix(
+            T0 const & t0, T1 const & t1, T2 const & t2,
+            T3 const & t3, T4 const & t4, T5 const & t5,
+            T6 const & t6, T7 const & t7, T8 const & t8
+        )
+        : elements(
+            t0,t1,t2,
+            t3,t4,t5,
+            t6,t7,t8
+         ){}
+
+        template <typename Seq1>
+        matrix (matrix<3,3,Seq1> const & in)
+        : elements(in.elements){}
+        
+        template <int R1, int C1>
+        typename type_at<R1,C1,as_ref>::type
+        at()
+        {
+            at_seq<rows * R1 + C1,elements_type,as_ref> f;
+            return f(elements);
+        };
+
+        template <int R1, int C1>
+        typename type_at<R1,C1,as_const_ref>::type
+        at()const
+        {
+            at_seq<rows * R1 + C1,elements_type,as_const_ref> f;
+            return f(elements);
+        };
+    };
+    
+}}//quan::fun
+
+#endif

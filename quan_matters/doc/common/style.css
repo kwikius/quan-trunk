@@ -1,0 +1,152 @@
+
+body{
+   color: #330066;
+   background-color: white;
+}
+
+p,td,h2,h3{color:#000000;}
+
+p.info{color:#ffd0d0;}
+
+table {
+	border-left:0mm;
+	border-top:0mm;
+	border-right:0mm;
+	border-bottom:0mm;
+	margin-top:0mm;
+	margin-left:0mm;
+	margin-right:0mm;
+	margin-bottom:0mm;
+}	
+
+img {
+	border-left:0mm;
+	border-top:0mm;
+	border-right:0mm;
+	border-bottom:0mm;
+	margin-top:0mm;
+	margin-left:0mm;
+	margin-right:0mm;
+	margin-bottom:0mm;
+}
+
+font.quan_logo{
+   font-style:italic;
+   font-weight:bold;
+   color: blue;
+}
+
+font.white_quan_logo{
+   font-style:italic;
+   font-weight:bold;
+   color: white;
+}
+
+font.quanta_logo{
+   font-weight: bold;
+   color: darkslateblue;
+   font-style: italic;
+}
+
+span#entity-type
+{
+   font-weight: 900;
+   font-size: 10mm;
+   color: olive;
+   font-style: italic;
+   font-family: monospace;
+}
+
+span#entity-name{
+   font-weight:100;
+   font-size:10mm;
+   color:steelblue;
+   font-family:sans-serif;
+}
+
+span.inline-code{
+   font-size: 4mm;
+   color: #993333;
+   font-family:verdana;
+}
+
+font.semantics{
+   font-weight: bold;
+   font-size: 6mm;
+   color: black;
+}
+
+td.semantics{
+}
+
+DIV.old_code_example
+{
+   border-right: thistle 1px solid;
+   border-top: lightgrey 1px solid;
+   font-size: 4mm;
+   margin: 5mm;
+   border-left: lightgrey 1px solid;
+   color: #993333;
+   border-bottom: white 1px solid;
+   background-color: #ffcc99;
+}
+
+
+DIV.code_example
+{
+   border-right: thistle 1px solid;
+   border-top: lightgrey 1px solid;
+   font-size: 4mm;
+   margin: 5mm;
+   border-left: lightgrey 1px solid;
+   color: #330099;
+   border-bottom: white 1px solid;
+   background-color: #ccccff;
+   font-family: sans-serif;
+}
+
+pre.code-example
+{
+   border-right: thistle 1px solid;
+   border-bottom: thistle 1px solid;
+   border-left: lightgrey 1px solid;
+   border-top: lightgrey 1px solid;
+   padding-top: 3mm;
+   padding-left: 3mm;
+   padding-right: 5mm;
+   padding-bottom: 3mm;
+   font-size: 4mm;
+   margin: 5mm;
+   color: black;
+   background-color: white;
+}
+
+table.code_spec{
+   border: 0;
+   /* width: 100%; */
+}
+
+DIV.code-spec
+{
+   border-right: thistle 1px solid;
+   border-bottom: thistle 1px solid;
+   border-left: lightgrey 1px solid;
+   border-top: lightgrey 1px solid;
+   padding-top: 0mm;
+   padding-left: 3mm;
+   padding-right: 5mm;
+   padding-bottom: 0mm;
+   font-size: 4mm;
+   margin: 5mm;
+   color: black;
+   background-color: white;
+}
+PRE.code-spec{
+font-family:sans-serif;
+}
+
+DIV.side_menu_header
+{
+   font-weight:bold;
+   color:#EFEFFF;
+}

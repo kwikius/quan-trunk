@@ -1,0 +1,132 @@
+<html>
+<!-- root   = /home/andy/website/quan-trunk -->
+<!-- offset = quan_matters/doc/quan/fixed_quantity/intro.html -->
+<title>
+fixed_quantity - intro
+</title>
+<head>
+<link
+rel='stylesheet'
+href='../../common/style.css'
+type='text/css'
+>
+</head>
+<body>
+<!--quan::PolymorphicFunctor1-->
+<!--quan::TypeSequence-->
+<!--SiteIndex-->
+<!--QuanIndex-->
+<!--QuanLogo-->
+<!--HR-->
+<!--PageHeader-->
+<!--STM32F4_Index-->
+<!--PageFooter-->
+<div><a href = '../../index.html'><img src = '../../common/quan_logo.png'>
+</a><a href = '../../index.html'>Quan Index</a><HR></div><h1>fixed_quantity</h1>
+<ul><li><a href = '#introducing'>Introducing Quan fixed_quantity</a></li>
+<li><a href = '#motivation'>Motivation</a></li>
+</ul>
+<h3 id="introducing">Introducing Quan fixed_quantity</h3>
+<p>The fixed_quantity is a C++ representation of a physical_quantity where the unit is fixed at compile-time.It has many similar features to a built-in type ...</p>
+<ul><li>Concrete type with simple, consistent semantics close to those of built-in types.</li>
+<li>Matches speed and code size performance of built-in types.</li>
+<li>Easy to use. Requires no special framework.</li>
+</ul>
+<p>... but with added functionality ...</p>
+<ul><li>Strong type checking enforces dimensioned integrity, catching calculation errors at compile time.</li>
+<li> Automated unit conversion reduces drudgery.</li>
+<li>Self documenting; helps code clarity.</li>
+</ul>
+<h3 id="motivation">Motivation</h3>
+<ul><li><a href = '#code_clarity'>Code clarity</a></li>
+<li><a href = '#ease_of_use'>Ease of use</a></li>
+<li><a href = '#error_detection'>Error detection</a></li>
+<li><a href = '#portable_type_safe_io'>Portable type-safe I/O</a></li>
+</ul>
+<h4 id="code_clarity">Code clarity</h4>
+<p>Inbuilt-types representing physical quantities are in common use:</p>
+<pre class="code-example">
+   struct Box {
+      double length;
+      double height;
+      double width;
+      Contents contents;
+
+      double weight()
+      {
+         double volume = length * width * height;
+         double mass = contents.material.density * volume;
+         return mass * gravity;
+      }
+   };
+</pre><p>In struct Box above almost every entity represents a physical quantity. 
+   One might assume the quantities are expressed in standard SI units, 
+   but to be sure requires consulting external documentation. 
+   A fixed_quantity (expressed in terms of the simple interface described later) is self-documenting:</p>
+<pre class="code-example">   struct quan_box {
+      quan::length::m length;
+      quan::length::m width;
+      quan::length::m height;
+      quan::density::kg_per_m3 density;
+
+      quan::force::N weight()
+      {
+         quan::volume::m3 volume = length * width * height;
+         quan::mass::kg mass = density * volume;
+         return mass * quan::acceleration::g;
+      }
+   };
+//source = <a href = '../../../examples/doc/quan_box.cpp'>&lt;quan_matters/examples/doc/quan_box.cpp&gt;</a></pre><h4 id="ease_of_use">Ease of use</h4>
+<p>When using struct Box, care must be taken over converting
+      between quantities with different conversion factors. 
+      The programmer must provide any scaling required... </p>
+<pre class="code-example">
+   Box box;
+   double length;
+   std::cin &gt;&gt; length;                 // Assume input arrives in millimeters.
+   box.length = length * 1000;         // Programmer error!
+</pre><p>struct Quan_box understands the concept of conversion factors 
+ and automates scaling, relieving the programmer of this chore..</p>
+<pre class="code-example">
+   Quan_box quan_box;
+   quan::length::mm length;	 
+   std::cin &gt;&gt; length;                // Quan enforces the millimeters type.
+   quan_box.length = length;          // Scaling conversion is performed
+                                      // automatically by the type.
+
+   // A fixed_quantity can handle conversions of any complexity...
+   quan::velocity::m_per_s v1;        // metres per second
+   std::cin &gt;&gt; v1;  
+   quan::velocity::mi_per_hr v2 = v1; // miles per hour
+                                      // scaling conversion is part of the Archetype.
+</pre><h4 id="error_detection">Error detection</h4>
+<p>A physical quantity must conform to the rules of dimensional analysis.
+The built-in types cannot enforce these rules:</p>
+<pre class="code-example">
+   // calculate an acceleration
+   double initial_velocity = 1;
+   double final_velocity = 2;
+   double time = 0.5;
+   double acceleration 
+       = final_velocity - initial_velocity / time;  // Programmer error...
+   // ... undetected by the ompiler and time consuming to find manually!
+</pre><p>Replacing the built-in types in the above example, 
+by a fixed_quantity that enforces the rules of dimensional analysis, 
+The C++ compiler catches the error at compile time:</p>
+<pre class="code-example">
+   // calculate an acceleration
+   quan::velocity::m_per_s      initial_velocity(1);
+   quan::velocity::m_per_s      final_velocity(2);
+   quan::time::s                time(0.5);
+   quan::acceleration::m_per_s2 acceleration 
+      = final_velocity - initial_velocity / time;  // Programmer error ... 
+   // caught by the compiler!
+</pre><p>Using a fixed_quantity helps to clarify, quickly identify, 
+and pinpoint dimensional analysis errors in the source code.</p>
+<h4 id="portable_type_safe_io">Portable, Typesafe I/O</h4>
+<p>Quan represents physical quantities in a standardised textual format,
+so stream input and output are predictable, repeatable, and can be shared across applications.
+The enforcement of a standardised format also provides typesafety for user input.</p>
+<div><HR><div><a href = '../../index.html'><img src = '../../common/quan_logo.png'>
+</a><a href = '../../index.html'>Quan Index</a><HR></div></div></body>
+</html>

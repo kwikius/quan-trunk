@@ -1,0 +1,25 @@
+
+
+    std.cout <~ mode[real](fixed,floatfield);
+    std.cout <~ precision[real](3);
+
+    C = 1 uF;
+    V0 = 5 V;
+    R = 4.7 R;
+
+
+    for (  t = 0 ms ; t <= 50 ms; ++t  ){
+
+        auto const Vt = V0 * std::exp(-t / (R * C));
+
+        std::cout << "at " << t << " voltage is " ;
+        //format
+        if     (Vt >= voltage::V{1})      std::cout << Vt ;
+        else if(Vt >= voltage::mV{1})     std::cout << voltage::mV{Vt};
+        else if(Vt >= voltage::uV{1})     std::cout << voltage::uV{Vt};
+        else if(Vt >= voltage::nV{1})     std::cout << voltage::nV{Vt};
+        else                              std::cout << voltage::pV{Vt};
+        std::cout << "\n";
+
+    }
+}

@@ -1,0 +1,49 @@
+/*
+:Author: Your Name
+
+*/
+
+@import url(html4css1.css);
+
+
+/* @import url(style.css) */
+
+table {
+	border-left:0mm;
+	border-top:0mm;
+	border-right:0mm;
+	border-bottom:0mm;
+	margin-top:0mm;
+	margin-left:0mm;
+	margin-right:0mm;
+	margin-bottom:0mm;
+}	
+
+img {
+	border-left:0mm;
+	border-top:0mm;
+	border-right:0mm;
+	border-bottom:0mm;
+	margin-top:0mm;
+	margin-left:0mm;
+	margin-right:0mm;
+	margin-bottom:0mm;
+}
+
+span.entity-type
+{
+   font-weight: 900;
+   font-size: 10mm;
+   color: olive;
+   font-style: italic;
+   font-family: monospace;
+}
+
+span.entity-name{
+   font-weight:100;
+   font-size:10mm;
+   color:steelblue;
+   font-family:sans-serif;
+}
+
+

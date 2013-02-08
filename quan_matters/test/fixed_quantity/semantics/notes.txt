@@ -1,0 +1,9 @@
+
+
+in dimless_divide.cpp test_rt_negative_integer_exp_2div is failing to compile due static_assert . probably range
+Uses external stuff. Should probably try to find internal stuff to use.. Needs looking at. Currently commented out.
+May be due to rational value out of range
+
+may be quan/detail/pow10_exponent required here
+
+udt_value_type not working

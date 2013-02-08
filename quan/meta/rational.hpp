@@ -1,0 +1,459 @@
+#ifndef QUAN_META_RATIONAL_HPP_INCLUDED
+#define QUAN_META_RATIONAL_HPP_INCLUDED
+#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#  pragma once
+#endif
+
+// Copyright Andrew Little 2005
+
+/*
+    compile time rational number after Eric Ford
+*/
+
+#include <quan/config.hpp>
+#include <quan/archetypes/meta/static_rational_concept.hpp>
+#include <quan/concept_checking.hpp>
+#include <quan/meta/is_lossless_calculation.hpp>
+#include <quan/meta/rational_fwd.hpp>
+#include <quan/meta/detail/rational_impl.hpp>
+#include <quan/meta/binary_op.hpp>
+#include <quan/meta/is_runtime_type.hpp>
+#include <quan/meta/unary_operation.hpp>
+#include <quan/meta/bool.hpp>
+
+#include <quan/static_assert.hpp>
+#include <quan/meta/int32.hpp>
+#include <quan/meta/gt.hpp>
+#include <quan/meta/lt.hpp>
+#include <quan/meta/gte.hpp>
+#include <quan/meta/lte.hpp>
+#include <quan/meta/eq.hpp>
+#include <quan/meta/neq.hpp>
+
+namespace quan{namespace meta{
+
+    template<
+       QUAN_INT32 N,
+       QUAN_INT32 D 
+    >
+    struct rational {
+        QUAN_STATIC_ASSERT((D != 0));
+  
+          static const QUAN_INT32 numerator 
+            = quan::meta::detail::rational_impl<
+                N,D
+            >::numerator;
+          static const QUAN_INT32   denominator = detail::rational_impl<
+                N,D
+            >::denominator;        
+        typedef rational<numerator,denominator> type;
+    };
+
+    template<
+       QUAN_INT32 N,
+       QUAN_INT32 D 
+    > 
+    struct numerator<
+        rational<N,D>
+    > : int32<rational<N,D>::numerator>{};
+
+    template<
+       QUAN_INT32 N,
+       QUAN_INT32 D 
+    > 
+    struct denominator<
+        rational<N,D>
+    > : int32<rational<N,D>::denominator>{};
+
+    template<
+       QUAN_INT32 N,
+       QUAN_INT32 D 
+    > 
+    struct is_runtime_type<
+        rational<N,D>
+    > : std::false_type{};
+
+    template<
+        QUAN_INT32 N,
+        QUAN_INT32 D 
+    > struct is_integer<
+        rational<N,D>
+    > : quan::meta::bool_<(rational<N,D>::denominator == 1)>{};
+  
+    template<
+       QUAN_INT32 N,
+       QUAN_INT32 D 
+    > 
+    struct eq_zero<
+      rational<N,D>
+    > : bool_<(rational<N,D>::numerator ==0)>{};
+
+    template<
+       QUAN_INT32 N,
+       QUAN_INT32 D 
+    > 
+    struct eq_one<
+      rational<N,D>
+    > : bool_<((rational<N,D>::numerator ==1) && (rational<N,D>::denominator==1))>{};
+   
+   template<
+       QUAN_INT32 N,
+       QUAN_INT32 D 
+    > 
+    struct lt_zero<
+      rational<N,D>
+    > : bool_<(rational<N,D>::numerator < 0)>{};
+
+   template<
+       QUAN_INT32 N,
+       QUAN_INT32 D 
+    > 
+    struct gt_zero<
+      rational<N,D>
+    > : bool_<(rational<N,D>::numerator > 0)>{};
+
+    template<
+       QUAN_INT32 N,
+       QUAN_INT32 D 
+    > 
+    struct gte_zero<
+      rational<N,D>
+    > : bool_<(rational<N,D>::numerator >= 0)>{};
+
+    template<
+       QUAN_INT32 N,
+       QUAN_INT32 D 
+    > 
+    struct lte_zero<
+      rational<N,D>
+    > : bool_<(rational<N,D>::numerator <= 0)>{};
+         
+    template<
+       QUAN_INT32 N,
+       QUAN_INT32 D 
+    > 
+    struct unary_operation<
+         negate, 
+         rational<N,D> 
+    > : rational<-N,D>::type { };
+
+    template<
+        QUAN_INT32 N,
+        QUAN_INT32 D 
+    > 
+    struct unary_operation<
+         reciprocal, 
+         rational<N,D>
+    > : rational<D,N>::type {}; 
+
+
+    namespace detail{
+
+        template <QUAN_INT32 N, typename Rational>
+        struct rational_elements_in_range : quan::meta::bool_<
+        (
+            (-N <= quan::meta::numerator<Rational>::value)
+            && (N >= quan::meta::numerator<Rational>::value)
+            &&(-N <= quan::meta::denominator<Rational>::value)
+            && (N >= quan::meta::denominator<Rational>::value)
+        )
+        >{};
+
+        template <QUAN_INT32 N,typename RationalL,typename RationalR >
+        struct rational_elements_in_range2 : quan::meta::and_<
+            rational_elements_in_range<N,RationalL>,
+            rational_elements_in_range<N,RationalR>
+        >{};
+            
+        template <typename RationalL, typename Op, typename RationalR>
+        struct is_lossless_rational_calc;
+         
+// change to actually do calc using 64 bit ints
+        template <typename RationalL, typename RationalR>
+        struct is_lossless_rational_calc<RationalL,quan::meta::plus, RationalR>
+        : rational_elements_in_range2<32767,RationalL,RationalR>{};
+
+   /* // n1/ d1 + n2/d2  ->  n1 * d2 + n2 * d1 / d1 * d2
+     long long nume = RationalL::nume * RationalR::denom;
+     long long denom = RationalL::denom * RationalR::denom;
+     long long divider = RationalL::denom * RationalR::denom;
+     
+*/
+
+        template <typename RationalL, typename RationalR>
+        struct is_lossless_rational_calc<RationalL,quan::meta::minus, RationalR>
+        : rational_elements_in_range2<32767,RationalL,RationalR>{};
+
+        template <typename RationalL, typename RationalR>
+        struct is_lossless_rational_calc<RationalL,quan::meta::times, RationalR>
+        : rational_elements_in_range2<46340,RationalL,RationalR>{};
+
+        template <typename RationalL, typename RationalR>
+        struct is_lossless_rational_calc<RationalL,quan::meta::divides, RationalR>
+        : rational_elements_in_range2<46340,RationalL,RationalR>{};
+
+        template <typename RationalL, typename RationalR>
+        struct is_lossless_rational_calc<RationalL,quan::meta::equal_to, RationalR>
+        : std::true_type{};
+
+    }//detail
+
+   template <
+        QUAN_INT32 Nlhs,
+        QUAN_INT32 Dlhs,
+        QUAN_INT32 Nrhs,
+        QUAN_INT32 Drhs
+    > struct eq_<
+        rational<Nlhs,Dlhs>,
+        rational<Nrhs,Drhs>
+    > : bool_<
+      (( rational<Nlhs,Dlhs>::numerator == rational<Nrhs,Drhs>::numerator)
+      && (rational<Nlhs,Dlhs>::denominator == rational<Nrhs,Drhs>::denominator)
+      )>{};
+      
+   template <
+        QUAN_INT32 Nlhs,
+        QUAN_INT32 Dlhs,
+        typename Op,
+        QUAN_INT32 Nrhs,
+        QUAN_INT32 Drhs
+    > struct is_lossless_calculation<
+        rational<Nlhs,Dlhs>,
+        Op,
+        rational<Nrhs,Drhs>
+    > : detail::is_lossless_rational_calc<
+        rational<Nlhs,Dlhs>,
+        Op,
+        rational<Nrhs,Drhs>
+    >{};
+
+
+    template <
+        QUAN_INT32 Nlhs,
+        QUAN_INT32 Dlhs,
+        QUAN_INT32 Nrhs,
+        QUAN_INT32 Drhs
+    > struct binary_op<
+        rational<Nlhs,Dlhs>,
+        plus,
+        rational<Nrhs,Drhs>
+    >{
+        typedef typename rational<Nlhs,Dlhs>::type lhs;
+        typedef typename rational<Nrhs,Drhs>::type rhs;
+#ifndef QUAN_HAS_LONG_LONG
+        typedef is_lossless_calculation<lhs,plus,rhs> lossless;
+        enum{
+            lhsn = lhs::numerator,
+            lhsd = lhs::denominator,
+            rhsn = rhs::numerator,
+            rhsd = rhs::denominator
+        };
+        //+/- 32767
+        typedef typename rational<
+            static_cast<QUAN_INT32>(lhsn) * rhsd 
+                + static_cast<QUAN_INT32>(rhsn) * lhsd, 
+            static_cast<QUAN_INT32>(lhsd) * rhsd
+        >::type type;
+#else
+        static const long long lhsn = lhs::numerator;
+        static const long long lhsd = lhs::denominator;
+        static const long long rhsn = rhs::numerator;
+        static const long long rhsd = rhs::denominator;
+        static const long long sum1 = lhsn * rhsd;
+        static const long long sum2 = rhsn * lhsd;
+        static const long long abs_sum1 = sum1<0?-sum1:sum1;
+        static const long long abs_sum2 = sum2<0?-sum2:sum2;
+        static_assert(abs_sum1 < INT_MAX,"rational value too big");
+        static_assert(abs_sum2 < INT_MAX,"rational value too big");
+        static const long long nume = sum1 + sum2;
+        static const long long abs_nume = nume<0 ? -nume:nume;
+        static_assert( abs_nume < INT_MAX,"rational value too big");
+        
+        static const long long denom = lhsd * rhsd;
+        static const long long abs_denom = denom<0?-denom:denom;
+        static_assert( abs_denom < INT_MAX,"rational value too big");
+
+        typedef typename rational<
+            static_cast<QUAN_INT32>(nume),
+            static_cast<QUAN_INT32>(denom)
+        >::type type;
+        
+#endif
+
+    };
+
+    
+    //+/- 32767
+    template <
+       QUAN_INT32 Nlhs,QUAN_INT32 Dlhs,
+       QUAN_INT32 Nrhs,QUAN_INT32 Drhs
+    > struct binary_op<
+        rational<Nlhs,Dlhs>,
+        minus,
+        rational<Nrhs,Drhs>
+    >{
+        typedef typename rational<Nlhs,Dlhs>::type lhs;
+        typedef typename rational<Nrhs,Drhs>::type rhs;
+        typedef is_lossless_calculation<lhs,minus,rhs> lossless;
+
+        enum{
+            lhsn = lhs::numerator,
+            lhsd = lhs::denominator,
+            rhsn = rhs::numerator,
+            rhsd = rhs::denominator
+        };
+        
+        typedef typename rational<
+            static_cast<QUAN_INT32>(lhsn) * rhsd 
+                - static_cast<QUAN_INT32>(rhsn) * lhsd, 
+            static_cast<QUAN_INT32>(lhsd) * rhsd
+        >::type type;
+    };
+    
+    template <
+       QUAN_INT32 Nlhs,QUAN_INT32 Dlhs,
+        QUAN_INT32 Nrhs, QUAN_INT32 Drhs
+    > struct binary_op<
+        rational<Nlhs,Dlhs>,
+        times,
+        rational<Nrhs,Drhs>
+    >{
+        typedef typename rational<Nlhs,Dlhs>::type lhs;
+        typedef typename rational<Nrhs,Drhs>::type rhs;
+
+        enum{ 
+            n = lhs::numerator * rhs::numerator,
+            d = lhs::denominator * rhs::denominator
+        };
+        //+/- 46340
+        typedef typename rational<
+          n , d
+        >::type type;
+    };
+   
+    template <
+        QUAN_INT32 Nlhs,QUAN_INT32 Dlhs,
+        QUAN_INT32 Nrhs, QUAN_INT32 Drhs
+    > struct binary_op<
+        rational<Nlhs,Dlhs>,
+        divides,
+        rational<Nrhs,Drhs>
+    >{
+        typedef typename rational<Nlhs,Dlhs>::type lhs;
+        typedef typename rational<Nrhs,Drhs>::type rhs;
+        typedef is_lossless_calculation<lhs,divides,rhs> lossless;
+       // BOOST_MPL_ASSERT((lossless));
+        enum{
+            lhsn = lhs::numerator,
+            lhsd = lhs::denominator,
+            rhsn = rhs::numerator,
+            rhsd = rhs::denominator
+        };
+        //+- 46340
+        typedef typename rational<
+            static_cast<QUAN_INT32>(lhsn) * rhsd , 
+            (static_cast<QUAN_INT32>(lhsn) == 0) 
+                ? 1 
+                : static_cast<QUAN_INT32>(lhsd) * rhsn
+        >::type type;
+    };
+
+    template <typename T>
+    struct is_rational : std::false_type{};   
+    template <QUAN_INT32 N, QUAN_INT32 D>
+    struct is_rational<rational<N,D> > : std::true_type{};
+
+#if (0)
+     //+- 46340 
+    #define QUAN_META_RATIONAL_COMPARISON_OP( Operator,OpSymbol)\
+    template <\
+            QUAN_INT32 Nlhs ,\
+            QUAN_INT32 Dlhs ,\
+            QUAN_INT32 Nrhs ,\
+            QUAN_INT32 Drhs\
+    >\
+    struct  Operator <\
+        quan::meta::rational<Nlhs , Dlhs > ,\
+        quan::meta::rational<Nrhs , Drhs >\
+    > : quan::concept_checking::Assert<\
+            (quan::meta::is_lossless_calculation<\
+                quan::meta::rational<Nlhs , Dlhs >,\
+                quan::meta::divides,\
+                quan::meta::rational<Nrhs , Drhs >\
+             >::value)\
+        >{\
+        typedef typename quan::meta::rational<Nlhs , Dlhs>::type lhs;\
+        typedef typename quan::meta::rational<Nrhs , Drhs>::type rhs;\
+        enum{\
+            lhsn = lhs::numerator ,\
+            lhsd = lhs::denominator ,\
+            rhsn = rhs::numerator ,\
+            rhsd = rhs::denominator ,\
+            value = ((static_cast<QUAN_INT32>(lhsn) \
+                * rhsd) OpSymbol (static_cast<QUAN_INT32>(rhsn) * lhsd) )\
+        };\
+        typedef bool_<value> type;\
+    };
+ #endif
+//
+    #define QUAN_META_RATIONAL_COMPARISON_OP( Operator,OpSymbol)\
+    template <\
+            QUAN_INT32 Nlhs ,\
+            QUAN_INT32 Dlhs ,\
+            QUAN_INT32 Nrhs ,\
+            QUAN_INT32 Drhs\
+    >\
+    struct  Operator <\
+        quan::meta::rational<Nlhs , Dlhs > ,\
+        quan::meta::rational<Nrhs , Drhs >\
+    >{\
+        typedef typename quan::meta::rational<Nlhs , Dlhs>::type lhs;\
+        typedef typename quan::meta::rational<Nrhs , Drhs>::type rhs;\
+        static const long long lhsn = lhs::numerator;\
+        static const long long lhsd = lhs::denominator;\
+        static const long long rhsn = rhs::numerator;\
+        static const long long rhsd = rhs::denominator;\
+        static const long long lhsv = lhsn * rhsd ;\
+        static const long long rhsv = rhsn * lhsd;\
+        static const bool value = lhsv OpSymbol rhsv;\
+        typedef bool_<value> type;\
+    };
+
+// defining these may be problematic  if large values are used
+// could check values are in range
+
+    QUAN_META_RATIONAL_COMPARISON_OP( lt_ , < )
+    QUAN_META_RATIONAL_COMPARISON_OP( lte_, <= )
+    QUAN_META_RATIONAL_COMPARISON_OP( gte_, >= )
+    QUAN_META_RATIONAL_COMPARISON_OP( gt_, > )
+
+    #undef QUAN_META_RATIONAL_COMPARISON_OP
+
+    template <
+        QUAN_INT32 Nlhs,QUAN_INT32 Dlhs,
+        QUAN_INT32 Nrhs, QUAN_INT32 Drhs
+    > struct binary_op<
+        rational<Nlhs,Dlhs>,
+        equal_to,
+        rational<Nrhs,Drhs>
+    >  : eq_<
+         rational<Nlhs,Dlhs>,
+         rational<Nrhs,Drhs>
+     >{};
+
+    template <
+        QUAN_INT32 Nlhs,QUAN_INT32 Dlhs,
+        QUAN_INT32 Nrhs, QUAN_INT32 Drhs
+    > struct binary_op<
+        rational<Nlhs,Dlhs>,
+        not_equal_to,
+        rational<Nrhs,Drhs>
+    > : neq_<
+        rational<Nlhs,Dlhs>,
+        rational<Nrhs,Drhs>
+    >{};
+
+}}//quan::meta
+
+
+#endif //PQS_META_RATIONAL_C_HPP_INCLUDED

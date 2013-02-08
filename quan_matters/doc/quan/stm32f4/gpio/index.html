@@ -1,0 +1,90 @@
+<html>
+<!-- root   = /home/andy/website/quan-trunk -->
+<!-- offset = quan_matters/doc/quan/stm32f4/gpio/index.html -->
+<title>
+quan::stm32f4::gpio
+</title>
+<head>
+<link
+rel='stylesheet'
+href='../../../common/style.css'
+type='text/css'
+>
+<link
+rel='stylesheet'
+href='../../../common/concept_style.css'
+type='text/css'
+>
+</head>
+<body>
+<!--quan::PolymorphicFunctor1-->
+<!--quan::TypeSequence-->
+<!--SiteIndex-->
+<!--QuanIndex-->
+<!--QuanLogo-->
+<!--HR-->
+<!--PageHeader-->
+<!--STM32F4_Index-->
+<!--PageFooter-->
+<!--Gpio-->
+<!--gpio::module-->
+<!--PeriphReg-->
+<div><a href = '../../../index.html'><img src = '../../../common/quan_logo.png'>
+</a><a href = '../../../index.html'>Quan Index</a><HR></div><p><a href = '../index.html'>stm32f4 - index </a></p>
+<span id="entity-type">Archetype</span><span id="entity-name"> quan::stm32f4::Gpio</span><p>The Gpio Archetype represents a stm32f4 GPIO module.<a href = '#stm32f4_manual'>[1]</a></p>
+<table class="constructs"><tr><td class="constructs">Constructs</td></tr>
+<tr><td><table class="notation"><tr><td class="notation-header">Notation</td></tr>
+<tr><td class="notation-type-value-header">type</td><td class="notation-type-value-header">model of</td></tr>
+<tr><td class="notation-type-value">P</td><td class="notation-type-value"><a href = ''>Gpio</a></td></tr>
+<tr><td class="notation-type-value-header">value</td><td class="notation-type-value-header">has type</td></tr>
+<tr><td class="notation-type-value">p</td><td class="notation-type-value">P*</td></tr>
+</table>
+</td></tr>
+<tr><td class="constructs">Gpio expressions</td></tr>
+<tr><td><table class="notation"><tr><td class="notation-header">Member types</td></tr>
+<tr><td class="notation-type-value-header">type</td><td class="notation-type-value-header">model of</td><td class="notation-type-value-header">description</td></tr>
+<tr><td>P::moder_type</td><td><a href = '../periph_reg.html'>PeriphReg</a></td><td>type of mode reg : ref-man 6.4.1</td></tr>
+<tr><td>P::otyper_type</td><td><a href = '../periph_reg.html'>PeriphReg</a></td><td>type of output-type : ref-man 6.4.2</td></tr>
+<tr><td>P::ospeedr_type</td><td><a href = '../periph_reg.html'>PeriphReg</a></td><td>type of output-speed reg : ref-man 6.4.3</td></tr>
+<tr><td>P::pupdr_type</td><td><a href = '../periph_reg.html'>PeriphReg</a></td><td>type of pullup-down reg : ref-man 6.4.4</td></tr>
+<tr><td>P::idr_type</td><td><a href = '../periph_reg.html'>PeriphReg</a></td><td>type of input reg : ref-man 6.4.5</td></tr>
+<tr><td>P::odr_type</td><td><a href = '../periph_reg.html'>PeriphReg</a></td><td>type of output reg : ref-man 6.4.6</td></tr>
+<tr><td>P::bsrr_type</td><td><a href = '../periph_reg.html'>PeriphReg</a></td><td>type of bit-set-rst reg : ref-man 6.4.7</td></tr>
+<tr><td>P::lckr_type</td><td><a href = '../periph_reg.html'>PeriphReg</a></td><td>type of config-lock reg : ref-man 6.4.8</td></tr>
+<tr><td>P::afrl_type</td><td><a href = '../periph_reg.html'>PeriphReg</a></td><td>type of alt-fun-sel-lo reg : ref-man  6.4.9</td></tr>
+<tr><td>P::afrh_type</td><td><a href = '../periph_reg.html'>PeriphReg</a></td><td>type of alt-fun-sel-hi reg : ref-man 6.4.10</td></tr>
+<tr><td>P::periph_reg_list</td><td>quan::meta::type_sequence&lt;<a href = '../periph_reg.html'>PeriphReg</a>...&gt;</td><td>list of member periph-reg types</td></tr>
+</table>
+</td></tr>
+<tr><td><table class="notation"><tr><td class="notation-header">Member objects</td></tr>
+<tr><td class="notation-type-value-header">value</td><td class="notation-type-value-header">type</td><td class="notation-type-value-header">description</td></tr>
+<tr><td>p-&gt;moder</td><td>P::moder_type</td><td>rw access mode reg : ref-man 6.4.1</td></tr>
+<tr><td>p-&gt;otyper</td><td>P::otyper_type</td><td>rw access otype reg : ref-man 6.4.2</td></tr>
+<tr><td>p-&gt;ospeedr</td><td>P::ospeedr_type</td><td>rw access ospeed reg : ref-man 6.4.3</td></tr>
+<tr><td>p-&gt;pupdr</td><td>P::pupdr_type</td><td>rw access pupdr reg : ref-man 6.4.4</td></tr>
+<tr><td>p-&gt;idr</td><td>P::idr_type</td><td>r access idr reg : ref-man 6.4.5</td></tr>
+<tr><td>p-&gt;odr</td><td>P::odr_type</td><td>rw access odr reg : ref-man 6.4.6</td></tr>
+<tr><td>p-&gt;bsrr</td><td>P::bsrr_type</td><td>w access bsrr reg : ref-man 6.4.7</td></tr>
+<tr><td>p-&gt;lckr</td><td>P::lckr_type</td><td>rw access lckr reg : ref-man 6.4.6</td></tr>
+<tr><td>p-&gt;afrl</td><td>P::afrl_type</td><td>rw access afrl reg : ref-man 6.4.7</td></tr>
+<tr><td>p-&gt;afrh</td><td>P::afrh_type</td><td>rw access afrh reg : ref-man 6.4.8</td></tr>
+</table>
+</td></tr>
+<tr><td><table class="expressions"><tr><td class="notation-header">Member expressions</td></tr>
+<tr><td class="expression-header">expression</td><td class="expression-header">result</td><td class="expression-header">notes</td></tr>
+<tr><td class="expression">P::get()</td><td class="expression">p</td><td class="expression">returns a pointer to the module object.</td></tr>
+</table>
+</td></tr>
+<tr><td><table class="expressions"><tr><td class="notation-header">Global expressions</td><td> (in quan::stm32f4 namespace)</td></tr>
+<tr><td class="expression-header">expression</td><td class="expression-header">result</td><td class="expression-header">notes</td></tr>
+<tr><td class="expression">enable&lt;P&gt;();</td><td class="expression">P is enabled</td><td class="expression">Switches on P's module in RCC</td></tr>
+<tr><td class="expression">disable&lt;P&gt;();</td><td class="expression">P is disabled</td><td class="expression">Switches off P's module in RCC</td></tr>
+<tr><td class="expression">reset&lt;P&gt;();</td><td class="expression">P is reset</td><td class="expression">Resets P's module in RCC</td></tr>
+</table>
+</td></tr>
+</table>
+<p id="stm32f4_manual"><a href = '../stm32f4_reference_manual.pdf#page=136'> STM32F4 manual - GPIO </a></p>
+<p><a href = '../index.html'>stm32f4 - index </a></p>
+<div><HR><div><a href = '../../../index.html'><img src = '../../../common/quan_logo.png'>
+</a><a href = '../../../index.html'>Quan Index</a><HR></div></div></body>
+</html>

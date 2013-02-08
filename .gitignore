@@ -1,0 +1,7 @@
+#gitignore for quan
+*.o
+*.exe
+*.a
+
+
+

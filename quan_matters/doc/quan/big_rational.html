@@ -1,0 +1,174 @@
+<html>
+  <head>
+    <title>
+      quan::big_rational
+    </title>
+  </head>
+  <body>
+    <h3>quan::big_rational</h3>
+    <h3>Description</h3>
+    <p>
+rational for large signed integers of arbitrary length
+    </p>
+    <h3>header</h3>
+    <p>
+<a href = "../../../quan/big_rational.hpp">&lt;quan/big_rational.hpp&gt;</a>
+    </p>
+    <ul>
+      <li>
+<a href = "#synopsis">Synopsis</a>
+      </li>
+      <li>
+<a href = "#tests">Tests</a>
+      </li>
+    </ul>
+<a name = "synopsis">    <h3>Synopsis</h3>
+<pre>
+namespace quan{
+
+   struct big_rational{
+
+      typedef bigint int_type;
+
+      big_rational();
+      big_rational(std::string const & nume_in, std::string const & denom_in);
+      template&lt;int L, int R&gt;
+      big_rational(char const(& nume_in)[L], char const(& denom_in)[R]);
+      template&lt;int L&gt;
+      big_rational(char const(& nume_in)[L], std::string const & denom_in);
+       template&lt;int R&gt;
+      big_rational(std::string const & nume_in, char const(& denom_in)[R]);
+      big_rational(int_type const & n, int_type const & d)
+
+      big_rational(int_type const & n);
+
+      int_type const & nume() const ;
+      int_type const & denom() const ;
+
+      big_rational & operator += (big_rational const & rhs);
+      big_rational & operator -= (big_rational const & rhs);
+      big_rational & operator *= (big_rational const & rhs);
+      big_rational & operator /= (big_rational const & rhs);
+      bool operator &lt; (big_rational const & rhs)const;
+      bool operator &lt;= (big_rational const & rhs)const;
+      bool operator == (big_rational const & rhs)const ;
+      bool operator != (big_rational const & rhs)const;
+      bool operator &gt;= (big_rational const & rhs)const;
+      bool operator &gt; (big_rational const & rhs)const;
+      bool is_integral() const;
+      bool eq_one() const;
+
+      bool eq_zero() const;
+
+      double to_double()const;
+
+   };
+
+   inline big_rational operator+(big_rational const & lhs, big_rational const & rhs);
+   inline big_rational operator-(big_rational const & lhs, big_rational const & rhs);
+
+ /*  inline big_rational operator+(big_rational const & lhs, bigint const & rhs)
+   {
+      return lhs + big_rational(rhs,bigint(1));
+   }
+
+   inline big_rational operator+(bigint const & lhs, big_rational const & rhs)
+   {
+      return big_rational(lhs,bigint(1)) + rhs;
+   }*/
+
+   //inline double operator+(big_rational const & lhs, double const & rhs)
+   //{
+   //   return lhs.to_double() + rhs;
+   //}
+
+   //inline double operator+(double const & lhs, big_rational const & rhs)
+   //{
+   //   return lhs + rhs.to_double();
+   //}
+
+
+ 
+
+   //inline big_rational operator-(big_rational const & lhs, bigint const & rhs)
+   //{
+   //   return lhs - big_rational(rhs,bigint(1));
+   //}
+
+   //inline big_rational operator-(bigint const & lhs, big_rational const & rhs)
+   //{
+   //   return big_rational(lhs,bigint(1)) - rhs;
+   //}
+
+   //inline double operator-(big_rational const & lhs, double const & rhs)
+   //{
+   //   return lhs.to_double() - rhs;
+   //}
+
+   //inline double operator-(double const & lhs, big_rational const & rhs)
+   //{
+   //   return lhs - rhs.to_double();
+   //}
+
+   inline big_rational operator*(big_rational const & lhs, big_rational const & rhs)
+   {
+      big_rational result = lhs;
+      return result *= rhs;
+   }
+
+   /*inline big_rational operator*(big_rational const & lhs, bigint const & rhs)
+   {
+      return lhs * big_rational(rhs,bigint(1));
+   }
+
+   inline big_rational operator*(bigint const & lhs, big_rational const & rhs)
+   {
+      return big_rational(lhs,bigint(1)) * rhs;
+   }
+
+   inline double operator*(big_rational const & lhs, double const & rhs)
+   {
+      return lhs.to_double() * rhs;
+   }
+
+   inline double operator*(double const & lhs, big_rational const & rhs)
+   {
+      return lhs * rhs.to_double();
+   }*/
+
+
+   inline big_rational operator/(big_rational const & lhs, big_rational const & rhs)
+   {
+      big_rational result = lhs;
+      return result /= rhs;
+   }
+
+   ////inline big_rational operator/(big_rational const & lhs, bigint const & rhs)
+   ////{
+   ////   return lhs / big_rational(rhs,bigint(1));
+   ////}
+
+   //inline big_rational operator/(bigint const & lhs, big_rational const & rhs)
+   //{
+   //   return big_rational(lhs,bigint(1)) / rhs;
+   //}
+
+   //inline double operator/(big_rational const & lhs, double const & rhs)
+   //{
+   //   return lhs.to_double() / rhs;
+   //}
+
+   //inline double operator/(double const & lhs, big_rational const & rhs)
+   //{
+   //   return lhs / rhs.to_double();
+   //}
+  
+   inline big_rational 
+   operator /(quan::bigint const & lhs,quan::bigint const & rhs)
+   {
+      return big_rational(lhs,rhs);
+   }
+
+   }
+</pre>  </body>
+</html>
