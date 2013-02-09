@@ -30,7 +30,7 @@
 
 namespace quan{ namespace stm32f4{
 
-  struct Tim; // Concept
+  struct Tim; // Archetype
    
     namespace tim {
 
@@ -140,7 +140,7 @@ namespace quan{ namespace stm32f4{
 
 namespace quan{ namespace impl{
 
-    // make module a model of quan::stm32f4::Gpio
+    // make module a model of quan::stm32f4::Tim
    template <uint32_t Address>
    struct is_model_of_impl<
       quan::stm32f4::Tim,
