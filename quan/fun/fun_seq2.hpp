@@ -18,8 +18,8 @@ namespace quan{namespace fun{
       // type of resulting sequence
      // typedef typename make_fun_seq2<F,SeqL,SeqR>::type type;
    
-      BOOST_MPL_ASSERT(( are_fun_sequences<SeqL,SeqR> ));
-      BOOST_MPL_ASSERT(( same_size_seq<SeqL,SeqR> ));
+      static_assert( are_fun_sequences<SeqL,SeqR>::value,"must be fun_seq" );
+      static_assert( same_size_seq<SeqL,SeqR>::value, "must be same size" );
       enum {
          size = (size_seq<SeqL>::value )
       };

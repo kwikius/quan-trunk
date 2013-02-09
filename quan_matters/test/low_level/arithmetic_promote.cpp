@@ -98,11 +98,9 @@ void test_arithmetic_promote()
     bool signed_char_char_value = std::is_same<signed_char_char_promotion, int>::value;
     QUAN_CHECK(signed_char_char_value);
 
-#ifndef BOOST_NO_INTRINSIC_WCHAR_T
     typedef quan::meta::arithmetic_promote<signed char, wchar_t>::type signed_char_wchar_t_promotion;
     bool signed_char_wchar_t_value = std::is_same<signed_char_wchar_t_promotion, underlying_wchar_t>::value;
     QUAN_CHECK(signed_char_wchar_t_value);
-#endif
 
     typedef quan::meta::arithmetic_promote<signed char, short>::type signed_char_short_promotion;
     bool signed_char_short_value = std::is_same<signed_char_short_promotion, int>::value;
@@ -214,11 +212,9 @@ void test_arithmetic_promote()
     bool char_char_value = std::is_same<char_char_promotion, int>::value;
     QUAN_CHECK(char_char_value);
 
-#ifndef BOOST_NO_INTRINSIC_WCHAR_T
     typedef quan::meta::arithmetic_promote<char, wchar_t>::type char_wchar_t_promotion;
     bool char_wchar_t_value = std::is_same<char_wchar_t_promotion, underlying_wchar_t>::value;
     QUAN_CHECK(char_wchar_t_value);
-#endif
 
     typedef quan::meta::arithmetic_promote<char, short>::type char_short_promotion;
     bool char_short_value = std::is_same<char_short_promotion, int>::value;

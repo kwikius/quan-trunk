@@ -342,7 +342,7 @@ namespace quan{namespace meta{
         typedef typename rational<Nlhs,Dlhs>::type lhs;
         typedef typename rational<Nrhs,Drhs>::type rhs;
         typedef is_lossless_calculation<lhs,divides,rhs> lossless;
-       // BOOST_MPL_ASSERT((lossless));
+
         enum{
             lhsn = lhs::numerator,
             lhsd = lhs::denominator,

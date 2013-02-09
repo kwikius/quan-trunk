@@ -39,7 +39,7 @@ namespace quan{namespace fun{
       type
       operator()(row_sequence<Matrix> const & seq) const
        {
-         //BOOST_STATIC_ASSERT((false));
+
          /*at_seq<I,Seq, as_const_ref> at_seq_var;*/
          return type(seq.m_matrix);
        }

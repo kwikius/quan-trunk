@@ -139,7 +139,7 @@ namespace quan{namespace three_d{
         typename AngleType = quan::angle::rad
     >
     struct rc_rotation : rc_transform<T> {
-        typedef BOOST_TYPEOF_TPL(T()/T()) value_type;
+        typedef decltype(T()/T()) value_type;
         //rc_y_rotation() : theta(0){}
         rc_rotation(
             AngleType alpa,

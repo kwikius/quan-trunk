@@ -5,10 +5,6 @@
 #endif
 
 // Copyright Andrew Little 2005
-//
- 
- 
- 
 
 /*
     various transforms designed to be combined in a list
@@ -101,7 +97,7 @@ namespace quan{namespace two_d{
 
     template<typename T>
     struct rc_scaling : rc_transform<T> {
-        typedef BOOST_TYPEOF(T() / T() ) value_type;
+        typedef decltype(T() / T() ) value_type;
         vect<value_type> v;
         rc_scaling (): v(value_type(1),value_type(1)) {}
         //rc_scaling (const rc_scaling& in) : v(in.v){}

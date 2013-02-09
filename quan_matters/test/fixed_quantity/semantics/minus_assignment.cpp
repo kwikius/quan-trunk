@@ -1,7 +1,6 @@
 // Copyright Andrew Little 2005
 
 // See QUAN_ROOT/quan_matters/index.html for documentation.
-#define BOOST_PQS_USE_BOOST_TYPEOF_BINARY_OPERATION
 
 #include <quan_matters/test/simple_test.hpp>
 #include <quan/out/pressure.hpp>

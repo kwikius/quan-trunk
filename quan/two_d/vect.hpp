@@ -225,13 +225,12 @@ namespace quan{ namespace two_d{
     >
     operator  /( quan::two_d::vect<TL> const & lhs, TR const & rhs)
     {
-       // BOOST_TYPEOF_TPL(lhs / rhs) result(lhs.x / rhs, lhs.y / rhs);
+     
         return  typename quan::meta::binary_op<
             quan::two_d::vect<TL> ,
             quan::meta::divides,
             TR
         >::type (lhs.x / rhs, lhs.y / rhs);
-      //  return result;
 
     }
 

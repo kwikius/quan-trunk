@@ -77,8 +77,8 @@ namespace quan{
         >::type result_value_type;
 
         // To show this ... check it is a numeric
-        BOOST_MPL_ASSERT((quan::meta::is_numeric<
-            result_value_type
+        static_assert((quan::meta::is_numeric<
+            result_value_type, "assertion failed"
         >));
 
         typedef typename quan::angle_<result_value_type>::rad result_type;

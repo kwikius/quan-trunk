@@ -38,7 +38,7 @@ void show (
     os 
     #define GET_STATIC_UNIT(D) << \
     quan::meta::numerator< \
-      typename quan::meta:: BOOST_PP_CAT(BOOST_PP_CAT(get_,D),_dimension) <static_unit>::type \
+      typename quan::meta:: get_ ## D ## _dimension<static_unit>::type \
     >::value
     GET_STATIC_UNIT(length) << ','
     GET_STATIC_UNIT(time) << ','

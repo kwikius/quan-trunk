@@ -62,8 +62,7 @@ namespace quan{namespace meta{
         QUAN_INT32 Exp
     >
     struct pow_c {
-        /*BOOST_MPL_ASSERT_RELATION(Exp, 
-            <=,(quan::meta::max_ice_exponent<IntegerType,Base>::value));*/
+
         QUAN_STATIC_ASSERT((Exp
             <= quan::meta::digits10<IntegerType>::value));
         QUAN_STATIC_ASSERT( (Exp > 0 ));

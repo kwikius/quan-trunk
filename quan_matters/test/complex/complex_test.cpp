@@ -21,16 +21,16 @@ int main()
     q_cpl *= q_cpl;
     s_cpl *= s_cpl;
 
-    BOOST_CHECK_EQUAL(q_cpl.real(),s_cpl.real());
-    BOOST_CHECK_EQUAL(q_cpl.imag(),s_cpl.imag());
+    QUAN_CHECK_EQUAL(q_cpl.real(),s_cpl.real());
+    QUAN_CHECK_EQUAL(q_cpl.imag(),s_cpl.imag());
 
     quan::complex<double> q_cpl1(.5, -90);
     std::complex<double> s_cpl1(.5,-90);
     q_cpl1 *= q_cpl1;
     s_cpl1 *= s_cpl1;
 
-    BOOST_CHECK_EQUAL(q_cpl1.real(),s_cpl1.real());
-    BOOST_CHECK_EQUAL(q_cpl1.imag(),s_cpl1.imag());
+    QUAN_CHECK_EQUAL(q_cpl1.real(),s_cpl1.real());
+    QUAN_CHECK_EQUAL(q_cpl1.imag(),s_cpl1.imag());
 
 
     EPILOGUE

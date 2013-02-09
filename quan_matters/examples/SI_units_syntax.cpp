@@ -31,7 +31,7 @@ namespace SIunits{
 
     quan::time::s minute()
     {
-        return quan::time::min BOOST_PREVENT_MACRO_SUBSTITUTION (1);
+        return quan::time::min(1);
     }
 
     typedef quan::length::m length;
