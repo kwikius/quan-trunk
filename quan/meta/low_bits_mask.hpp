@@ -6,7 +6,7 @@
 
 namespace quan{ namespace meta{
 
-template <unsigned int N> struct low_bits_mask;
+   template <uint32_t N> struct low_bits_mask;
 
      template<> struct low_bits_mask<0>{
           static const uint32_t value = 0;
