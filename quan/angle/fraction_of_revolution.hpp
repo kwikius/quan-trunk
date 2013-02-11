@@ -38,6 +38,7 @@
 #include <quan/meta/eq.hpp>
 #include <quan/meta/neq.hpp>
 #include <quan/arithmetic_convert.hpp>
+#include <quan/meta/min_type.hpp>
 
 namespace quan{
 
@@ -106,7 +107,7 @@ QUAN_CONSTEXPR
             * quan::meta::eval_rational<
                 ReciprocalFraction
             >()()
-            / (2.0 * constant::pi)){}
+            / (2 * constant_<typename quan::meta::float_promote<Value_type1>::type>::pi)){}
 
 QUAN_CONSTEXPR
         ValueType numeric_value()const{return m_value;}
