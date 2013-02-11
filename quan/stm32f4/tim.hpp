@@ -42,6 +42,20 @@ namespace quan{namespace stm32f4{
             T::get()->cr1.template bb_clearbit<0>(); //(CEN)
      }
 
+     template<typename T> inline
+     typename quan::where_<quan::is_model_of< quan::stm32f4::Tim,T>,bool >::type 
+     update_interrupt()
+     {
+         return tim3::get()->sr.bb_getbit<0>();
+     }
+
+     template<typename T> inline
+     typename quan::where_<quan::is_model_of< quan::stm32f4::Tim,T> >::type 
+     clear_update_interrupt()
+     {
+         tim3::get()->sr.bb_clearbit<0>();
+     }
+
      // add enable disable tim
 }}
 
