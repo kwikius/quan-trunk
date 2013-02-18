@@ -80,6 +80,9 @@ private:
 T * m_putptr;
 T * m_getptr;
 T   m_buf[size];
+
+  fifo (fifo const & ) = delete;
+  fifo & operator = (fifo const &) = delete;
 };
 }
  
