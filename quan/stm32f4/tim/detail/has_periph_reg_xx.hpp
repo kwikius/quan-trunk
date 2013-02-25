@@ -54,10 +54,11 @@ namespace quan{ namespace stm32f4{ namespace tim{ namespace detail{
    template<> struct has_ccer<quan::stm32f4::tim7>  : quan::meta::false_{};
 
    template<> struct has_rcr<quan::stm32f4::tim1>  : quan::meta::true_{};
-   template<> struct has_rcr<quan::stm32f4::tim2>  : quan::meta::true_{};
-   template<> struct has_rcr<quan::stm32f4::tim3>  : quan::meta::true_{};
-   template<> struct has_rcr<quan::stm32f4::tim4>  : quan::meta::true_{};
-   template<> struct has_rcr<quan::stm32f4::tim5>  : quan::meta::true_{};
+
+  // template<> struct has_rcr<quan::stm32f4::tim2>  : quan::meta::true_{};
+  // template<> struct has_rcr<quan::stm32f4::tim3>  : quan::meta::true_{};
+  // template<> struct has_rcr<quan::stm32f4::tim4>  : quan::meta::true_{};
+  // template<> struct has_rcr<quan::stm32f4::tim5>  : quan::meta::true_{};
    template<> struct has_rcr<quan::stm32f4::tim8>  : quan::meta::true_{};
 
    template<> struct has_ccr1<quan::stm32f4::tim6>  : quan::meta::false_{};
