@@ -5,6 +5,7 @@
 #include <cstdint>
 
 namespace quan { namespace uav {
+
    struct cobs_protocol{
       protected:
       static uint8_t do_checksum(uint8_t * ar, uint32_t len);
