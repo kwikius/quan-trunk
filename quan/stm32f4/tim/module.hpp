@@ -64,7 +64,12 @@ namespace quan{ namespace stm32f4{
          typedef volatile uint32_t cnt_type;
          typedef volatile uint32_t psc_type; 
          typedef volatile uint32_t arr_type;
-         typedef volatile uint32_t rcr_type;
+        // typedef volatile uint32_t rcr_type;
+         typedef typename quan::meta::if_< 
+            quan::stm32f4::tim::detail::has_rcr <type>, 
+            volatile uint32_t, 
+            quan::stm32f4::undefined_reg<type,0x30 >  
+         >::type  rcr_type;
          typedef volatile uint32_t ccr1_type;
          typedef volatile uint32_t ccr2_type;
          typedef volatile uint32_t ccr3_type;
