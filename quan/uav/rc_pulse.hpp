@@ -6,7 +6,7 @@
 namespace quan { namespace uav {
    struct rc_pulse{
 
-      static constexpr auto num_channels = 10U;
+      static constexpr auto num_channels = 8U;
       typedef quan::time_<int16_t>::us us;
       us channel[num_channels];
 
