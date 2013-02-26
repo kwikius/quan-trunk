@@ -2,6 +2,7 @@
 #define QUAN_ITOA_HPP_INCLUDED
 
 #include <cstring>
+#include <cstdint>
 /*
   include <quan_matters/src/itoa.cpp>
   and  instantiate as required
