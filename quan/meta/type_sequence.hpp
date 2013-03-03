@@ -7,6 +7,7 @@
 #include <quan/where.hpp>
 #include <quan/meta/bool/true.hpp>
 #include <quan/undefined.hpp>
+#include <quan/meta/eval_if.hpp>
 
 namespace quan{ namespace meta{
 
