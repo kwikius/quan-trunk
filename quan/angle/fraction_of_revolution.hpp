@@ -883,6 +883,17 @@ namespace quan{ //quan
         >const& lhs,
         ValueType const& rhs)
     {
+      typedef typename quan::meta::binary_op<
+            quan::fraction_of_revolution<
+                ExtentL,
+                ReciprocalFractionL,
+                Value_typeL
+            >,
+            quan::meta::times,
+            ValueType
+        >::type result_type;
+       return result_type{ result_type{lhs}.numeric_value() * rhs};
+/*
        return typename quan::meta::binary_op<
             quan::fraction_of_revolution<
                 ExtentL,
@@ -892,7 +903,7 @@ namespace quan{ //quan
             quan::meta::times,
             ValueType
         >::type (lhs) *= rhs;
-      
+      */
     }
 // v * fr
     template<
@@ -957,7 +968,7 @@ namespace quan{ //quan
         >const& lhs,
         ValueType const& rhs)
     {
-        return typename quan::meta::binary_op<
+        typedef typename quan::meta::binary_op<
             quan::fraction_of_revolution<
                 ExtentL,
                 ReciprocalFractionL,
@@ -965,7 +976,8 @@ namespace quan{ //quan
             >,
             quan::meta::divides,
             ValueType
-        >::type (lhs)/= rhs;
+        >::type result_type;
+        return  result_type{result_type{lhs}.numeric_value()/ rhs};
       
     }
 
