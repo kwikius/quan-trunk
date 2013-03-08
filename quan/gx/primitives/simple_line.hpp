@@ -5,6 +5,7 @@
 
 #include <quan/two_d/line.hpp>
 #include <quan/gx/abc_color.hpp>
+#include <quan/gx/static_rgb_color.hpp>
 
 namespace quan{ namespace gx{ namespace primitives{
 
@@ -16,8 +17,8 @@ namespace quan{ namespace gx{ namespace primitives{
 
       simple_line(
          vect const & to, vect const & from,
-         length_type const & width = length_type(),
-         abc_color::ptr color = abc_color::ptr())
+         length_type const & width = length_type{1},
+         abc_color::ptr color = quan::gx::rgb::colors::black)
       : m_line(to,from),m_width(width),m_color(color){}
 
       quan::two_d::line<vect> get_line() const
@@ -36,9 +37,6 @@ namespace quan{ namespace gx{ namespace primitives{
       quan::two_d::line<vect> m_line;
       length_type m_width;
       abc_color::ptr m_color;
-
-      
-      
    };
 
 }}}
