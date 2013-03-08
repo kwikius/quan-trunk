@@ -4,7 +4,7 @@
 #  pragma once
 #endif
 
-#if defined QUAN_STM32F4
+#if defined QUAN_STM32F4 
 #include <quan/stm32f4/config.hpp>
 #endif
 
