@@ -1,11 +1,7 @@
 #ifndef QUAN_GX_PRIMITIVE_BOX_HPP_INCLUDED
 #define QUAN_GX_PRIMITIVE_BOX_HPP_INCLUDED
 // Copyright Andrew Little 2008
-//
- 
- 
- 
-//
+
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/two_d/vect.hpp>
@@ -39,8 +35,9 @@ namespace quan{ namespace gx{ namespace primitives{
       {return m_box;}
      
       private:
-      length_type m_width;
+     
       box_t m_box;
+      length_type m_width;
       abc_color::ptr m_color;
       
    };
