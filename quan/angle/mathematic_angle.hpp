@@ -40,6 +40,7 @@
 #include <type_traits>
 #include <type_traits>
 #include <quan/constants/constant.hpp>
+#include <quan/arithmetic_convert.hpp>
 #include <quan/meta/if.hpp>
 
 namespace quan{
@@ -87,7 +88,7 @@ namespace quan{
         mathematic_angle(
             mathematic_angle<Extent,Value_type1> const & r
         )
-        :m_value{implicit_cast<Value_type>(r.m_value)}{}
+        :m_value{implicit_cast<Value_type>(r.numeric_value())}{}
 
         template<
             typename ReciprocalFraction,
@@ -150,6 +151,7 @@ namespace quan{
 #ifndef QUAN_NO_MATH_ANGLE_NUMERIC_CONVERSION
         QUAN_CONSTEXPR operator Value_type()const {return m_value;}
 #endif
+
         QUAN_CONSTEXPR mathematic_angle operator -()const
         {
             return mathematic_angle{-this->m_value};
@@ -647,7 +649,13 @@ namespace quan { //quan
 } //quan
 #endif
 
+namespace quan{ namespace impl_detail{
+
+}}
+
 namespace quan {
+
+    
 
     template<typename Value_type>
     inline
@@ -770,6 +778,9 @@ namespace quan {
         > (modf(v,&n) * 2 * quan::constant_<Value_type>::pi);
        
     }
+
+   
 }
+
 
 #endif
