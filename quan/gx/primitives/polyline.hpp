@@ -6,8 +6,10 @@
 
 #include <quan/two_d/vect.hpp>
 #include <quan/gx/abc_color.hpp>
+#include <quan/gx/static_rgb_color.hpp>
 #include <vector>
 #include <initializer_list>
+
 namespace quan{ namespace gx{ namespace primitives{
 
    template <typename LengthType>
@@ -18,7 +20,7 @@ namespace quan{ namespace gx{ namespace primitives{
       polyline(): m_width{length_type{1}},m_color{quan::gx::rgb::colors::black}{}
       polyline(
          length_type const & width ,
-         abc_color::ptr color = abc_color::ptr())
+         abc_color::ptr color = quan::gx::rgb::colors::black)
       : m_width(width),m_color(color){}
       
       length_type get_line_width() const

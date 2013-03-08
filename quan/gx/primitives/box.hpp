@@ -7,6 +7,7 @@
 #include <quan/two_d/vect.hpp>
 #include <quan/two_d/box.hpp>
 #include <quan/gx/abc_color.hpp>
+#include <quan/gx/static_rgb_color.hpp>
 #include <vector>
 
 namespace quan{ namespace gx{ namespace primitives{
@@ -19,7 +20,7 @@ namespace quan{ namespace gx{ namespace primitives{
       box(
          box_t const & box_in,
          length_type const & width = length_type(),
-         abc_color::ptr color = abc_color::ptr()
+         abc_color::ptr color = quan::gx::rgb::colors::black
       )
       : m_box(box_in),m_width(width),m_color(color){}
       
