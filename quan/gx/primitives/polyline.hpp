@@ -1,16 +1,13 @@
 #ifndef QUAN_GX_PRIMITIVE_POLYLINE_HPP_INCLUDED
 #define QUAN_GX_PRIMITIVE_POLYLINE_HPP_INCLUDED
 // Copyright Andrew Little 2008
-//
- 
- 
- 
-//
+
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/two_d/vect.hpp>
 #include <quan/gx/abc_color.hpp>
 #include <vector>
+#include <initializer_list>
 namespace quan{ namespace gx{ namespace primitives{
 
    template <typename LengthType>
@@ -18,7 +15,7 @@ namespace quan{ namespace gx{ namespace primitives{
       typedef LengthType length_type;
       typedef quan::two_d::vect<length_type> vect;
       typedef std::vector<vect> std_vect;
-      polyline(){}
+      polyline(): m_width{length_type{1}},m_color{quan::gx::rgb::colors::black}{}
       polyline(
          length_type const & width ,
          abc_color::ptr color = abc_color::ptr())
@@ -33,6 +30,13 @@ namespace quan{ namespace gx{ namespace primitives{
       void push_back(vect const& v)
       {
          m_points.push_back(v);
+      }
+
+      void push_back(std::initializer_list<vect> list)
+      {
+         for(vect const & v: list){
+             push_back(v);
+         }
       }
       typename std_vect::size_type get_num_elements()const
       {
