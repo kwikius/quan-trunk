@@ -1,8 +1,11 @@
 #ifndef FRSKY_TWO_WAY_SYSTEM_PROTOCOL_HPP_INCLUDED
 #define FRSKY_TWO_WAY_SYSTEM_PROTOCOL_HPP_INCLUDED
 
-#include <cstdint>
 
+#include <quan/where.hpp>
+#include <quan/is_model_of.hpp>
+#include <quan/concepts/port.hpp>
+#include <cstdint>
 /*
  FrSky 2 Way System Protocol
 */
@@ -50,29 +53,55 @@ namespace FrSky2WSP{
 
       };
 
-// overlay the FrSky2WSP protocol on a port
+      struct basic_protocol{
+          bool get_frame(unsigned char(& destbuf)[9]);
+          virtual uint32_t in_avail()const =0;
+          virtual bool good()const=0;
+      protected:
+          virtual ~basic_protocol(){}
+          basic_protocol();
+          virtual void get()=0;
+          virtual void raw_get()=0;;
+          bool m_synced;
+          unsigned char m_buffer[11];
+          int m_buffer_index;
+      };
+
+      template < typename Port, typename Where = void>
+      struct protocol;
+    
+      template <typename Port>
+      struct protocol<Port, typename quan::where_<quan::is_model_of<quan::DynamicPort,Port> >::type >
+      :basic_protocol{
+          protocol( Port* port);
+          ~protocol();
+          bool good()const;
+          uint32_t in_avail()const;
+      private:
+          void get();
+          void raw_get();
+          Port * m_port;
+          protocol(protocol const &) = delete;
+          protocol operator = (protocol const &) = delete;
+      };
 
       template <typename Port>
-      struct protocol {
+      struct protocol<Port, typename quan::where_<quan::is_model_of<quan::StaticPort,Port> >::type >
+      : basic_protocol{
+         protocol( );
+         ~protocol();
+         bool good()const;
+         uint32_t in_avail()const;
+       private:
+         void get();
+         void raw_get();
 
-       protocol(Port* port);
-       ~protocol();
-
-       bool get_frame(unsigned char(& destbuf)[9]);
-       bool good()const;
-   private:
-
-       void get();
-       void raw_get();
-
-       Port * m_port;
-       bool m_synced;
-       unsigned char m_buffer[11];
-       int m_buffer_index;
-      
-       protocol(protocol const &) = delete;
-       protocol operator = (protocol const &) = delete;
-   };
+        // bool m_synced;
+        // unsigned char m_buffer[11];
+       //  int m_buffer_index;
+         protocol(protocol const &) = delete;
+         protocol operator = (protocol const &) = delete;
+      };
 }
 
 #endif // FRSKY_TWO_WAY_SYSTEM_PROTOCOL_HPP_INCLUDED

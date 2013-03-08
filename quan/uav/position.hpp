@@ -1,27 +1,21 @@
 #ifndef QUAN_UAV_POSITION_HPP_INCLUDED
 #define QUAN_UAV_POSITION_HPP_INCLUDED
 
-
 #include <quan/length.hpp>
 #include <quan/angle.hpp>
-#include <quan/atan2.hpp>
 
 namespace quan { namespace uav {
 
 	struct position {
-		 position(quan::angle::rad const & lat_in, quan::angle::rad const & lon_in, quan::length::m const & h_in )
-			  :lat(lat_in),lon(lon_in),alt(h_in) {}
-/*
-		 quan::angle::rad get_lat() const{return m_lat;}
-		 quan::angle::rad get_lon() const {return m_lon;}
-		 quan::length::m  get_alt() const {return m_alt;}
-
-       
-	private:
-*/
-		 quan::angle::rad lat;
-		 quan::angle::rad lon;
-		 quan::length::m   alt;
+       position():lat{0},lon{0},alt{0}{}
+		 position(
+         quan::angle_<int32_t>::deg10e7 const & lat_in, 
+         quan::angle_<int32_t>::deg10e7 const & lon_in,
+         quan::length::m const & h_in )
+	    :lat{lat_in},lon{lon_in},alt{h_in} {}
+		 quan::angle_<int32_t>::deg10e7 lat;
+		 quan::angle_<int32_t>::deg10e7 lon;
+		 quan::length_<int32_t>::mm     alt;
 	};
 
 }}

@@ -18,6 +18,9 @@ namespace quan{ namespace gx{
       vect const & get_size_cref()const {return m_size;}
       // the origin of the drawing relative to dead center
       vect get_origin() const {return m_origin;}
+      vect set_size(vect const & v) { this->m_size = v;}
+      vect set_origin(vect const & v) { this->m_origin = v;}
+      //vect & get_scale_ref(){ return m_scale;}
    private:
       vect m_size;
       vect m_origin;

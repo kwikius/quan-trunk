@@ -54,6 +54,19 @@ namespace quan{ namespace gx{ namespace rgb{
    typedef quan::gx::static_rgb_color<unsigned char,0x80,0x80,0x80> gray;
    //typedef quan::gx::static_rgb_color<unsigned char,0x80,0x80,0x80> gray;
 
+   namespace colors{
+    extern quan::gx::abc_color::ptr black;
+   extern  quan::gx::abc_color::ptr white;
+   extern  quan::gx::abc_color::ptr red;
+   extern  quan::gx::abc_color::ptr green;
+   extern  quan::gx::abc_color::ptr blue;
+   extern  quan::gx::abc_color::ptr yellow;
+   extern  quan::gx::abc_color::ptr aqua;
+   extern  quan::gx::abc_color::ptr silver;
+   extern  quan::gx::abc_color::ptr gray;
+
+   }
+
 }}}
 
 #endif

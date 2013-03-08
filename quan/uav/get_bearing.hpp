@@ -2,11 +2,8 @@
 #define QUAN_UAV_GET_BEARING_HPP_INCLUDED
 
 #include <quan/uav/position.hpp>
-#ifndef __AVR__
-#include <cmath>
-#else
-#include <math.h>
-#endif
+#include <quan/atan2.hpp>
+
 
 namespace quan{ namespace uav{
 
@@ -17,12 +14,15 @@ namespace quan{ namespace uav{
 	quan::angle::deg 
 	get_bearing(quan::uav::position const & gps1, quan::uav::position const & gps2)
 	{
-// maybe 0.02 sec   
-        quan::angle::rad const dLon = gps2.get_lon() - gps1.get_lon();
-        QUAN_FLOAT_TYPE const cos_gps2_lat =  cos(gps2.get_lat());
-        QUAN_FLOAT_TYPE const y = sin(dLon) * cos_gps2_lat;
-        QUAN_FLOAT_TYPE const x = cos(gps1.get_lat()) * sin(gps2.get_lat())
-                              - sin(gps1.get_lat()) * cos_gps2_lat * cos(dLon);
+        // check for too small to use...
+        // if dist is less than N meters == N meters = dlon * R
+        quan::angle::rad const dLon = gps2.lon - gps1.lon;
+
+        
+        auto const cos_gps2_lat =  cos(gps2.lat);
+        auto const y = sin(dLon) * cos_gps2_lat;
+        auto const x = cos(gps1.lat) * sin(gps2.lat)
+                              - sin(gps1.lat) * cos_gps2_lat * cos(dLon);
         quan::angle::deg result = quan::atan2(y,x);
         while (result < quan::angle::deg(0)){
            result += quan::angle::deg(360);
@@ -30,7 +30,7 @@ namespace quan{ namespace uav{
         while (result > quan::angle::deg(360)){
            result -= quan::angle::deg(360);
         }
-        return result;
+        return result;  
 	}
 
 }}

@@ -11,6 +11,7 @@
 #include <quan/stm32f4/usart/detail/fifo.hpp>
 #include <type_traits>
 #include <quan/meta/if.hpp>
+#include <quan/concepts/port.hpp>
 
 /*
  TODO
@@ -177,5 +178,16 @@ namespace quan{ namespace stm32f4{
    serial_port<Usart,TxBufSize,RxBufSize,TxPin,RxPin>::m_rx_fifo;
 
 }}
+
+namespace quan{ namespace impl{
+
+   template <typename Usart,size_t TxBufSize, size_t RxBufSize, typename TxPin, typename RxPin>
+   struct is_model_of_impl<
+   quan::StaticPort,
+      quan::stm32f4::serial_port<Usart,TxBufSize,RxBufSize,TxPin,RxPin> 
+   >: quan::meta::true_{};
+
+}}
+
 
 #endif // ARM_MOTOR1_SERIAL_PORT_HPP_INCLUDED
