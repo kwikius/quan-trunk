@@ -13,6 +13,7 @@
 #include <type_traits>
 #include <quan/implicit_cast.hpp>
 #include <quan/meta/identity.hpp>
+#include <quan/meta/is_angle.hpp>
 
 #if defined __AVR__
 #include <math.h>
@@ -70,7 +71,11 @@ namespace quan {namespace impl_detail {
    struct arithmetic_convert_impl<
       Target, Source,
       typename quan::where_<
-         quan::meta::not_<is_narrowing_conversion<Target, Source> >
+         quan::meta::and_<
+           std::is_arithmetic<Source>,
+           std::is_arithmetic<Target>,
+           quan::meta::not_<is_narrowing_conversion<Target, Source> >
+         >
       >::type
    > {
        QUAN_CONSTEXPR Target operator()(Source const & s) const
@@ -217,7 +222,7 @@ QUAN_CONSTEXPR typename quan::where_<
 TargetType
 >::type arithmetic_convert(SourceType const & s)
 {
-    return impl_detail::arithmetic_convert_impl<TargetType,SourceType>()(s);
+    return impl_detail::arithmetic_convert_impl<TargetType,SourceType>{}(s);
 }
  
 template <typename TargetType,typename SourceType>
@@ -233,7 +238,7 @@ TargetType
 {
     return (s == static_cast<SourceType>(0) )? false : true;
 }
- 
+ /*
 // udts
    template <typename TargetType,typename SourceType>
    inline
@@ -250,6 +255,20 @@ TargetType
    arithmetic_convert(SourceType const & s)
    {
        return quan::implicit_cast<TargetType>(s);
+   }
+*/
+   template <typename Target, typename Source>
+   inline QUAN_CONSTEXPR
+   typename quan::where_<
+         quan::meta::and_<
+            std::is_arithmetic<Target>,
+            quan::meta::is_mathematic_angle<Source>
+         >
+         , Target
+   >::type
+   arithmetic_convert(Source const & s)
+   {
+     return arithmetic_convert<Target>(s.numeric_value());
    }
  
  
