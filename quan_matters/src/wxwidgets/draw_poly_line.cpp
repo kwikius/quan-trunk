@@ -16,7 +16,7 @@ void quan::gx::wxwidgets::graphics_context::draw_polyline(
    }
 
    auto rgb_col = polyline.get_color()->get_uchar_rgb();
-   wxColour wx_colour{rgb_col.red,rgb_col.blue, rgb_col.green};
+   wxColour wx_colour{rgb_col.red,rgb_col.green,rgb_col.blue};
 
    auto px_line_width = quan::max(
       quan::arithmetic_convert<int>(
