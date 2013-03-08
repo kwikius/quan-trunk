@@ -11,8 +11,6 @@ namespace quan{ namespace gx{
       virtual ~drawing(){}
       typedef LengthType length_type;
       typedef quan::two_d::vect<length_type> vect;
-      virtual vect& get_size_ref()=0;
-      virtual vect const & get_size_cref()const=0;
       // the x, y dimensions of the drawing
       virtual vect get_size() const =0;
       // the origin of the drawing relative to dead center
