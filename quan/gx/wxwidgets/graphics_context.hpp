@@ -46,11 +46,21 @@ namespace quan { namespace gx { namespace wxwidgets{
       double scale_to_device_x(mm const & val) const;
       double scale_to_device_y(mm const & val) const;
 
-      vect2_mm logical_transform_in(vect2_mm const & in)const;
-      vect2_mm logical_transform_out(vect2_mm const & in)const;
+// drwaing_to_view
+      vect2_mm drawing_to_view(vect2_mm const & in)const;
+      vect2_mm view_to_drawing(vect2_mm const & in)const;
+
+      vect2_mm scale_drawing_to_view(vect2_mm const & in)const;
+      vect2_mm scale_view_to_drawing(vect2_mm const & in)const;
+
+      vect2_d view_to_device(vect2_mm const & in) const;
+      vect2_mm device_to_view(vect2_d const & in) const;
+
+      vect2_d scale_view_to_device(vect2_mm const & in) const;
+      vect2_mm scale_device_to_view(vect2_d const & in) const;
 
       vect2_d device_transform_in(vect2_mm const & in)const;
-      vect2_mm device_transform_out(vect2_d const & v)const;
+      vect2_mm device_to_drawing(vect2_d const & v)const;
    protected:
       double m_scale;
       vect2_mm m_drawing_offset;
