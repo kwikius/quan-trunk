@@ -1,6 +1,8 @@
 #include <quan/gx/wxwidgets/graphics_context.hpp>
 
 using quan::gx::wxwidgets::graphics_context;
+
+//#############put in separate file#####################
 using quan::gx::wxwidgets::graphics_info_context;
 
  graphics_info_context::graphics_info_context(
@@ -23,18 +25,27 @@ using quan::gx::wxwidgets::graphics_info_context;
 
 }
 
+graphics_info_context::vect2_mm graphics_info_context::scale_drawing_to_view(vect2_mm const & in)const
+{
+   return in * m_scale;
+}
+graphics_info_context:: vect2_mm graphics_info_context::scale_view_to_drawing(vect2_mm const & in)const
+{
+   return in / m_scale;
+}
+
 // drawing_to_view
 graphics_info_context::vect2_mm
-graphics_info_context::logical_transform_in(graphics_info_context::vect2_mm const & in)const
+graphics_info_context::drawing_to_view(graphics_info_context::vect2_mm const & in)const
 {
-   return (in + m_drawing_offset ) * m_scale;
+   return scale_drawing_to_view(in + m_drawing_offset ) ;
 }
 
 // view_to_drawing
 graphics_info_context::vect2_mm
-graphics_info_context::logical_transform_out(graphics_info_context::vect2_mm const & in)const
+graphics_info_context::view_to_drawing(graphics_info_context::vect2_mm const & in)const
 {
-   return ( in / m_scale) - m_drawing_offset;
+   return scale_view_to_drawing(in) - m_drawing_offset;
 }
 
 // drawing_to_device = drawing_to_view * view_to_device
@@ -43,43 +54,53 @@ graphics_info_context::device_transform_in(
   graphics_info_context::vect2_mm const & in
 )const
 {
-  // drawing_to_view
-  vect2_mm p1 = logical_transform_in(in);
-  return {
-     // view_to_device
-     m_dev_size_px.x/2.0 + p1.x * m_px_per_mm.x ,
-     m_dev_size_px.y/2.0 - p1.y * m_px_per_mm.y 
-  };
+  return view_to_device(drawing_to_view(in));
+}
+
+graphics_info_context::vect2_d graphics_info_context::view_to_device(vect2_mm const & in) const
+{
+    return scale_view_to_device( {in.x, -in.y}) + m_dev_size_px / 2;
+}
+
+graphics_info_context::vect2_d graphics_info_context::scale_view_to_device(vect2_mm const & in) const
+{
+    return {in.x * m_px_per_mm.x,in.y * m_px_per_mm.y};
+}
+
+graphics_info_context::vect2_mm graphics_info_context::device_to_view(vect2_d const & in) const
+{
+     return scale_device_to_view({in.x - m_dev_size_px.x/2.0, m_dev_size_px.y/2.0  - in.y});
+}
+
+graphics_info_context::vect2_mm graphics_info_context::scale_device_to_view(vect2_d const & in) const
+{
+    return {
+     in.x / m_px_per_mm.x ,
+     in.y / m_px_per_mm.y }
+    ;
 }
 
 // device_to_drawing = device_To_view * view_to_drawing
 graphics_info_context::vect2_mm
-graphics_info_context::device_transform_out(graphics_info_context::vect2_d const & v)const
+graphics_info_context::device_to_drawing(graphics_info_context::vect2_d const & v)const
 {
-   // device_to_view
-   auto x = ( v.x - m_dev_size_px.x/2.0)/ m_px_per_mm.x ;
-   auto y = (m_dev_size_px.y/2.0  - v.y) / m_px_per_mm.y ;
-
-   // view_to_drawing
-   return   logical_transform_out({x,y});
+   return view_to_drawing(device_to_view(v));
 }
 
-/*
-   used for getting line width but prob use better alg
-   // scale a y distance to pixels
-// no translation
-  // scale_drawing_to_device
-*/
+// scale_drawing_to_view_* scale_view_to_device
+// = scale_drawing_to_device
 double graphics_info_context::scale_to_device_x(mm const & val) const
 {
    return val * m_scale * m_px_per_mm.x  ;
 }
-// scale a y distance to pixels
-// no translation
+// scale_drawing_to_view_* scale_view_to_device
+// = scale_drawing_to_device
 double graphics_info_context::scale_to_device_y(mm const & val) const  
 {
    return val * m_scale * m_px_per_mm.y;
 }
+
+//############################################################################
 
 graphics_context::graphics_context(
    wxDC* pDC, 
