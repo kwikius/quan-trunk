@@ -230,7 +230,7 @@ namespace quan{ namespace detail{
             {
 //                result_type result = (static_cast<value_type_L>(lhs) / static_cast<value_type_R>( rhs)) *
 //                    static_cast<constant_arg_type>(quan::meta::pow_c<
-//                        int64_t,10,quan::meta::numerator<Exponent>::value
+//                        int32_t,10,quan::meta::numerator<Exponent>::value
 //                    >::value);
 //                return result;
                 return (static_cast<value_type_L>(lhs) / static_cast<value_type_R>( rhs)) *
@@ -259,7 +259,7 @@ namespace quan{ namespace detail{
             {
 //                result_type result = v *
 //                   static_cast<constant_arg_type>( quan::meta::pow_c<
-//                        int64_t,10,quan::meta::numerator<Exponent>::value
+//                        int32_t,10,quan::meta::numerator<Exponent>::value
 //                    >::value);
 //                return result;
                  return v *
@@ -298,7 +298,7 @@ namespace quan{ namespace detail{
 //                result_type result = (static_cast<value_type_L>(lhs) / static_cast<value_type_R>(rhs)) /
 //                static_cast<constant_arg_type>(
 //                    quan::meta::pow_c<
-//                        int64_t,10, -quan::meta::numerator<Exponent>::value
+//                        int32_t,10, -quan::meta::numerator<Exponent>::value
 //                    >::value);
 //                return result;
                   return  (static_cast<value_type_L>(lhs) / static_cast<value_type_R>(rhs)) /
@@ -325,7 +325,7 @@ namespace quan{ namespace detail{
             {
 //                result_type result = v / 
 //                    static_cast<constant_arg_type>(quan::meta::pow_c<
-//                        int64_t,10, -quan::meta::numerator<Exponent>::value
+//                        int32_t,10, -quan::meta::numerator<Exponent>::value
 //                    >::value);
 //                return result;
                 return v / 
@@ -359,10 +359,10 @@ namespace quan{ namespace detail{
     template <typename Exponent>
     struct dimensionless_divide_exp_only : quan::meta::eval_if_c<
         (quan::meta::is_integer<Exponent>::value 
-      //  && quan::meta::numerator<Exponent>::value >= -std::numeric_limits<int64_t>::digits10
-       // && quan::meta::numerator<Exponent>::value <= std::numeric_limits<int64_t>::digits10),
-           && quan::meta::numerator<Exponent>::value >= - quan::meta::digits10<int64_t>::value
-        && quan::meta::numerator<Exponent>::value <= quan::meta::digits10<int64_t>::value),
+      //  && quan::meta::numerator<Exponent>::value >= -std::numeric_limits<int32_t>::digits10
+       // && quan::meta::numerator<Exponent>::value <= std::numeric_limits<int32_t>::digits10),
+           && quan::meta::numerator<Exponent>::value >= - quan::meta::digits10<int32_t>::value
+        && quan::meta::numerator<Exponent>::value <= quan::meta::digits10<int32_t>::value),
         dimensionless_divide_exp_only_ct<Exponent>,
         dimensionless_divide_exp_only_rt<Exponent>
     >::type {};
