@@ -164,7 +164,7 @@ namespace quan{namespace detail{
             {
                 result_type result = (static_cast<value_type_L>(lhs) / static_cast<value_type_R>(rhs))
                 *   ( static_cast<constant_arg_type>(quan::meta::pow_c<
-                        QUAN_INT32,10,quan::meta::numerator<Exponent>::value
+                        int64_t,10,quan::meta::numerator<Exponent>::value
                     >::value)
                 *   ((static_cast<constant_arg_type>(quan::meta::numerator<Multiplier_L>::value)
                         / (quan::meta::denominator<Multiplier_L>::value)
@@ -191,7 +191,7 @@ namespace quan{namespace detail{
             {
                 result_type result = v
                 *   ( static_cast<constant_arg_type>(quan::meta::pow_c<
-                        QUAN_INT32,10,quan::meta::numerator<Exponent>::value
+                        int64_t,10,quan::meta::numerator<Exponent>::value
                     >::value)
                 *   ((static_cast<constant_arg_type>(quan::meta::numerator<Multiplier_L>::value)
                         / (quan::meta::denominator<Multiplier_L>::value)
@@ -230,7 +230,7 @@ namespace quan{namespace detail{
                 * (static_cast<constant_arg_type>(quan::meta::denominator<Multiplier_R>::value)
                     / (quan::meta::numerator<Multiplier_R>::value))))
                 /  static_cast<constant_arg_type>(quan::meta::pow_c<
-                        QUAN_INT32,10,-quan::meta::numerator<Exponent>::value>::value));
+                        int64_t,10,-quan::meta::numerator<Exponent>::value>::value));
                 return result;
             }
             typedef eval type;
@@ -254,7 +254,7 @@ namespace quan{namespace detail{
                 * (static_cast<constant_arg_type>(quan::meta::denominator<Multiplier_R>::value)
                     / (quan::meta::numerator<Multiplier_R>::value))))
                 /  static_cast<constant_arg_type>(quan::meta::pow_c<
-                        QUAN_INT32,10,-quan::meta::numerator<Exponent>::value>::value));
+                        int64_t,10,-quan::meta::numerator<Exponent>::value>::value));
                 return result;
             }
             typedef convert type;
@@ -338,12 +338,12 @@ namespace quan{namespace detail{
         quan::meta::eval_if_c<
             (quan::meta::numerator<Exponent>::value > 0),
             quan::meta::eval_if_c<
-                ((quan::meta::numerator<Exponent>::value) > (quan::meta::digits10<QUAN_INT32>::value)),
+                ((quan::meta::numerator<Exponent>::value) > (quan::meta::digits10<int64_t>::value)),
                 dimensionless_divide_rt_positive_integer_exp_2mux<Exponent,Multiplier_L,Multiplier_R>,
                 dimensionless_divide_ct_positive_integer_exp_2mux<Exponent,Multiplier_L,Multiplier_R>
             >,
             quan::meta::eval_if_c<
-                ((quan::meta::numerator<Exponent>::value) < (-quan::meta::digits10<QUAN_INT32>::value)),
+                ((quan::meta::numerator<Exponent>::value) < (-quan::meta::digits10<int64_t>::value)),
                 dimensionless_divide_rt_negative_integer_exp_2mux<Exponent,Multiplier_L,Multiplier_R>,
                 dimensionless_divide_ct_negative_integer_exp_2mux<Exponent,Multiplier_L,Multiplier_R>
             >

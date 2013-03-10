@@ -21,7 +21,7 @@ int main()
 
 void rational_test()
 {
-    QUAN_CHECK(((std::numeric_limits<QUAN_INT32>::max)() >= 0x7FFFFFFF) );
+    QUAN_CHECK(((std::numeric_limits<int64_t>::max)() >= 0x7FFFFFFF) );
     typedef quan::meta::rational<2,4> smaller;
     const static bool equal1 = std::is_same<
         smaller::type,quan::meta::rational<1,2> 

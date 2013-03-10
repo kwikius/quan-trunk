@@ -88,11 +88,11 @@ struct eval_exponent_impl {
             gt_< 
                 exponent , 
                 quan::meta::rational<
-                   quan::meta::digits10<QUAN_INT32>::value //std::numeric_limits<QUAN_INT32>::digits10
+                   quan::meta::digits10<int64_t>::value //std::numeric_limits<int64_t>::digits10
                 >
             >,
             QUAN_FLOAT_TYPE,
-            QUAN_INT32
+            int64_t
         >::type
     > dummy;
      // if its a rational then the result type must be float

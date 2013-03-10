@@ -62,7 +62,7 @@ QUAN_CONSTEXPR
 
     template <typename Multiplier>
     struct non_unitary_integer_multiplier_function{
-        typedef QUAN_INT32 preferred_multiplier_type;
+        typedef int64_t preferred_multiplier_type;
         template <typename ValueType_L,typename ValueType_R>
         struct eval{
             typedef typename compute_multiply_constant_arg_type<
@@ -102,7 +102,7 @@ QUAN_CONSTEXPR
             {
                 return(lhs * rhs )
                 * (static_cast<constant_arg_type>(quan::meta::numerator<Multiplier>::value)
-                        / static_cast<QUAN_INT32>(quan::meta::denominator<Multiplier>::value));
+                        / static_cast<int64_t>(quan::meta::denominator<Multiplier>::value));
             } 
             typedef eval type; 
         };
@@ -114,7 +114,7 @@ QUAN_CONSTEXPR
     calculation on the two input StaticUnitMultipliers
     and reduced them to one multiplier but it isnt equal to 1.
     If the multiplier is not an integer then the multipliers preferred multiplier result_type is 
-    quan::quantity_traits::default_value_type, else QUAN_INT32, however the users types may override this.
+    quan::quantity_traits::default_value_type, else int64_t, however the users types may override this.
 */
     template <typename Multiplier>
     struct dimensioned_multiply_function : quan::meta::eval_if<
@@ -152,9 +152,9 @@ QUAN_CONSTEXPR
             {
                 return (lhs * rhs )
                 *(( static_cast<constant_arg_type>(quan::meta::numerator<lhs_multiplier>::value)
-                        / static_cast<QUAN_INT32>(quan::meta::denominator<lhs_multiplier>::value))
+                        / static_cast<int64_t>(quan::meta::denominator<lhs_multiplier>::value))
                     * (static_cast<constant_arg_type>(quan::meta::numerator<rhs_multiplier>::value)
-                        / static_cast<QUAN_INT32>(quan::meta::denominator<rhs_multiplier>::value)));
+                        / static_cast<int64_t>(quan::meta::denominator<rhs_multiplier>::value)));
             }  
             typedef eval type;
         };

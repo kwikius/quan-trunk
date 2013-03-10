@@ -128,11 +128,11 @@ namespace {
        result_type3 result3 = r5 / r6;
        QUAN_CHECK_CLOSE(result3, 2.e-6,1e-12);
 
-       quan::length_<QUAN_INT32>::mm i_mm(2);
-       quan::length_<QUAN_INT32>::km i_km(3);
-       QUAN_INT32 value = i_mm/i_km;
+       quan::length_<int64_t>::mm i_mm(2);
+       quan::length_<int64_t>::km i_km(3);
+       int64_t value = i_mm/i_km;
        QUAN_CHECK(value == 0 );
-       QUAN_INT32 value1 = i_km/i_mm;
+       int64_t value1 = i_km/i_mm;
     
        QUAN_CHECK_EQUAL(value1 , 3000000/2);
        

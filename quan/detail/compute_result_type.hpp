@@ -19,7 +19,7 @@
     then the user type is preferred even if "smaller".
     Otherwise the result_type of a theoretical multiply of all three is used
     quan::quantity_traits::default_float_type (usually a double) will be used
-    for the multipliers float and QUAN_INT32 for an int
+    for the multipliers float and int64_t for an int
     
     The idea is that the user doesnt want a conversion to double,
     if the input types are floats or an unnecessary conversion to long, 
@@ -59,7 +59,7 @@ namespace quan{ namespace detail{
             std::is_same<promoted_arg_type,float>,
             float,
             typename quan::meta::binary_op<
-                QUAN_INT32,
+                int64_t,
                 quan::meta::times,
                 DefaultFloat
             >::type

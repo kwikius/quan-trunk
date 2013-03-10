@@ -216,7 +216,7 @@ namespace quan{
 // use format spec here
            // ost << mux;
         } 
-        else if( QUAN_INT32 rt_exponent = quan::meta::numerator<exponent>::value){
+        else if( int64_t rt_exponent = quan::meta::numerator<exponent>::value){
          if( detail::output_if<
                // neat exponent
                quan::meta::is_integer<exponent>

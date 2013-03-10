@@ -37,7 +37,7 @@ namespace quan{namespace meta{
                 gt_<
                     Rational,
                     rational<
-                        std::numeric_limits<QUAN_INT32>::digits10
+                        std::numeric_limits<int64_t>::digits10
                     >
                 >,
                 bool_<
@@ -45,7 +45,7 @@ namespace quan{namespace meta{
                 >
             >,
             typename quan::quantity_traits::default_value_type,
-            QUAN_INT32
+            int64_t
         >::type result_type;
         typedef typename quan::detail::coherent_exponent<
             Rational::numerator,Rational::denominator

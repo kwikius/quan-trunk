@@ -25,7 +25,7 @@ namespace quan{namespace meta{
         typename BaseIntegerType,
         BaseIntegerType Base,
       //  unsigned int Exp
-        QUAN_INT32 Exp
+        int64_t Exp
     >
     struct pow_c;
 
@@ -59,7 +59,7 @@ namespace quan{namespace meta{
     template<
         typename IntegerType,
         IntegerType Base, 
-        QUAN_INT32 Exp
+        int64_t Exp
     >
     struct pow_c {
 

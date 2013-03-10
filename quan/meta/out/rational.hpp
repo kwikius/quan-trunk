@@ -16,7 +16,7 @@
 
 namespace quan{namespace meta{
 
-        template <QUAN_INT32 N, QUAN_INT32 D>
+        template <int64_t N, int64_t D>
         std::ostream & operator << (std::ostream& os, quan::meta::rational<N,D>)
         {
             os << "{" << N << '/' << D << '}';

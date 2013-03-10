@@ -28,8 +28,8 @@ namespace quan{namespace detail{
     inline 
     std::basic_ostream<CharType>& 
     put_rational_impl(std::basic_ostream<CharType>& os,
-        QUAN_INT32 n, 
-        QUAN_INT32 d)
+        int64_t n, 
+        int64_t d)
     {
         if (!n) return os;
         if (d==1){

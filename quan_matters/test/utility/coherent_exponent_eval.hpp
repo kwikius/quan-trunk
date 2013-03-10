@@ -18,7 +18,7 @@ THIS CODE is now redundant except for testing.
     hence there are no specialisations for negative powers.
     Probably should add long double versions too.
 
-    Note: If an QUAN_INT32 can be returned and the input ResultType is a floating point type
+    Note: If an int64_t can be returned and the input ResultType is a floating point type
     then the ResultType 'hint' could be ignored, maybe, if it was quicker and could be 
     better optimise away.
 */
@@ -48,8 +48,8 @@ namespace quan{ namespace detail{
         // but maybe should bypass that and return a C++ float if asked
         template <
             typename ResultType,
-            QUAN_INT32 N, 
-            QUAN_INT32 D, 
+            int64_t N, 
+            int64_t D, 
             bool WantInt
         >
         struct coherent_exponent_eval{
@@ -88,7 +88,7 @@ constexpr
 
         // instantiated for very large/small integer powers but not used
         // really requires a mod
-        template <typename ResultType,QUAN_INT32 N, bool WantInt>
+        template <typename ResultType,int64_t N, bool WantInt>
         struct coherent_exponent_eval<
             ResultType,N,1, WantInt
         >{
@@ -103,12 +103,12 @@ constexpr
 
         //isntantiated for small positive integer exponents
         // fast and integer result
-        template<typename ResultType,QUAN_INT32 N>
+        template<typename ResultType,int64_t N>
         struct coherent_exponent_eval<ResultType,N,1,true>{
             enum{ required = ( N !=0 ) };
-            typedef QUAN_INT32 min_result_type;
+            typedef int64_t min_result_type;
             typedef typename meta::arithmetic_promote<
-                QUAN_INT32,ResultType
+                int64_t,ResultType
             >::type result_type;
  #ifdef QUAN_HAS_CONSTEXPR
 constexpr
@@ -117,19 +117,19 @@ constexpr
             {
                return static_cast<result_type>(
                     quan::meta::pow_c<
-                        QUAN_INT32,
+                        int64_t,
                         10,N
                     >::value
                 );
             }
         };
 
-        template<typename ResultType,QUAN_INT32 N>
+        template<typename ResultType,int64_t N>
         struct coherent_exponent_eval<ResultType,N,1,false>{
             enum{ required = ( N !=0 ) };
             typedef ResultType min_result_type;
             typedef typename meta::arithmetic_promote<
-                QUAN_INT32,ResultType
+                int64_t,ResultType
             >::type result_type;
  
             typedef typename quan::meta::eval_if_c<

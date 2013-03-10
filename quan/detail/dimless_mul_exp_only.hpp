@@ -130,7 +130,7 @@ namespace quan{ namespace detail{
     // Use compile time pow_c
     template <typename Exponent>
     struct dimensionless_multiply_exp_only_positive_ct{
-        typedef QUAN_INT32 preferred_result_type;
+        typedef int64_t preferred_result_type;
         template <typename ValueType_L,typename ValueType_R>
         struct eval{
             typedef typename compute_multiply_result_type<
@@ -147,7 +147,7 @@ namespace quan{ namespace detail{
                 return  (lhs * rhs) *
                     static_cast<constant_arg_type>(
                         quan::meta::pow_c<
-                            QUAN_INT32,10,quan::meta::numerator<Exponent>::value
+                            int64_t,10,quan::meta::numerator<Exponent>::value
                         >::value
                     );
             }
@@ -177,7 +177,7 @@ namespace quan{ namespace detail{
                 return  (lhs * rhs) /
                     static_cast<constant_arg_type>(
                         quan::meta::pow_c<
-                            QUAN_INT32,10, -quan::meta::numerator<Exponent>::value
+                            int64_t,10, -quan::meta::numerator<Exponent>::value
                         >::value
                     );
 
@@ -203,8 +203,8 @@ namespace quan{ namespace detail{
     template <typename Exponent>
     struct dimensionless_multiply_exp_only : quan::meta::eval_if_c<
         (quan::meta::is_integer<Exponent>::value 
-        && quan::meta::numerator<Exponent>::value >= quan::meta::digits10<QUAN_INT32>::value
-        && quan::meta::numerator<Exponent>::value <= quan::meta::digits10<QUAN_INT32>::value),
+        && quan::meta::numerator<Exponent>::value >= quan::meta::digits10<int64_t>::value
+        && quan::meta::numerator<Exponent>::value <= quan::meta::digits10<int64_t>::value),
         dimensionless_multiply_exp_only_ct<Exponent>,
         dimensionless_multiply_exp_only_rt<Exponent>
     >::type {};

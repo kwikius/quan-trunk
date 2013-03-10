@@ -3,7 +3,7 @@
 #if (defined _MSC_VER) && (_MSC_VER >= 1200)
 #  pragma once
 #endif
-
+#include <cstdint>
 #if defined QUAN_STM32F4 
 #include <quan/stm32f4/config.hpp>
 #endif
@@ -108,15 +108,18 @@
 // (note:This may actually be incorrect,
 // but cured a previous issue with gcc)
 
+//#define int64_t int64_t
+/*
 #if  (INT_MAX >= 0x7fffffff)
-#define QUAN_INT32 int
+#define int64_t int
 #elif (LONG_MAX >= 0x7fffffff)
-#define QUAN_INT32 long
+#define int64_t long
 #else
 // long should be at least 32 bits so should never get here
 #error need to define a 32-bit int in <quan/config.hpp>
 #endif
-#define QUAN_INT32_MAX 0x7fffffff
+#define int64_t_MAX 0x7fffffff
+*/
 
 //-------------------------------------------------------
 

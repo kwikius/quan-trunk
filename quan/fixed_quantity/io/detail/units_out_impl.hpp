@@ -32,10 +32,10 @@ namespace quan{ namespace detail{
     > struct fixed_quantity_units_output_impl;
 
 
-    template <QUAN_INT32 Extent, QUAN_INT32 PrefixOffset>
+    template <int64_t Extent, int64_t PrefixOffset>
     struct get_adjusted_prefix{
  
-        template < QUAN_INT32 Exp>
+        template < int64_t Exp>
         struct apply{
 ////////////////ASSERTION FAILURE ////////////////////////////
             // some hoisted quantities such as area in m2 ^-5

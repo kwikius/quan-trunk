@@ -12,7 +12,7 @@
 
 namespace quan{namespace meta{
 
-    template <QUAN_INT32 N, QUAN_INT32 D= 1>
+    template <int64_t N, int64_t D= 1>
     struct rational;
 
 }}//quan::meta

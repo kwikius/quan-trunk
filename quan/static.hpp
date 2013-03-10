@@ -17,7 +17,7 @@
 
 namespace quan{ 
 
-    template <typename T, QUAN_INT32 N,QUAN_INT32 D=1>
+    template <typename T, int64_t N,int64_t D=1>
     struct static_ :  quan::fusion::static_value<
         T,
         typename quan::meta::rational<N,D>::type 

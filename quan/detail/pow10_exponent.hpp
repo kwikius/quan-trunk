@@ -13,7 +13,7 @@
 
 namespace quan{ namespace detail{
 
-  template < typename ResultType,QUAN_INT32 N> struct pow10_integer_exponent;
+  template < typename ResultType,int64_t N> struct pow10_integer_exponent;
 
   template <>
   struct pow10_integer_exponent<float,0 > {

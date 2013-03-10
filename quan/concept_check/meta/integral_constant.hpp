@@ -14,7 +14,7 @@ namespace quan{ namespace concept_check{ namespace meta{
    void integral_constant()
    {
       quan::concept_check::meta::identity_function<T>();
-      static const QUAN_INT32 value = T::value;
+      static const int64_t value = T::value;
    }
 
 }}}//quan::concept_check::meta

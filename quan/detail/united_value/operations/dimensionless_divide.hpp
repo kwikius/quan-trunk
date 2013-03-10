@@ -50,7 +50,7 @@
     This will be quite slow however, so maybe this option should be a macro switch.
     
 */
-
+#include <quan/config.hpp>
 #include <quan/detail/united_value/operations/dimensioned_divide.hpp>
 #include <quan/meta/rational.hpp>
 #include <quan/meta/pow_c.hpp>
@@ -64,6 +64,7 @@
 #include <quan/meta/neq.hpp>
 #include <quan/meta/eval_if.hpp>
 #include <type_traits>
+#include <cstdint>
 
 namespace quan{namespace detail{
    
@@ -84,14 +85,14 @@ namespace quan{namespace detail{
         =    (( quan::meta::not_<quan::meta::is_integer<Exponent> >::value )
                 && (quan::meta::numerator<Exponent>::value < 0)
                 && ( quan::meta::neq_one<Multiplier>::value)
-                && ( (quan::meta::denominator<Multiplier>::value) < (QUAN_INT32_MAX / 10) ));
+                && ( (quan::meta::denominator<Multiplier>::value) < (INT32_MAX / 10) ));
 
         
         const static bool do_pos_value
         =(( quan::meta::is_integer<Exponent>::value !=0 )
                 && (quan::meta::numerator<Exponent>::value > 0)
                  && ( quan::meta::neq_one<Multiplier>::value)
-                && ( (quan::meta::numerator<Multiplier>::value) < (QUAN_INT32_MAX / 10) ));
+                && ( (quan::meta::numerator<Multiplier>::value) < (INT32_MAX / 10) ));
 
         typedef quan::meta::bool_<do_neg_value> do_neg;
         typedef quan::meta::bool_<do_pos_value> do_pos;

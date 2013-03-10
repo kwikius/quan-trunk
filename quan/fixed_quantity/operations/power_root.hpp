@@ -63,8 +63,8 @@ namespace quan {
          }
  
         template <
-            QUAN_INT32 N,
-            QUAN_INT32 D,
+            int64_t N,
+            int64_t D,
             typename StaticUnit,
             typename NumericType
         >
@@ -99,12 +99,12 @@ namespace quan {
 
     }// meta
 
-   /* template<QUAN_INT32 N> struct deduced_int{};
-    template<QUAN_INT32 N, QUAN_INT32 D> struct deduced_fraction{};*/
+   /* template<int64_t N> struct deduced_int{};
+    template<int64_t N, int64_t D> struct deduced_fraction{};*/
 
     template <
-        QUAN_INT32 N,
-        QUAN_INT32 D
+        int64_t N,
+        int64_t D
     >
     inline
     double
@@ -121,12 +121,12 @@ namespace quan {
 
     }
     template <
-        QUAN_INT32 N,
-        QUAN_INT32 D
+        int64_t N,
+        int64_t D
     >
     inline
     double
-    pow( QUAN_INT32 const& v)
+    pow( int64_t const& v)
     {
  #ifndef __AVR__
            return std::pow(
@@ -139,8 +139,8 @@ namespace quan {
     }
 
     //template <
-    //    QUAN_INT32 N,
-    //    QUAN_INT32 D,
+    //    int64_t N,
+    //    int64_t D,
     //    typename T
     //>
     //inline
@@ -255,8 +255,8 @@ namespace quan {
     }//detail
 
     template <
-        QUAN_INT32 N,
-        QUAN_INT32 D,
+        int64_t N,
+        int64_t D,
         typename StaticUnit,
         typename NumericType
     >
@@ -290,7 +290,7 @@ namespace quan {
     }
 
     template <
-        QUAN_INT32 N,
+        int64_t N,
         typename T
     >
     inline QUAN_CONSTEXPR

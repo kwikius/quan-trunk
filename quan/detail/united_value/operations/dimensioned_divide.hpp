@@ -108,13 +108,13 @@ struct non_unitary_integer_divide_function{
         typedef typename quan::meta::binary_op<
             ValueType,
             quan::meta::times,
-            QUAN_INT32
+            int64_t
         >::type result_type;
 
 QUAN_CONSTEXPR
         result_type operator()(ValueType const & v)const
         {
-            return v * static_cast<QUAN_INT32>(quan::meta::numerator<Multiplier>::value);
+            return v * static_cast<int64_t>(quan::meta::numerator<Multiplier>::value);
         }  
         typedef convert type;
     };
@@ -176,7 +176,7 @@ QUAN_CONSTEXPR
     calculation on the two input StaticUnitMultipliers
     and reduced them to one multiplier but it isnt equal to 1.
     If the multiplier is not an integer then the multipliers preferred multiplier result_type is 
-    quan::quantity_traits::default_value_type, else QUAN_INT32
+    quan::quantity_traits::default_value_type, else int64_t
 */
     template <typename Multiplier>
     struct dimensioned_divide_function : quan::meta::eval_if<

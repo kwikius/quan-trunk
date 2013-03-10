@@ -285,8 +285,8 @@ namespace my{
 namespace quan{
 
     template <
-        QUAN_INT32 N,
-        QUAN_INT32 D,
+        int64_t N,
+        int64_t D,
         typename T
     >
     inline

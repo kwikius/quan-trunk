@@ -23,7 +23,7 @@ namespace quan{ namespace meta{
  template<typename I> struct digits10
    <I,typename quan::where_<std::is_integral<I> >::type>{
 
-   static const int value = (static_cast<QUAN_INT32>(quan::meta::numdigits<I>::value) * 643 )/ 2136; 
+   static const int value = (static_cast<int64_t>(quan::meta::numdigits<I>::value) * 643 )/ 2136; 
    typedef digits10 type;
  };
 

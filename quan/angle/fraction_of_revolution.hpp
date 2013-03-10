@@ -223,7 +223,7 @@ QUAN_CONSTEXPR
     };
 
     template<
-        QUAN_INT32 D,
+        int64_t D,
         typename ReciprocalFraction,
         typename ValueType
     >

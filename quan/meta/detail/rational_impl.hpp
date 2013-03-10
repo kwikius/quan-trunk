@@ -13,24 +13,24 @@
 namespace quan{namespace meta{namespace detail{
 
    template<
-      QUAN_INT32 N,
-      QUAN_INT32 D 
+      int64_t N,
+      int64_t D 
    >
    struct rational_impl {
 
-      static const QUAN_INT32 pos_nume_in = (N >= 0) ? N : -N;
-      static const QUAN_INT32 pos_denom_in = (D >= 0) ? D : -D;
+      static const int64_t pos_nume_in = (N >= 0) ? N : -N;
+      static const int64_t pos_denom_in = (D >= 0) ? D : -D;
 
-      typedef quan::meta::gcd<QUAN_INT32,pos_nume_in,pos_denom_in> gcd_type;
+      typedef quan::meta::gcd<int64_t,pos_nume_in,pos_denom_in> gcd_type;
 
-      static const QUAN_INT32 gcd_ = (gcd_type::value);
-      static const QUAN_INT32 n_sign = (N >= 0)? 1 :-1;
-      static const QUAN_INT32 d_sign = (D >= 0)? 1 :-1;
-      static const QUAN_INT32 nume_in 
+      static const int64_t gcd_ = (gcd_type::value);
+      static const int64_t n_sign = (N >= 0)? 1 :-1;
+      static const int64_t d_sign = (D >= 0)? 1 :-1;
+      static const int64_t nume_in 
          = ((n_sign * d_sign) > 0)? pos_nume_in : -pos_nume_in;
 
-      static const QUAN_INT32 numerator = static_cast<QUAN_INT32>(nume_in) / gcd_;
-      static const QUAN_INT32 denominator = static_cast<QUAN_INT32>(pos_denom_in) / gcd_;
+      static const int64_t numerator = static_cast<int64_t>(nume_in) / gcd_;
+      static const int64_t denominator = static_cast<int64_t>(pos_denom_in) / gcd_;
 
       typedef rational_impl<numerator,denominator> type;
    };

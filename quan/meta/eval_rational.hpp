@@ -17,6 +17,7 @@
     e.g int or double
     Only used by testing
 */
+#include <cstdint>
 #include <quan/config.hpp>
 #include <quan/meta/rational.hpp>
 
@@ -24,8 +25,8 @@ namespace quan{namespace meta{
 
     namespace detail{
         template<
-            QUAN_INT32 N,
-            QUAN_INT32 D
+            int64_t N,
+            int64_t D
         >
         struct rational_impl_eval 
         {
@@ -34,16 +35,16 @@ namespace quan{namespace meta{
 
 QUAN_CONSTEXPR result_type operator()() const 
             {
-                return static_cast<result_type>(static_cast<QUAN_INT32>(rat_type::numerator))
-                / static_cast<QUAN_INT32>(rat_type::denominator);
+                return static_cast<result_type>(static_cast<int64_t>(rat_type::numerator))
+                / static_cast<int64_t>(rat_type::denominator);
             }
         };
 
         template<
-            QUAN_INT32 N
+            int64_t N
         >
         struct rational_impl_eval<N,1>{
-            typedef QUAN_INT32 result_type;
+            typedef int64_t result_type;
  QUAN_CONSTEXPR           result_type operator()() const
             {
                 return N;

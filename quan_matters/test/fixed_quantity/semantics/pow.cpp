@@ -12,7 +12,7 @@
 /*
 Docs state:
 template <
-    QUAN_INT32 N,QUAN_INT32 D,
+    int64_t N,int64_t D,
     typename AbstractQuantity,typename Unit,typename Value_type
 >
 typename binary_op<

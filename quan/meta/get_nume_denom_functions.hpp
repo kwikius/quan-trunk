@@ -5,15 +5,15 @@
 
 namespace quan{ namespace meta{
 
-   template <QUAN_INT32 N, QUAN_INT32 D>
+   template <int64_t N, int64_t D>
    inline
-   QUAN_INT32 get_numerator(rational<N,D>)
+   int64_t get_numerator(rational<N,D>)
    {
       return numerator<rational<N,D> >::value;
    }
-   template <QUAN_INT32 N, QUAN_INT32 D>
+   template <int64_t N, int64_t D>
    inline
-   QUAN_INT32 get_denominator(rational<N,D>)
+   int64_t get_denominator(rational<N,D>)
    {
       return denominator<rational<N,D> >::value;
    }

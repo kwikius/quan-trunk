@@ -699,8 +699,8 @@ namespace quan {
     }
 
     template <
-        QUAN_INT32 N,
-        QUAN_INT32 D,
+        int64_t N,
+        int64_t D,
         typename Extent,
         typename Value_type
     >
@@ -723,7 +723,7 @@ namespace quan {
     }
 
     template <
-        QUAN_INT32 N,
+        int64_t N,
         typename Extent,
         typename Value_type
     >

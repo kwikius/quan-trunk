@@ -27,7 +27,7 @@ ONLY USED by testing
 namespace quan{namespace concept_checking{
     // used to check that a coherent-exponent is computable
     namespace detail {
-         template< QUAN_INT32 Expnume, QUAN_INT32 Expdenom>
+         template< int64_t Expnume, int64_t Expdenom>
          struct  CoherentExponentInRangeImpl{
             static const int maxd10 = quan::meta::digits10<quan::quantity_traits::default_value_type>::value;
             static const bool value 
@@ -42,7 +42,7 @@ namespace quan{namespace concept_checking{
          };
     }// detail
 
-     template< QUAN_INT32 Expnume, QUAN_INT32 Expdenom>
+     template< int64_t Expnume, int64_t Expdenom>
     ////////////////////////////////////////////////////////
      struct AssertCoherentExponentInRange
     ///////////////////////////////////////////////////////
@@ -54,7 +54,7 @@ namespace quan{namespace concept_checking{
 
 namespace quan{ namespace detail{
 
-    template <QUAN_INT32 N ,QUAN_INT32 D>
+    template <int64_t N ,int64_t D>
     struct coherent_exponent : quan::concept_checking::AssertCoherentExponentInRange<N,D>
     {
          enum {numerator =  N,denominator = D };
@@ -69,7 +69,7 @@ namespace quan{ namespace detail{
         //    param_check1 = (is_positive && is_integer),
          //#############
            static const bool  param_check = (is_positive? numerator:-numerator) 
-            <= quan::meta::digits10<QUAN_INT32>::value;
+            <= quan::meta::digits10<int64_t>::value;
       //  };
        
         template <typename R>

@@ -124,7 +124,7 @@ namespace {
                typename quan::meta::one_type_of<from_multiplier>::type
            >*/
            quan::meta::eq_one<from_multiplier>,
-           QUAN_INT32,
+           int64_t,
            QUAN_FLOAT_TYPE
        >::type min_rational;
 
@@ -223,29 +223,29 @@ namespace {
    void conv_plus_assign_coh_gt_coh_int()
    {
        bool r1 
-       = conv_plus_assign_impl<quan::pressure_<QUAN_INT32>::kPa>( quan::pressure::Pa(10),FP_MAX_DIFFERENCE).first;
+       = conv_plus_assign_impl<quan::pressure_<int64_t>::kPa>( quan::pressure::Pa(10),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r1);
    #ifndef __AVR__
        bool r2
-       = conv_plus_assign_impl<quan::pressure_<QUAN_INT32>::MPa>( quan::pressure::mPa(10),FP_MAX_DIFFERENCE).first;
+       = conv_plus_assign_impl<quan::pressure_<int64_t>::MPa>( quan::pressure::mPa(10),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r2);
    #else
        bool r2
-       = conv_plus_assign_impl<quan::pressure_<QUAN_INT32>::kPa>( quan::pressure::mPa(10),FP_MAX_DIFFERENCE).first;
+       = conv_plus_assign_impl<quan::pressure_<int64_t>::kPa>( quan::pressure::mPa(10),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r2);
    #endif
 
    #ifndef __AVR__
        bool r3 
-       = conv_plus_assign_impl<quan::pressure_<QUAN_INT32>::cPa>( quan::pressure::fPa(10),FP_MAX_DIFFERENCE).first;
+       = conv_plus_assign_impl<quan::pressure_<int64_t>::cPa>( quan::pressure::fPa(10),FP_MAX_DIFFERENCE).first;
    #else
        bool r3 
-       = conv_plus_assign_impl<quan::pressure_<QUAN_INT32>::cPa>( quan::pressure::mPa(10),FP_MAX_DIFFERENCE).first;
+       = conv_plus_assign_impl<quan::pressure_<int64_t>::cPa>( quan::pressure::mPa(10),FP_MAX_DIFFERENCE).first;
    #endif
        QUAN_CHECK(r3);
 
        bool r4 
-       = conv_plus_assign_impl<quan::pressure_<QUAN_INT32>::MPa>( quan::pressure::kPa(10),FP_MAX_DIFFERENCE).first;
+       = conv_plus_assign_impl<quan::pressure_<int64_t>::MPa>( quan::pressure::kPa(10),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r4); 
    }
 
@@ -283,12 +283,12 @@ namespace {
    void conv_plus_assign_coh_less_coh_int()
    {
        bool r1 
-       = conv_plus_assign_impl<quan::pressure_<QUAN_INT32>::Pa>( quan::pressure::kPa(123),FP_MAX_DIFFERENCE).first;
+       = conv_plus_assign_impl<quan::pressure_<int64_t>::Pa>( quan::pressure::kPa(123),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r1);
    #ifndef __AVR__
        bool r2 = false;
        try{
-            conv_plus_assign_impl<quan::pressure_<QUAN_INT32>::Pa>( quan::pressure::MPa(9876),FP_MAX_DIFFERENCE).first;
+            conv_plus_assign_impl<quan::pressure_<int64_t>::Pa>( quan::pressure::MPa(9876),FP_MAX_DIFFERENCE).first;
        }
        catch(std::exception &){
            r2 = true;
@@ -297,11 +297,11 @@ namespace {
    #endif
        
        bool r3 
-       = conv_plus_assign_impl<quan::pressure_<QUAN_INT32>::mPa>( quan::pressure::cPa(-34),FP_MAX_DIFFERENCE).first;
+       = conv_plus_assign_impl<quan::pressure_<int64_t>::mPa>( quan::pressure::cPa(-34),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r3);
 
        bool r4 
-       = conv_plus_assign_impl<quan::pressure_<QUAN_INT32>::kPa>( quan::pressure::MPa(67),FP_MAX_DIFFERENCE).first;
+       = conv_plus_assign_impl<quan::pressure_<int64_t>::kPa>( quan::pressure::MPa(67),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r4); 
    }
 
@@ -329,19 +329,19 @@ namespace {
    void conv_plus_assign_coh_to_gt_inco_int()
    {
        bool r1 
-       = conv_plus_assign_impl<quan::pressure_<QUAN_INT32>::cmHg>( quan::pressure::mPa(1.676),FP_MAX_DIFFERENCE).first;
+       = conv_plus_assign_impl<quan::pressure_<int64_t>::cmHg>( quan::pressure::mPa(1.676),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r1);
 
        bool r2
-       = conv_plus_assign_impl<quan::pressure_<QUAN_INT32>::mbar>( quan::pressure::mPa(25.034),FP_MAX_DIFFERENCE).first;
+       = conv_plus_assign_impl<quan::pressure_<int64_t>::mbar>( quan::pressure::mPa(25.034),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r2);
 
        bool r3
-       = conv_plus_assign_impl<quan::pressure_<QUAN_INT32>::dyn_per_cm2>( quan::pressure::mPa(.0008),FP_MAX_DIFFERENCE).first;
+       = conv_plus_assign_impl<quan::pressure_<int64_t>::dyn_per_cm2>( quan::pressure::mPa(.0008),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r3);
 
        bool r4
-       = conv_plus_assign_impl<quan::pressure_<QUAN_INT32>::atm>( quan::pressure::Pa(.08),FP_MAX_DIFFERENCE).first;
+       = conv_plus_assign_impl<quan::pressure_<int64_t>::atm>( quan::pressure::Pa(.08),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r4);
    }
 
@@ -372,25 +372,25 @@ namespace {
    void conv_plus_assign_coh_to_less_inco_int()
    {
        bool r1 
-       = conv_plus_assign_impl<quan::pressure_<QUAN_INT32>::dyn_per_cm2>( 
+       = conv_plus_assign_impl<quan::pressure_<int64_t>::dyn_per_cm2>( 
            quan::pressure::Pa(1.676),FP_MAX_DIFFERENCE
        ).first;
        QUAN_CHECK(r1);
        
        bool r2
-       = conv_plus_assign_impl<quan::pressure_<QUAN_INT32>::kgf_per_m2>( 
+       = conv_plus_assign_impl<quan::pressure_<int64_t>::kgf_per_m2>( 
            quan::pressure::kPa(201.7867),FP_MAX_DIFFERENCE
        ).first;
        QUAN_CHECK(r2);
         
        bool r3
-       = conv_plus_assign_impl<quan::pressure_<QUAN_INT32>::in_water39_2F>( 
+       = conv_plus_assign_impl<quan::pressure_<int64_t>::in_water39_2F>( 
            quan::pressure::MPa(1.676),FP_MAX_DIFFERENCE
        ).first;
        QUAN_CHECK(r3);
 
         bool r4
-       = conv_plus_assign_impl<quan::pressure_<QUAN_INT32>::atm>( 
+       = conv_plus_assign_impl<quan::pressure_<int64_t>::atm>( 
            quan::pressure::MPa(1.676),FP_MAX_DIFFERENCE
        ).first;
        QUAN_CHECK(r4);
@@ -421,20 +421,20 @@ namespace {
    void conv_plus_assign_incoh_gt_inco_int()
    {
        bool r1 
-       = conv_plus_assign_impl<quan::pressure_<QUAN_INT32>::dyn_per_cm2>( quan::pressure::atm(1999.),FP_MAX_DIFFERENCE).first;
+       = conv_plus_assign_impl<quan::pressure_<int64_t>::dyn_per_cm2>( quan::pressure::atm(1999.),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r1);
        
        bool r2
-       = conv_plus_assign_impl<quan::pressure_<QUAN_INT32>::kgf_per_cm2>( quan::pressure::kgf_per_m2(201.7867),FP_MAX_DIFFERENCE).first;
+       = conv_plus_assign_impl<quan::pressure_<int64_t>::kgf_per_cm2>( quan::pressure::kgf_per_m2(201.7867),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r2);
         
        bool r3
-       = conv_plus_assign_impl<quan::pressure_<QUAN_INT32>::ksi>( 
+       = conv_plus_assign_impl<quan::pressure_<int64_t>::ksi>( 
            quan::pressure::lbf_per_ft2(1.676),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r3);
 
         bool r4
-       = conv_plus_assign_impl<quan::pressure_<QUAN_INT32>::atm>( 
+       = conv_plus_assign_impl<quan::pressure_<int64_t>::atm>( 
            quan::pressure::ftHg(-45.3333),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r4);
    }
@@ -477,11 +477,11 @@ namespace {
    void conv_plus_assign_incoh_less_inco_int()
    {
        bool r1 
-       = conv_plus_assign_impl<quan::pressure_<QUAN_INT32>::atm>(  quan::pressure::dyn_per_cm2(1999.),FP_MAX_DIFFERENCE).first;
+       = conv_plus_assign_impl<quan::pressure_<int64_t>::atm>(  quan::pressure::dyn_per_cm2(1999.),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r1);
        
        bool r2
-       = conv_plus_assign_impl<quan::pressure_<QUAN_INT32>::kgf_per_m2 >( quan::pressure::kgf_per_cm2(2.7867),FP_MAX_DIFFERENCE).first;
+       = conv_plus_assign_impl<quan::pressure_<int64_t>::kgf_per_m2 >( quan::pressure::kgf_per_cm2(2.7867),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r2);
         
        bool r3
@@ -491,7 +491,7 @@ namespace {
    #else
       quan::meta::rational<-5>,
    #endif
-           quan::pressure_<QUAN_INT32>::lbf_per_ft2
+           quan::pressure_<int64_t>::lbf_per_ft2
        >( quan::pressure::ksi(.0676)).first;
        QUAN_CHECK(r3);
 
@@ -502,7 +502,7 @@ namespace {
    #else
            quan::meta::rational<-6>,
    #endif
-           quan::pressure_<QUAN_INT32>::ftHg>( quan::pressure::atm(-45.3333)).first;
+           quan::pressure_<int64_t>::ftHg>( quan::pressure::atm(-45.3333)).first;
        QUAN_CHECK(r4);
    }
 
