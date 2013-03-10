@@ -56,6 +56,15 @@ int num_free()const
 {
    return size - this->num_in_buffer();
 }
+
+bool peek(T& v) const
+{
+    if (!m_getptr) {
+        return false;
+    }
+    v = *m_getptr;
+    return true;
+}
  
 bool  get (T & v) 
 {
