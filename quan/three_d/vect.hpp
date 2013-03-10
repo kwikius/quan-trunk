@@ -187,6 +187,14 @@ namespace quan{namespace three_d{
 
     template <typename Value_type>
     inline
+    quan::three_d::vect<Value_type>
+    abs( quan::three_d::vect<Value_type> const & v)
+    {
+        return{abs(v.x),abs(v.y),abs(v.z)};
+    }
+
+    template <typename Value_type>
+    inline
     Value_type
     magnitude( quan::three_d::vect<Value_type> const & v)
     {
