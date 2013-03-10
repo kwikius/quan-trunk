@@ -240,6 +240,14 @@ namespace quan{ namespace two_d{
 
     template <typename Value_type>
     inline
+    quan::two_d::vect<Value_type>
+    abs( quan::two_d::vect<Value_type> const & v)
+    {
+        return{abs(v.x),abs(v.y)};
+    }
+
+    template <typename Value_type>
+    inline
     typename quan::meta::binary_op<
         Value_type,
         quan::meta::times,
