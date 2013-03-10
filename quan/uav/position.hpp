@@ -26,6 +26,7 @@ namespace quan { namespace uav {
          this->lat = in.lat;
          this->lon = in.lon;
          this->alt = in.alt;
+         return *this;
        }
        template <typename LengthType1, typename AngleType1>
        position (position<LengthType1,AngleType1> const & in)
