@@ -56,18 +56,17 @@ namespace quan{
         typedef fraction_of_revolution type;
 
 QUAN_CONSTEXPR
-        fraction_of_revolution(): m_value(static_cast<ValueType>(0)){}
+        fraction_of_revolution(): m_value{static_cast<ValueType>(0)}{}
 
 QUAN_CONSTEXPR
         explicit fraction_of_revolution(ValueType const& v)
         :m_value(v){}
 
-
         template < typename Value_type1>
         explicit 
 QUAN_CONSTEXPR
 fraction_of_revolution(Value_type1 const & v)
-        :m_value(implicit_cast<ValueType>(v)){}
+        :m_value{quan::arithmetic_convert<ValueType>(v)}{}
 
 QUAN_CONSTEXPR
         fraction_of_revolution(fraction_of_revolution const& fr)
@@ -85,14 +84,16 @@ QUAN_CONSTEXPR
                 Value_type1
             > const & fr
         )
-        : m_value( fr.numeric_value()
+        : m_value{ quan::arithmetic_convert<ValueType>( 
+            fr.numeric_value()
             * quan::meta::eval_rational<
                 typename quan::meta::binary_op<
                     ReciprocalFraction,
                     quan::meta::divides,
                     ReciprocalFraction1
                 >::type
-            >()()){}
+            >()())
+           }{}
 
 
         template< typename Value_type1>
@@ -103,11 +104,11 @@ QUAN_CONSTEXPR
                 Value_type1
             > const & r
         )
-        : m_value( r.numeric_value()
+        : m_value{ quan::arithmetic_convert<ValueType>(r.numeric_value()
             * quan::meta::eval_rational<
                 ReciprocalFraction
             >()()
-            / (2 * constant_<typename quan::meta::float_promote<Value_type1>::type>::pi)){}
+            / (2 * constant_<typename quan::meta::float_promote<Value_type1>::type>::pi)) }{}
 
 QUAN_CONSTEXPR
         ValueType numeric_value()const{return m_value;}
