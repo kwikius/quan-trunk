@@ -39,7 +39,7 @@ quan::angle::rad atan2(QUAN_FLOAT_TYPE const & lhs, QUAN_FLOAT_TYPE const & rhs)
 #else
     using ::atan2;
 #endif
-    return quan::angle::rad (atan2(lhs, rhs));
+    return quan::angle::rad {atan2(lhs, rhs)};
 }
 
 template <
