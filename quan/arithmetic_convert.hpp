@@ -100,19 +100,19 @@ namespace quan {namespace impl_detail {
     Target operator()(Source const & s) const
     {
 
-        if (range_check_impl<Target,Source>()(s)) {
-         int sign_s = ( s >=Source(0) ) ? 1 : -1;
+        if (range_check_impl<Target,Source>{}(s)) {
+         int sign_s = ( s >= Source{0} ) ? 1 : -1;
          Source abs_s = (sign_s ==1)?s:-s;
-         Source abs_intpart =0;;
+         Source abs_intpart =0;
 #ifndef __AVR__
          Source abs_fract = std::modf(abs_s,&abs_intpart);
 #else
          Source abs_fract = ::modf(abs_s,&abs_intpart);
 #endif
-         if (abs_fract < (Source(1)/2)){
+         if (abs_fract < (Source{1}/2)){
             return static_cast<Target>(s);
          }else {
-            if (abs_fract > (Source(1)/2)){
+            if (abs_fract > (Source{1}/2)){
                 return static_cast<Target>(s) + sign_s;
             }else{//fraction is 0.5;
                 Target abs_res = static_cast<Target>(abs_intpart);
