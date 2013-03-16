@@ -27,6 +27,7 @@ type='text/css'
 <!--STM32F4_Index-->
 <!--PageFooter-->
 <!--Gpio-->
+<!--gpio::Pin-->
 <!--gpio::module-->
 <!--PeriphReg-->
 <div><a href = '../../index.html'><img src = '../../common/quan_logo.png'>
@@ -38,10 +39,38 @@ type='text/css'
 <tr><td class="notation-type-value">R</td><td class="notation-type-value"><a href = ''>PeriphReg</a></td></tr>
 <tr><td class="notation-type-value-header">value</td><td class="notation-type-value-header">has type</td></tr>
 <tr><td class="notation-type-value">r</td><td class="notation-type-value">R</td></tr>
+<tr><td class="notation-type-value">B</td><td class="notation-type-value">constexpr Uint in range of 0 to 8 * sizeof(R::value_type)-1</td></tr>
+<tr><td class="notation-type-value">v</td><td class="notation-type-value">R::value_type</td></tr>
+<tr><td class="notation-type-value">V</td><td class="notation-type-value">constexpr R::value_type</td></tr>
 </table>
 </td></tr>
-<tr><td><table class="expressions"><tr><td class="expression-header">Expression</td><td class="expression-header">result</td><td class="expression-header">notes</td></tr>
-<tr><td class="expression">R</td><td class="expression">p*</td><td class="expression">returns a pointer to the modules position in memory</td></tr>
+<tr><td class="constructs">Periphreg expressions</td></tr>
+<tr><td><table class="notation"><tr><td class="notation-header">Member types</td></tr>
+<tr><td class="notation-type-value-header">type</td><td class="notation-type-value-header">model of</td><td class="notation-type-value-header">description</td></tr>
+<tr><td>R::module_type</td><td>Module</td><td>Type of the Module of which Periphreg is a member</td></tr>
+<tr><td>R::value_type</td><td>Uint</td><td>The underlying C++ type representing the Periphreg memory register</td></tr>
+<tr><td>R::type</td><td><a href = ''>PeriphReg</a></td><td>self type</td></tr>
+</table>
+</td></tr>
+<tr><td><table class="notation"><tr><td class="notation-header">Member values</td></tr>
+<tr><td class="notation-type-value-header">value</td><td class="notation-type-value-header">type</td><td class="notation-type-value-header">linkage/mods</td><td class="notation-type-value-header">description</td></tr>
+<tr><td>R::address_offset</td><td>uint32_t</td><td>static constexpr</td><td>The memory offset of the Periphreg in the Module.</td></tr>
+<tr><td>R::address</td><td>uint32_t</td><td>static constexpr</td><td>The absolute memory address of the Periphreg in memory.</td></tr>
+</table>
+</td></tr>
+<tr><td><table class="expressions"><tr><td class="expression-header">Expression</td><td class="expression-header">result_type</td><td class="expression-header">effects</td><td class="expression-header">notes</td></tr>
+<tr><td class="expression">R::get()</td><td class="expression">R::value_type</td><td class="expression">undefined</td><td class="expression">Read the docs for for particular register side effects</td></tr>
+<tr><td class="expression">R::set(v)</td><td class="expression">none</td><td class="expression">writes v to the register memory location</td><td class="expression">Read the docs for for particular register side effects</td></tr>
+<tr><td class="expression">R::setbit&lt;B&gt;()</td><td class="expression">none</td><td class="expression">reads the register memory location, Ors it with (1 &lt;&lt; B) and writes  the modified value back to the register</td><td class="expression">Read the docs for for particular register side effects</td></tr>
+<tr><td class="expression">R::bb_setbit&lt;B&gt;()</td><td class="expression">none</td><td class="expression">sets the corresponding bitband register for bit B in the register to true (atomic)</td><td class="expression">Read the docs for for particular register side effects</td></tr>
+<tr><td class="expression">R::clearbit&lt;B&gt;()</td><td class="expression">none</td><td class="expression">reads the register memory location, Ands it with ~(1 &lt;&lt; B) and writes  the modified value back to the register</td><td class="expression">Read the docs for for particular register side effects</td></tr>
+<tr><td class="expression">R::bb_clearbit&lt;B&gt;()</td><td class="expression">none</td><td class="expression">clears the corresponding bitband register for bit B in the register to false (atomic)</td><td class="expression">Read the docs for for particular register side effects</td></tr>
+<tr><td class="expression">r = v</td><td class="expression">R&</td><td class="expression">writes v to the register memory location</td><td class="expression">Read the docs for for particular register side effects</td></tr>
+<tr><td class="expression">r |= v</td><td class="expression">R&</td><td class="expression">reads the register memory location, Ors it with v and writes  the modified value back to the register</td><td class="expression">Read the docs for for particular register side effects</td></tr>
+<tr><td class="expression">r &= v</td><td class="expression">R&</td><td class="expression">reads the register memory location, Ands it with v and writes  the modified value back to the register</td><td class="expression">Read the docs for for particular register side effects</td></tr>
+<tr><td class="expression">r.or_equals&lt;V&gt;()</td><td class="expression">R&</td><td class="expression">reads the register memory location, Ors it with V and writes  the modified value back to the register</td><td class="expression">Read the docs for for particular register side effects</td></tr>
+<tr><td class="expression">r.and_equals&lt;V&gt;()</td><td class="expression">R&</td><td class="expression">reads the register memory location, Ands it with V and writes  the modified value back to the register</td><td class="expression">Read the docs for for particular register side effects</td></tr>
+<tr><td class="expression">r.xor_equals&lt;V&gt;()</td><td class="expression">R&</td><td class="expression">reads the register memory location, Xors it with V and writes  the modified value back to the register</td><td class="expression">Read the docs for for particular register side effects</td></tr>
 </table>
 </td></tr>
 </table>
