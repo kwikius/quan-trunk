@@ -46,7 +46,6 @@ namespace quan{ namespace stm32f4{
    protected :
       volatile T m_value;
       T padding;
-
    };
 
    template <typename T> struct periph_reg_base<T, typename quan::where_c<(sizeof( T ) == 4)>::type>{
@@ -130,7 +129,6 @@ namespace quan{ namespace stm32f4{
       {
           return ( m_value & quan::bit<value_type>(Bit) ) != 0;
       }
-
 
       template <value_type Value> typename quan::where_<
 				quan::meta::bool_<Value!=0> 
