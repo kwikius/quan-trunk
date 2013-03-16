@@ -1,0 +1,66 @@
+<html>
+<!-- root   = /home/andy/website/quan-trunk -->
+<!-- offset = quan_matters/doc/quan/stm32f4/gpio/pin.html -->
+<title>
+quan::stm32f4::gpio::Pin
+</title>
+<head>
+<link
+rel='stylesheet'
+href='../../../common/style.css'
+type='text/css'
+>
+<link
+rel='stylesheet'
+href='../../../common/concept_style.css'
+type='text/css'
+>
+</head>
+<body>
+<!--quan::PolymorphicFunctor1-->
+<!--quan::TypeSequence-->
+<!--SiteIndex-->
+<!--QuanIndex-->
+<!--QuanLogo-->
+<!--HR-->
+<!--PageHeader-->
+<!--STM32F4_Index-->
+<!--PageFooter-->
+<!--Gpio-->
+<!--gpio::Pin-->
+<!--gpio::module-->
+<!--PeriphReg-->
+<div><a href = '../../../index.html'><img src = '../../../common/quan_logo.png'>
+</a><a href = '../../../index.html'>Quan Index</a><HR></div><p><a href = '../index.html'>stm32f4 - index </a></p>
+<span id="entity-type">Archetype</span><span id="entity-name"> quan::stm32f4::gpio::Pin</span><table class="constructs"><tr><td class="constructs">Constructs</td></tr>
+<tr><td><table class="notation"><tr><td class="notation-header">Notation</td></tr>
+<tr><td class="notation-type-value-header">type</td><td class="notation-type-value-header">model of</td></tr>
+<tr><td class="notation-type-value">P</td><td class="notation-type-value"><a href = ''>gpio::Pin</a></td></tr>
+<tr><td class="notation-type-value">Settings</td><td class="notation-type-value">TypeSequence&lt;PinSetting...&gt;</td></tr>
+</table>
+</td></tr>
+<tr><td class="constructs">Pin expressions</td></tr>
+<tr><td><table class="notation"><tr><td class="notation-header">Member types</td></tr>
+<tr><td class="notation-type-value-header">type</td><td class="notation-type-value-header">model of</td><td class="notation-type-value-header">description</td></tr>
+<tr><td>P::port_type</td><td><a href = './index.html'>Gpio</a></td><td>type of the gpio port the pin is a member of</td></tr>
+<tr><td>P::value_type</td><td>Uint</td><td>The basic C++ type of the port for logic</td></tr>
+</table>
+</td></tr>
+<tr><td><table class="notation"><tr><td class="notation-header">Member values</td></tr>
+<tr><td class="notation-type-value-header">value</td><td class="notation-type-value-header">type</td><td class="notation-type-value-header">linkage/mods</td><td class="notation-type-value-header">description</td></tr>
+<tr><td>P::pin_value</td><td>P::value_type</td><td>static constexpr</td><td>The bit position of the pin in the Gpio port register.</td></tr>
+</table>
+</td></tr>
+<tr><td><table class="expressions"><tr><td class="notation-header">Global expressions</td><td> (in quan::stm32f4 namespace)</td></tr>
+<tr><td class="expression-header">expression</td><td class="expression-header">result type</td><td class="expression-header">effects</td><td class="expression-header">notes</td></tr>
+<tr><td class="expression">get&lt;P&gt;();</td><td class="expression">bool</td><td class="expression">none</td><td class="expression">returns the state of the pins idr register</td></tr>
+<tr><td class="expression">set&lt;P&gt;();</td><td class="expression">none</td><td class="expression">sets the pins odr register bit to 1</td><td class="expression"></td></tr>
+<tr><td class="expression">clear&lt;P&gt;();</td><td class="expression">none</td><td class="expression">sets the pins odr register bit to 0</td><td class="expression"></td></tr>
+<tr><td class="expression">apply&lt;P,Settings&gt;();</td><td class="expression">none</td><td class="expression">See the Settings doc for more information</td><td class="expression"></td></tr>
+</table>
+</td></tr>
+</table>
+<p><a href = '../index.html'>stm32f4 - index </a></p>
+<div><HR><div><a href = '../../../index.html'><img src = '../../../common/quan_logo.png'>
+</a><a href = '../../../index.html'>Quan Index</a><HR></div></div></body>
+</html>
