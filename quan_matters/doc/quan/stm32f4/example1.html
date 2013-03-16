@@ -1,0 +1,79 @@
+<html>
+<!-- root   = /home/andy/website/quan-trunk -->
+<!-- offset = quan_matters/doc/quan/stm32f4/example1.html -->
+<title>
+quan::stm32f4 - index
+</title>
+<head>
+<link
+rel='stylesheet'
+href='../../common/style.css'
+type='text/css'
+>
+<link
+rel='stylesheet'
+href='../../common/concept_style.css'
+type='text/css'
+>
+</head>
+<body>
+<!--quan::PolymorphicFunctor1-->
+<!--quan::TypeSequence-->
+<!--SiteIndex-->
+<!--QuanIndex-->
+<!--QuanLogo-->
+<!--HR-->
+<!--PageHeader-->
+<!--STM32F4_Index-->
+<!--PageFooter-->
+<!--Gpio-->
+<!--gpio::Pin-->
+<!--gpio::module-->
+<!--PeriphReg-->
+<div><a href = '../../index.html'><img src = '../../common/quan_logo.png'>
+</a><a href = '../../index.html'>Quan Index</a><HR></div><p><a href = './index.html'>stm32f4 - index </a></p>
+<h3>Example - blink an led</h3>
+<pre class="code-example">
+/*
+  stm32f4  blink forever on  GPIOD,13 ( orange led on Discovery board )
+  very simple. no interrupts etc.
+*/
+
+#include &lt;cstdint&gt;
+#include &lt;quan/stm32f4/gpio.hpp&gt;
+
+void delay()
+{
+    for ( long long i = 0; i &lt; 2500000; ++i){
+           asm("nop");
+    }
+}
+   
+   using namespace quan::stm32f4;
+   typedef gpio::pin&lt;gpiod,13&gt; PD13; // A port Pin is aliased by a typedef
+
+int main()
+{
+   module_enable&lt;gpiod&gt;();  // On the ARM architecture the GPIO ports must be switch on else no output!
+
+   // The following function is turned into efficient assembler
+   // to apply the various settings to the port pin
+   apply&lt;
+      PD13
+      , gpio::mode::output
+      , gpio::otype::push_pull
+      , gpio::pupd::none
+      , gpio::ospeed::fast 
+      , gpio::ostate::high // start with led ON
+   &gt;();
+
+   while (1) {
+     complement&lt;PD13&gt;();  
+     delay();
+   }
+}
+
+//source = <a href = '../../../examples/doc/stm32f4_blink.cpp'>&lt;quan_matters/examples/doc/stm32f4_blink.cpp&gt;</a></pre><p><a href = './index.html'>stm32f4 - index </a></p>
+<div><HR><div><a href = '../../index.html'><img src = '../../common/quan_logo.png'>
+</a><a href = '../../index.html'>Quan Index</a><HR></div></div></body>
+</html>
