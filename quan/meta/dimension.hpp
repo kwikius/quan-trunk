@@ -23,7 +23,6 @@
 #include <quan/meta/binary_log_transform.hpp>
 #include <quan/archetypes/meta/static_abstract_quantity_concept.hpp>
 #include <quan/meta/bool.hpp>
-#include <type_traits>
 #include <quan/meta/eq.hpp>
 #include <quan/meta/and.hpp>
 #include <quan/meta/not.hpp>

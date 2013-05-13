@@ -6,10 +6,12 @@
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/config.hpp>
-#include <type_traits>
+
 #if defined __AVR__
-   #include <stdint.h>
+#include <stdint.h>
+#include <quan/std/tr1/integral_constant.hpp>
 #else
+#include <type_traits>
 #include <cstdint>
 #endif
 

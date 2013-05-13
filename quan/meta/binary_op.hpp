@@ -28,7 +28,13 @@
 #include <quan/meta/arithmetic_promote.hpp>
 
 #include <quan/where.hpp>
+#ifndef __AVR__
 #include <type_traits>
+#else
+#include <quan/std/tr1/is_arithmetic.hpp>
+#include <quan/std/tr1/is_same.hpp>
+#include <quan/std/tr1/add_reference.hpp>
+#endif
 
 #include <quan/meta/or.hpp>
 #include <quan/meta/and.hpp>
@@ -72,7 +78,11 @@ namespace quan{  namespace meta{
             is_assignment_operator<Op> 
         >::type
     >{
+#ifndef __AVR__
         typedef typename std::add_lvalue_reference<A>::type type;
+#else
+        typedef typename std::add_reference<A>::type type;
+#endif
     };
 
    template<

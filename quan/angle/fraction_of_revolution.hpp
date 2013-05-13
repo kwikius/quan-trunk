@@ -4,23 +4,39 @@
 #  pragma once
 #endif
 
-/// Copyright Andrew Little 2005
+/*
+ Copyright (c) 2003 - 2013 Andy Little 
 
-// See QUAN_ROOT/quan_matters/index.html for documentation.
-
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 /*
     fraction of revolution for angles such as degrees etc
 */
 #include <quan/config.hpp>
 #ifdef __AVR__
 #include <math.h>
+#include <quan/std/tr1/is_same.hpp>
+#include <quan/std/tr1/integral_constant.hpp>
+#include <quan/std/tr1/is_float.hpp>
 #else
 #include <cmath>
+#include <type_traits>
 #endif
 
 #include <quan/angle/angle_fwd.hpp>
 #include <quan/meta/is_angle.hpp>
-#include <type_traits>
+
 #include <quan/concept_checking.hpp>
 #include <quan/constants/constant.hpp>
 #include <quan/meta/is_angle_value_type.hpp>
@@ -28,13 +44,10 @@
 #include <quan/meta/rational.hpp>
 #include <quan/meta/eval_rational.hpp>
 #include <quan/implicit_cast.hpp>
-#include <type_traits>
 #include <quan/meta/if.hpp>
 #include <quan/meta/eval_if.hpp>
 #include <quan/meta/gt.hpp>
 #include <quan/where.hpp>
-#include <type_traits>
-#include <type_traits>
 #include <quan/meta/eq.hpp>
 #include <quan/meta/neq.hpp>
 #include <quan/arithmetic_convert.hpp>

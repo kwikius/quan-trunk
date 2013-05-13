@@ -4,13 +4,26 @@
 #  pragma once
 #endif
 
-/// Copyright Andrew Little 2005
+/*
+ Copyright (c) 2003 - 2013 Andy Little 
 
-// See QUAN_ROOT/quan_matters/index.html for documentation.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 
 /*
     mathematic_angle implementation(radians, steradians)
-    mathematic_angle can be seen as a numeric type with extra attributes
+    mathematic_angle is really just a numeric type with extra attributes
     therefore it can be 'decayed' to its numeric value_type.
     The Extent parameter is a rational number e.g radians  has an extent of 1
     , while steradians has an extent of two.
@@ -18,27 +31,28 @@
     etc
 
     Also see <quan/angles/fraction_of-revolution.hpp> for
-    e.g degrees,minutes, seconds
+    fraction of revolution angles e.g degrees,minutes, seconds, grad
 */
 #include <quan/config.hpp>
 #ifdef __AVR__
 #include "math.h"
-//#include "float.h"
+#include <quan/std/tr1/is_same.hpp>
+#include <quan/std/tr1/integral_constant.hpp>
 #if defined abs
 #undef abs
 #endif
-
+//#include "float.h"
 #else
+#include <type_traits>
 #include <cmath>
 #endif
+
 #include <quan/meta/is_angle.hpp>
 #include <quan/angle/meta_math_angle.hpp>
 #include <quan/meta/binary_op_if.hpp>
 #include <quan/meta/is_numeric.hpp>
 #include <quan/meta/is_angle_value_type.hpp>
 #include <quan/implicit_cast.hpp>
-#include <type_traits>
-#include <type_traits>
 #include <quan/constants/constant.hpp>
 #include <quan/arithmetic_convert.hpp>
 #include <quan/meta/if.hpp>

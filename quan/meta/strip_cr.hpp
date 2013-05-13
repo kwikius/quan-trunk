@@ -4,9 +4,12 @@
 /// Copyright Andrew Little 2007
 
 // See QUAN_ROOT/quan_matters/index.html for documentation.
-
+#ifndef __AVR__
 #include <type_traits>
-
+#else
+#include <quan/std/tr1/remove_const.hpp>
+#include <quan/std/tr1/remove_reference.hpp>
+#endif
 namespace quan{ namespace meta{
 
    template <typename T>

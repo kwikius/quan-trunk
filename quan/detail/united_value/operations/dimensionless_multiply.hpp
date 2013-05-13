@@ -54,8 +54,12 @@
 #include <quan/detail/dimless_mul_exp_2mux.hpp>
 #include <quan/detail/calc_triple.hpp>
 #include <quan/meta/eq.hpp>
+#ifndef __AVR__
 #include <type_traits>
 #include <cstdint>
+#else
+#include <stdint.h>
+#endif
 
 namespace quan{namespace detail{
 

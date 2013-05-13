@@ -30,9 +30,13 @@
 
 */
 #include <quan/meta/eval_if.hpp>
+#ifndef __AVR__
 #include <type_traits>
-#include <type_traits>
-#include <type_traits>
+#else
+#include <quan/std/tr1/is_same.hpp>
+#include <quan/std/tr1/is_integral.hpp>
+#include <quan/std/tr1/is_float.hpp>
+#endif
 #include <quan/meta/binary_op.hpp>
 #include <quan/meta/identity.hpp>
 

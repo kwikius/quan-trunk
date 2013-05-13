@@ -18,7 +18,6 @@
 #include <quan/meta/binary_op.hpp>
 #include <quan/meta/is_numeric.hpp>
 #include <quan/where.hpp>
-#include <type_traits>
 
 namespace quan{ namespace meta{
 

@@ -16,8 +16,11 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
-
+#ifndef __AVR__
 #include <type_traits>
+#else
+#include <quan/std/tr1/integral_constant.hpp>
+#endif
 #include <quan/meta/eval_if.hpp>
 
 namespace quan{namespace meta{

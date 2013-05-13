@@ -10,8 +10,14 @@
 /*
     concept checking classes
 */
-
+#include <quan/config.hpp>
+#ifndef __AVR__
 #include <type_traits>
+#else
+#include <quan/std/tr1/is_arithmetic.hpp>
+#include <quan/std/tr1/is_integral.hpp>
+#endif
+
 #include <quan/meta/to_arithmetic.hpp>
 #include <quan/meta/and.hpp>
 #include <quan/meta/if.hpp>

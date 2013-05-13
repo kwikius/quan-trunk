@@ -9,12 +9,14 @@
 
 #include <quan/config.hpp>
 #include <quan/meta/numdigits.hpp>
-#include <type_traits>
+
 #include <quan/where.hpp>
 #ifndef __AVR__
+#include <type_traits>
 #include <cfloat>
 #else
 #include <float.h>
+#include <quan/std/tr1/is_integral.hpp>
 #endif
 namespace quan{ namespace meta{
 

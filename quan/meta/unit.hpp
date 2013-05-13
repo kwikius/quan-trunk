@@ -19,9 +19,8 @@
 #include <quan/meta/si_unit_system.hpp>
 #include <quan/static_assert.hpp>
 #include <quan/meta/not.hpp>
-#include <type_traits>
 #include <quan/meta/if.hpp>
-#include <type_traits>
+
 
 namespace quan{ namespace meta{
 

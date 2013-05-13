@@ -19,8 +19,11 @@
 */
 
 // See QUAN_ROOT/quan_matters/index.html for documentation.
-
+#ifndef __AVR__
 #include <type_traits>
+#else
+#include <quan/std/tr1/integral_constant.hpp>
+#endif
 
 namespace quan{ namespace meta{
 

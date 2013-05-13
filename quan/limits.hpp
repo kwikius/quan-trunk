@@ -3,24 +3,25 @@
 
 // Copyright Andrew Little 2001-20012
 // See QUAN_ROOT/quan_matters/index.html for documentation.
+#include <quan/config.hpp>
 #include <quan/meta/arithmetic_promote.hpp>
+
+#ifndef __AVR__
 #include <type_traits>
-#include <type_traits>
+#include <stdexcept>
+#else
+#include <quan/std/tr1/integral_constant.hpp>
+#endif
+
 #include <quan/where.hpp>
 #include <quan/meta/and.hpp>
 #include <quan/meta/or.hpp>
 #include <quan/meta/bool.hpp>
-#include <type_traits>
-#include <type_traits>
-#include <type_traits>
 #include <quan/meta/strip_cr.hpp>
 #include <quan/meta/integer_min.hpp>
 #include <quan/meta/integer_max.hpp>
 #include <quan/meta/float_min.hpp>
 #include <quan/meta/float_max.hpp>
-#if !defined __AVR__
-#include <stdexcept>
-#endif
 
 namespace quan{
 

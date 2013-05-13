@@ -2,27 +2,32 @@
 #define QUAN_ARITHMETIC_CONVERT_HPP_INCLUDED
 
 // Copyright Andrew Little 2006-2007
-
+#include <quan/config.hpp>
 #include <quan/limits.hpp>
 #include <quan/meta/and.hpp>
 #include <quan/meta/signed_unsigned.hpp>
 #include <quan/meta/not.hpp>
 #include <quan/meta/or.hpp>
-#include <type_traits>
-#include <type_traits>
-#include <type_traits>
 #include <quan/implicit_cast.hpp>
 #include <quan/meta/identity.hpp>
 #include <quan/meta/is_angle.hpp>
 
 #if defined __AVR__
 #include <math.h>
+#include <quan/std/tr1/is_unsigned.hpp>
+#include <quan/std/tr1/is_arithmetic.hpp>
+#include <quan/std/tr1/is_float.hpp>
+#include <quan/std/tr1/is_same.hpp>
+#include <quan/avr/numeric_limits.hpp>
+#undef max
 #else
+#include <type_traits>
 #include <cmath>
 #endif
 #if defined abs
 #error "abs is a macro"
 #endif
+#include <quan/meta/max.hpp>
 
 namespace quan {namespace impl_detail {
 
@@ -59,7 +64,8 @@ namespace quan {namespace impl_detail {
             quan::meta::identity<Target>
          >::type unsigned_or_float_type;
 
-         return( static_cast<unsigned_or_float_type>(std::numeric_limits<Target>::max()) >= s);
+        // return( static_cast<unsigned_or_float_type>(std::numeric_limits<Target>:: max ()) >= s);
+         return  static_cast<unsigned_or_float_type>(quan::meta::max_<Target>::value) >= s;
       }
    };
  

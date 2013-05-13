@@ -63,9 +63,13 @@
 #include <quan/meta/eq.hpp>
 #include <quan/meta/neq.hpp>
 #include <quan/meta/eval_if.hpp>
-#include <type_traits>
+#ifndef __AVR__
 #include <cstdint>
-
+#include <limits>
+#else
+#include <stdint.h>
+#include <limits.h>
+#endif
 namespace quan{namespace detail{
    
     template <typename Triple> struct divide_preprocess;

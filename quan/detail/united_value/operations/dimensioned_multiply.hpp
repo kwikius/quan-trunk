@@ -29,8 +29,6 @@ will be used to initialise a quantity (which is always an SI quantity) of the co
 #include <quan/meta/binary_op.hpp>
 #include <quan/meta/rational.hpp>
 #include <quan/quantity_traits.hpp>
-#include <type_traits>
-#include <type_traits>
 #include <quan/meta/bool.hpp>
 #include <quan/meta/eq.hpp>
 #include <quan/undefined.hpp>

@@ -10,7 +10,12 @@
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/config.hpp>
+#ifndef __AVR__
 #include <type_traits>
+#else
+#include <quan/std/tr1/integral_constant.hpp>
+#endif
+
 #include <quan/meta/or.hpp>
 
 namespace quan{ namespace meta{

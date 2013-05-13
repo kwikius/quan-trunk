@@ -9,7 +9,7 @@
 //
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
-#include <type_traits>
+
 #include <quan/meta/eq.hpp>
 #include <quan/meta/not.hpp>
 

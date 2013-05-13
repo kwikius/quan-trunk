@@ -13,7 +13,11 @@
 #include <quan/meta/unary_operators.hpp>
 #include <quan/concept_checking.hpp>
 #include <quan/where.hpp>
+#ifndef __AVR__
 #include <type_traits>
+#else
+#include <quan/std/tr1/is_float.hpp>
+#endif
 
 namespace quan{namespace meta{
 

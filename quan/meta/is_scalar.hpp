@@ -13,8 +13,11 @@
 */
 
 #include <quan/config.hpp>
+#ifndef __AVR__
 #include <type_traits>
-
+#else
+#include <quan/std/tr1/is_arithmetic.hpp>
+#endif
 namespace quan{ namespace meta{
 
     template <typename T>

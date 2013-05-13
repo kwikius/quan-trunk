@@ -15,7 +15,11 @@
 #include <quan/meta/and.hpp>
 //#include <quan/where.hpp>
 #include <quan/where.hpp>
+#ifndef __AVR__
 #include <type_traits>
+#else
+#include <quan/std/tr1/integral_constant.hpp>
+#endif
 
 namespace quan{ namespace meta{
     

@@ -18,8 +18,12 @@
 */
 
 #include <quan/meta/binary_op.hpp>
+#ifndef __AVR__
 #include <type_traits>
-
+#else
+#include <quan/std/tr1/remove_reference.hpp>
+#include <quan/std/tr1/is_same.hpp>
+#endif
 
 namespace quan{ namespace meta{
 

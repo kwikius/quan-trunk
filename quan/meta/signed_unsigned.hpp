@@ -7,12 +7,8 @@
 #include <quan/meta/if.hpp>
 #include <quan/meta/eval_if.hpp>
 #if defined __AVR__
-#include <type_traits>
-#include <type_traits>
-  namespace std{
-    using std::is_unsigned;
-    using std::is_signed;
-  }
+#include <quan/std/tr1/is_signed.hpp>
+#include <quan/std/tr1/is_unsigned.hpp>
 #else
 #include <type_traits>
 #endif

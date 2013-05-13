@@ -6,14 +6,11 @@
 #include <quan/config.hpp>
 #ifndef __AVR__
 #include <climits>
-
 #include <type_traits>
 #else
-#include <limits.h>
-#include <type_traits>
-namespace std{
-   using std::integral_constant;
-}
+#include <quan/avr/limits.hpp>
+//#include <quan/avr/limits.hpp>
+#include <quan/std/tr1/integral_constant.hpp>
 #endif
 
 namespace quan{ namespace meta{

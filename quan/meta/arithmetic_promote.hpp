@@ -7,8 +7,12 @@
 // Copyright Andrew Little 2005-2012
 
 // See QUAN_ROOT/quan_matters/index.html for documentation.
-
+#ifndef __AVR__
 #include <type_traits>
+#else
+#include <quan/std/tr1/is_arithmetic.hpp>
+#endif
+
 #include <quan/where.hpp>
 #include <quan/meta/and.hpp>
 #include <quan/meta/strip_cr.hpp>

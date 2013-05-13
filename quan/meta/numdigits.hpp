@@ -1,9 +1,12 @@
 #ifndef QUAN_META_NUMDIGITS_HPP_INCLUDED
 #define QUAN_META_NUMDIGITS_HPP_INCLUDED
 
+#ifndef __AVR__
 #include <type_traits>
-#include <type_traits>
-#include <type_traits>
+#else
+#include <quan/std/tr1/is_integral.hpp>
+#include <quan/std/tr1/is_signed.hpp>
+#endif
 #include <quan/meta/numbits.hpp>
 #include <quan/where.hpp>
 

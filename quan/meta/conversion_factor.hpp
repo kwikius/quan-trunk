@@ -19,7 +19,6 @@
 #include <quan/config.hpp>
 #include <quan/meta/conversion_factor_fwd.hpp>
 #include <quan/archetypes/meta/static_numeric_concept.hpp>
-//#include <quan/meta/mpl_int_numeric_concept.hpp>
 #include <quan/meta/binary_op.hpp>
 #include <quan/meta/unary_operation.hpp>
 #include <quan/meta/rational.hpp>
@@ -30,7 +29,6 @@
 #include <quan/meta/or.hpp>
 #include <quan/meta/lt.hpp>
 #include <quan/meta/eq.hpp>
-#include <type_traits>
 #include <quan/meta/int32.hpp>
 
 namespace quan{namespace meta{

@@ -20,8 +20,11 @@
 #include <quan/meta/arithmetic_promote.hpp>
 #include <quan/quantity_traits.hpp>
 #include <quan/meta/if.hpp>
+#ifndef __AVR__
 #include <type_traits>
-
+#else
+#include <quan/std/tr1/is_integral.hpp>
+#endif
 namespace quan{ namespace meta{
 
     template<typename T>
@@ -49,8 +52,7 @@ namespace quan{ namespace meta{
             T
         >::type type;
     };
-    
-   
+       
 }}//quan::meta
 
 #endif

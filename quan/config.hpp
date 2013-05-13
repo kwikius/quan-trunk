@@ -21,7 +21,15 @@
 #if (defined _MSC_VER) && (_MSC_VER >= 1200)
 #  pragma once
 #endif
+#ifndef __AVR__
 #include <cstdint>
+
+#else
+#define QUAN_NO_EXCEPTIONS
+#include <stdint.h>
+#define QUAN_USE_QUAN_STD_TR1
+#endif
+
 #if defined QUAN_STM32F4 
 #include <quan/stm32f4/config.hpp>
 #endif
@@ -188,9 +196,9 @@
 //prevent conversion of math angle to numeric
 //#define QUAN_NO_MATH_ANGLE_NUMERIC_CONVERSION
 // may not have if 
-#ifndef __AVR__
+//#ifndef __AVR__
 #define QUAN_HAS_LONG_LONG
-#endif
+//#endif
 #endif
 
 

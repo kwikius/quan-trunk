@@ -3,7 +3,7 @@
 
 // Copyright Andrew Little 2005-2007
 
-#include <type_traits>
+//#include <type_traits>
 #include <quan/config.hpp>
 
 #include <quan/where.hpp>

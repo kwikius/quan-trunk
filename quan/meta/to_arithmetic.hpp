@@ -9,8 +9,15 @@
     Used by fixed_quantity value_type
 */
 
+#include <quan/config.hpp>
+
 #include <quan/where.hpp>
+#ifndef __AVR__
 #include <type_traits>
+#else
+#include <quan/std/tr1/is_arithmetic.hpp>
+#endif
+
 
 namespace quan{namespace meta{
 

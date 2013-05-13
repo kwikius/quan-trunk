@@ -19,7 +19,7 @@
 #include <quan/config.hpp>
 #include <quan/meta/arithmetic_promote.hpp>
 #include <quan/meta/to_arithmetic.hpp>
-#include <quan/concept_checking.hpp>
+//#include <quan/concept_checking.hpp>
 #include <quan/arithmetic_convert.hpp>
 
 #if defined __AVR__

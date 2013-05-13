@@ -19,7 +19,7 @@
 #include <quan/meta/and.hpp>
 #include <quan/meta/not.hpp>
 #include <quan/meta/identity.hpp>
-#include <type_traits>
+
 #if defined  __AVR__
   #include <math.h>
 #else

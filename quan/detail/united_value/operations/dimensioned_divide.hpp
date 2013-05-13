@@ -31,7 +31,7 @@ however at that point it may have another conversion.
 #include <quan/meta/binary_op.hpp>
 #include <quan/meta/rational.hpp>
 #include <quan/quantity_traits.hpp>
-#include <type_traits>
+
 #include <quan/meta/bool.hpp>
 #include <quan/meta/eq.hpp>
 #include <quan/undefined.hpp>

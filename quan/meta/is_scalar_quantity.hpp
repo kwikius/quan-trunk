@@ -19,8 +19,11 @@
     by nature, a vector quantity,the information is not useful uunless the 
     vector information ( magnitude and direction) is provided.
 */
-
+#ifndef __AVR__
 #include <type_traits>
+#else
+#include <quan/std/tr1/integral_constant.hpp>
+#endif
 
 namespace quan{ namespace meta{
 

@@ -9,8 +9,11 @@
 /*
     Is T a numeric type
 */
-
+#ifndef __AVR__
 #include <type_traits>
+#else
+#include <quan/std/tr1/is_arithmetic.hpp>
+#endif
 #include <quan/meta/and.hpp>
 #include <quan/meta/is_angle.hpp>
 #include <quan/meta/or.hpp>

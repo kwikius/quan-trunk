@@ -11,7 +11,11 @@
 */
 
 #include <quan/config.hpp>
+#ifndef __AVR__
 #include <type_traits>
+#else
+#include <quan/std/tr1/is_arithmetic.hpp>
+#endif
 #include <quan/meta/anonymous_quantity_traits.hpp>
 #include <quan/meta/if.hpp>
 

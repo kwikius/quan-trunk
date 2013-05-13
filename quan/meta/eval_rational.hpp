@@ -17,7 +17,11 @@
     e.g int or double
     Only used by testing
 */
+#ifndef __AVR__
 #include <cstdint>
+#else
+#include <stdint.h>
+#endif
 #include <quan/config.hpp>
 #include <quan/meta/rational.hpp>
 
