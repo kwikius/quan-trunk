@@ -2,8 +2,14 @@
 #define QUAN_CONVERSION_FLOAT_CONVERT_HPP_INCLUDED
 
 #include <quan/convert.hpp>
+#ifndef __AVR__
 #include <climits>
 #include <cstdint>
+#else
+#include <limits.h>
+#include <stdint.h>
+#include <stddef.h>
+#endif
 
 namespace quan{ namespace detail{
 
@@ -64,7 +70,7 @@ namespace quan{ namespace detail{
 				return 0.0f;
 			 }
 			 int sign = 1;
-			 std::size_t pos = 0;
+			 size_t pos = 0;
 			 float result = 0;
 			 auto curtok = get_tok(str[pos]);
 			 if (curtok == float_tok::SIGN){
