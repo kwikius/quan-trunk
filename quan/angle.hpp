@@ -1114,7 +1114,7 @@ namespace quan { //quan
             quan::meta::rational<1>,
             quan::meta::rational<36000>,
             Value_type
-        > cdeg; // 1/110ths of a degree
+        > cdeg; // 1/100ths of a degree
 
         typedef fraction_of_revolution<
             quan::meta::rational<1>,
