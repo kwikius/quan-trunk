@@ -17,8 +17,6 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-// See QUAN_ROOT/quan_matters/index.html for documentation.
-
 #include <quan/meta/bool/bool_def.hpp>
 
 #endif

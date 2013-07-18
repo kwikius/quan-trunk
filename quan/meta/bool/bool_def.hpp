@@ -2,7 +2,7 @@
 #define QUAN_META_BOOL_BOOL_DEF_HPP_INCLUDED
 
 /*
- Copyright (c) 2013 Andy Little 
+ Copyright (c) 2006- 2013 Andy Little 
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -18,7 +18,6 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-// See QUAN_ROOT/quan_matters/index.html for documentation.
 #ifndef __AVR__
 #include <type_traits>
 #else

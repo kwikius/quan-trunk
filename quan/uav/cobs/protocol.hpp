@@ -18,10 +18,10 @@ namespace quan { namespace uav {
       static void stuff_data(const unsigned char *src,unsigned long length, unsigned char *dst);
    };
 
-   template <typename Port, size_t Size>
+   template <typename Port, size_t MaxFrameSize>
    struct cobs_rx_protocol : private cobs_protocol{
 
-      static constexpr size_t max_frame_size = Size;
+      static constexpr size_t max_frame_size = MaxFrameSize;
    // if result is not zero then a frame is in the buffer 
    // return value is length of valid data in buffer
       static uint32_t decode(uint8_t * decoded);

@@ -1,6 +1,18 @@
 
 #include <quan/uav/cobs/protocol.hpp>
 
+/*
+   Not great!
+   src array is length of src data to be encoded + 1 for checksum .. yeeurch!
+   is checksum part of cobs protocol?.. no
+   Should cobbs be dependent on Port ... no
+   so should copy data locally, make data length a template param?
+
+   I do it this way so that the encoded array is local to the function I guess. 
+   Reuses src array, no need for temp array in a small mx and Requires no malloc
+
+   Alternativee would be to encode into a bufffer and then write the buffer externally
+*/
 template <typename Port>
 void quan::uav::cobs_tx_protocol<Port>::encode(uint8_t * src, uint32_t src_size)
 {
@@ -24,6 +36,7 @@ void quan::uav::cobs_tx_protocol<Port>::encode(uint8_t * src, uint32_t src_size)
  * data at the location pointed to by "src",
  * writing the output to the location pointed
  * to by "dst".
+ * No dependency on Port...
  */
 
 template <typename Port>
@@ -54,8 +67,10 @@ void quan::uav::cobs_tx_protocol<Port>:: stuff_data(const unsigned char *src,uns
   *code_ptr = code;
 }
 
-
-// return value is length of valid data in buffer
+// iterative .. keep calling the function until 
+// the result is non-zero
+// then return value is length of valid data in buffer
+// in case of errors returns 0 and resyncs ready for new input
 template <typename Port, size_t Size>
 uint32_t quan::uav::cobs_rx_protocol<Port,Size>::decode(uint8_t * decoded)
 {
