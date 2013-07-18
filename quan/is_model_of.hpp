@@ -1,7 +1,7 @@
 #ifndef QUAN_IS_MODEL_OF_HPP_INCLUDED
 #define QUAN_IS_MODEL_OF_HPP_INCLUDED
 /*
- Copyright (c) 2013 Andy Little 
+ Copyright (c) 2007- 2013 Andy Little 
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
