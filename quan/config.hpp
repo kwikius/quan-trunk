@@ -1,7 +1,7 @@
 #ifndef QUAN_CONFIG_HPP_INCLUDED
 #define QUAN_CONFIG_HPP_INCLUDED
 /*
- Copyright (c) 2005-2013 Andy Little 
+ Copyright (c) 2003-2013 Andy Little 
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -16,7 +16,6 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
-// See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #if (defined _MSC_VER) && (_MSC_VER >= 1200)
 #  pragma once
