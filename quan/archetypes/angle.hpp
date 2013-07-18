@@ -1,5 +1,5 @@
-#ifndef QUAN_CONCEPTS_ANGLE_HPP_INCLUDED
-#define QUAN_CONCEPTS_ANGLE_HPP_INCLUDED
+#ifndef QUAN_ARCHETYPES_ANGLE_HPP_INCLUDED
+#define QUAN_ARCHETYPES_ANGLE_HPP_INCLUDED
 
 #include <quan/where.hpp>
 #include <quan/is_model_of.hpp>
@@ -19,4 +19,4 @@ namespace quan{
 }//quan
 
 
-#endif // QUAN_CONCEPTS_ANGLE_HPP_INCLUDED
+#endif // QUAN_ARCHETYPES_ANGLE_HPP_INCLUDED
