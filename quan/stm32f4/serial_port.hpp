@@ -8,7 +8,7 @@
 #include <quan/stm32f4/usart/get_irq_num.hpp>
 
 #include <cstring>
-#include <quan/stm32f4/usart/detail/fifo.hpp>
+#include <quan/utility/fifo.hpp>
 #include <type_traits>
 #include <quan/meta/if.hpp>
 #include <quan/concepts/port.hpp>
@@ -28,8 +28,9 @@ namespace quan{ namespace stm32f4{
    struct serial_port{
 
      typedef Usart usart_type;
-     typedef quan::stm32f4::usart::detail::fifo<TxBufSize> tx_fifo_type;
-     typedef quan::stm32f4::usart::detail::fifo<RxBufSize> rx_fifo_type;
+     typedef char char_type;
+     typedef quan::fifo<char_type,TxBufSize> tx_fifo_type;
+     typedef quan::fifo<char_type,RxBufSize> rx_fifo_type;
 
      typedef TxPin tx_pin_type;
      typedef RxPin rx_pin_type;
