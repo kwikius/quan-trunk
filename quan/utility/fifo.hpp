@@ -5,6 +5,11 @@ namespace quan{
 //minimum size of 1
 template<typename T, int Size>
 struct fifo {
+    void init()
+    {
+      m_putptr = m_buf;
+      m_getptr = nullptr;
+    }
     static const int size = Size;
     fifo():m_putptr {m_buf},m_getptr {0} {}
     bool is_empty() const {
@@ -65,6 +70,9 @@ bool peek(T& v) const
     v = *m_getptr;
     return true;
 }
+
+
+
  
 bool  get (T & v) 
 {
@@ -84,6 +92,23 @@ bool  get (T & v)
     }
     return true;
 }
+
+ char  get () 
+   {
+       char result = *m_getptr;
+       if (m_putptr ==0) {
+           m_putptr = m_getptr;
+       }
+       ++m_getptr;
+       if(m_getptr == (m_buf + size)) {
+           m_getptr = m_buf;
+       }
+       if (m_getptr == m_putptr) {
+           m_getptr =0;
+       }
+       return result;
+   }
+
 private:
  
 T * m_putptr;
