@@ -4,10 +4,12 @@
 #include <cstdint>
 #include <iostream>
 #include <quan/utility/fifo.hpp>
+#include <quan/concepts/port.hpp>
 #include <quan/meta/if.hpp>
 #include <quan/where.hpp>
 #include <type_traits>
 #include <cstring>
+#include <quan/is_model_of.hpp>
 
 /* for sim to work
 
@@ -128,5 +130,12 @@ namespace quan { namespace uav {
    };
 
 }}//quan::uav   
+
+namespace quan{ namespace impl{
+
+   template <typename Atag, typename Btag>
+   struct is_model_of_impl<quan::StaticPort,quan::uav::serial_port_wire<Atag,Btag> > : quan::meta::true_{};
+
+}}//quan::impl
 
 #endif // PC_SERIAL_PORT_HPP_INCLUDED
