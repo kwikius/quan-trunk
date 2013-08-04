@@ -1,6 +1,27 @@
 #ifndef COBS_HPP_INCLUDED
 #define COBS_HPP_INCLUDED
 
+/*
+ Copyright (c) 2013 Andy Little 
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
+
+/*
+See stuartcheshire.org/papers/COBSforToN.pdf for more info about the COBS protocol
+*/
+
 #include <cstdint>
 
 namespace quan { namespace uav { namespace cobs{
@@ -57,7 +78,7 @@ namespace quan { namespace uav { namespace cobs{
       uint8_t const * const src_end = src + src_length -1;
       uint8_t const * const dest_end = dest + src_length -1;
       while (src < src_end){
-         for (int i=1, code = *src++; i<code; ++i) {
+         for (uint8_t i=1, code = *src++; i<code; ++i) {
           if ( dest < dest_end){
             *dest++ = *src++;
             }
