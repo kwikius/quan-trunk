@@ -1,5 +1,5 @@
-#ifndef COBS_HPP_INCLUDED
-#define COBS_HPP_INCLUDED
+#ifndef QUAN_UAV_COBS_PROTOCOL_HPP_INCLUDED
+#define QUAN_UAV_COBS_PROTOCOL_HPP_INCLUDED
 
 /*
  Copyright (c) 2013 Andy Little 
@@ -95,4 +95,4 @@ namespace quan { namespace uav { namespace cobs{
 
 }}}// quan::uav::cobs
 
-#endif // COBS_HPP_INCLUDED
+#endif //QUAN_UAV_COBS_PROTOCOL_HPP_INCLUDED
