@@ -3,6 +3,8 @@
 
 #ifdef __linux
 #include <quan/platform/linux/serial_port.hpp>
+#else
+#error need to write serial port code for this platform
 #endif
 
 
