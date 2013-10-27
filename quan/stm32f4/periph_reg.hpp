@@ -202,6 +202,18 @@ namespace quan{ namespace stm32f4{
 
    };
 
+   template<typename Module, uint32_t Offset, typename T = typename Module::value_type>
+   inline typename Module::value_type operator &( periph_reg<Module,Offset,T> const & reg, typename Module::value_type val)
+   {
+         return reg.get() & val;
+   }
+
+    template<typename Module, uint32_t Offset, typename T = typename Module::value_type>
+   inline typename Module::value_type operator |( periph_reg<Module,Offset,T> const & reg, typename Module::value_type val)
+   {
+         return reg.get() | val;
+   }
+
 }}
 
 #endif // QUAN_PERIPH_REG_HPP_INCLUDED
