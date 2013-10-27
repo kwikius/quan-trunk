@@ -7,7 +7,9 @@
 #define QUAN_STM32F4
 #endif
 
+#ifndef QUAN_FLOAT_TYPE
 #define QUAN_FLOAT_TYPE float
+#endif
 
 /* 
 add constants defining supply_voltage
