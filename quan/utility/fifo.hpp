@@ -20,7 +20,7 @@ struct fifo {
     }
     bool put(T const & v)
     {
-        if( !m_putptr) return 0;
+        if( !m_putptr) return false;
     // putptr is at end if 0
  
     *m_putptr = v;
@@ -71,9 +71,6 @@ bool peek(T& v) const
     return true;
 }
 
-
-
- 
 bool  get (T & v) 
 {
     if (!m_getptr) {
@@ -93,9 +90,9 @@ bool  get (T & v)
     return true;
 }
 
- char  get () 
+ T  get () 
    {
-       char result = *m_getptr;
+       T result = *m_getptr;
        if (m_putptr ==0) {
            m_putptr = m_getptr;
        }
