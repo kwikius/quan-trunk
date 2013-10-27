@@ -60,6 +60,7 @@
 #else
 #include <stdint.h>
 #endif
+#include <quan/meta/integer_max.hpp>
 
 namespace quan{namespace detail{
 
@@ -80,14 +81,14 @@ namespace quan{namespace detail{
         =    (( quan::meta::is_integer<Exponent>::value !=0 )
                 && (quan::meta::numerator<Exponent>::value < 0)
                 && ( quan::meta::neq_one<Multiplier>::value)
-                && ( (quan::meta::denominator<Multiplier>::value) < (INT32_MAX / 10) ));
+                && ( (quan::meta::denominator<Multiplier>::value) < (quan::meta::integer_max<int32_t>::value / 10) ));
 
         
         const static bool do_pos_value
         =(( quan::meta::is_integer<Exponent>::value !=0 )
                 && (quan::meta::numerator<Exponent>::value > 0)
                 && (quan::meta::neq_one<Multiplier>::value)
-                && ((quan::meta::numerator<Multiplier>::value) < (INT32_MAX / 10) ));
+                && ((quan::meta::numerator<Multiplier>::value) < (quan::meta::integer_max<int32_t>::value / 10) ));
 
         typedef quan::meta::bool_<do_neg_value> do_neg;
         typedef quan::meta::bool_<do_pos_value> do_pos;
