@@ -78,6 +78,7 @@ namespace quan{ namespace stm32f4{
       enable<usart_type>();
     }
 
+    // To set or clear Over consult data sheet
     template <uint32_t Baud, bool Over>
     static void set_baudrate()
     {
