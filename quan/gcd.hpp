@@ -3,16 +3,16 @@
 
 namespace quan {
 
-  template <typename TL, typename Tr> 
-   inline typename <quan::meta::binary_op<TL,quan::meta::divides,Tr>::type gcd(TL n, TL m)
+  template <typename TL, typename TR> 
+   inline typename quan::meta::binary_op<TL,quan::meta::divides,TR>::type gcd(TL  n, TR  m)
    {
-      if (n < 0)n = -n;
-      if (m < 0)m = -m;
+      if (n < TL{0})n = -n;
+      if (m < TR{0})m = -m;
 
       for(;;) {
-         if(m == 0)return n;
+         if(m == TL{0})return n;
          n %= m;
-         if(n == 0 )return m;
+         if(n == TR{0} )return m;
          m %= n;
       }
    }
