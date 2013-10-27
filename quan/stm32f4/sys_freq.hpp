@@ -20,7 +20,6 @@ namespace quan { namespace stm32f4{
          constexpr uint32_t operator()(){ return quan::stm32f4::get_sysclk_frequency() / QUAN_STM32F4_APB2_DIVISOR;}
       };
 
-      
       template<> struct get_bus_frequency_impl<quan::stm32f4::detail::ahb1>{
          constexpr uint32_t operator()(){ return quan::stm32f4::get_sysclk_frequency() / QUAN_STM32F4_AHB_DIVISOR;}
       };
