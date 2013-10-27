@@ -22,6 +22,7 @@
 #else
 #include <quan/std/tr1/remove_const.hpp>
 #include <quan/std/tr1/remove_reference.hpp>
+#include <quan/std/tr1/remove_volatile.hpp>
 #endif
 namespace quan{ namespace meta{
 
