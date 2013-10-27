@@ -198,6 +198,15 @@ bool FrSky2WSP::basic_protocol::get_frame(unsigned char(& destbuf)[9])
             {
                raw_get();
                if (this->m_buffer[10] == 0x7E) {
+                  // check for user data valid number of bytes
+                  if ( this->m_buffer[0] == FrSky2WSP::CommandID::UserData){
+                       auto nbytes = this->m_buffer[1];
+                       if (( nbytes == 0) || ( nbytes > 6)) { // invalid
+                           m_synced = false;
+                           m_buffer_index = 0;
+                           return false; // not got the full frame yet
+                       }
+                  }
                   memcpy(destbuf,this->m_buffer+1,9);
                   m_buffer_index = 0;
                   return true; // success!
