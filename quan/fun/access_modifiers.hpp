@@ -7,9 +7,6 @@
  // of the author.
 
 #include <type_traits>
-#include <type_traits>
-#include <type_traits>
-#include <type_traits>
 
 namespace quan{namespace fun{
 
@@ -49,7 +46,7 @@ namespace quan{namespace fun{
     struct as_const_ref{
         template <typename T>
         struct result{
-            typedef typename std::add_reference<
+            typedef typename std::add_lvalue_reference<
                typename std::add_const<T>::type
             >::type type;
         };
@@ -66,7 +63,7 @@ namespace quan{namespace fun{
      struct as_ref{
         template <typename T>
         struct result{
-            typedef typename std::add_reference<
+            typedef typename std::add_lvalue_reference<
               typename std::remove_const<T>::type
             >::type type;
         };
