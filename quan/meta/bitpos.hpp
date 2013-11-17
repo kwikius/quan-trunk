@@ -4,13 +4,18 @@
 
 #include <quan/config.hpp>
 #include <quan/meta/uint32.hpp>
+
+#ifndef __AVR__
 #include <cstdint>
+#else
+#include <stdint.h>
+#endif
 
 namespace quan{namespace meta{
 
         template <uint32_t Value> struct bitpos;
         
-        #define QUAN_FUN(N) template<> struct bitpos<(1 << N)> : quan::meta::uint32<N>{};
+        #define QUAN_FUN(N) template<> struct bitpos<(static_cast<uint32_t>(1) << static_cast<uint32_t>(N))> : quan::meta::uint32<N>{};
 
         QUAN_FUN(0)
         QUAN_FUN(1)
