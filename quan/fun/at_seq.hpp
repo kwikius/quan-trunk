@@ -3,7 +3,7 @@
 
 #include <quan/fun/access_modifiers.hpp>
 #include <type_traits>
-#include <type_traits>
+#include <tuple>
 
 namespace quan{ namespace fun{
 
@@ -18,7 +18,24 @@ namespace quan{ namespace fun{
       >::type,
       Access
     >{};
-      
+
+    
+    template<int N, typename ...Elements , typename Access>
+    struct at_seq_impl<N,std::tuple<Elements...>, Access>{
+         
+        typedef typename std::tuple_element<N, std::tuple<Elements...> >::type type;
+
+        type operator() ( std::tuple<Elements...> & in)
+        {
+               return std::get<N>(in);
+        }
+
+        type operator() ( std::tuple<Elements...> const & in)
+        {
+               return std::get<N>(in);
+        }
+        
+    };
 
 }}//quan::fun
 
