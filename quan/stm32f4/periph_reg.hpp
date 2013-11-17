@@ -1,5 +1,5 @@
-#ifndef QUAN_PERIPH_REG_HPP_INCLUDED
-#define QUAN_PERIPH_REG_HPP_INCLUDED
+#ifndef QUAN_STM32_F4_PERIPH_REG_HPP_INCLUDED
+#define QUAN_STM32_F4_PERIPH_REG_HPP_INCLUDED
 /*
  Copyright (c) 2012 Andy Little
 
@@ -216,5 +216,5 @@ namespace quan{ namespace stm32f4{
 
 }}
 
-#endif // QUAN_PERIPH_REG_HPP_INCLUDED
+#endif //QUAN_STM32_F4_PERIPH_REG_HPP_INCLUDED
 
