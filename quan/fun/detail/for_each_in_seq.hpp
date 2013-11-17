@@ -38,7 +38,7 @@ namespace quan{ namespace fun {namespace detail{
       void
       operator()(Sequence& a, F const & f)const
       {
-         static_assert( quan::fun::size_seq<Sequence>::value >= N ."error" );
+         static_assert( quan::fun::size_seq<Sequence>::value >= N ,"error" );
          for_each_in_seq_n<N-1> prev;
          prev(a,f);
          at_seq<N,Sequence,as_ref> at;
