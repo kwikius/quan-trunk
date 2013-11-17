@@ -1,6 +1,8 @@
 #ifndef QUAN_FUN_AT_HPP_INCLUDED1
 #define QUAN_FUN_AT_HPP_INCLUDED1
 
+#include <stdint.h>
+#include <stddef.h>
 #include <quan/fun/at_seq.hpp>
 #include <quan/fun/access_modifiers.hpp>
 
