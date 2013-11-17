@@ -27,7 +27,7 @@
 #include <quan/meta/detail/is_base_of_impl.hpp>
 #include <quan/meta/strip_cr.hpp>
 
-namespace std{ namespace tr1{
+namespace std{ 
 
    template <typename B, typename T>
    struct is_base_of {
@@ -38,7 +38,7 @@ namespace std{ namespace tr1{
       static const bool value = type::value;
    };
 
-}}
+}
 
 #else
 #include <type_traits>
