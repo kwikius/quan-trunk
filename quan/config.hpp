@@ -20,9 +20,9 @@
 #if (defined _MSC_VER) && (_MSC_VER >= 1200)
 #  pragma once
 #endif
+
 #ifndef __AVR__
 #include <cstdint>
-
 #else
 #define QUAN_NO_EXCEPTIONS
 #include <stdint.h>
