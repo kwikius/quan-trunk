@@ -5,14 +5,9 @@
 #endif
 
 // Copyright Andrew Little 2006-2007
-//
- 
- 
- 
-//
+
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
-#include <type_traits>
 #include <quan/meta/bool.hpp>
 #include <quan/meta/detail/yes_no_type.hpp>
 #include <quan/meta/detail/is_base_of_tester_fun.hpp>
