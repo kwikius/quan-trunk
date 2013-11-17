@@ -8,13 +8,17 @@
 #include <quan/config.hpp>
 #include <quan/meta/bool/false.hpp>
 #include <quan/meta/bool/true.hpp>
+#ifndef __AVR__
 #include <cstdint>
+#else
+#include <stdint.h>
+#endif
 
 namespace quan{namespace meta{
 
     template <uint32_t Value> struct is_single_bit : quan::meta::false_{};
 
-    #define QUAN_FUN(N) template<> struct is_single_bit<(1 << N)> : quan::meta::true_{};\
+    #define QUAN_FUN(N) template<> struct is_single_bit<(static_cast<uint32_t>(1U) << static_cast<uint32_t>(N))> : quan::meta::true_{};\
 
     QUAN_FUN(0)
     QUAN_FUN(1)
