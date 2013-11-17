@@ -6,13 +6,7 @@
 #endif
 
 // Copyright Andrew Little 2006
-//
- 
- 
- 
-//
-// See QUAN_ROOT/quan_matters/index.html for documentation.
-//#include <quan/meta/strip_cr.hpp>
+
 namespace quan{ namespace meta{namespace detail{
 
    template <typename T>
