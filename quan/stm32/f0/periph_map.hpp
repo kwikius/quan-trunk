@@ -1,7 +1,7 @@
 #ifndef QUAN_STM32_F0_PERIPH_MAP_HPP_INCLUDED
 #define QUAN_STM32_F0_PERIPH_MAP_HPP_INCLUDED
 
-namespace quan{ namespace stm32f0{
+namespace quan{ namespace stm32{
 
    struct periph_map{
       //------------------ AHB2 ---------------------
