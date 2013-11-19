@@ -157,6 +157,4 @@ namespace quan{ namespace meta{
    
 }}
 
-
-
 #endif // QUAN_META_TYPE_SEQUENCE_HPP_INCLUDED
