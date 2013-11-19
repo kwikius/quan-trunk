@@ -1,12 +1,20 @@
 #ifndef QUAN_STM32F4_DETAIL_PERIPH_REG_ACTION_FWD_HPP_INCLUDED
 #define QUAN_STM32F4_DETAIL_PERIPH_REG_ACTION_FWD_HPP_INCLUDED
 
-#include <quan/operators/binary_operator_functors.hpp>
-
 namespace quan{ namespace stm32f4{ namespace detail{
 
-  template <typename PeriphReg, typename PeriphRegActionFnTag, typename PeriphReg::value_type N >
-  struct periph_reg_action;
+  /*
+   Represents an action to be applied to a PeriphReg
+   PeriphReg is a model of PeriphReg ( see  quan/stm32f4/periph_reg.hpp)
+   PeriphRegActionFnTag is one of the quan operator functor tags from binary_op
+   Value is the value to apply using the function described by PeriphRegActionFnTag
+  */
+   template <
+      typename PeriphReg,
+      typename PeriphRegActionFnTag,
+      typename PeriphReg::value_type Value
+   >
+   struct periph_reg_action;
 
 }}}
 
