@@ -29,7 +29,7 @@
 #include <quan/meta/is_model_of.hpp>
 
 #include <quan/stm32/gpio/pin.hpp>
-#include <quan/stm32/gpio_typedefs.hpp>
+#include <quan/stm32/gpio/typedefs.hpp>
 #include <quan/stm32/gpio/module_enable.hpp>
 #include <quan/stm32/gpio/module_disable.hpp>
 #include <quan/stm32/gpio/module_reset.hpp>

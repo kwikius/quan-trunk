@@ -19,7 +19,6 @@
 
 #include <quan/stm32/config.hpp>
 
-//#include <quan/stm32f4/bitband.hpp>
 #include <quan/where.hpp>
 #include <quan/meta/is_single_bit.hpp>
 #include <quan/meta/bitpos.hpp>
@@ -31,6 +30,10 @@
 #include <quan/meta/eq.hpp>
 #include <quan/meta/not.hpp>
 #include <quan/meta/bool.hpp>
+
+#if (QUAN_STM32_HAS_BITBANDING)
+#include <quan/stm32/bitband.hpp>
+#endif
 
 namespace quan{ namespace stm32{
 
@@ -104,6 +107,7 @@ namespace quan{ namespace stm32{
          return *reinterpret_cast<volatile uint32_t*>(periph_bit_band_address<address,Bit>::value) != 0;
       }
 #endif
+
       using periph_reg_base<T>::m_value;
 
       value_type get()const

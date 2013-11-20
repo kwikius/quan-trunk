@@ -17,7 +17,7 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-#include <quan/stm32/gpio_typedefs.hpp>
+#include <quan/stm32/gpio/typedefs.hpp>
 
 namespace quan{ namespace stm32{ namespace gpio { namespace detail{
        /*

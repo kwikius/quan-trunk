@@ -14,7 +14,6 @@
 #include <quan/stm32/detail/get_gpio_reg.hpp>
 #include <quan/stm32/detail/periph_reg_actions.hpp>
 #include <quan/stm32/gpio/detail/periph_reg_action_pack.hpp>
-
 #include <quan/stm32/gpio/detail/add_periph_reg_action.hpp>
 
 namespace quan{ namespace stm32{

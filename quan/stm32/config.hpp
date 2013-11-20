@@ -22,6 +22,7 @@
 add constants defining supply_voltage?
  #define QUAN_STM32F4_SUPPLY_VOLTAGE 3600
 */
+#include <cstdint>
 
 #ifndef QUAN_FLOAT_TYPE
 #define QUAN_FLOAT_TYPE float

@@ -47,7 +47,7 @@ namespace quan{ namespace stm32{
          typedef quan::stm32::periph_reg<type,0x1C> lckr_type;
          typedef quan::stm32::periph_reg<type,0x20> afrl_type;
          typedef quan::stm32::periph_reg<type,0x24> afrh_type;
-
+//#if defined QUAN_STM32F0
 // n.b f0 also has a brr reg...
 
          moder_type     moder;

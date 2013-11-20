@@ -15,7 +15,6 @@ namespace quan{ namespace stm32{
 
 }}
 
-
 namespace quan{ namespace impl{
 
   template <typename P, typename P::value_type Pos>
@@ -27,6 +26,5 @@ namespace quan{ namespace impl{
    > : quan::meta::true_{};
 
 }}
-
 
 #endif // QUAN_STM32_GPIO_PIN_HPP_INCLUDED

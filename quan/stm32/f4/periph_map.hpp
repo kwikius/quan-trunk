@@ -1,5 +1,9 @@
 #ifndef QUAN_STM32_F4_PERIPH_MAP_HPP_INCLUDED
 #define QUAN_STM32_F4_PERIPH_MAP_HPP_INCLUDED
+
+#if !defined QUAN_STM32F4
+#error only for stm32f4
+#endif
 /*
  Copyright (c) 2012 Andy Little 
 
