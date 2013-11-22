@@ -28,7 +28,6 @@ add constants defining supply_voltage?
 #define QUAN_FLOAT_TYPE float
 #endif
 
-
 #if defined QUAN_STM32F4
 #include <quan/stm32/f4/config.hpp>
 #elif defined QUAN_STM32F3

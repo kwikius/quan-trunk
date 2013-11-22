@@ -20,6 +20,7 @@
 
 #include <quan/stm32/config.hpp>
 #include <quan/stm32/periph_reg.hpp>
+#include <quan/stm32/module.hpp>
 #include <quan/is_model_of.hpp>
 #include <quan/meta/type_sequence.hpp>
 
@@ -87,10 +88,17 @@ namespace quan{ namespace stm32{
 
 namespace quan{ namespace impl{
 
-    // make module a model of quan::stm32::Gpio
+    // is a model of quan::stm32::Gpio
    template <uint32_t Address>
    struct is_model_of_impl<
       quan::stm32::Gpio,
+      quan::stm32::gpio::module<Address> 
+	> : quan::meta::true_{};
+
+   // is a model of Module
+   template <uint32_t Address>
+   struct is_model_of_impl<
+      quan::stm32::Module,
       quan::stm32::gpio::module<Address> 
 	> : quan::meta::true_{};
 

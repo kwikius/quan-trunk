@@ -52,7 +52,7 @@ namespace quan{ namespace stm32f4{ namespace usart{
          }
       }
 
-      if (usart_type::get()-> cr1. template bb_getbit<7>() ) { // (TXE)
+      if (usart_type::get()-> cr1. template bb_getbit<7>() ) { // (TXEIE)
          if(! SerialPort::m_tx_fifo.is_empty() ){ 
             if( quan::stm32f4::usart::detail::ll_tx_reg_empty<usart_type>()){
                quan::stm32f4::usart::detail::ll_serial_port_put<usart_type>(SerialPort::m_tx_fifo.get());

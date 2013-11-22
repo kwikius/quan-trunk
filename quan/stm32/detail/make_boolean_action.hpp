@@ -31,7 +31,6 @@ namespace quan{ namespace stm32{ namespace detail {
       typedef quan::stm32::detail::periph_reg_action<PeriphReg,quan::meta::bit_and,~quan::bit<value_type>(BitPos) > type;
    };
 
-
    template <bool B, typename PeriphReg,  uint32_t BitPos> 
    struct make_boolean_action : quan::meta::eval_if_c<B,make_or_action<PeriphReg,BitPos>,make_and_action<PeriphReg,BitPos> >{};
 

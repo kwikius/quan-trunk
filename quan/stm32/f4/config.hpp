@@ -35,6 +35,13 @@
 #define QUAN_STM32_HAS_GPIOH 1
 #define QUAN_STM32_HAS_GPIOI 1
 
+#define QUAN_STM32_HAS_USART1 1
+#define QUAN_STM32_HAS_USART2 1
+#define QUAN_STM32_HAS_USART3 1
+#define QUAN_STM32_HAS_UART4 1
+#define QUAN_STM32_HAS_UART5 1
+#define QUAN_STM32_HAS_USART6 1
+
 #include <quan/stm32/f4/periph_map.hpp>
 
 #ifndef QUAN_STM32_SOURCE_CLOCK_Hz

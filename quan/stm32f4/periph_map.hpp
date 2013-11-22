@@ -13,12 +13,17 @@
 namespace quan{
     namespace stm32f4{
         struct periph_map{
+           //--------------------- AHB3--------------------------
            static constexpr uint32_t fsmc            = 0xa0000000;
+           //-------------------- ~AHB3--------------------------
+           //--------------------- AHB2--------------------------
            static constexpr uint32_t rng             = 0x50060800;
            static constexpr uint32_t hash            = 0x50060400;
            static constexpr uint32_t cryp            = 0x50060000;
            static constexpr uint32_t dcmi            = 0x50050000;
            static constexpr uint32_t usbotgfs        = 0x50000000;
+           //-------------------- ~AHB2--------------------------
+           //--------------------- AHB1--------------------------
            static constexpr uint32_t usbotghs        = 0x40040000;
            static constexpr uint32_t ethernetmac     = 0x40028000;
            static constexpr uint32_t dma2            = 0x40026400;
@@ -36,6 +41,8 @@ namespace quan{
            static constexpr uint32_t gpioc           = 0x40020800;
            static constexpr uint32_t gpiob           = 0x40020400;
            static constexpr uint32_t gpioa           = 0x40020000;
+           //--------------------- ~AHB1-------------------------
+           //---------------------- APB2-------------------------
            static constexpr uint32_t tim11           = 0x40014800;
            static constexpr uint32_t tim10           = 0x40014400;
            static constexpr uint32_t tim9            = 0x40014000;
@@ -48,6 +55,8 @@ namespace quan{
            static constexpr uint32_t usart1          = 0x40011000;
            static constexpr uint32_t tim8            = 0x40010400;
            static constexpr uint32_t tim1            = 0x40010000;
+           //--------------------- ~APB2-------------------------
+           //---------------------- APB1-------------------------
            static constexpr uint32_t dac             = 0x40007400;
            static constexpr uint32_t pwr             = 0x40007000;
            static constexpr uint32_t can2            = 0x40006800;
@@ -75,7 +84,7 @@ namespace quan{
            static constexpr uint32_t tim4             = 0x40000800;
            static constexpr uint32_t tim3             = 0x40000400;
            static constexpr uint32_t tim2             = 0x40000000;
-
+           //---------------------- ~APB1-------------------------
         };
     }
 }
