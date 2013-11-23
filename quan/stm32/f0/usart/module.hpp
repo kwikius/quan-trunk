@@ -45,7 +45,7 @@ namespace quan{ namespace stm32{
             tdr_type    tdr;
 
             typedef quan::meta::type_sequence<  
-               ,cr1_type
+               cr1_type
                ,cr2_type
                ,cr3_type
                ,brr_type

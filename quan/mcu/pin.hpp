@@ -22,7 +22,7 @@
 
 namespace quan{  namespace mcu{
 
-  struct Pin; // Archetype
+ // struct Pin; // Archetype
 
   // a Pin consists of a port and a bit position
   template <typename Port,typename Port::value_type Pos> struct pin{

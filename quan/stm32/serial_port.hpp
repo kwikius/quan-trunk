@@ -1,17 +1,19 @@
 #ifndef QUAN_STM32_SERIAL_PORT_HPP_INCLUDED
 #define QUAN_STM32_SERIAL_PORT_HPP_INCLUDED
 
+
+#include <type_traits>
+
 #include <cstdint>
 #include <cstring>
-
-#include <quan/utility/fifo.hpp>
-#include <type_traits>
 
 #include <quan/meta/if.hpp>
 #include <quan/meta/or.hpp>
 #include <quan/meta/and.hpp>
 #include <quan/meta/bool.hpp>
 #include <quan/concepts/port.hpp>
+
+#include <quan/utility/fifo.hpp>
 
 #include <quan/stm32/config.hpp>
 #include <quan/stm32/usart.hpp>
@@ -178,9 +180,9 @@ namespace quan{ namespace stm32{
          m_tx_fifo.init(); 
          m_rx_fifo.init();
 
-         module_reset<usart_type>();
+         quan::stm32::module_reset<usart_type>();
 
-         module_enable<usart_type>();
+         quan::stm32::module_enable<usart_type>();
 
          setup_TxPin();
          setup_RxPin();
@@ -227,7 +229,7 @@ namespace quan{ namespace stm32{
       static void set_baudrate()
       {
           // read enabled bit?
-         apply<usart_type,usart::baud_rate<Baud,Over> >();
+         quan::stm32::apply<usart_type,usart::baud_rate<Baud,Over> >();
       }
 
       static void set_irq_priority(uint32_t priority)

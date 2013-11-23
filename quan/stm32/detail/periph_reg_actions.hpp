@@ -431,10 +431,12 @@ namespace quan{ namespace stm32{ namespace detail{
       template <typename PeriphReg>
       void operator()() const
       {
+
          typedef typename quan::stm32::detail::get_actions_that_apply_to_this_periph_reg<PeriphReg,Listof_PeriphRegAction>::type list_of_reg_actions;
          typedef typename reduce_to_single_action<list_of_reg_actions>::type emit_action;
 
          emit_action{}();
+
       };
    };
 

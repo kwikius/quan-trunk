@@ -11,25 +11,38 @@
 #include <quan/meta/transform.hpp>
 #include <quan/meta/type_sequence.hpp>
 
-#include <quan/stm32/detail/get_gpio_reg.hpp>
+#include <quan/stm32/module.hpp>
+
 #include <quan/stm32/detail/periph_reg_actions.hpp>
-#include <quan/stm32/gpio/detail/periph_reg_action_pack.hpp>
 #include <quan/stm32/gpio/detail/add_periph_reg_action.hpp>
+
+#include <quan/stm32/gpio/detail/get_reg.hpp>
+#include <quan/stm32/gpio/detail/periph_reg_action_pack.hpp>
+
+#include <quan/stm32/usart/detail/get_reg.hpp>
+#include <quan/stm32/usart/detail/periph_reg_action_pack.hpp>
 
 namespace quan{ namespace stm32{
 
    template <typename E, typename Where = void>
-   struct get_module;
+   struct get_module { 
+      typedef E type;
+   };
 
-   
    template <typename Pin>
    struct get_module<Pin,typename quan::where_<quan::is_model_of<quan::stm32::gpio::Pin, Pin> >::type>
    {
       typedef typename Pin::port_type type;
    };
 
-   template <typename Pin,typename Where = void> 
-   struct check;
+   template <typename E,typename Where = void> 
+   struct check{
+
+      template <typename ... List>
+      struct apply{
+         typedef quan::meta::type_sequence<List...> type;
+      };
+   };
 
 /*
  polymorphicFunctor<-1,-2> ( no runtime, variadic)
@@ -60,32 +73,43 @@ namespace quan{ namespace stm32{
       };
    };
 
+
    /*
       make generic
      Each entity needs a check polymorphicFunctor
      and a get_module<E> metafunction
    */
 
-   template <typename Pin, typename ... Listof_Setting>
-   typename quan::where_<quan::is_model_of<quan::stm32::gpio::Pin, Pin> >::type
+   template <typename E, typename ... Listof_Setting>
+   typename quan::where_<
+      quan::is_model_of<quan::stm32::Module,typename quan::stm32::get_module<E>::type> 
+   >::type
     apply()
    { 
-      typedef typename check<Pin>::template apply<Listof_Setting...>::type periph_reg_settings_list;
+      
+      typedef typename check<E>::template apply<Listof_Setting...>::type periph_reg_settings_list;
      // turn the settings into a list of actions on peripheral registers
       typedef typename quan::meta::transform<
-         periph_reg_settings_list, quan::stm32::detail::make_periph_reg_action_pack<Pin> 
+         periph_reg_settings_list, quan::stm32::detail::make_periph_reg_action_pack<E> 
       >::type packed_actions;
 
+      //compress actions where possible
       typedef typename quan::meta::fold<
          packed_actions,quan::meta::type_sequence<>,
          quan::stm32::detail::unpack_actions 
       >::type periph_reg_actions;
 
-      typedef typename get_module<Pin>::type module_type;
+      typedef typename get_module<E>::type module_type;
 
+      static_assert(
+         quan::is_model_of<quan::meta::TypeSequence, typename module_type::periph_reg_list>::value == true,
+         "periph_reg_list must be a  model of TypeSequence"
+      );
+      // apply the list of actions
+     
       quan::meta::for_each<
          typename module_type::periph_reg_list,quan::stm32::detail::apply_periph_reg_actions<module_type,periph_reg_actions> 
-      >()();
+     >{}();
    };
 
 }}//quan::stm32

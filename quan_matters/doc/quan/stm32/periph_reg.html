@@ -1,0 +1,85 @@
+<html>
+<!-- root   = /home/andy/website/quan-trunk -->
+<!-- offset = quan_matters/doc/quan/stm32/periph_reg.html -->
+<title>
+Archetype - quan::stm32::periph_reg
+</title>
+<head>
+<link
+rel='stylesheet'
+href='../../common/style.css'
+type='text/css'
+>
+<link
+rel='stylesheet'
+href='../../common/concept_style.css'
+type='text/css'
+>
+</head>
+<body>
+<!--quan::PolymorphicFunctor1-->
+<!--quan::TypeSequence-->
+<!--SiteIndex-->
+<!--QuanIndex-->
+<!--QuanLogo-->
+<!--HR-->
+<!--PageHeader-->
+<!--STM32_Index-->
+<!--STM32F4_Index-->
+<!--PageFooter-->
+<!--Gpio-->
+<!--gpio::Pin-->
+<!--Module-->
+<!--Usart-->
+<!--gpio::module-->
+<!--PeriphReg-->
+<div><a href = '../../index.html'><img src = '../../common/quan_logo.png'>
+</a><a href = '../../index.html'>Quan Index</a><HR></div><p><a href = './index.html'>stm32 - index </a></p>
+<span id="entity-type">Archetype</span><span id="entity-name">quan::stm32::PeriphReg</span><p>Defined in <a href = '../../../../quan/stm32/periph_reg.hpp'>&lt;quan/stm32/periph_reg.hpp&gt;</a></p>
+<table class="constructs"><tr><td class="constructs">Constructs</td></tr>
+<tr><td><table class="notation"><tr><td class="notation-header">Notation</td></tr>
+<tr><td class="notation-type-value-header">type</td><td class="notation-type-value-header">model of</td></tr>
+<tr><td class="notation-type-value">R</td><td class="notation-type-value"><a href = ''>stm32::PeriphReg</a></td></tr>
+<tr><td class="notation-type-value-header">value</td><td class="notation-type-value-header">has type</td></tr>
+<tr><td class="notation-type-value">r</td><td class="notation-type-value">R</td></tr>
+<tr><td class="notation-type-value">B</td><td class="notation-type-value">constexpr Uint in range of 0 to 8 * sizeof(R::value_type)-1</td></tr>
+<tr><td class="notation-type-value">v</td><td class="notation-type-value">R::value_type</td></tr>
+<tr><td class="notation-type-value">V</td><td class="notation-type-value">constexpr R::value_type</td></tr>
+</table>
+</td></tr>
+<tr><td class="constructs">PeriphReg expressions</td></tr>
+<tr><td><table class="notation"><tr><td class="notation-header">Member types</td></tr>
+<tr><td class="notation-type-value-header">type</td><td class="notation-type-value-header">model of</td><td class="notation-type-value-header">description</td></tr>
+<tr><td>R::module_type</td><td><a href = './module.html'>stm32::Module</a></td><td>Type of the Module of which PeriphReg is a member</td></tr>
+<tr><td>R::value_type</td><td>Uint</td><td>The underlying C++ type representing the PeriphReg memory register</td></tr>
+<tr><td>R::type</td><td><a href = ''>stm32::PeriphReg</a></td><td>self type</td></tr>
+</table>
+</td></tr>
+<tr><td><table class="notation"><tr><td class="notation-header">Member values</td></tr>
+<tr><td class="notation-type-value-header">value</td><td class="notation-type-value-header">type</td><td class="notation-type-value-header">linkage/mods</td><td class="notation-type-value-header">description</td></tr>
+<tr><td>R::address_offset</td><td>uint32_t</td><td>static constexpr</td><td>The memory offset of the PeriphReg in the Module.</td></tr>
+<tr><td>R::address</td><td>uint32_t</td><td>static constexpr</td><td>The absolute memory address of the PeriphReg in memory.</td></tr>
+</table>
+</td></tr>
+<tr><td><table class="expressions"><tr><td class="expression-header">Expression</td><td class="expression-header">result type</td><td class="expression-header">return value</td><td class="expression-header">effects</td><td class="expression-header">notes</td></tr>
+<tr><td class="expression">R::get()</td><td class="expression">R::value_type</td><td class="expression">The current value of the register memory location.</td><td class="expression">particular to the register, mostly none</td><td class="expression">Read the docs for for particular register side_effects.</td></tr>
+<tr><td class="expression">R::set(v)</td><td class="expression">none</td><td class="expression">none</td><td class="expression">writes v to the register memory location</td><td class="expression">Read the docs for for particular register side_effects.</td></tr>
+<tr><td class="expression">R::setbit&lt;B&gt;()</td><td class="expression">none</td><td class="expression">none</td><td class="expression">reads the register memory location, Ors it with (1 &lt;&lt; B) and writes  the modified value back to the register</td><td class="expression">Read the docs for for particular register side_effects.</td></tr>
+<tr><td class="expression">R::bb_setbit&lt;B&gt;()</td><td class="expression">none</td><td class="expression">none</td><td class="expression">sets the corresponding bitband register for bit B in the register to true (Atomic)</td><td class="expression">Only available on processors with bitbanding.Read the docs for for particular register side_effects.</td></tr>
+<tr><td class="expression">R::clearbit&lt;B&gt;()</td><td class="expression">none</td><td class="expression">none</td><td class="expression">reads the register memory location, Ands it with ~(1 &lt;&lt; B) and writes  the modified value back to the register</td><td class="expression">Read the docs for for particular register side effects.</td></tr>
+<tr><td class="expression">R::bb_clearbit&lt;B&gt;()</td><td class="expression">none</td><td class="expression">none</td><td class="expression">clears the corresponding bitband register for bit B in the register to false (Atomic)</td><td class="expression">Only available on processors with bitbanding. Read the docs for for particular register side_effects.</td></tr>
+<tr><td class="expression">R::getbit&lt;B&gt;()</td><td class="expression">bool</td><td class="expression">true if the bit B in R is set, else false</td><td class="expression">usually none - but register dependent</td><td class="expression">Read the docs for for particular register side effects.</td></tr>
+<tr><td class="expression">R::bb_getbit&lt;B&gt;()</td><td class="expression">bool</td><td class="expression">true if the bit B in R is set, else false</td><td class="expression">usually none - but register dependent</td><td class="expression">Only available on processors with bitbanding. Read the docs for for particular register side effects.</td></tr>
+<tr><td class="expression">r = v</td><td class="expression">R&</td><td class="expression">A mutable reference to the PeriphReg</td><td class="expression">writes v to the register memory location (Atomic). </td><td class="expression">Read the docs for for particular register side_effects.</td></tr>
+<tr><td class="expression">r |= v</td><td class="expression">R&</td><td class="expression">A mutable reference to the PeriphReg</td><td class="expression">reads the register memory location, Ors it with v and writes  the modified value back to the register</td><td class="expression">Read the docs for for particular register side_effects.</td></tr>
+<tr><td class="expression">r &= v</td><td class="expression">R&</td><td class="expression">A mutable reference to the PeriphReg</td><td class="expression">reads the register memory location, Ands it with v and writes  the modified value back to the register</td><td class="expression">Read the docs for for particular register side_effects.</td></tr>
+<tr><td class="expression">r.or_equals&lt;V&gt;()</td><td class="expression">none</td><td class="expression">none</td><td class="expression">reads the register memory location, Ors it with V and writes  the modified value back to the register</td><td class="expression">Read the docs for for particular register side_effects.</td></tr>
+<tr><td class="expression">r.and_equals&lt;V&gt;()</td><td class="expression">none</td><td class="expression">none</td><td class="expression">reads the register memory location, Ands it with V and writes  the modified value back to the register</td><td class="expression">Read the docs for for particular register side_effects.</td></tr>
+<tr><td class="expression">r.xor_equals&lt;V&gt;()</td><td class="expression">none</td><td class="expression">none</td><td class="expression">reads the register memory location, Xors it with V and writes  the modified value back to the register</td><td class="expression">Read the docs for for particular register side_effects.</td></tr>
+</table>
+</td></tr>
+</table>
+<p><a href = './index.html'>stm32 - index </a></p>
+<div><HR><div><a href = '../../index.html'><img src = '../../common/quan_logo.png'>
+</a><a href = '../../index.html'>Quan Index</a><HR></div></div></body>
+</html>

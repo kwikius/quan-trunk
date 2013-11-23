@@ -5,7 +5,8 @@
 #include <quan/stm32/usart/settings.hpp>
 #include <quan/stm32/usart/detail/setting_to_actions.hpp>
 #include <quan/stm32/usart/typedefs.hpp>
-#include <quan/stm32/usart/detail/module_enable_disable.hpp>
+#include <quan/stm32/usart/module_enable_disable.hpp>
 #include <quan/stm32/usart/enable_disable.hpp>
+#include <quan/stm32/periph_reg_actions/apply.hpp>
 
 #endif // QUAN_STM32_USART_HPP_INCLUDED

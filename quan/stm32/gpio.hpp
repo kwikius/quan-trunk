@@ -19,65 +19,15 @@
 
 #include <quan/stm32/config.hpp>
 
-#include <quan/bit.hpp>
-#include <quan/is_model_of.hpp>
-#include <quan/meta/identity.hpp>
-#include <quan/meta/or.hpp>
-#include <quan/meta/if.hpp>
-#include <quan/meta/low_bits_mask.hpp>
-#include <quan/meta/count_if.hpp>
-#include <quan/meta/is_model_of.hpp>
-
-#include <quan/stm32/gpio/pin.hpp>
+#include <quan/stm32/gpio/archetype.hpp>
+#include <quan/stm32/gpio/module.hpp>
 #include <quan/stm32/gpio/typedefs.hpp>
 #include <quan/stm32/gpio/module_enable.hpp>
 #include <quan/stm32/gpio/module_disable.hpp>
 #include <quan/stm32/gpio/module_reset.hpp>
-#include <quan/stm32/detail/get_gpio_reg.hpp>
+#include <quan/stm32/gpio/pin.hpp>
 #include <quan/stm32/periph_reg_actions/apply.hpp>
 
-namespace quan{ namespace stm32{
 
-   // f4 yes
-   // f0 
-   template< typename P>
-   inline
-   typename quan::where_<
-      quan::is_model_of<quan::stm32::gpio::Pin,P>
-   >::type  complement()
-   {
-      P::port_type::get()->odr.template xor_equals<
-         quan::bit<typename P::value_type>(P::pin_value)
-      >();
-   }
-
-   template <typename P>
-   inline typename quan::where_<
-       quan::is_model_of<quan::stm32::gpio::Pin,P>,
-       bool
-   >::type get()
-   {
-      return P::port_type::get()-> idr.template bb_getbit<P::pin_value>();
-   }
-
-   template <typename P>
-   inline typename quan::where_<
-       quan::is_model_of<quan::stm32::gpio::Pin,P>,
-       void
-   >::type set()
-   {
-       P::port_type::get()-> odr.template bb_setbit<P::pin_value>();
-   }
-
-    template <typename P>
-   inline typename quan::where_<
-       quan::is_model_of<quan::stm32::gpio::Pin,P>,
-       void
-   >::type clear()
-   {
-       P::port_type::get()-> odr.template bb_clearbit<P::pin_value>();
-   }
-
-}}
 
 #endif // QUAN_STM32F$_GPIO_HPP_INCLUDED

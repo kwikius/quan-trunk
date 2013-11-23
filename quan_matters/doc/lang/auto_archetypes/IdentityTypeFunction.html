@@ -1,0 +1,46 @@
+<html>
+<!-- root   = /home/andy/website/quan-trunk -->
+<!-- offset = quan_matters/doc/lang/auto_archetypes/IdentityTypeFunction.html -->
+<title>
+IdentityTypeFunction
+</title>
+<head>
+<link
+rel='stylesheet'
+href='../../common/style.css'
+type='text/css'
+>
+</head>
+<body>
+<div id="main-body"><p><a href = '../../index.html'>Index </a></p>
+<table id="main-body-heading"><tr><td><span id="entity-type">implicit Archetype </span></td><td><span id="entity-name">IdentityTypeFunction</span></td></tr>
+</table>
+<h3>lang</h3>
+<p><pre class="code-example">
+   template &lt;typename T&gt;
+   implicit archetype IdentityTypeFunction&lt;T&gt;
+      requires TypeFunction&lt;T&gt;
+   requires{
+      std::is_same&lt;T, T::type&gt;();
+   };
+
+</pre></p>
+<table id="main-body-refines"><tr><td id="refines-header">Refines</td></tr>
+<tr><td class="refines-list"><a href = './TypeFunction.html'>TypeFunction</a></td></tr>
+</table>
+<h3>Description</h3>
+<p>A TypeFunction returning itself</p>
+<h3>Valid expressions</h3>
+<table id="constructs"><tr><td id="constructs">Constructs</td></tr>
+<tr><td id="notation-table"><table id="constructs"><tr><td id="notation-header">Notation</td></tr>
+<tr><td class="notation-type-value-header">type</td><td class="notation-type-value-header">model of</td></tr>
+<tr><td class="notation-type-value">F</td><td class="notation-type-value">IdentityTypeFunction</td></tr>
+</table>
+</td></tr>
+<tr><td id="expressions-table"><table id="expressions"><tr><td class="expression-header">Expression</td><td class="expression-header">Result</td></tr>
+<tr><td class="notation-type-value">F::type</td><td class="notation-type-value">F</td></tr>
+</table>
+</td></tr>
+</table>
+</div></body>
+</html>
