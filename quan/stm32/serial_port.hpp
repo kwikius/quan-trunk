@@ -154,7 +154,7 @@ namespace quan{ namespace stm32{
 #endif
       }
 
-      bool ll_rxneie_is_enabled()
+      static bool ll_rxneie_is_enabled()
       {
 #if QUAN_STM32_HAS_BITBANDING
          return usart_type::get()->cr1.template bb_getbit<usart_cr1_rxneie>();
@@ -163,7 +163,7 @@ namespace quan{ namespace stm32{
 #endif
       }
 
-    bool ll_txeie_is_enabled()
+    static bool ll_txeie_is_enabled()
     {
 #if QUAN_STM32_HAS_BITBANDING
       return usart_type::get()-> cr1.template bb_getbit<usart_cr1_txeie>();
