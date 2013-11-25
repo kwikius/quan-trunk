@@ -1,7 +1,6 @@
 #ifndef QUAN_STM32_SERIAL_PORT_HPP_INCLUDED
 #define QUAN_STM32_SERIAL_PORT_HPP_INCLUDED
 
-
 #include <type_traits>
 
 #include <cstdint>
