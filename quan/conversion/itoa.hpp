@@ -51,5 +51,4 @@ namespace quan{
    }
 }
 
-
 #endif // QUAN_ITOA_HPP_INCLUDED
