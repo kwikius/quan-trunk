@@ -9,7 +9,7 @@ namespace quan{ namespace stm32{ namespace usart{
    inline void irq_handler()
    {
       typedef typename SerialPort::usart_type usart_type;
-    //  if (usart_type::get()->cr1. template bb_getbit<5>() ) { 
+   
       if(SerialPort::ll_rxneie_is_enabled()){
             // received data?
          if(SerialPort::ll_rx_reg_full()){
