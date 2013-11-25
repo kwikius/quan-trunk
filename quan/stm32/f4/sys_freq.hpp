@@ -42,6 +42,8 @@ namespace quan { namespace stm32{
     inline constexpr 
     uint32_t 
     get_bus_frequency(){ return quan::stm32::detail::get_bus_frequency_impl<Bus>{}();};
+
+   
   
 }}
 
