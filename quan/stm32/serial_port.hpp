@@ -56,15 +56,13 @@ namespace quan{ namespace stm32{
       static constexpr uint8_t usart_sr_txe = 7;
       static constexpr uint8_t usart_sr_rxne = 5;
 #else
-#if defined QUAN_STM32F0
+   #if defined QUAN_STM32F0
       static constexpr uint8_t usart_isr_txe = 7;
       static constexpr uint8_t usart_isr_rxne = 5;
-#else
-#error processor undefined 
+   #else
+      #error processor undefined 
+   #endif
 #endif
-
-#endif
-      
       static void enable_rxneie()
       {
 #if (QUAN_STM32_HAS_BITBANDING)  
