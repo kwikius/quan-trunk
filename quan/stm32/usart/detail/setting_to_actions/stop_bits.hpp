@@ -9,7 +9,7 @@ namespace quan{ namespace stm32{ namespace usart{ namespace detail{
 
 /*
 00: 1 Stop bit
-01: 0.5 Stop bit
+01: 0.5 Stop bit  (n/a on stm32f0)
 10: 2 Stop bits
 11: 1.5 Stop bit
 
@@ -24,7 +24,8 @@ namespace quan{ namespace stm32{ namespace usart{ namespace detail{
            typedef typename quan::meta::push_back<ListOfActions,action_type>::type type;
          };
       };
-
+// 0.5 stop bits n/a on stm32f0
+#ifdef QUAN_STM32F4
       template <>
       struct setting_to_actions<quan::stm32::usart::stop_bits<1,2> >{
          // 0,1
@@ -40,6 +41,7 @@ namespace quan{ namespace stm32{ namespace usart{ namespace detail{
             typedef typename quan::meta::push_back<list_of_actions1_type,and_action_type>::type type;
          };
       };
+#endif
 
       template <>
       struct setting_to_actions<quan::stm32::usart::stop_bits<2> >{
