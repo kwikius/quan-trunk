@@ -72,6 +72,4 @@
 #define QUAN_STM32_APB1_DIVISOR 4
 #endif
 
-
-
 #endif // QUAN_STM32_F4_CONFIG_HPP_INCLUDED
