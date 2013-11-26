@@ -1,10 +1,29 @@
 #ifndef QUAN_STM32_F0_USART_DETAIL_GET_BAUD_RATE_VALUES_HPP_INCLUDED
 #define QUAN_STM32_F0_USART_DETAIL_GET_BAUD_RATE_VALUES_HPP_INCLUDED
 
-#include <quan/stm32/f0/config.hpp>
-
-#include <quan/stm32/f0/detail/get_bus.hpp>
 #include <type_traits>
+#include <quan/stm32/f0/config.hpp>
+#include <quan/stm32/f0/detail/get_bus.hpp>
+
+/*
+ calcs with acknowledegnment to stm32f0xx_usart.h which is
+ COPYRIGHT 2011 STMicroelectronics
+
+ Copyright (c) 2013 Andy Little 
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>
+*/
 
 namespace quan { namespace stm32{ namespace usart{ namespace detail{
 
@@ -16,18 +35,14 @@ namespace quan { namespace stm32{ namespace usart{ namespace detail{
       static constexpr uint32_t bus_divisor = QUAN_STM32_APB_DIVISOR;
       static constexpr uint32_t fck = QUAN_STM32_SYSCLK_Hz / bus_divisor;
       static_assert(  (QUAN_STM32_SYSCLK_Hz % bus_divisor)==0,"error in calc");
-      static constexpr uint32_t divisor = ((fck % BaudRate) >= ( BaudRate / 2 ) ) 
-         ? (fck / BaudRate) + 1
-         : (fck / BaudRate);
-      static constexpr uint32_t mantissa_shift = Over8 ? 3 : 4;
-      static constexpr uint32_t fract_mask = Over8 ? 0x7 : 0xF;
 
-      static constexpr uint32_t mantissa = divisor >> mantissa_shift;
-     // mantissa must be less than 
-      static_assert( (mantissa & 0xFFFFF000)==0, "baud_rate mantissa cannot be greater than 12 bits");
-   
-      static constexpr uint32_t fraction = divisor & fract_mask;
-     
+     static constexpr uint32_t divider = Over8
+         ? ((2U * fck) / BaudRate)  +  ((((2U * fck) % BaudRate) > (BaudRate / 2U)) ? 1U:0U)
+         : (fck / BaudRate) + ((( fck % BaudRate) > ( BaudRate / 2U) ) ? 1U:0U);
+
+     static constexpr uint32_t value = Over8
+      ?  (divider & 0x0000FFF0) | ((divider & 0x0000000F) >> 1U)
+      :   divider ;
    };
 
 }}}}
