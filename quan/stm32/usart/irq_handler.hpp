@@ -32,11 +32,11 @@ namespace quan{ namespace stm32{ namespace usart{
             }
          }
          if (SerialPort::m_tx_fifo.is_empty()) {
-             usart_type::get()->cr1. template bb_clearbit<7>();// (TXEIE)
+             SerialPort::disable_txeie();
          }
       }
    }
 
 }}}
 
-#endif // QUAN_STM32F4_USART_IRQ_HANDLER_HPP_INCLUDED
+#endif // QUAN_STM32_USART_IRQ_HANDLER_HPP_INCLUDED
