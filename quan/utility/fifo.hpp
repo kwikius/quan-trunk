@@ -1,9 +1,11 @@
-#ifndef QUAN_UTILITY_RING_BUFFER_HPP_INCLUDED
-#define QUAN_UTILITY_RING_BUFFER_HPP_INCLUDED
+#ifndef QUAN_UTILITY_FIFO_HPP_INCLUDED
+#define QUAN_UTILITY_FIFO_HPP_INCLUDED
+
+#include <quan/meta/if.hpp>
 
 namespace quan{
 //minimum size of 1
-template<typename T, int Size>
+template<typename T, int Size, bool Volatile = false>
 struct fifo {
     void init()
     {
@@ -107,15 +109,16 @@ bool  get (T & v)
    }
 
 private:
- 
-T * m_putptr;
-T * m_getptr;
-T   m_buf[size];
+   typedef typename quan::meta::if_c<Volatile, T * volatile, T*>::type idx_ptr_type;
+  
+   idx_ptr_type m_putptr;
+   idx_ptr_type m_getptr;
+   T   m_buf[size];
 
-  fifo (fifo const & ) = delete;
-  fifo & operator = (fifo const &) = delete;
+   fifo (fifo const & ) = delete;
+   fifo & operator = (fifo const &) = delete;
 };
 }
  
-#endif //QUAN_UTILITY_RING_BUFFER_HPP_INCLUDED
+#endif //QUAN_UTILITY_FIFO_HPP_INCLUDED
  
