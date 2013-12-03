@@ -42,8 +42,8 @@ namespace quan{ namespace stm32{
 
       typedef Usart usart_type;
       typedef char char_type;
-      typedef quan::fifo<char_type,TxBufSize,true> tx_fifo_type;
-      typedef quan::fifo<char_type,RxBufSize,true> rx_fifo_type;
+      typedef quan::fifo<char_type,TxBufSize> tx_fifo_type;
+      typedef quan::fifo<char_type,RxBufSize> rx_fifo_type;
 
       typedef TxPin tx_pin_type;
       typedef RxPin rx_pin_type;
