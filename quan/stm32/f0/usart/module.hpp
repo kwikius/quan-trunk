@@ -59,9 +59,9 @@ namespace quan{ namespace stm32{
             static module* get(){ return reinterpret_cast<module*>(address);}
 
          private:
-               module() = delete;
-               module(module const &) = delete;
-               module& operator = (module const & ) = delete;                                           
+            module() = delete;
+            module(module const &) = delete;
+            module& operator = (module const & ) = delete;                                           
        };
     
 }}} // quan:stm32::usart

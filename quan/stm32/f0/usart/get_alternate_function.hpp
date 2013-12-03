@@ -58,14 +58,14 @@ namespace quan{ namespace stm32{
    };
 
    template<>
-   struct get_alternate_function< quan::mcu::pin<quan::stm32::gpioa,3>,quan::stm32::usart1,usart::rx_pin
+   struct get_alternate_function< quan::mcu::pin<quan::stm32::gpioa,3>,quan::stm32::usart2,usart::rx_pin
    >
    {
       typedef quan::stm32::gpio::mode::af1 type;
    };
 
    template<>
-   struct get_alternate_function< quan::mcu::pin<quan::stm32::gpioa,15>,quan::stm32::usart1,usart::rx_pin
+   struct get_alternate_function< quan::mcu::pin<quan::stm32::gpioa,15>,quan::stm32::usart2,usart::rx_pin
    >
    {
       typedef quan::stm32::gpio::mode::af1 type;

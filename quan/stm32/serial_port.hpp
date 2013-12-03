@@ -42,23 +42,24 @@ namespace quan{ namespace stm32{
 
       typedef Usart usart_type;
       typedef char char_type;
-      typedef quan::fifo<char_type,TxBufSize> tx_fifo_type;
-      typedef quan::fifo<char_type,RxBufSize> rx_fifo_type;
+      typedef quan::fifo<char_type,TxBufSize,true> tx_fifo_type;
+      typedef quan::fifo<char_type,RxBufSize,true> rx_fifo_type;
 
       typedef TxPin tx_pin_type;
       typedef RxPin rx_pin_type;
-   private:
+  // private:
 
       friend void quan::stm32::usart::irq_handler<serial_port>();
       static constexpr uint8_t usart_cr1_rxneie = 5; //(RXNEIE)
       static constexpr uint8_t usart_cr1_txeie = 7; //(TXEIE)
 #if defined QUAN_STM32F4
-      static constexpr uint8_t usart_sr_txe = 7;
       static constexpr uint8_t usart_sr_rxne = 5;
+      static constexpr uint8_t usart_sr_txe = 7;
+
 #else
    #if defined QUAN_STM32F0
-      static constexpr uint8_t usart_isr_txe = 7;
       static constexpr uint8_t usart_isr_rxne = 5;
+      static constexpr uint8_t usart_isr_txe = 7;
    #else
       #error processor undefined 
    #endif
@@ -68,7 +69,7 @@ namespace quan{ namespace stm32{
 #if (QUAN_STM32_HAS_BITBANDING)  
          usart_type::get()->cr1. template bb_setbit<usart_cr1_rxneie>();
 #else
-         usart_type::get()->cr1. template setbit<usart_cr1_rxneie>();
+         usart_type::get()->cr1. template setbit<usart_cr1_rxneie>(); // bit(5)
 #endif
       }
 
@@ -77,7 +78,7 @@ namespace quan{ namespace stm32{
 #if (QUAN_STM32_HAS_BITBANDING)  
          usart_type::get()->cr1. template bb_clearbit<usart_cr1_rxneie>();
 #else
-         usart_type::get()->cr1. template clearbit<usart_cr1_rxneie>();
+         usart_type::get()->cr1. template clearbit<usart_cr1_rxneie>(); // bit(5)
 #endif
       }
 
@@ -86,7 +87,7 @@ namespace quan{ namespace stm32{
 #if QUAN_STM32_HAS_BITBANDING 
          usart_type::get()->cr1. template bb_setbit<usart_cr1_txeie>();
 #else
-         usart_type::get()->cr1. template setbit<usart_cr1_txeie>();
+         usart_type::get()->cr1. template setbit<usart_cr1_txeie>(); // bit(7)
 #endif
       }
 
@@ -95,7 +96,7 @@ namespace quan{ namespace stm32{
 #if  QUAN_STM32_HAS_BITBANDING  
          usart_type::get()->cr1. template bb_clearbit<usart_cr1_txeie>();
 #else
-         usart_type::get()->cr1. template clearbit<usart_cr1_txeie>();
+         usart_type::get()->cr1. template clearbit<usart_cr1_txeie>(); // bit(7)
 #endif
       }
 
@@ -105,7 +106,7 @@ namespace quan{ namespace stm32{
          return  usart_type::get()->sr. template bb_getbit<usart_sr_txe>() ; 
 #else
 #if defined QUAN_STM32F0
-         return  usart_type::get()->isr. template getbit<usart_isr_txe>() ; 
+         return  usart_type::get()->isr. template getbit<usart_isr_txe>() ; //bit(7)
 #else
 #error processor undefined 
 #endif
@@ -131,7 +132,7 @@ namespace quan{ namespace stm32{
         return usart_type::get()->sr. template bb_getbit<usart_sr_rxne>(); 
 #else
 #if defined QUAN_STM32F0
-        return  usart_type::get()->isr. template getbit<usart_isr_rxne>() ; 
+        return  usart_type::get()->isr. template getbit<usart_isr_rxne>() ; // bit(5)
 #else
 #error processor undefined 
 #endif
@@ -156,7 +157,7 @@ namespace quan{ namespace stm32{
 #if QUAN_STM32_HAS_BITBANDING
          return usart_type::get()->cr1.template bb_getbit<usart_cr1_rxneie>();
 #else
-         return usart_type::get()->cr1.template getbit<usart_cr1_rxneie>();
+         return usart_type::get()->cr1.template getbit<usart_cr1_rxneie>(); // bit(5)
 #endif
       }
 
@@ -165,7 +166,7 @@ namespace quan{ namespace stm32{
 #if QUAN_STM32_HAS_BITBANDING
       return usart_type::get()-> cr1.template bb_getbit<usart_cr1_txeie>();
 #else
-      return usart_type::get()->cr1.template getbit<usart_cr1_txeie>();
+      return usart_type::get()->cr1.template getbit<usart_cr1_txeie>(); // bit(7)
 #endif
 
    }

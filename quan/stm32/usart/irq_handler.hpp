@@ -11,7 +11,7 @@ namespace quan{ namespace stm32{ namespace usart{
       typedef typename SerialPort::usart_type usart_type;
    
       if(SerialPort::ll_rxneie_is_enabled()){
-            // received data?
+            // received data
          if(SerialPort::ll_rx_reg_full()){
           
            if ( SerialPort::m_rx_fifo.is_full()){
@@ -21,7 +21,7 @@ namespace quan{ namespace stm32{ namespace usart{
                char ch = SerialPort::m_rx_fifo.get();
            }
            // read to rx buffer - clears RXNE flag
-           SerialPort::m_rx_fifo.put(SerialPort::ll_get() );
+           SerialPort::m_rx_fifo.put( SerialPort::ll_get() );
          }
       }
 

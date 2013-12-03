@@ -1,6 +1,7 @@
 #ifndef QUAN_STM32_GPIO_PIN_HPP_INCLUDED
 #define QUAN_STM32_GPIO_PIN_HPP_INCLUDED
 
+#include <quan/stm32/config.hpp>
 #include <quan/mcu/pin.hpp>
 #include <quan/is_model_of.hpp>
 #include <quan/stm32/gpio/archetype.hpp>
@@ -49,7 +50,11 @@ namespace quan{ namespace stm32{
        bool
    >::type get()
    {
+#if QUAN_STM32_HAS_BITBANDING
       return P::port_type::get()-> idr.template bb_getbit<P::pin_value>();
+#else
+      return P::port_type::get()-> idr.template getbit<P::pin_value>();
+#endif
    }
 
    template <typename P>
@@ -58,7 +63,11 @@ namespace quan{ namespace stm32{
        void
    >::type set()
    {
+#if QUAN_STM32_HAS_BITBANDING
        P::port_type::get()-> odr.template bb_setbit<P::pin_value>();
+#else
+       P::port_type::get()-> odr.template setbit<P::pin_value>();
+#endif
    }
 
     template <typename P>
@@ -67,7 +76,11 @@ namespace quan{ namespace stm32{
        void
    >::type clear()
    {
+#if QUAN_STM32_HAS_BITBANDING
        P::port_type::get()-> odr.template bb_clearbit<P::pin_value>();
+#else
+       P::port_type::get()-> odr.template clearbit<P::pin_value>();
+#endif
    }
 
 }}
