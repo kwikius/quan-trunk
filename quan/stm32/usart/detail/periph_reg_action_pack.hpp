@@ -8,6 +8,7 @@
 #include <quan/stm32/usart/module.hpp>
 #include <quan/stm32/detail/periph_reg_action_pack_fwd.hpp>
 #include <quan/stm32/usart/settings.hpp>
+#include <quan/stm32/usart/detail/setting_to_actions.hpp>
 
 namespace quan{ namespace stm32{ namespace detail{
 

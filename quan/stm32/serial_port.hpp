@@ -173,6 +173,8 @@ namespace quan{ namespace stm32{
    public:
      // add priority
      // baudrate etc
+      // output style etc.
+     // 
       static void init() 
       {
          m_tx_fifo.init(); 
@@ -181,7 +183,7 @@ namespace quan{ namespace stm32{
          quan::stm32::module_reset<usart_type>();
 
          quan::stm32::module_enable<usart_type>();
-
+// add here tx pin open drain no pullup option
          setup_TxPin();
          setup_RxPin();
 // these settings must be applied with usart disabled
@@ -298,11 +300,25 @@ namespace quan{ namespace stm32{
       {
          module_enable<typename TxPin::port_type>();
 
+/*
+To interface 5V..
+".
+You should configure the GPIO as open drain and 
+disable the internal pull-up (the external one 
+only shall be used).
+
+When the FT pin is then output-low, there is 
+max allowed current 25mA through the pin.
+In output-high guarantees the FT pin circuitry 
+zero injection current when the external voltage 
+applied to the pin is above VDD (and below VDD+4V)."
+*/
+
          apply<
             TxPin             
             ,tx_gpio_af_type         
-            ,gpio::otype::push_pull  
-            ,gpio::pupd::none   
+            ,gpio::otype::push_pull   // need open_drain amd pullup to 5V option here
+            ,gpio::pupd::none         //  this is still corrrect. Use external pullup
             ,gpio::ospeed::slow       
          >();
       }   

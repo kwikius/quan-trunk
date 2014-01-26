@@ -33,12 +33,13 @@ namespace quan { namespace uav { namespace cobs{
       static_assert(RawLength < 255, "data length too long");
       return RawLength + 1;
    }
-
+//!-!-!start-example
    // Length is length of the unencoded data, which must be less than 255 bytes
    // N.B. data does not include the unencoded framing 0 byte
    // length of the array src is assumed to be Length
    // length of the array dest is assumed to be get_encoded_length(length)
    // This function does not add the unencoded framing 0 byte
+
    inline bool encode(uint8_t const *src, uint8_t src_length, uint8_t *dest)
    {
       if ( src_length < 255){
@@ -65,7 +66,7 @@ namespace quan { namespace uav { namespace cobs{
          return false;
       }
    }
-   
+ //!-!-!end-example  
    // length is length of the encoded data, which must be less than or equal to 255 bytes
    // data does not include the unencoded framing 0 byte
    // length of the array src is assumed to be   length

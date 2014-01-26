@@ -8,6 +8,7 @@ namespace quan{ namespace uav{
 do checksum. All bytes except last which is used to hold checksum if creating
  and not read if checking
 */
+//!-!-!start-example
    template< uint32_t len>
    inline
    uint8_t do_checksum(uint8_t (&ar)[len])
@@ -20,6 +21,7 @@ do checksum. All bytes except last which is used to hold checksum if creating
      }
      return sum;
    }
+//!-!-!end-example
 }}
 
 

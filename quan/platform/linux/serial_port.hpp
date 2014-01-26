@@ -24,31 +24,36 @@
 #error "only for use on linux"
 #endif
 
-#include <termios.h>
+//#include <asm/termios.h>
 #include <cstddef>
 #include <cstdint>
 #include <string>
 #include <quan/concepts/port.hpp>
 #include <quan/is_model_of.hpp>
 
+extern "C" struct termios;
 namespace quan { 
    struct serial_port{
-      typedef unsigned char data_type;
+      typedef  unsigned char data_type;
       serial_port(const char* filename);
       ~serial_port();
       void init();
       ssize_t read( data_type* buf,size_t num);
+   
       ssize_t write(const data_type* buf, size_t num) ;
+      
       size_t in_avail();
       bool good() const;
       bool is_deleteable()const;
+
+      int set_baud( uint32_t val);
       
    private:
       std::string m_filename;
       void cleanup();
       int m_fd;
-      termios m_old_termios;
-      bool m_old_termios_saved;
+      termios * m_old_termios;
+     
       bool m_good_state;
      
       serial_port (serial_port const &) = delete;
