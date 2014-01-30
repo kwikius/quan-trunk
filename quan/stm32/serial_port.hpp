@@ -42,8 +42,8 @@ namespace quan{ namespace stm32{
 
       typedef Usart usart_type;
       typedef char char_type;
-      typedef quan::fifo<char_type,TxBufSize> tx_fifo_type;
-      typedef quan::fifo<char_type,RxBufSize> rx_fifo_type;
+      typedef quan::fifo<char_type,TxBufSize,true> tx_fifo_type;
+      typedef quan::fifo<char_type,RxBufSize,true> rx_fifo_type;
 
       typedef TxPin tx_pin_type;
       typedef RxPin rx_pin_type;
@@ -64,6 +64,26 @@ namespace quan{ namespace stm32{
       #error processor undefined 
    #endif
 #endif
+
+      static bool is_enabled()
+      {
+   #if defined QUAN_STM32F4
+         constexpr uint8_t enable_bit = 13;
+   #else 
+   #if defined QUAN_STM32F0
+         constexpr uint8_t enable_bit = 0;
+   #else
+   #error need to define for processor
+   #endif
+   #endif
+
+   #if QUAN_STM32_HAS_BITBANDING
+         return usart_type::get()->cr1.template bb_getbit<enable_bit>();
+   #else
+         return usart_type::get()->cr1.template getbit<enable_bit>();
+   #endif
+      }
+
       static void enable_rxneie()
       {
 #if (QUAN_STM32_HAS_BITBANDING)  
@@ -225,11 +245,21 @@ namespace quan{ namespace stm32{
 
        // To set or clear Over consult data sheet
       // n.b usart must be disabled first
+       
       template <uint32_t Baud, bool Over>
       static void set_baudrate()
       {
-          // read enabled bit?
+          bool enabled = serial_port::is_enabled();
+          if ( enabled){
+            disable<usart_type>();
+//######################################################
+            // TODO need to wait now till all transfers completed
+//########################################################
+          }
          quan::stm32::apply<usart_type,usart::baud_rate<Baud,Over> >();
+         if (enabled){
+            enable<usart_type>();
+         }
       }
 
       static void set_irq_priority(uint32_t priority)

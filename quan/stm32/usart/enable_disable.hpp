@@ -16,7 +16,7 @@ namespace quan{ namespace stm32{
 #if defined QUAN_STM32F0
       constexpr uint8_t enable_bit = 0;
 #else
-#errot need to define for processor
+#error need to define for processor
 #endif
 #endif
       U::get()->cr1.template setbit<enable_bit>();

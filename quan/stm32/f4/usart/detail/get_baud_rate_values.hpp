@@ -6,7 +6,7 @@
 #include <quan/stm32/f4/detail/get_bus.hpp>
 
 /*
- calcs with acknowledegnment to stm32f4xx_usart.h which is
+ calcs with acknowledegnment to stm32f4xx_usart.c which is
  COPYRIGHT 2011 STMicroelectronics
 
  Copyright (c) 2013 Andy Little 

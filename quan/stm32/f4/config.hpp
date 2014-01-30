@@ -50,13 +50,16 @@
 #define QUAN_STM32_HAS_TIM13 1
 #define QUAN_STM32_HAS_TIM14  1
 
-
 #define QUAN_STM32_HAS_USART1 1
 #define QUAN_STM32_HAS_USART2 1
 #define QUAN_STM32_HAS_USART3 1
 #define QUAN_STM32_HAS_UART4 1
 #define QUAN_STM32_HAS_UART5 1
 #define QUAN_STM32_HAS_USART6 1
+
+#define QUAN_STM32_HAS_I2C1   1
+#define QUAN_STM32_HAS_I2C2   1
+#define QUAN_STM32_HAS_I2C3   1
 
 #include <quan/stm32/f4/periph_map.hpp>
 
