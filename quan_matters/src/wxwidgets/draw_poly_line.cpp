@@ -14,9 +14,10 @@ void quan::gx::wxwidgets::graphics_context::draw_polyline(
    if ( length < 2){
       return;
    }
-
+   //TODO assert that colour is not null
    auto rgb_col = polyline.get_color()->get_uchar_rgb();
    wxColour wx_colour{rgb_col.red,rgb_col.green,rgb_col.blue};
+  
 
    auto px_line_width = quan::max(
       quan::arithmetic_convert<int>(
@@ -33,4 +34,5 @@ void quan::gx::wxwidgets::graphics_context::draw_polyline(
       ll_draw_line(quan::two_d::line<vect2_mm>{vect[i],vect[i+1]});
    }
    m_pDC->SetPen(wxNullPen);
+
 }
