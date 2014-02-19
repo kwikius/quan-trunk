@@ -24,6 +24,8 @@ add constants defining supply_voltage?
 */
 #include <cstdint>
 
+#define QUAN_NO_EXCEPTIONS
+
 #ifndef QUAN_FLOAT_TYPE
 #define QUAN_FLOAT_TYPE float
 #endif
