@@ -46,7 +46,7 @@ namespace quan { namespace stm32{
     module_reset()
     {
         static constexpr uint32_t bit_offset 
-            = quan::stm32::gpio::detail::rcc_bit_offset<I2CP>::value;
+            = quan::stm32::i2c::detail::rcc_bit_offset<I2CP>::value;
 
         quan::stm32::rcc::get()->apb1rstr. template setbit<bit_offset>();
         quan::stm32::rcc::get()->apb1rstr. template clearbit<bit_offset>();

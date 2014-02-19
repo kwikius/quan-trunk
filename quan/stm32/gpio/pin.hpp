@@ -5,6 +5,7 @@
 #include <quan/mcu/pin.hpp>
 #include <quan/is_model_of.hpp>
 #include <quan/stm32/gpio/archetype.hpp>
+#include <quan/bit.hpp>
 
 namespace quan{ namespace stm32{ 
 

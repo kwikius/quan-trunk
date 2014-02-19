@@ -40,7 +40,7 @@ namespace quan { namespace stm32{ namespace usart{ namespace detail{
             ? QUAN_STM32_APB2_DIVISOR
             : QUAN_STM32_APB1_DIVISOR;
      static constexpr uint32_t usart_bus_clk = QUAN_STM32_SYSCLK_Hz / bus_divisor;
-     static_assert(  (QUAN_STM32F4_SYSCLK_Hz % bus_divisor)==0,"error in calc");
+     static_assert(  (QUAN_STM32_SYSCLK_Hz % bus_divisor)==0,"error in calc");
      static constexpr uint32_t integerdivider = Over8
      ? (25 * usart_bus_clk) / (2 * BaudRate)
      : (25 * usart_bus_clk) / (4 * BaudRate); 
@@ -48,8 +48,8 @@ namespace quan { namespace stm32{ namespace usart{ namespace detail{
    static constexpr uint32_t tmpreg = (integerdivider / 100) << 4;
    static constexpr uint32_t fractionaldivider = integerdivider - (100 * (tmpreg >> 4));
    static constexpr uint32_t value = Over8
-   ?  tmpreg | ((fractionaldivider * 8 + 50) / 100) & static_cast<uint8_t>(0x07)
-   :  tmpreg | ((fractionaldivider * 16 + 50) / 100) & static_cast<uint8_t>(0x0F);
+   ?  tmpreg | ( ((fractionaldivider * 8 + 50) / 100) & static_cast<uint8_t>(0x07) )
+   :  tmpreg | ( ((fractionaldivider * 16 + 50) / 100) & static_cast<uint8_t>(0x0F) );
 
    };
 

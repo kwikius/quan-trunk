@@ -54,7 +54,7 @@ DEFINE_ARGS = $(patsubst %,-D%,$(DEFINES))
 # for float printf format etc
 # CFLAG_EXTRAS += -Wl,-u,vsprintf -lm
 
-CFLAGS  = -std=c++11 -fno-rtti -fno-exceptions -c -g -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) \
+CFLAGS  = -Wall -std=c++11 -fno-rtti -fno-exceptions -c -g -$(OPTIMISATION_LEVEL) $(DEFINE_ARGS) $(INCLUDE_ARGS) \
   $(PROCESSOR_FLAGS) $(CFLAG_EXTRAS)
 
 LFLAGS  = -T$(MAKE_SCRIPTS_PATH)/$(LINKER_SCRIPT) -$(OPTIMISATION_LEVEL) -nostartfiles -nodefaultlibs \
@@ -65,7 +65,7 @@ ODFLAGS = -d
 
 all: test
 
-objects = $(local_objects) startup.o system_init.o
+objects = $(local_objects) startup.o system_init.o systick.o
 
 clean:
 	-rm -rf *.o *.elf *.bin *.lst
@@ -87,6 +87,9 @@ system_init.o : $(MAKE_SCRIPTS_PATH)/$(SYSTEM_INIT)
 
 startup.o: $(MAKE_SCRIPTS_PATH)/$(STARTUP)
 	$(CC) $(CFLAGS) -o startup.o $(MAKE_SCRIPTS_PATH)/$(STARTUP) 
+
+systick.o : $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/systick.cpp
+	$(CC) $(CFLAGS) -o systick.o $(QUAN_INCLUDE_PATH)/quan_matters/src/stm32/systick.cpp
 
 upload : test
 	st-flash write main.bin 0x8000000

@@ -41,7 +41,7 @@ namespace quan { namespace stm32{ namespace detail{
           >::type type;
       };
      static constexpr uint32_t value = halve_if_gt<
-         quan::meta::gcd<uint32_t,QUAN_STM32F4_SOURCE_CLOCK_Hz,QUAN_STM32F4_SYSCLK_Hz>::value
+         quan::meta::gcd<uint32_t,QUAN_STM32_SOURCE_CLOCK_Hz,QUAN_STM32_SYSCLK_Hz>::value
      >::type::value;
    };
   

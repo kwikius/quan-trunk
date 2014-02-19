@@ -7,11 +7,9 @@
 
 namespace quan{ namespace stm32{
 
-   namespace exti_impl{
-
-      struct module{
+   struct exti{
          typedef uint32_t value_type;
-         typedef module type;
+         typedef exti type;
          static const uint32_t address = quan::stm32::periph_map::exti;
 
          typedef quan::stm32::periph_reg<type,0x00>  imr_type;
@@ -28,18 +26,14 @@ namespace quan{ namespace stm32{
          swier_type swier;
          pr_type pr;
       
-         static module* get(){ return reinterpret_cast<module*>(address);}
+         static exti* get(){ return reinterpret_cast<exti*>(address);}
 
       private:
-         module() = delete;
-         module(module const &) = delete;
-         module& operator = (module const & ) = delete;
+         exti() = delete;
+         exti(exti const &) = delete;
+         exti& operator = (exti const & ) = delete;
 
       };
-
-   } // exti_impl
-
-   typedef exti_impl::module exti;
 
 }} //quan::stm32
 

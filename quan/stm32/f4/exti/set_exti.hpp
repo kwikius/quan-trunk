@@ -6,6 +6,7 @@
 
 #include <quan/stm32/f4/syscfg/module.hpp>
 #include <quan/stm32/f4/exti/module.hpp>
+#include <stm32f4xx.h>
 
 namespace quan{ namespace stm32{
 
@@ -48,6 +49,33 @@ namespace quan{ namespace stm32{
       template <>struct  get_exti_port_offset<quan::stm32::gpioi>{
          static constexpr uint8_t value = 8;
       };
+
+
+      template <uint8_t PinValue>struct get_exti_irq_num{
+            static_assert(PinValue < 16,"invalid pin value");
+            static constexpr IRQn_Type value = (PinValue < 10 )? EXTI9_5_IRQn : EXTI15_10_IRQn;
+      };
+
+      template <> struct get_exti_irq_num<0> { 
+         static constexpr IRQn_Type value = EXTI0_IRQn;
+      };
+
+      template <> struct get_exti_irq_num<1> { 
+         static constexpr IRQn_Type value = EXTI1_IRQn;
+      };
+
+      template <> struct get_exti_irq_num<2> { 
+         static constexpr IRQn_Type value = EXTI2_IRQn;
+      };
+
+      template <> struct get_exti_irq_num<3> { 
+         static constexpr IRQn_Type value = EXTI3_IRQn;
+      };
+
+      template <> struct get_exti_irq_num<4> { 
+         static constexpr IRQn_Type value = EXTI4_IRQn;
+      };
+      
    }
 
 /*
@@ -78,8 +106,8 @@ namespace quan{ namespace stm32{
       constexpr uint32_t reg_clear_val =  ~(0xF << (exti_offset * 0x04));
        
       uint32_t const regval 
-         = quan::stm32::syscfg_impl::module::get()->exticr[exti_idx] & reg_clear_val;
-      quan::stm32::syscfg_impl::module::get()->exticr[exti_idx] = regval | reg_or_val;
+         = quan::stm32::syscfg::get()->exticr[exti_idx] & reg_clear_val;
+      quan::stm32::syscfg::get()->exticr[exti_idx] = regval | reg_or_val;
       
    }
 
@@ -110,7 +138,6 @@ namespace quan{ namespace stm32{
        quan::stm32::exti::get()->rtsr.bb_setbit<P::pin_value>();
    }
 
-
    template <typename P>
    inline
    typename quan::where_<
@@ -120,6 +147,14 @@ namespace quan{ namespace stm32{
        quan::stm32::exti::get()->rtsr.bb_clearbit<P::pin_value>();
    }
 
+   template <typename P>
+   inline
+   typename quan::where_<
+      quan::is_model_of<quan::stm32::gpio::Pin,P>
+   >::type nvic_enable_exti_irq()
+   {
+      ::NVIC_EnableIRQ(quan::stm32::detail::get_exti_irq_num<P::pin_value>::value);
+   }
 
    template <typename P>
    inline
@@ -174,19 +209,19 @@ namespace quan{ namespace stm32{
      ,bool
    >::type is_event_pending()
    {
-      return quan::stm32::exti::get()->pr.bb_getbit<P::pin_value>();
+       return quan::stm32::exti::get()->pr.bb_getbit<P::pin_value>();
    }
 
    template <typename P>
    inline
    typename quan::where_<
       quan::is_model_of<quan::stm32::gpio::Pin,P>
-     ,bool
+     ,void
    >::type clear_event_pending()
    {
       quan::stm32::exti::get()->pr.bb_setbit<P::pin_value>();
    }
-   
+
 }}
 
 #endif // QUAN_STM32_F4_SYSCFG_EXTI_HPP_INCLUDED

@@ -39,7 +39,7 @@ Andy Little
 
 static void SetSysClock(void);
 
-uint32_t SystemCoreClock = QUAN_STM32F4_SYSCLK_Hz;
+uint32_t SystemCoreClock = QUAN_STM32_SYSCLK_Hz;
 
 extern "C" void SystemInit(void)
 {

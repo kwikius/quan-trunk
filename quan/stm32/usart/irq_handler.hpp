@@ -18,7 +18,7 @@ namespace quan{ namespace stm32{ namespace usart{
               // deal with fifo overflow
               // by dumping the oldest data 
                // say rx_stream bad?
-               char ch = SerialPort::m_rx_fifo.get();
+               SerialPort::m_rx_fifo.get();
            }
            // read to rx buffer - clears RXNE flag
            SerialPort::m_rx_fifo.put( SerialPort::ll_get() );
