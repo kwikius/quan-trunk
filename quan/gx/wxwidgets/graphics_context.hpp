@@ -92,7 +92,7 @@ namespace quan { namespace gx { namespace wxwidgets{
       void draw_text(primitives::simple_text<length_type> const & text) const { }
 
       // in impl set up circle points to do a polyline
-      void draw_circle(primitives::circle<length_type> const & c) const { }
+      void draw_circle(primitives::circle<length_type> const & c) const;
 
    private:
 
