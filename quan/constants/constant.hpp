@@ -25,6 +25,7 @@ namespace quan {
         static constexpr ValueType pi = static_cast<ValueType>(3.141592653589793238462643383279502884197);
         static constexpr ValueType e = static_cast<ValueType>(0.5772156649015328606065120900824024310422);
         static constexpr ValueType sqrt2 = static_cast<ValueType>(1.41421356237309504880168872420969807857);
+
 #else
         static ValueType const  pi;
         static ValueType const  e;
@@ -32,7 +33,18 @@ namespace quan {
 #endif
    };
 
+#if defined ( QUAN_HAS_CONSTEXPR)
+   template<typename ValueType>
+   constexpr ValueType constant_<ValueType>::pi;
+   template<typename ValueType>
+   constexpr ValueType constant_<ValueType>::e;
+   template<typename ValueType>
+   constexpr ValueType constant_<ValueType>::sqrt2;
+#endif
+
    struct constant : constant_<quantity_traits::default_value_type>{};
+
+
 
 #ifndef QUAN_HAS_CONSTEXPR
 #ifdef QUAN_DEFINE_PHYSICAL_CONSTANTS_IN_HEADERS
@@ -51,6 +63,7 @@ T const   constant_<T>::sqrt2
 #endif
 #endif
 
+//template<typename T> typename constant_<T>::pi;
 } //quan
 
 #endif
