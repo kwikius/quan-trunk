@@ -118,7 +118,6 @@ namespace quan {
              v ,
             static_cast<double>( N ) / D
         );      
-
     }
     template <
         int64_t N,
@@ -127,6 +126,24 @@ namespace quan {
     inline
     double
     pow( int64_t const& v)
+    {
+ #ifndef __AVR__
+           return std::pow(
+#else
+          return ::pow(
+#endif
+            static_cast<double>( v ),
+            static_cast<double>( N ) / D
+        );         
+    }
+
+        template <
+        int64_t N,
+        int64_t D
+    >
+    inline
+    double
+    pow( int32_t const& v)
     {
  #ifndef __AVR__
            return std::pow(
