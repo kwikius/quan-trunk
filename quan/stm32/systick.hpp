@@ -34,9 +34,8 @@ namespace quan{ namespace stm32{
 
    inline quan::time_<int64_t>::ms millis()
    {
-      int64_t result;
       quan::stm32::detail::disable_systick_irq();
-      result = stm32::detail::systick_tick::current;
+      int64_t result = stm32::detail::systick_tick::current;
       quan::stm32::detail::enable_systick_irq();
       return quan::time_<int64_t>::ms{result};
    }
