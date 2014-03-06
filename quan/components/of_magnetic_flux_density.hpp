@@ -47,6 +47,15 @@ namespace quan{ namespace meta{ namespace components{
         > abstract_quantity;
 
         struct non_si_unit{
+
+            typedef meta::unit<
+                abstract_quantity,
+                meta::conversion_factor<
+                    meta::rational<-4>,
+                    meta::rational<1,1>::type,
+                    quan::meta::int32<1>
+                >
+            > gauss;
         };
 
         typedef  of_magnetic_flux_density type;

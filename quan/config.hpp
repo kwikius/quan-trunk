@@ -29,8 +29,8 @@
 #define QUAN_USE_QUAN_STD_TR1
 #endif
 
-#if defined QUAN_STM32F4 
-#include <quan/stm32f4/config.hpp>
+#if ( defined(QUAN_STM32F4) || defined(QUAN_STM32F3)  || defined(QUAN_STM32F0) )
+#include <quan/stm32/config.hpp>
 #endif
 
 #if defined __AVR__ && defined abs

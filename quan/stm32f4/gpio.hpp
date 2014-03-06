@@ -18,24 +18,13 @@
 */
 
 #include <quan/stm32f4/config.hpp>
-
-#include <quan/bit.hpp>
-#include <quan/is_model_of.hpp>
-#include <quan/meta/identity.hpp>
-#include <quan/meta/or.hpp>
-#include <quan/meta/if.hpp>
-#include <quan/meta/low_bits_mask.hpp>
-#include <quan/meta/count_if.hpp>
 #include <quan/meta/is_model_of.hpp>
 #include <quan/stm32f4/gpio/pin.hpp>
 #include <quan/stm32f4/gpio_typedefs.hpp>
 #include <quan/stm32f4/gpio/module_enable.hpp>
 #include <quan/stm32f4/gpio/module_disable.hpp>
 #include <quan/stm32f4/gpio/module_reset.hpp>
-#include <quan/stm32f4/detail/get_gpio_reg.hpp>
-#include <quan/stm32f4/detail/periph_reg_actions.hpp>
-#include <quan/stm32f4/gpio/detail/periph_reg_action_pack.hpp>
-#include <quan/stm32f4/gpio/detail/add_periph_reg_action.hpp>
+#include <quan/stm32f4/gpio/apply.hpp>
 
 namespace quan{ namespace stm32f4{
 
@@ -76,8 +65,7 @@ namespace quan{ namespace stm32f4{
    {
        P::port_type::get()-> odr.template bb_clearbit<P::pin_value>();
    }
-
-
+#if 0
    template <typename Pin, typename ... Listof_Setting>
    typename quan::where_<quan::is_model_of<quan::stm32f4::gpio::Pin, Pin> >::type
     apply()
@@ -120,7 +108,7 @@ namespace quan{ namespace stm32f4{
          typename module::periph_reg_list,quan::stm32f4::detail::apply_periph_reg_actions<module,periph_reg_actions> 
       >()();
    };
-
+#endif
 /*
 void apply( Pin, action_list)
 {

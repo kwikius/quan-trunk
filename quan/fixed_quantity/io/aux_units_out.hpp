@@ -3,7 +3,7 @@
 #if (defined _MSC_VER) && (_MSC_VER >= 1200)
 #  pragma once
 #endif
-
+#include <quan/config.hpp>
 // Copyright Andrew Little 2005
 
 /*
@@ -65,7 +65,7 @@ namespace quan{
         //##################### COMPILE TIME ASSERTION FAILURE ############
 
         // only SI and anonymous fixed_quantities are allowed
-        // in this function... see  below -->
+        // in this function... see  below if your compilation fails here-->
 
         typedef quan::meta::unit<AbstractQuantity,ConversionFactor> unit;    
         typedef typename quan::meta::not_<
@@ -77,17 +77,17 @@ namespace quan{
             >
         >::type valid_quantity;
 
-         QUAN_STATIC_ASSERT((valid_quantity::value !=0));
+         static_assert((valid_quantity::value !=0),"only si quantities allowed here");
 
         // This assertion fails if you have included the default output facilities but
         // are trying to output a named quantity 
         // with a non SI conversion factor using the default output function.
         // non-si quantities use specific io overloads.
         // You have probably either forgotten 
-        // to #include the output version of the header for the non SI quantity
+        // to #include the stream output version of the header for the particular non SI quantity
          // e.g <quan/out/length.hpp>
         // or forgotten to provide an overload for the particular non SI unit
-
+        // if you have added it
         //##################### compile time assertion failure ############
 
         enum{ which = ( (meta::is_named_quantity<unit >::value)

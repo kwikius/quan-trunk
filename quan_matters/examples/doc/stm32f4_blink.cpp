@@ -16,12 +16,12 @@ void delay()
     }
 }
    
-   using namespace quan::stm32f4;
-   typedef gpio::pin<gpiod,13> PD13; // A port Pin is aliased by a typedef
+using namespace quan::stm32f4;
+typedef gpio::pin<gpiod,13> PD13; // A port Pin is aliased by a typedef
 
 int main()
 {
-   module_enable<gpiod>();  // On the ARM architecture the GPIO ports must be switch on else no output!
+   module_enable<gpiod>();  // On the ARM architecture the GPIO ports must be switched on else no output!
 
    // The following function is turned into efficient assembler
    // to apply the various settings to the port pin

@@ -9,9 +9,9 @@
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/two_d/vect.hpp>
-
 #include <quan/gx/abc_color.hpp>
-#include <vector>
+#include <quan/gx/static_rgb_color.hpp>
+//#include <vector>
 
 namespace quan{ namespace gx{ namespace primitives{
 
@@ -23,7 +23,7 @@ namespace quan{ namespace gx{ namespace primitives{
          vect const & center,
          length_type const & radius,
          length_type const & line_width = length_type(),
-         abc_color::ptr color = abc_color::ptr()
+         abc_color::ptr color = quan::gx::rgb::colors::black
       )
       : m_center(center),
         m_radius(radius),

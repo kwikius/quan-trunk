@@ -4,10 +4,14 @@
 namespace quan{ namespace stm32f4{namespace detail{
 
 /*
-  The collection of actions to apply to registers to apply the settings in S
-  to Pin P
+   A List of PeriphRegActions required to implement the settings specified by Setting
+   to the Entity.
+   Settings are specific to the Entity
+   so far Entities include
+      stm32::gpio::Pin
+      stm32::Usart
 */
-  template <typename P, typename S, typename Where = void>
+  template <typename Entity, typename Setting, typename Where = void>
   struct periph_reg_action_pack;
 
 }}}

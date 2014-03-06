@@ -18,21 +18,22 @@
 */
 
 #include <type_traits>
+
 #include <quan/operators/binary_operator_functors.hpp>
 #include <quan/meta/binary_op.hpp>
 #include <quan/meta/type_sequence.hpp>
-// should move to concepts..
 #include <quan/meta/copy_if.hpp>
 #include <quan/meta/fold.hpp>
 #include <quan/meta/transform.hpp>
 #include <quan/concepts/meta/type_sequence/for_each.hpp>
+#include <quan/meta/get_num_elements.hpp>
+#include <quan/meta/front.hpp>
+
 #include <quan/stm32f4/detail/get_reg.hpp>
 #include <quan/stm32f4/gpio/detail/get_periph_reg.hpp>
 #include <quan/stm32f4/gpio/settings.hpp>
 #include <quan/stm32f4/detail/periph_reg_action_pack_fwd.hpp>
 #include <quan/stm32f4/detail/add_periph_reg_action.hpp>
-#include <quan/meta/get_num_elements.hpp>
-#include <quan/meta/front.hpp>
 
 namespace quan{ namespace stm32f4{ namespace detail{
 
@@ -91,6 +92,7 @@ namespace quan{ namespace stm32f4{ namespace detail{
    };
  
    // model of PeriphRegAction
+   // does nothing
    struct periph_reg_null_action{
      void operator()()const{}
      typedef periph_reg_null_action type;
@@ -440,10 +442,9 @@ namespace quan{ namespace stm32f4{ namespace detail{
 
 }}}// quan::stm32f4::detail
 
-
 namespace quan{ namespace impl{
    
-   // check Moule and Listof_PeriphRegAction are models?
+   // check Module and Listof_PeriphRegAction are models?
    // must be declared as a model for quan::meta::for_each
    template <typename Module, typename Listof_PeriphRegAction>
    struct is_model_of_impl<
@@ -465,6 +466,7 @@ namespace quan{ namespace stm32f4{  namespace detail{
       };
    };
 
+// convert periph_reg_action_pack to polymorphic_functor
    template <typename Pin>
    struct make_periph_reg_action_pack{
 

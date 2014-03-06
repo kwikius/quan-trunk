@@ -32,7 +32,7 @@ namespace quan{
           typename quan::meta::binary_op<MaxL,quan::meta::minus,MaxR>::type
       > result_type;
      return result_type(lhs.min - rhs.min,lhs.max- rhs.max);
-   };
+   }
    
 }
 

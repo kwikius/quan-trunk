@@ -12,10 +12,10 @@
 
 namespace quan{ namespace stm32f4{ namespace usart{
 
-   struct Setting; // Concept
+   struct Setting; // Archetype
 
    namespace detail{
-
+      
       template <typename S>
       struct setting_to_actions;
 

@@ -16,5 +16,17 @@
 #include <quan/fixed_quantity/io/output.hpp>
 
 namespace quan{ namespace meta{
+
+    inline
+    std::ostream&
+    operator <<(
+        std::ostream & os,
+        quan::meta::components::of_magnetic_flux_density::non_si_unit::gauss
+    )
+    {
+        os << "gauss";
+        return os;
+    }
+
 }}//quan::meta
 #endif

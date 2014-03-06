@@ -18,7 +18,7 @@
 */
 
 #include <quan/three_d/vect.hpp>
-#include <quan/out/minmaxpair.hpp>
+//#include <quan/out/minmaxpair.hpp>
 #include <iostream>
 
 namespace quan{namespace three_d{

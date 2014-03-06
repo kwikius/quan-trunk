@@ -180,6 +180,11 @@ namespace quan{
             Value_type
         > ZT;
 
+       typedef fixed_quantity<
+            typename non_si_unit::gauss,
+            Value_type
+        > gauss;
+
     };
 
     struct magnetic_flux_density : magnetic_flux_density_<quantity_traits::default_value_type>{};

@@ -1,0 +1,77 @@
+<html>
+<!-- root   = /home/andy/website/quan-trunk -->
+<!-- offset = quan_matters/doc/quan/stm32/module.html -->
+<title>
+quan::stm32::module
+</title>
+<head>
+<link
+rel='stylesheet'
+href='../../common/style.css'
+type='text/css'
+>
+<link
+rel='stylesheet'
+href='../../common/concept_style.css'
+type='text/css'
+>
+</head>
+<body>
+<!--quan::PolymorphicFunctor1-->
+<!--quan::TypeSequence-->
+<!--SiteIndex-->
+<!--QuanIndex-->
+<!--QuanLogo-->
+<!--HR-->
+<!--PageHeader-->
+<!--STM32_Index-->
+<!--STM32F4_Index-->
+<!--PageFooter-->
+<!--Gpio-->
+<!--gpio::Pin-->
+<!--Module-->
+<!--Usart-->
+<!--gpio::module-->
+<!--PeriphReg-->
+<div><a href = '../../index.html'><img src = '../../common/quan_logo.png'>
+</a><a href = '../../index.html'>Quan Index</a><HR></div><p><a href = './index.html'>stm32 - index </a></p>
+<span id="entity-type">Archetype</span><span id="entity-name"> quan::stm32::Module</span><table><tr><td><h3>header</h3>
+</td><td><a href = '../../../../quan/stm32/module.hpp'>&lt;quan/stm32/module.hpp&gt;</a></td></tr>
+</table>
+<p>The Module Archetype represents a stm32 module.</p>
+<table class="constructs"><tr><td class="constructs">Constructs</td></tr>
+<tr><td><table class="notation"><tr><td class="notation-header">Notation</td></tr>
+<tr><td class="notation-type-value-header">type</td><td class="notation-type-value-header">model of</td></tr>
+<tr><td class="notation-type-value">M</td><td class="notation-type-value"><a href = ''>stm32::Module</a></td></tr>
+<tr><td class="notation-type-value">A</td><td class="notation-type-value">UnsignedInteger</td></tr>
+<tr><td class="notation-type-value-header">value</td><td class="notation-type-value-header">has type</td></tr>
+<tr><td class="notation-type-value">pm</td><td class="notation-type-value">M*</td></tr>
+<tr><td class="notation-type-value">a</td><td class="notation-type-value">A</td></tr>
+</table>
+</td></tr>
+<tr><td class="constructs">Module expressions</td></tr>
+<tr><td><table class="notation"><tr><td class="notation-header">Member types</td></tr>
+<tr><td class="notation-type-value-header">type</td><td class="notation-type-value-header">model of</td><td class="notation-type-value-header">description</td></tr>
+<tr><td>M::type</td><td>M</td><td>M is an <a href = '../../lang/auto_archetypes/IdentityTypeFunction.html'>IdentityTypeFunction</a></td></tr>
+<tr><td>M::value_type</td><td>A</td><td>The underlying type of the address of the module</td></tr>
+<tr><td>M::periph_reg_list</td><td>quan::meta::type_sequence&lt;<a href = './periph_reg.html'>stm32::PeriphReg</a>...&gt;</td><td>list of member periph-reg types</td></tr>
+</table>
+</td></tr>
+<tr><td><table class="expressions"><tr><td class="notation-header">Member expressions</td></tr>
+<tr><td class="expression-header">expression</td><td class="expression-header">result</td><td class="expression-header">notes</td></tr>
+<tr><td class="expression">M::address</td><td class="expression">a</td><td class="expression">returns the address of the module.</td></tr>
+<tr><td class="expression">M::get()</td><td class="expression">pm</td><td class="expression">returns a pointer to the module object.</td></tr>
+</table>
+</td></tr>
+<tr><td><table class="expressions"><tr><td class="notation-header">Global expressions</td><td> (in quan::stm32 namespace)</td></tr>
+<tr><td class="expression-header">expression</td><td class="expression-header">result</td><td class="expression-header">notes</td></tr>
+<tr><td class="expression">module_enable&lt;M&gt;();</td><td class="expression">M is enabled</td><td class="expression">Switches on M's module in RCC</td></tr>
+<tr><td class="expression">module_disable&lt;M&gt;();</td><td class="expression">M is disabled</td><td class="expression">Switches off M's module in RCC</td></tr>
+<tr><td class="expression">module_reset&lt;M&gt;();</td><td class="expression">M is reset</td><td class="expression">Resets M's module in RCC</td></tr>
+</table>
+</td></tr>
+</table>
+<p><a href = './index.html'>stm32 - index </a></p>
+<div><HR><div><a href = '../../index.html'><img src = '../../common/quan_logo.png'>
+</a><a href = '../../index.html'>Quan Index</a><HR></div></div></body>
+</html>

@@ -10,7 +10,7 @@
 /*
     3d vect definition
 */
-
+#include <quan/config.hpp>
 #include <quan/implicit_cast.hpp>
 #include <quan/where.hpp>
 #include <type_traits>
@@ -48,7 +48,7 @@ namespace quan{ namespace three_d{
             return * this;
         }
         
-        vect operator -()
+        vect operator -()const
         {
             return vect(-x,-y,-z);
         }
@@ -107,15 +107,35 @@ namespace quan{ namespace three_d{
                 case 2:
                     return z;
                 default:
-                    throw std::logic_error(
-                        "array subscript out of range in vect"
-                    );
+#if defined QUAN_NO_EXCEPTIONS
+// crap really maybe some dummy static value?
+                 return x;
+#else
+                 throw std::logic_error(
+                     "array subscript out of range in vect"
+                 );         
+#endif
             }
         }
         T const & operator[](int n)const
         {
-            T& t = this->operator[](n);
-            return t;
+            switch (n){
+                case 0:
+                    return x;
+                case 1:
+                    return y; 
+                case 2:
+                    return z;
+                default:
+#if defined QUAN_NO_EXCEPTIONS
+                    return x;
+#else
+                    throw std::logic_error(
+                        "array subscript out of range in vect"
+                    );
+                    
+#endif
+            }
         }
         
     };

@@ -12,7 +12,6 @@
 
 namespace quan{ namespace stm32f4{
 
-
      template<typename U> inline
      typename quan::where_<quan::is_model_of< quan::stm32f4::Usart,U> >::type 
      module_enable()
@@ -20,7 +19,7 @@ namespace quan{ namespace stm32f4{
             quan::stm32f4::usart::detail::module_enable<U>{}();
      }
       
-      template<typename U> inline
+     template<typename U> inline
      typename quan::where_<quan::is_model_of< quan::stm32f4::Usart,U> >::type 
      module_disable()
      {    
