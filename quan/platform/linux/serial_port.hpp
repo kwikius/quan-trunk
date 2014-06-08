@@ -41,6 +41,12 @@ namespace quan {
       ssize_t read( data_type* buf,size_t num);
    
       ssize_t write(const data_type* buf, size_t num) ;
+      ssize_t write(const char* buf, size_t num) ;
+
+      template<size_t N>
+      ssize_t write(const char(& buf)[N]){
+         return write(buf,N);
+      }
       
       size_t in_avail();
       bool good() const;
