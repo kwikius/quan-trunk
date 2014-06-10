@@ -92,17 +92,17 @@ namespace quan{ namespace stm32{
          is_in_periph_bitband<address>
        >{};
 
-      template <uint8_t Bit> typename quan::where_<is_in_periph_bitband<address> >::type bb_setbit()
+      template <uint8_t Bit> static typename quan::where_<is_in_periph_bitband<address> >::type bb_setbit()
       {
          *reinterpret_cast<volatile uint32_t*>(periph_bit_band_address<address,Bit>::value) = static_cast<uint32_t>(1);
       }
 
-      template <uint8_t Bit> typename quan::where_<is_in_periph_bitband<address> >::type bb_clearbit()
+      template <uint8_t Bit> static typename quan::where_<is_in_periph_bitband<address> >::type bb_clearbit()
       {
          *reinterpret_cast<volatile uint32_t*>(periph_bit_band_address<address,Bit>::value) = static_cast<uint32_t>(0);
       }
 
-      template <uint8_t Bit> typename quan::where_<is_in_periph_bitband<address>,bool >::type bb_getbit() const
+      template <uint8_t Bit> static typename quan::where_<is_in_periph_bitband<address>,bool >::type bb_getbit()
       {
          return *reinterpret_cast<volatile uint32_t*>(periph_bit_band_address<address,Bit>::value) != 0;
       }
