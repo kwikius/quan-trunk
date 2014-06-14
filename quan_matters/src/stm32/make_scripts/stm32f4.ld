@@ -26,6 +26,9 @@ MEMORY
 {
    rom (rx)  : org = 0x08000000, len = 1024K
    ram (xrw) : org = 0x10000000, len = 64K
+   /* also have 112K (0x20000000) and 16 K(0x2001C000) rams 
+    in fact better ram would be 0x20000000 and leave other for code
+   */
 }
 
 SECTIONS
