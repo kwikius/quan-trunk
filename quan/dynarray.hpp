@@ -58,6 +58,16 @@ requires a ctor function to call on failure to alloc
             }
          }
       }
+      bool realloc(size_t N, void (*pferror) ())
+      {
+         if (realloc(N)){
+            return true;
+         }else{
+            pferror();
+            return false;
+         }
+      }
+
       bool good()const { return m_ptr != nullptr;}
    private: 
       T* m_ptr;
