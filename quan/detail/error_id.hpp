@@ -10,12 +10,13 @@ namespace quan{ namespace detail{
        error_num_unknown = -1
       ,stm32_flash_page_corrupted =-2
       ,stm32_flash_symbol_not_found = -3
-      ,invalid_flash_symbol_storage_size = -4
+      ,invalid_storage_size = -4
       ,out_of_heap_memory = -5
       ,stm32_flash_invalid_symbol_index = -6
       ,recursion_too_deep = -7
-      ,stm32_flash_too_small_for_data = -8
+      ,out_of_flash_memory = -8
       ,stm32_invalid_flash_page = -9
+      ,unterminated_string_constant = -10
       ,error_num_user = 1
    };
 

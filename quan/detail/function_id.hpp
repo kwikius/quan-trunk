@@ -5,7 +5,7 @@ namespace quan{
    namespace detail{
       enum function_id{
          function_id_unknown = -1
-         stm32_flash_read_symbol = -2
+         ,stm32_flash_read_symbol = -2
          ,stm32_flash_write_symbol = -3
          ,stm32_flash_get_write_count = -4
          ,stm32_ll_flash_get_sym_ptr = -5

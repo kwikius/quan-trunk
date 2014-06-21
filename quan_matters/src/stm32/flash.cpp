@@ -101,7 +101,7 @@ bool quan::stm32::flash::write_symbol (
    if (buffer.get_num_elements() != symtab.get_symbol_storage_size (symidx)) {
         quan::error(
             quan::detail::stm32_flash_write_symbol,
-            quan::detail::invalid_flash_symbol_storage_size
+            quan::detail::invalid_storage_size
       );
       return false;
    }
@@ -137,6 +137,13 @@ bool quan::stm32::flash::read_symbol (
       );
       return false;
    }
+}
+
+bool quan::stm32::flash::have_symbol(quan::stm32::flash::symbol_table const & symtab,uint16_t symidx)
+{
+    uint8_t const volatile* data_ptr = nullptr;
+         uint32_t data_len = 0;
+   return ll_flash_get_sym_ptr (symtab,symidx,data_ptr,data_len);
 }
   
 namespace {
@@ -207,7 +214,7 @@ namespace {
          quan::stm32::flash::detail::write (page+7,static_cast<uint8_t> ( (new_data_offset & 0xff00) >> 8));
          // check ee mem is big enough!
          if ( (new_data_offset + new_data_size) > page_size) {
-            quan::error( quan::detail::stm32_flash_write_symbol, quan::detail::stm32_flash_too_small_for_data);
+            quan::error( quan::detail::stm32_flash_write_symbol, quan::detail::out_of_flash_memory);
             --recursion_level;
             return false;
          }

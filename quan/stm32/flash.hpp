@@ -21,7 +21,7 @@ namespace quan {namespace stm32 {namespace flash {
    int32_t get_write_count();
    bool read_symbol (quan::stm32::flash::symbol_table const & symtab,uint16_t symidx, quan::dynarray<uint8_t> & buffer);
    bool write_symbol (quan::stm32::flash::symbol_table const & symtab,uint16_t symidx, quan::dynarray<uint8_t> const & buffer);
-   
+   bool have_symbol(quan::stm32::flash::symbol_table const & symtab,uint16_t symidx);
   
 }}}
  
