@@ -437,7 +437,7 @@ namespace quan{ namespace stm32{ namespace detail{
 
          emit_action{}();
 
-      };
+      }
    };
 
 }}}// quan::stm32::detail
