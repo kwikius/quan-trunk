@@ -44,13 +44,13 @@ namespace quan { namespace stm32{ namespace usart{ namespace detail{
      static constexpr uint32_t integerdivider = Over8
      ? (25 * usart_bus_clk) / (2 * BaudRate)
      : (25 * usart_bus_clk) / (4 * BaudRate); 
-
+     
    static constexpr uint32_t tmpreg = (integerdivider / 100) << 4;
    static constexpr uint32_t fractionaldivider = integerdivider - (100 * (tmpreg >> 4));
    static constexpr uint32_t value = Over8
    ?  tmpreg | ( ((fractionaldivider * 8 + 50) / 100) & static_cast<uint8_t>(0x07) )
    :  tmpreg | ( ((fractionaldivider * 16 + 50) / 100) & static_cast<uint8_t>(0x0F) );
-
+    static_assert((value & 0xFFFF0000) == 0,"baud rate not available");
    };
 
 }}}}
