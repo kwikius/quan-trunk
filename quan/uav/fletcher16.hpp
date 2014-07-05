@@ -7,7 +7,7 @@
 
 namespace quan{ namespace uav{
 //!-!-!start-example
-   uint16_t fletcher16( uint8_t const *data, uint32_t bytes )
+   inline uint16_t fletcher16( uint8_t const *data, uint32_t bytes )
    {
       uint16_t sum1 = 0xff, sum2 = 0xff;
       while (bytes) {
