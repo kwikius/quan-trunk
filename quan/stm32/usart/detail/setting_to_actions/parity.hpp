@@ -55,7 +55,7 @@ namespace quan{ namespace stm32{ namespace usart{ namespace detail{
          typedef typename quan::stm32::detail::periph_reg_action<
             typename U::cr1_type,quan::meta::bit_and,~quan::bit<value_type>(9)
          > and_action_type;
-         typedef typename quan::meta::push_back<ListOfActions,or_action_type>::type list_of_actions1_type;;
+         typedef typename quan::meta::push_back<ListOfActions,or_action_type>::type list_of_actions1_type;
          typedef typename quan::meta::push_back<list_of_actions1_type,and_action_type>::type type;
       };
    };
