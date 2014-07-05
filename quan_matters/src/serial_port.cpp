@@ -127,6 +127,13 @@ ssize_t quan::serial_port::write(const data_type* buf, size_t num)
     return ::write(this->m_fd,buf,num);
 }
 
+ 
+
+ssize_t quan::serial_port::write(const char* buf, size_t num) 
+{
+    return ::write(this->m_fd,reinterpret_cast<const data_type*>(buf),num);
+}
+
 quan::serial_port::~serial_port()
 {
   this->cleanup();
