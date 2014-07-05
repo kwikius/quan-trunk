@@ -25,15 +25,7 @@ namespace quan{ namespace stm32{ namespace usart{namespace detail{
          typedef typename quan::stm32::detail::make_boolean_action<
             Over8, typename U::cr1_type,15
          >::type over8_type;
-#if 0
-         typedef quan::stm32::usart::detail::get_baud_rate_values<U,BaudRate,Over8> reg_values;
-         typedef typename U::value_type value_type;
 
-         static constexpr uint64_t test_shifted = reg_values::mantissa << 4;
-         static_assert( (test_shifted == static_cast<value_type>(test_shifted)) , "lopped values off");
-         static_assert( ((reg_values::mantissa << 4) & reg_values::fraction) ==0, "lopped off 1");
-         static constexpr value_type mask = (reg_values::mantissa << 4) | reg_values::fraction ;
-#endif
          typedef typename quan::stm32::detail::periph_reg_action<
             typename U::brr_type,
             quan::meta::equals,
