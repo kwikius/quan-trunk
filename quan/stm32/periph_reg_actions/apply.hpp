@@ -110,7 +110,7 @@ namespace quan{ namespace stm32{
       quan::meta::for_each<
          typename module_type::periph_reg_list,quan::stm32::detail::apply_periph_reg_actions<module_type,periph_reg_actions> 
      >{}();
-   };
+   }
 
 }}//quan::stm32
 
