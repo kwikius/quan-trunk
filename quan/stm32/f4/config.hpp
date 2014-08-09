@@ -87,6 +87,7 @@
 #define QUAN_STM32_APB2_DIVISOR 2
 #endif
 
+// think this is actually 2 ...
 #ifndef QUAN_STM32_APB1_DIVISOR
 #define QUAN_STM32_APB1_DIVISOR 4
 #endif

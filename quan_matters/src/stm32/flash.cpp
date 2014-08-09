@@ -3,8 +3,7 @@
 #include <cstring>
 #include <quan/error.hpp>
 
-
-
+/*
 int32_t quan::stm32::flash::get_write_count()
 {
    uint8_t* page = nullptr;
@@ -39,6 +38,7 @@ int32_t quan::stm32::flash::get_write_count()
    }
    return u.val;
 }
+*/
 
 /*
 Flash memory
@@ -92,7 +92,6 @@ int32_t ll_flash_find_end_records (int32_t page_num);
 
 }// ~namespace 
  
-
 bool quan::stm32::flash::write_symbol (
       quan::stm32::flash::symbol_table const & symtab,
       uint16_t symidx, 
@@ -103,6 +102,7 @@ bool quan::stm32::flash::write_symbol (
             quan::detail::stm32_flash_write_symbol,
             quan::detail::invalid_storage_size
       );
+
       return false;
    }
    return ll_flash_write_symbol (symtab,symidx,buffer.get(), -1);
@@ -204,7 +204,7 @@ namespace {
       
       if (page[0] == 0xFF) { // if page empty then put symbol in as first entry
          // could get and bump count
-         // std::cout << "writing new page\n";
+
          quan::stm32::flash::detail::write (page,0);
          quan::stm32::flash::detail::write (page + 4,static_cast<uint8_t> (symidx & 0xff));
          quan::stm32::flash::detail::write (page +5, static_cast<uint8_t> ( (symidx & 0xff00) >> 8));
@@ -366,8 +366,15 @@ namespace {
       int32_t page_num = -1;
       uint8_t* page0 = reinterpret_cast<uint8_t*> (quan::stm32::flash::detail::get_page_address (1));
       uint8_t* page1 = reinterpret_cast<uint8_t*> (quan::stm32::flash::detail::get_page_address (2));
-      
+ 
+//########################################
+//check that page0 address is correct     
+//############################################
+
       if (page0[0] != 0xFF) { // currently writing page0
+//#########################################
+        // find what it is equal to
+//##########################################
          page = page0;
          page_num = 1;
       } else {
@@ -413,7 +420,8 @@ namespace {
    int32_t ll_flash_find_end_records (int32_t page_num)
    {
       uint32_t page_size = quan::stm32::flash::detail::get_page_size (page_num);
-      uint8_t * page = reinterpret_cast<uint8_t*> (quan::stm32::flash::detail::get_page_address (page_num));
+      uint8_t * page = reinterpret_cast<uint8_t*>
+           (quan::stm32::flash::detail::get_page_address (page_num));
       if ((page_size == 0) || ( page == nullptr)) {
          quan::error(
             quan::detail::stm32_ll_flash_find_end_records,
@@ -421,7 +429,6 @@ namespace {
          );
          return -1;
       }
-
       for (uint32_t i = 0; i < page_size ; i += 4) {
          union {
             uint8_t ar[2];
@@ -433,7 +440,7 @@ namespace {
             return  i;
          }
       }
-        quan::error(quan::detail::stm32_ll_flash_find_end_records,quan::detail::stm32_flash_page_corrupted);
+      quan::error(quan::detail::stm32_ll_flash_find_end_records,quan::detail::stm32_flash_page_corrupted);
       return -1;
    }
  

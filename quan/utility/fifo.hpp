@@ -9,7 +9,7 @@ template<typename T, int Size, bool Volatile = false>
 struct fifo {
     void init()
     {
-      m_putptr = m_buf;
+      m_putptr = (Size > 0)?m_buf:nullptr;
       m_getptr = nullptr;
     }
     static const int size = Size;

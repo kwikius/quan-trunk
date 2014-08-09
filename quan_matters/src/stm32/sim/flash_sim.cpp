@@ -52,14 +52,16 @@ bool quan::stm32::flash::detail::erase (int32_t page_num)
    }
 }
 
-void quan::stm32::flash::detail::write (const volatile uint8_t* dest, const uint8_t* buf, int32_t bytes)
+bool quan::stm32::flash::detail::write (const volatile uint8_t* dest, const uint8_t* buf, int32_t bytes)
 {
    memcpy ((uint8_t*)dest,buf,bytes);
+   return true;
 }
 
-void quan::stm32::flash::detail::read (uint8_t* buf,const volatile uint8_t * src, int32_t bytes)
+bool quan::stm32::flash::detail::read (uint8_t* buf,const volatile uint8_t * src, int32_t bytes)
 {
    memcpy (buf, (uint8_t const *) src,bytes);
+   return true;
 }
  
 

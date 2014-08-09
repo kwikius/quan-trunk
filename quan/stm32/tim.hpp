@@ -71,9 +71,9 @@ namespace quan{namespace stm32{
      update_interrupt()
      {
 #if QUAN_STM32_HAS_BITBANDING 
-         return tim3::get()->sr.bb_getbit<0>();
+         return T::get()->sr. template bb_getbit<0>();
 #else
-         return tim3::get()->sr.getbit<0>();
+         return T::get()->sr. template getbit<0>();
 #endif
      }
 
@@ -82,9 +82,9 @@ namespace quan{namespace stm32{
      clear_update_interrupt()
      {
 #if QUAN_STM32_HAS_BITBANDING 
-         tim3::get()->sr.bb_clearbit<0>();
+         T::get()->sr. template bb_clearbit<0>();
 #else
-         tim3::get()->sr.clearbit<0>();
+         T::get()->sr. template clearbit<0>();
 #endif
      }
 

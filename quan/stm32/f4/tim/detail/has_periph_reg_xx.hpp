@@ -42,14 +42,19 @@ namespace quan{ namespace stm32{ namespace tim{ namespace detail{
 
    template<> struct has_ccmr1<quan::stm32::tim6>  : quan::meta::false_{};
    template<> struct has_ccmr1<quan::stm32::tim7>  : quan::meta::false_{};
-
+   
+#if 0
    template<> struct has_ccmr2<quan::stm32::tim1>  : quan::meta::true_{};
    template<> struct has_ccmr2<quan::stm32::tim2>  : quan::meta::true_{};
    template<> struct has_ccmr2<quan::stm32::tim3>  : quan::meta::true_{};
    template<> struct has_ccmr2<quan::stm32::tim4>  : quan::meta::true_{};
    template<> struct has_ccmr2<quan::stm32::tim5>  : quan::meta::true_{};
    template<> struct has_ccmr2<quan::stm32::tim8>  : quan::meta::true_{};
-
+#else
+   template<> struct has_ccmr2<quan::stm32::tim6>  : quan::meta::false_{};
+   template<> struct has_ccmr2<quan::stm32::tim7>  : quan::meta::false_{};
+   
+#endif
    template<> struct has_ccer<quan::stm32::tim6>  : quan::meta::false_{};
    template<> struct has_ccer<quan::stm32::tim7>  : quan::meta::false_{};
 
