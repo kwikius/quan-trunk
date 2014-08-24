@@ -61,6 +61,10 @@
 #define QUAN_STM32_HAS_I2C2   1
 #define QUAN_STM32_HAS_I2C3   1
 
+#define QUAN_STM32_HAS_SPI1 1
+#define QUAN_STM32_HAS_SPI2 1
+#define QUAN_STM32_HAS_SPI3 1
+
 #include <quan/stm32/f4/periph_map.hpp>
 
 #ifndef QUAN_STM32_SOURCE_CLOCK_Hz

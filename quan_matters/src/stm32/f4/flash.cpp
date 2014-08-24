@@ -35,24 +35,27 @@ namespace {
     ,0x80A0000
     ,0x80C0000
     ,0x80E0000
+    ,0x8100000 //N.B <--- 1 greater than last address
   };
   constexpr uint32_t num_flash_pages 
-      = (sizeof(page_address_array)/sizeof(uint32_t));
+      = (sizeof(page_address_array)/sizeof(uint32_t)) -1;
 }
 
+//out of range returns 0
 void* quan::stm32::flash::detail::get_page_address (int32_t page_id)
 {
-  return (void*) page_address_array[page_id];
+   if ( (page_id >=0) && (static_cast<uint32_t>(page_id) < num_flash_pages)){
+      return (void*) page_address_array[page_id];
+   }else{
+      return (void*)0;
+   }
 }
 
 int32_t quan::stm32::flash::detail::get_page_num (void * address_in)
 {
-   uint32_t address = (uint32_t) address_in;
+   uint32_t const address = (uint32_t) address_in;
 
-   if (address < page_address_array[0]){
-    return -1;
-   }
-   for ( uint32_t i = 1; i < num_flash_pages; ++i){
+   for ( uint32_t i = 0; i <= num_flash_pages; ++i){
       if (address < page_address_array[i]){
          return i-1;
       }
