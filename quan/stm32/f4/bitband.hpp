@@ -44,6 +44,7 @@ namespace quan{ namespace stm32{
        typedef periph_bit_band_address type;
    };
 
+//bitband for STM32F405, STM32F405, STM32F415,STM32F415
    template <uint32_t Address>
     struct is_in_sram_bitband : quan::meta::bool_<( (Address >= 0x20000000) && (Address < 0x20100000) )>{};
 
@@ -55,10 +56,24 @@ namespace quan{ namespace stm32{
        static constexpr uint32_t bitband_ref = 0x20000000;
        static_assert(is_in_sram_bitband<address>::value, "sram bit banding address out of range");
        static constexpr uint32_t bitband_base = 0x22000000;
-
        static constexpr uint32_t value = bitband_base + (address - bitband_ref) * 32 + bitpos_lo * 4;
        typedef sram_bit_band_address type;
    };
+
+   inline uint32_t* get_sram_bitband_address(void* addr_in,uint8_t bitpos)
+   {
+       uint32_t const addr = (uint32_t) addr_in;
+       if( (addr >= 0x20000000) && ( addr < 0x20100000)){
+          uint32_t const bitpos_hi = bitpos / 8U;
+          uint32_t const addr1 = addr + bitpos_hi;
+          uint32_t const bitpos_lo = bitpos % 8;
+          static constexpr uint32_t bitband_ref = 0x20000000;
+          static constexpr uint32_t bitband_base = 0x22000000;
+          return (uint32_t*) (bitband_base + (addr1 - bitband_ref) * 32 + bitpos_lo * 4);
+       }else{
+         return nullptr;
+       }
+   }
 
 }}//quan::stm32
 

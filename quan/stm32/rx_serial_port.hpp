@@ -1,5 +1,5 @@
-#ifndef QUAN_STM32_SERIAL_PORT_HPP_INCLUDED
-#define QUAN_STM32_SERIAL_PORT_HPP_INCLUDED
+#ifndef QUAN_STM32_RX_SERIAL_PORT_HPP_INCLUDED
+#define QUAN_STM32_RX_SERIAL_PORT_HPP_INCLUDED
 /*
  Copyright (c) 2003-2014 Andy Little.
 
@@ -17,7 +17,7 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 /*
- todo specialisations for rx only tx only ports
+ serial port for rx only 
 */
 
 #include <type_traits>
@@ -39,36 +39,26 @@
 #include <quan/stm32/usart/detail/get_irq_number.hpp>
 #include <quan/stm32/usart/get_alternate_function.hpp>
 
-/*
- TODO
- add specialisations or options such that if tx or Rx BufferSize is 0 Then its rxonly or txonly etc
-*/
-
 namespace quan{ namespace stm32{
 
    namespace usart{
-      template <typename SerialPort> void irq_handler();
+      template <typename SerialPort> void rx_irq_handler();
    }
 
    template <
       typename Usart,
-      size_t TxBufSize, 
       size_t RxBufSize, 
-      typename TxPin, 
       typename RxPin
    >
-   struct serial_port{
+   struct rx_serial_port{
 
       typedef Usart usart_type;
       typedef char char_type;
-      typedef quan::fifo<char_type,TxBufSize,true> tx_fifo_type;
       typedef quan::fifo<char_type,RxBufSize,true> rx_fifo_type;
-
-      typedef TxPin tx_pin_type;
       typedef RxPin rx_pin_type;
   // private:
 
-      friend void quan::stm32::usart::irq_handler<serial_port>();
+     // friend void quan::stm32::usart::rx_irq_handler<serial_port>();
       static constexpr uint8_t usart_cr1_rxneie = 5; //(RXNEIE)
       static constexpr uint8_t usart_cr1_txeie = 7; //(TXEIE)
 #if defined QUAN_STM32F4
@@ -123,55 +113,6 @@ namespace quan{ namespace stm32{
 //#endif
       }
 
-      static void enable_txeie()
-      {
-//#if QUAN_STM32_HAS_BITBANDING 
-//         usart_type::get()->cr1. template bb_setbit<usart_cr1_txeie>();
-//#else
-         usart_type::get()->cr1. template setbit<usart_cr1_txeie>(); // bit(7)
-//#endif
-      }
-
-      static void disable_txeie()
-      {
-//#if  QUAN_STM32_HAS_BITBANDING  
-//         usart_type::get()->cr1. template bb_clearbit<usart_cr1_txeie>();
-//#else
-         usart_type::get()->cr1. template clearbit<usart_cr1_txeie>(); // bit(7)
-//#endif
-      }
-
-      static bool ll_tx_reg_empty()
-      {
-#if defined QUAN_STM32F4
-         return  usart_type::get()->sr. template getbit<usart_sr_txe>() ; 
-#else
-#if defined QUAN_STM32F0
-         return  usart_type::get()->isr. template getbit<usart_isr_txe>() ; //bit(7)
-#else
-#error processor undefined 
-#endif
-#endif
-      }
-
-      static bool tx_reg_empty()
-      {
-        return ( m_tx_fifo.is_empty() && ll_tx_reg_empty());
-      }
-
-      static void ll_put( char ch)
-      {
-#if defined QUAN_STM32F4
-         usart_type::get()->dr = ch;
-#else
-#if defined QUAN_STM32F0
-         usart_type::get()->tdr = ch;
-#else
-#error processor undefined 
-#endif
-#endif
-      }
-
       static bool ll_rx_reg_full()
       {
 #if defined QUAN_STM32F4
@@ -207,15 +148,6 @@ namespace quan{ namespace stm32{
 //#endif
       }
 
-    static bool ll_txeie_is_enabled()
-    {
-//#if QUAN_STM32_HAS_BITBANDING
-//      return usart_type::get()-> cr1.template bb_getbit<usart_cr1_txeie>();
-//#else
-      return usart_type::get()->cr1.template getbit<usart_cr1_txeie>(); // bit(7)
-//#endif
-
-   }
    public:
      // add priority
      // baudrate etc
@@ -223,20 +155,19 @@ namespace quan{ namespace stm32{
      // 
       static void init() 
       {
-         m_tx_fifo.init(); 
+  
          m_rx_fifo.init();
 
          quan::stm32::module_reset<usart_type>();
 
          quan::stm32::module_enable<usart_type>();
-// add here tx pin open drain no pullup option
-         setup_TxPin();
+
          setup_RxPin();
 // these settings must be applied with usart disabled
          apply<
             usart_type
             ,usart::asynchronous
-            ,usart::transmitter<true>
+            ,usart::transmitter<false>
             ,usart::receiver<true>
             ,usart::baud_rate<9600,false>
             ,usart::parity::none
@@ -275,7 +206,7 @@ namespace quan{ namespace stm32{
       template <uint32_t Baud, bool Over>
       static void set_baudrate()
       {
-          bool enabled = serial_port::is_enabled();
+          bool enabled = rx_serial_port::is_enabled();
           if ( enabled){
             disable<usart_type>();
 //######################################################
@@ -291,27 +222,6 @@ namespace quan{ namespace stm32{
       static void set_irq_priority(uint32_t priority)
       {
          NVIC_SetPriority(quan::stm32::usart::detail::get_irq_number<usart_type>::value,priority);
-      }
-
-      static void put( char ch)
-      {
-         disable_txeie();
-         m_tx_fifo.put(ch);
-         enable_txeie();
-      }
-
-      static void write(const char* str)
-      {
-         for ( size_t i = 0, len = strlen(str); i < len; ++i) {
-            serial_port::put(str[i]);
-         }
-      }
-
-      static void write(const char* str, size_t len)
-      {
-         for ( size_t i = 0; i < len; ++i) {
-           serial_port::put(str[i]);
-         }
       }
 
       static uint32_t in_avail()
@@ -337,49 +247,16 @@ namespace quan{ namespace stm32{
     
    private:
 
-     friend void quan::stm32::usart::irq_handler<serial_port>();
-     static tx_fifo_type m_tx_fifo;
+     friend void quan::stm32::usart::rx_irq_handler<rx_serial_port>();
      static rx_fifo_type m_rx_fifo;
 
-     typedef typename quan::stm32::get_alternate_function<
-         TxPin,usart_type,quan::stm32::usart::tx_pin
-     >::type tx_gpio_af_type;
-
-     static_assert(!std::is_same<tx_gpio_af_type,quan::undefined>::value,"tx pin invalid for alternate function");
       typedef typename quan::stm32::get_alternate_function<
          RxPin,usart_type,quan::stm32::usart::rx_pin
      >::type rx_gpio_af_type;
 
      static_assert(!std::is_same<rx_gpio_af_type,quan::undefined>::value,"rx pin invalid for alternate function");
 
-      static void setup_TxPin()
-      {
-         module_enable<typename TxPin::port_type>();
-
-/*
-To interface 5V..
-".
-You should configure the GPIO as open drain and 
-disable the internal pull-up (the external one 
-only shall be used).
-
-When the FT pin is then output-low, there is 
-max allowed current 25mA through the pin.
-In output-high guarantees the FT pin circuitry 
-zero injection current when the external voltage 
-applied to the pin is above VDD (and below VDD+4V)."
-*/
-
-         apply<
-            TxPin             
-            ,tx_gpio_af_type         
-            ,gpio::otype::push_pull   // need open_drain amd pullup to 5V option here
-            ,gpio::pupd::none         //  this is still corrrect. Use external pullup
-            ,gpio::ospeed::slow       
-         >();
-      }   
-
-      static void setup_RxPin()
+     static void setup_RxPin()
       {
          module_enable<typename RxPin::port_type>();
 
@@ -391,29 +268,25 @@ applied to the pin is above VDD (and below VDD+4V)."
          >();
       }
 
-      serial_port() = delete;
-      serial_port(const serial_port &) = delete;
-      serial_port operator = (const serial_port &) = delete;
+      rx_serial_port() = delete;
+      rx_serial_port(const rx_serial_port &) = delete;
+      rx_serial_port operator = (const rx_serial_port &) = delete;
    };
 
-   template <typename Usart,size_t TxBufSize, size_t RxBufSize, typename TxPin, typename RxPin>
-   typename serial_port<Usart,TxBufSize,RxBufSize,TxPin,RxPin>::tx_fifo_type 
-   serial_port<Usart,TxBufSize,RxBufSize,TxPin,RxPin>::m_tx_fifo;
-
-   template <typename Usart,size_t TxBufSize, size_t RxBufSize, typename TxPin, typename RxPin>
-   typename serial_port<Usart,TxBufSize,RxBufSize,TxPin,RxPin>::rx_fifo_type 
-   serial_port<Usart,TxBufSize,RxBufSize,TxPin,RxPin>::m_rx_fifo;
+   template <typename Usart, size_t RxBufSize, typename RxPin>
+   typename rx_serial_port<Usart,RxBufSize,RxPin>::rx_fifo_type 
+   rx_serial_port<Usart,RxBufSize,RxPin>::m_rx_fifo;
 
 }}
 
 namespace quan{ namespace impl{
 
-   template <typename Usart,size_t TxBufSize, size_t RxBufSize, typename TxPin, typename RxPin>
+   template <typename Usart,size_t RxBufSize, typename RxPin>
    struct is_model_of_impl<
    quan::StaticPort,
-      quan::stm32::serial_port<Usart,TxBufSize,RxBufSize,TxPin,RxPin> 
+      quan::stm32::rx_serial_port<Usart,RxBufSize,RxPin> 
    >: quan::meta::true_{};
 
 }}
 
-#endif // QUAN_STM32_SERIAL_PORT_HPP_INCLUDED
+#endif // QUAN_STM32_RX_SERIAL_PORT_HPP_INCLUDED

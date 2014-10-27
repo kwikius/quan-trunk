@@ -24,7 +24,7 @@
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/gx/abc_color.hpp>
-#include <quan/gx/rgb_color.hpp>
+//#include <quan/gx/rgb_color.hpp>
 
 namespace quan{ namespace gx{
 

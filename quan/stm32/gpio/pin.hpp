@@ -100,6 +100,25 @@ namespace quan{ namespace stm32{
 #endif
    }
 
+   template <typename P>
+   inline typename quan::where_<
+       quan::is_model_of<quan::stm32::gpio::Pin,P>,
+       void
+   >::type put( bool value)
+   {
+#if QUAN_STM32_HAS_BITBANDING
+     P::port_type::get()-> odr.template bb_putbit<P::pin_value>(value);
+#else
+     if ( value) {
+        set<P>();
+     }else{
+        clear<P>();
+     }
+#endif
+   }
+
+   
+
 }}
 
 #endif // QUAN_STM32_GPIO_PIN_HPP_INCLUDED

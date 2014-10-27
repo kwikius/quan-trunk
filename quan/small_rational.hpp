@@ -18,6 +18,7 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 // copyright Andy Little 2008 
+#include <quan/config.hpp>
 #include <stdexcept>
 #include <cassert>
 #include <limits>
@@ -26,18 +27,23 @@
 
 #include <quan/asm/nibble.hpp>
 #include <quan/meta/rational.hpp>
-
+#include <cstdint>
 namespace quan{
 
    struct small_rational{
-      typedef short int16;
-      typedef int   int32;
+      typedef int16_t   int16;
+      typedef int32_t   int32;
    private:
       static int32 range_check(int32 v)
       {
          int32 abs_v = v >=0 ? v : -v;
          if( abs_v > std::numeric_limits<int16>::max()){
+#ifndef QUAN_NO_EXCEPTIONS
             throw std::logic_error("overflow in small_rational math");
+#else
+    // flag error somehow..
+         return -1;
+#endif
          }
          return v;
       }
@@ -50,6 +56,7 @@ namespace quan{
       {
          this->normalise();
       }
+#ifndef QUAN_STM32_CONFIG_HPP
       std::string to_string() const
       {
             std::ostringstream ostr;
@@ -60,6 +67,7 @@ namespace quan{
             }
             return ostr.str();
       }
+#endif
       template <int N, int D>
       small_rational(quan::meta::rational<N,D> const & in)
       :m_nume(range_check(N)),m_denom(range_check(D)){this->normalise();}
@@ -221,10 +229,15 @@ namespace quan{
          
       void normalise()
       {
+
          if( m_denom ==0){
+#ifndef QUAN_NO_EXCEPTIONS
             throw std::runtime_error("small_rational 0 denom");
+#else
+        m_denom = 1;
+        m_nume = INT16_MAX;
+#endif
          }
-         
          if (m_nume == 0) {
             if ( m_denom != 1) {
                m_denom = static_cast<int16>(1);

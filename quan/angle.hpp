@@ -644,6 +644,7 @@ namespace quan {
             >::value
         >();
         //////////////////////CONCEPT CHECK/////////////////////////////
+/*
         typedef typename quan::meta::binary_op<
             quan::mathematic_angle<
                 ExtentL,
@@ -656,6 +657,7 @@ namespace quan {
                 Value_typeR
             >
         >::type type;
+*/
         typedef typename quan::meta::binary_op<
             Value_typeL,
             quan::meta::times,
@@ -715,6 +717,7 @@ namespace quan {
             >::value
         >();
         //////////////////////CONCEPT CHECK/////////////////////////////
+/*
         typedef typename quan::meta::binary_op<
             quan::fraction_of_revolution<
                 ExtentL,
@@ -724,6 +727,7 @@ namespace quan {
             quan::meta::times,
             quan::mathematic_angle<ExtentR,Value_typeR>
         >::type type;
+*/
         typedef typename quan::meta::binary_op<
             Value_typeL,
             quan::meta::times,
@@ -772,6 +776,7 @@ namespace quan {
             >::value
         >();
         //////////////////////CONCEPT CHECK/////////////////////////////
+/*
         typedef typename quan::meta::binary_op<
         quan::mathematic_angle<ExtentL,Value_typeL>,
         quan::meta::divides,
@@ -781,6 +786,7 @@ namespace quan {
             Value_typeR
         >
         >::type type;
+*/
         typedef typename quan::meta::binary_op<
             Value_typeL,
             quan::meta::divides,
@@ -829,6 +835,7 @@ namespace quan {
             >::value
         >();
         //////////////////////CONCEPT CHECK/////////////////////////////
+/*
         typedef typename quan::meta::binary_op<
             quan::fraction_of_revolution<
                 ExtentL,
@@ -838,6 +845,7 @@ namespace quan {
             quan::meta::divides,
             quan::mathematic_angle<ExtentR,Value_typeR>
         >::type type;
+*/
         typedef typename quan::meta::binary_op<
             Value_typeL,
             quan::meta::divides,

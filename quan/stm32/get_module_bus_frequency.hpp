@@ -4,6 +4,16 @@
 #include <quan/stm32/sys_freq.hpp>
 #include <quan/stm32/detail/get_bus.hpp>
 
+/*
+   Note here where it's in fact x2
+   // or have timers on apb when are in fact on ahb?
+   tim4 is x2
+   tim9 is x2
+ I'm guessing al timing is x2
+  // APB2 runs at system clk
+  // and APB1 at half system clk
+*/
+
 namespace quan{ namespace stm32{
 
    template <typename Module>
