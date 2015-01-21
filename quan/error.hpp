@@ -20,11 +20,15 @@
 #include <cstdint>
 #include <quan/detail/function_id.hpp>
 #include <quan/detail/error_id.hpp>
-
+// todo refactor errors
+// can error messages be generic?
 namespace quan{ 
 // for the app to define
    void error( int32_t function_id, int32_t error_id);
 
+   // add message(const char* text)
+   // user_error etc
+   // or dynarray etc...
 }
 
 
