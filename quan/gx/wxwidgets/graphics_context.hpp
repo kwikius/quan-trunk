@@ -108,6 +108,7 @@ namespace quan { namespace gx { namespace wxwidgets{
 
       // in impl set up circle points to do a polyline
       void draw_circle(primitives::circle<length_type> const & c) const;
+      void draw_filled_box(primitives::box<length_type> const & b ) const;
 
    private:
 
