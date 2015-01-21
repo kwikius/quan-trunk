@@ -415,7 +415,7 @@ namespace quan{ namespace detail{
      QUAN_CONSTEXPR double operator()()const {return static_cast<double>(1.e38);}
   };
 
-#ifndef __AVR__
+#if !((defined __AVR__) || (defined QUAN_USE_SINGLE_PRECISION_CONSTANTS) )
   template <>
   struct pow10_integer_exponent<double,39 > {
      QUAN_CONSTEXPR double operator()()const {return static_cast<double>(1.e39);}
@@ -1020,7 +1020,7 @@ namespace quan{ namespace detail{
   struct pow10_integer_exponent<long double,100 > {
      QUAN_CONSTEXPR long double operator()()const {return static_cast<long double>(1.e100);}
   };
-#endif // #defined __AVR__
+#endif // #defined __AVR__ single precision constants
 
 }}//quan::detail
 
