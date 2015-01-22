@@ -1,6 +1,6 @@
 # specific flags for stm32f4
 
-DEFINES = QUAN_STM32F4 
+DEFINES += QUAN_STM32F4 
 STM32F4_STARTUP = startupf4.s
 STM32F4_LINKER_SCRIPT = stm32f4.ld
 STM32F4_SYSTEM_INIT = system_initf4.cpp
