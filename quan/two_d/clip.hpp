@@ -73,6 +73,7 @@ namespace quan{namespace two_d{
             }
             if (simple_outside(tris)){
                 result.first = false;
+              //  assert( false && __LINE__);
                 return result;
             }
             // check horizontal case
@@ -140,6 +141,7 @@ namespace quan{namespace two_d{
              }
              tris = m_trisect(result.second);
             if (simple_outside(tris)){
+               //  assert( false && __LINE__);
                 result.first = false;
                 
             }
