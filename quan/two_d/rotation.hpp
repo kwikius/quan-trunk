@@ -20,7 +20,7 @@
 /*
    use a class to creat a rotation to apply to a vect. saves some cycles on rotating several points the same angle
 */
-
+#include <quan/config.hpp>
 #include <quan/angle.hpp>
 #include <quan/two_d/vect.hpp>
 
@@ -31,17 +31,36 @@ namespace quan{ namespace two_d{
       rotation( quan::angle::rad const & in) : m_cos_theta{quan::cos(in)}, m_sin_theta{quan::sin(in)}{}
 
       template <typename T>
-        typename quan::meta::binary_op<quan::two_d::vect<T>, quan::meta::times, double>::type
+        typename quan::meta::binary_op<quan::two_d::vect<T>, quan::meta::times, QUAN_FLOAT_TYPE>::type
          operator() (quan::two_d::vect<T> const & in) const
          {
             return  in * m_cos_theta + perp_vector(in) * m_sin_theta;
          }
       private:
 
-         double const m_cos_theta;
-         double const m_sin_theta;
+         QUAN_FLOAT_TYPE const m_cos_theta;
+         QUAN_FLOAT_TYPE const m_sin_theta;
       
    };
+
+   struct rotationf{
+      rotationf( quan::angle_<float>::rad  in) 
+      {
+         ::sincosf(in.numeric_value(),&m_sin_theta,&m_cos_theta);
+      }
+
+      template <typename T>
+        typename quan::meta::binary_op<quan::two_d::vect<T>, quan::meta::times, float>::type
+         operator() (quan::two_d::vect<T> const & in) const
+         {
+            return  in * m_cos_theta + perp_vector(in) * m_sin_theta;
+         }
+      private:
+
+         float m_cos_theta;
+         float m_sin_theta;
+   };
+
 }}
 
 #endif // QUAN_TWO_D_ROTATION_HPP_INCLUDED
