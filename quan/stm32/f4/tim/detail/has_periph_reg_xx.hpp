@@ -44,8 +44,10 @@ namespace quan{ namespace stm32{ namespace tim{ namespace detail{
    template<> struct is_32_bit_timer<quan::stm32::tim2> : quan::meta::true_{};
    template<> struct is_32_bit_timer<quan::stm32::tim5> : quan::meta::true_{};
 
+   template<> struct has_cr2<quan::stm32::tim9> : quan::meta::false_{};
    template<> struct has_cr2<quan::stm32::tim10> : quan::meta::false_{};
    template<> struct has_cr2<quan::stm32::tim11> : quan::meta::false_{};
+   template<> struct has_cr2<quan::stm32::tim12> : quan::meta::false_{};
    template<> struct has_cr2<quan::stm32::tim13> : quan::meta::false_{};
    template<> struct has_cr2<quan::stm32::tim14> : quan::meta::false_{};
 
