@@ -44,6 +44,16 @@ namespace quan { namespace meta { namespace impl {
    > {
       typedef decltype(T1{} + T2{}) type;
    };
+/*
+   template <typename T>
+   struct arithmetic_promote_impl<T,T,
+      typename quan::where_<
+         std::is_arithmetic<T> 
+      >::type
+   > {
+      typedef T type;
+   };
+*/
 
 }}}
 
