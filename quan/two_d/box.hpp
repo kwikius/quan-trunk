@@ -31,10 +31,10 @@ namespace quan{namespace two_d{
 
     template <typename T>
     struct box{
-        T left;
-        T top;
-        T right;
-        T bottom;
+        T left; // x_min
+        T top; //  y_max,
+        T right; // x_max
+        T bottom; // y_min
         template <typename T1, typename T2, typename T3, typename T4>
         box(T1 const & left_, T2 const & top_, T3 const & right_, T4 const & bottom_)
         : left(quan::implicit_cast<T>(left_)),top(quan::implicit_cast<T>(top_)),
