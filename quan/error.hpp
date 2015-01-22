@@ -1,5 +1,6 @@
 #ifndef QUAN_ERROR_HPP_INCLUDED
 #define QUAN_ERROR_HPP_INCLUDED
+
 /*
  Copyright (c) 2003-2014 Andy Little.
 
