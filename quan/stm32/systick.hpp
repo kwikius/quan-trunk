@@ -17,6 +17,10 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 
+#if (defined QUAN_FREERTOS)
+#error Dont use with FreeRTOS
+#endif
+
 #include <cstdint>
 #include <quan/time.hpp>
 
@@ -30,29 +34,33 @@
 #error need to define stm32 processor
 #endif
 
-namespace quan{namespace stm32{ namespace detail{
 
-   inline void disable_systick_irq()
+
+namespace quan{namespace stm32{ 
+
+   inline void disable_SysTick_IRQ()
    {
       SysTick->CTRL &= ~SysTick_CTRL_TICKINT_Msk;
    }
-   inline void enable_systick_irq()
+   inline void enable_SysTick_IRQ()
    {
       SysTick->CTRL |= SysTick_CTRL_TICKINT_Msk;
    }
-   struct systick_tick{
-      static volatile int64_t current;
-   };
+   namespace detail{
+      struct systick_tick{
+         static volatile int64_t current;
+      };
+   }
    
-}}}
+}}
 
 namespace quan{ namespace stm32{
 
    inline quan::time_<int64_t>::ms millis()
    {
-      quan::stm32::detail::disable_systick_irq();
+      quan::stm32::disable_SysTick_IRQ();
       int64_t result = stm32::detail::systick_tick::current;
-      quan::stm32::detail::enable_systick_irq();
+      quan::stm32::enable_SysTick_IRQ();
       return quan::time_<int64_t>::ms{result};
    }
 
