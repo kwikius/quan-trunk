@@ -27,6 +27,20 @@
 #include <quan/min.hpp>
 #include <quan/max.hpp>
 
+/*
+n.b there is a confusion here about top and bottom depending on text or graphics mode
+ in text mode the bottom will have a bigger value than the top, and vice versa for graphics.
+This box assumes graphics mode. For text mode the bottom is at actual top on display
+ and vice versa. Unresolved! 
+ A solution is probably a new box not using "top, bottom left right etc"
+ box{
+      vect min; // the smallest vales of x any y
+      vect max; // the largest values of x and y
+      assert ((max.x >= min.x) && ( max.y >= min.y));
+ }
+ This 
+*/
+
 namespace quan{namespace two_d{
 
     template <typename T>
