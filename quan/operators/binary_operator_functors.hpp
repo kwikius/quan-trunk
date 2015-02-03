@@ -3,7 +3,22 @@
 #endif
 #ifndef QUAN_BINARY_OPERATOR_FUNCTORS_HPP_INCLUDED
 #define QUAN_BINARY_OPERATOR_FUNCTORS_HPP_INCLUDED
-//  Copyright (C) Andy Little, White Light Device 2003.
+/*
+ Copyright (c) 2003-2014 Andy Little.
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see http://www.gnu.org/licenses./
+ */
 //  Permission to copy, use, modify, sell and distribute this software
 //  is granted provided this copyright notice appears in all copies.
 //  This software is provided "as is" without express or implied warranty,
@@ -19,7 +34,7 @@
 #include <quan/operators/unary_operators.hpp>
 #include <quan/meta/is_valid_binary_op.hpp>
 #include <quan/where.hpp>
-#include <quan/static_assert.hpp>
+//#include <quan/static_assert.hpp>
 #include <type_traits>
 
 namespace quan{
@@ -41,7 +56,7 @@ namespace quan{
         template< typename L, typename R>
         struct result
         { 
-            QUAN_STATIC_ASSERT((quan::meta::is_valid_binary_op<L,Op,R>::value));
+            static_assert(quan::meta::is_valid_binary_op<L,Op,R>::value,"invalid binary op");
             typedef typename binary_operator<
                typename std::remove_cv<
                     typename std::remove_reference<L>::type
@@ -64,7 +79,7 @@ namespace quan{
         >::type 
           operator()(L const&  l, R const & r) const   
         { 
-            QUAN_STATIC_ASSERT((quan::meta::is_valid_binary_op<L,Op,R>::value));
+            static_assert(quan::meta::is_valid_binary_op<L,Op,R>::value,"invalid binary op");
             return binary_operator< 
                 typename std::remove_cv<
                     typename std::remove_reference<L>::type
@@ -89,7 +104,7 @@ namespace quan{
         template< typename L, typename R>
         struct result
         { 
-            QUAN_STATIC_ASSERT((quan::meta::is_valid_binary_op<L,Op,R>::value));
+            static_assert(quan::meta::is_valid_binary_op<L,Op,R>::value,"invalid binary op");
             typedef typename binary_operator<
                 L,
                 Op,
@@ -109,7 +124,7 @@ namespace quan{
         
         operator()(L &  lhs, R const & rhs) const   
         { 
-            QUAN_STATIC_ASSERT((quan::meta::is_valid_binary_op<L,Op,R>::value));
+            static_assert(quan::meta::is_valid_binary_op<L,Op,R>::value,"invalid binary op");
             return binary_operator<L,Op,R>()(lhs,rhs);
         }
       

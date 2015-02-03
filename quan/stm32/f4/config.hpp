@@ -61,6 +61,10 @@
 #define QUAN_STM32_HAS_I2C2   1
 #define QUAN_STM32_HAS_I2C3   1
 
+#define QUAN_STM32_HAS_SPI1 1
+#define QUAN_STM32_HAS_SPI2 1
+#define QUAN_STM32_HAS_SPI3 1
+
 #include <quan/stm32/f4/periph_map.hpp>
 
 #ifndef QUAN_STM32_SOURCE_CLOCK_Hz
@@ -82,11 +86,12 @@
 #ifndef QUAN_STM32_AHB3_DIVISOR
 #define QUAN_STM32_AHB3_DIVISOR 1
 #endif
-
+// think this is actually 1
 #ifndef QUAN_STM32_APB2_DIVISOR
 #define QUAN_STM32_APB2_DIVISOR 2
 #endif
 
+// think this is actually 2 ...
 #ifndef QUAN_STM32_APB1_DIVISOR
 #define QUAN_STM32_APB1_DIVISOR 4
 #endif

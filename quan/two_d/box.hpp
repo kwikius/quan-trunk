@@ -4,7 +4,22 @@
 #  pragma once
 #endif
 
-// Copyright Andy Little 2005
+/*
+ Copyright (c) 2003-2014 Andy Little.
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see http://www.gnu.org/licenses./
+ */
 
 
 #include <quan/two_d/vect.hpp>
@@ -12,14 +27,28 @@
 #include <quan/min.hpp>
 #include <quan/max.hpp>
 
+/*
+n.b there is a confusion here about top and bottom depending on text or graphics mode
+ in text mode the bottom will have a bigger value than the top, and vice versa for graphics.
+This box assumes graphics mode. For text mode the bottom is at actual top on display
+ and vice versa. Unresolved! 
+ A solution is probably a new box not using "top, bottom left right etc"
+ box{
+      vect min; // the smallest vales of x any y
+      vect max; // the largest values of x and y
+      assert ((max.x >= min.x) && ( max.y >= min.y));
+ }
+ This 
+*/
+
 namespace quan{namespace two_d{
 
     template <typename T>
     struct box{
-        T left;
-        T top;
-        T right;
-        T bottom;
+        T left; // x_min
+        T top; //  y_max,
+        T right; // x_max
+        T bottom; // y_min
         template <typename T1, typename T2, typename T3, typename T4>
         box(T1 const & left_, T2 const & top_, T3 const & right_, T4 const & bottom_)
         : left(quan::implicit_cast<T>(left_)),top(quan::implicit_cast<T>(top_)),

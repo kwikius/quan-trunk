@@ -24,7 +24,7 @@
 #error "only for use on linux"
 #endif
 
-//#include <asm/termios.h>
+
 #include <cstddef>
 #include <cstdint>
 #include <string>
@@ -53,6 +53,7 @@ namespace quan {
       bool is_deleteable()const;
 
       int set_baud( uint32_t val);
+      bool set_dtr(bool val);
       
    private:
       std::string m_filename;

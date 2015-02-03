@@ -1,3 +1,19 @@
+/*
+Copyright (c) 2003-2014 Andy Little.
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see http://www.gnu.org/licenses.
+*/
 #include <quan/stm32/detail/flash.hpp>
 #include <cstring>
 
@@ -52,14 +68,16 @@ bool quan::stm32::flash::detail::erase (int32_t page_num)
    }
 }
 
-void quan::stm32::flash::detail::write (const volatile uint8_t* dest, const uint8_t* buf, int32_t bytes)
+bool quan::stm32::flash::detail::write (const volatile uint8_t* dest, const uint8_t* buf, int32_t bytes)
 {
    memcpy ((uint8_t*)dest,buf,bytes);
+   return true;
 }
 
-void quan::stm32::flash::detail::read (uint8_t* buf,const volatile uint8_t * src, int32_t bytes)
+bool quan::stm32::flash::detail::read (uint8_t* buf,const volatile uint8_t * src, int32_t bytes)
 {
    memcpy (buf, (uint8_t const *) src,bytes);
+   return true;
 }
  
 

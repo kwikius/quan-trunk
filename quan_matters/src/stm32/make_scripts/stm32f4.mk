@@ -1,9 +1,9 @@
 # specific flags for stm32f4
 
-DEFINES = QUAN_STM32F4 
-STARTUP = startupf4.s
-LINKER_SCRIPT = stm32f4.ld
-SYSTEM_INIT = system_initf4.cpp
+DEFINES += QUAN_STM32F4 
+STM32F4_STARTUP = startupf4.s
+STM32F4_LINKER_SCRIPT = stm32f4.ld
+STM32F4_SYSTEM_INIT = system_initf4.cpp
 PROCESSOR_FLAGS = -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mthumb -mfloat-abi=hard
 
 INCLUDES = /opt/stm32f4/STM32F4xx_DSP_StdPeriph_Lib_V1.0.0/Libraries/CMSIS/Include \

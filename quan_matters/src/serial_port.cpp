@@ -17,9 +17,7 @@
 
 
 #include <sys/ioctl.h>
-//#include <termios.h>
-
-#include <asm/ioctls.h>
+//#include <asm/ioctls.h>
 #include <termios.h>
 #include <fcntl.h>
 #include <stdio.h>
@@ -28,13 +26,11 @@
 #include <unistd.h>
 #include <stdexcept>
 
-#include <termio.h>
-#include <fcntl.h>
+//#include <termio.h>
 #include <err.h>
 #include <linux/serial.h>
 //#include <errno.h>
 //#include <string.h>
-
 
 #include <quan/serial_port.hpp>
 
@@ -127,11 +123,27 @@ ssize_t quan::serial_port::write(const data_type* buf, size_t num)
     return ::write(this->m_fd,buf,num);
 }
 
- 
-
 ssize_t quan::serial_port::write(const char* buf, size_t num) 
 {
     return ::write(this->m_fd,reinterpret_cast<const data_type*>(buf),num);
+}
+
+bool quan::serial_port::set_dtr(bool val)
+{
+    
+    int sp_state ;
+    if ( ::ioctl(this->m_fd, TIOCMGET, &sp_state) !=0){
+      perror("failed to get sp pin state");
+      this->cleanup();
+      throw std::logic_error("get sp pin state failed");
+    }
+    sp_state = val ? (sp_state | TIOCM_CTS) : (sp_state & ~TIOCM_CTS);
+    if ( ::ioctl(this->m_fd, TIOCMSET, &sp_state) !=0){
+      perror("failed to set dtr state");
+      this->cleanup();
+      throw std::logic_error("set dtr state failed");
+    }
+    return true;
 }
 
 quan::serial_port::~serial_port()

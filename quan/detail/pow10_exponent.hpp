@@ -6,7 +6,22 @@
 
 
 #include <quan/config.hpp>
-/// Copyright Andrew Little 2007
+/*
+ Copyright (c) 2003-2014 Andy Little.
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see http://www.gnu.org/licenses./
+ */
 
 // pow10_integer_exponent
 // See QUAN_ROOT/quan_matters/index.html for documentation.
@@ -400,7 +415,7 @@ namespace quan{ namespace detail{
      QUAN_CONSTEXPR double operator()()const {return static_cast<double>(1.e38);}
   };
 
-#ifndef __AVR__
+#if !((defined __AVR__) || (defined QUAN_USE_SINGLE_PRECISION_CONSTANTS) )
   template <>
   struct pow10_integer_exponent<double,39 > {
      QUAN_CONSTEXPR double operator()()const {return static_cast<double>(1.e39);}
@@ -1005,7 +1020,7 @@ namespace quan{ namespace detail{
   struct pow10_integer_exponent<long double,100 > {
      QUAN_CONSTEXPR long double operator()()const {return static_cast<long double>(1.e100);}
   };
-#endif // #defined __AVR__
+#endif // #defined __AVR__ single precision constants
 
 }}//quan::detail
 
