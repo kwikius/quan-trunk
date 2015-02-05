@@ -27,23 +27,25 @@
 
 namespace quan{ namespace uav{
 
-inline
-quan::length::m 
-get_distance(quan::uav::position const & gps1, quan::uav::position const & gps2)
-{
+   template <typename PositionType> 
+   inline
+   typename PositionType::length_type
+   get_distance(PositionType const & gps1, PositionType const & gps2)
+   {
+       typedef typename PositionType::length_type length_type;
+       typedef typename PositionType::angle_type angle_type;
 
-    constexpr quan::length::m  			   R{6371000};
+       constexpr typename quan::length_<typename length_type::value_type>::m R{6371000};
 
-    quan::angle_<int32_t>::deg10e7  dlat = gps2.lat - gps1.lat; // sort diffence for angle
-    quan::angle_<int32_t>::deg10e7  dlon = gps2.lon - gps1.lon;
+       angle_type const dlat = gps2.lat - gps1.lat; // sort diffence for angle
+       angle_type const dlon = gps2.lon - gps1.lon;
 
-   quan::length::m  rlat = cos((gps1.lat + gps2.lat)/2) * R;
-   quan::length::m  dx = quan::angle::rad{dlon} * rlat;
-   quan::length::m  dy = quan::angle::rad{dlat} * R;
-   return quan::sqrt( dx * dx + dy * dy);
+      length_type const rlat = cos((gps1.lat + gps2.lat)/2) * R;
+      length_type const dx = quan::angle::rad{dlon} * rlat;
+      length_type const dy = quan::angle::rad{dlat} * R;
 
-}
-
+      return quan::sqrt( dx * dx + dy * dy);
+   }
 
 }}
 
