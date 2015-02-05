@@ -2,48 +2,69 @@
 #define QUAN_UAV_OSD_API_HPP_INCLUDED
 
 #include <quan/angle.hpp>
+#include <quan/length.hpp>
 #include <quan/two_d/vect.hpp>
 #include <quan/uav/osd/colour.hpp>
+#include <quan/uav/position.hpp>
+#include <quan/uav/attitude.hpp>
 
 namespace quan{ namespace uav{ namespace osd{
+
+   typedef quan::angle_<int32_t>::deg10e7                   lat_lon_type;
+   typedef quan::length_<float>::mm                         altitude_type;
+   typedef quan::uav::position<lat_lon_type,altitude_type>  position_type;
+   typedef quan::uav::attitude<float>                       attitude_type;
 
    struct basic_font;
    struct basic_bitmap;
    
-   typedef basic_bitmap bitmap_type;
-   typedef basic_font font_type;
+   typedef basic_bitmap const * bitmap_ptr;
+   typedef basic_font const * font_ptr;
    typedef quan::two_d::vect<int32_t> pxp_type;
    typedef quan::two_d::vect<int32_t> size_type;
-   typedef quan::two_d::vect<int32_t> pos_type;
+   //typedef quan::two_d::vect<int32_t> pos_type;
    typedef quan::angle_<float>::deg   angle_type;
+   typedef const char* text_ptr;
 
-   pos_type       fn_transform_to_raw(pos_type const & pos);
-   pos_type       fn_transform_from_raw(pos_type const & pos);
+// #############definition dependent on device #################
+   pxp_type       transform_to_raw(pxp_type const & pos);
+   pxp_type       transform_from_raw(pxp_type const & pos);
  
-   void           fn_set_pixel(pxp_type const & px, colour_type c);
-   void           fn_set_pixel_raw(pxp_type const & px,colour_type c);
-   colour_type    fn_get_pixel_raw(pxp_type const & px);
-   void           fn_bitmap(pxp_type const & pos, bitmap_type* image);
-   void           fn_rotated_bitmap(
-                     pxp_type const & pos, 
-                     bitmap_type* image, 
+   void           set_pixel(pxp_type const & px, colour_type c);
+   colour_type    get_pixel(pxp_type const & px);
+   void           set_pixel_raw(pxp_type const & px,colour_type c);
+   colour_type    get_pixel_raw(pxp_type const & px);
+   void           set_clip_rect(pxp_type const & minimums, pxp_type const & maximums);
+   size_type      get_display_size();
+
+     // fonts
+   font_ptr get_font( uint32_t id);
+   pxp_type get_size( font_ptr p);
+   bitmap_ptr get_char(font_ptr, int32_t i);
+
+   // bitmaps
+   bitmap_ptr get_bitmap(uint32_t id);
+   pxp_type get_size( bitmap_ptr p);
+   colour_type get_pixel_raw(bitmap_ptr,pxp_type const & pos);
+//################# ~ definition dependent on device ####################
+
+   void           draw_bitmap(bitmap_ptr image, pxp_type const & pos);
+   void           draw_bitmap(bitmap_ptr image, pxp_type const & pos, 
                      pxp_type const & rotation_centre, 
                      angle_type const & angle
                   );
-   void           fn_text(pxp_type const & pos,const char* str, font_type* font);
-   void           fn_line(pxp_type const & from, pxp_type const & to,colour_type c);
-   void           fn_circle(pxp_type const & pos_in, int radius,colour_type c);
-   void           fn_arc(pxp_type const & pos, 
-                     int32_t radius,
+
+   void           draw_text(text_ptr str, pxp_type const & pos,font_ptr font);
+   void           draw_line(pxp_type const & from, pxp_type const & to,colour_type c);
+   void           draw_circle(int32_t radius,pxp_type const & pos, colour_type c);
+   void           draw_arc(int32_t radius,
+                     pxp_type const & pos, 
                      angle_type const & start_angle,
                      angle_type const & end_angle,
                      colour_type c
                   );
-   void           fn_set_clip(pos_type const & minimums, pos_type const & maximums);
-   void           fn_flood(pxp_type const & start_pos, colour_type new_colour);
-   size_type      fn_get_display_size();
-   
-}}}
+   void           flood_fill(pxp_type const & start_pos, colour_type new_colour, int max_count);
 
+}}}
 
 #endif // QUAN_UAV_OSD_API_HPP_INCLUDED
