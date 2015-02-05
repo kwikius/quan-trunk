@@ -135,7 +135,7 @@ namespace quan{ namespace two_d{
 
    template <typename TL, typename TR>
    inline
-   bool operator ==(
+   constexpr bool operator ==(
       quan::two_d::vect<TL> const & lhs,
       quan::two_d::vect<TR> const & rhs
    )
@@ -144,7 +144,7 @@ namespace quan{ namespace two_d{
    }
    template <typename TL, typename TR>
    inline
-   bool operator !=(
+   constexpr bool operator !=(
       quan::two_d::vect<TL> const & lhs,
       quan::two_d::vect<TR> const & rhs
    )
@@ -154,7 +154,7 @@ namespace quan{ namespace two_d{
 
     template <typename TL, typename TR>
     inline
-    quan::two_d::vect <
+    constexpr quan::two_d::vect <
         typename quan::meta::binary_op<
             TL,quan::meta::plus,TR
         >::type
@@ -166,14 +166,18 @@ namespace quan{ namespace two_d{
                 TL,quan::meta::plus,TR
             >::type
         > result_type;
+#if 0
         result_type result = lhs;
         result += rhs;
         return result;
+#else
+         return result_type{lhs.x + rhs.x, lhs.y + rhs.y};
+#endif
     }
 
     template <typename TL, typename TR>
     inline
-    quan::two_d::vect <
+    constexpr quan::two_d::vect <
          typename quan::meta::binary_op<
             TL,quan::meta::minus,TR
         >::type
@@ -185,13 +189,18 @@ namespace quan{ namespace two_d{
                 TL,quan::meta::minus,TR
             >::type
         > result_type;
+#if 0
         result_type result = lhs;
         result -= rhs;
         return result;
+#else
+      return result_type{lhs.x - rhs.x, lhs.y - rhs.y};
+#endif
+
     }
 
     template <typename TL, typename TR>
-    inline
+    inline constexpr 
     typename quan::where_<
       quan::meta::is_scalar<TR>,
       quan::two_d::vect <
@@ -211,7 +220,7 @@ namespace quan{ namespace two_d{
     }
 
     template <typename TL, typename TR>
-    inline
+    inline constexpr 
     typename quan::where_<
       quan::meta::is_scalar<TL>,
       quan::two_d::vect <
@@ -232,7 +241,7 @@ namespace quan{ namespace two_d{
 
 
     template <typename TL, typename TR>
-    inline
+    inline constexpr 
     quan::two_d::vect <
          typename quan::meta::binary_op<
             TL,quan::meta::divides,TR
@@ -254,7 +263,7 @@ namespace quan{ namespace two_d{
 #endif
 
     template <typename Value_type>
-    inline
+    inline constexpr 
     quan::two_d::vect<Value_type>
     abs( quan::two_d::vect<Value_type> const & v)
     {
