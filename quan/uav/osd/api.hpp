@@ -15,6 +15,7 @@ namespace quan{ namespace uav{ namespace osd{
    typedef quan::uav::position<lat_lon_type,altitude_type>  position_type;
    typedef quan::uav::attitude<float>                       attitude_type;
 
+   // abstract base classes 
    struct basic_font;
    struct basic_bitmap;
    
@@ -22,20 +23,18 @@ namespace quan{ namespace uav{ namespace osd{
    typedef basic_font const * font_ptr;
    typedef quan::two_d::vect<int32_t> pxp_type;
    typedef quan::two_d::vect<int32_t> size_type;
-   //typedef quan::two_d::vect<int32_t> pos_type;
    typedef quan::angle_<float>::deg   angle_type;
    typedef const char* text_ptr;
 
 // #############definition dependent on device #################
    pxp_type       transform_to_raw(pxp_type const & pos);
    pxp_type       transform_from_raw(pxp_type const & pos);
- 
-   void           set_pixel(pxp_type const & px, colour_type c);
-   colour_type    get_pixel(pxp_type const & px);
    void           set_pixel_raw(pxp_type const & px,colour_type c);
    colour_type    get_pixel_raw(pxp_type const & px);
+
    void           set_clip_rect(pxp_type const & minimums, pxp_type const & maximums);
    size_type      get_display_size();
+//################# ~ definition dependent on device ####################
 
      // fonts
    font_ptr get_font( uint32_t id);
@@ -46,7 +45,16 @@ namespace quan{ namespace uav{ namespace osd{
    bitmap_ptr get_bitmap(uint32_t id);
    pxp_type get_size( bitmap_ptr p);
    colour_type get_pixel_raw(bitmap_ptr,pxp_type const & pos);
-//################# ~ definition dependent on device ####################
+
+   inline void  set_pixel(pxp_type const & px, colour_type c)
+   {
+      set_pixel_raw(transform_to_raw(px),c);
+   }
+
+   inline colour_type    get_pixel(pxp_type const & px)
+   {
+      return get_pixel_raw(transform_to_raw(px));
+   }
 
    void           draw_bitmap(bitmap_ptr image, pxp_type const & pos);
    void           draw_bitmap(bitmap_ptr image, pxp_type const & pos, 
