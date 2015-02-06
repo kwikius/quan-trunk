@@ -217,15 +217,23 @@ this really only required for first and last octants
    }
 } // namespace
 
+/*
+   void           draw_arc(int32_t radius,
+                     pxp_type const & pos, 
+                     angle_type const & start_angle,
+                     angle_type const & end_angle,
+                     colour_type c
+                  );
+*/
+
 namespace quan{ namespace uav { namespace osd{
 
-   void draw_arc (
-      pxp_type const & pos,
-      int32_t radius,
-      quan::angle::deg const & start_angle_in,
-      quan::angle::deg const & end_angle_in,
-      colour_type c
-   )
+   void           draw_arc(int32_t radius,
+                     pxp_type const & pos, 
+                     angle_type const & start_angle_in,
+                     angle_type const & end_angle_in,
+                     colour_type c
+                  )
    {
       auto const start_angle = normalise_angle(start_angle_in);
       auto const end_angle = normalise_angle(end_angle_in);

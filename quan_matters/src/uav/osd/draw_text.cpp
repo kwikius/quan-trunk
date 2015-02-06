@@ -2,6 +2,9 @@
 #include <quan/uav/osd/api.hpp>
 
 using namespace quan::uav::osd;
+/*
+void           draw_text(text_ptr str, pxp_type const & pos,font_ptr font);
+*/
 // pos in transformed coords
 // text origin is at lower left of first charact
 namespace quan{ namespace uav { namespace osd{

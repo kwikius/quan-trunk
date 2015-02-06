@@ -25,9 +25,13 @@ namespace {
    }
 }
 
+/*
+   void           draw_circle(int32_t radius,pxp_type const & pos, colour_type c);
+*/
+
 namespace quan{ namespace uav { namespace osd{
 
-   void draw_circle(pxp_type const & centre, int radius, colour_type c)
+   void  draw_circle(int32_t radius,pxp_type const & centre, colour_type c)
    {
      int x = radius;
      int y = 0;

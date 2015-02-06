@@ -3,6 +3,15 @@
 
 using namespace quan::uav::osd;
 
+/*
+
+   void           draw_bitmap(bitmap_ptr image, pxp_type const & pos);
+   void           draw_bitmap(bitmap_ptr image, pxp_type const & pos, 
+                     pxp_type const & rotation_centre, 
+                     angle_type const & angle
+                  );
+*/
+
 namespace quan{ namespace uav { namespace osd{
 
    void draw_bitmap(bitmap_ptr bitmap,pxp_type const & pos_in )
@@ -25,7 +34,7 @@ namespace quan{ namespace uav { namespace osd{
    }
 
    void draw_bitmap(bitmap_ptr bitmap,pxp_type const & pos, pxp_type const & rotation_centre,  
-            quan::angle::deg const & angle)
+            angle_type const & angle)
    {
       if ( !bitmap){
          return ;
