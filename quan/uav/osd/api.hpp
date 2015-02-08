@@ -15,7 +15,6 @@ namespace quan{ namespace uav{ namespace osd{
    typedef quan::uav::position<lat_lon_type,altitude_type>  position_type;
    typedef quan::uav::attitude<float>                       attitude_type;
 
-   // abstract base classes 
    struct basic_font;
    struct basic_bitmap;
 

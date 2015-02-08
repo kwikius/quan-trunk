@@ -78,8 +78,6 @@ bool quan::uav::osd::detail::writable_bitmap::clear()
    }
 }
 
-
-
 void quan::uav::osd::detail::writable_bitmap::set_pixel( 
    quan::two_d::vect<int32_t> const & pos,
    quan::uav::osd::color_type c
@@ -118,10 +116,15 @@ void quan::uav::osd::detail::writable_bitmap::set_pixel(
    std::ostream & out
 )
 {
-   out << " struct " << bitmap_typename << " : quan::uav::osd::static_bitmap<" << m_size.x << "," << m_size.y << "> {\n";
+   auto const size = get_size();
+   out << " struct " << bitmap_typename << " : quan::uav::osd::basic_bitmap{\n";
    out << "    uint8_t const * get_data()const\n";
    out << "    {\n";
    out << "       return m_data;\n";
+   out << "    }\n";
+   out << "    quan::uav::osd::size_type get_size()const\n";
+   out << "    {\n";
+   out << "       return {" << size.x << ',' << size.y << "};\n";
    out << "    }\n";
    out << " private:\n";
    out << "    static constexpr uint8_t m_data[" << get_data_size() << "] = {\n      ";
