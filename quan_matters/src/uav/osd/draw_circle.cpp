@@ -23,29 +23,23 @@ namespace {
       set_pixel(centre + pxp_type{-y,-x},c);
       set_pixel(centre + pxp_type{y,-x},c);
    }
+
+} // ~namespace
+
+void  quan::uav::osd::draw_circle(int32_t radius,pxp_type const & centre, colour_type c)
+{
+  int x = radius;
+  int y = 0;
+  int re = 1-x;
+  while ( x >= y){
+     plot8pts(centre,x,y,c);
+     ++y;
+     if ( re < 0){
+        re += 2 * (y + 1);
+     }else{
+        --x;
+        re += 2 * (y - x + 1);
+     }
+  }
 }
 
-/*
-   void           draw_circle(int32_t radius,pxp_type const & pos, colour_type c);
-*/
-
-namespace quan{ namespace uav { namespace osd{
-
-   void  draw_circle(int32_t radius,pxp_type const & centre, colour_type c)
-   {
-     int x = radius;
-     int y = 0;
-     int re = 1-x;
-     while ( x >= y){
-        plot8pts(centre,x,y,c);
-        ++y;
-        if ( re < 0){
-           re += 2 * (y + 1);
-        }else{
-           --x;
-           re += 2 * (y - x + 1);
-        }
-     }
-   }
-
-}}} //quan::uav::osd

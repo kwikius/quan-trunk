@@ -4,11 +4,15 @@
 
 #include <quan/uav/osd/api.hpp>
 
-using namespace quan::uav::osd;
+//using namespace quan::uav::osd;
 
-namespace quan{ namespace uav { namespace osd{
+///namespace quan{ namespace uav { namespace osd{
 
-void flood_fill(pxp_type const & start_pos, colour_type new_colour, int max_count)
+void quan::uav::osd::flood_fill(
+   pxp_type const & start_pos, 
+   colour_type new_colour, 
+   int max_count
+)
 {
    pxp_type raw_pxp = transform_to_raw(start_pos);
    if ( get_pixel_raw(raw_pxp) == new_colour){
@@ -64,4 +68,4 @@ void flood_fill(pxp_type const & start_pos, colour_type new_colour, int max_coun
    }
 }
 
-}}} //quan::uav::osd
+//}}} //quan::uav::osd

@@ -6,6 +6,7 @@
 namespace quan{ namespace uav{ namespace osd{
 
    // font abstract base class
+   struct basic_bitmap;
    struct basic_font {
       virtual int32_t get_begin() const =0;
       size_type get_size() const 
@@ -13,7 +14,7 @@ namespace quan{ namespace uav{ namespace osd{
       virtual int32_t  get_char_height() const =0;
       virtual int32_t  get_char_width() const  =0;
       virtual int32_t  get_num_elements() const =0;
-      virtual bitmap_ptr get_char_at(int32_t i)const = 0;
+      virtual basic_bitmap const * get_char_at(int32_t i)const = 0;
      protected:
       basic_font(){}
       virtual ~basic_font(){}

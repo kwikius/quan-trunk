@@ -18,7 +18,7 @@ namespace quan{ namespace uav{ namespace osd{
    // abstract base classes 
    struct basic_font;
    struct basic_bitmap;
-   
+
    typedef basic_bitmap const * bitmap_ptr;
    typedef basic_font const * font_ptr;
    typedef quan::two_d::vect<int32_t> pxp_type;

@@ -217,37 +217,22 @@ this really only required for first and last octants
    }
 } // namespace
 
-/*
-   void           draw_arc(int32_t radius,
-                     pxp_type const & pos, 
-                     angle_type const & start_angle,
-                     angle_type const & end_angle,
-                     colour_type c
-                  );
-*/
-
-namespace quan{ namespace uav { namespace osd{
-
-   void           draw_arc(int32_t radius,
-                     pxp_type const & pos, 
-                     angle_type const & start_angle_in,
-                     angle_type const & end_angle_in,
-                     colour_type c
-                  )
-   {
-      auto const start_angle = normalise_angle(start_angle_in);
-      auto const end_angle = normalise_angle(end_angle_in);
-      if ( end_angle != start_angle){
-         if ( end_angle > start_angle){
-            normalised_arc(pos,radius,start_angle, end_angle, c);
-         }else{
-            normalised_arc(pos,radius, start_angle, quan::angle::deg{360},c);
-            normalised_arc(pos,radius, quan::angle::deg{0},end_angle,c);
-         }
+void  quan::uav::osd::draw_arc(
+   int32_t radius,
+   pxp_type const & pos, 
+   angle_type const & start_angle_in,
+   angle_type const & end_angle_in,
+   colour_type c
+)
+{
+   auto const start_angle = normalise_angle(start_angle_in);
+   auto const end_angle = normalise_angle(end_angle_in);
+   if ( end_angle != start_angle){
+      if ( end_angle > start_angle){
+         normalised_arc(pos,radius,start_angle, end_angle, c);
+      }else{
+         normalised_arc(pos,radius, start_angle, quan::angle::deg{360},c);
+         normalised_arc(pos,radius, quan::angle::deg{0},end_angle,c);
       }
    }
-
-}}} // quan::uav::osd
-
-
- 
+}
