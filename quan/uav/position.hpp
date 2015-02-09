@@ -27,7 +27,7 @@ namespace quan { namespace uav {
 	struct position {
        typedef LengthType length_type;
        typedef AngleType angle_type;
-       position():lat{0},lon{0},alt{0}{}
+       position():lat{0.f},lon{0.f},alt{0.f}{}
 		 position(
          angle_type const & lat_in, 
          angle_type const & lon_in,

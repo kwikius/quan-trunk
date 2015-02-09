@@ -10,14 +10,14 @@ using namespace quan::uav::osd;
 
 namespace {
 
-   quan::angle::deg normalise_angle ( quan::angle::deg const & angle_in)
+  angle_type normalise_angle (angle_type const & angle_in)
    {
       auto angle = angle_in;
-      while ( angle >= quan::angle::deg{360}){
-            angle -= quan::angle::deg{360};
+      while ( angle >=angle_type{360.f}){
+            angle -=angle_type{360.f};
       }
-      while (angle < quan::angle::deg{0}){
-          angle += quan::angle::deg{360};
+      while (angle <angle_type{0.f}){
+          angle +=angle_type{360.f};
       }
       return angle;
    }
@@ -71,13 +71,13 @@ namespace {
    }
    
    // mapping angle to octant.. tricky !, odd numbered octants are mirrored around 45degree line
-   quan::angle::deg map_angle_to_zero_octant (quan::angle::deg const & angle, int octant)
+  angle_type map_angle_to_zero_octant (angle_type const & angle, int octant)
    {
       if (octant & 1) {
-            return (octant + 1) * quan::angle::deg {45} - angle;
+            return (octant + 1) *angle_type {45.f} - angle;
          }
       else {
-            return angle - quan::angle::deg {45} * octant;
+            return angle -angle_type {45.f} * octant;
          }
    }
 
@@ -154,8 +154,8 @@ this really only required for first and last octants
    void normalised_arc (
       pxp_type const & centre,
       int radius,
-      quan::angle::deg start_angle,
-      quan::angle::deg end_angle,
+     angle_type start_angle,
+     angle_type end_angle,
       colour_type c
    )
    {
@@ -231,8 +231,8 @@ void  quan::uav::osd::draw_arc(
       if ( end_angle > start_angle){
          normalised_arc(pos,radius,start_angle, end_angle, c);
       }else{
-         normalised_arc(pos,radius, start_angle, quan::angle::deg{360},c);
-         normalised_arc(pos,radius, quan::angle::deg{0},end_angle,c);
+         normalised_arc(pos,radius, start_angle,angle_type{360.f},c);
+         normalised_arc(pos,radius,angle_type{0.f},end_angle,c);
       }
    }
 }

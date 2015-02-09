@@ -41,7 +41,7 @@ void quan::uav::osd::draw_line(
          set_pixel_raw({y,x},c);
       }
       error -= deltay;
-      if (error < 0.0) {
+      if (error < 0.0f) {
          y     += ystep;
          error += deltax;
       }

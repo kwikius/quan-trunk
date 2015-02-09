@@ -114,7 +114,7 @@ void quan::uav::osd::detail::writable_bitmap::set_pixel(
    std::string const & bitmap_typename, 
    std::string const & bitmap_objectname, 
    std::ostream & out
-)
+)const
 {
    auto const size = get_size();
    out << " struct " << bitmap_typename << " : quan::uav::osd::basic_bitmap{\n";

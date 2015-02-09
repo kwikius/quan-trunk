@@ -35,14 +35,14 @@ namespace quan{ namespace uav{
        typedef typename PositionType::length_type length_type;
        typedef typename PositionType::angle_type angle_type;
 
-       constexpr typename quan::length_<typename length_type::value_type>::m R{6371000};
+       constexpr typename quan::length_<typename length_type::value_type>::m R{6371000.f};
 
        angle_type const dlat = gps2.lat - gps1.lat; // sort diffence for angle
        angle_type const dlon = gps2.lon - gps1.lon;
 
-      length_type const rlat = cos((gps1.lat + gps2.lat)/2) * R;
-      length_type const dx = quan::angle::rad{dlon} * rlat;
-      length_type const dy = quan::angle::rad{dlat} * R;
+      length_type const rlat = cos((gps1.lat + gps2.lat)/2.f) * R;
+      length_type const dx = quan::angle_<float>::rad{dlon} * rlat;
+      length_type const dy = quan::angle_<float>::rad{dlat} * R;
 
       return quan::sqrt( dx * dx + dy * dy);
    }

@@ -40,11 +40,11 @@ namespace quan{ namespace uav{
         auto const x = cos(gps1.lat) * sin(gps2.lat)
                               - sin(gps1.lat) * cos_gps2_lat * cos(dLon);
         angle_type result  = quan::atan2(y,x);
-        while (result < quan::angle::deg(0)){
-           result += quan::angle::deg(360);
+        while (result < quan::angle_<float>::deg(0.f)){
+           result += quan::angle_<float>::deg(360.f);
         }
-        while (result > quan::angle::deg(360)){
-           result -= quan::angle::deg(360);
+        while (result > quan::angle_<float>::deg(360.f)){
+           result -= quan::angle_<float>::deg(360.f);
         }
         return result;  
 	}

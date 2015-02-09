@@ -21,7 +21,7 @@ namespace quan{ namespace uav{ namespace osd{ namespace detail{
          std::string const & bitmap_typename, 
          std::string const & bitmap_objectname, 
          std::ostream & out
-      );
+      )const;
       void set_size(quan::uav::osd::size_type const & size_in);
       bool clear();
    protected:
