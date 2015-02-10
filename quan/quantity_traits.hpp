@@ -69,7 +69,17 @@ namespace quan {
                 //return s;
             }
          };
-          
+
+//        template<>
+//        struct value_type_converter<float,double> {
+//
+//				constexpr float operator()(double const & s) const
+//            {
+//               return static_cast<float>(s);
+//                //return s;
+//            }
+//         };
+//          
     };
   
 } //quan

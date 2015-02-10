@@ -59,7 +59,8 @@ namespace quan {namespace impl_detail {
       {
         typedef quan::impl_detail::lowest<Target> lowest_target_type;
         typedef quan::impl_detail::highest<Target> highest_target_type;
-
+        // get promoted type of both
+        // 
         return (lowest_target_type{}() <= s ) && (highest_target_type{}() >= s);
       }
    };
@@ -188,7 +189,7 @@ namespace quan {namespace impl_detail {
 
             return (range_check_impl<Target,Source>()(s))
             ? static_cast<Target>(s)
-            : (s > 0) ? highest_type{}() : lowest_type{}();
+            : (s > 0.f) ? highest_type{}() : lowest_type{}();
 #endif
  
         }
@@ -227,6 +228,15 @@ namespace quan {namespace impl_detail {
 #endif
         }
     };
+
+   template <>
+   struct arithmetic_convert_impl<float,double,void>
+   {
+      float operator()(double const & s) const
+      {
+         return static_cast<float>(s);
+      }
+   };
  
 }//impl_detail
  
@@ -245,6 +255,8 @@ TargetType
 {
     return impl_detail::arithmetic_convert_impl<TargetType,SourceType>{}(s);
 }
+
+
  
 template <typename TargetType,typename SourceType>
 inline
