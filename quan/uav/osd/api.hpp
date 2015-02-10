@@ -10,6 +10,8 @@
 
 namespace quan{ namespace uav{ namespace osd{
 
+   void  on_draw();
+
    typedef quan::angle_<int32_t>::deg10e7                   lat_lon_type;
    typedef quan::length_<float>::mm                         altitude_type;
    typedef quan::uav::position<lat_lon_type,altitude_type>  position_type;
@@ -71,6 +73,8 @@ namespace quan{ namespace uav{ namespace osd{
                      colour_type c
                   );
    void           flood_fill(pxp_type const & start_pos, colour_type new_colour, int max_count);
+
+   
 
 }}}
 
