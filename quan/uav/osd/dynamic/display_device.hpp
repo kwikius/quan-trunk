@@ -16,7 +16,7 @@ namespace quan{ namespace uav{ namespace osd {namespace dynamic{
    virtual bool           set_clip_rect(pxp_type const & minimums, 
                                        pxp_type const & maximums)=0;
    virtual size_type      get_display_size()const = 0;
-   protected:
+ //  protected:
                           display_device(){}
       virtual             ~display_device(){}
    private:
