@@ -20,6 +20,7 @@
 #include <quan/html2/tabber.hpp>
 #include <string>
 #include <map>
+#include <list>
 
 namespace quan{ namespace html2{
 
@@ -54,6 +55,23 @@ namespace quan{ namespace html2{
       std::map<std::string,std::string>   m_resources;
       int                                 m_version_number;
    };
+
+   struct opt_root_element{
+      virtual ~opt_root_element(){}
+   };
+
+   struct repo_header : opt_root_element{
+      std::string * name;
+      std::string* repo_url;
+   };
+
+   struct root_elements {
+      std::string * root;
+      std::string * offset;
+      std::list<opt_root_element*> * m_opt_root_elements;
+   };
+
+
 
 }}//quan::html
 

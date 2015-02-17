@@ -5,7 +5,7 @@
 
 /*
   Could be some confusion here  as yet
-As to wheteher these are Euler angles ( as far as provided by Mavlink in APM)
+Think these are Euler angles ( as far as provided by Mavlink in APM)
 Here is what I can glean so far
 See http://gentlenav/googlecode.com/files/DCMdraft2.pdf 
 
