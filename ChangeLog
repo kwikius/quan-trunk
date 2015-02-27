@@ -1,0 +1,10 @@
+ Fri Feb 27 19:34:45 GMT 2015
+ quan-1-0-2
+Breaking change to <quan/uav/get_distance.hpp>
+added a template parameter for return lengthtype. Was previously being returned in mm
+, but felt that was inappropriate. Now can be used to return in any units.
+
+Changed implementation of <quan/uav/get_bearing.hpp>
+ Original impl didnt seem to work unless involved very large distances.
+
+
