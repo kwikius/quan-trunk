@@ -195,9 +195,24 @@ namespace {
       return 2;
    }
 
-   quan::uav::osd::video_mode     quan::uav::osd::get_video_mode()
+   quan::uav::osd::video_mode 
+   quan::uav::osd::get_video_mode()
    {
       return video_mode::pal;
+   }
+
+   uint8_t quan::uav::osd::get_num_batteries()
+   {
+      return 1;
+   }
+   const char* const quan::uav::osd::get_battery_name(uint8_t n)
+   {
+      return "Flt1";
+   }
+
+   quan::voltage_<float>::V  quan::uav::osd::get_battery_voltage(uint8_t n)
+   {
+      return quan::voltage::V{11.45};
    }
 /*
  required. The Bitmap maker will call this function
