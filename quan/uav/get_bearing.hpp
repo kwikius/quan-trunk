@@ -35,7 +35,7 @@ namespace quan{ namespace uav{
       constexpr typename quan::length_<float>::m R{6371000.f};
       quan::length_<float>::m  rlat = cos(quan::angle_<float>::rad{abs(gps2.lat)}) * R;
       quan::length_<float>::m  dx = (dlon * rlat) / quan::angle_<float>::rad{1};
-      quan::length_<float>::m dy =  (dlat * R ) / quan::angle_<float>::rad{1.f};
+      quan::length_<float>::m  dy =  (dlat * R ) / quan::angle_<float>::rad{1.f};
       quan::length_<float>::m  distance = quan::sqrt(dx * dx + dy * dy);
       if ( abs(distance) > quan::length::m{2}){
         return quan::atan2(-dy, dx) + quan::angle::pi/2;
