@@ -1,5 +1,5 @@
-#ifndef QUAN_UAV_OSD_API_HPP_INCLUDED
-#define QUAN_UAV_OSD_API_HPP_INCLUDED
+#ifndef QUAN_UAV_OSD_API_HPP_INCLUDED1
+#define QUAN_UAV_OSD_API_HPP_INCLUDED1
 
 #include <quan/angle.hpp>
 #include <quan/length.hpp>
@@ -73,6 +73,10 @@ namespace quan{ namespace uav{ namespace osd{
                      colour_type c
                   );
    void           flood_fill(pxp_type const & start_pos, colour_type new_colour, int max_count);
+
+   enum class video_mode { unknown, ntsc, pal };
+   video_mode     get_video_mode();
+
 }}}
 
-#endif // QUAN_UAV_OSD_API_HPP_INCLUDED
+#endif // QUAN_UAV_OSD_API_HPP_INCLUDED1

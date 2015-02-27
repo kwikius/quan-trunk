@@ -27,12 +27,12 @@
 
 namespace quan{ namespace uav{
 
-   template <typename PositionType> 
+   template <typename LengthTypeOut,typename PositionType> 
    inline
-   typename PositionType::length_type
+   LengthTypeOut
    get_distance(PositionType const & gps1, PositionType const & gps2)
    {
-       typedef typename PositionType::length_type length_type;
+       typedef LengthTypeOut length_type;
        typedef typename PositionType::angle_type angle_type;
 
        constexpr typename quan::length_<typename length_type::value_type>::m R{6371000.f};

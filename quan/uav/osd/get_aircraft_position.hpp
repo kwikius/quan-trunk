@@ -5,7 +5,7 @@
 
 namespace quan{namespace uav{ namespace osd{
 
-   position_type const & get_aircraft_position();
+   position_type  get_aircraft_position();
 
 }}}
 

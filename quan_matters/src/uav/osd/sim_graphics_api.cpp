@@ -12,8 +12,10 @@
 #include <quan/uav/osd/get_aircraft_heading.hpp>
 #include <quan/uav/osd/basic_bitmap.hpp>
 #include <quan/uav/osd/basic_font.hpp>
+#include <quan/uav/osd/api.hpp>
+#include <quan/uav/osd/features_api.hpp>
+#include <quan/uav/osd/aircraft.hpp>
 
-#include "aircraft.hpp"
 
 namespace{
   quan::uav::osd::dynamic::object_database const * the_database; 
@@ -113,22 +115,33 @@ namespace{
       return p->get_size();
    }
 
-   quan::uav::osd::position_type const & 
+   quan::uav::osd::position_type
    quan::uav::osd::get_aircraft_position()
     {
         return get_aircraft().get_position();
     }
 
-    quan::uav::osd::position_type const & 
+    quan::uav::osd::position_type
     quan::uav::osd::get_home_position()
     {
        return get_aircraft().get_home_position();
     }
 
-    quan::uav::osd::attitude_type const & 
+namespace {
+
+   quan::uav::osd::attitude_type dummy_at{
+      quan::uav::osd::angle_type{10.}, // yaw
+      quan::uav::osd::angle_type{-15.}, //pitch
+      quan::uav::osd::angle_type{7.} // roll
+   };
+}
+
+    quan::uav::osd::attitude_type 
     quan::uav::osd::get_aircraft_attitude()
     {
-       return get_aircraft().get_attitude();
+       //return get_aircraft().get_attitude();
+         
+         return dummy_at;
     }
 
     quan::uav::osd::angle_type 
@@ -136,6 +149,56 @@ namespace{
     {
        return get_aircraft().get_heading();
     }
+
+
+   bool quan::uav::osd::position_is_good()
+   {
+      // atomic
+      return false; //(the_aircraft.gps.fix_type > 1);
+   }
+
+   namespace {
+      bool home_position_set = false;
+   }
+
+   bool quan::uav::osd::home_position_is_set()
+   {
+      return home_position_set == true;
+   }
+
+   // even with force position must be good
+   // use force to set home pos in flight
+   bool quan::uav::osd::set_home_position(position_type const & p, bool force)
+   {
+       if ( ((home_position_set == false) || (force == true)) &&
+           (quan::uav::osd::position_is_good()) ){
+         // the_aircraft.mutex_acquire();
+            //the_aircraft.home_location = p;
+         // the_aircraft.mutex_release();
+          home_position_set = true;
+          return true;
+       }else{
+          return false;
+       }
+   }
+
+   uint8_t quan::uav::osd::read_gps_fix_type()
+   {
+      //atomic
+      //return the_aircraft.gps.fix_type;
+      return 1;
+   }
+   uint8_t quan::uav::osd::read_gps_num_sats()
+   {
+       // atomic
+      // return the_aircraft.gps.num_sats;
+      return 2;
+   }
+
+   quan::uav::osd::video_mode     quan::uav::osd::get_video_mode()
+   {
+      return video_mode::pal;
+   }
 /*
  required. The Bitmap maker will call this function
  to set up these two pointers

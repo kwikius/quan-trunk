@@ -36,10 +36,16 @@ namespace quan{ namespace uav{
    template <typename ValueType>
    struct attitude{
       typedef ValueType value_type;
+       
       typename quan::angle_<ValueType>::deg            yaw;
       typename quan::angle_<ValueType>::deg            pitch;                  
       typename quan::angle_<ValueType>::deg            roll;                   
       attitude():yaw{0},pitch{0},roll{0}{}
+      attitude(
+         typename quan::angle_<ValueType>::deg const & yaw_in
+         ,typename quan::angle_<ValueType>::deg const & pitch_in
+         ,typename quan::angle_<ValueType>::deg const & roll_in
+      ): yaw{yaw_in},pitch{pitch_in},roll{roll_in}{}
    };
 
 }}
