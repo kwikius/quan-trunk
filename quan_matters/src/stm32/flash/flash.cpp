@@ -14,54 +14,19 @@ Copyright (c) 2003-2014 Andy Little.
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses.
 */
+
 #include <quan/stm32/flash.hpp>
 #include <quan/stm32/detail/flash.hpp>
 #include <cstring>
 #include <quan/error.hpp>
 
 /*
-int32_t quan::stm32::flash::get_write_count()
-{
-   uint8_t* page = nullptr;
-   uint8_t* page0 = reinterpret_cast<uint8_t*>(quan::stm32::flash::detail::get_page_address(1));
-   uint8_t* page1 = reinterpret_cast<uint8_t*>(quan::stm32::flash::detail::get_page_address(2));
-
-   if (page0[0] == 0xFF) {
-      if (page1[0] == 0xFF) { // nothing written yet
-         return 0;
-      } else {
-         page = page1;
-      }
-   } else {
-      page = page0;
-   }
-
-    // page corrupted fail!
-   if (page[0] != 0) {
-      quan::error(
-         quan::detail::stm32_flash_get_write_count,
-         quan::detail::stm32_flash_page_corrupted
-      );
-      return -1;
-   }
-   union {
-      uint8_t ar[4];
-      int32_t val;
-   } u;
-   u.ar[3] = 0;
-   for (uint8_t i = 0; i < 3; ++i) {
-      u.ar[i] = page[i+1];
-   }
-   return u.val;
-}
-*/
-
-/*
 Flash memory
+N.B this is very slow memory to read. 
 two separate pages of Flash are used. If there is space,
- a symbol that is changed is written to an unused location in the current pge
+ a symbol that is changed is written to an unused location in the current page.
 The first 1 byte of the page structure is 0xFF if the page is not in use.
-If the page iis in use The first byte is 0
+If the page is in use The first byte is 0
 bytes 1,2,3 hold the number of writes so each page has been written that number /2
 Then it should be assumed to have been erased. the next 3 bytes are intended to be used
 to hold the number of times the pages have been erased so bumped each time(not implemented yet here)
@@ -157,8 +122,8 @@ bool quan::stm32::flash::read_symbol (
 
 bool quan::stm32::flash::have_symbol(quan::stm32::flash::symbol_table const & symtab,uint16_t symidx)
 {
-    uint8_t const volatile* data_ptr = nullptr;
-         uint32_t data_len = 0;
+   uint8_t const volatile* data_ptr = nullptr;
+   uint32_t data_len = 0;
    return ll_flash_get_sym_ptr (symtab,symidx,data_ptr,data_len);
 }
   
