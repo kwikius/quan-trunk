@@ -39,7 +39,8 @@ namespace{
 }
 
 bool quan::stm32::flash::flash_convert<quan::three_d::vect<float> >::text_to_bytestream(
-      quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src_in)
+      quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src_in
+      , bool (*pfn_check)(void* value))
 {
    if ((src_in.get_num_elements() < 7) ||  (src_in.get() [0] != '[') ) {
       user_error(expected_float);
@@ -75,6 +76,12 @@ bool quan::stm32::flash::flash_convert<quan::three_d::vect<float> >::text_to_byt
          return false;
       }
    }
+   //####### validate the resultwith callback
+   quan::three_d::vect<float> check_val{uconv.vals[0],uconv.vals[1],uconv.vals[2]};
+   if ( ! pfn_check((void*)&check_val) ){
+      return false;
+   }
+   //##############################################
    if (!dest.realloc (sizeof (float) * 3)) {
       main_alloc_failed();
       return false;

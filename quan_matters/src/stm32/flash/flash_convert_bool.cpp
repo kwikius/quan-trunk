@@ -36,7 +36,9 @@ namespace {
 
 
  
-bool quan::stm32::flash::flash_convert<bool>::text_to_bytestream(quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src)
+bool quan::stm32::flash::flash_convert<bool>::text_to_bytestream(
+      quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src,
+       bool (*pfn_check)(void* value))
 {
      // input is "true" or "false"
      uint8_t val = 0;
@@ -58,7 +60,11 @@ bool quan::stm32::flash::flash_convert<bool>::text_to_bytestream(quan::dynarray<
                return false;
           }
      }
-     static_assert(sizeof(bool) == sizeof(uint8_t), "invalid bool size");
+     bool check_val = val== 1?true:false;
+     if ( ! pfn_check((void*) &check_val)){
+         return false;
+     }
+  //   static_assert(sizeof(bool) == sizeof(uint8_t), "invalid bool size");
      if (!dest.realloc (sizeof(uint8_t))) {
           main_alloc_failed();
           return false;

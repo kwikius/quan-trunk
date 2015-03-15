@@ -73,12 +73,11 @@ int32_t ll_flash_find_end_records (int32_t page_num);
 
 }// ~namespace 
  
-bool quan::stm32::flash::write_symbol (
-      quan::stm32::flash::symbol_table const & symtab,
+bool quan::stm32::flash::symbol_table::write_symbol (
       uint16_t symidx, 
-      quan::dynarray<uint8_t> const & buffer)
+      quan::dynarray<uint8_t> const & buffer)const
 {
-   if (buffer.get_num_elements() != symtab.get_symbol_storage_size (symidx)) {
+   if (buffer.get_num_elements() != this->get_symbol_storage_size (symidx)) {
         quan::error(
             quan::detail::stm32_flash_write_symbol,
             quan::detail::invalid_storage_size
@@ -86,22 +85,21 @@ bool quan::stm32::flash::write_symbol (
 
       return false;
    }
-   return ll_flash_write_symbol (symtab,symidx,buffer.get(), -1);
+   return ll_flash_write_symbol (*this,symidx,buffer.get(), -1);
 }
  
 /*
 read the rep from flash into a buffer
 */
 
-bool quan::stm32::flash::read_symbol (
-      quan::stm32::flash::symbol_table const & symtab,
+bool quan::stm32::flash::symbol_table::read_symbol (
       uint16_t symidx, 
-      quan::dynarray<uint8_t> & buffer)
+      quan::dynarray<uint8_t> & buffer)const
 {
  
    uint8_t const volatile* data_ptr = nullptr;
    uint32_t data_len = 0;
-   if (ll_flash_get_sym_ptr (symtab,symidx,data_ptr,data_len)) {
+   if (ll_flash_get_sym_ptr (*this,symidx,data_ptr,data_len)) {
       if (! buffer.realloc (data_len)) {
             quan::error(
                quan::detail::stm32_flash_read_symbol,
@@ -120,11 +118,23 @@ bool quan::stm32::flash::read_symbol (
    }
 }
 
-bool quan::stm32::flash::have_symbol(quan::stm32::flash::symbol_table const & symtab,uint16_t symidx)
+int32_t quan::stm32::flash::symbol_table::get_index( 
+      quan::dynarray<char> const & symbol) const
+{
+      const char* p = symbol.get();
+      if ( p != nullptr){
+         return this->get_index(p);
+      }else{
+         return -1;
+      }
+      
+}
+
+bool quan::stm32::flash::symbol_table::have_symbol(uint16_t symidx)const
 {
    uint8_t const volatile* data_ptr = nullptr;
    uint32_t data_len = 0;
-   return ll_flash_get_sym_ptr (symtab,symidx,data_ptr,data_len);
+   return ll_flash_get_sym_ptr (*this,symidx,data_ptr,data_len);
 }
   
 namespace {

@@ -27,6 +27,13 @@ namespace quan {namespace stm32 {namespace flash {
       
       virtual uint16_t get_symbol_storage_size(uint16_t symidx)const =0;
       virtual uint16_t get_symtable_size()const =0;
+
+      bool read_symbol (uint16_t symidx, quan::dynarray<uint8_t> & buffer)const;
+      bool write_symbol(uint16_t symidx, quan::dynarray<uint8_t> const & buffer)const;
+      bool have_symbol(uint16_t symidx)const;
+      // get the index of the symbol name in the dynarray
+      int32_t get_index( quan::dynarray<char> const & symbol_name) const;
+      virtual int32_t get_index( const char* const symbol_name) const;
       private:
          symbol_table(symbol_table const &) = delete;
          symbol_table& operator = (symbol_table const &) = delete;
@@ -35,9 +42,9 @@ namespace quan {namespace stm32 {namespace flash {
    // return -1 if corrupt
    // n.b. only returns num since last firmware update
    int32_t get_write_count();
-   bool read_symbol (quan::stm32::flash::symbol_table const & symtab,uint16_t symidx, quan::dynarray<uint8_t> & buffer);
-   bool write_symbol (quan::stm32::flash::symbol_table const & symtab,uint16_t symidx, quan::dynarray<uint8_t> const & buffer);
-   bool have_symbol(quan::stm32::flash::symbol_table const & symtab,uint16_t symidx);
+  
+  
+   
   
 }}}
  

@@ -28,16 +28,26 @@ namespace quan{ namespace stm32{ namespace flash{
    struct flash_convert;
 
    template <> struct flash_convert<bool>{
-      static bool set (const char* str, bool value);
-      static bool get (const char* str, bool value);
-      static bool text_to_bytestream(quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src);
+      typedef bool type;
+      static bool set (const char* str, type const & value);
+      static bool get (const char* str, type& value);
+      static bool text_to_bytestream(
+         quan::dynarray<uint8_t>& dest
+         , quan::dynarray<char> const & src
+         , bool (*pfn_check)(void* value)
+      );
       static bool bytestream_to_text(quan::dynarray<char>& dest, quan::dynarray<uint8_t> const & src);
    };
 
    template <> struct flash_convert<quan::three_d::vect<float> >{
-      static bool set (const char* str,quan::three_d::vect<float> const & value);
-      static bool get (const char* str, quan::three_d::vect<float> & value);
-      static bool text_to_bytestream(quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src);
+      typedef quan::three_d::vect<float> type;
+      static bool set (const char* str,type const & value);
+      static bool get (const char* str, type & value);
+      static bool text_to_bytestream(
+         quan::dynarray<uint8_t>& dest
+         , quan::dynarray<char> const & src
+         , bool (*pfn_check)(void* value)
+      );
       static bool bytestream_to_text(quan::dynarray<char>& dest, quan::dynarray<uint8_t> const & src);
    };
 
