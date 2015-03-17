@@ -22,7 +22,8 @@
 #include <quan/conversion/float_convert.hpp>
 #include <quan/conversion/float_to_ascii.hpp>
 #include <quan/error.hpp>
-#include <quan/stm32/flash/flash_convert.hpp>
+#include <quan/stm32/flash.hpp>
+#include <quan/stm32/flash/flash_convert/vect3f.hpp>
 #include <quan/stm32/flash/flash_error.hpp>
 
 /*
@@ -38,6 +39,68 @@ namespace{
     const char expected_float[] = "expected [float,float,float]";
 }
 
+   // set symbol name in flash to runtime value
+   bool quan::stm32::flash::flash_convert<quan::three_d::vect<float> >::set 
+      (const char* symbol_name, quan::three_d::vect<float> const & value)
+   {
+      // add check on type
+      // add check on range
+      auto const & symtab = get_app_symbol_table();
+      int32_t const sym_index = symtab.get_index (symbol_name);
+      if (sym_index == -1) {
+            // shouldnt get here
+         return false;
+      }
+      union {
+         uint8_t ar[sizeof (float) * 3];
+         float vals[3];
+      } uconv;
+      for (uint8_t i = 0U; i < 3U; ++i) {
+            uconv.vals[i] = value[i];
+      }
+      quan::dynarray<uint8_t> bytestream {sizeof (float) * 3, main_alloc_failed};
+      if (!bytestream.good()) {
+         return false;
+      }
+      memcpy (bytestream.get(), uconv.ar, sizeof (float) * 3);
+      return symtab.write_symbol(sym_index, bytestream);
+      
+   }
+   
+   // read symbol name in flash to runtime value
+   bool quan::stm32::flash::flash_convert<quan::three_d::vect<float> >::get 
+      (const char* symbol_name, quan::three_d::vect<float> & dest)
+   {
+      // get string from flash
+      auto const & symtab = get_app_symbol_table();
+      int32_t const sym_index = symtab.get_index (symbol_name);
+      if (sym_index == -1) {
+            // shouldnt get here
+            return false;
+         }
+      uint32_t const length = symtab.get_symbol_storage_size(sym_index);
+      quan::dynarray<uint8_t> bytestream {length, main_alloc_failed};
+      if (!bytestream.good()) {
+         return false;
+      }
+      if (!symtab.read_symbol(sym_index, bytestream)) {
+         return false;
+      }
+
+      union {
+         uint8_t ar[sizeof (float) * 3];
+         float vals[3];
+      } uconv;
+      
+      memcpy (uconv.ar, bytestream.get(), length);
+      for (uint8_t i = 0; i < 3U; ++i) {
+            dest[i] = uconv.vals[i];
+         }
+      return true;
+   }
+
+
+// convert user text to a bytestream
 bool quan::stm32::flash::flash_convert<quan::three_d::vect<float> >::text_to_bytestream(
       quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src_in
       , bool (*pfn_check)(void* value))
@@ -76,7 +139,7 @@ bool quan::stm32::flash::flash_convert<quan::three_d::vect<float> >::text_to_byt
          return false;
       }
    }
-   //####### validate the resultwith callback
+   //####### validate the result with callback
    quan::three_d::vect<float> check_val{uconv.vals[0],uconv.vals[1],uconv.vals[2]};
    if ( ! pfn_check((void*)&check_val) ){
       return false;
@@ -106,7 +169,7 @@ bool quan::stm32::flash::flash_convert<quan::three_d::vect<float> >::bytestream_
    } conv;
    memcpy(conv.ar,src.get(),sizeof (float) *3);
 
-    char buf[100];
+   char buf[100];
 
    int const result = sprintf (buf,"[%.3f,%.3f,%.3f]",conv.val[0],conv.val[1],conv.val[2]);
    if ( (result <= 0) || (result >= 100)) {

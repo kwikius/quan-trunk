@@ -18,7 +18,8 @@
 #include <cstring>
 #include <cstdio>
 #include <quan/dynarray.hpp>
-#include <quan/stm32/flash/flash_convert.hpp>
+#include <quan/stm32/flash.hpp>
+#include <quan/stm32/flash/flash_convert/bool.hpp>
 #include <quan/stm32/flash/flash_error.hpp>
 
 /*
@@ -34,12 +35,70 @@ namespace {
    const char expected_bool[] = "expected \"true\" or \"false\"";
 }
 
+   bool quan::stm32::flash::flash_convert<bool>::set (const char* symbol_name, bool const & value)
+   {
 
- 
+      auto const & symtab = quan::stm32::flash::get_app_symbol_table();
+      int32_t const symbol_index = symtab.get_index (symbol_name);
+      if (symbol_index == -1) {
+         return false;
+      }
+      uint32_t type_id = 0;
+      if ( !symtab.get_typeid(symbol_index,type_id)){
+          user_error("unknown error please report");
+         //shouldnt fail here as index checked
+         return false;
+      }
+      if ( type_id  != quan::stm32::flash::get_flash_typeid<bool>()){
+      //that type of symbol name is right
+         user_error("symbol is not a bool");
+         return false;
+      }
+      quan::dynarray<uint8_t> bytestream {sizeof (uint8_t), main_alloc_failed};
+      if (!bytestream.good()) {
+            return false;
+      }
+      *bytestream.get() = (value == true) ? 1 : 0;
+      return symtab.write_symbol(symbol_index, bytestream);
+   }
+   
+   bool quan::stm32::flash::flash_convert<bool>::get (const char* symbol_name, bool & value)
+   {
+      auto const & symtab = quan::stm32::flash::get_app_symbol_table();
+      int32_t const symbol_index = symtab.get_index (symbol_name);
+      if (symbol_index == -1) {
+         // shouldnt get here
+         return false;
+      }
+      uint32_t type_id = 0;
+      if ( !symtab.get_typeid(symbol_index,type_id)){
+          user_error("unknown error please report");
+         //shouldnt fail here as index checked
+         return false;
+      }
+      if ( type_id  != quan::stm32::flash::get_flash_typeid<bool>()){
+      //that type of symbol name is right
+         user_error("symbol is not a bool");
+         return false;
+      }
+      uint32_t const length = symtab.get_symbol_storage_size (symbol_index);
+      quan::dynarray<uint8_t> bytestream {length, main_alloc_failed};
+      if (!bytestream.good()) {
+         return false;
+      }
+
+      if (!symtab.read_symbol(symbol_index, bytestream)) {
+         return false;
+      }
+      value = (*bytestream.get() == 1) ? true : false;
+      return true;
+   }
+
 bool quan::stm32::flash::flash_convert<bool>::text_to_bytestream(
       quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src,
        bool (*pfn_check)(void* value))
 {
+// text to value of type
      // input is "true" or "false"
      uint8_t val = 0;
      if (src.get_num_elements() == 5) {
@@ -64,24 +123,29 @@ bool quan::stm32::flash::flash_convert<bool>::text_to_bytestream(
      if ( ! pfn_check((void*) &check_val)){
          return false;
      }
+// value to bytestream
   //   static_assert(sizeof(bool) == sizeof(uint8_t), "invalid bool size");
      if (!dest.realloc (sizeof(uint8_t))) {
           main_alloc_failed();
           return false;
      }
      *dest.get() = val;
+//
      return true;
 }
 
 bool quan::stm32::flash::flash_convert<bool>::bytestream_to_text(
       quan::dynarray<char>& dest, quan::dynarray<uint8_t> const & src)
 {
+  // bytestream to value
     if (src.get_num_elements() != sizeof (bool)) {
       quan::error(fn_rep_to_cstring_Bool,
       quan::detail::stm32_flash_page_corrupted);
       return false;
    }
    uint8_t val = *src.get();
+   //sort of
+// value to text
    if ( val == 0){ // false
        if (!dest.realloc (6)) { 
             main_alloc_failed();
