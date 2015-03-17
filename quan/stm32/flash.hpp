@@ -66,6 +66,7 @@ namespace quan {namespace stm32 {namespace flash {
 
    template <typename T> inline uint32_t get_flash_typeid() 
       { return get_flash_typeid_impl<T>::apply();}
+
 }}}
  
 #endif // QUAN_STM32_FLASH_HPP_INCLUDED
