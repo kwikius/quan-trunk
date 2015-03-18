@@ -35,10 +35,69 @@
   flash rep is  a sequence of 3 floats, for the x,y,z values
 */
 
+/*
 namespace{
     const char expected_float[] = "expected [float,float,float]";
 }
 
+  template <> struct text_convert<quan::three_d::vect<float> > {
+   bool text_to_type(quan::dynarray<char> const & text_in, void* value_out)
+   {
+
+      if ((text_in.get_num_elements() < 7) ||  (text_in.get() [0] != '[') ) {
+         user_error(expected_float);
+         return false;
+      }
+   // copy src_in else will be corrupted
+      quan::dynarray<char> src {text_in.get_num_elements() -1,main_alloc_failed};
+      if (! src.good()) {
+         // has reported
+         return false;
+      }
+      // copy but ignore leading '['
+      memcpy (src.get(),text_in.get()+1,text_in.get_num_elements()-1); 
+     
+
+      const char* delims[] = {",",",","]"};
+      quan::three_d::vect<float> temp;
+      // user_message("in mag string conv...\n");
+      for (size_t i = 0; i < 3; ++i) {
+         char* sptr = (i==0) ? reinterpret_cast<char*> (src.get()):nullptr;
+         char* f = strtok (sptr,delims[i]);
+         if (f == nullptr) {
+            user_error(expected_float);
+            return false;
+         }
+         quan::detail::converter<float, char*> fconv;
+         temp[i] = fconv (f);
+         if (fconv.get_errno()) {
+            user_error("invalid float");
+            return false;
+         }
+      }
+      quan::three_d::vect<float>* typed_value_out = (quan::three_d::vect<float>*)value_out;
+      *typed_value_out = temp;
+      return true;
+   }
+
+   bool type_to_text(const void* value_in, quan::dynarray<char> & text_out)
+   {
+      char buf[100];
+      int const result = sprintf (buf,"[%.3f,%.3f,%.3f]",conv.val[0],conv.val[1],conv.val[2]);
+      if ( (result <= 0) || (result >= 100)) {
+         quan::error(fn_rep_to_cstring_Vect3F, quan::detail::bad_float_range);
+         return false;
+      }
+      if (!text_out.realloc (result)) {
+         main_alloc_failed();
+         return false;
+      }
+      strcpy (text_out.get(), buf);
+      return true;
+   }
+}; // struct
+
+/*
    // set symbol name in flash to runtime value
    bool quan::stm32::flash::flash_convert<quan::three_d::vect<float> >::set 
       (const char* symbol_name, quan::three_d::vect<float> const & value)
@@ -184,3 +243,4 @@ bool quan::stm32::flash::flash_convert<quan::three_d::vect<float> >::bytestream_
    strcpy (dest.get(), buf);
    return true;
 }
+*/

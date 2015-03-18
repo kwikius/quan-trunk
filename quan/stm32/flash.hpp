@@ -52,7 +52,7 @@ namespace quan {namespace stm32 {namespace flash {
       bool have_symbol(uint16_t symbol_index)const;
       bool write_from_text (uint16_t symbol_index,quan::dynarray<char> const & value)const;
       bool read_to_text(uint16_t symbol_index, quan::dynarray<char> & value)const;
-      private:
+     
                // todo setup an alloc fail fun
       static void on_malloc_failed() {}
          symbol_table(symbol_table const &) = delete;
@@ -66,6 +66,10 @@ namespace quan {namespace stm32 {namespace flash {
 
    template <typename T> inline uint32_t get_flash_typeid() 
       { return get_flash_typeid_impl<T>::apply();}
+
+   bool type_to_bytestream(const void* value, quan::dynarray<uint8_t> & bytestream_out, uint32_t size);
+   bool bytestream_to_type(quan::dynarray<uint8_t> const & bytestream_in, void* value_out, uint32_t size);
+   bool validate(const char* symbol_name,uint32_t expected_typeid,int32_t & symbol_index_out);
 
 }}}
  

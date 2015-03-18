@@ -17,6 +17,7 @@ Copyright (c) 2003-2014 Andy Little.
 
 #include <quan/stm32/flash.hpp>
 #include <quan/stm32/detail/flash.hpp>
+#include <quan/stm32/flash/flash_error.hpp>
 #include <cstring>
 #include <quan/error.hpp>
 
@@ -188,8 +189,52 @@ bool quan::stm32::flash::symbol_table::write_from_text (uint16_t symbol_index,qu
    }
 }
 
+bool quan::stm32::flash::type_to_bytestream(
+   const void * value, quan::dynarray<uint8_t> & bytestream_out, uint32_t size)
+{
+   if ( bytestream_out.realloc (size)) {
+      memcpy(bytestream_out.get(),value,size);
+      return true;
+   }else{
+      symbol_table::on_malloc_failed();
+      return false;
+   }
+}
 
-  
+bool quan::stm32::flash::bytestream_to_type(quan::dynarray<uint8_t> const & bytestream_in, void* value_out, uint32_t size)
+{
+   if (bytestream_in.get_num_elements() == size) {
+      memcpy(value_out,bytestream_in.get(), size);
+      return true;
+   }else{
+      quan::error(fn_any,quan::detail::stm32_flash_page_corrupted);
+      return false;
+   }
+}
+
+
+   bool quan::stm32::flash::validate(const char* symbol_name,uint32_t expected_typeid,int32_t & symbol_index_out)
+   {
+      auto const & symtab = quan::stm32::flash::get_app_symbol_table();
+      int32_t const symbol_index = symtab.get_index (symbol_name);
+      if (symbol_index == -1) {
+         return false;
+      }
+      uint32_t type_id = 0;
+      if ( !symtab.get_typeid(symbol_index,type_id)){
+          user_error("unknown error please report");
+         //shouldnt fail here as index checked
+         return false;
+      }
+      if(type_id == expected_typeid){
+         symbol_index_out = symbol_index;
+         return true;
+      }else{
+         user_error("symbol is not correct type");
+         return false;
+      }
+   }
+
 namespace {
  
    // if write page is -1 just defaults to current used page

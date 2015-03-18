@@ -26,6 +26,7 @@ enum function_ids{
    fn_parse_input = quan::detail::function_id_user+1
    ,fn_main
    ,fn_flash_demo
+   ,fn_any
    ,fn_rep_to_cstring_Vect3F
    ,fn_rep_to_cstring_Bool
 };

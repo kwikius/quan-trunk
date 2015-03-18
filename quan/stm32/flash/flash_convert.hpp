@@ -21,35 +21,66 @@
 #include <cstdint>
 #include <quan/dynarray.hpp>
 #include <quan/three_d/vect.hpp>
+#include <quan/dynarray.hpp>
+#include <quan/stm32/flash.hpp>
 
 namespace quan{ namespace stm32{ namespace flash{
 
-   template <typename T>
-   struct flash_convert;
+   template <typename T> struct text_convert;
 
-//   template <> struct flash_convert<bool>{
-//      typedef bool type;
-//      static bool set (const char* str, type const & value);
-//      static bool get (const char* str, type& value);
-//      static bool text_to_bytestream(
-//         quan::dynarray<uint8_t>& dest
-//         , quan::dynarray<char> const & src
-//         , bool (*pfn_check)(void* value)
-//      );
-//      static bool bytestream_to_text(quan::dynarray<char>& dest, quan::dynarray<uint8_t> const & src);
-//   };
-//
-//   template <> struct flash_convert<quan::three_d::vect<float> >{
-//      typedef quan::three_d::vect<float> type;
-//      static bool set (const char* str,type const & value);
-//      static bool get (const char* str, type & value);
-//      static bool text_to_bytestream(
-//         quan::dynarray<uint8_t>& dest
-//         , quan::dynarray<char> const & src
-//         , bool (*pfn_check)(void* value)
-//      );
-//      static bool bytestream_to_text(quan::dynarray<char>& dest, quan::dynarray<uint8_t> const & src);
-//   };
+   template <typename T>
+   struct flash_convert{
+
+      static bool set (const char* symbol_name, T const & value)
+      {
+         int32_t symbol_index =-1;
+         if (validate(symbol_name,quan::stm32::flash::get_flash_typeid<T>(),symbol_index)){
+            quan::dynarray<uint8_t> bytestream {sizeof(T), symbol_table::on_malloc_failed};
+            if ( bytestream.good() && type_to_bytestream(&value,bytestream, sizeof(T)) ){
+               auto const & symtab = quan::stm32::flash::get_app_symbol_table();
+               return symtab.write_symbol(symbol_index, bytestream);
+            }
+         }
+         return false;
+      }
+
+      static bool get(const char* symbol_name, T & value_out)
+      {
+         int32_t symbol_index = -1;
+         if (validate(symbol_name,quan::stm32::flash::get_flash_typeid<T>(),symbol_index)){
+            auto const & symtab = quan::stm32::flash::get_app_symbol_table();
+            quan::dynarray<uint8_t> bytestream {sizeof(T),symbol_table::on_malloc_failed};
+            if (bytestream.good() && symtab.read_symbol(symbol_index, bytestream)){
+               return bytestream_to_type(bytestream,&value_out, sizeof(T));
+            }
+         }
+         return false;
+       }
+
+       static bool text_to_bytestream(
+         quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & text_in,
+          bool (*pfn_check)(void* value))
+      {
+         T value ;
+         if (!text_convert<T>::text_to_type(text_in, &value)){
+            return false;
+         }
+         if ( ! pfn_check((void*) &value)){
+            return false;
+         }
+         return quan::stm32::flash::type_to_bytestream(&value,dest, sizeof(T));
+      }
+
+      static bool bytestream_to_text(
+         quan::dynarray<char>& dest, quan::dynarray<uint8_t> const & src)
+      {
+          T value ;
+          if (!bytestream_to_type(src,&value,sizeof(T))){
+            return false;
+          }
+          return text_convert<T>::type_to_text(&value,dest);
+      }
+   };
 
 }}} // quan::stm32::flash
 
