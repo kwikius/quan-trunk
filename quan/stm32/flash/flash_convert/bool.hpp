@@ -10,21 +10,10 @@
 
 namespace quan{ namespace stm32{ namespace flash{
 
-   template <typename T>
-   struct flash_convert;
-/*
-   template <> struct flash_convert<bool>{
-      typedef bool type;
-      static bool set (const char* str, type const & value);
-      static bool get (const char* str, type& value);
-      static bool text_to_bytestream(
-         quan::dynarray<uint8_t>& dest
-         , quan::dynarray<char> const & src
-         , bool (*pfn_check)(void* value)
-      );
-      static bool bytestream_to_text(quan::dynarray<char>& dest, quan::dynarray<uint8_t> const & src);
-   };
-*/
+    // apply requires implementation by the app
+    // to return the id for the type
+    template<> struct get_flash_typeid_impl<bool> 
+    { static uint32_t apply();};
 
     template <> struct text_convert<bool>{
 
@@ -66,18 +55,10 @@ namespace quan{ namespace stm32{ namespace flash{
                return true;
             }
          }
-         main_alloc_failed();
+         symbol_table::on_malloc_failed();
          return false;
       }
-
-      
-
-   }; // struct
-
-
-   // requires implementation by the app
-   template<> struct get_flash_typeid_impl<bool> 
-   { static uint32_t apply();};
+   }; 
 
 }}}
 

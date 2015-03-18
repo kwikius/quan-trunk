@@ -1,5 +1,5 @@
-#ifndef CPP_PROJECTS_TEST_ERROR_HPP_INCLUDED
-#define CPP_PROJECTS_TEST_ERROR_HPP_INCLUDED
+#ifndef QUAN_STM32_FLASH_FLASH_ERROR_HPP_INCLUDED
+#define QUAN_STM32_FLASH_FLASH_ERROR_HPP_INCLUDED
 /*
  Copyright (c) 2013 -2015 Andy Little 
 
@@ -19,9 +19,9 @@
 
 #include <quan/error.hpp>
 
-void report_errors();
-uint32_t get_num_errors();
-
+// could be by app
+// at least should put in quan::stm32::flash
+// needs rehash!
 enum function_ids{
    fn_parse_input = quan::detail::function_id_user+1
    ,fn_main
@@ -31,10 +31,4 @@ enum function_ids{
    ,fn_rep_to_cstring_Bool
 };
 
-void main_alloc_failed();
-
-void user_error(char const * str);
-void user_message (const char* str);
-//nb system errors
-
-#endif // CPP_PROJECTS_TEST_ERROR_HPP_INCLUDED
+#endif //QUAN_STM32_FLASH_FLASH_ERROR_HPP_INCLUDED

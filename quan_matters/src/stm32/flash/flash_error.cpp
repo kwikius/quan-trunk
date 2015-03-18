@@ -20,7 +20,7 @@
 #include <quan/utility/fifo.hpp>
 #include <quan/stm32/flash/flash_error.hpp>
 
-void user_message(const char * str);
+// needs a rehash to decide how erors are working
 
 namespace {
 
@@ -83,6 +83,7 @@ namespace {
    quan::fifo<error_info,16> error_fifo;
 }// ~namespace
 
+// should prob be out of flash errors...
 void quan::error(int32_t function_id, int32_t error_id)
 {
     if (error_fifo.is_full()){
@@ -91,12 +92,12 @@ void quan::error(int32_t function_id, int32_t error_id)
     error_fifo.put({function_id,error_id});
 }
 
-uint32_t get_num_errors()
+uint32_t quan::get_num_errors()
 {
    return error_fifo.num_in_buffer();
 }
 
-void report_errors()
+void quan::report_errors()
 {
    while ( ! error_fifo.is_empty()){
       error_info const & info = error_fifo.get();
@@ -105,11 +106,10 @@ void report_errors()
       user_message( " : ");
       user_message(get_error_string(info.error_id));
       user_message("\n");
-      
    }
 }
 
-void user_error (char const * str) {
+void quan::user_error (char const * str) {
    user_message("error : ");
    user_message(str);
    user_message("\n");

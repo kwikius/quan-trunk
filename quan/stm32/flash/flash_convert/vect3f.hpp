@@ -23,7 +23,7 @@ namespace quan{ namespace stm32{ namespace flash{
             return false;
          }
       // copy src_in else will be corrupted
-         quan::dynarray<char> src {text_in.get_num_elements() -1,main_alloc_failed};
+         quan::dynarray<char> src {text_in.get_num_elements() -1,symbol_table::on_malloc_failed};
          if (! src.good()) {
             // has reported
             return false;
