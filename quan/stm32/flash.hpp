@@ -44,7 +44,9 @@ namespace quan {namespace stm32 {namespace flash {
       virtual bool init() const=0;
       virtual bool get_typeid(uint16_t symbol_index, uint32_t & dest) const = 0;
  //-------------------------------non virtual ----------------------
+      // symbolindex  actually is in symbol table
       bool exists(uint16_t symbol_index) const ;
+      // exists and has been defined rather than undef
       bool is_defined(const char* symbol_name) const;
       int32_t get_index( quan::dynarray<char> const & symbol_name) const;
       bool read_symbol (uint16_t symbol_index, quan::dynarray<uint8_t> & buffer)const;
@@ -64,8 +66,7 @@ namespace quan {namespace stm32 {namespace flash {
 
    template <typename T> struct get_flash_typeid_impl;
 
-   template <typename T> inline uint32_t get_flash_typeid() 
-      { return get_flash_typeid_impl<T>::apply();}
+   template <typename T> uint32_t get_flash_typeid();
    
   // move to detail?
    bool type_to_bytestream(const void* value, quan::dynarray<uint8_t> & bytestream_out, uint32_t size);

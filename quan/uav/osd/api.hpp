@@ -4,9 +4,10 @@
 #include <quan/angle.hpp>
 #include <quan/length.hpp>
 #include <quan/two_d/vect.hpp>
-#include <quan/uav/osd/colour.hpp>
 #include <quan/uav/position.hpp>
 #include <quan/uav/attitude.hpp>
+#include <quan/uav/osd/colour.hpp>
+#include <quan/uav/osd/get_video_mode.hpp>
 
 namespace quan{ namespace uav{ namespace osd{
 
@@ -74,8 +75,7 @@ namespace quan{ namespace uav{ namespace osd{
                   );
    void           flood_fill(pxp_type const & start_pos, colour_type new_colour, int max_count);
 
-   enum class video_mode { unknown, ntsc, pal };
-   video_mode     get_video_mode();
+   
 
 }}}
 

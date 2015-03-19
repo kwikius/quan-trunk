@@ -81,6 +81,31 @@ namespace quan{ namespace stm32{ namespace flash{
           return text_convert<T>::type_to_text(&value,dest);
       }
    };
+   
+   template <typename T>
+   inline 
+   bool get_flash_value(const char* name, T & value)
+   {
+      if ( get_app_symbol_table().is_defined(name)){
+         return flash_convert<T>::get(name,value);
+      }else{
+         return false;
+      }
+   }
+
+   // n.b use with caution
+   // The system may be locked for several ms while the var is written
+   // inadvisable to call after init!!!
+   template <typename T>
+   inline 
+   bool set_flash_value(const char* name, T const & value)
+   {
+      if ( get_app_symbol_table().is_defined(name)){
+         return flash_convert<T>::set(name,value);
+      }else{
+         return false;
+      }
+   }
 
 }}} // quan::stm32::flash
 

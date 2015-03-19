@@ -1,12 +1,11 @@
-#ifndef QUAN_STM32_FLASH_CONVERT_VECT3F_HPP_INCLUDED
-#define QUAN_STM32_FLASH_CONVERT_VECT3F_HPP_INCLUDED
+#ifndef QUAN_STM32_FLASH_CONVERT_VECT3I32_HPP_INCLUDED
+#define QUAN_STM32_FLASH_CONVERT_VECT3I32_HPP_INCLUDED
 
+#include <cstdint>
 #include <cstring>
 #include <cstdio>
 #include <quan/dynarray.hpp>
 #include <quan/three_d/vect.hpp>
-#include <quan/conversion/float_convert.hpp>
-#include <quan/conversion/float_to_ascii.hpp>
 #include <quan/stm32/flash.hpp>
 #include <quan/error.hpp>
 #include <quan/stm32/flash/flash_convert.hpp>
@@ -14,12 +13,12 @@
 
 namespace quan{ namespace stm32{ namespace flash{
 
-   template <> struct text_convert<quan::three_d::vect<float> > {
+   template <> struct text_convert<quan::three_d::vect<int32_t> > {
       static bool text_to_type(quan::dynarray<char> const & text_in, void* value_out)
       {
-         if ( ! value_out) return false;
+         if (! value_out) return false;
          if ((text_in.get_num_elements() < 7) ||  (text_in.get() [0] != '[') ) {
-            user_error("expected [float,float,float]");
+            user_error("expected [int32,int32,int32]");
             return false;
          }
       // copy src_in else will be corrupted
@@ -32,23 +31,18 @@ namespace quan{ namespace stm32{ namespace flash{
          memcpy (src.get(),text_in.get()+1,text_in.get_num_elements()-1); 
         
          const char* delims[] = {",",",","]"};
-         quan::three_d::vect<float> temp;
-         // user_message("in mag string conv...\n");
+         quan::three_d::vect<int32_t> temp;
          for (size_t i = 0; i < 3; ++i) {
             char* sptr = (i==0) ? reinterpret_cast<char*> (src.get()):nullptr;
-            char* f = strtok (sptr,delims[i]);
-            if (f == nullptr) {
-               user_error("expected [float,float,float]");
+            char* intval = strtok (sptr,delims[i]);
+            if (intval == nullptr) {
+               user_error("expected [int32,int32,int32]");
                return false;
             }
-            quan::detail::converter<float, char*> fconv;
-            temp[i] = fconv (f);
-            if (fconv.get_errno()) {
-               user_error("invalid float");
-               return false;
-            }
+            // may need additional checks here
+            temp[i] = atoi(intval);
          }
-         quan::three_d::vect<float>* typed_value_out = (quan::three_d::vect<float> *)value_out;
+         quan::three_d::vect<int32_t>* typed_value_out = (quan::three_d::vect<int32_t> *)value_out;
          *typed_value_out = temp;
          return true;
       }
@@ -58,13 +52,13 @@ namespace quan{ namespace stm32{ namespace flash{
          if ( ! value_in) return false;
          char buf[100];
          // convert to typed value in
-         quan::three_d::vect<float> const * tvi = (quan::three_d::vect<float> const*) value_in;
-         int const result = sprintf (buf,"[%.3f,%.3f,%.3f]",
-               static_cast<double>(tvi->x),
-                  static_cast<double>(tvi->y),
-                     static_cast<double>(tvi->z));
+         quan::three_d::vect<int32_t> const * tvi = (quan::three_d::vect<int32_t> const*) value_in;
+         int const result = sprintf (buf,"[%i,%i,%i]"
+            ,static_cast<int>(tvi->x)
+            ,static_cast<int>(tvi->y)
+            ,static_cast<int>(tvi->z));
          if ( (result <= 0) || (result >= 100)) {
-            quan::error(fn_rep_to_cstring_Vect3F, quan::detail::bad_float_range);
+            quan::error(fn_any, quan::detail::bad_int_range);
             return false;
          }
          if (!text_out.realloc (result)) {
@@ -77,9 +71,9 @@ namespace quan{ namespace stm32{ namespace flash{
    }; // struct
 
       // requires implementation by the application
-   template<> struct get_flash_typeid_impl<quan::three_d::vect<float> > 
+   template<> struct get_flash_typeid_impl<quan::three_d::vect<int32_t> > 
    { static uint32_t apply();};
 
 }}} // quan::stm32::flash
 
-#endif // QUAN_STM32_FLASH_CONVERT_VECT3F_HPP_INCLUDED
+#endif // QUAN_STM32_FLASH_CONVERT_VECT3I32_HPP_INCLUDED

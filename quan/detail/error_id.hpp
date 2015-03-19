@@ -34,6 +34,7 @@ namespace quan{ namespace detail{
       ,stm32_invalid_flash_page = -9
       ,unterminated_string_constant = -10
       ,bad_float_range = -11
+      ,bad_int_range = -12
       ,error_num_user = 1
    };
 
