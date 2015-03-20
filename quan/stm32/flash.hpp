@@ -63,17 +63,11 @@ namespace quan {namespace stm32 {namespace flash {
 
    // must be implemented by the app
    symbol_table const & get_app_symbol_table();
-
    template <typename T> struct get_flash_typeid_impl;
-
    template <typename T> uint32_t get_flash_typeid();
-   
-  // move to detail?
-   bool type_to_bytestream(const void* value, quan::dynarray<uint8_t> & bytestream_out, uint32_t size);
-   bool bytestream_to_type(quan::dynarray<uint8_t> const & bytestream_in, void* value_out, uint32_t size);
-   bool validate(const char* symbol_name,uint32_t expected_typeid,int32_t & symbol_index_out);
 
    bool flash_menu();
+
 }}}
  
 #endif // QUAN_STM32_FLASH_HPP_INCLUDED

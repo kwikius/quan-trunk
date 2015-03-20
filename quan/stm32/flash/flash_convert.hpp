@@ -23,6 +23,7 @@
 #include <quan/three_d/vect.hpp>
 #include <quan/dynarray.hpp>
 #include <quan/stm32/flash.hpp>
+#include <quan/stm32/detail/flash.hpp>
 
 namespace quan{ namespace stm32{ namespace flash{
 
@@ -34,9 +35,11 @@ namespace quan{ namespace stm32{ namespace flash{
       static bool set (const char* symbol_name, T const & value)
       {
          int32_t symbol_index =-1;
-         if (validate(symbol_name,quan::stm32::flash::get_flash_typeid<T>(),symbol_index)){
+         if (quan::stm32::flash::detail::validate(
+               symbol_name,quan::stm32::flash::get_flash_typeid<T>(),symbol_index)
+         ){
             quan::dynarray<uint8_t> bytestream {sizeof(T), symbol_table::on_malloc_failed};
-            if ( bytestream.good() && type_to_bytestream(&value,bytestream, sizeof(T)) ){
+            if ( bytestream.good() && quan::stm32::flash::detail::type_to_bytestream(&value,bytestream, sizeof(T)) ){
                auto const & symtab = quan::stm32::flash::get_app_symbol_table();
                return symtab.write_symbol(symbol_index, bytestream);
             }
@@ -47,11 +50,11 @@ namespace quan{ namespace stm32{ namespace flash{
       static bool get(const char* symbol_name, T & value_out)
       {
          int32_t symbol_index = -1;
-         if (validate(symbol_name,quan::stm32::flash::get_flash_typeid<T>(),symbol_index)){
+         if (quan::stm32::flash::detail::validate(symbol_name,quan::stm32::flash::get_flash_typeid<T>(),symbol_index)){
             auto const & symtab = quan::stm32::flash::get_app_symbol_table();
             quan::dynarray<uint8_t> bytestream {sizeof(T),symbol_table::on_malloc_failed};
             if (bytestream.good() && symtab.read_symbol(symbol_index, bytestream)){
-               return bytestream_to_type(bytestream,&value_out, sizeof(T));
+               return quan::stm32::flash::detail::bytestream_to_type(bytestream,&value_out, sizeof(T));
             }
          }
          return false;
@@ -68,14 +71,14 @@ namespace quan{ namespace stm32{ namespace flash{
          if ( ! pfn_check((void*) &value)){
             return false;
          }
-         return quan::stm32::flash::type_to_bytestream(&value,dest, sizeof(T));
+         return quan::stm32::flash::detail::type_to_bytestream(&value,dest, sizeof(T));
       }
 
       static bool bytestream_to_text(
          quan::dynarray<char>& dest, quan::dynarray<uint8_t> const & src)
       {
           T value ;
-          if (!bytestream_to_type(src,&value,sizeof(T))){
+          if (!quan::stm32::flash::detail::bytestream_to_type(src,&value,sizeof(T))){
             return false;
           }
           return text_convert<T>::type_to_text(&value,dest);
