@@ -25,12 +25,7 @@
 namespace quan{ 
 // for the app to define
    void error( int32_t function_id, int32_t error_id);
-   void user_message (const char* str);
-   void user_error(const char* str);
-   void report_errors();
    uint32_t get_num_errors();
-   uint32_t user_in_avail();
-   char user_get();
 }
 
 #endif // QUAN_ERROR_HPP_INCLUDED

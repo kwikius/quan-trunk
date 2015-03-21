@@ -18,6 +18,7 @@
 
 #include <cstring>
 #include <cctype>
+#include <quan/user.hpp>
 #include <quan/dynarray.hpp>
 #include <quan/three_d/vect.hpp>
 #include <quan/conversion/float_convert.hpp>
@@ -32,6 +33,10 @@ namespace {
          quan::dynarray<char> & symbol, 
          quan::dynarray<char> & value)
       {
+         if ( input.get() == nullptr){
+            quan::error(fn_any,quan::detail::unexpected_nullptr);
+            return false;
+         }
          char* const symbol_part = strtok (input.get()," \t");
          char* const value_part = strtok (nullptr," \t");
 
@@ -40,11 +45,12 @@ namespace {
             return false;
          }
          if (value_part == nullptr) {
-            quan::user_error ("expected value");
+            quan::user_error("expected value");
             return false;
          }
          // show values here
          size_t const symbol_len = strlen (symbol_part);
+         
          if (! symbol.realloc (symbol_len +1)) {
             quan::error (fn_parse_input,quan::detail::out_of_heap_memory);
             return false;
@@ -70,23 +76,24 @@ namespace {
          if (!parse_symbol_assignment (input,symbol,value)) {
             return quan::get_num_errors() == 0;
          }
-
-         auto & symtab = quan::stm32::flash::get_app_symbol_table();
+         auto const & symtab = quan::stm32::flash::get_app_symbol_table();
          
          int32_t const symbol_index = symtab.get_index (symbol);
          if (symbol_index == -1) {
             quan::user_error ("symbol not found");
             return quan::get_num_errors() == 0;
          }
-        bool is_readonly = false;
+         bool is_readonly = false;
          if (!symtab.get_readonly_status (symbol_index,is_readonly)) {
             //shouldnt get here
             return false;
          }
+         quan::user_message("\n");
          if (is_readonly) {
             quan::user_error ("symbol is readonly");
             return true;
          }
+         quan::user_flush_sptx();
 
          bool const result =  symtab.write_from_text (symbol_index,value) ;
 
@@ -94,23 +101,19 @@ namespace {
          if (result) {
             quan::user_message("succeeded\n");
          } else {
-            quan::user_message ("failed\n");
+            quan::user_message("failed\n");
          }
          return quan::get_num_errors() == 0;
       }
-
-    
    /*
       show list of flash symbols with values
       n.b symbol could be valid but not set
    */
-    
       bool local_show_symbol (uint16_t symbol_index)
       {
          auto const & symtab = quan::stm32::flash::get_app_symbol_table();
          if (symtab.exists (symbol_index)) {
             quan::dynarray<char> value {1,quan::stm32::flash::symbol_table::on_malloc_failed};
-            
             if (!value.good()) {
                return false;
             }
@@ -124,8 +127,13 @@ namespace {
                return quan::get_num_errors() == 0;
             }
          } else {
-            quan::user_message (quan::stm32::flash::get_app_symbol_table().get_name (symbol_index));
-            quan::user_message (" : #undef#\n");
+            const char* name = symtab.get_name (symbol_index);
+            if ( name){
+               quan::user_message(name);
+               quan::user_message(" : #undef#\n");
+            }else{
+               quan::user_error("symbol not found");
+            }
             return true;
          }
       }
@@ -156,6 +164,7 @@ namespace {
    }
     
    bool help (quan::dynarray<char> const &);
+   bool info (quan::dynarray<char> const & command_in);
    bool command_exit (quan::dynarray<char> const &);
     
    struct command {
@@ -167,10 +176,33 @@ namespace {
    command command_array [] =
    {
       {"help",help, "help [<opt_command>] : list available commands or opt_command info if specified."}
+      ,{"info",info, "info <symbol> : show some info about the symbol."}
       ,{"set", set_symbol_value, "set <symbol> <value> : set flash symbol to value."}
       ,{"show", show_symbols, "show [<opt_symbol>] : list all symbols or opt_symbol if specified."}
-      ,{"exit", command_exit,"exit : exit this level."}
+      ,{"exit", command_exit, "exit : exit this level."}
    };
+
+   bool info (quan::dynarray<char> const & cmd_in)
+   {
+       if (cmd_in.get() && strlen (cmd_in.get()) > 0) {
+         const char* symbol = strtok (cmd_in.get()," \t");
+         if ( symbol){
+            auto const & symtab = quan::stm32::flash::get_app_symbol_table();
+            int32_t symbol_index = symtab.get_index(symbol);
+            if (symbol_index != -1 ) {
+               quan::user_message(symtab.get_name(symbol_index));
+               quan::user_message(" : ");
+               quan::user_message(symtab.get_info(symbol_index));
+               quan::user_message("\n"); 
+            }else{
+               quan::user_error("symbol not found");
+            }
+         }
+       }else{
+            quan::user_error("expected symbol");
+       }
+       return true;
+   }
     
    bool help (quan::dynarray<char> const & cmd_in)
    {
@@ -184,7 +216,7 @@ namespace {
             }
          }
          if (found == false) {
-            quan::user_error ("command not found\n");
+            quan::user_error ("command not found");
          }
       } else {
          quan::user_message ("------available commands------\n");
@@ -220,7 +252,7 @@ bool quan::stm32::flash::flash_menu()
                break;
             } else {
                if (idx > 99) {
-                  quan::user_error ("input too long\n");
+                  quan::user_error ("input too long");
                   idx = 0;
                } else {
                   buffer[idx] = ch;
@@ -254,7 +286,6 @@ bool quan::stm32::flash::flash_menu()
                      }
                      strcpy (rest_out.get(),rest);
                   }
-         
                   if (! cmd.function (rest_out)) {
                      return false;
                   }

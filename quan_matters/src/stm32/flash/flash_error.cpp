@@ -17,6 +17,7 @@
 */
 
 #include <quan/error.hpp>
+#include <quan/user.hpp>
 #include <quan/utility/fifo.hpp>
 #include <quan/stm32/flash/flash_error.hpp>
 

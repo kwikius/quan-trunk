@@ -4,10 +4,10 @@
 #include <cstdint>
 #include <cstring>
 #include <cstdio>
+#include <quan/user.hpp>
 #include <quan/dynarray.hpp>
 #include <quan/three_d/vect.hpp>
 #include <quan/stm32/flash.hpp>
-#include <quan/error.hpp>
 #include <quan/stm32/flash/flash_convert.hpp>
 #include <quan/stm32/flash/flash_error.hpp>
 
@@ -21,6 +21,7 @@ namespace quan{ namespace stm32{ namespace flash{
             user_error("expected [int32,int32,int32]");
             return false;
          }
+         
       // copy src_in else will be corrupted
          quan::dynarray<char> src {text_in.get_num_elements() -1,symbol_table::on_malloc_failed};
          if (! src.good()) {

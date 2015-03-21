@@ -25,6 +25,7 @@ namespace quan {namespace stm32 {namespace flash {
    struct symbol_table{
       symbol_table(){}
 
+      // TODO symbol_indexes should be int32_t!!!
       // add a function to get the typeid of a symbol_name or index
       typedef bool (*pfn_check_function)(void*);
       typedef bool (*pfn_text_to_bytestream)(

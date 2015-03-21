@@ -4,6 +4,7 @@
 #include <cstring>
 #include <cstdio>
 #include <quan/dynarray.hpp>
+#include <quan/user.hpp>
 #include <quan/stm32/flash.hpp>
 #include <quan/stm32/flash/flash_convert.hpp>
 #include <quan/stm32/flash/flash_error.hpp>

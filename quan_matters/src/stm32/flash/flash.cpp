@@ -223,7 +223,7 @@ bool quan::stm32::flash::detail::validate(
    }
    uint32_t type_id = 0;
    if ( !symtab.get_typeid(symbol_index,type_id)){
-       user_error("unknown error please report");
+      quan::error(fn_any,quan::detail::stm32_unknown_flash_error);
       //shouldnt fail here as index checked
       return false;
    }
@@ -231,7 +231,7 @@ bool quan::stm32::flash::detail::validate(
       symbol_index_out = symbol_index;
       return true;
    }else{
-      user_error("symbol is not correct type");
+      quan::error(fn_any,quan::detail::stm32_flash_incorrect_type);
       return false;
    }
 }
@@ -530,7 +530,8 @@ namespace {
             return  i;
          }
       }
-      quan::error(quan::detail::stm32_ll_flash_find_end_records,quan::detail::stm32_flash_page_corrupted);
+      quan::error(quan::detail::stm32_ll_flash_find_end_records,
+         quan::detail::stm32_flash_page_corrupted);
       return -1;
    }
  

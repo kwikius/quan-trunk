@@ -31,7 +31,7 @@ namespace quan{ namespace stm32{ namespace flash{
 
    template <typename T>
    struct flash_convert{
-
+      // ok wout user io call report errors
       static bool set (const char* symbol_name, T const & value)
       {
          int32_t symbol_index =-1;
@@ -46,7 +46,7 @@ namespace quan{ namespace stm32{ namespace flash{
          }
          return false;
       }
-
+       // ok wout user io call report errors
       static bool get(const char* symbol_name, T & value_out)
       {
          int32_t symbol_index = -1;
@@ -60,6 +60,7 @@ namespace quan{ namespace stm32{ namespace flash{
          return false;
        }
 
+       // require user io
        static bool text_to_bytestream(
          quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & text_in,
           bool (*pfn_check)(void* value))
@@ -74,6 +75,7 @@ namespace quan{ namespace stm32{ namespace flash{
          return quan::stm32::flash::detail::type_to_bytestream(&value,dest, sizeof(T));
       }
 
+      // require user io
       static bool bytestream_to_text(
          quan::dynarray<char>& dest, quan::dynarray<uint8_t> const & src)
       {
@@ -97,7 +99,7 @@ namespace quan{ namespace stm32{ namespace flash{
    }
 
    // n.b use with caution
-   // The system may be locked for several ms while the var is written
+   // The system WILL be locked for several ms while the var is written
    // inadvisable to call after init!!!
    template <typename T>
    inline 

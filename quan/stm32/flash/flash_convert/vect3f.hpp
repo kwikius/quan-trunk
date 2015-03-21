@@ -3,12 +3,12 @@
 
 #include <cstring>
 #include <cstdio>
+#include <quan/user.hpp>
 #include <quan/dynarray.hpp>
 #include <quan/three_d/vect.hpp>
 #include <quan/conversion/float_convert.hpp>
 #include <quan/conversion/float_to_ascii.hpp>
 #include <quan/stm32/flash.hpp>
-#include <quan/error.hpp>
 #include <quan/stm32/flash/flash_convert.hpp>
 #include <quan/stm32/flash/flash_error.hpp>
 
