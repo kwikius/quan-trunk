@@ -279,14 +279,10 @@ namespace {
        = conv_impl<quan::pressure_<int64_t>::Pa>( quan::pressure::kPa(123),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r1);
 
-       bool r2 = false;
-       try{
-            conv_impl<quan::pressure_<int64_t>::Pa>( quan::pressure::MPa(9876),FP_MAX_DIFFERENCE).first;
-       }
-       catch(std::exception &){
-           r2 = true;
-       }
+//ok works now with larger rational
+       bool r2 = conv_impl<quan::pressure_<int64_t>::Pa>( quan::pressure::MPa(9876),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r2);
+//###############################
        
        bool r3 
        = conv_impl<quan::pressure_<int64_t>::mPa>( quan::pressure::cPa(-34),FP_MAX_DIFFERENCE).first;
