@@ -33,29 +33,35 @@ namespace quan {namespace stm32 {namespace flash {
       typedef bool (*pfn_bytestream_to_text)(quan::dynarray<char>& dest, quan::dynarray<uint8_t> const & src);
 
 // virtual functions mainly to get at attributes of the flash vars
-      virtual uint16_t get_symbol_storage_size(uint16_t symbol_index)const =0;
+      virtual uint16_t get_symbol_storage_size(int32_t symbol_index)const =0;
       virtual uint16_t get_symtable_size()const =0;
-      virtual bool get_readonly_status(uint16_t symbol_index,bool & result)const=0;
+      virtual bool get_readonly_status(int32_t symbol_index,bool & result)const=0;
       virtual int32_t get_index( const char* const symbol_name) const = 0;
-      virtual const char* get_name(uint16_t symbol_index) const = 0;
-      virtual const char* get_info(uint16_t symbol_index) const = 0;
-      virtual pfn_check_function get_check_function(uint16_t symbol_index)const = 0;
-      virtual pfn_text_to_bytestream get_text_to_bytestream_fun( uint16_t symbol_index) const =0;
-      virtual pfn_bytestream_to_text get_bytestream_to_text_fun( uint16_t symbol_index) const =0;
+      virtual const char* get_name(int32_t symbol_index) const = 0;
+      virtual const char* get_info(int32_t symbol_index) const = 0;
+       // requires valid symbol_index -- not checked
+      virtual pfn_check_function get_check_function(int32_t symbol_index)const = 0;
+      // requires valid symbol_index -- not checked
+      virtual pfn_text_to_bytestream get_text_to_bytestream_fun( int32_t symbol_index) const =0;
+      // requires valid symbol_index -- not checked
+      virtual pfn_bytestream_to_text get_bytestream_to_text_fun( int32_t symbol_index) const =0;
       virtual bool init() const=0;
-      virtual bool get_typeid(uint16_t symbol_index, uint32_t & dest) const = 0;
+      virtual bool get_typeid(int32_t symbol_index, uint32_t & dest) const = 0;
  //-------------------------------non virtual ----------------------
-      // symbolindex  actually is in symbol table
-      bool exists(uint16_t symbol_index) const ;
-      // exists and has been defined rather than undef
-      bool is_defined(const char* symbol_name) const;
+      // symbol_index actually is valid
+      bool is_valid_symbol_index(int32_t symbol_index) const ;
+      bool is_valid_symbol_name(const char* symbol_name) const;
+      // exists and has been defined in flash rather than undef
+      bool is_symbol_name_defined_in_flash(const char* symbol_name) const;
+      bool is_symbol_index_defined_in_flash(int32_t symbol_index)const ;
+      // index of symbol or -1 if not found
       int32_t get_index( quan::dynarray<char> const & symbol_name) const;
-      bool read_symbol (uint16_t symbol_index, quan::dynarray<uint8_t> & buffer)const;
-      bool write_symbol(uint16_t symbol_index, quan::dynarray<uint8_t> const & buffer)const;
-      bool have_symbol(uint16_t symbol_index)const;
-      bool write_from_text (uint16_t symbol_index,quan::dynarray<char> const & value)const;
-      bool read_to_text(uint16_t symbol_index, quan::dynarray<char> & value)const;
-     
+      bool read_symbol (int32_t symbol_index, quan::dynarray<uint8_t> & buffer)const;
+      bool write_symbol(int32_t symbol_index, quan::dynarray<uint8_t> const & buffer)const;
+     // bool have_symbol(int32_t symbol_index)const;
+      bool write_from_text (int32_t symbol_index,quan::dynarray<char> const & value)const;
+      bool read_to_text(int32_t symbol_index, quan::dynarray<char> & value)const;
+
                // todo setup an alloc fail fun
       static void on_malloc_failed() {}
          symbol_table(symbol_table const &) = delete;

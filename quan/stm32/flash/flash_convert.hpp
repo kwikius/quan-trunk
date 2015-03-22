@@ -91,7 +91,7 @@ namespace quan{ namespace stm32{ namespace flash{
    inline 
    bool get_flash_value(const char* name, T & value)
    {
-      if ( get_app_symbol_table().is_defined(name)){
+      if ( get_app_symbol_table().is_symbol_name_defined_in_flash(name)){
          return flash_convert<T>::get(name,value);
       }else{
          return false;
@@ -105,7 +105,7 @@ namespace quan{ namespace stm32{ namespace flash{
    inline 
    bool set_flash_value(const char* name, T const & value)
    {
-      if ( get_app_symbol_table().is_defined(name)){
+      if ( get_app_symbol_table().is_valid_symbol_name(name)){
          return flash_convert<T>::set(name,value);
       }else{
          return false;

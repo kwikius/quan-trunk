@@ -10,42 +10,15 @@
 #include <quan/stm32/flash.hpp>
 #include <quan/stm32/flash/flash_convert.hpp>
 #include <quan/stm32/flash/flash_error.hpp>
+#include <quan/stm32/flash/flash_convert/vect3T.hpp>
 
 namespace quan{ namespace stm32{ namespace flash{
 
    template <> struct text_convert<quan::three_d::vect<int32_t> > {
       static bool text_to_type(quan::dynarray<char> const & text_in, void* value_out)
       {
-         if (! value_out) return false;
-         if ((text_in.get_num_elements() < 7) ||  (text_in.get() [0] != '[') ) {
-            user_error("expected [int32,int32,int32]");
-            return false;
-         }
-         
-      // copy src_in else will be corrupted
-         quan::dynarray<char> src {text_in.get_num_elements() -1,symbol_table::on_malloc_failed};
-         if (! src.good()) {
-            // has reported
-            return false;
-         }
-         // copy but ignore leading '['
-         memcpy (src.get(),text_in.get()+1,text_in.get_num_elements()-1); 
-        
-         const char* delims[] = {",",",","]"};
-         quan::three_d::vect<int32_t> temp;
-         for (size_t i = 0; i < 3; ++i) {
-            char* sptr = (i==0) ? reinterpret_cast<char*> (src.get()):nullptr;
-            char* intval = strtok (sptr,delims[i]);
-            if (intval == nullptr) {
-               user_error("expected [int32,int32,int32]");
-               return false;
-            }
-            // may need additional checks here
-            temp[i] = atoi(intval);
-         }
-         quan::three_d::vect<int32_t>* typed_value_out = (quan::three_d::vect<int32_t> *)value_out;
-         *typed_value_out = temp;
-         return true;
+            return quan::stm32::flash::detail::text_convert_impl<
+               quan::three_d::vect<int32_t> >::text_to_type(text_in,value_out);
       }
 
       static bool type_to_text(const void* value_in, quan::dynarray<char> & text_out)

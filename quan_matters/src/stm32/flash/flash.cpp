@@ -75,18 +75,21 @@ int32_t ll_flash_find_end_records (int32_t page_num);
 }// ~namespace 
  
 bool quan::stm32::flash::symbol_table::write_symbol (
-      uint16_t symidx, 
+      int32_t symbol_index, 
       quan::dynarray<uint8_t> const & buffer)const
 {
-   if (buffer.get_num_elements() != this->get_symbol_storage_size (symidx)) {
-        quan::error(
-            quan::detail::stm32_flash_write_symbol,
-            quan::detail::invalid_storage_size
-      );
-
+   if (this->is_valid_symbol_index(symbol_index)){ 
+      if (buffer.get_num_elements() != this->get_symbol_storage_size (symbol_index)) {
+           quan::error(
+               quan::detail::stm32_flash_write_symbol,
+               quan::detail::invalid_storage_size
+         );
+         return false;
+      }
+      return ll_flash_write_symbol (*this,static_cast<uint16_t>(symbol_index),buffer.get(), -1);
+   }else{
       return false;
    }
-   return ll_flash_write_symbol (*this,symidx,buffer.get(), -1);
 }
  
 /*
@@ -94,27 +97,30 @@ read the rep from flash into a buffer
 */
 
 bool quan::stm32::flash::symbol_table::read_symbol (
-      uint16_t symidx, 
+      int32_t symbol_index, 
       quan::dynarray<uint8_t> & buffer)const
 {
- 
-   uint8_t const volatile* data_ptr = nullptr;
-   uint32_t data_len = 0;
-   if (ll_flash_get_sym_ptr (*this,symidx,data_ptr,data_len)) {
-      if (! buffer.realloc (data_len)) {
+   if (this->is_valid_symbol_index(symbol_index)){
+      uint8_t const volatile* data_ptr = nullptr;
+      uint32_t data_len = 0;
+      if (ll_flash_get_sym_ptr (*this,static_cast<uint16_t>(symbol_index),data_ptr,data_len)) {
+         if (! buffer.realloc (data_len)) {
             quan::error(
                quan::detail::stm32_flash_read_symbol,
                quan::detail::out_of_heap_memory
             );
             return false;
+         }
+         quan::stm32::flash::detail::read (buffer.get(),data_ptr,data_len);
+         return true;
+      } else {
+         quan::error(
+            quan::detail::stm32_flash_read_symbol,
+            quan::detail::stm32_flash_symbol_not_found
+         );
+         return false;
       }
-      quan::stm32::flash::detail::read (buffer.get(),data_ptr,data_len);
-      return true;
-   } else {
-      quan::error(
-         quan::detail::stm32_flash_read_symbol,
-         quan::detail::stm32_flash_symbol_not_found
-      );
+   }else{
       return false;
    }
 }
@@ -122,57 +128,66 @@ bool quan::stm32::flash::symbol_table::read_symbol (
 int32_t quan::stm32::flash::symbol_table::get_index( 
       quan::dynarray<char> const & symbol) const
 {
-      const char* p = symbol.get();
-      if ( p != nullptr){
-         return this->get_index(p);
-      }else{
-         return -1;
-      }
-      
+   const char* p = symbol.get();
+   if ( p != nullptr){
+      return this->get_index(p);
+   }else{
+      return -1;
+   }    
 }
 
-bool quan::stm32::flash::symbol_table::have_symbol(uint16_t symidx)const
+bool quan::stm32::flash::symbol_table::is_symbol_index_defined_in_flash(int32_t symbol_index)const 
 {
-   uint8_t const volatile* data_ptr = nullptr;
-   uint32_t data_len = 0;
-   return ll_flash_get_sym_ptr (*this,symidx,data_ptr,data_len);
-}
-
-bool quan::stm32::flash::symbol_table::exists (uint16_t symbol_index)const
-{
-   if (symbol_index < this->get_symtable_size()) {
-      return this->have_symbol(symbol_index);
-   } else {
+   if (this->is_valid_symbol_index(symbol_index)){
+      uint8_t const volatile* data_ptr = nullptr;
+      uint32_t data_len = 0;
+      return ll_flash_get_sym_ptr (*this,static_cast<uint16_t>(symbol_index),data_ptr,data_len);
+   }else{
       return false;
    }
 }
 
-bool quan::stm32::flash::symbol_table::is_defined(const char* symbol_name)const
+bool quan::stm32::flash::symbol_table::is_symbol_name_defined_in_flash(const char* symbol_name)const
 {
-   int32_t symbol_index =  this->get_index(symbol_name);
-   return  (symbol_index != -1) && this->exists(symbol_index);
+   int32_t symbol_index = this->get_index(symbol_name);
+   return this->is_symbol_index_defined_in_flash(symbol_index);
+}
+
+bool quan::stm32::flash::symbol_table::is_valid_symbol_index (int32_t symbol_index)const
+{
+   return (symbol_index >= 0) && (symbol_index < this->get_symtable_size()) ;
+}
+
+bool quan::stm32::flash::symbol_table::is_valid_symbol_name(const char* symbol_name) const
+{
+   int32_t symbol_index = this->get_index(symbol_name);
+   return this->is_valid_symbol_index(symbol_index);
 }
 
 bool quan::stm32::flash::symbol_table::read_to_text (
-   uint16_t symbol_index, quan::dynarray<char> & value)const
+  int32_t symbol_index, quan::dynarray<char> & value)const
 {
-   uint16_t const symbol_size = this->get_symbol_storage_size (symbol_index);
-   quan::dynarray<uint8_t> bytestream {symbol_size,on_malloc_failed};
-   if (!bytestream.good()) {
-      return false;
+   if (this->is_valid_symbol_index(symbol_index)){
+      uint16_t const symbol_size = this->get_symbol_storage_size (symbol_index);
+      quan::dynarray<uint8_t> bytestream {symbol_size,on_malloc_failed};
+      if (!bytestream.good()) {
+         return false;
+      }
+      if (!this->read_symbol(symbol_index, bytestream)) {
+         return false;
+      }
+      auto const rep_to_string_fun = this->get_bytestream_to_text_fun (symbol_index);
+      return rep_to_string_fun (value,bytestream) ;
+    }else{
+         return false;
    }
-   if (!this->read_symbol(symbol_index, bytestream)) {
-      return false;
-   }
-   auto const rep_to_string_fun = this->get_bytestream_to_text_fun (symbol_index);
-   return rep_to_string_fun (value,bytestream) ;
 }
 
-// nv
-bool quan::stm32::flash::symbol_table::write_from_text (uint16_t symbol_index,quan::dynarray<char> const & value)const
+bool quan::stm32::flash::symbol_table::write_from_text (
+      int32_t symbol_index,quan::dynarray<char> const & value)const
 {
    // check index
-   if (symbol_index < this->get_symtable_size()){
+   if (this->is_valid_symbol_index(symbol_index)){
       uint16_t const symbol_size = this->get_symbol_storage_size(symbol_index);
       // add check not 0 or neg
       quan::dynarray<uint8_t> bytestream { (size_t) symbol_size,on_malloc_failed};
@@ -240,7 +255,6 @@ namespace {
  
    // if write page is -1 just defaults to current used page
    // (write_page is only really used when need to swap pages)
-
    bool ll_flash_write_symbol (quan::stm32::flash::symbol_table const & symtab,
                                uint16_t symidx,  const uint8_t* buf, int32_t write_page_num)
    {
@@ -256,7 +270,7 @@ namespace {
          return false;
       }
 
-      uint16_t const new_data_size = symtab.get_symbol_storage_size (symidx);
+      uint16_t const new_data_size = symtab.get_symbol_storage_size (static_cast<int32_t>(symidx));
       
       // the page to write to
       uint8_t const volatile * page = nullptr;
