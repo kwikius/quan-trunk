@@ -26,7 +26,19 @@ namespace quan{ namespace uav{ namespace osd{ namespace detail{
       bool clear();
    protected:
       writable_bitmap(writable_bitmap const & in);
-      
+      uint8_t* move_data()
+      {
+         uint8_t* temp = m_data;
+         m_data = nullptr;
+         return temp;
+      }
+      void set_data(uint8_t* data_in,quan::uav::osd::size_type const & size_in )
+      {
+         free(this->m_data);
+         m_data = data_in;
+         m_size = size_in;
+      }
+
    private:
       bool copy_from(quan::uav::osd::basic_bitmap const & in);
       quan::uav::osd::size_type m_size;

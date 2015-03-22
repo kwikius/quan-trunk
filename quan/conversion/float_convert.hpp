@@ -27,11 +27,15 @@
 #include <stddef.h>
 #endif
 
+#include <quan/conversion/basic_char_ptr_converter.hpp>
+
+ // define QUAN_DETAIL_FLOAT_CONVERT_DEBUG
+
 namespace quan{ namespace detail{
 
-	template<> struct converter <float, char*>
+	template<> struct converter <float, char*> : basic_char_ptr_converter
    {
-      converter():conversion_error{0}{}
+     
      private:
       enum class float_tok{ DIGIT,EXP,SIGN,POINT,END,UNKNOWN};
 
@@ -56,73 +60,95 @@ namespace quan{ namespace detail{
 			}
 		}
 
-		static int atoi(char ch)
-		{
-			return ch - '0';
-		}
-
-      static long strlen( const char* str)
-      {
-         for (long i =0; i < LONG_MAX; ++i){
-            if ( str[i] =='\0'){
-               return i;
-             }
-         }
-         return -1;
-      }
-    
-      int conversion_error;
-
   public:
 
-      int get_errno()const {return conversion_error;}
-    
-
-		float operator()(const char* str)
+		float operator()(const char* str, long maxlen = LONG_MAX )
 		{
-          conversion_error=0;
-			 int length = strlen(str);
-			 if ( length == 0){
+          reset();
+          m_conversion_error=0;
+			 int length = strnlen(str, maxlen); // length - terminating0
+          if ( length < 1){
+            m_conversion_error = -1 ; 
+        #if defined (QUAN_DETAIL_FLOAT_CONVERT_DEBUG)
+            std::cout << "invalid string length 1\n";
+        #endif
 				return 0.0f;
-			 }
+          }
 			 int sign = 1;
 			 size_t pos = 0;
 			 float result = 0;
+          while(isspace(str[pos])){
+            ++pos;
+            --length;
+          }
+          if ( length < 1){
+            m_conversion_error = -1 ; // invalid string length
+         #if defined (QUAN_DETAIL_FLOAT_CONVERT_DEBUG)
+            std::cout << "invalid string length 2\n";
+         #endif
+				return 0.0f;
+			 }
 			 auto curtok = get_tok(str[pos]);
 			 if (curtok == float_tok::SIGN){
-				if (str[pos] =='-'){
+            if ( length < 2){
+               m_conversion_error = -1;
+            #if defined (QUAN_DETAIL_FLOAT_CONVERT_DEBUG)
+               std::cout << "invalid string length 3\n";
+            #endif
+               return 0.0f;
+            }
+            if (str[pos] == '-' ){
 					sign = -1;
 				}
 				curtok = get_tok(str[++pos]);
 			 }
+          // startpos to chek digits
+          uint32_t before_digit_count=0;
+          uint32_t after_digit_count = 0;
 			 while (curtok == float_tok::DIGIT){
+              if (++before_digit_count > 20){
+                 m_conversion_error = -1 ; // too many digits
+                  #if defined (QUAN_DETAIL_FLOAT_CONVERT_DEBUG)
+                  std::cout << "too many digits\n";
+                  #endif
+				     return 0.0f;
+              }
 				  result = result * 10.f + atoi(str[pos]);
 				  curtok = get_tok(str[++pos]);
 			 }
-			
+			 
 			 if (curtok == float_tok::POINT){
 				 curtok = get_tok(str[++pos]);  
 				 if ( curtok == float_tok::DIGIT){
 					uint64_t divisor = 1;
 					uint64_t ifract = 0;
-					uint64_t count = 0;
-					while ( (curtok == float_tok::DIGIT) && (++count < 20) ){
+					while ( (curtok == float_tok::DIGIT) && (++ after_digit_count < 20) ){
 						ifract = ifract * 10 + atoi(str[pos]);
 						curtok = get_tok(str[++pos]);
 						divisor *= 10;
 					}
 					result += static_cast<float>(ifract)/divisor;
-				 } else{
-					 if ( pos == 1){ // means that point was first and no digits after-- illegal
-						  conversion_error= -1;
-						  return result;
+				 } else{ // no after digits
+					 if ( before_digit_count == 0){ // means that point was first and no digits after-- illegal
+						  m_conversion_error= -1;
+                    #if defined (QUAN_DETAIL_FLOAT_CONVERT_DEBUG)
+                    std::cout << "illegal point\n";
+                    #endif
+						  return 0.0f;
 					 }
 				 }
 			 }
 			 if (curtok == float_tok::EXP){
+            if ((before_digit_count ==0) && ( after_digit_count == 0)){
+                  m_conversion_error= -1;
+                  #if defined (QUAN_DETAIL_FLOAT_CONVERT_DEBUG)
+                  std::cout << "illegal exp\n";
+                  #endif
+						return 0.0f;
+            }
 				int64_t exp_val = 0;
 				int powsign = 1;
-				int count = 0;
+				int pow_count = 0;
 				curtok = get_tok(str[++pos]);  
 				if ( curtok == float_tok::SIGN){
 					if (str[pos] == '-'){
@@ -131,9 +157,12 @@ namespace quan{ namespace detail{
 					curtok = get_tok(str[++pos]);  
 				}
 				while (curtok == float_tok::DIGIT){
-					if (count == 20){
-						conversion_error= -1;
-						return result;
+					if (++pow_count == 20){
+						m_conversion_error= -1;
+                  #if defined (QUAN_DETAIL_FLOAT_CONVERT_DEBUG)
+                  std::cout << "too many digits in pow\n";
+                  #endif
+						return 0.0f;
 					}
 					exp_val = exp_val * 10 + atoi(str[pos]);
 					curtok = get_tok(str[++pos]);
@@ -148,7 +177,14 @@ namespace quan{ namespace detail{
 					result /= power;
 				}
 			 }
-          
+          if ( pos == 0){
+             #if defined (QUAN_DETAIL_FLOAT_CONVERT_DEBUG)
+             std::cout << "no value\n";
+            #endif
+             m_conversion_error= -1;
+			    return 0.0f;
+          }
+          m_parse_length = pos;
 			 return( sign == 1)?result : -result;
 		}
 

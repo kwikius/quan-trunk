@@ -33,8 +33,11 @@ bool quan::uav::osd::dynamic::bitmap::resize (quan::two_d::box<int> const & new_
          }
       }
    }
-  // this->m_data = temp_bmp.m_data;
-  // this->m_size = temp_bmp.m_size;
+//   free(this->m_data);
+//   this->m_data = temp_bmp.move_data();
+//   this->m_size = temp_bmp.m_size;
+
+    this->set_data(temp_bmp.move_data(),new_size);
    return true;
 }
 #if 0

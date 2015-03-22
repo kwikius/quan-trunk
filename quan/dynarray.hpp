@@ -23,7 +23,7 @@
 #ifdef QUAN_FREERTOS
 #include "FreeRTOS.h"
 extern "C" void vPortFree( void *pv );
-extern "C"  void * pvPortMalloc(size_t n);
+extern "C" void * pvPortMalloc(size_t n);
 #endif
  
 namespace  quan {
