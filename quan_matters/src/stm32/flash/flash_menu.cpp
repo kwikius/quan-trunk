@@ -19,6 +19,7 @@
 #include <cstring>
 #include <cctype>
 #include <quan/user.hpp>
+#include <quan/error.hpp>
 #include <quan/dynarray.hpp>
 #include <quan/three_d/vect.hpp>
 #include <quan/conversion/float_convert.hpp>
@@ -34,7 +35,7 @@ namespace {
       quan::dynarray<char> & value)
    {
       if ( input.get() == nullptr){
-         quan::error(fn_any,quan::detail::unexpected_nullptr);
+         quan::error(-1,quan::detail::unexpected_nullptr);
          return false;
       }
       // TODO alternative to strtok
@@ -55,7 +56,7 @@ namespace {
          return false;
       }
       if (! symbol.realloc(symbol_len + 1)) {
-         quan::error (fn_parse_input,quan::detail::out_of_heap_memory);
+         quan::error (-1,quan::detail::out_of_heap_memory);
          return false;
       }
       size_t const value_len = strlen(value_part);
@@ -64,7 +65,7 @@ namespace {
          return false;
       }
       if (! value.realloc(value_len +1)) {
-         quan::error (fn_parse_input,quan::detail::out_of_heap_memory);
+         quan::error (-1,quan::detail::out_of_heap_memory);
          return false;
       }
       strcpy (symbol.get(), symbol_part);
@@ -129,27 +130,32 @@ namespace {
       if (symtab.is_symbol_index_defined_in_flash(symbol_index)) {
          quan::dynarray<char> value {1,quan::stm32::flash::symbol_table::on_malloc_failed};
          if (!value.good()) {
+            quan::error(-1,quan::detail::unexpected_nullptr);
             return false;
          }
-         if (symtab.read_to_text (symbol_index,value)) {
-           
+         bool const read_to_text_result = symtab.read_to_text (symbol_index,value);
+         if (read_to_text_result) {
+
             quan::user_message (symtab.get_name (symbol_index));
             quan::user_message (" : ");
             //check the value
             // show sixe of value .get
             const char* v = value.get();
             if ( !v){
-               quan::user_message("read failed please report\n");
+               quan::error(-1,quan::detail::unexpected_nullptr);
                return false;
             }
             if (strnlen(v,200) == 200){
-               quan::user_message("read failed badly string long please report!\n");
+               quan::error(-1,quan::detail::unterminated_string_constant);
                return false;
             }
-            quan::user_message( value.get());
-            quan::user_message ("\n");
+            quan::user_message(v);
+            quan::user_message("\n");
             return true;
          } else {
+#if defined QUAN_FLASH_DEBUG
+            quan::report_errors();
+#endif
             return quan::get_num_errors() == 0;
          }
       } else {
@@ -167,7 +173,8 @@ namespace {
    bool show_symbols (quan::dynarray<char> const & opt_symbol)
    {
       auto const & symtab = quan::stm32::flash::get_app_symbol_table();
-      if (strlen (opt_symbol.get()) > 0) {
+       
+      if ((opt_symbol.get() != nullptr) && (strlen(opt_symbol.get()) > 0) ) {
          int32_t symbol_index = symtab.get_index (opt_symbol);
          if (symbol_index == -1) {
             quan::user_error ("symbol not found");
@@ -288,7 +295,14 @@ bool quan::stm32::flash::flash_menu()
       while (1) {
          if (quan::user_in_avail()) {
             char ch = quan::user_get();
-            if (ch == '\r') { // could add ret?
+//#############################################
+
+#if defined QUAN_PC_SIM
+             if (ch == '\n') { // could add ret?
+#else
+             if (ch == '\r') { // could add ret?
+#endif
+//##############################################
                buffer[idx] = '\0';
                ++idx;
                break;   // got a user string
@@ -299,7 +313,6 @@ bool quan::stm32::flash::flash_menu()
                } else {
                   // check for valid chars, backspace etc
                   if ((ch >= ' ') && ( ch <= '~') ){
-                     // ch >= space && ch <= 
                      buffer[idx] = ch;
                      ++idx;
                   }else{
