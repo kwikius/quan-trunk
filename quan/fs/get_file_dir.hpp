@@ -21,6 +21,9 @@
 #include <string>
 #include <cassert>
 
+/*
+n.b check file exists before calling
+*/
 namespace quan{ namespace fs{
     inline 
     std::string get_file_dir(std::string file_name){
