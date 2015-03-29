@@ -63,7 +63,7 @@ namespace quan{ namespace stm32{ namespace flash{
                quan::error(fn_any, quan::detail::bad_int_range);
                return false;
             }
-            if (!text_out.realloc (result)) {
+            if (!text_out.realloc (result +1)) {
                symbol_table::on_malloc_failed();
                return false;
             }

@@ -309,13 +309,19 @@ namespace {
       if (page[0] == 0xFF) { // if page empty then put symbol in as first entry
          // could get and bump count
 
-         quan::stm32::flash::detail::write (page,0);
-         quan::stm32::flash::detail::write (page + 4,static_cast<uint8_t> (symidx & 0xff));
-         quan::stm32::flash::detail::write (page +5, static_cast<uint8_t> ( (symidx & 0xff00) >> 8));
+        if ( !( quan::stm32::flash::detail::write (page,0)
+           && quan::stm32::flash::detail::write (page + 4,static_cast<uint8_t> (symidx & 0xff))
+           && quan::stm32::flash::detail::write (page +5, static_cast<uint8_t> ( (symidx & 0xff00) >> 8))))
+         {
+            return false;
+         }
          uint32_t page_size = quan::stm32::flash::detail::get_page_size (page_num);
          uint16_t const new_data_offset = page_size - new_data_size;
-         quan::stm32::flash::detail::write (page+6,static_cast<uint8_t> (new_data_offset & 0xff));
-         quan::stm32::flash::detail::write (page+7,static_cast<uint8_t> ( (new_data_offset & 0xff00) >> 8));
+         if (!(quan::stm32::flash::detail::write (page+6,static_cast<uint8_t> (new_data_offset & 0xff))
+         && quan::stm32::flash::detail::write (page+7,static_cast<uint8_t> ( (new_data_offset & 0xff00) >> 8)))
+         ){
+             return false;
+         }
          // check ee mem is big enough!
          if ( (new_data_offset + new_data_size) > page_size) {
             quan::error( quan::detail::stm32_flash_write_symbol, quan::detail::out_of_flash_memory);
@@ -364,8 +370,12 @@ namespace {
                   ,static_cast<uint8_t> (new_data_offset & 0xFF)
                   ,static_cast<uint8_t> ( (new_data_offset & 0xFF00) >> 8)
                };
-               quan::stm32::flash::detail::write (last_idx_ptr + 4,record,4);
-               quan::stm32::flash::detail::write (new_data_ptr,buf,new_data_size);
+               if (!(quan::stm32::flash::detail::write (last_idx_ptr + 4,record,4)
+                  && quan::stm32::flash::detail::write (new_data_ptr,buf,new_data_size))
+               ){
+                  --recursion_level;
+                  return false;
+               }
                --recursion_level;
                return true;
             } else {
@@ -387,9 +397,12 @@ namespace {
                   u.ar[i] = page[i+1];
                }
                ++u.ui; // inc page count
-               
-               quan::stm32::flash::detail::write (new_page + 1,u.ar,3);
-               quan::stm32::flash::detail::erase (page_num);
+               if( !(
+               quan::stm32::flash::detail::write (new_page + 1,u.ar,3)
+               && quan::stm32::flash::detail::erase (page_num))
+               ){
+                  return false;
+               }
                //now sym we want to write automatically goes in new page
                bool result = ll_flash_write_symbol (symtab,symidx, buf,-1);
                --recursion_level;

@@ -51,12 +51,12 @@ namespace quan{namespace meta{
         enum{ value = 1};
     };
 
-   /* template<
+    template<
         unsigned int Base
     >
     struct pow_c<unsigned int,Base ,0>{
         enum{ value = 1};
-    };*/
+    };
 
     template<
         long Base
@@ -64,12 +64,28 @@ namespace quan{namespace meta{
     struct pow_c<long,Base ,0>{
         enum{ value = 1};
     };
-   /* template<
+
+    
+    template<
         unsigned long Base
     >
     struct pow_c<unsigned long,Base ,0U>{
         enum{ value = 1};
-    };*/
+    };
+
+    template<
+        long long Base
+    >
+    struct pow_c<long long,Base ,0>{
+        enum{ value = 1};
+    };
+
+    template<
+       unsigned long long Base
+    >
+    struct pow_c<unsigned long,Base ,0>{
+        enum{ value = 1};
+    };
 
     template<
         typename IntegerType,

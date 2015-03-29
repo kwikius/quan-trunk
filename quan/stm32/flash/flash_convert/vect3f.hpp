@@ -36,7 +36,7 @@ namespace quan{ namespace stm32{ namespace flash{
             quan::error(fn_rep_to_cstring_Vect3F, quan::detail::bad_float_range);
             return false;
          }
-         if (!text_out.realloc (result)) {
+         if (!text_out.realloc (result+1)) {
             symbol_table::on_malloc_failed();
             return false;
          }

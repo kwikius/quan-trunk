@@ -26,6 +26,13 @@ namespace quan{
          ,stm32_flash_get_write_count = -4
          ,stm32_ll_flash_get_sym_ptr = -5
          ,stm32_ll_flash_find_end_records = -6
+         ,stm32_flash_text_to_type = -7
+         ,stm32_flash_type_to_text = -8
+         ,stm32_flash_symtab_init = -9
+         ,stm32_flash_bytestream_to_type = -10
+         ,stm32_flash_validate = -11
+         ,stm32_flash_write = -12
+         ,stm32_flash_read = -13
          ,function_id_user = 1
       };
    }

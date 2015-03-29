@@ -16,6 +16,16 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
+// TODO 
+// sort for  __CYGWIN__
+// and   __MINGW32__
+#if defined (__linux__)
+#define QUAN_OS_LINUX
+#else
+#if (defined (_WIN16) || defined (_WIN32))
+#define QUAN_OS_WINDOWS
+#endif
+#endif
 
 #if (defined _MSC_VER) && (_MSC_VER >= 1200)
 #  pragma once

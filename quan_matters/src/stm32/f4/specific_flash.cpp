@@ -18,6 +18,7 @@ Copyright (c) 2003-2014 Andy Little.
 
 #include <stm32f4xx.h>
 #include <quan/stm32/detail/flash.hpp>
+#include <quan/error.hpp>
 #include <cstring>
 
 namespace {
@@ -39,6 +40,8 @@ namespace {
   };
   constexpr uint32_t num_flash_pages 
       = (sizeof(page_address_array)/sizeof(uint32_t)) -1;
+
+
 }
 
 //out of range returns 0
@@ -81,11 +84,23 @@ uint32_t quan::stm32::flash::detail::get_page_size (int32_t page_num)
    }
    return 0;
 }
+  namespace {
+
+// assumes that pages1 and 2 used
+    bool check_valid_flash_address(uint8_t * p)
+   {
+      return ( p >= ((uint8_t*)quan::stm32::flash::detail::get_page_address(1)))
+         && ( p < (((uint8_t*)quan::stm32::flash::detail::get_page_address(2)) 
+            + quan::stm32::flash::detail::get_page_size(2)))
+      ;
+   }
+}
 /*
  everything suspended while this takes place
 */
 bool quan::stm32::flash::detail::erase (int32_t page_num)
 {
+   
    while (FLASH->SR & FLASH_SR_BSY) {
       ;
    }
@@ -139,6 +154,14 @@ bool quan::stm32::flash::detail::erase (int32_t page_num)
 bool quan::stm32::flash::detail::write 
 (const volatile uint8_t* dest, const uint8_t* buf, int32_t bytes)
 {
+   if (( dest == nullptr) || (buf == nullptr) || (bytes == 0)){
+      quan::error(quan::detail::function_id::stm32_flash_write,quan::detail::unexpected_nullptr);
+      return false;
+   }
+   if ( !(check_valid_flash_address((uint8_t*)dest) && (check_valid_flash_address((uint8_t*)dest + bytes -1)))){
+      quan::error(quan::detail::function_id::stm32_flash_write,quan::detail::stm32_invalid_flash_page);
+      return false;
+   }
    while (FLASH->SR & FLASH_SR_BSY) {
       ;
    }
@@ -194,7 +217,16 @@ bool quan::stm32::flash::detail::write
 bool quan::stm32::flash::detail::read 
    (uint8_t* buf,const volatile uint8_t * src, int32_t bytes)
 {
-  memcpy (buf, (uint8_t const *) src,bytes);
+   if ( (src == nullptr) || (buf == nullptr) || bytes ==0){
+      quan::error(quan::detail::function_id::stm32_flash_read,quan::detail::unexpected_nullptr);
+      return false;  
+   }
+   if ( ! ( check_valid_flash_address((uint8_t*)src) && (check_valid_flash_address((uint8_t*)src + bytes -1)))){
+      quan::error(quan::detail::function_id::stm32_flash_read,quan::detail::stm32_invalid_flash_page);
+      return false;  
+   }
+
+   memcpy (buf, (uint8_t const *) src,bytes);
    return true;
 }
  
