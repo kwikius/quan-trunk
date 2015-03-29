@@ -23,7 +23,14 @@
 
 namespace quan {namespace stm32 {namespace flash {
 
-   
+   // The symbol table entry structure for a flash variable
+   struct symtab_entry_t {
+      const char* const name;  // user name of the symbol
+      uint32_t const type_tag;  // id representing the type of the variable
+      bool (*pfn_validity_check)(void*); //range check function 
+      const char * const info; // some help about the flash variable
+      bool readonly;  // if the value is readonly ( not writable from user flash menu)
+   };
 
    struct symbol_table{
       symbol_table(){}
