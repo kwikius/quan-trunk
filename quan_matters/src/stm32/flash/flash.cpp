@@ -78,6 +78,8 @@ bool ll_flash_get_sym_ptr (quan::stm32::flash::symbol_table const & symtab,
                            
 int32_t ll_flash_find_end_records (int32_t page_num);
 
+
+
 }// ~namespace 
 
    using quan::stm32::flash::flash_id_to_type;
@@ -120,6 +122,11 @@ int32_t ll_flash_find_end_records (int32_t page_num);
       ,sizeof (flash_id_to_type<8>::type)
       ,sizeof (flash_id_to_type<9>::type)
    };
+
+   uint16_t quan::stm32::flash::symbol_table::get_type_size (uint16_t typeidx)const
+{
+   return quan::stm32::flash::symbol_table::type_tag_to_size[typeidx];
+}
 
     
    // array of function pointers to convert a bytestream to text (user represntation)
@@ -691,5 +698,80 @@ bool quan::stm32::flash::symbol_table::flash_init()
       //quan::user_message ("...flash erased OK\n");
    }
    return true;
+}
+
+bool quan::stm32::flash::symbol_table::init()const 
+{
+   return flash_init();
+}
+
+const char* quan::stm32::flash::symbol_table::get_name (int32_t symbol_index)const
+{
+   if (this->is_valid_symbol_index(symbol_index)) {
+      return this->get_symbol_table()[symbol_index].name;
+   } else {
+      return nullptr;
+   }
+}
+
+int32_t quan::stm32::flash::symbol_table::get_index (const char* symbol_name)const
+{
+      int32_t count = 0;
+      for ( uint32_t i = 0, end = this->get_symtable_size(); i < end; ++i){
+    //  for (auto entry : this->get_symbol_table()) {
+         auto const & entry = this->get_symbol_table()[i];
+         if (strcmp (entry.name, symbol_name) == 0) {
+            return count;
+         } else {
+            ++count;
+         }
+      }
+      return -1; // not found
+}
+
+uint16_t quan::stm32::flash::symbol_table::get_symbol_storage_size (int32_t symbol_index) const
+{
+    if (this->is_valid_symbol_index(symbol_index)) {
+      return get_type_size (this->get_symbol_table()[static_cast<uint16_t>(symbol_index)].type_tag);
+      //return get_type_size (get_type_index (symbol_index));
+    }else{
+      return 0U;
+    }
+}
+
+bool quan::stm32::flash::symbol_table::get_readonly_status (int32_t symbol_index,bool & result)const
+{
+   if (this->is_valid_symbol_index(symbol_index)) {
+      result = this->get_symbol_table()[static_cast<uint16_t>(symbol_index)].readonly;
+      return true;
+   } else {
+      return false;
+   }
+}
+
+const char* quan::stm32::flash::symbol_table::get_info (int32_t symbol_index)const
+{
+   if (this->is_valid_symbol_index(symbol_index)) {
+      return this->get_symbol_table()[static_cast<uint16_t>(symbol_index)].info;
+   } else {
+      return nullptr;
+   }
+}
+
+ // requires valid symbol_index -- not checked
+quan::stm32::flash::symbol_table::pfn_check_function 
+quan::stm32::flash::symbol_table::get_check_function(int32_t symbol_index)const
+{
+   return this->get_symbol_table()[static_cast<uint16_t>(symbol_index)].pfn_validity_check;
+}
+
+bool quan::stm32::flash::symbol_table::get_typeid(int32_t symbol_index, uint32_t & dest) const
+{
+    if( this->is_valid_symbol_index(symbol_index)){
+       dest = this->get_symbol_table()[static_cast<uint16_t>(symbol_index)].type_tag;
+       return true;
+    }else{
+      return false;
+    }
 }
 
