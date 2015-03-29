@@ -51,22 +51,16 @@ namespace quan {namespace stm32 {namespace flash {
       bool is_symbol_index_defined_in_flash(int32_t symbol_index)const ;
       bool write_from_text (int32_t symbol_index,quan::dynarray<char> const & value)const;
       bool read_to_text(int32_t symbol_index, quan::dynarray<char> & value)const;
-   protected:
-      symbol_table(){}
-      virtual quan::stm32::flash::symtab_entry_t const * get_symbol_table()const =0;
-      
- //-------------------------------non virtual ----------------------
-      // TODO symbol_indexes should be int32_t!!!
-      // add a function to get the typeid of a symbol_name or index
       typedef bool (*pfn_check_function)(void*);
       typedef bool (*pfn_text_to_bytestream)(
          quan::dynarray<uint8_t>& dest, quan::dynarray<char> const & src, bool (*pfn)(void*));
       typedef bool (*pfn_bytestream_to_text)(quan::dynarray<char>& dest, quan::dynarray<uint8_t> const & src);
- 
+   protected:
+      symbol_table(){}
+      virtual quan::stm32::flash::symtab_entry_t const * get_symbol_table()const =0;
+   private:
        // requires valid symbol_index -- not checked
       pfn_check_function get_check_function(int32_t symbol_index)const;
-      
-      
       uint32_t get_typeid_no_check(int32_t symbol_index)const
          { uint32_t dest = 0; get_typeid(symbol_index,dest); return dest;}
       // requires valid symbol_index -- not checked
@@ -76,32 +70,28 @@ namespace quan {namespace stm32 {namespace flash {
       // symbol_index actually is valid
       bool is_valid_symbol_index(int32_t symbol_index) const ;
       bool is_valid_symbol_name(const char* symbol_name) const;
-      // exists and has been defined in flash rather than undef
-      
-      
-   
-
-     // bool have_symbol(int32_t symbol_index)const;
-
-
       static bool flash_init();
-               // todo setup an alloc fail fun
-      
-         symbol_table(symbol_table const &) = delete;
-         symbol_table& operator = (symbol_table const &) = delete;
 
+      static int32_t ll_flash_get_symtab_index (quan::stm32::flash::symbol_table const & symtab,const char* name);
+      static bool ll_flash_write_symbol (quan::stm32::flash::symbol_table const & symtab,uint16_t symidx,  const uint8_t* buf,
+                            int32_t write_page_num);                 
+      static bool ll_flash_swap_pages (quan::stm32::flash::symbol_table const & symtab,
+               int32_t old_page_num, int32_t new_page_num);
+      static bool ll_flash_get_sym_ptr (quan::stm32::flash::symbol_table const & symtab,
+                           uint16_t symidx,uint8_t const volatile * & data_ptr_out, uint32_t & data_len_out);                         
+      static int32_t ll_flash_find_end_records (int32_t page_num);
 
       static pfn_bytestream_to_text bytestream_to_text[flash_type_tags::NumTypeTags];
       static pfn_text_to_bytestream text_to_bytestream[flash_type_tags::NumTypeTags];
-      static uint32_t type_tag_to_size[];
-
+      static uint32_t type_tag_to_size[flash_type_tags::NumTypeTags];
+      symbol_table(symbol_table const &) = delete;
+      symbol_table& operator = (symbol_table const &) = delete;
    };
 
    // must be implemented by the app
    symbol_table const & get_app_symbol_table();
    template <typename T> struct get_flash_typeid_impl;
    template <typename T> uint32_t get_flash_typeid();
-
    bool flash_menu();
 
 }}}

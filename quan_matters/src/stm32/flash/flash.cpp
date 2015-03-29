@@ -64,6 +64,7 @@ Work out if there is space to write the value. If not then copy all latest value
 
 if index is going to overwrite then will need to copy all symbols to new page and erase current one
 */
+#if 0
 namespace{ 
 int32_t ll_flash_get_symtab_index (quan::stm32::flash::symbol_table const & symtab,const char* name);
  
@@ -78,9 +79,8 @@ bool ll_flash_get_sym_ptr (quan::stm32::flash::symbol_table const & symtab,
                            
 int32_t ll_flash_find_end_records (int32_t page_num);
 
-
-
 }// ~namespace 
+#endif
 
    using quan::stm32::flash::flash_id_to_type;
    using quan::stm32::flash::flash_convert;
@@ -344,11 +344,11 @@ bool quan::stm32::flash::detail::validate(
    }
 }
 
-namespace {
+//namespace {
  
    // if write page is -1 just defaults to current used page
    // (write_page is only really used when need to swap pages)
-   bool ll_flash_write_symbol (quan::stm32::flash::symbol_table const & symtab,
+   bool quan::stm32::flash::symbol_table::ll_flash_write_symbol (quan::stm32::flash::symbol_table const & symtab,
                                uint16_t symidx,  const uint8_t* buf, int32_t write_page_num)
    {
       
@@ -505,7 +505,7 @@ namespace {
       }
    }
 
-   bool ll_flash_swap_pages (quan::stm32::flash::symbol_table const & symtab,int32_t old_page_num, int32_t new_page_num)
+   bool quan::stm32::flash::symbol_table::ll_flash_swap_pages (quan::stm32::flash::symbol_table const & symtab,int32_t old_page_num, int32_t new_page_num)
    {
       // get end of records
       // cycle back through records
@@ -567,7 +567,7 @@ namespace {
       return true;
    }
     
-   bool ll_flash_get_sym_ptr (quan::stm32::flash::symbol_table const & symtab,
+   bool quan::stm32::flash::symbol_table::ll_flash_get_sym_ptr (quan::stm32::flash::symbol_table const & symtab,
                               uint16_t symidx,uint8_t const volatile * & data_ptr_out, uint32_t & data_len_out)
    {
     
@@ -627,7 +627,7 @@ namespace {
       return false;
    }
     
-   int32_t ll_flash_find_end_records (int32_t page_num)
+   int32_t quan::stm32::flash::symbol_table::ll_flash_find_end_records (int32_t page_num)
    {
       uint32_t page_size = quan::stm32::flash::detail::get_page_size (page_num);
       uint8_t * page = reinterpret_cast<uint8_t*>
@@ -654,7 +654,7 @@ namespace {
          quan::detail::stm32_flash_page_corrupted);
       return -1;
    }
- 
+ namespace {
    uint8_t flash_check_page (uint8_t n)
    {
       uint8_t sum = 0x00;
@@ -716,27 +716,25 @@ const char* quan::stm32::flash::symbol_table::get_name (int32_t symbol_index)con
 
 int32_t quan::stm32::flash::symbol_table::get_index (const char* symbol_name)const
 {
-      int32_t count = 0;
-      for ( uint32_t i = 0, end = this->get_symtable_size(); i < end; ++i){
-    //  for (auto entry : this->get_symbol_table()) {
-         auto const & entry = this->get_symbol_table()[i];
-         if (strcmp (entry.name, symbol_name) == 0) {
-            return count;
-         } else {
-            ++count;
-         }
+   int32_t count = 0;
+   for ( uint32_t i = 0, end = this->get_symtable_size(); i < end; ++i){
+      auto const & entry = this->get_symbol_table()[i];
+      if (strcmp (entry.name, symbol_name) == 0) {
+         return count;
+      } else {
+         ++count;
       }
-      return -1; // not found
+   }
+   return -1; // not found
 }
 
 uint16_t quan::stm32::flash::symbol_table::get_symbol_storage_size (int32_t symbol_index) const
 {
-    if (this->is_valid_symbol_index(symbol_index)) {
+   if (this->is_valid_symbol_index(symbol_index)) {
       return get_type_size (this->get_symbol_table()[static_cast<uint16_t>(symbol_index)].type_tag);
-      //return get_type_size (get_type_index (symbol_index));
-    }else{
+   }else{
       return 0U;
-    }
+   }
 }
 
 bool quan::stm32::flash::symbol_table::get_readonly_status (int32_t symbol_index,bool & result)const
@@ -774,4 +772,3 @@ bool quan::stm32::flash::symbol_table::get_typeid(int32_t symbol_index, uint32_t
       return false;
     }
 }
-
