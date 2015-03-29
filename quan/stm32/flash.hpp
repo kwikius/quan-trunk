@@ -23,6 +23,8 @@
 
 namespace quan {namespace stm32 {namespace flash {
 
+   
+
    struct symbol_table{
       symbol_table(){}
 
@@ -42,13 +44,18 @@ namespace quan {namespace stm32 {namespace flash {
       virtual const char* get_info(int32_t symbol_index) const = 0;
        // requires valid symbol_index -- not checked
       virtual pfn_check_function get_check_function(int32_t symbol_index)const = 0;
-      // requires valid symbol_index -- not checked
-      virtual pfn_text_to_bytestream get_text_to_bytestream_fun( int32_t symbol_index) const =0;
-      // requires valid symbol_index -- not checked
-      virtual pfn_bytestream_to_text get_bytestream_to_text_fun( int32_t symbol_index) const =0;
+
       virtual bool init() const=0;
       virtual bool get_typeid(int32_t symbol_index, uint32_t & dest) const = 0;
+
  //-------------------------------non virtual ----------------------
+      uint32_t get_typeid_no_check(int32_t symbol_index)const
+         { uint32_t dest; get_typeid(symbol_index,dest); return dest;}
+
+      // requires valid symbol_index -- not checked
+      pfn_text_to_bytestream get_text_to_bytestream_fun( int32_t symbol_index) const;
+      // requires valid symbol_index -- not checked
+      pfn_bytestream_to_text get_bytestream_to_text_fun( int32_t symbol_index) const;
       // symbol_index actually is valid
       bool is_valid_symbol_index(int32_t symbol_index) const ;
       bool is_valid_symbol_name(const char* symbol_name) const;
@@ -63,10 +70,17 @@ namespace quan {namespace stm32 {namespace flash {
       bool write_from_text (int32_t symbol_index,quan::dynarray<char> const & value)const;
       bool read_to_text(int32_t symbol_index, quan::dynarray<char> & value)const;
 
+      static bool flash_init();
                // todo setup an alloc fail fun
       static void on_malloc_failed() {}
          symbol_table(symbol_table const &) = delete;
          symbol_table& operator = (symbol_table const &) = delete;
+
+
+      static pfn_bytestream_to_text bytestream_to_text[flash_type_tags::NumTypeTags];
+      static pfn_text_to_bytestream text_to_bytestream[flash_type_tags::NumTypeTags];
+      static uint32_t type_tag_to_size[];
+
    };
 
    // must be implemented by the app
