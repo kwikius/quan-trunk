@@ -19,6 +19,7 @@
 
 #include <cstdint>
 #include <quan/dynarray.hpp>
+#include <quan/stm32/flash/flash_type_tags.hpp>
 
 namespace quan {namespace stm32 {namespace flash {
 
