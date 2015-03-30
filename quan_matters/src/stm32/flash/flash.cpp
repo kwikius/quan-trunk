@@ -21,6 +21,12 @@ Copyright (c) 2003-2014 Andy Little.
 #include <cstring>
 #include <quan/error.hpp>
 
+#include <quan/stm32/flash/flash_convert/vect3f.hpp>
+#include <quan/stm32/flash/flash_convert/vect3i32.hpp>
+#include <quan/stm32/flash/flash_convert/bool.hpp>
+#include <quan/stm32/flash/flash_convert/float.hpp>
+#include <quan/stm32/flash/flash_convert/int.hpp>
+
 /*
 Flash memory
 N.B this is very slow memory to read. 
@@ -58,6 +64,7 @@ Work out if there is space to write the value. If not then copy all latest value
 
 if index is going to overwrite then will need to copy all symbols to new page and erase current one
 */
+#if 0
 namespace{ 
 int32_t ll_flash_get_symtab_index (quan::stm32::flash::symbol_table const & symtab,const char* name);
  
@@ -73,7 +80,93 @@ bool ll_flash_get_sym_ptr (quan::stm32::flash::symbol_table const & symtab,
 int32_t ll_flash_find_end_records (int32_t page_num);
 
 }// ~namespace 
- 
+#endif
+
+   using quan::stm32::flash::flash_id_to_type;
+   using quan::stm32::flash::flash_convert;
+   using quan::stm32::flash::flash_type_tags;
+
+   quan::stm32::flash::symbol_table::pfn_text_to_bytestream 
+      quan::stm32::flash::symbol_table::text_to_bytestream[] =
+   {
+      &flash_convert<flash_id_to_type<0>::type>::text_to_bytestream
+      ,&flash_convert<flash_id_to_type<1>::type>::text_to_bytestream
+      ,&flash_convert<flash_id_to_type<2>::type>::text_to_bytestream
+      ,&quan::stm32::flash::flash_convert<flash_id_to_type<3>::type>::text_to_bytestream
+      ,&quan::stm32::flash::flash_convert<flash_id_to_type<4>::type>::text_to_bytestream
+      ,&quan::stm32::flash::flash_convert<flash_id_to_type<5>::type>::text_to_bytestream
+      ,&quan::stm32::flash::flash_convert<flash_id_to_type<6>::type>::text_to_bytestream
+      ,&quan::stm32::flash::flash_convert<flash_id_to_type<7>::type>::text_to_bytestream
+      ,&quan::stm32::flash::flash_convert<flash_id_to_type<8>::type>::text_to_bytestream
+      ,&quan::stm32::flash::flash_convert<flash_id_to_type<9>::type>::text_to_bytestream
+   };
+//   static_assert ((sizeof(text_to_bytestream) 
+//         / sizeof(quan::stm32::flash::symbol_table::pfn_text_to_bytestream)) 
+//      == flash_type_tags::NumTypeTags,"text_to_bytestream invalid number of elements");
+
+   // Array describing the size of a type in flash
+   // indexed by id in the flash_type_tags enum
+   // the order and number must be the same as the flash_type_tags enum
+   // above.
+   // There must be a separate entry for each different flash type
+   uint32_t quan::stm32::flash::symbol_table::type_tag_to_size[] =
+   {
+      sizeof (flash_id_to_type<0>::type)
+      ,sizeof (flash_id_to_type<1>::type) 
+      ,sizeof (flash_id_to_type<2>::type)
+      ,sizeof (flash_id_to_type<3>::type)
+      ,sizeof (flash_id_to_type<4>::type) 
+      ,sizeof (flash_id_to_type<5>::type)
+      ,sizeof (flash_id_to_type<6>::type)
+      ,sizeof (flash_id_to_type<7>::type) 
+      ,sizeof (flash_id_to_type<8>::type)
+      ,sizeof (flash_id_to_type<9>::type)
+   };
+
+   uint16_t quan::stm32::flash::symbol_table::get_type_size (uint16_t typeidx)const
+{
+   return quan::stm32::flash::symbol_table::type_tag_to_size[typeidx];
+}
+
+    
+   // array of function pointers to convert a bytestream to text (user represntation)
+   // indexed by id in the flash_type_tags enum
+   // the order and number must be the same as the flash_type_tags enum
+   // Can be by type, not by object, since
+   // it is assumed that only valid object values have been stored in Flash.
+   quan::stm32::flash::symbol_table::pfn_bytestream_to_text 
+      quan::stm32::flash::symbol_table::bytestream_to_text[] =
+   {
+      &quan::stm32::flash::flash_convert<flash_id_to_type<0>::type>::bytestream_to_text
+      ,&quan::stm32::flash::flash_convert<flash_id_to_type<1>::type>::bytestream_to_text
+      ,&quan::stm32::flash::flash_convert<flash_id_to_type<2>::type>::bytestream_to_text
+      ,&quan::stm32::flash::flash_convert<flash_id_to_type<3>::type>::bytestream_to_text
+      ,&quan::stm32::flash::flash_convert<flash_id_to_type<4>::type>::bytestream_to_text
+      ,&quan::stm32::flash::flash_convert<flash_id_to_type<5>::type>::bytestream_to_text
+      ,&quan::stm32::flash::flash_convert<flash_id_to_type<6>::type>::bytestream_to_text
+      ,&quan::stm32::flash::flash_convert<flash_id_to_type<7>::type>::bytestream_to_text
+      ,&quan::stm32::flash::flash_convert<flash_id_to_type<8>::type>::bytestream_to_text
+      ,&quan::stm32::flash::flash_convert<flash_id_to_type<9>::type>::bytestream_to_text
+   };
+
+quan::stm32::flash::symbol_table::pfn_text_to_bytestream 
+quan::stm32::flash::symbol_table::get_text_to_bytestream_fun (int32_t symbol_index)const
+{
+   
+   return text_to_bytestream[get_typeid_no_check(symbol_index)];
+}
+
+// coming out data assumed ok. add checks
+// requires valid symbol_index -- not checked
+quan::stm32::flash::symbol_table::pfn_bytestream_to_text 
+quan::stm32::flash::symbol_table::get_bytestream_to_text_fun (int32_t symbol_index)const
+{
+   return bytestream_to_text[get_typeid_no_check(symbol_index)];
+}
+
+// requires valid symbol_index -- not checked
+
+
 bool quan::stm32::flash::symbol_table::write_symbol (
       int32_t symbol_index, 
       quan::dynarray<uint8_t> const & buffer)const
@@ -251,11 +344,11 @@ bool quan::stm32::flash::detail::validate(
    }
 }
 
-namespace {
+//namespace {
  
    // if write page is -1 just defaults to current used page
    // (write_page is only really used when need to swap pages)
-   bool ll_flash_write_symbol (quan::stm32::flash::symbol_table const & symtab,
+   bool quan::stm32::flash::symbol_table::ll_flash_write_symbol (quan::stm32::flash::symbol_table const & symtab,
                                uint16_t symidx,  const uint8_t* buf, int32_t write_page_num)
    {
       
@@ -412,7 +505,7 @@ namespace {
       }
    }
 
-   bool ll_flash_swap_pages (quan::stm32::flash::symbol_table const & symtab,int32_t old_page_num, int32_t new_page_num)
+   bool quan::stm32::flash::symbol_table::ll_flash_swap_pages (quan::stm32::flash::symbol_table const & symtab,int32_t old_page_num, int32_t new_page_num)
    {
       // get end of records
       // cycle back through records
@@ -474,7 +567,7 @@ namespace {
       return true;
    }
     
-   bool ll_flash_get_sym_ptr (quan::stm32::flash::symbol_table const & symtab,
+   bool quan::stm32::flash::symbol_table::ll_flash_get_sym_ptr (quan::stm32::flash::symbol_table const & symtab,
                               uint16_t symidx,uint8_t const volatile * & data_ptr_out, uint32_t & data_len_out)
    {
     
@@ -534,7 +627,7 @@ namespace {
       return false;
    }
     
-   int32_t ll_flash_find_end_records (int32_t page_num)
+   int32_t quan::stm32::flash::symbol_table::ll_flash_find_end_records (int32_t page_num)
    {
       uint32_t page_size = quan::stm32::flash::detail::get_page_size (page_num);
       uint8_t * page = reinterpret_cast<uint8_t*>
@@ -561,6 +654,121 @@ namespace {
          quan::detail::stm32_flash_page_corrupted);
       return -1;
    }
- 
-} //namespace
+ namespace {
+   uint8_t flash_check_page (uint8_t n)
+   {
+      uint8_t sum = 0x00;
+      
+      volatile uint8_t * pn 
+         = (volatile uint8_t*)quan::stm32::flash::detail::get_page_address (n);
+      uint32_t  pn_size = quan::stm32::flash::detail::get_page_size (n);
+      if (pn_size ==0) {
+         quan::user_message ("invalid flash page\n");
+         return 0;
+      }
+      for (uint32_t i = 0; i < pn_size; ++i) {
+         sum |= *pn;
+         ++pn;
+      }
+      return sum ;
+   }
+    
+   uint8_t flash_check()
+   {
+      return flash_check_page(1) | flash_check_page(2);
+   }
 
+} //namespace
+ 
+
+bool quan::stm32::flash::symbol_table::flash_init() 
+{
+   if (flash_check() == 0x00) {
+   
+     // quan::user_message ("unwritten flash detected... initialising\n");
+     
+      if (! quan::stm32::flash::detail::erase (1)) {
+         quan::error (quan::detail::function_id::stm32_flash_symtab_init,quan::detail::stm32_flash_erase_page_failed);
+         return false ;
+      }
+      if (! quan::stm32::flash::detail::erase (2)) {
+         quan::error(quan::detail::function_id::stm32_flash_symtab_init,quan::detail::stm32_flash_erase_page_failed);
+         return false;
+      }
+      //quan::user_message ("...flash erased OK\n");
+   }
+   return true;
+}
+
+bool quan::stm32::flash::symbol_table::init()const 
+{
+   return flash_init();
+}
+
+const char* quan::stm32::flash::symbol_table::get_name (int32_t symbol_index)const
+{
+   if (this->is_valid_symbol_index(symbol_index)) {
+      return this->get_symbol_table()[symbol_index].name;
+   } else {
+      return nullptr;
+   }
+}
+
+int32_t quan::stm32::flash::symbol_table::get_index (const char* symbol_name)const
+{
+   int32_t count = 0;
+   for ( uint32_t i = 0, end = this->get_symtable_size(); i < end; ++i){
+      auto const & entry = this->get_symbol_table()[i];
+      if (strcmp (entry.name, symbol_name) == 0) {
+         return count;
+      } else {
+         ++count;
+      }
+   }
+   return -1; // not found
+}
+
+uint16_t quan::stm32::flash::symbol_table::get_symbol_storage_size (int32_t symbol_index) const
+{
+   if (this->is_valid_symbol_index(symbol_index)) {
+      return get_type_size (this->get_symbol_table()[static_cast<uint16_t>(symbol_index)].type_tag);
+   }else{
+      return 0U;
+   }
+}
+
+bool quan::stm32::flash::symbol_table::get_readonly_status (int32_t symbol_index,bool & result)const
+{
+   if (this->is_valid_symbol_index(symbol_index)) {
+      result = this->get_symbol_table()[static_cast<uint16_t>(symbol_index)].readonly;
+      return true;
+   } else {
+      return false;
+   }
+}
+
+const char* quan::stm32::flash::symbol_table::get_info (int32_t symbol_index)const
+{
+   if (this->is_valid_symbol_index(symbol_index)) {
+      return this->get_symbol_table()[static_cast<uint16_t>(symbol_index)].info;
+   } else {
+      return nullptr;
+   }
+}
+
+ // requires valid symbol_index -- not checked
+quan::stm32::flash::symbol_table::pfn_check_function 
+quan::stm32::flash::symbol_table::get_check_function(int32_t symbol_index)const
+{
+   return this->get_symbol_table()[static_cast<uint16_t>(symbol_index)].pfn_validity_check;
+}
+
+bool quan::stm32::flash::symbol_table::get_typeid(int32_t symbol_index, uint32_t & dest) const
+{
+    if( this->is_valid_symbol_index(symbol_index)){
+       dest = this->get_symbol_table()[static_cast<uint16_t>(symbol_index)].type_tag;
+       return true;
+    }else{
+      return false;
+    }
+}
