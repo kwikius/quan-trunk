@@ -2,6 +2,8 @@
 #ifndef QUAN_OSD_AIRCRAFT_HPP_INCLUDED
 #define QUAN_OSD_AIRCRAFT_HPP_INCLUDED
 
+#error dont use 
+
 /*
  Copyright (c) 2012 - 2015 Andy Little 
 
