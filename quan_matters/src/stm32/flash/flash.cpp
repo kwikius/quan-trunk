@@ -316,7 +316,7 @@ bool quan::stm32::flash::detail::bytestream_to_type(
       memcpy(value_out,bytestream_in.get(), size);
       return true;
    }else{
-      quan::error(fn_any,quan::detail::stm32_flash_page_corrupted);
+      quan::error(quan::detail::stm32_flash_bytestream_to_type,quan::detail::stm32_flash_page_corrupted);
       return false;
    }
 }
@@ -515,7 +515,7 @@ bool quan::stm32::flash::detail::validate(
       int32_t const raw_end_old_records = ll_flash_find_end_records (old_page_num);
       
       if (raw_end_old_records == -1) {
-         quan::error(quan::detail::stm32_flash_write_symbol, 
+         quan::error(quan::detail::ll_flash_swap_pages, 
                            quan::detail::stm32_flash_page_corrupted);
          return false;
       }
