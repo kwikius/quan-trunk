@@ -33,6 +33,7 @@ namespace quan{
          ,stm32_flash_validate = -11
          ,stm32_flash_write = -12
          ,stm32_flash_read = -13
+         ,ll_flash_swap_pages = -14
          ,function_id_user = 1
       };
    }

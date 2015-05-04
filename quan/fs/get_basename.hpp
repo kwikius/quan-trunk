@@ -13,9 +13,15 @@ namespace quan{ namespace fs{
 
    inline std::string get_basename(std::string const & path_in)
    {
-      assert ( (path_in != "") && __LINE__);
+     // assert ( (path_in != "") && __LINE__);
+      if (path_in == ""){
+            return "";
+      }
       char* path = strdup(path_in.c_str());
-      assert(path && __LINE__);
+       if (!path){
+          return "";
+      }
+     // assert(path && __LINE__);
 #if defined (linux) || defined (__linux)
       char* basename = ::basename(path);
 #else

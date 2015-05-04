@@ -27,15 +27,25 @@ namespace {
 
    const char* get_function_name(int32_t function_id)
    {
+
       switch (function_id){
          case  quan::detail::stm32_flash_read_symbol:
-         return "quan::stm32::flash_read_symbol";
+         return "flash_read_symbol";
          case  quan::detail::stm32_flash_write_symbol:
-         return "quan::stm32::flash_write_symbol";
+         return "flash_write_symbol";
          case  quan::detail::stm32_flash_get_write_count:
-         return "quan::stm32::flash_get_write_count";
+         return "flash_get_write_count";
          case quan::detail::stm32_ll_flash_get_sym_ptr:
-         return "(static) stm32_ll_flash_get_sym_ptr";
+         return "ll_flash_get_sym_ptr";
+         case quan::detail::stm32_flash_bytestream_to_type:
+         return "bytestream_to_type";
+         case quan::detail::stm32_ll_flash_find_end_records:
+         return "ll_flash_find_end_records";
+         case quan::detail::stm32_flash_text_to_type:
+         return "flash_text_to_type";
+         case quan::detail::stm32_flash_validate:
+         return "flash_validate";
+         
 // app
          case fn_parse_input:
          return "parse_input";
