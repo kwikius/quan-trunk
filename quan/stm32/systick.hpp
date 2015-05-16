@@ -54,6 +54,8 @@ namespace quan{namespace stm32{
    
 }}
 
+// TODO remove this to separate header
+// and disassociate from systick
 namespace quan{ namespace stm32{
 
    inline quan::time_<int64_t>::ms millis()
