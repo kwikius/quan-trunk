@@ -303,6 +303,20 @@ TargetType
    {
      return arithmetic_convert<Target>(s.numeric_value());
    }
+
+   template <typename Target, typename Source>
+   inline QUAN_CONSTEXPR
+   typename quan::where_<
+         quan::meta::and_<
+            quan::meta::is_angle<Target>,
+            quan::meta::is_angle<Source>
+         >
+         , Target
+   >::type
+   arithmetic_convert(Source const & s)
+   {
+     return Target{s};
+   }
  
  
 }
