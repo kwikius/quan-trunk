@@ -12,6 +12,7 @@
 #if defined QUAN_STM32F4
 namespace quan{ namespace stm32{
 
+   //return frequency in Hz as integer
    template <typename TimerModule>
    inline constexpr uint32_t get_raw_timer_frequency()
    {
