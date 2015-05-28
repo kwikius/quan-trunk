@@ -21,10 +21,12 @@
 #ifndef __AVR__
 #include <climits>
 #include <cstdint>
+#include <cctype>
 #else
 #include <limits.h>
 #include <stdint.h>
 #include <stddef.h>
+#include <ctype.h>
 #endif
 
 #include <quan/conversion/basic_char_ptr_converter.hpp>
