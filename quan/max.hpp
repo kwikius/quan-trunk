@@ -28,7 +28,10 @@ namespace quan{
    >::type
    max( TL const & lhs, TR const & rhs)
    {
-      return ( lhs > rhs ) ? lhs:rhs;
+      typedef typename quan::meta::binary_op<
+         TL, quan::meta::minus, TR
+      >::type result_type;
+      return (( lhs > rhs ) ? result_type{lhs}:result_type{rhs});
    }
 
 }//quan

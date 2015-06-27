@@ -44,7 +44,7 @@ namespace quan{
       bool good()const {return m_elements != nullptr;}
       bool push( T const & val)
       {
-         if ( m_idx < m_num_elements){
+         if ( m_idx < static_cast<int>(m_num_elements)){
             m_elements[m_idx] = val;
             ++m_idx;
             return true;
