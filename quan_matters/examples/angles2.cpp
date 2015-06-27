@@ -14,7 +14,7 @@ Copyright (c) 2003-2014 Andy Little.
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses.
 */
-#define QUAN_NO_MATH_ANGLE_NUMERIC_CONVERSION
+//#define QUAN_NO_MATH_ANGLE_NUMERIC_CONVERSION
 
 //// rad/s to freq.
 #include <quan/out/angle.hpp>
@@ -33,13 +33,14 @@ int main()
 
    // quan::angle rev is a fraction of revolution 
    // representing an angle type of 1 revolution
-   typedef quan::reciprocal_time_<quan::angle::rev>::per_min rev_per_min;
+   typedef quan::reciprocal_time_<quan::angle::rev>::per_s rev_per_s;
 
-   rad_per_s mu( quan::angle::rad(1));
+   // should be 1 rps
+   rad_per_s mu{ quan::angle::two_pi};
 
-   rev_per_min rpm =mu;
+   rev_per_s rps = mu;
 
-   std::cout << "rpm = " << rpm <<'\n';
+   std::cout << "revs per second = " << rps <<'\n';
 
 // compute an arc length from quantity with rev_per_min
    quan::length::m radius(12);
@@ -47,11 +48,11 @@ int main()
 //using "strong" angle type arc length value_type must be angular...
 #if (0)
 // should fail 
-   quan::length_<double>::m arc_length = rpm * radius * t;
+   quan::length_<double>::m arc_length = rps * radius * t;
 #else
 //should succeed
-   quan::length_<quan::angle::rad>::m arc_length = rpm * radius * t;
+   quan::length_<quan::angle::rad>::m arc_length = rps * radius * t;
 #endif
    std::cout 
-   << arc_length << " should be same as " << radius << " (but \"angular\")\n";
+   << arc_length << " should be same as " << radius * quan::constant::pi *2 << " (but \"angular\")\n";
 }

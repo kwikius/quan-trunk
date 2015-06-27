@@ -1,5 +1,5 @@
-#ifndef QUAN_CONVERSION_FLOAT_CONVERT_HPP_INCLUDED
-#define QUAN_CONVERSION_FLOAT_CONVERT_HPP_INCLUDED
+#ifndef QUAN_CONVERSION_DOUBLE_CONVERT_HPP_INCLUDED
+#define QUAN_CONVERSION_DOUBLE_CONVERT_HPP_INCLUDED
 /*
  Copyright (c) 2003-2014 Andy Little.
 
@@ -35,7 +35,7 @@
 
 namespace quan{ namespace detail{
 
-	template<> struct converter <float, char*> : basic_char_ptr_converter
+	template<> struct converter <double, char*> : basic_char_ptr_converter
    {
      
      private:
@@ -64,7 +64,7 @@ namespace quan{ namespace detail{
 
   public:
 
-		float operator()(const char* str, long maxlen = LONG_MAX )
+		double operator()(const char* str, long maxlen = LONG_MAX )
 		{
           reset();
           m_conversion_error=0;
@@ -78,7 +78,7 @@ namespace quan{ namespace detail{
           }
 			 int sign = 1;
 			 size_t pos = 0;
-			 float result = 0;
+			 double result = 0;
           while(isspace(str[pos])){
             ++pos;
             --length;
@@ -129,7 +129,7 @@ namespace quan{ namespace detail{
 						curtok = get_tok(str[++pos]);
 						divisor *= 10;
 					}
-					result += static_cast<float>(ifract)/divisor;
+					result += static_cast<double>(ifract)/divisor;
 				 } else{ // no after digits
 					 if ( before_digit_count == 0){ // means that point was first and no digits after-- illegal
 						  m_conversion_error= -1;
@@ -169,7 +169,7 @@ namespace quan{ namespace detail{
 					exp_val = exp_val * 10 + atoi(str[pos]);
 					curtok = get_tok(str[++pos]);
 				}
-				float power = 1;
+				double power = 1;
 				while (exp_val-- > 0){
 					power *= 10;
 				}
@@ -193,4 +193,4 @@ namespace quan{ namespace detail{
      };
 }}
 
-#endif // QUAN_CONVERSION_FLOAT_CONVERT_HPP_INCLUDED
+#endif // QUAN_CONVERSION_DOUBLE_CONVERT_HPP_INCLUDED

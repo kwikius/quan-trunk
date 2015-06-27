@@ -25,10 +25,13 @@
 */
 
 #include <cctype>
+#include <cstring>
 #include <stm32f4xx.h>
 #include "FreeRTOS.h"
 #include <task.h>
 #include <queue.h>
+#include <quan/where.hpp>
+#include <type_traits>
 #include <quan/stm32/config.hpp>
 #include <quan/stm32/usart.hpp>
 #include <quan/stm32/gpio.hpp>
@@ -80,10 +83,29 @@ namespace quan{ namespace stm32{namespace freertos{
          constexpr uint8_t usart_cr1_txeie = 7;
          usart_type::get()->cr1. template bb_setbit<usart_cr1_txeie>();
       }
-
+      // blocking
+      static void write(CharType const * str, size_t n)
+      {
+         for ( size_t i = 0; i < n; ++i){
+            put(str[i]);
+         }
+      }
+      // also blocking
+      // only for char string
+      template <typename T>
+      static 
+      typename quan::where_<
+            quan::meta::and_<
+                std::is_same<T,char>
+               ,std::is_same<T,CharType>
+              >
+        >::type
+        write ( T const * str){
+         write ( str, strlen(str));
+      }
+      
       static void irq_handler()
       {
-        
          typedef Usart usart_type;
          constexpr uint8_t usart_sr_rxne = 5;
          // constexpr uint8_t usart_sr_txe = 7;
