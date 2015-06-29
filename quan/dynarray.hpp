@@ -18,14 +18,8 @@
  */
 //size_t
 #include <cstddef>
-#include <cstdlib>
+#include <quan/malloc_free.hpp>
 
-#ifdef QUAN_FREERTOS
-#include "FreeRTOS.h"
-extern "C" void vPortFree( void *pv );
-extern "C" void * pvPortMalloc(size_t n);
-#endif
- 
 namespace  quan {
 /*
  simple class for allocating on the stack and cleaning itself up
@@ -39,11 +33,7 @@ struct dynarray {
    dynarray (size_t N, void (*pferror) ())
       : m_num_elements {N}
    {
-#ifdef QUAN_FREERTOS
-     m_ptr = (T*) pvPortMalloc (N * sizeof (T));
-#else
-     m_ptr = (T*) ::malloc (N * sizeof (T));
-#endif
+      m_ptr = (T*) quan::malloc (N * sizeof (T));
       if (m_ptr == nullptr) {
          pferror();
          m_num_elements = 0;
@@ -51,11 +41,7 @@ struct dynarray {
    }
    ~dynarray()
    {
-#ifdef QUAN_FREERTOS
-    ::vPortFree(m_ptr);
-#else
-    ::free (m_ptr);
-#endif
+      quan::free (m_ptr);
    }
    
    size_t get_num_elements() const
@@ -65,11 +51,7 @@ struct dynarray {
 
    void free()
    {
-#ifdef QUAN_FREERTOS
-    ::vPortFree(m_ptr);
-#else
-      ::free (m_ptr);
-#endif
+      quan::free (m_ptr);
       m_ptr = nullptr;
       m_num_elements = 0;
    }
@@ -88,22 +70,15 @@ struct dynarray {
       if (N == m_num_elements) {
          return true;
       } else {
-#ifdef QUAN_FREERTOS
-       T* new_rep = (T*) ::pvPortMalloc (N * sizeof (T));
-#else
-       T* new_rep = (T*) ::realloc (m_ptr,N * sizeof (T));
-#endif
-        if ( new_rep != nullptr ){
-#ifdef QUAN_FREERTOS
-         ::vPortFree(m_ptr);
-#endif
-         m_ptr = new_rep;
-         m_num_elements = N;
-         return true;
-        }else{
-             // memory stays the same
-          return false;
-        }
+         T* new_rep = (T*)quan::malloc(N * sizeof (T));
+         if ( new_rep != nullptr ){
+            quan::free(m_ptr);
+            m_ptr = new_rep;
+            m_num_elements = N;
+            return true;
+         }else{
+            return false;
+         }
       }
    }
   

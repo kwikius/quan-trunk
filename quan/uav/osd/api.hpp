@@ -76,8 +76,6 @@ namespace quan{ namespace uav{ namespace osd{
                   );
    void           flood_fill(pxp_type const & start_pos, colour_type new_colour, int max_count);
 
-   
-
 }}}
 
 #endif // QUAN_UAV_OSD_API_HPP_INCLUDED1

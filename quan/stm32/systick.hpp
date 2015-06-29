@@ -34,8 +34,6 @@
 #error need to define stm32 processor
 #endif
 
-
-
 namespace quan{namespace stm32{ 
 
    inline void disable_SysTick_IRQ()

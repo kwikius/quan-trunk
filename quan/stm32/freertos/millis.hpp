@@ -4,7 +4,9 @@
 #include <FreeRTOS.h>
 #include <task.h>
 #include <quan/time.hpp>
-
+/*
+ TODO add call to xTaskGetSchedulerState
+*/
 namespace quan{ namespace stm32{
    
    inline quan::time_<int64_t>::ms millis()

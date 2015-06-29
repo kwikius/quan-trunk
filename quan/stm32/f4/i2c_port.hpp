@@ -24,11 +24,7 @@
 #include <quan/stm32/f4/i2c/module_enable_disable.hpp>
 #include <quan/stm32/sys_freq.hpp>
 #include <quan/stm32/i2c/detail/get_irq_number.hpp>
-#if defined QUAN_FREERTOS
-#include <quan/stm32/freertos/millis.hpp>
-#else
-#include <quan/stm32/systick.hpp>
-#endif
+#include <quan/stm32/millis.hpp>
 
 namespace quan{ namespace stm32{
 

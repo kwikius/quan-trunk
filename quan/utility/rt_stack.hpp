@@ -2,14 +2,9 @@
 #define QUAN_UTILITY_RT_STACK_HPP_INCLUDED
 
 #include <cstdint>
-#include <cstddef>
-#include <cstdlib>
-
-#if (defined QUAN_FREERTOS)
-#include "FreeRTOS.h"
-extern "C" void vPortFree( void *pv );
-extern "C" void * pvPortMalloc(size_t n);
-#endif
+//#include <cstddef>
+//#include <cstdlib>
+#include <quan/malloc_free.hpp>
 
 namespace quan{
    template <typename T>
@@ -17,11 +12,7 @@ namespace quan{
       rt_stack(size_t size): m_elements{nullptr},m_num_elements{0}, m_idx{0}
       {
          if ( size > 0){
-         #if (defined QUAN_FREERTOS)
-            m_elements = (T*) pvPortMalloc(size * sizeof(T));
-         #else
-            m_elements = (T*) malloc(size * sizeof(T));
-         #endif    
+            m_elements = (T*) quan::malloc(size * sizeof(T));  
             if ( m_elements != nullptr){
               m_num_elements = size;
             }
@@ -34,11 +25,7 @@ namespace quan{
       ~rt_stack()
       {
            if ( m_elements != nullptr){
-          #if (defined QUAN_FREERTOS)
-           vPortFree(m_elements);
-         #else
-           free(m_elements);
-         #endif  
+               quan::free(m_elements);
             }
       }
       bool good()const {return m_elements != nullptr;}
@@ -75,9 +62,7 @@ namespace quan{
       T * m_elements;
       size_t m_num_elements;
       int32_t m_idx;
-      
    };
-
 } // quan
 
 

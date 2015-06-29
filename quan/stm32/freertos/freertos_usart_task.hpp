@@ -75,6 +75,12 @@ namespace quan{ namespace stm32{namespace freertos{
          xQueueReceive(m_rxi_queue_handle,&ch,portMAX_DELAY);
          return ch;
       }
+      
+      static size_t in_avail()
+      {
+          return uxQueueMessagesWaiting(m_rxi_queue_handle);
+      }
+      
       // blocking ( if q full)
       static void put (CharType ch)
       {
