@@ -13,6 +13,9 @@
 #include <quan/stm32/flash.hpp>
 #include <quan/stm32/flash/flash_convert.hpp>
 #include <quan/stm32/flash/flash_error.hpp>
+#if defined QUAN_FLASH_DEBUG
+#include <iostream>
+#endif
 
 namespace quan{ namespace stm32{ namespace flash{ namespace detail{
 
@@ -25,19 +28,31 @@ namespace quan{ namespace stm32{ namespace flash{ namespace detail{
       static bool text_to_type(quan::dynarray<char> const & text_in, void* value_out)
       {
          if ( !value_out){
+#if defined QUAN_FLASH_DEBUG
+    std::cout << "(1) unexpected nullptr\n";
+#endif
             quan::error(fn_any, quan::detail::unexpected_nullptr);
             return false;
          }
          if ( text_in.get() == nullptr){
+#if defined QUAN_FLASH_DEBUG
+    std::cout << "(2) unexpected nullptr\n";
+#endif
             quan::error(fn_any, quan::detail::unexpected_nullptr);
             return false;
          }
          size_t length = text_in.get_num_elements();
          if ((text_in.get_num_elements() < 7)  ) {
+#if defined QUAN_FLASH_DEBUG
+    std::cout << text_in.get_num_elements() << " : (3) too few elements\n";
+#endif
             user_error(get_input_template());
             return false;
          }
          if ( *(text_in.get() + (length-1)) != '\0'){
+#if defined QUAN_FLASH_DEBUG
+    std::cout << "(4) unterminated string constant\n";
+#endif
             quan::error(fn_any,quan::detail::unterminated_string_constant);
             return false;
          }
@@ -46,6 +61,9 @@ namespace quan{ namespace stm32{ namespace flash{ namespace detail{
          quan::dynarray<char> src {text_in.get_num_elements(),symbol_table::on_malloc_failed};
          if (! src.good()) {
             // should have reported
+#if defined QUAN_FLASH_DEBUG
+    std::cout << "(5) bad dynarray\n";
+#endif
             return false;
          }
          memcpy (src.get(),text_in.get(),text_in.get_num_elements());
@@ -55,6 +73,9 @@ namespace quan{ namespace stm32{ namespace flash{ namespace detail{
             ++ptr;
          }
          if ( *ptr != '['){
+#if defined QUAN_FLASH_DEBUG
+    std::cout << "(6) expected [\n";
+#endif
             user_error(get_input_template());
             return false;
          }
@@ -62,6 +83,9 @@ namespace quan{ namespace stm32{ namespace flash{ namespace detail{
          quan::three_d::vect<T> temp;
          for (size_t i = 0; i < 3; ++i) {
             if (*(++ptr) == '\0'){
+#if defined QUAN_FLASH_DEBUG
+    std::cout << "(7) unexpected end of input\n";
+#endif
                user_error(get_input_template());
                return false;
             }

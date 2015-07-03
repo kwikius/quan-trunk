@@ -38,21 +38,20 @@ namespace {
          quan::error(-1,quan::detail::unexpected_nullptr);
          return false;
       }
-      // TODO alternative to strtok
       char* const symbol_part = strtok(input.get()," \t");
-      char* const value_part  = strtok(nullptr," \t");
-
       if (symbol_part == nullptr) {
          quan::user_error ("expected symbol");
          return false;
       }
+      // get rest of string
+      char* const value_part  = strtok(nullptr,"");
       if (value_part == nullptr) {
          quan::user_error("expected value");
          return false;
       }
       size_t const symbol_len = strlen (symbol_part);
       if ( symbol_len > 256){
-          quan::user_error ("symbol too long");
+         quan::user_error ("symbol too long");
          return false;
       }
       if (! symbol.realloc(symbol_len + 1)) {
