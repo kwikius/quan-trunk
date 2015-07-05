@@ -12,7 +12,7 @@ namespace quan{ namespace stm32{
    inline quan::time_<int64_t>::ms millis()
    {
       return quan::time_<int64_t>::ms{
-         (static_cast<int64_t>(xTaskGetTickCount()) * 1000)/configTICK_RATE_HZ
+         xTaskGetTickCount() * (1000/configTICK_RATE_HZ)
       };
    }
 
