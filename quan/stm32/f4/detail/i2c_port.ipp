@@ -411,6 +411,7 @@ namespace quan { namespace stm32 {
       return true;
    }
 
+   
    template <
       typename I2CP,
       typename SclPin, 
