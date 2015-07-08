@@ -619,7 +619,7 @@ namespace quan { namespace stm32 { namespace freertos{
       freertos_i2c_task::set_start_bit();
       freertos_i2c_task::enable_error_interrupts();
       freertos_i2c_task::enable_event_interrupts();
-#if 1
+#if 0
 // works but not if user output or taskdelay removed
       // blocking
       // possibly the tail of the i2c transctio is still running
@@ -631,6 +631,10 @@ namespace quan { namespace stm32 { namespace freertos{
       }
       return result;
 #else
+   // alos seems to work
+      while (freertos_i2c_task::busy()){
+         taskYIELD();
+      }
       return xSemaphoreTake(freertos_i2c_task::m_task_semaphore, 20) == pdTRUE;
 #endif
    }
