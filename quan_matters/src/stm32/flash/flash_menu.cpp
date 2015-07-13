@@ -325,7 +325,19 @@ bool quan::stm32::flash::flash_menu()
                }
             }
          }
+//#############################################
+#if defined QUAN_PC_SIM
+            else {
+               return true;
+            }
+#endif
+//##############################################
       }
+
+
+
+
+
       if (idx > 1) { // got input (1 is just a return)
          quan::dynarray<char> str1 (idx,quan::stm32::flash::symbol_table::on_malloc_failed);
          if (!str1.good()) {
