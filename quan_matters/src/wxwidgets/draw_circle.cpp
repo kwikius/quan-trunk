@@ -41,7 +41,8 @@ void quan::gx::wxwidgets::graphics_context::draw_circle(
    mm const view_circle_perim = (r * this->m_scale) * 2 * quan::constant::pi;
 
    int32_t const num_segments = quan::max(
-         quan::min(view_circle_perim / view_segment_length,max_segments),min_segments
+         quan::min(static_cast<int32_t>(view_circle_perim / view_segment_length),max_segments),
+         min_segments
    );
    quan::gx::primitives::polyline<mm> poly{circle.get_line_width(),circle.get_color()};
    
