@@ -31,7 +31,7 @@
 #include <semphr.h>
 
 // DEBUG
-#include "resources.hpp"
+//#include "resources.hpp"
 
 
 namespace quan{ namespace stm32{ namespace freertos{
