@@ -65,6 +65,11 @@ namespace quan{ namespace uav{ namespace osd{
                   );
 
    void           draw_text(text_ptr str, pxp_type const & pos,font_ptr font);
+   inline void    draw_text(text_ptr str, pxp_type const & pos, uint32_t i = 0U)
+   {
+      draw_text(str,pos,get_font(i));
+   }
+
    void           draw_line(pxp_type const & from, pxp_type const & to,colour_type c);
    void           draw_box(pxp_type const & corner1, pxp_type const & corner2,colour_type c, bool filled);
    void           draw_circle(int32_t radius,pxp_type const & pos, colour_type c);
