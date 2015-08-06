@@ -20,8 +20,14 @@
 namespace quan{
 
    template <typename T>
-   T constrain(T const & val, T const & min_val, T const & max_val)
+   constexpr T constrain(T const & val, T const & min_val, T const & max_val)
    {
+#if 1
+   return (val >= max_val )
+      ? max_val
+      :(( val <= min_val)? min_val: val)
+   ;
+#else
       if ( val > max_val){
          return max_val;
       }else{
@@ -31,6 +37,7 @@ namespace quan{
             return val;
          }
       }
+#endif
    }
 
 } // quan
