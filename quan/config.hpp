@@ -169,7 +169,7 @@
 // but fails to work in VC7.1, VC8.0, when other global constants
 // are initialised from them probably due to order of initialisation issues
 // IOW its probably a bit dodgy
-//#define QUAN_DEFINE_PHYSICAL_CONSTANTS_IN_HEADERS
+#define QUAN_DEFINE_PHYSICAL_CONSTANTS_IN_HEADERS
 
 //---------------------------------------------
 // required by MSVC
