@@ -80,6 +80,12 @@ namespace quan{ namespace stm32{namespace freertos{
       {
           return uxQueueMessagesWaiting(m_rxi_queue_handle);
       }
+
+      static size_t out_waiting()
+      {
+         return uxQueueMessagesWaiting(m_txo_queue_handle);
+      }
+
       
       // blocking ( if q full)
       static void put (CharType ch)

@@ -94,7 +94,7 @@ namespace quan{ namespace stm32{
 
       template <uint8_t Bit> static typename quan::where_<is_in_periph_bitband<address> >::type bb_setbit()
       {
-         asm volatile("nop" : : :);
+        // asm volatile("nop" : : :);
          volatile uint32_t* addr = reinterpret_cast<volatile uint32_t*>(periph_bit_band_address<address,Bit>::value);
          *addr = static_cast<uint32_t>(1);
       }

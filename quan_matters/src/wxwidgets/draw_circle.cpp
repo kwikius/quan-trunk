@@ -29,6 +29,8 @@ Copyright (c) 2003-2014 Andy Little.
 // decide on pixel length or screen size in length units
 //for minimum seg
 
+
+
 void quan::gx::wxwidgets::graphics_context::draw_circle(
    quan::gx::primitives::circle<mm> const & circle
 ) const
@@ -50,7 +52,7 @@ void quan::gx::wxwidgets::graphics_context::draw_circle(
    cvect centre = circle.get_center();
    poly.push_back(cvect{r,mm{0}} + centre);
    for ( int32_t i = 1; i < num_segments; ++i){
-      quan::angle::rad const angle = (2 * quan::angle::pi  * i )/num_segments;
+      quan::angle::rad const angle = (2 * quan::angle::rad{3.141592653589793238462643383279502884197}  * i )/num_segments;
       mm const x = quan::cos(angle) * r + centre.x;
       mm const y = quan::sin(angle) * r + centre.y;
       poly.push_back({x,y});

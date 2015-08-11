@@ -66,6 +66,13 @@ namespace{
       return  get_device().get_pixel_raw(px);
    }
 
+#error not built atm
+   QUAN_DLL_LOCAL void 
+   quan::uav::osd::set_display_buffer(uint32_t offset32,uint32_t mask,colour_type c)
+   {
+       return  get_device().set_display_buffer(offset32,mask,colour_type c);
+   }
+
    QUAN_DLL_LOCAL quan::uav::osd::colour_type 
    quan::uav::osd::get_pixel_raw(bitmap_ptr bmp,pxp_type const & pos)
    {

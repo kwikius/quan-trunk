@@ -1,14 +1,209 @@
 
 #include <quan/uav/osd/api.hpp>
-
-/*
-draw an arc normalised in the first 45 degrees octant (mirroring for 45 -90 etc)
-then figuring what other octants to draw it in.
-*/
+#include <quan/constrain.hpp>
 
 using namespace quan::uav::osd;
+/*
+draw an arc normalised in the first 45 degrees 
+octant (mirroring for 45 -90 etc)
+then figuring what other octants to draw it in.
 
+*/
 namespace {
+   // 0.25 deg resolution between 0 and 45 degrees
+   // should be a separate lib
+  constexpr float fast_tan_array[] = {
+       0.f
+      ,0.00436335f
+      ,0.00872687f
+      ,0.0130907f
+      ,0.0174551f
+      ,0.0218201f
+      ,0.0261859f
+      ,0.0305528f
+      ,0.0349208f
+      ,0.0392901f
+      ,0.0436609f
+      ,0.0480334f
+      ,0.0524078f
+      ,0.0567841f
+      ,0.0611626f
+      ,0.0655435f
+      ,0.0699268f
+      ,0.0743128f
+      ,0.0787017f
+      ,0.0830936f
+      ,0.0874887f
+      ,0.0918871f
+      ,0.096289f
+      ,0.100695f
+      ,0.105104f
+      ,0.109518f
+      ,0.113936f
+      ,0.118358f
+      ,0.122785f
+      ,0.127216f
+      ,0.131653f
+      ,0.136094f
+      ,0.140541f
+      ,0.144993f
+      ,0.149451f
+      ,0.153915f
+      ,0.158384f
+      ,0.16286f
+      ,0.167343f
+      ,0.171831f
+      ,0.176327f
+      ,0.180829f
+      ,0.185339f
+      ,0.189856f
+      ,0.19438f
+      ,0.198912f
+      ,0.203452f
+      ,0.208f
+      ,0.212557f
+      ,0.217121f
+      ,0.221695f
+      ,0.226277f
+      ,0.230868f
+      ,0.235469f
+      ,0.240079f
+      ,0.244698f
+      ,0.249328f
+      ,0.253968f
+      ,0.258618f
+      ,0.263278f
+      ,0.267949f
+      ,0.272631f
+      ,0.277325f
+      ,0.282029f
+      ,0.286745f
+      ,0.291473f
+      ,0.296214f
+      ,0.300966f
+      ,0.305731f
+      ,0.310508f
+      ,0.315299f
+      ,0.320103f
+      ,0.32492f
+      ,0.329751f
+      ,0.334595f
+      ,0.339454f
+      ,0.344328f
+      ,0.349216f
+      ,0.354119f
+      ,0.359037f
+      ,0.36397f
+      ,0.368919f
+      ,0.373885f
+      ,0.378866f
+      ,0.383864f
+      ,0.388879f
+      ,0.39391f
+      ,0.39896f
+      ,0.404026f
+      ,0.409111f
+      ,0.414214f
+      ,0.419335f
+      ,0.424475f
+      ,0.429634f
+      ,0.434812f
+      ,0.440011f
+      ,0.445229f
+      ,0.450467f
+      ,0.455726f
+      ,0.461006f
+      ,0.466308f
+      ,0.471631f
+      ,0.476976f
+      ,0.482343f
+      ,0.487733f
+      ,0.493145f
+      ,0.498582f
+      ,0.504041f
+      ,0.509525f
+      ,0.515034f
+      ,0.520567f
+      ,0.526125f
+      ,0.531709f
+      ,0.537319f
+      ,0.542956f
+      ,0.548619f
+      ,0.554309f
+      ,0.560027f
+      ,0.565773f
+      ,0.571547f
+      ,0.57735f
+      ,0.583183f
+      ,0.589045f
+      ,0.594938f
+      ,0.600861f
+      ,0.606815f
+      ,0.612801f
+      ,0.618819f
+      ,0.624869f
+      ,0.630953f
+      ,0.63707f
+      ,0.643222f
+      ,0.649408f
+      ,0.655629f
+      ,0.661886f
+      ,0.668179f
+      ,0.674509f
+      ,0.680876f
+      ,0.687281f
+      ,0.693725f
+      ,0.700208f
+      ,0.70673f
+      ,0.713293f
+      ,0.719897f
+      ,0.726543f
+      ,0.73323f
+      ,0.739961f
+      ,0.746735f
+      ,0.753554f
+      ,0.760418f
+      ,0.767327f
+      ,0.774283f
+      ,0.781286f
+      ,0.788337f
+      ,0.795436f
+      ,0.802585f
+      ,0.809784f
+      ,0.817034f
+      ,0.824336f
+      ,0.831691f
+      ,0.8391f
+      ,0.846563f
+      ,0.854081f
+      ,0.861655f
+      ,0.869287f
+      ,0.876977f
+      ,0.884725f
+      ,0.892534f
+      ,0.900404f
+      ,0.908336f
+      ,0.916331f
+      ,0.92439f
+      ,0.932515f
+      ,0.940706f
+      ,0.948965f
+      ,0.957292f
+      ,0.965689f
+      ,0.974157f
+      ,0.982697f
+      ,0.991311f
+   };
+
+constexpr float fast_tan(angle_type const & in)
+{
+  return fast_tan_array[
+      quan::constrain(
+         static_cast<int>(in.numeric_value() * 4 + 0.5f), 0, 179
+      )
+  ];
+  
+}
 
   angle_type normalise_angle (angle_type const & angle_in)
    {
@@ -175,12 +370,12 @@ this really only required for first and last octants
       if ( start_octant == end_octant){
          float const start_slope
          = (start_octant & 1)
-           ? tan (map_angle_to_zero_octant (end_angle, start_octant))
-           : tan (map_angle_to_zero_octant (start_angle, start_octant));
+           ? fast_tan (map_angle_to_zero_octant (end_angle, start_octant))
+           : fast_tan (map_angle_to_zero_octant (start_angle, start_octant));
          float const end_slope
             = (start_octant & 1)
-           ? tan (map_angle_to_zero_octant (start_angle, end_octant))
-           : tan (map_angle_to_zero_octant (end_angle, end_octant));
+           ? fast_tan (map_angle_to_zero_octant (start_angle, end_octant))
+           : fast_tan (map_angle_to_zero_octant (end_angle, end_octant));
 
          int mask = 1 << start_octant;
          plot_arc_1st_octant1 (mask,centre,radius,start_slope,end_slope,c);
@@ -188,10 +383,10 @@ this really only required for first and last octants
          float const start_slope0
          = (start_octant & 1)
            ? 0
-           : tan (map_angle_to_zero_octant (start_angle, start_octant));
+           : fast_tan (map_angle_to_zero_octant (start_angle, start_octant));
          float const end_slope0
             = (start_octant & 1)
-           ? tan (map_angle_to_zero_octant (start_angle, start_octant))
+           ? fast_tan (map_angle_to_zero_octant (start_angle, start_octant))
            : 1;
          int start_mask = 1 << start_octant;
          plot_arc_1st_octant1 (start_mask,centre,radius,start_slope0,end_slope0,c);
@@ -206,10 +401,10 @@ this really only required for first and last octants
           float const start_slope1
             = ((end_octant & 1) == 0)
            ? 0
-           : tan (map_angle_to_zero_octant (end_angle, end_octant));
+           : fast_tan (map_angle_to_zero_octant (end_angle, end_octant));
           float const end_slope1
             = ((end_octant & 1) == 0)
-            ? tan (map_angle_to_zero_octant (end_angle, end_octant))
+            ? fast_tan (map_angle_to_zero_octant (end_angle, end_octant))
             : 1;
           int end_mask = 1 << end_octant;
           plot_arc_1st_octant1 (end_mask,centre,radius,start_slope1, end_slope1,c);
