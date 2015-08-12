@@ -59,10 +59,10 @@ namespace quan{ namespace stm32{namespace freertos{ namespace apm{
             setup_rx_mutex();
  
             uint16_t rx_buf_size = rxBufferSize_in;
-
             if ( rx_buf_size == 0){
                rx_buf_size  = m_rx_queue_size;
             }
+
             uint16_t tx_buf_size = TxBufferSize_in;
             if ( tx_buf_size == 0){
                tx_buf_size  =  m_tx_queue_size;
@@ -92,7 +92,7 @@ namespace quan{ namespace stm32{namespace freertos{ namespace apm{
             m_is_initialised = true;
          taskEXIT_CRITICAL();
       }
-
+// ND
       static bool is_initialised()
       {
          return m_is_initialised;
@@ -118,7 +118,7 @@ namespace quan{ namespace stm32{namespace freertos{ namespace apm{
    #endif
          return usart_type::get()->cr1.template getbit<enable_bit>();
       }
-
+// ND
       static int16_t get()
       {
          char_type ch;
@@ -134,23 +134,23 @@ namespace quan{ namespace stm32{namespace freertos{ namespace apm{
             }
          }
       }
-
+//ND
       static bool set_blocking( bool b)
       {
          m_blocking_mode = b;
          return true;
       }
-
+//ND
       static size_t in_avail()
       {
           return uxQueueMessagesWaiting(m_rxi_queue_handle);
       }
-
+//ND
       static size_t out_waiting()
       {
          return uxQueueMessagesWaiting(m_txo_queue_handle);
       }
-
+//ND
       static size_t out_spaces_available()
       {
          return uxQueueSpacesAvailable(m_txo_queue_handle);
@@ -231,7 +231,7 @@ namespace quan{ namespace stm32{namespace freertos{ namespace apm{
           taskEXIT_CRITICAL();
       }
 
-
+// ND
       static bool acquire_tx_mutex(TickType_t ticks_to_wait)
       {
     
@@ -244,7 +244,7 @@ namespace quan{ namespace stm32{namespace freertos{ namespace apm{
             return false;
          }
       }
-
+// ND
       static void release_tx_mutex()
       {
          if ((m_tx_mutex_in_use == true) && (xSemaphoreGive(m_tx_mutex_handle) == pdTRUE) ){
@@ -253,7 +253,7 @@ namespace quan{ namespace stm32{namespace freertos{ namespace apm{
                //PANIC()
          }
       }
-
+//ND
       static bool acquire_rx_mutex(TickType_t ticks_to_wait)
       {
     
@@ -266,7 +266,7 @@ namespace quan{ namespace stm32{namespace freertos{ namespace apm{
             return false;
          }
       }
-
+//ND
       static void release_rx_mutex()
       {
          if ((m_rx_mutex_in_use == true) && (xSemaphoreGive(m_rx_mutex_handle) == pdTRUE) ){
@@ -277,6 +277,7 @@ namespace quan{ namespace stm32{namespace freertos{ namespace apm{
       }
 
    private:
+// ND
       // always called in critical
       static void setup_txo_queue(UBaseType_t queue_size)
       {
@@ -299,6 +300,7 @@ namespace quan{ namespace stm32{namespace freertos{ namespace apm{
             m_tx_queue_size = queue_size;
         }
       }
+//ND
       // in critical
       static void setup_rxi_queue(UBaseType_t queue_size)
       {
@@ -317,7 +319,7 @@ namespace quan{ namespace stm32{namespace freertos{ namespace apm{
             m_rx_queue_size = queue_size;
         }
       }
-
+//ND
       static void setup_tx_mutex()
       {
         // todo check already inited
@@ -328,7 +330,7 @@ namespace quan{ namespace stm32{namespace freertos{ namespace apm{
              // PANIC()
         }
       }
-
+//ND
       static void setup_rx_mutex()
       {
         // todo check already inited
@@ -340,7 +342,6 @@ namespace quan{ namespace stm32{namespace freertos{ namespace apm{
         }
       }
 
-    
       template <uint32_t Baudrate>
       static void setup_usart(uint32_t irq_priority)
       {
