@@ -18,17 +18,23 @@
  */
 
 #include <quan/meta/binary_op.hpp>
+#if defined min
+#undef min
+#endif
 
 namespace quan{
 
    template <typename TL, typename TR>
    inline
-   typename quan::meta::binary_op<
+   constexpr typename quan::meta::binary_op<
       TL, quan::meta::minus, TR
    >::type
-   min( TL const & lhs, TR const & rhs)
+   min ( TL const & lhs, TR const & rhs)
    {
-      return ( lhs < rhs ) ? lhs:rhs;
+      typedef typename quan::meta::binary_op<
+      TL, quan::meta::minus, TR
+   >::type result_type;
+      return ( lhs < rhs ) ? result_type{lhs}:result_type{rhs};
    }
 
 }//quan
