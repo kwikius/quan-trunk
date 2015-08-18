@@ -67,6 +67,13 @@
 
 #if defined (_MSC_VER)
 #define NOMINMAX
+#else
+#if defined min
+#undef min
+#endif
+#if defined max
+#undef max
+#endif
 #endif
 
 #ifndef __AVR__
