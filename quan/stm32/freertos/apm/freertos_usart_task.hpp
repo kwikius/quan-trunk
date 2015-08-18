@@ -206,6 +206,7 @@ namespace quan{ namespace stm32{namespace freertos{ namespace apm{
             BaseType_t result = xQueueSendToBackFromISR(m_rxi_queue_handle, &ch, &HigherPriorityTaskHasWoken);
             if ( result == errQUEUE_FULL){
             //set some led to indicate fail
+              // Panic From ISR
             }
          }else{
          // must be txe
@@ -489,14 +490,14 @@ namespace quan{ namespace stm32{namespace freertos{ namespace apm{
       ,typename TxPin
       ,typename RxPin
    >
-   UBaseType_t usart_tx_rx_task<Usart,TxPin,RxPin>::m_tx_queue_size = 100;
+   UBaseType_t usart_tx_rx_task<Usart,TxPin,RxPin>::m_tx_queue_size = 500;
 
    template <
       typename Usart
       ,typename TxPin
       ,typename RxPin
    >
-   UBaseType_t usart_tx_rx_task<Usart,TxPin,RxPin>::m_rx_queue_size = 100;
+   UBaseType_t usart_tx_rx_task<Usart,TxPin,RxPin>::m_rx_queue_size = 500;
 
    template <
       typename Usart
