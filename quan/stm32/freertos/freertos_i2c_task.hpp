@@ -36,26 +36,35 @@
 
 namespace quan{ namespace stm32{ namespace freertos{
 
+/*
+   TODO make derived instantiated and put non temp dependendt data in base
+   to minimise code  duplication
+*/
+
+   struct freertos_i2c_task_base{
+      enum class errno_t{
+         no_error, 
+         invalid_address,
+         cant_start_new_transfer_when_i2c_busy,
+         zero_data,
+         data_pointer_is_null,
+         invalid_num_bytes_in_rx_multibyte_btf,
+         unexpected_single_total_bytes_in_rx_btf,
+         unexpected_not_last_byte_in_rxne,
+         unexpected_flags_in_irq,
+         i2c_err_handler,
+         address_timed_out,
+         unknown_exti_irq
+      };
+   };
+
    template <
       typename I2CP,
       typename SclPin, 
       typename SdaPin
    >
-   struct freertos_i2c_task{
+   struct freertos_i2c_task : freertos_i2c_task_base {
 
-      enum class errno_t{
-      no_error, 
-      invalid_address,
-      cant_start_new_transfer_when_i2c_busy,
-      zero_data,
-      data_pointer_is_null,
-      invalid_num_bytes_in_rx_multibyte_btf,
-      unexpected_single_total_bytes_in_rx_btf,
-      unexpected_not_last_byte_in_rxne,
-      unexpected_flags_in_irq,
-      i2c_err_handler,
-      unknown_exti_irq
-   };
       typedef I2CP i2c_type;
       static_assert(quan::is_model_of<quan::stm32::I2C,i2c_type>::value,"must be a i2c port");
    // check valid pins for port
@@ -71,6 +80,10 @@ namespace quan{ namespace stm32{ namespace freertos{
       static inline bool busy();
       static inline bool is_valid_address(uint8_t address_in);
 
+      static void set_max_addr_wait_time(quan::time_<int32_t>::ms const & t)
+      {
+        max_addr_wait_time = t; 
+      }
    /*
       data_address_in state must persist while the transfer is in progress!
       eg after this call returns and while busy() is true
@@ -87,13 +100,15 @@ namespace quan{ namespace stm32{ namespace freertos{
      // friend void i2c::irq_handler<freertos_i2c_task>();
       static volatile bool transferring_data_flag;
       static quan::time_<int64_t>::ms start_time;
-      static constexpr quan::time_<int64_t>::ms max_addr_wait_time{10};
-      static uint8_t slave_address;
+     
+      static quan::time_<int32_t>::ms max_addr_wait_time;
       static volatile uint8_t * data_address;
       static volatile int32_t numbytes_left;
       static int32_t total_bytes;
-
       static SemaphoreHandle_t m_task_semaphore;
+      static BaseType_t m_higher_priority_task_has_woken;
+      static uint8_t slave_address;
+      
       static inline bool on_sb(uint32_t);
       static inline bool on_addr(uint32_t);
       static inline bool on_btf(uint32_t);

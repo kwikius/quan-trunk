@@ -160,6 +160,15 @@ namespace quan { namespace stm32 { namespace freertos{
    > volatile bool 
    freertos_i2c_task<I2CP,SclPin,SdaPin>::transferring_data_flag = false;
 
+
+   template <
+      typename I2CP,
+      typename SclPin, 
+      typename SdaPin
+   > 
+   quan::time_<int32_t>::ms 
+   freertos_i2c_task<I2CP,SclPin,SdaPin>::max_addr_wait_time{10};
+
     template <
       typename I2CP,
       typename SclPin, 
@@ -188,13 +197,7 @@ namespace quan { namespace stm32 { namespace freertos{
    > quan::time_<int64_t>::ms 
    freertos_i2c_task<I2CP,SclPin,SdaPin>::start_time{0};
 
-   template <
-      typename I2CP,
-      typename SclPin, 
-      typename SdaPin
-   > constexpr quan::time_<int64_t>::ms 
-   freertos_i2c_task<I2CP,SclPin,SdaPin>::max_addr_wait_time;
-      //only write these values when not transferring_data
+   //only write these values when not transferring_data
    template <
       typename I2CP,
       typename SclPin, 
@@ -222,6 +225,13 @@ namespace quan { namespace stm32 { namespace freertos{
       typename SdaPin
    > int32_t 
    freertos_i2c_task<I2CP,SclPin,SdaPin>::total_bytes = 0;
+ 
+   template <
+      typename I2CP,
+      typename SclPin, 
+      typename SdaPin
+   > BaseType_t 
+   freertos_i2c_task<I2CP,SclPin,SdaPin>::m_higher_priority_task_has_woken = pdFALSE;
 
    template <
       typename I2CP,
@@ -631,9 +641,14 @@ namespace quan { namespace stm32 { namespace freertos{
       }
       return result;
 #else
-   // alos seems to work
+   // also seems to work
       while (freertos_i2c_task::busy()){
+
          taskYIELD();
+         // if freertos_i2c_task::addr_timout(){
+         // freertos_i2c_task::i2c_errno = freertos_i2c_task::errno_t::address_timed_out;
+          //  return false;
+         //}
       }
       return xSemaphoreTake(freertos_i2c_task::m_task_semaphore, 20) == pdTRUE;
 #endif
@@ -645,13 +660,13 @@ namespace quan { namespace stm32 { namespace freertos{
       typename SdaPin
    > inline void freertos_i2c_task<I2CP,SclPin,SdaPin>::handle_irq( )
    {
-      
       uint32_t const regval = freertos_i2c_task::i2c_type::get()->sr1.get();
       if (freertos_i2c_task::pfn_irq(regval) == true){
         
          if (freertos_i2c_task::transferring_data() == false){
          //  if (freertos_i2c_task::busy() == false){
-            BaseType_t m_higher_priority_task_has_woken = pdFALSE;
+            // should be static
+            m_higher_priority_task_has_woken = pdFALSE;
             xSemaphoreGiveFromISR(
                freertos_i2c_task::m_task_semaphore,
                &m_higher_priority_task_has_woken
