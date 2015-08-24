@@ -33,6 +33,7 @@
 //#include <string.h>
 
 #include <quan/serial_port.hpp>
+#include <linux/usbdevice_fs.h>
 
 
 quan::serial_port::serial_port( const char* filename)
@@ -54,7 +55,7 @@ bool quan::serial_port::is_deleteable() const
    return true;
 }
 
-void quan::serial_port::init()
+void quan::serial_port::init(int baud)
 {
     this->m_fd = open(this->m_filename.c_str(),O_RDWR | O_NOCTTY );
   
@@ -74,17 +75,17 @@ void quan::serial_port::init()
     new_termios.c_cflag |= CLOCAL;   // doesnt own port
     new_termios.c_cflag |= CREAD;    // enable reading serial port also
  
-    new_termios.c_cc[VTIME] =5;      // wait 5 tenths of a second for between characters
+    new_termios.c_cc[VTIME] =12;      // wait 12 tenths of a second for between characters
     new_termios.c_cc[VMIN] = 1;      // min number of characters to read before return
  
     // set baud rate for i/o
-    if( cfsetospeed(&new_termios,B9600) < 0) {
+    if( cfsetospeed(&new_termios,baud) < 0) {
         perror("failed to set output baudrate");
         this->cleanup();
         throw std::logic_error("open serial port failed");
  
     }
-    if(cfsetispeed(&new_termios,B9600) < 0) {
+    if(cfsetispeed(&new_termios,baud) < 0) {
         perror("failed to set input baudrate");
         this->cleanup();
         throw std::logic_error("open serial port failed");
@@ -101,6 +102,13 @@ void quan::serial_port::init()
     this->m_good_state = true;
 }
 
+void quan::serial_port::flush()
+{
+   // may require apparently due to kernel bug
+   sleep(2);
+   tcflush(this->m_fd, TCIFLUSH);
+}
+
 size_t quan::serial_port::in_avail()
 {
    int num_in_buffer;
@@ -112,6 +120,7 @@ size_t quan::serial_port::in_avail()
       throw std::logic_error("get serial port num in buffer failed");
    }
 }
+
 
 ssize_t quan::serial_port::read( data_type* buf,size_t num)
 {
@@ -146,8 +155,14 @@ bool quan::serial_port::set_dtr(bool val)
     return true;
 }
 
+void quan::serial_port::close()
+{
+ cleanup();
+}
+
 quan::serial_port::~serial_port()
 {
+
   this->cleanup();
 }
 void quan::serial_port::cleanup()
@@ -159,7 +174,7 @@ void quan::serial_port::cleanup()
          delete m_old_termios;
          m_old_termios = nullptr;
      }
-     close(this->m_fd);
+     ::close(this->m_fd);
      this->m_fd = 0;
    }
 }

@@ -28,6 +28,19 @@
 #include <cstddef>
 #include <cstdint>
 #include <string>
+#include <sys/ioctl.h>
+//#include <asm/ioctls.h>
+#include <termios.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <stdexcept>
+
+//#include <termio.h>
+#include <err.h>
+#include <linux/serial.h>
 #include <quan/concepts/port.hpp>
 #include <quan/is_model_of.hpp>
 
@@ -37,7 +50,7 @@ namespace quan {
       typedef  unsigned char data_type;
       serial_port(const char* filename);
       ~serial_port();
-      void init();
+      void init(int baud= B9600);
       ssize_t read( data_type* buf,size_t num);
    
       ssize_t write(const data_type* buf, size_t num) ;
@@ -47,14 +60,17 @@ namespace quan {
       ssize_t write(const char(& buf)[N]){
          return write(buf,N);
       }
-      
+
       size_t in_avail();
       bool good() const;
       bool is_deleteable()const;
 
       int set_baud( uint32_t val);
       bool set_dtr(bool val);
-      
+
+      void flush();
+
+      void close();
    private:
       std::string m_filename;
       void cleanup();
