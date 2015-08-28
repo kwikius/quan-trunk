@@ -21,7 +21,7 @@ namespace quan{ namespace stm32{
    {
       typedef typename quan::stm32::detail::get_bus<Module>::type bus_type;
       return quan::stm32::get_bus_frequency<bus_type>();
-   };
+   }
 }}
 
 

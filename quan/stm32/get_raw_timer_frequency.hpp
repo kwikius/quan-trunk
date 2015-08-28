@@ -18,7 +18,7 @@ namespace quan{ namespace stm32{
    {
       static_assert(quan::is_model_of<quan::stm32::Tim,TimerModule>::value ==true,"only useful for timers");
       return quan::stm32::get_module_bus_frequency<TimerModule>() * 2U;
-   };
+   }
 }}
 #else
 #error need to check calcs for other processors
