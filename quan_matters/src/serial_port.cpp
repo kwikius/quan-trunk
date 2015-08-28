@@ -80,19 +80,19 @@ void quan::serial_port::init(int baud)
  
     // set baud rate for i/o
     if( cfsetospeed(&new_termios,baud) < 0) {
-        perror("failed to set output baudrate");
+       // perror("failed to set output baudrate");
         this->cleanup();
         throw std::logic_error("open serial port failed");
  
     }
     if(cfsetispeed(&new_termios,baud) < 0) {
-        perror("failed to set input baudrate");
+       // perror("failed to set input baudrate");
         this->cleanup();
         throw std::logic_error("open serial port failed");
     }
  
     if(tcgetattr(this->m_fd,this->m_old_termios) < 0) {
-        perror(this->m_filename.c_str());
+       // perror(this->m_filename.c_str());
         this->cleanup();
         throw std::logic_error("open serial port failed");
     }
