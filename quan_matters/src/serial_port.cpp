@@ -60,7 +60,7 @@ void quan::serial_port::init(int baud)
     this->m_fd = open(this->m_filename.c_str(),O_RDWR | O_NOCTTY );
   
     if (this->m_fd < 0) {
-        perror(this->m_filename.c_str());
+      //  perror(this->m_filename.c_str());
         this->m_good_state = false;
        return;
     }
