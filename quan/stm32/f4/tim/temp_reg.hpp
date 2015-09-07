@@ -186,15 +186,15 @@ namespace quan{ namespace stm32{ namespace tim {
       struct {
          bool cc1e  : 1;
          bool cc1p  : 1;
-         bool       : 1;
+         bool cc1ne : 1;
          bool cc1np : 1;
          bool cc2e  : 1;
          bool cc2p  : 1;
-         bool       : 1;
+         bool ccn2e : 1;
          bool cc2np : 1;
          bool cc3e  : 1;
          bool cc3p  : 1;
-         bool       : 1;
+         bool cc3ne : 1;
          bool cc3np : 1;
          bool cc4e  : 1;
          bool cc4p  : 1;
