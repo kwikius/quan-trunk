@@ -116,9 +116,7 @@ namespace quan{
             Value_type
         > m_per_s2;
 
-
-    static m_per_s2 const g;
-
+        static constexpr m_per_s2 g{Value_type{9.80665}};
 
         typedef fixed_quantity<
             quan::meta::unit<
@@ -213,6 +211,11 @@ namespace quan{
         > in_per_s2;
 
     };
+
+    template<
+        typename Value_type
+    >
+    constexpr typename acceleration_<Value_type>::m_per_s2 acceleration_<Value_type>::g;
 
     struct acceleration : acceleration_<quantity_traits::default_value_type>{};
 
