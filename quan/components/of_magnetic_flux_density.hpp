@@ -71,6 +71,15 @@ namespace quan{ namespace meta{ namespace components{
                     quan::meta::int32<1>
                 >
             > gauss;
+
+            typedef meta::unit<
+                abstract_quantity,
+                meta::conversion_factor<
+                    meta::rational<-7>,
+                    meta::rational<1,1>::type,
+                    quan::meta::int32<1>
+                >
+            > milli_gauss;
         };
 
         typedef  of_magnetic_flux_density type;

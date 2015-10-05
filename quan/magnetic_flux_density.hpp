@@ -20,11 +20,7 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
 
- 
-//
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/components/of_magnetic_flux_density.hpp>
@@ -199,6 +195,11 @@ namespace quan{
             typename non_si_unit::gauss,
             Value_type
         > gauss;
+
+       typedef fixed_quantity<
+            typename non_si_unit::milli_gauss,
+            Value_type
+       > milli_gauss;
 
     };
 
