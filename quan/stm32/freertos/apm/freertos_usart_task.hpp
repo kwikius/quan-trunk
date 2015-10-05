@@ -490,7 +490,7 @@ namespace quan{ namespace stm32{namespace freertos{ namespace apm{
       ,typename TxPin
       ,typename RxPin
    >
-   UBaseType_t usart_tx_rx_task<Usart,TxPin,RxPin>::m_tx_queue_size = 500;
+   UBaseType_t usart_tx_rx_task<Usart,TxPin,RxPin>::m_tx_queue_size = 2000;
 
    template <
       typename Usart
