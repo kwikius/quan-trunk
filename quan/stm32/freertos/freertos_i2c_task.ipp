@@ -318,6 +318,8 @@ namespace quan { namespace stm32 { namespace freertos{
          ,quan::stm32::gpio::pupd::none          //  Use external pullup 5V tolerant pins
          ,quan::stm32::gpio::ospeed::slow 
       >();
+
+
    /*
     Program the peripheral input clock in I2C_CR2 Register in order to generate correct
    timings
@@ -358,7 +360,7 @@ namespace quan { namespace stm32 { namespace freertos{
       }
       uint32_t const temp_ccr = i2c_type::get()->ccr.get() & ~0xFFF;
       i2c_type::get()->ccr.set(temp_ccr | ccr_reg_val);
-       
+   
    /*
     Configure the rise time register
    */
@@ -368,6 +370,7 @@ namespace quan { namespace stm32 { namespace freertos{
          = static_cast<uint32_t>(max_scl_risetime * quan::frequency::Hz{apb1_freq} + 1.f);
       uint32_t const temp_trise = i2c_type::get()->trise.get() & ~0b111111;
       i2c_type::get()->trise.set(temp_trise | trise_reg_val);
+
       if( m_task_semaphore == NULL){
          m_task_semaphore = xSemaphoreCreateBinary();
       }
@@ -391,6 +394,7 @@ namespace quan { namespace stm32 { namespace freertos{
      // i2c_type::get()->oar1.set(0x4000);
      // i2c_type::get()->oar2.set(0x0000);
    //###########################################################
+//#endif
    }
 
    template <
@@ -432,7 +436,6 @@ namespace quan { namespace stm32 { namespace freertos{
       return true;
    }
 
-   
    template <
       typename I2CP,
       typename SclPin, 
@@ -593,13 +596,11 @@ namespace quan { namespace stm32 { namespace freertos{
          uint8_t slave_address_in, 
          uint8_t * data_address_in, 
          int32_t numbytes_in
+         //,bool want_taskdelay
       )
    {
+      while (freertos_i2c_task::busy()) {asm volatile ("nop":::);}
       
-      if (freertos_i2c_task::busy() ){
-         freertos_i2c_task::i2c_errno = freertos_i2c_task::errno_t::cant_start_new_transfer_when_i2c_busy;
-         return false;
-      }
       if( !freertos_i2c_task::is_valid_address(slave_address_in) ){
          freertos_i2c_task::i2c_errno = freertos_i2c_task::errno_t::invalid_address;
          return false;
@@ -629,29 +630,8 @@ namespace quan { namespace stm32 { namespace freertos{
       freertos_i2c_task::set_start_bit();
       freertos_i2c_task::enable_error_interrupts();
       freertos_i2c_task::enable_event_interrupts();
-#if 0
-// works but not if user output or taskdelay removed
-      // blocking
-      // possibly the tail of the i2c transctio is still running
-      bool result = xSemaphoreTake(freertos_i2c_task::m_task_semaphore, 20) == pdTRUE;
-      if (result){
-        // quan::user_message( "Took i2c semaphore\n");
-          vTaskDelay(1);
- 
-      }
-      return result;
-#else
-   // also seems to work
-      while (freertos_i2c_task::busy()){
 
-         taskYIELD();
-         // if freertos_i2c_task::addr_timout(){
-         // freertos_i2c_task::i2c_errno = freertos_i2c_task::errno_t::address_timed_out;
-          //  return false;
-         //}
-      }
       return xSemaphoreTake(freertos_i2c_task::m_task_semaphore, 20) == pdTRUE;
-#endif
    }
 
    template <
@@ -664,8 +644,6 @@ namespace quan { namespace stm32 { namespace freertos{
       if (freertos_i2c_task::pfn_irq(regval) == true){
         
          if (freertos_i2c_task::transferring_data() == false){
-         //  if (freertos_i2c_task::busy() == false){
-            // should be static
             m_higher_priority_task_has_woken = pdFALSE;
             xSemaphoreGiveFromISR(
                freertos_i2c_task::m_task_semaphore,
@@ -676,7 +654,7 @@ namespace quan { namespace stm32 { namespace freertos{
       }else{
          freertos_i2c_task::i2c_errno = freertos_i2c_task::errno_t::unexpected_flags_in_irq;
          //##########
-         // reset() ?
+         // TODO reset and test that 
          //##########
       }
    }
