@@ -409,10 +409,15 @@ namespace quan { namespace stm32 { namespace freertos{
       freertos_i2c_task::disable_error_interrupts();
       constexpr uint8_t i2c_cr1_swrst_bit = 15;
       i2c_type::get()->cr1. template bb_setbit<i2c_cr1_swrst_bit>();
+      i2c_type::get()->cr1. template bb_clearbit<i2c_cr1_swrst_bit>();
       quan::stm32::module_reset<i2c_type>();
-      i2c_type::get()->cr1.template bb_clearbit<i2c_cr1_swrst_bit>();
-      //clear error bits
-      i2c_type::get()->sr1 &= 0xFF; 
+
+    //  i2c_type::get()->sr1 = 0;
+    //  i2c_type::get()->sr2 = 0;
+      // vars to init
+      // start_time 
+      // max_addr_wait_time
+      // total bytes
       freertos_i2c_task::pfn_irq = on_sb;
       freertos_i2c_task::transferring_data_flag = false;
       freertos_i2c_task::in_addr_mode = false;

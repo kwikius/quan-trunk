@@ -52,9 +52,16 @@ namespace quan{ namespace stm32{ namespace freertos{
          unexpected_single_total_bytes_in_rx_btf,
          unexpected_not_last_byte_in_rxne,
          unexpected_flags_in_irq,
-         i2c_err_handler,
+         unknown_i2c_err_handler,
          address_timed_out,
-         unknown_exti_irq
+         unknown_exti_irq,
+         i2c_err_handler_BERR,
+         i2c_err_handler_AF,
+         i2c_err_handler_ARLO,
+         i2c_err_handler_OVR,
+         i2c_err_handler_TIMEOUT,
+         i2c_err_handler_PECERR,
+         i2c_err_handler_SMB_ALERT
       };
    };
 

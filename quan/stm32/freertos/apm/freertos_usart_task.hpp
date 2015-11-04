@@ -54,7 +54,9 @@ namespace quan{ namespace stm32{namespace freertos{ namespace apm{
 
       static void begin(uint32_t Baudrate_in, uint16_t rxBufferSize_in, uint16_t TxBufferSize_in)
       {
-         taskENTER_CRITICAL();
+         //taskENTER_CRITICAL();
+            UBaseType_t const old_prio = uxTaskPriorityGet(NULL);
+            vTaskPrioritySet(NULL,configMAX_PRIORITIES - 1 );
             setup_tx_mutex();
             setup_rx_mutex();
  
@@ -90,7 +92,8 @@ namespace quan{ namespace stm32{namespace freertos{ namespace apm{
             usart_type::get()->cr1. template bb_setbit<usart_cr1_rxneie>();
             quan::stm32::enable<usart_type>();
             m_is_initialised = true;
-         taskEXIT_CRITICAL();
+         //taskEXIT_CRITICAL();
+            vTaskPrioritySet(NULL,old_prio);
       }
 // ND
       static bool is_initialised()
@@ -224,12 +227,12 @@ namespace quan{ namespace stm32{namespace freertos{ namespace apm{
 
       static void flush()
       {
-          taskENTER_CRITICAL();
+        //  taskENTER_CRITICAL();
           xQueueReset(m_txo_queue_handle);
           xQueueReset(m_rxi_queue_handle);
           constexpr uint8_t usart_cr1_txeie = 7;
           usart_type::get()->cr1. template bb_clearbit<usart_cr1_txeie>();
-          taskEXIT_CRITICAL();
+         // taskEXIT_CRITICAL();
       }
 
 // ND
@@ -284,9 +287,11 @@ namespace quan{ namespace stm32{namespace freertos{ namespace apm{
       {
         if ( m_txo_queue_handle  !=  nullptr ){
            while ( out_waiting() > 0){
-             taskEXIT_CRITICAL();
-             while (out_waiting()){taskYIELD();}
-             taskENTER_CRITICAL();
+            // taskEXIT_CRITICAL();
+              vTaskDelay(1);
+             //while (out_waiting()){taskYIELD();}
+             
+             //taskENTER_CRITICAL();
            }
            if ( queue_size != m_tx_queue_size){
               vQueueDelete(m_txo_queue_handle);
@@ -490,7 +495,7 @@ namespace quan{ namespace stm32{namespace freertos{ namespace apm{
       ,typename TxPin
       ,typename RxPin
    >
-   UBaseType_t usart_tx_rx_task<Usart,TxPin,RxPin>::m_tx_queue_size = 2000;
+   UBaseType_t usart_tx_rx_task<Usart,TxPin,RxPin>::m_tx_queue_size = 500;
 
    template <
       typename Usart
