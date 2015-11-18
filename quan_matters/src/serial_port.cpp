@@ -137,7 +137,7 @@ ssize_t quan::serial_port::write(const char* buf, size_t num)
     return ::write(this->m_fd,reinterpret_cast<const data_type*>(buf),num);
 }
 
-bool quan::serial_port::set_dtr(bool val)
+bool quan::serial_port::set_pin( unsigned int pin, bool val)
 {
     
     int sp_state ;
@@ -146,7 +146,7 @@ bool quan::serial_port::set_dtr(bool val)
       this->cleanup();
       throw std::logic_error("get sp pin state failed");
     }
-    sp_state = val ? (sp_state | TIOCM_CTS) : (sp_state & ~TIOCM_CTS);
+    sp_state = val ? (sp_state | pin) : (sp_state & ~ pin);
     if ( ::ioctl(this->m_fd, TIOCMSET, &sp_state) !=0){
       perror("failed to set dtr state");
       this->cleanup();
@@ -154,6 +154,17 @@ bool quan::serial_port::set_dtr(bool val)
     }
     return true;
 }
+
+bool quan::serial_port::set_dtr(bool val)
+{
+   return set_pin(TIOCM_DTR,val);
+}
+
+bool quan::serial_port::set_rts(bool val)
+{
+   return set_pin(TIOCM_RTS,val);
+}
+
 
 void quan::serial_port::close()
 {
