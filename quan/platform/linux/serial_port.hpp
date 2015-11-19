@@ -43,6 +43,7 @@
 #include <linux/serial.h>
 #include <quan/concepts/port.hpp>
 #include <quan/is_model_of.hpp>
+#include <quan/time.hpp>
 
 extern "C" struct termios;
 namespace quan { 
@@ -62,6 +63,7 @@ namespace quan {
       }
 
       size_t in_avail();
+      size_t in_avail(quan::time::ms const & t, size_t n = 1);
       bool good() const;
       bool is_deleteable()const;
 

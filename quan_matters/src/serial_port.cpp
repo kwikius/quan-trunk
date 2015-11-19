@@ -34,7 +34,7 @@
 
 #include <quan/serial_port.hpp>
 #include <linux/usbdevice_fs.h>
-
+#include <quan/utility/timer.hpp>
 
 quan::serial_port::serial_port( const char* filename)
 : m_filename{filename},
@@ -119,6 +119,18 @@ size_t quan::serial_port::in_avail()
       this->cleanup();
       throw std::logic_error("get serial port num in buffer failed");
    }
+}
+
+size_t quan::serial_port::in_avail(quan::time::ms const & t, size_t n_in )
+{
+   quan::timer<quan::time::ms> timer;
+   while ( timer() < t){
+     size_t n = in_avail();
+     if( n >= n_in){
+         return n;
+     }
+   }
+   return in_avail();
 }
 
 
