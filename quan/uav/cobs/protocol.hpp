@@ -21,8 +21,7 @@
 /*
 See stuartcheshire.org/papers/COBSforToN.pdf for more info about the COBS protocol
 */
-
-#include <cstdint>
+#include <quan/config.hpp>
 
 namespace quan { namespace uav { namespace cobs{
 
