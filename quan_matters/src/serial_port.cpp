@@ -115,7 +115,7 @@ size_t quan::serial_port::in_avail()
    if ( ::ioctl(this->m_fd, FIONREAD, &num_in_buffer) >=0){
       return num_in_buffer;
    }else{
-      perror("failed to get serial port num in buffer status");
+     // perror("failed to get serial port num in buffer status");
       this->cleanup();
       throw std::logic_error("get serial port num in buffer failed");
    }
