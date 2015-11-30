@@ -17,13 +17,6 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 
-#if defined QUAN_CUSTOM_AP_PARAMS
-#include <AP_HAL_Quan/ap_param_archetype.hpp>
-#include <quan/meta/strip_cr.hpp>
-#endif
-#include <quan/meta/binary_op_if.hpp>
-#include <quan/meta/is_valid_binary_op.hpp>
-
 #if defined min
 #warning "undefining min macro"
 #undef min
@@ -32,59 +25,15 @@
 namespace quan{
 
    template <typename TL, typename TR>
-   inline
-   constexpr typename quan::meta::binary_op_if<
-      quan::meta::is_valid_binary_op<TL,quan::meta::less,TR>,
-      TL, quan::meta::minus, TR
-   >::type
-   min ( TL const & lhs, TR const & rhs)
+   inline  constexpr auto min ( TL const & lhs, TR const & rhs) -> decltype( lhs < rhs ? lhs:rhs)
    {
-      typedef typename quan::meta::binary_op<
-      TL, quan::meta::minus, TR
-   >::type result_type;
-      return ( lhs < rhs ) ? result_type{lhs}:result_type{rhs};
+      return ( lhs < rhs ) ? lhs:rhs;
    }
 
-// Ardupilot requires min to work on AP_Param types ...
-#if defined QUAN_CUSTOM_AP_PARAMS
+}// quan
 
-   template <typename TL, typename TR>
-   inline
-   constexpr auto
-   min ( TL const & lhs, TR const & rhs) ->
-   typename quan::meta::binary_op_if<
-      quan::meta::and_<
-         quan::is_model_of<AP_Param_Archetype, TL>,
-         quan::meta::is_valid_binary_op<
-            typename quan::meta::strip_cr<decltype(lhs.get())>::type,quan::meta::less,TR
-         >
-      >,
-      typename quan::meta::strip_cr<decltype(lhs.get())>::type, quan::meta::minus, TR
-   >::type
-   {
-      return quan::min( lhs.get(), rhs );
-   }
-
-   template <typename TL, typename TR>
-   inline constexpr auto min (TL const & lhs, TR const& rhs)
-   -> typename quan::meta::binary_op_if<
-      quan::meta::and_<
-         quan::is_model_of<AP_Param_Archetype, TR>,
-         quan::meta::is_valid_binary_op<
-            TL,quan::meta::less,typename quan::meta::strip_cr<decltype(rhs.get())>::type
-         >
-      >,
-      TL,quan::meta::minus, typename quan::meta::strip_cr<decltype(rhs.get())>::type
-   >::type
-   {
-      return quan::min( lhs, rhs.get() );
-   }
-
-
-#endif
-
-}//quan
 #if defined QUAN_CUSTOM_AP_PARAMS
 using quan::min;
 #endif
-#endif
+
+#endif //QUAN_MIN_HPP_INCLUDED
