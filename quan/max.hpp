@@ -30,6 +30,19 @@
 #undef max
 #endif
 
+#if 1
+
+namespace quan{
+   template <typename TL, typename TR>
+   inline
+   constexpr auto max ( TL const & lhs, TR const & rhs) -> decltype( lhs > rhs ? lhs:rhs)
+   {
+      return ( lhs > rhs ) ? lhs:rhs;
+   }
+
+}// quan
+#else
+
 namespace quan{
 
    template <typename TL, typename TR>
@@ -83,6 +96,8 @@ namespace quan{
 #endif
 
 }//quan
+
+#endif
 
 #if defined QUAN_CUSTOM_AP_PARAMS
 using quan::max;
