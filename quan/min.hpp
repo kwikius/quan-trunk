@@ -32,6 +32,7 @@ namespace quan{
 
 }// quan
 
+
 #if defined QUAN_CUSTOM_AP_PARAMS
 using quan::min;
 #endif

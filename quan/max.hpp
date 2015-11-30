@@ -33,7 +33,6 @@ namespace quan{
 
 }// quan
 
-
 #if defined QUAN_CUSTOM_AP_PARAMS
 using quan::max;
 #endif
