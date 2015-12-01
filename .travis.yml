@@ -1,8 +1,7 @@
 language: cpp
 
-
 env:
-  - QUAN_ROOT="/home/travis/build/kwikius/quan-trunk"  CXX="g++-4.8"	
+  - QUAN_ROOT="/home/travis/build/kwikius/quan-trunk" 	
 
 addons:
   apt:
@@ -14,8 +13,5 @@ addons:
     - g++-4.8
     - gcc-4.8
     
-script: pwd && make
-
-
-
+script: export CXX="g++-4.8" && make clean && make
 
