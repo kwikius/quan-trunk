@@ -1,0 +1,28 @@
+#yaml test for quan
+
+language: cpp
+
+compiler:
+  - gcc
+  
+install:
+  - export QUAN_ROOT=pwd
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.9" ; fi
+  
+addons:
+	apt:
+		packages:
+			- gcc-4.9
+			
+before_script
+  - make clean
+  
+script:
+  - make 
+  
+branches
+  only:
+    - master
+
+  
+   

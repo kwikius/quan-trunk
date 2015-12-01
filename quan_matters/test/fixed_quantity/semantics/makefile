@@ -3,6 +3,8 @@
 # builds the.o and .exe in the makefile dir
 # should depend also on quan headers to trigger build? 
 
+#  env  QUAN_ROOT is the parent of the quan directory
+
 TARGET      ?= test.exe
 CXX         ?= /usr/local/bin/g++
 CXXFLAGS    ?= -std=c++11 -I${QUAN_ROOT}
