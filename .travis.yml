@@ -2,3 +2,18 @@ language: cpp
 
 script: pwd && make
 
+env:
+	QUAN_ROOT=pwd
+
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - build-essential
+    - ccache
+    - g++-4.8
+    - gcc-4.8
+
+
+
