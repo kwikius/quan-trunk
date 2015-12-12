@@ -20,9 +20,11 @@
 #include <quan/uav/cobs/protocol.hpp>
 #include <quan/uav/position.hpp>
 #include <quan/uav/fletcher16.hpp>
+#include <quan/tracker/detail/normalise_angle.hpp>
 
 namespace quan{ namespace tracker{
 
+#if 0
    namespace detail {
       // max =  1800000000
       // min = -1799999999
@@ -39,7 +41,7 @@ namespace quan{ namespace tracker{
         return static_cast<int32_t>(v);
       }
    }
-
+#endif
    inline void zapp3_encode (
       quan::uav::position<
          quan::angle_<int32_t>::deg10e7,
