@@ -4,22 +4,82 @@
 #include <quan/out/length.hpp>
 #include <iostream>
 
-namespace {
-   // the info for all decoded packets
-   static constexpr uint8_t max_encoded_packet_length = 131; // encoded
-   static constexpr uint8_t max_decoded_packet_length = max_encoded_packet_length - 1; // encoded 
-   static uint8_t packet_idx = 0; // index of next pos in array and count of num in packet
-   enum { not_synced, in_sync, in_packet};
-   static uint8_t current_packet_mode = not_synced;
-   uint8_t encoded_packet_buffer[max_encoded_packet_length];
-   uint8_t decoded_packet_buffer[max_decoded_packet_length];
+   struct packet_parser{
+      enum class parser_state_t : uint8_t { not_synced, in_sync, in_packet};
+      packet_parser(uint16_t max_encoded_packet_length_in)
+      : m_encoded_packet_buffer{new uint8_t [max_encoded_packet_length_in]}
+      , m_decoded_packet_buffer{new uint8_t [max_encoded_packet_length_in-1]}
+      , m_max_encoded_packet_length{max_encoded_packet_length_in}
+      , m_packet_idx{0}
+      , m_current_packet_mode{parser_state_t::not_synced}
+      { }
 
-   // parse a cobs encoded packet stream
-   int16_t parse_encoded_packet_stream(uint8_t ch);
+      ~packet_parser()
+      {
+         delete [] m_encoded_packet_buffer;
+         delete [] m_encoded_packet_buffer;
+      }
 
-   bool decode_position_packet(uint8_t * buffer);
-   
-}
+      uint8_t const * get_decoded_packet()const 
+      {
+         return m_decoded_packet_buffer;
+      }
+
+      uint16_t parse(uint8_t ch)
+      {
+         switch (m_current_packet_mode){
+            case parser_state_t::in_packet:{
+               if ( ch == 0){ // new packet
+                  if (quan::uav::cobs::decode(m_encoded_packet_buffer,m_packet_idx,m_decoded_packet_buffer)){
+                     m_current_packet_mode = parser_state_t::in_sync;
+                     return m_packet_idx -1;
+                  }else{
+                    // std::cout << "pkt crrpt\n";
+                     m_current_packet_mode = parser_state_t::not_synced;  
+                     return 0;
+                  }
+               }else{ // more input to packet
+                  if ( m_packet_idx < m_max_encoded_packet_length){
+                     m_encoded_packet_buffer[m_packet_idx] = ch;
+                     ++m_packet_idx;
+                      return 0;  
+                  }else{
+                    // std::cout << "pkt ovrrn\n";
+                     m_current_packet_mode = parser_state_t::not_synced;
+                     return 0;  
+                  }
+               }
+            }
+
+            case parser_state_t::in_sync:{ // can have as many zeros as like between frames
+               if ( ch != 0){
+                  m_encoded_packet_buffer[0] = ch;
+                  m_packet_idx = 1;
+                  m_current_packet_mode = parser_state_t::in_packet;
+               }
+               return 0;
+            }
+
+            case parser_state_t::not_synced: {
+               if ( ch == 0){
+                  m_current_packet_mode = parser_state_t::in_sync;
+               }
+               return 0;
+            }
+
+            default:{ // shouldnt get here
+               std::cout << "bad error\n";
+               return 0;
+            }
+         }
+      }
+      private:
+      uint8_t * m_encoded_packet_buffer;
+      uint8_t * m_decoded_packet_buffer;
+      uint16_t const m_max_encoded_packet_length;
+      uint16_t m_packet_idx;
+      parser_state_t  m_current_packet_mode; //  = not_synced;
+   };
 
 int main()
 {
@@ -45,13 +105,15 @@ int main()
    memcpy (array2 + 50, array1,22);
    memcpy (array2 + 72, array1,22);
 
+   auto * parser = new packet_parser{25};
+
    // parse the stream, decode any packets found
    for (uint16_t i = 0; i < 100; ++i){
-      uint16_t packet_length = parse_encoded_packet_stream(array2[i]);
-
+      uint16_t const packet_length = parser->parse(array2[i]);
       if ( packet_length > 0 ){
          std::cout << "success\n";
          // result is in decoded_packet
+         uint8_t const * decoded_packet_buffer = parser->get_decoded_packet();
          if ( decoded_packet_buffer[0] == 1){
             std::cout << "Success 2\n";
             if (packet_length == 20){
@@ -91,67 +153,3 @@ int main()
       }
    }
 }
-
-
-namespace {
-
-   // input is a stream of cobs encoded packets
-   // max length of encoded packet in max_encoded_packet_length
-   // return is non zero if have a packet then return is length of packet
-   // packet is in decoded_packet_buffer
-   int16_t parse_encoded_packet_stream(uint8_t ch)
-   {
-        switch (current_packet_mode){
-         case in_packet:{
-            if ( ch == 0){ // new packet
-               if (quan::uav::cobs::decode(encoded_packet_buffer,packet_idx,decoded_packet_buffer)){
-                  current_packet_mode = in_sync;
-                  return packet_idx -1;
-               }else{
-                   std::cout << "pkt crrpt\n";
-                  current_packet_mode = not_synced;  
-                  return 0;
-               }
-            }else{ // more input to packet
-               if ( packet_idx < max_encoded_packet_length){
-                  encoded_packet_buffer[packet_idx] = ch;
-                  ++packet_idx;
-               }else{
-                 std::cout << "pkt ovrrn\n";
-                  current_packet_mode = not_synced;  
-               }
-               return 0;  
-            }
-         }
-         case in_sync:{ // can have as many zeros as like between frames
-            if ( ch != 0){
-               encoded_packet_buffer[0] = ch;
-               packet_idx = 1;
-               current_packet_mode = in_packet;
-            }
-            return 0;
-         }
-         case not_synced:
-         {
-            if ( ch == 0){
-               current_packet_mode = in_sync;
-            }
-            return 0;
-         }
-         default:{ // shouldnt get here
-            std::cout << "bad error\n";
-            return 0;
-         }
-      }
-   }
-
-   bool decode_position_packet(uint8_t * buffer)
-   {
-     return false;
-
-   }
-
-}//namespace
-
-
-
