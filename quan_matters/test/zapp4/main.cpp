@@ -13,7 +13,7 @@ int main()
    quan::uav::position<
       quan::angle_<int32_t>::deg10e7,
       quan::length_<int32_t>::mm  // 
-   > pos_in{quan::angle::deg{100.f},quan::angle::deg{150.f},quan::length::mm{ 300.f}};
+   > pos_in{quan::angle::deg{-100.f},quan::angle::deg{123.f},quan::length::mm{ 70000.f}};
 
    // encoded the input to an array
    uint8_t array1[22];
@@ -31,9 +31,10 @@ int main()
    memcpy (array2 + 72, array1,22);
 
    // a protocol agnostic cobs stream parser
+   // construct with the length of the longest encoded packet
    auto * parser = new quan::uav::cobs::packet_parser{22};
 
-   // position out
+   // position output holder
    quan::uav::position<
       quan::angle_<int32_t>::deg10e7,
       quan::length_<int32_t>::mm  // 
