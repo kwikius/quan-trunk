@@ -9,12 +9,12 @@ namespace quan{ namespace tracker{namespace zapp4{
       static constexpr uint16_t   position = 1;
    };
 
-   // encoded size of packet, includes starting 0
-   uint32_t get_encoded_size( uint16_t command_id_in)
+   
+   uint32_t get_decoded_packet_size( uint16_t command_id_in)
    {
          switch ( command_id_in){
             case command_id::position:
-               return 22;
+               return 20;
             default:
                return 0;
          }

@@ -5,6 +5,7 @@
 #include <quan/tracker/zapp4/ids.hpp>
 #include <quan/tracker/detail/normalise_angle.hpp>
 #include <quan/uav/cobs/protocol.hpp>
+#include <cstring>
 
 namespace quan{ namespace tracker{ namespace zapp4{
 
@@ -64,6 +65,44 @@ namespace quan{ namespace tracker{ namespace zapp4{
         encoded[0] = 0U; // framing byte
      }
 
+
+   inline bool get_position(
+      uint8_t const * buffer,
+      quan::uav::position<
+         quan::angle_<int32_t>::deg10e7,
+         quan::length_<int32_t>::mm  // 
+      > & pos_out)
+   {
+      union{
+         struct {
+            uint16_t id;
+            uint16_t flags;
+            int32_t lat;
+            int32_t lon;   
+            int32_t alt;
+            uint32_t crc;
+         }__attribute__((__packed__)) vals;
+         uint8_t ar[20];
+      } u;
+      memcpy(u.ar,buffer,20);
+      uint32_t crc = 0xffffffff;
+      for ( uint32_t i = 0; i < 4; ++i){
+         uint32_t * p = ((uint32_t * )&u.vals) + i;
+         crc = quan::tracker::zapp4::crc32(crc,*p);
+      }
+      if ( u.vals.crc == crc){
+         pos_out.lat = quan::angle_<int32_t>::deg10e7{u.vals.lat};
+         pos_out.lon = quan::angle_<int32_t>::deg10e7{u.vals.lon};
+         pos_out.alt = quan::length_<int32_t>::mm{u.vals.alt};
+         return true;
+      }else{
+         return false;
+     }
+   }
+
+#if 0
+// not muc use in practise for a stream
+// but here for reference
      inline bool decode_position(
        uint8_t const( &encoded) [22],
        quan::uav::position<
@@ -103,6 +142,9 @@ namespace quan{ namespace tracker{ namespace zapp4{
       pos.alt = quan::length_<int32_t>::mm{u.vals.alt};
       return true;
    }
+#endif
+
+   
       
 
 }}}//quan::tracker::zapp4
