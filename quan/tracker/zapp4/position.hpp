@@ -25,8 +25,7 @@ namespace quan{ namespace tracker{ namespace zapp4{
    }
 
     //  1 input frame 0
-    //  2 bytes id
-    //  2 bytes reserved
+    //  1 id
     //  12 bytes data
     //  4 bytes crc
     //  1 encode
@@ -35,12 +34,12 @@ namespace quan{ namespace tracker{ namespace zapp4{
          quan::angle_<int32_t>::deg10e7,
          quan::length_<int32_t>::mm  // N.B changed to mm from old protocol
       > const & pos,
-      uint8_t (&encoded) [22])
+      uint8_t (&encoded) [19])
      {
         union{
             struct {
-               uint16_t id;
-               uint16_t flags;
+               uint8_t packing[3]; // packing for alignment
+               uint8_t id; // id is first byte
                int32_t lat;
                int32_t lon;   
                int32_t alt;
@@ -50,18 +49,18 @@ namespace quan{ namespace tracker{ namespace zapp4{
         } u;
         static_assert (sizeof(u) == 20,"invalid size");
         u.vals.id = quan::tracker::zapp4::command_id::position;
-        u.vals.flags = 0;
         u.vals.lat = quan::tracker::detail::normalise (pos.lat);
         u.vals.lon = quan::tracker::detail::normalise (pos.lon);
         u.vals.alt = pos.alt.numeric_value();
-       
+        // calc the crc
         uint32_t crc = 0xffffffff;
-        for ( uint32_t i = 0; i < 4; ++i){
-            uint32_t * p = ((uint32_t * )&u.vals) + i;
+        for ( uint32_t i = 0; i < 3; ++i){
+            uint32_t * p = ((uint32_t * )&u.vals.lat) + i;
             crc = crc32(crc,*p);
         }
         u.vals.crc = crc;
-        quan::uav::cobs::encode (u.ar,20,encoded+1);
+        // encode starting at the id byte
+        quan::uav::cobs::encode (u.ar+3,17,encoded+1);
         encoded[0] = 0U; // framing byte
      }
 
@@ -75,8 +74,8 @@ namespace quan{ namespace tracker{ namespace zapp4{
    {
       union{
          struct {
-            uint16_t id;
-            uint16_t flags;
+            uint8_t packing[3];
+            uint8_t id;
             int32_t lat;
             int32_t lon;   
             int32_t alt;
@@ -84,10 +83,14 @@ namespace quan{ namespace tracker{ namespace zapp4{
          }__attribute__((__packed__)) vals;
          uint8_t ar[20];
       } u;
-      memcpy(u.ar,buffer,20);
+      memcpy(u.ar + 3,buffer,17);
+      if ( u.vals.id != quan::tracker::zapp4::command_id::position){
+        // std::cout << "not a position id\n";
+         return false;
+      }
       uint32_t crc = 0xffffffff;
-      for ( uint32_t i = 0; i < 4; ++i){
-         uint32_t * p = ((uint32_t * )&u.vals) + i;
+      for ( uint32_t i = 0; i < 3; ++i){
+         uint32_t * p = ((uint32_t * )&u.vals.lat) + i;
          crc = quan::tracker::zapp4::crc32(crc,*p);
       }
       if ( u.vals.crc == crc){
@@ -96,56 +99,10 @@ namespace quan{ namespace tracker{ namespace zapp4{
          pos_out.alt = quan::length_<int32_t>::mm{u.vals.alt};
          return true;
       }else{
+        // std::cout << "ivalid crc\n";
          return false;
      }
    }
-
-#if 0
-// not muc use in practise for a stream
-// but here for reference
-     inline bool decode_position(
-       uint8_t const( &encoded) [22],
-       quan::uav::position<
-         quan::angle_<int32_t>::deg10e7,
-         quan::length_<int32_t>::mm  // N.B changed to mm from old protocol
-      > & pos
-   )
-   {
-      if( encoded[0] != 0){
-         return false;
-      }
-
-      union{
-         struct {
-            uint16_t id;
-            uint16_t flags;
-            int32_t lat;
-            int32_t lon;   
-            int32_t alt;
-            uint32_t crc;
-         }__attribute__((__packed__)) vals;
-         uint8_t ar[20];
-      } u;
-      if (!quan::uav::cobs::decode(encoded+1,21,u.ar)){
-         return false;
-      }
-      uint32_t crc = 0xffffffff;
-      for ( uint32_t i = 0; i < 4; ++i){
-         uint32_t * p = ((uint32_t * )&u.vals) + i;
-         crc = crc32(crc,*p);
-      }
-      if ( u.vals.crc != crc){
-         return false;
-      }
-      pos.lat = quan::angle_<int32_t>::deg10e7{u.vals.lat};
-      pos.lon = quan::angle_<int32_t>::deg10e7{u.vals.lon};
-      pos.alt = quan::length_<int32_t>::mm{u.vals.alt};
-      return true;
-   }
-#endif
-
-   
-      
 
 }}}//quan::tracker::zapp4
 

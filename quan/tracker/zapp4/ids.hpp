@@ -14,7 +14,7 @@ namespace quan{ namespace tracker{namespace zapp4{
    {
          switch ( command_id_in){
             case command_id::position:
-               return 20;
+               return 17;
             default:
                return 0;
          }
