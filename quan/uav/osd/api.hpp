@@ -17,6 +17,9 @@ namespace quan{ namespace uav{ namespace osd{
    typedef quan::length_<float>::mm                         altitude_type;
    typedef quan::uav::position<lat_lon_type,altitude_type>  position_type;
    typedef quan::uav::attitude<float>                       attitude_type;
+   // the position_type should use integer value_type throughout
+   // till that is fixed, use this type
+   typedef quan::uav::position<lat_lon_type,quan::length_<int32_t>::mm> norm_position_type;
 
    struct basic_font;
    struct basic_bitmap;
