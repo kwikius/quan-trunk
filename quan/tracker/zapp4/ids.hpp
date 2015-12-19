@@ -10,7 +10,7 @@ namespace quan{ namespace tracker{namespace zapp4{
    };
 
    
-   uint32_t get_decoded_packet_size( uint16_t command_id_in)
+   inline uint32_t get_decoded_packet_size( uint16_t command_id_in)
    {
          switch ( command_id_in){
             case command_id::position:
