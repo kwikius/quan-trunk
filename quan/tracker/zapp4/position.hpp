@@ -11,7 +11,7 @@ namespace quan{ namespace tracker{ namespace zapp4{
 
 // naive crc32 Ethernet algorithm
 // todo verify against the stm32 hardware
-   uint32_t crc32(uint32_t crc, uint32_t data)
+   inline uint32_t crc32(uint32_t crc, uint32_t data)
    {
       crc = crc ^ data;
       for ( uint32_t i = 0U; i < 32U; ++i){
