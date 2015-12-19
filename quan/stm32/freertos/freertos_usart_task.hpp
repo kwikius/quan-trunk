@@ -52,6 +52,8 @@ namespace quan{ namespace stm32{namespace freertos{
    struct usart_tx_rx_task{
       static_assert(sizeof(CharType) == sizeof(char),"invalid char_type");
 
+      static constexpr uint32_t get_tx_queue_size() { return TX_q_size;}
+      static constexpr uint32_t get_rx_queue_size() { return RX_q_size;}
       static void enable()
       {
 //###############
@@ -84,6 +86,11 @@ namespace quan{ namespace stm32{namespace freertos{
       static size_t out_waiting()
       {
          return uxQueueMessagesWaiting(m_txo_queue_handle);
+      }
+
+      static size_t out_space_avail()
+      {
+          return get_tx_queue_size() - out_waiting();
       }
 
       
