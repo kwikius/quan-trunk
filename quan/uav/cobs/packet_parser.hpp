@@ -14,9 +14,11 @@ namespace quan{ namespace uav{ namespace cobs{
       packet_parser(uint16_t max_encoded_packet_length_in)
       : m_encoded_packet_buffer{new uint8_t [max_encoded_packet_length_in]}
       , m_decoded_packet_buffer{new uint8_t [max_encoded_packet_length_in-1]}
+      , m_num_errors{0}
       , m_max_encoded_packet_length{max_encoded_packet_length_in}
       , m_packet_idx{0}
       , m_current_packet_mode{parser_state_t::not_synced}
+      
       { }
 
       ~packet_parser()
@@ -29,6 +31,16 @@ namespace quan{ namespace uav{ namespace cobs{
       uint8_t const * get_decoded_packet()const 
       {
          return m_decoded_packet_buffer;
+      }
+      uint32_t get_num_errors() const
+      {
+         return m_num_errors;
+      }
+      uint32_t clear_errors()
+      {
+         uint32_t result = m_num_errors;
+         m_num_errors = 0;
+         return result;
       }
 
       // parse the input
@@ -44,6 +56,7 @@ namespace quan{ namespace uav{ namespace cobs{
                      m_current_packet_mode = parser_state_t::in_sync;
                      return m_packet_idx -1;
                   }else{
+                     ++ m_num_errors;
                      m_current_packet_mode = parser_state_t::not_synced;  
                      return 0;
                   }
@@ -53,6 +66,7 @@ namespace quan{ namespace uav{ namespace cobs{
                      ++m_packet_idx;
                       return 0;  
                   }else{
+                     ++ m_num_errors;
                      m_current_packet_mode = parser_state_t::not_synced;
                      return 0;  
                   }
@@ -83,9 +97,11 @@ namespace quan{ namespace uav{ namespace cobs{
    private:
       uint8_t * m_encoded_packet_buffer;
       uint8_t * m_decoded_packet_buffer;
+      uint32_t m_num_errors;
       uint16_t const m_max_encoded_packet_length;
       uint16_t m_packet_idx;
       parser_state_t  m_current_packet_mode; //  = not_synced;
+      
    };
 
 }}}// quan::uav::cobs
