@@ -33,7 +33,9 @@ namespace quan{ namespace meta{
    struct integer_max;
 
    template<>
-   struct integer_max<signed char> : std::integral_constant<signed char,SCHAR_MAX>{};
+   struct integer_max<signed char> : std::integral_constant<signed char,SCHAR_MAX>{
+      
+   };
    
    template<>
    struct integer_max<unsigned char> : std::integral_constant<unsigned char,UCHAR_MAX>{};

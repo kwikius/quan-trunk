@@ -1,5 +1,5 @@
-#ifndef QUAN_META_MAX_HPP_INCLUDED
-#define QUAN_META_MAX_HPP_INCLUDED
+#ifndef QUAN_META_MIN_HPP_INCLUDED
+#define QUAN_META_MIN_HPP_INCLUDED
 /*
  Copyright (c) 2003-2014 Andy Little.
 
@@ -17,8 +17,8 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 #include <quan/where.hpp>
-#include <quan/meta/float_max.hpp>
-#include <quan/meta/integer_max.hpp>
+#include <quan/meta/float_min.hpp>
+#include <quan/meta/integer_min.hpp>
 
 #ifndef __AVR__
 #include <type_traits>
@@ -32,23 +32,23 @@ namespace quan{namespace meta{
    namespace detail{
 
       template <typename T, typename Where = void>
-      struct max_;
+      struct min_;
 
       template<
          typename T
-      > struct max_<T,
+      > struct min_<T,
          typename quan::where_<std::is_integral<T> >::type
-      > : integer_max<T>{};
+      > : integer_min<T>{};
       
        template<
          typename T
-      > struct max_<T,
+      > struct min_<T,
          typename quan::where_<std::is_floating_point<T> >::type
-      > : float_max<T>{};
+      > : float_min<T>{};
    }
 
    template <typename T>
-   struct max_ : quan::meta::detail::max_<T>{};
+   struct min_ : quan::meta::detail::min_<T>{};
 }}
 
-#endif // QUAN_META_MAX_HPP_INCLUDED
+#endif // QUAN_META_MIN_HPP_INCLUDED

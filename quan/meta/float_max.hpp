@@ -32,6 +32,7 @@ namespace quan{ namespace meta{
       template<typename T> struct float_max;
 
       template<> struct float_max<float>{
+          static constexpr float value = FLT_MAX;
 #ifdef QUAN_HAS_CONSTEXPR
 constexpr
 #endif
@@ -42,6 +43,7 @@ constexpr
       };
 
        template<> struct float_max<double>{
+         static constexpr float value = DBL_MAX;
 #ifdef QUAN_HAS_CONSTEXPR
 constexpr
 #endif

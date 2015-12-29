@@ -32,6 +32,8 @@ namespace quan{ namespace meta{
       template<typename T> struct float_min;
 
       template<> struct float_min<float>{
+
+         static constexpr float value = -FLT_MAX;
 #ifdef QUAN_HAS_CONSTEXPR
 constexpr
 #endif
@@ -42,6 +44,8 @@ constexpr
       };
 
        template<> struct float_min<double>{
+
+          static constexpr double value = -DBL_MAX;
 #ifdef QUAN_HAS_CONSTEXPR
 constexpr
 #endif
