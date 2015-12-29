@@ -77,6 +77,9 @@ namespace quan{ namespace detail{
 				return 0.0f;
           }
 			 int sign = 1;
+#ifndef __AVR__
+      using std::size_t;
+#endif
 			 size_t pos = 0;
 			 float result = 0;
           while(isspace(str[pos])){
