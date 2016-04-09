@@ -29,6 +29,12 @@ The rotation matrix R =   // (untested!)
       sin(thetaX) * cos(thetaY),
          cos(thetaX) * cos(thetaY)
 ]
+
+ x axis positive forward is plane direction
+ y axis positive to left from pilot view
+ z axis positive down ( if from plane view, think of object on ground etc)
+
+  so seq is roll * pitch * yaw
 */
 
 namespace quan{ namespace uav{
