@@ -43,7 +43,7 @@ constexpr
       };
 
        template<> struct float_max<double>{
-         static constexpr float value = DBL_MAX;
+         static constexpr double value = DBL_MAX;
 #ifdef QUAN_HAS_CONSTEXPR
 constexpr
 #endif
