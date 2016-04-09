@@ -21,37 +21,38 @@
   gc with boehm collector
 */
 
-#ifdef QUAN_BOEHM_GC
-#error "QUAN_BOEHM_GC already defined elsewhere"
-#else
-#define QUAN_BOEHM_GC
-#endif
-
-#include <gc.h>
+//#ifdef QUAN_BOEHM_GC
+//#error "QUAN_BOEHM_GC already defined elsewhere"
+//#else
+//#define QUAN_BOEHM_GC
+//#endif
+//
+//#include <gc.h>
+#include <malloc.h>
 
 namespace quan{
 
    inline void gc_init()
    {
-      GC_INIT();
+      //GC_INIT();
    }
 
    inline void gc_collect()
    {
-      ::GC_gcollect();
+     // ::GC_gcollect();
    }
 
    template <typename T, typename ... Args>
    inline T* gc_malloc(Args... args)
    {
-     T * p = reinterpret_cast<T*>(GC_MALLOC(sizeof(T)));
+     T * p = reinterpret_cast<T*>(malloc(sizeof(T)));
      return new(p) T{args...};
    }
 
    template <typename T>
    inline T* gc_malloc()
    {
-     T * p = reinterpret_cast<T*>(GC_MALLOC(sizeof(T)));
+     T * p = reinterpret_cast<T*>(malloc(sizeof(T)));
      return new (p) T ;
    }
 
@@ -59,7 +60,7 @@ namespace quan{
    template <typename T>
    T* gc_array_malloc(size_t n )
    {
-     return reinterpret_cast<T*>( GC_MALLOC( ( sizeof(T) * n ) ) );
+     return reinterpret_cast<T*>( malloc( ( sizeof(T) * n ) ) );
    }
 
 
