@@ -19,7 +19,7 @@
 
 #include <string>
 #include <quan/atomicstring.hpp>
-#include <quan/lexer/source_pos.hpp>
+#include <quan/lexer/sourcepos.hpp>
 
 namespace quan {namespace lexer{
 
