@@ -17,7 +17,7 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 
-#include <quan/gc.hpp>
+//#include <quan/gc.hpp>
 
 #include <iostream>
 #include <string>
