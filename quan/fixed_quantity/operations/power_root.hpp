@@ -216,7 +216,7 @@ namespace quan {
                 quan ::meta::pow,
                 typename Rational::type
             >::type result_type;
-            QUAN_CONSTEXPR result_type operator()(Q const & in)
+            QUAN_CONSTEXPR result_type operator()(Q const & in) const
             {
               //  coherent_pq t = in;
                 return result_type{
@@ -234,7 +234,7 @@ namespace quan {
             Q, quan ::meta::rational<0>
         >{
             typedef int result_type;
-            QUAN_CONSTEXPR result_type operator()(Q const & in)
+            QUAN_CONSTEXPR result_type operator()(Q const & in) const
             {
                 return 1;
             }
@@ -247,7 +247,7 @@ namespace quan {
             Q,quan ::meta::rational<1>
         >{
             typedef Q result_type;
-            QUAN_CONSTEXPR result_type operator()(Q const & in)
+            QUAN_CONSTEXPR result_type operator()(Q const & in) const
             {
                 return in;
             }
@@ -263,7 +263,7 @@ namespace quan {
             typedef  typename quan::meta::binary_op<
                 Q, quan::meta::pow, quan::meta::rational<2>
             >::type result_type;
-            QUAN_CONSTEXPR result_type operator()(Q const & in)
+            QUAN_CONSTEXPR result_type operator()(Q const & in) const
             {
                return in * in;
             }
@@ -278,7 +278,7 @@ namespace quan {
             typedef  typename quan::meta::binary_op<
                 Q, quan::meta::pow, quan::meta::rational<3>
             >::type result_type;
-            QUAN_CONSTEXPR result_type operator()(Q const & in)
+            QUAN_CONSTEXPR result_type operator()(Q const & in) const
             {
                 return in * in * in;
             }
