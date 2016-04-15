@@ -334,6 +334,11 @@ namespace quan{ namespace stm32{
          enable_rxneie();
          return result;
       }
+
+      static uint32_t get_tx_buffer_free_space()
+      {
+         return m_tx_fifo.num_free();
+      }
     
    private:
 
