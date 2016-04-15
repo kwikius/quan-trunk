@@ -45,7 +45,7 @@ namespace quan{ namespace stm32{
 
          typedef module type;
          
-#define QUAN_STM32F4_IF_REG( Name , Address)  \
+#define QUAN_STM32_IF_HAS_REG( Name , Address)  \
    typedef typename quan::meta::eval_if< \
       quan::stm32::tim::detail::has_ ## Name <type>, \
       quan::stm32::periph_reg<type, Address >, \
@@ -53,14 +53,14 @@ namespace quan{ namespace stm32{
    >::type Name ## _type;
 
          typedef quan::stm32::periph_reg<type,0x0>  cr1_type;
-         QUAN_STM32F4_IF_REG(cr2,0x04)
-         QUAN_STM32F4_IF_REG(smcr,0x08)
+         QUAN_STM32_IF_HAS_REG(cr2,0x04)
+         QUAN_STM32_IF_HAS_REG(smcr,0x08)
          typedef quan::stm32::periph_reg<type,0x0C> dier_type;
          typedef quan::stm32::periph_reg<type,0x10> sr_type;
          typedef quan::stm32::periph_reg<type,0x14> egr_type;
-         QUAN_STM32F4_IF_REG(ccmr1,0x18)
-         QUAN_STM32F4_IF_REG(ccmr2,0x1C)
-         QUAN_STM32F4_IF_REG(ccer,0x20)
+         QUAN_STM32_IF_HAS_REG(ccmr1,0x18)
+         QUAN_STM32_IF_HAS_REG(ccmr2,0x1C)
+         QUAN_STM32_IF_HAS_REG(ccer,0x20)
          typedef volatile uint32_t cnt_type;
          typedef volatile uint32_t psc_type; 
          typedef volatile uint32_t arr_type;
@@ -74,12 +74,12 @@ namespace quan{ namespace stm32{
          typedef volatile uint32_t ccr2_type;
          typedef volatile uint32_t ccr3_type;
          typedef volatile uint32_t ccr4_type;
-         QUAN_STM32F4_IF_REG(bdtr,0x44)
-         QUAN_STM32F4_IF_REG(dcr,0x48)
+         QUAN_STM32_IF_HAS_REG(bdtr,0x44)
+         QUAN_STM32_IF_HAS_REG(dcr,0x48)
          typedef volatile uint32_t dmar_type;
-         QUAN_STM32F4_IF_REG(or_,0x50)
+         QUAN_STM32_IF_HAS_REG(or_,0x50)
 
-#undef QUAN_STM32F4_IF_REG
+#undef QUAN_STM32_IF_HAS_REG
                                          
          cr1_type cr1;
          cr2_type cr2;                      
