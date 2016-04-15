@@ -120,6 +120,7 @@ namespace quan{ namespace stm32{ namespace tim {
       uint16_t value;
       egr_t(uint16_t val) :value{val}{}
    };
+
    union ccmr1_t {
       struct {
          uint8_t cc1s : 2;
