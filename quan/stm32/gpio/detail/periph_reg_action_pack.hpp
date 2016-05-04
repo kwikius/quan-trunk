@@ -99,7 +99,7 @@ namespace quan{ namespace stm32{ namespace detail{
    };
 
 /*
-   The version for Alteernate Functions
+   The version for Alternate Functions
 */
    template< typename Pin, typename Setting>
    struct periph_reg_action_pack<Pin,Setting,
