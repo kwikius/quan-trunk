@@ -70,7 +70,7 @@ namespace quan{ namespace stm32 {
                trise_type
             > periph_reg_list;
 
-            static module* get(){ return reinterpret_cast<module*>(address);}
+            static constexpr module* get(){ return reinterpret_cast<module*>(address);}
 
          private:
                module() = delete;
