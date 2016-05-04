@@ -33,6 +33,10 @@ namespace quan{ namespace stm32{ namespace gpio{ namespace detail{
    template <typename Pin, typename Setting, typename Where = void> 
    struct get_periph_reg;
 
+   /*
+      metafunction to
+      return the moder register for port mode settings for a pin
+   */
    template<typename Pin,typename Setting>
    struct get_periph_reg<Pin,Setting,
       typename quan::where_<
@@ -45,6 +49,10 @@ namespace quan{ namespace stm32{ namespace gpio{ namespace detail{
       typedef typename Pin::port_type::moder_type type;
    };
 
+    /*
+      metafunction to 
+      return the OType register for port Otype settings for a pin
+   */
    template<typename Pin,typename Setting>
    struct get_periph_reg<Pin,Setting,
       typename quan::where_<
@@ -57,6 +65,10 @@ namespace quan{ namespace stm32{ namespace gpio{ namespace detail{
       typedef typename Pin::port_type::otyper_type type;
    };
 
+   /*
+      mettafunction to
+      return the Pupd reg for Pupd settings for a pin
+   */
    template<typename Pin,typename Setting>
    struct get_periph_reg<Pin,Setting,
       typename quan::where_<
@@ -69,7 +81,10 @@ namespace quan{ namespace stm32{ namespace gpio{ namespace detail{
       typedef typename Pin::port_type::pupdr_type type;
    };
 
-
+   /*
+      metafunction to
+      return the ospeedr_rge for a pin
+   */
    template<typename Pin,typename Setting>
    struct get_periph_reg<Pin,Setting,
       typename quan::where_<
@@ -83,6 +98,9 @@ namespace quan{ namespace stm32{ namespace gpio{ namespace detail{
    };
 
 
+   /*
+      metafunction to return the ostate reg for a pin
+   */
    template<typename Pin,typename Setting>
    struct get_periph_reg<Pin,Setting,
       typename quan::where_<
@@ -95,6 +113,9 @@ namespace quan{ namespace stm32{ namespace gpio{ namespace detail{
       typedef typename Pin::port_type::odr_type type;
    };
 
+   /*
+      get alternate function setting reg for a pin
+   */
 
    template<typename Pin,typename Setting>
    struct get_periph_reg<Pin,Setting,
