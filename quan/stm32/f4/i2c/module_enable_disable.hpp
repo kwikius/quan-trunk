@@ -38,7 +38,7 @@ namespace quan { namespace stm32{
                static const uint32_t value = 23;
       };
    }}
-
+#if 1
     template<typename I2CP> inline
     typename quan::where_<quan::is_model_of<quan::stm32::I2C,I2CP> >::type
     module_enable()
@@ -67,6 +67,7 @@ namespace quan { namespace stm32{
         quan::stm32::rcc::get()->apb1rstr. template setbit<bit_offset>();
         quan::stm32::rcc::get()->apb1rstr. template clearbit<bit_offset>();
     }
+#endif
 }} // quan::stm32
 
 #endif // QUAN_STM32_F4_I2C_MODULE_ENABLE_DISABLE_HPP_INCLUDED
