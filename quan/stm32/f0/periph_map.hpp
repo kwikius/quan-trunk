@@ -17,6 +17,12 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 
+#ifndef QUAN_STM32F0
+#error dont include directly
+#endif
+
+#include <cstdint>
+
 namespace quan{ namespace stm32{
 
    struct periph_map{
