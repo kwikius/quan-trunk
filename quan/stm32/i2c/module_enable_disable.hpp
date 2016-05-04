@@ -18,10 +18,21 @@
  */
 
 #include <quan/stm32/i2c/module.hpp>
-#include <quan/stm32/i2c/detail/module_enable_disable.hpp>
+//#include <quan/stm32/i2c/detail/module_enable_disable.hpp>
+#if defined QUAN_STM32F4
+#include <quan/stm32/f4/i2c/module_enable_disable.hpp>
+#elif defined QUAN_STM32F3
+#include <quan/stm32/f3/i2c/module_enable_disable.hpp>
+#elif defined QUAN_STM32F0
+#include <quan/stm32/f0/i2c/module_enable_disable.hpp>
+#else
+#error need to define stm32 processor
+#endif
+
+#if 0
 #include <quan/is_model_of.hpp>
 
-namesapce quan{ namespace stm32 {
+namespace quan{ namespace stm32 {
 
    template<typename U> inline
    typename quan::where_<quan::is_model_of< quan::stm32::I2C,U> >::type 
@@ -45,5 +56,5 @@ namesapce quan{ namespace stm32 {
    }
 
 }}
-
+#endif
 #endif // QUAN_STM32_I2C_MODULE_ENABLE_DISABLE_HPP_INCLUDED
