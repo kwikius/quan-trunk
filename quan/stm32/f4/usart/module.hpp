@@ -42,7 +42,7 @@ namespace quan{ namespace stm32{
             typedef quan::stm32::periph_reg< type,  0x14>  cr3_type;
             typedef quan::stm32::periph_reg< type,  0x18>  gtpr_type;
 
-            static const uint32_t address = Address;
+            static constexpr uint32_t address = Address;
 
             sr_type  sr;
             dr_type  dr;
@@ -64,7 +64,7 @@ namespace quan{ namespace stm32{
                ,gtpr_type
             > periph_reg_list;
 
-            static module* get(){ return reinterpret_cast<module*>(address);}
+            static constexpr module* get(){ return reinterpret_cast<module*>(address);}
 
          private:
                module() = delete;
