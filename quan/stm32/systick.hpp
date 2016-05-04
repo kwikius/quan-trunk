@@ -36,6 +36,7 @@
 
 namespace quan{namespace stm32{ 
 
+#if! defined (QUAN_SYSTICK_TIMER_UINT32)
    inline void disable_SysTick_IRQ()
    {
       SysTick->CTRL &= ~SysTick_CTRL_TICKINT_Msk;
@@ -44,9 +45,19 @@ namespace quan{namespace stm32{
    {
       SysTick->CTRL |= SysTick_CTRL_TICKINT_Msk;
    }
+#endif
    namespace detail{
       struct systick_tick{
-         static volatile int64_t current;
+#if defined (QUAN_SYSTICK_TIMER_UINT32)
+      static volatile uint32_t current;
+#else
+      typedef 
+         union{
+            volatile uint32_t ar[2];
+            volatile int64_t v;
+         }current_t;
+      static current_t current;
+#endif       
       };
    }
    
@@ -55,14 +66,20 @@ namespace quan{namespace stm32{
 // TODO remove this to separate header
 // and disassociate from systick
 namespace quan{ namespace stm32{
-
+#if defined (QUAN_SYSTICK_TIMER_UINT32)
+   inline quan::time_<uint32_t>::ms millis()
+   {
+      return quan::time_<uint32_t>::ms{stm32::detail::systick_tick::current};
+   }
+#else
    inline quan::time_<int64_t>::ms millis()
    {
-      quan::stm32::disable_SysTick_IRQ();
-      int64_t result = stm32::detail::systick_tick::current;
-      quan::stm32::enable_SysTick_IRQ();
-      return quan::time_<int64_t>::ms{result};
+      disable_SysTick_IRQ();
+      quan::time_<int64_t>::ms result{stm32::detail::systick_tick::current.v};
+      enable_SysTick_IRQ();
+      return result;
    }
+#endif
 
 }}
 

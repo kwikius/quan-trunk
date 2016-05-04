@@ -1,3 +1,11 @@
+Wed May  4 17:44:17 BST 2016
+Change Systick impl for non-freertos code
+Now you can use a uint32_t or an int64_t
+To use a uint32_t #define QUAN_SYSTICK_TIMER_UINT32
+See <quan/stm32/systick.hpp> for more details
+Only impacts if you use your own Systick_Handler impl
+See a sample impl in <quan_matters/src/stm32/systick.cpp
+
  Fri Feb 27 19:34:45 GMT 2015
  quan-1-0-2
 Breaking change to <quan/uav/get_distance.hpp>
