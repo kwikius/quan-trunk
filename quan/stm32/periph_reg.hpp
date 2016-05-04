@@ -142,6 +142,15 @@ namespace quan{ namespace stm32{
           m_value &= ~quan::bit<value_type>(Bit);
       }
 
+      template <uint8_t Bit> void putbit(bool b)
+      {
+         if (b){
+            setbit<Bit>();
+         }else{
+            clearbit<Bit>();
+         }
+      }
+
       template <uint8_t Bit> bool getbit() const
       {
           return ( m_value & quan::bit<value_type>(Bit) ) != 0;
