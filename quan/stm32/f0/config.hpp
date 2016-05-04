@@ -47,10 +47,14 @@
 
 #define QUAN_STM32_HAS_BITBANDING 0
 
+// TODO others have these periphs too
 #if defined QUAN_STM32_SUBFAMILY_05X
-#define QUAN_STM32_HAS_DAC 1
-#elif defined QUAN_STM32_SUBFAMILY_03X
-  #define QUAN_STM32_HAS_DAC 0
+
+#define QUAN_STM32_HAS_DAC    1
+#define QUAN_STM32_HAS_I2C1   1
+#define QUAN_STM32_HAS_I2C2   1
+//#elif defined QUAN_STM32_SUBFAMILY_03X
+//  #define QUAN_STM32_HAS_DAC 0
 #endif
 
 // defaults for stm32f0 discovery board
