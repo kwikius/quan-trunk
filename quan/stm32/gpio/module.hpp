@@ -94,7 +94,7 @@ namespace quan{ namespace impl{
       quan::stm32::Gpio,
       quan::stm32::gpio::module<Address> 
 	> : quan::meta::true_{};
-
+//
 //   // is a model of Module
 //   template <uint32_t Address>
 //   struct is_model_of_impl<
