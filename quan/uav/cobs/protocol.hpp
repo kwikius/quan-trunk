@@ -29,11 +29,11 @@ namespace quan { namespace uav { namespace cobs{
    template <uint8_t RawLength>
    constexpr inline uint8_t get_encoded_length()
    {
-      static_assert(RawLength < 255, "data length too long");
+      static_assert(RawLength < 253, "data too long");
       return RawLength + 1;
    }
 //!-!-!start-example
-   // Length is length of the unencoded data, which must be less than 255 bytes
+   // Length is length of the unencoded data, which must be less than 253 bytes
    // N.B. data does not include the unencoded framing 0 byte
    // length of the array src is assumed to be Length
    // length of the array dest is assumed to be get_encoded_length(length)
@@ -41,23 +41,34 @@ namespace quan { namespace uav { namespace cobs{
 
    inline bool encode(uint8_t const *src, uint8_t src_length, uint8_t *dest)
    {
-      if ( src_length < 255){
+      if ( src_length < 253){
          uint8_t *code_ptr = dest++;
          uint8_t code = 0x01;
          for(uint8_t const * const src_end = src + src_length;src < src_end;++src){
-            if (*src == 0){
+
+            if (*src ){
+                *dest++ = *src;
+                ++code;
+            }else{
                *code_ptr = code;
                code_ptr = dest++;
                code = 0x01;
             }
-            else {
-               *dest++ = *src;
-               if (++code == 0xFF) {
-                 *code_ptr = code;
-                  code_ptr = dest++;
-                  code = 0x01;
-               } 
-            }
+
+//            if (*src == 0){
+//               *code_ptr = code;
+//               code_ptr = dest++;
+//               code = 0x01;
+//            }
+//            else {
+//               *dest++ = *src;
+//                ++code;
+//               if (++code == 0xFF) {
+//                 *code_ptr = code;
+//                  code_ptr = dest++;
+//                  code = 0x01;
+//               } 
+//            }
          }
          *code_ptr = code;
          return true;
@@ -66,7 +77,7 @@ namespace quan { namespace uav { namespace cobs{
       }
    }
  //!-!-!end-example  
-   // length is length of the encoded data, which must be less than or equal to 255 bytes
+   // length is length of the encoded data, which must be less than 254 bytes
    // data does not include the unencoded framing 0 byte
    // length of the array src is assumed to be   length
    // length of the array dest is assumed to be length -1
@@ -75,22 +86,26 @@ namespace quan { namespace uav { namespace cobs{
    // would put data outside the dest buffer indicating corrupted data
    inline bool decode(uint8_t const *src, uint8_t const src_length, uint8_t *dest)
    {
-      uint8_t const * const src_end = src + src_length -1;
-      uint8_t const * const dest_end = dest + src_length -1;
-      while (src < src_end){
-         for (uint8_t i=1, code = *src++; i<code; ++i) {
-          if ( dest < dest_end){
-            *dest++ = *src++;
+      if ( src_length < 254){
+         uint8_t const * const src_end = src + src_length -1;
+         uint8_t const * const dest_end = dest + src_length -1;
+         while (src < src_end){
+            for (uint8_t i=1, code = *src++; i<code; ++i) {
+             if ( dest < dest_end){
+               *dest++ = *src++;
+               }
+               else {
+                  return false;
+               }
             }
-            else {
-               return false;
+            if ( dest < dest_end){
+               *dest++ = 0;
             }
          }
-         if ( dest < dest_end){
-            *dest++ = 0;
-         }
+         return true;
+      }else{
+         return false;
       }
-      return true;
    }
 
 }}}// quan::uav::cobs
