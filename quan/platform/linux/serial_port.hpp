@@ -20,8 +20,8 @@
 */
 
 
-#ifndef __linux 
-#error "only for use on linux"
+#if !defined(__linux) && !defined(__APPLE__)
+#error "only for use on linux or macOS"
 #endif
 
 
@@ -40,7 +40,11 @@
 
 //#include <termio.h>
 #include <err.h>
+
+#ifdef __linux
 #include <linux/serial.h>
+#endif
+
 #include <quan/concepts/port.hpp>
 #include <quan/is_model_of.hpp>
 #include <quan/time.hpp>
