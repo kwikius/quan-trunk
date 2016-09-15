@@ -28,12 +28,16 @@
 
 //#include <termio.h>
 #include <err.h>
+
+#ifdef __linux
 #include <linux/serial.h>
+#include <linux/usbdevice_fs.h>
+#endif
+
 //#include <errno.h>
 //#include <string.h>
 
 #include <quan/serial_port.hpp>
-#include <linux/usbdevice_fs.h>
 #include <quan/utility/timer.hpp>
 
 quan::serial_port::serial_port( const char* filename)
@@ -209,8 +213,11 @@ int rate_to_constant(int baudrate)
 		B(50);     B(75);     B(110);    B(134);    B(150);
 		B(200);    B(300);    B(600);    B(1200);   B(1800);
 		B(2400);   B(4800);   B(9600);   B(19200);  B(38400);
-		B(57600);  B(115200); B(230400); B(460800); B(500000); 
-		B(576000); B(921600); B(1000000);B(1152000);B(1500000); 
+		B(57600);  B(115200); B(230400);
+#ifdef __linux
+        B(460800); B(500000);
+		B(576000); B(921600); B(1000000);B(1152000);B(1500000);
+#endif
 	default: return 0;
 	}
 #undef B

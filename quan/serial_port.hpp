@@ -17,7 +17,7 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 
-#ifdef __linux
+#if defined(__linux) || defined(__APPLE__)
 #include <quan/platform/linux/serial_port.hpp>
 #else
 #error need to write serial port code for this platform
