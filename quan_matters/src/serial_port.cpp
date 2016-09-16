@@ -17,7 +17,6 @@
 
 
 #include <sys/ioctl.h>
-//#include <asm/ioctls.h>
 #include <termios.h>
 #include <fcntl.h>
 #include <stdio.h>
@@ -25,17 +24,12 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdexcept>
-
-//#include <termio.h>
 #include <err.h>
 
 #ifdef __linux
 #include <linux/serial.h>
 #include <linux/usbdevice_fs.h>
 #endif
-
-//#include <errno.h>
-//#include <string.h>
 
 #include <quan/serial_port.hpp>
 #include <quan/utility/timer.hpp>
@@ -184,7 +178,7 @@ bool quan::serial_port::set_rts(bool val)
 
 void quan::serial_port::close()
 {
- cleanup();
+   cleanup();
 }
 
 quan::serial_port::~serial_port()
