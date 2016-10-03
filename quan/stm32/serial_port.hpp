@@ -20,10 +20,11 @@
  todo specialisations for rx only tx only ports
 */
 
-#include <type_traits>
-
 #include <cstdint>
 #include <cstring>
+#include <cstdio>
+#include <cstdarg> 
+#include <type_traits>
 
 #include <quan/meta/if.hpp>
 #include <quan/meta/or.hpp>
@@ -322,6 +323,17 @@ namespace quan{ namespace stm32{
          enable_rxneie();
 
          return result;
+      }
+
+       template <uint32_t Buflen>
+      static void printf( const char * const format, ...)
+      {
+           char buffer[Buflen];
+           va_list args;
+           va_start (args, format);
+           vsnprintf (buffer,Buflen,format, args);
+           write(buffer);
+           va_end (args);
       }
 
       static char get()
