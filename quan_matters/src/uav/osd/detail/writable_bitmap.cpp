@@ -94,6 +94,7 @@ void quan::uav::osd::detail::writable_bitmap::set_pixel(
       uint32_t const px_pos = y_bit_pos + pos.x * bits_px;
       uint32_t const byte_pos = px_pos / 8U;
       uint32_t const bit_pos = px_pos % 8U;
+// use a mapping of 
       uint8_t const ucol = static_cast<uint8_t>(c);
       uint8_t val = m_data[byte_pos];
       
@@ -108,6 +109,20 @@ void quan::uav::osd::detail::writable_bitmap::set_pixel(
       m_data[byte_pos] = val;
 
    } // no op if out of range
+}
+
+void  quan::uav::osd::detail::writable_bitmap::pixel_remap( uint8_t (*pfn_remap)(uint8_t color_in) )
+{
+   uint8_t const * data = get_data();
+   uint32_t const data_size = get_data_size();
+   for ( uint32_t i = 0; i < data_size; ++i){
+      uint8_t const val_in = data[i];
+      uint8_t val_out = 0;
+      for (uint8_t j = 0; j < 4; ++j){
+         val_out |= (pfn_remap((val_in >> (2*j)) & 0b11)) << (2*j);
+      }
+      this->set_data_loc(i,val_out);
+   }
 }
 
  bool quan::uav::osd::detail::writable_bitmap::output_header (

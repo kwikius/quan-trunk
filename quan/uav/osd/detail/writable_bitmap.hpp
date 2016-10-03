@@ -15,6 +15,7 @@ namespace quan{ namespace uav{ namespace osd{ namespace detail{
          quan::two_d::vect<int32_t> const & pos,
          quan::uav::osd::color_type c
       );
+      void pixel_remap( uint8_t (*pfn_remap)(uint8_t color_in) );
       quan::uav::osd::size_type get_size() const;
       uint8_t const * get_data() const;
       bool output_header (
@@ -37,6 +38,10 @@ namespace quan{ namespace uav{ namespace osd{ namespace detail{
          free(this->m_data);
          m_data = data_in;
          m_size = size_in;
+      }
+      void set_data_loc(uint32_t pos, uint8_t val)
+      {
+         m_data[pos] = val;
       }
 
    private:
