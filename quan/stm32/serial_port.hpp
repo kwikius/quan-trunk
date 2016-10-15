@@ -336,6 +336,11 @@ namespace quan{ namespace stm32{
            va_end (args);
       }
 
+      static void flush_tx()
+      {
+          while (! tx_reg_empty()) {asm volatile ("nop":::) ;}
+      }
+
       static char get()
       {
          char result = '\0';
