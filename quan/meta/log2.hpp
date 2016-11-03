@@ -13,8 +13,8 @@
 
    template <uint32_t N > struct log2 {
    //#############################################################
-      // Fails here if N is not a power of 2 e.g 2,4,6,8 etc
-      static_assert( (N > 1) && ((N % 2) == 0),"invalid input for quan::meta::log_2");
+      static_assert((N != 0) , "log2(N) is not defined for N = 0");
+      static_assert((N % 2) == 0,"quan::meta::log_2(N) : N must be an integer power of 2");
    //##################################################################
       static constexpr uint32_t value = quan::meta::log2<N/2>::value + 1;
    };
