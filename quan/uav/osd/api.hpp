@@ -1,6 +1,8 @@
 #ifndef QUAN_UAV_OSD_API_HPP_INCLUDED1
 #define QUAN_UAV_OSD_API_HPP_INCLUDED1
 
+#include <cstdarg>
+#include <cstdio>
 #include <quan/angle.hpp>
 #include <quan/length.hpp>
 #include <quan/two_d/vect.hpp>
@@ -74,6 +76,16 @@ namespace quan{ namespace uav{ namespace osd{
    {
       font_ptr p = get_font(i);
       if (p){draw_text(str,pos,p);}
+   }
+
+   template <uint32_t Buflen, uint32_t i = 0>
+   inline void draw_text(pxp_type const & pos,const char * const format,  ...)
+   {
+     char buffer[Buflen];
+     va_list args;
+     va_start (args, format);
+     vsnprintf (buffer,Buflen,format, args);
+     draw_text(buffer,pos,i);
    }
 
    void           draw_line(pxp_type const & from, pxp_type const & to,colour_type c);
