@@ -43,6 +43,26 @@ m_good_state(false)
 
 }
 
+namespace {
+
+   bool check_valid_baud( int baud)
+   {
+      switch (baud){
+         case B50:     case B75:     case B110:    case B134:    case B150:
+         case B200:    case B300:    case B600:    case B1200:   case B1800:
+         case B2400:   case B4800:   case B9600:   case B19200:  case B38400:
+         case B57600:  case B115200: case B230400:
+         #ifdef __linux
+         case B460800: case B500000:
+         case B576000: case B921600: case B1000000:case B1152000:case B1500000:
+         #endif
+            return  true;
+         default:
+            return false;
+      }
+   }
+}
+
 bool quan::serial_port::good()const
 {
   return m_good_state == true;
@@ -55,6 +75,9 @@ bool quan::serial_port::is_deleteable() const
 
 void quan::serial_port::init(int baud)
 {
+    if ( ! check_valid_baud(baud)){
+        throw std::logic_error("invalid baud rate constant");
+    }
     this->m_fd = open(this->m_filename.c_str(),O_RDWR | O_NOCTTY );
   
     if (this->m_fd < 0) {
