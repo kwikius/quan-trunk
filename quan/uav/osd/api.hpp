@@ -86,6 +86,7 @@ namespace quan{ namespace uav{ namespace osd{
      va_start (args, format);
      vsnprintf (buffer,Buflen,format, args);
      draw_text(buffer,pos,i);
+     va_end(args);
    }
 
    void           draw_line(pxp_type const & from, pxp_type const & to,colour_type c);
