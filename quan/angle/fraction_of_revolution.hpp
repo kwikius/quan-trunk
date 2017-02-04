@@ -52,6 +52,7 @@
 #include <quan/meta/neq.hpp>
 #include <quan/arithmetic_convert.hpp>
 #include <quan/meta/min_type.hpp>
+#include <quan/modulus.hpp>
 
 namespace quan{
 
@@ -1249,116 +1250,95 @@ namespace quan{ //quan
         typename ReciprocalFraction,
         typename ValueType
     >
-    typename quan::where_<
-		std::is_floating_point<ValueType>,
-		 quan::fraction_of_revolution<
+    inline
+	 quan::fraction_of_revolution<
 			  Extent,
 			  ReciprocalFraction,
 			  ValueType
-		 >
-    >::type
-    modulo( quan::fraction_of_revolution<
-        Extent,
-        ReciprocalFraction,
-        ValueType
-    > const & fr)
-    {
-        ValueType v = fr.numeric_value()/
-            quan::meta::eval_rational<ReciprocalFraction>()();
-        ValueType n;
-#ifndef __AVR__
-       using std::modf;
-#else
-       using ::modf;
-#endif
-       // ValueType fract = modf(v,&n);
-        return quan::fraction_of_revolution<
-            Extent,
-            ReciprocalFraction,
-            ValueType
-        >(
-             modf(v,&n) * quan::meta::eval_rational<ReciprocalFraction>()()
-        );
-    }
-
-
- 	template<
-        typename Extent,
-        typename ReciprocalFraction,
-        typename ValueType
     >
-inline
-QUAN_CONSTEXPR
-    typename quan::where_<
-		quan::meta::and_<
-			std::is_integral<ValueType>,
-     	   quan::meta::eq_<typename quan::meta::denominator<ReciprocalFraction>::type,quan::meta::int32<1> >
-     >,
-		 quan::fraction_of_revolution<
-			  Extent,
-			  ReciprocalFraction,
-			  ValueType
-		 >
-    >::type
-    modulo( quan::fraction_of_revolution<
+    unsigned_modulo( quan::fraction_of_revolution<
         Extent,
         ReciprocalFraction,
         ValueType
     > const & fr)
     {
-       return quan::fraction_of_revolution<
+      constexpr auto one_rev = quan::meta::eval_rational<ReciprocalFraction>()();
+      if ( fr.numeric_value() >= ValueType{0}){
+        return quan::fraction_of_revolution<
+           Extent,
+           ReciprocalFraction,
+           ValueType
+        >(
+           quan::modulus(fr.numeric_value(),one_rev )
+        );
+      }else{
+         return quan::fraction_of_revolution<
             Extent,
             ReciprocalFraction,
             ValueType
-        >(
-         fr.numeric_value() % quan::meta::numerator<ReciprocalFraction>::value
-       );
+         >(
+            quan::modulus(fr.numeric_value(), one_rev) + one_rev
+         );
+      }
     }
 
-#if 0
     template<
         typename Extent,
         typename ReciprocalFraction,
         typename ValueType
     >
-    typename quan::where_<
-		quan::meta::and_<
-			std::is_integral<ValueType>,
-     	   quan::meta::neq_<typename quan::meta::denominator<ReciprocalFraction>::type,quan::meta::int32<1> >
-     >,
-		 quan::fraction_of_revolution<
-			  Extent,
-			  ReciprocalFraction,
-			  ValueType
-		 >
-    >::type
+    inline
+    quan::fraction_of_revolution<
+        Extent,
+        ReciprocalFraction,
+        ValueType
+    >
+    signed_modulo( quan::fraction_of_revolution<
+        Extent,
+        ReciprocalFraction,
+        ValueType
+    > const & fr)
+    {
+       static_assert(std::is_unsigned<ValueType>::value == false,"not useful for unsigned types");
+       typedef quan::fraction_of_revolution<
+        Extent,
+        ReciprocalFraction,
+        ValueType
+       > result_type;
+       result_type const unsigned_result = unsigned_modulo(fr);
+       constexpr auto one_rev = quan::meta::eval_rational<ReciprocalFraction>()();
+       if (unsigned_result.numeric_value() <= one_rev/2 ){
+          return unsigned_result;
+       }else{
+          return unsigned_result - result_type{one_rev} ;
+       }
+    }
+
+    template<
+        typename Extent,
+        typename ReciprocalFraction,
+        typename ValueType
+    >
+    inline
+    quan::fraction_of_revolution<
+        Extent,
+        ReciprocalFraction,
+        ValueType
+    >
     modulo( quan::fraction_of_revolution<
         Extent,
         ReciprocalFraction,
         ValueType
     > const & fr)
     {
-
-        QUAN_FLOAT_TYPE v = static_cast<QUAN_FLOAT_TYPE>(fr.numeric_value())/
-            quan::meta::eval_rational<ReciprocalFraction>()();
-        QUAN_FLOAT_TYPE n;
-#ifndef __AVR__
-       using std::modf;
-#else
-      using ::modf;
-#endif
-       // ValueType fract = modf(v,&n);
         return quan::fraction_of_revolution<
             Extent,
             ReciprocalFraction,
             ValueType
         >(
-             quan::arithmetic_convert<ValueType>(modf(v,&n) * quan::meta::eval_rational<ReciprocalFraction>()())
+            quan::modulus(fr.numeric_value(),quan::meta::eval_rational<ReciprocalFraction>()())
         );
-
     }
-
-#endif
 
 #if !(defined QUAN_SUPPRESS_VC8_ADL_BUG)
 } //quan
