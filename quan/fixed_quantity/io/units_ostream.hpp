@@ -240,8 +240,7 @@ namespace quan{
          }
          else {
                // messy exponent
-               ost << " * 1e" <<
-               ost << '(' << rt_exponent << '/' << quan::meta::numerator<exponent>::value << ')';
+               ost << " * 1e" << '(' << rt_exponent << '/' << quan::meta::numerator<exponent>::value << ')';
 // use format spec here
                
                /*<<   quan::pow<

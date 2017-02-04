@@ -192,7 +192,6 @@ namespace {
                std::cout << "from numeric_value() = " << from.numeric_value()<<'\n';
                std::cout << "to.numeric_value()  = " << to.numeric_value() <<'\n';
                std::cout << "to.numeric_value() Should be :" << cmp_val <<'\n';
-               std::cout << 
                std::cout << "abs error = " << abs_diff << '\n';
                std::cout << "eps = " << abs_eps << '\n';
            }
