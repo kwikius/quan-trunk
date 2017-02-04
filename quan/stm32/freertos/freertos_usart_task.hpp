@@ -26,6 +26,8 @@
 
 #include <cctype>
 #include <cstring>
+#include <cstdarg>
+#include <cstdio>
 #include <stm32f4xx.h>
 #include "FreeRTOS.h"
 #include <task.h>
@@ -109,6 +111,7 @@ namespace quan{ namespace stm32{namespace freertos{
             put(str[i]);
          }
       }
+
       // also blocking
       // only for char string
       template <typename T>
@@ -121,6 +124,20 @@ namespace quan{ namespace stm32{namespace freertos{
         >::type
         write ( T const * str){
          write ( str, strlen(str));
+      }
+
+      template <uint32_t Buflen>
+      static inline int print(char const * const format,  ...)
+      {
+         char buffer[Buflen];
+         va_list args;
+         va_start (args, format);
+         int n = vsnprintf(buffer, Buflen, format, args);
+         if ( n > 0){
+            write(buffer,n);
+         }
+         va_end(args);
+         return n;
       }
       
       static void irq_handler()
@@ -172,7 +189,9 @@ namespace quan{ namespace stm32{namespace freertos{
             // error loop()
         }
       }
-      
+      /*
+        N.B serial port task must be enabled afte this call before it will work
+      */
       template <uint32_t Baudrate>
       static void setup_usart(uint32_t irq_priority)
       {
