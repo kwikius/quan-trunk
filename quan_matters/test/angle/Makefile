@@ -1,0 +1,39 @@
+
+# quan fixed_quantity test makefile
+# builds the.o and .exe in the makefile dir
+# should depend also on quan headers to trigger build? 
+
+#  env  QUAN_ROOT is the parent of the quan directory
+
+TARGET      ?= test.exe
+CXX         ?= /usr/local/bin/g++
+CXXFLAGS    ?= -std=c++11 -I${QUAN_ROOT}
+
+MEMBER_FILES = angle_test1
+
+# udt_value_type 
+
+SRCS =    $(patsubst %,%.cpp,$(MEMBER_FILES)) 
+
+OBJECTS = $(patsubst %,%.o,$(MEMBER_FILES)) 
+
+PHONY : all
+
+all : $(TARGET)
+
+$(TARGET) : $(OBJECTS)
+	$(CXX) -o $(TARGET) $(CXXFLAGS) $(OBJECTS)
+
+%.o : %.cpp
+	$(CXX) -c $(CXXFLAGS) $< -o $@
+
+.PHONY : clean
+.PHONY : test
+
+test : $(TARGET)
+	./$(TARGET)
+
+clean :
+	rm -f *.o
+	rm -f $(TARGET)
+

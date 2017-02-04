@@ -34,7 +34,7 @@
 
 //-------------------------------------
 
-#if 0
+#if 1
 void angle_test1();
 int errors = 0;
 
@@ -47,11 +47,16 @@ int main()
 
 void angle_test1()
 {
-    quan::angle::deg a(90);
-    a += quan::angle::min  (1);
+    quan::angle::deg a{90};
+    QUAN_CHECK(a.numeric_value() == 90.0);
+    a += quan::angle::min{1};
     a += quan::angle::s(1);
+    a = quan::angle::deg{90};
     quan::angle::rad b = a;
     quan::angle::rad c = quan::angle::deg(180);
+
+    QUAN_CHECK(c == quan::angle::pi);
+   
     c = quan::angle::min{1};
 
     c += quan::angle::min{1};
@@ -92,6 +97,8 @@ void angle_test1()
     b <= a;
     a <= b;
     a = atan2(quan::length::m(1),quan::length::m(1));
+    quan::angle::rad xx = 0.5;
+    QUAN_CHECK(xx.numeric_value()==0.5);
     double sina = sin(a);
     double cosa = cos(a);
     double tana = tan(a);
