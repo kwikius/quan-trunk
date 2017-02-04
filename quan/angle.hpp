@@ -1212,25 +1212,18 @@ namespace quan { //quan
         static constexpr rad   two_pi = rad{2 * 3.141592653589793238462643383279502884197};
     };
 
-#if 0
+
 #ifdef QUAN_DEFINE_PHYSICAL_CONSTANTS_IN_HEADERS
+    template<typename Value_type>
+    typename angle_<Value_type>::rad constexpr
+    angle_<Value_type>::pi;
 
     template<typename Value_type>
     typename angle_<Value_type>::rad constexpr
-    angle_<Value_type>::pi
-    = typename angle_<
-        Value_type
-    >::rad(3.141592653589793238462643383279502884197);
-
-    template<typename Value_type>
-    typename angle_<Value_type>::rad constexpr
-    angle_<Value_type>::two_pi
-    = typename angle_<
-        Value_type
-    >::rad(2 * 3.141592653589793238462643383279502884197);
+    angle_<Value_type>::two_pi;
 
 #endif
-#endif
+
  struct angle : angle_<quan::quantity_traits::default_value_type>{};
 
 }//quan
