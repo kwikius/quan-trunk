@@ -21,9 +21,7 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 //
- 
- 
- 
+
 //
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
@@ -63,7 +61,7 @@ QUAN_CONSTEXPR result_type operator()() const
             int64_t N
         >
         struct rational_impl_eval<N,1>{
-            typedef int64_t result_type;
+            typedef int32_t result_type;
  QUAN_CONSTEXPR           result_type operator()() const
             {
                 return N;
