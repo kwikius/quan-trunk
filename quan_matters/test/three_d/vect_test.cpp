@@ -25,6 +25,18 @@
 #include <quan/three_d/vect.hpp>
 #include <quan/length.hpp>
 
+void vect_test1();
+void vect_t1_quantity_test1();
+
+int errors = 0;
+int main()
+{
+   vect_test1();
+   vect_t1_quantity_test1();
+
+   EPILOGUE
+}
+
 void vect_test1()
 {
     typedef quan::three_d::vect<double> vect;
@@ -87,12 +99,3 @@ void vect_t1_quantity_test1()
     QUAN_CHECK(v6.z.numeric_value() == 6.); 
 }
 
-#if 0
-int errors = 0;
-int main()
-{
-   vect_test1();
-   vect_t1_quantity_test1();
-   EPILOGUE
-}
-#endif
