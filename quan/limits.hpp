@@ -23,7 +23,6 @@
 
 #ifndef __AVR__
 #include <type_traits>
-#include <stdexcept>
 #else
 #include <quan/std/tr1/integral_constant.hpp>
 #endif
@@ -159,7 +158,6 @@ constexpr
 #endif
          T operator()() const
          {
-            //return std::numeric_limits<T>::min();
              return quan::meta::integer_min<T>::value;
          }
       };
@@ -171,8 +169,7 @@ constexpr
 #endif
          T operator()() const
          {
-           // return -std::numeric_limits<T>::max();
-              return quan::meta::float_min<T>()();
+            return quan::meta::float_min<T>()();
          }
       };
 
@@ -185,7 +182,6 @@ constexpr
 #endif
          T operator()() const
          {
-            //return std::numeric_limits<T>::min();
              return quan::meta::integer_max<T>::value;
          }
       };
@@ -197,13 +193,9 @@ constexpr
 #endif
          T operator()() const
          {
-           // return -std::numeric_limits<T>::max();
-              return quan::meta::float_max<T>()();
+            return quan::meta::float_max<T>()();
          }
       };
-      
-      
-   
 }//impl_detail
 
 }

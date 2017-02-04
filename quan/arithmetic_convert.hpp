@@ -44,6 +44,10 @@
 #endif
 #include <quan/meta/max.hpp>
 
+#if !defined QUAN_NO_EXCEPTIONS
+#include <stdexcept>
+#endif
+
 namespace quan {namespace impl_detail {
 
    template <typename Target, typename Source, typename Where = void>

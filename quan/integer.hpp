@@ -17,10 +17,13 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 
-
+#include <quan/config.hpp>
+#if !defined QUAN_NO_EXCEPTIONS
 #include <cstdint>
 #include <type_traits>
+
 #include <stdexcept>
+
 #include <quan/where.hpp>
 #include <quan/implicit_cast.hpp>
 #include <quan/meta/signed_unsigned.hpp>
@@ -309,5 +312,5 @@ namespace quan{
    
 }//quan
 
-
+#endif // QUAN_NO_EXCEPTIONS
 #endif // INTEGER_HPP_INCLUDED
