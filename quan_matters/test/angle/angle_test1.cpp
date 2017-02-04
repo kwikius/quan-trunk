@@ -34,16 +34,59 @@
 
 //-------------------------------------
 
-#if 1
 void angle_test1();
+void modulo_test();
 int errors = 0;
 
 int main()
 {
-    angle_test1();
+   angle_test1();
+   modulo_test();
+
    EPILOGUE
 }
-#endif
+
+void modulo_test()
+{
+    
+   QUAN_CHECK( modulo(quan::angle_<int>::deg{33}) == quan::angle_<int>::deg{33});
+   QUAN_CHECK(signed_modulo(quan::angle::deg{27}) == quan::angle::deg{27});
+
+   QUAN_CHECK( modulo(quan::angle_<int>::deg{370}) == quan::angle_<int>::deg{10});
+   QUAN_CHECK( modulo(quan::angle::deg{-370}) == quan::angle::deg{-10});
+   QUAN_CHECK( signed_modulo(quan::angle::deg{-370}) == quan::angle::deg{-10});
+   QUAN_CHECK( modulo(quan::angle::deg{-376}) == quan::angle::deg{-16});
+
+   QUAN_CHECK(modulo(quan::angle::deg{27}) == quan::angle::deg{27});
+   QUAN_CHECK(signed_modulo(quan::angle::deg{181}) == quan::angle::deg{-179});
+   QUAN_CHECK(signed_modulo(quan::angle::deg{359}) == quan::angle::deg{-1});
+   QUAN_CHECK(unsigned_modulo(quan::angle::deg{359}) == quan::angle::deg{359});
+   QUAN_CHECK(modulo(quan::angle::deg{359}) == quan::angle::deg{359});
+   QUAN_CHECK(modulo(quan::angle::deg{360}) == quan::angle::deg{0});
+   QUAN_CHECK(signed_modulo(quan::angle::deg{360}) == quan::angle::deg{0});
+   QUAN_CHECK(modulo(quan::angle::deg{361}) == quan::angle::deg{1}); 
+   QUAN_CHECK(signed_modulo(quan::angle::deg{361}) == quan::angle::deg{1});
+
+   QUAN_CHECK(signed_modulo(quan::angle::deg{180}) == quan::angle::deg{180});
+   QUAN_CHECK(signed_modulo(quan::angle::deg{181}) == quan::angle::deg{-179});
+   QUAN_CHECK(unsigned_modulo(quan::angle::deg{20}) == quan::angle::deg{20});
+
+   QUAN_CHECK(modulo(         quan::angle::deg{-20}) == quan::angle::deg{-20});
+   QUAN_CHECK(unsigned_modulo(quan::angle::deg{-20}) == quan::angle::deg{340});
+
+   QUAN_CHECK(         modulo(quan::angle::deg{-430}) == quan::angle::deg{-70});
+   QUAN_CHECK(unsigned_modulo(quan::angle::deg{-430}) == quan::angle::deg{290});
+
+   QUAN_CHECK( unsigned_modulo(quan::angle::deg{-90}) == quan::angle::deg{270});
+   QUAN_CHECK( unsigned_modulo(quan::angle::deg{360}) == quan::angle::deg{0});
+   QUAN_CHECK( unsigned_modulo(quan::angle::deg{361}) == quan::angle::deg{1}); 
+   QUAN_CHECK( unsigned_modulo(quan::angle::deg{33}) == quan::angle::deg{33});
+   QUAN_CHECK( unsigned_modulo(quan::angle::deg{370}) == quan::angle::deg{10});
+   QUAN_CHECK( unsigned_modulo(quan::angle::deg{-370}) == quan::angle::deg{350});
+   QUAN_CHECK( unsigned_modulo(quan::angle::deg{-16}) == quan::angle::deg{344});
+   QUAN_CHECK( unsigned_modulo(quan::angle::deg{360}) == quan::angle::deg{0});
+}
+
 
 void angle_test1()
 {
@@ -52,10 +95,12 @@ void angle_test1()
     a += quan::angle::min{1};
     a += quan::angle::s(1);
     a = quan::angle::deg{90};
+    QUAN_CHECK(a == quan::angle::pi/2);
     quan::angle::rad b = a;
     quan::angle::rad c = quan::angle::deg(180);
 
     QUAN_CHECK(c == quan::angle::pi);
+    
    
     c = quan::angle::min{1};
 
@@ -103,5 +148,7 @@ void angle_test1()
     double cosa = cos(a);
     double tana = tan(a);
 }
+
+
 
 
