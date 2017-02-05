@@ -1,6 +1,6 @@
 
 /*
- Copyright (c) 2003-2014 Andy Little.
+ Copyright (c) 2003-2017 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -16,18 +16,17 @@
  along with this program. If not, see http://www.gnu.org/licenses./
 */
 
-//
- 
- 
- 
-//
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/out/length.hpp>
-    
+#include <quan/time.hpp>
+#include <quan/where.hpp>
+
 /*
     get conversion factor from one dimensionally-equivalent 
     type to another
+    N.B only works with dimenionally equivalent types
+    with arithmetci value_types
 */
 
 namespace quan{
@@ -36,18 +35,19 @@ namespace quan{
         typename Target,
         typename Source
     >
-    typename quan::meta::arithmetic_promote<
-        typename Target::value_type,
-        typename Source::value_type
+    inline constexpr
+    typename quan::where_<
+       quan::meta::dimensionally_equivalent<Target,Source>,
+       typename quan::meta::arithmetic_promote<
+           typename Target::value_type,
+           typename Source::value_type
+       >::type
     >::type
     conversion_factor()
     {
-        Source s(1);
-        Target t = s;
-        return t.numeric_value();
+        return Target{Source{1}}.numeric_value();
     }
 
-    
 }//quan
 
 int main()
@@ -56,8 +56,16 @@ int main()
     quan::length::mm plankB(1000);
     std::cout << "ratio  plankA / plankB = " << plankA / plankB << '\n'; 
 
-    std::cout << "conversion-factor\n";
+    std::cout << "conversion factor to convert from vS in " << units_str(plankA) ;
+    std::cout << " to vT in " << units_str(plankB) << " : vT = vS * ";
     std::cout << quan::conversion_factor<
         quan::length::mm,quan::length::m
     >() << '\n';
+
+    // can be evaluated at compile time
+    static_assert(quan::conversion_factor<
+        quan::length::mm,quan::length::m
+    >() == 1000,"error");
+
+   // auto x = quan::conversion_factor<quan::length::m,quan::time::s>(); // error as not dimensionally equivalent
 }

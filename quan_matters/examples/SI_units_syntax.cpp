@@ -15,11 +15,6 @@
  along with this program. If not, see http://www.gnu.org/licenses./
 */
 
-//
- 
- 
- 
-//
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 /*
@@ -36,10 +31,12 @@ namespace SIunits{
     {
         return quan::length::m(1);
     }
+
     quan::length::m millimeter()
     {
         return quan::length::mm(1);
     }
+
     quan::time::s second()
     {
         return quan::time::s(1);

@@ -31,6 +31,7 @@
 #include <quan/config.hpp>
 #include <quan/angle/mathematic_angle.hpp>
 #include <quan/angle/fraction_of_revolution.hpp>
+#include <quan/angle/literal.hpp>
 #include <quan/concept_checking.hpp>
 
 namespace quan{

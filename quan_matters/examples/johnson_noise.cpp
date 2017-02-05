@@ -15,11 +15,6 @@
  along with this program. If not, see http://www.gnu.org/licenses./
 */
 
-//
- 
- 
- 
-//
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 /*
@@ -42,24 +37,31 @@
 #include <quan/out/frequency.hpp>
 #include <quan/out/voltage.hpp>
 
+namespace {
+
+   QUAN_QUANTITY_LITERAL(temperature,K)
+   QUAN_QUANTITY_LITERAL(resistance,kR)
+   QUAN_QUANTITY_LITERAL(frequency,kHz)
+   
+}
+
 int main()
 {
     // ambient temperature
-    quan::temperature::K    T(293);
+    auto constexpr T = 293.0_K;
+
     std::cout << "At " << T ;
     // resistance
-    quan::resistance_<int>::kR    R(10);
+    auto constexpr R = 10_kR;
     std::cout << " a resistance of " <<  R ;
     // filter cut-off frequency
-    quan::frequency_<int>::kHz    f3db(10);
-    std::cout << " and cut_off frequency of " << f3db;
+    auto constexpr f3dB  = 10_kHz;
+    std::cout << " and cut_off frequency of " << f3dB;
     // resulting noise-bandwidth
-    quan::frequency::kHz          B
-    = (quan::constant::pi / 2) * f3db;
+    quan::frequency::kHz  B = (quan::constant::pi / 2) * f3dB;
     std::cout << " ( noise-bandwidth " << B  << ")";
     // noise-voltage
-    quan::voltage::uV             V 
-    = quan::pow<1,2>( 4 * T * R * B * quan::boltzmanns_constant::K) ;
+    quan::voltage::uV V = quan::pow<1,2>( 4 * T * R * B * quan::boltzmanns_constant::K) ;
     
     std::cout << " gives johnson-noise voltage of " << V <<'\n';
   

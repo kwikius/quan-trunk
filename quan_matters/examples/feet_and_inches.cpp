@@ -15,11 +15,6 @@
  along with this program. If not, see http://www.gnu.org/licenses./
 */
 
-//
- 
- 
- 
-//
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/out/length.hpp>
@@ -29,13 +24,18 @@
     split a length in feet into feet and inches
 */
 
+namespace {
+
+   QUAN_QUANTITY_LITERAL(length,ft)
+}
+
 int main()
 {
-    quan::length::ft L1(1.25);
+    auto L1 = 1.25_ft;
     std::cout <<  L1 << " = ";
-    quan::length_<int>::ft L2 = floor(L1);
-    std::cout << L2 ;
-    quan::length_<int>::in L3 = L1 - L2;
-    std::cout << " " << L3 <<'\n';
+
+    quan::length_<int>::ft L2 = floor(L1); // feet part
+    quan::length_<int>::in L3 = L1 - L2;  // inches part
+    std::cout << L2 << " " << L3 <<'\n';
 }
 

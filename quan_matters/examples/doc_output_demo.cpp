@@ -33,10 +33,17 @@
 #include <quan/out/torque.hpp>
 #include <quan/out/energy.hpp>
 
+namespace {
+
+   QUAN_QUANTITY_LITERAL(force,kN)
+   QUAN_QUANTITY_LITERAL(length,mm)
+
+}
+
 int main()
 {
-    quan::force::kN    force(1);
-    quan::length::mm  distance(1);
+    auto force = 1_kN;
+    auto distance = 1_mm;
     
     // temporary result of f * d 
     // is an anonymous_quantity

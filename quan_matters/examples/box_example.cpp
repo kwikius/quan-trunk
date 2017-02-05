@@ -15,11 +15,6 @@
  along with this program. If not, see http://www.gnu.org/licenses./
 */
 
-//
-
-
- 
-//
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 /*
@@ -33,8 +28,6 @@
 #include <quan/out/force.hpp>
 #include <quan/out/mass.hpp>
 #include <quan/out/density.hpp>
-
-//#include <quan_matters/src/acceleration_g.cpp>
 
 class Box{
 public:
@@ -70,19 +63,23 @@ public:
     quan::length::m const height;
 
 };
+
+namespace {
+
+   QUAN_QUANTITY_LITERAL(mass,kg)
+   QUAN_QUANTITY_LITERAL(length,mm)
+   QUAN_QUANTITY_LITERAL(volume,m3)
+   QUAN_QUANTITY_LITERAL(density,kg_per_m3)
+   QUAN_QUANTITY_LITERAL(time,s)
+}
 //
 int main()
 {
-   using quan::length;
-   using quan::time;
-   using quan::mass;
-   using quan::density;
+   auto box = Box{1000_mm, 500_mm, 200_mm};
+   box.set_contents_density(1000_kg_per_m3);
 
-   auto box = Box{length::mm{1000}, length::mm{500}, length::mm{200}};
-   box.set_contents_density(density::kg_per_m3{1000});
-
-   auto fill_time = time::s{200};      // time since starting fill
-   auto measured_mass = mass::kg{20};  // measured mass at fill_time
+   auto fill_time = 200_s;      // time since starting fill
+   auto measured_mass = 20_kg;  // measured mass at fill_time
 
    std::cout << "fill level at " << fill_time << " = "
    << box.fill_level(measured_mass) <<'\n';
@@ -90,7 +87,7 @@ int main()
    << " = " << measured_mass / fill_time <<'\n';
    std::cout << "fill level rate = "
    << box.fill_level(measured_mass) / fill_time <<'\n';
-   time::s fill_time_left
+   auto fill_time_left
    = (box.height / box.fill_level(measured_mass) - 1) * fill_time ;
    std::cout << "fill time left = " << fill_time_left <<'\n';
 

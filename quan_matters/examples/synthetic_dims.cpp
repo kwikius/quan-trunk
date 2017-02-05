@@ -15,11 +15,6 @@
  along with this program. If not, see http://www.gnu.org/licenses./
 */
 
-//
- 
- 
- 
-//
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 
@@ -87,8 +82,11 @@ int main()
     quan::volume::m3 volume(1);
     quan::power::W power(1);
     quan::pressure::Pa pressure(1);
-   // std::ostream & os = std::cout;
+#if (1)
+    std::ostream & os = std::cout;
+#else
     std::ofstream os("db_dims.csv");
+#endif
     os << "abstract quantity name ,";
     for (int i = 0 ; i < 7 ; ++i){
         os << ar[i] << ',';

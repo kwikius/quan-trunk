@@ -25,7 +25,6 @@
 #include <quan/volume.hpp>
 #include <quan/out/substance.hpp>
 
-
 #ifndef QUAN_DEFINE_PHYSICAL_CONSTANTS_IN_HEADERS
 #include <quan_matters/src/constant.cpp>
 #include <quan_matters/src/gas_constant.cpp>
@@ -36,44 +35,58 @@
 #include <quan/constants/gas_constant.hpp>
 #endif
 
-void f1()
-{
-   
-    using quan::gas_constant;
-    using quan::pow;
-    using quan::temperature;
-    using quan::pressure;
-    using quan::length;
-    using quan::volume;
-    using quan::substance;
-    double const & pi = quan::constant::pi;
+/*
+gas constant using quantities and doubles
+*/
 
-    temperature::K  T(310);
-    pressure::Pa    P(1.01325e5);
-    length::m       r(0.5e-6);
-    volume::m3      V = 4.0 / 3.0 * pi * pow<3>(r);
-    substance::mol  subst = P * V /(gas_constant::R * T);
-    std::cout << subst << '\n';
+namespace {
+
+   QUAN_QUANTITY_LITERAL(temperature,K)
+   QUAN_QUANTITY_LITERAL(pressure,Pa)
+   QUAN_QUANTITY_LITERAL(length,m)
+
 }
 
-double const gas_constant_R(8.3145);
-void f2()
+#define let constexpr auto
+
+namespace {
+   let gas_constant_R = 8.3145;
+}
+
+void f_doubles()
 {
-    using quan::pow;
-    using quan::gas_constant;
+   let     pi = quan::constant::pi;
+   let     T = 310.0;
+   let     P = 1.01325e5;
+   let     r = 0.5e-6;
 
-    double const & pi = quan::constant::pi;
-    double  T(310);
-    double     P(1.01325e5);
-    double      r(0.5e-6);
-    double      V = 4.0 / 3.0 * pi * pow<3>(r);
-    double  subst = P * V /(gas_constant_R * T);
-    std::cout << subst << '\n';
+   double  V = 4.0 / 3.0 * pi * std::pow(r,3);
+   double  subst = P * V /(gas_constant_R * T);
 
+   std::cout << subst << '\n';
+}
+
+void f_quantities()
+{
+   let                    pi = quan::constant::pi;
+   let                    T = 310.0_K;
+   let                    P = 1.01325e5_Pa;
+   let                    r = 0.5e-6_m;
+
+   quan::volume::m3       V = 4.0 / 3.0 * pi * quan::pow<3>(r);
+   quan::substance::mol   subst = P * V /(quan::gas_constant::R * T);
+
+   std::cout << subst << '\n';
 }
 
 int main()
 {  
- f1();
- f2();
+   std::cout << "--------- doubles ---------\n";
+
+   f_doubles();
+
+   std::cout << "-------- quantities ---------\n";
+
+   f_quantities();
+
 }

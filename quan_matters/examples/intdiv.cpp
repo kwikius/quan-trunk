@@ -15,11 +15,6 @@
  along with this program. If not, see http://www.gnu.org/licenses./
 */
 
-//
- 
- 
- 
-//
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 /* 
@@ -34,10 +29,16 @@
 
 #include <quan/out/length.hpp>
 
+namespace {
+
+   QUAN_QUANTITY_LITERAL(length,mm)
+   QUAN_QUANTITY_LITERAL(length,m)
+}
+
 int main()
 {
-    quan::length_<int>::m L1(1);
-    quan::length_<int>::mm L2(1000);
+    auto constexpr L1 = 1_m;
+    auto constexpr L2 = 1000_mm;
 
     std::cout << L1 + L2 <<'\n';
     std::cout << L2 + L1 <<'\n';
@@ -47,9 +48,6 @@ int main()
   
     std::cout << L1 / L2 <<'\n';
     std::cout << L2 / L1 <<'\n'; 
-
-    std::cout << L1 * L2 <<'\n';
-    std::cout << L2 * L1 <<'\n';   
 
     quan::length_<int>::mm L3 = L1;
     std::cout << L3 << '\n'; 

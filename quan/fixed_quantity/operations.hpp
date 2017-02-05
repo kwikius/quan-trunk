@@ -32,5 +32,6 @@
 #include <quan/fixed_quantity/operations/power_root.hpp>
 #include <quan/fixed_quantity/operations/compare.hpp>
 #include <quan/fixed_quantity/operations/anonymous_cast.hpp>
+#include <quan/fixed_quantity/literal.hpp>
 
 #endif

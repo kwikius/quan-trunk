@@ -31,12 +31,17 @@
 #include <string>
 #include <quan/utility/timer.hpp>
 
+namespace{
+   QUAN_QUANTITY_LITERAL(time,s)
+}
+
 int main()
 {  
    constexpr char const* const inputs[] = { "12 in", "20 in", "20.1 in", "24 in","0.1 in", "-12 in"};
+
    quan::length::in L;
 
-   quan::time::s wait_time{1};
+   auto constexpr wait_time = 1_s;
 
    for(auto str : inputs){
       quan::timer<quan::time::s> t;

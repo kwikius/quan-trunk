@@ -15,11 +15,6 @@
  along with this program. If not, see http://www.gnu.org/licenses./
 */
 
-//
- 
- 
- 
-//
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 /*
@@ -51,8 +46,7 @@ int main()
     std::cout.precision(5);
     length::km         const planet_radius(6400); //roughly !
     density::kg_per_m3 const planet_density(5487); // roughly!
-    mass::kg const planet_mass = (4.0/3.0)* constant::pi 
-    * pow<3>(planet_radius) * planet_density;
+    mass::kg const planet_mass = (4.0/3.0)* constant::pi * pow<3>(planet_radius) * planet_density;
 
     std::cout << "mass of planet is roughly " << planet_mass <<'\n';
 
@@ -61,8 +55,8 @@ int main()
 
     // ...on the planet surface
     force::N const exerted_force_at_surface 
-    = (object_mass * planet_mass * gravitational_constant::G)
-    / pow<2>(planet_radius);
+       = (object_mass * planet_mass * gravitational_constant::G)
+       / pow<2>(planet_radius);
 
     std::cout << "force on object at surface is roughly " 
     << exerted_force_at_surface <<'\n';
@@ -71,6 +65,7 @@ int main()
     length::pc object_distance(64e13/3.085678); // pc =  3.085678e16 m
 
     std::cout << "force on object at " << object_distance << " is roughly "
-    << force::yN((object_mass * planet_mass * gravitational_constant::G)
-        / pow<2>(object_distance)) <<'\n';
+       << force::yN((object_mass * planet_mass * gravitational_constant::G)
+           / pow<2>(object_distance)) <<'\n';
 }
+

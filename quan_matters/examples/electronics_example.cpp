@@ -15,11 +15,6 @@
  along with this program. If not, see http://www.gnu.org/licenses./
 */
 
-//
-
-
- 
-//
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 /*
@@ -33,28 +28,29 @@
 #include <quan/out/power.hpp>
 #include <quan/out/energy.hpp>
 
+namespace {
+   QUAN_QUANTITY_LITERAL(voltage,V)
+   QUAN_QUANTITY_LITERAL(resistance,kR)
+   QUAN_QUANTITY_LITERAL(time,s)
+}
+
 int main()
 {
-    using quan::voltage;
-    using quan::current;
-    using quan::resistance;
-    using quan::time;
-    using quan::power;
-    using quan::energy;
-   // using quan::pow;
+    auto                    v = 5.0_V;
+    auto                    r = 1.0_kR;
 
-    voltage::V        v{5.0};
-    resistance::kR    r{1};
-    current::mA       i = v/r;
-    time::s           t{1.0};
-    power::mW         w = quan::pow<2>(v)/r;
-    energy::mJ        e = w * t;
+    quan::current::mA       i = v/r;
+
+    auto                    t = 1.0_s;
+
+    quan::power::mW         w = quan::pow<2>(v)/r;
+    quan::energy::mJ        e = w * t;
     std::cout
-    << "A current of " << i
-    << "\nthrough a voltage of " << v
-    << "\nrequires a resistance of " << r
-    << "\nand produces "  << w << " of heat\n";
+       << "A current of " << i
+       << "\nthrough a voltage of " << v
+       << "\nrequires a resistance of " << r
+       << "\nand produces "  << w << " of heat\n";
     std::cout
-    << "total energy used in " << t
-    << " is " <<  e  << '\n';
+       << "total energy used in " << t
+       << " is " <<  e  << '\n';
 }

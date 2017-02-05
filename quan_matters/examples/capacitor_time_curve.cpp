@@ -16,11 +16,6 @@
  along with this program. If not, see http://www.gnu.org/licenses./
 */
 
-//
-
-
- 
-//
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 /*
@@ -33,32 +28,41 @@
 #include <quan/time.hpp>
 #include <quan/out/voltage.hpp>
 
+namespace {
+
+   QUAN_QUANTITY_LITERAL(capacitance,uF)
+   QUAN_QUANTITY_LITERAL(voltage,V)
+   QUAN_QUANTITY_LITERAL(voltage,mV)
+   QUAN_QUANTITY_LITERAL(voltage,uV)
+   QUAN_QUANTITY_LITERAL(voltage,nV)
+   QUAN_QUANTITY_LITERAL(resistance,kR)
+   QUAN_QUANTITY_LITERAL(time,ms)
+}
+
 int main()
 {
-    using quan::capacitance;
     using quan::voltage;
-    using quan::resistance;
-    using quan::time_; // for non default time with int value_type
 
     std::cout.setf(std::ios_base::fixed,std::ios_base::floatfield);
     std::cout.precision(3);
 
-    capacitance::uF   const C{0.47}; // capacitor
-    voltage::V        const V0{5};   // starting voltage across capacitor
-    resistance::kR    const R{4.7};  // resistance between terminals
+    #define let auto constexpr
 
-    // one possible useage of integer value_type
-    for ( auto t = time_<int>::ms{0} ; t <= time_<int>::ms{50}; ++t  ){
+    let C = 0.47_uF;
+    let V0 = 5.0_V;
+    let R = 4.7_kR;
+
+    for ( auto t = 0_ms ; t <= 50_ms; ++t  ){
 
         auto const Vt = V0 * std::exp(-t / (R * C));
 
         std::cout << "at " << t << " voltage is " ;
-        //format
-        if     (Vt >= voltage::V{1})      std::cout << Vt ;
-        else if(Vt >= voltage::mV{1})     std::cout << voltage::mV{Vt};
-        else if(Vt >= voltage::uV{1})     std::cout << voltage::uV{Vt};
-        else if(Vt >= voltage::nV{1})     std::cout << voltage::nV{Vt};
-        else                              std::cout << voltage::pV{Vt};
+
+        if     ( Vt >= 1_V )    std::cout << Vt ;
+        else if( Vt >= 1_mV )   std::cout << voltage::mV{Vt};
+        else if( Vt >= 1_uV )   std::cout << voltage::uV{Vt};
+        else if( Vt >= 1_nV )   std::cout << voltage::nV{Vt};
+        else                    std::cout << voltage::pV{Vt};
         std::cout << "\n";
 
     }

@@ -34,13 +34,6 @@
 #include <quan/out/force.hpp>
 
 
-//comment out NO_PQS_CONSTANTS_LIBRARY if using constants in a library
-//#define NO_PQS_CONSTANTS_LIBRARY
-//#ifdef NO_PQS_CONSTANTS_LIBRARY
-////definition of constant of acceleration due to gravity 
-////#include <quan_matters/src/acceleration_g.cpp>
-//#endif
-
 int main()
 {
     std::cout << "The original demonstration of"

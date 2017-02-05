@@ -34,18 +34,25 @@
     return result;
 }
 
+namespace {
+
+   QUAN_QUANTITY_LITERAL(mass,g)
+   QUAN_QUANTITY_LITERAL(velocity,mm_per_min)
+   QUAN_QUANTITY_LITERAL(time,min)
+   QUAN_QUANTITY_LITERAL(time,s)
+}
+
 int main()
 {
+    #define let auto constexpr
     //lab technician works in "odd units"...
-
-    quan::mass::g               const mass(0.1f);
-    quan::velocity::mm_per_min  const initial_v(5);
-    quan::velocity::mm_per_min  const final_v(5.5);
-    quan::time::min             const t_min(10);
-    quan::time::s               const t_sec( 12);
+    let mass = 0.1_g;
+    let initial_v = 5.0_mm_per_min;
+    let final_v = 5.5_mm_per_min;
+    let t_min = 10.0_min;
+    let t_sec = 12.0_s;
 
     // function does the work ... he doesnt have to...
-
     std::cout << "force on mass = " << Force(mass,initial_v, final_v, t_min + t_sec) << '\n';
     quan::density::kg_per_m3 density = mass / quan::volume::m3(1);
     return 0;

@@ -19,15 +19,22 @@ Copyright (c) 2003-2014 Andy Little.
 #include <quan/out/mass.hpp>
 #include <quan/volume.hpp>
 
+namespace {
+
+   QUAN_QUANTITY_LITERAL(mass,kg)
+   QUAN_QUANTITY_LITERAL(length,ft)
+   QUAN_QUANTITY_LITERAL(volume,m3)
+}
+
 int main()
 {
    using namespace quan;
 
-   auto const m = mass::kg{1000} *  ( pow<3>(length::ft{1}) / volume::m3{1} ) ;
+   auto const m = 1000_kg * ( pow<3>(1.0_ft) / 1_m3 ) ;
 
    std::cout << "mass = " << m << '\n';
 
-   double c1 = pow<3>(12/39.4) * 1000;
+   double const c1 = pow<3>(12/39.4) * 1000;
 
    std::cout << "c1 = " << c1 <<'\n';
 
@@ -36,6 +43,4 @@ int main()
       cout <~ m , "\n";
 
    */
-
-
 }
