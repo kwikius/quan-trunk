@@ -89,9 +89,7 @@ namespace quan{
         >::type result_value_type;
 
         // To show this ... check it is a numeric
-        static_assert((quan::meta::is_numeric<
-            result_value_type, "assertion failed"
-        >));
+        static_assert(quan::meta::is_numeric<result_value_type>::value, "assertion failed");
 
         typedef typename quan::angle_<result_value_type>::rad result_type;
         

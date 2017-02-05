@@ -17,6 +17,7 @@
 
 #include <iostream>
 #include <limits>
+#include <cmath>
 /*
    type representing a numeric value bundled with an exponent to base10 
    where parts of the calculations are done with TMP
@@ -39,7 +40,7 @@ struct value_with_exp{
 // The fun part is the math ops:
 // multiplication and division are very efficient:
 template <int ExpLhs, int ExpRhs>
-typename value_with_exp<ExpLhs + ExpRhs>
+value_with_exp<ExpLhs + ExpRhs>
 operator * (value_with_exp<ExpLhs> lhs, value_with_exp<ExpRhs> rhs)
 {
    return value_with_exp<ExpLhs + ExpRhs>(lhs.numeric_value * rhs.numeric_value) ; 

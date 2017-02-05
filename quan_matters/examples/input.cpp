@@ -27,19 +27,33 @@
 
 #include <quan/fixed_quantity/io/input.hpp>
 #include <quan/out/length.hpp>
+#include <sstream>
+#include <string>
+#include <quan/utility/timer.hpp>
 
 int main()
 {  
-    quan::length::in L;
-    while (std::cin){
-        std::cout << " value of L is : " <<  L <<'\n';
-        std::cout << "enter length in inches ie 12 in\n...or bad units to quit\n";
-        std::cin >> L;
-        if (std::cin.bad()){
-            std::cout << "bad input... quitting\n";
-        }
-        else{
-            std::cout << "value is now : " << L <<'\n';
-        }
-    }
+   constexpr char const* const inputs[] = { "12 in", "20 in", "20.1 in", "24 in","0.1 in", "-12 in"};
+   quan::length::in L;
+
+   quan::time::s wait_time{1};
+
+   for(auto str : inputs){
+      quan::timer<quan::time::s> t;
+
+      while ( t() < wait_time){ asm volatile ("nop":::);}
+
+      std::istringstream in{str};
+      in >> L;
+
+      if (in.bad()){
+         std::cout << "bad input... quitting\n";
+         break;
+      }
+      else{
+         quan::length::cm cm = L;
+         std::cout << "value is now : " << L << " ( or " << cm << ")\n";
+      }
+   }
+   return EXIT_SUCCESS;
 }

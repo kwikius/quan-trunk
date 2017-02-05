@@ -38,12 +38,14 @@ int main()
         std::cout << "conversion 1 succeeded\n";
 
         quan::length_<double>::m L3( static_cast<double>(INT_MAX)+1 );
+
+        std::cout << "Expect to throw an exception here...\n";
         quan::length_<int>::m L4 = L3;
 
-        std::cout << "conversion 2 succeeded\n";
+        std::cout << "(!!!Unexpected!!!) conversion 2 succeeded \n";
     }
     catch ( std::exception & e){
-        std::cout << "conversion failed with " << e.what() <<'\n';
+        std::cout << "OK (expected) out of range conversion failed with \"" << e.what() << "\n";
     }
 
 }
