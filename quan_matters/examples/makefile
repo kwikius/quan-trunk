@@ -1,11 +1,10 @@
 
 ifeq ($(QUAN_ROOT),)
-$(error ****************QUAN_ROOT not defined.QUAN_ROOT must be defined to path to your quan library installation ********)
+QUAN_ROOT = ../../
 endif
 
-CXXFLAGS = -I$(QUAN_ROOT) -O3 -std=c++11
-
-CXX = g++
+CXX         ?= /usr/local/bin/g++
+CXXFLAGS    ?= -O3 -std=c++11 -I${QUAN_ROOT}
 
 .PHONY : all test clean
 
