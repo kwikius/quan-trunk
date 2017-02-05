@@ -129,9 +129,8 @@ namespace quan{namespace meta{
 
 }}//quan::meta
 
-#ifndef QUAN_SUPPRESS_VC8_ADL_BUG
+
 namespace quan{ namespace two_d{
-#endif
 
    template <typename TL, typename TR>
    inline
@@ -142,6 +141,7 @@ namespace quan{ namespace two_d{
    {
       return (lhs.x == rhs.x) && (lhs.y == rhs.y) ;
    }
+
    template <typename TL, typename TR>
    inline
    constexpr bool operator !=(
@@ -166,13 +166,7 @@ namespace quan{ namespace two_d{
                 TL,quan::meta::plus,TR
             >::type
         > result_type;
-#if 0
-        result_type result = lhs;
-        result += rhs;
-        return result;
-#else
-         return result_type{lhs.x + rhs.x, lhs.y + rhs.y};
-#endif
+        return result_type{lhs.x + rhs.x, lhs.y + rhs.y};
     }
 
     template <typename TL, typename TR>
@@ -189,14 +183,7 @@ namespace quan{ namespace two_d{
                 TL,quan::meta::minus,TR
             >::type
         > result_type;
-#if 0
-        result_type result = lhs;
-        result -= rhs;
-        return result;
-#else
       return result_type{lhs.x - rhs.x, lhs.y - rhs.y};
-#endif
-
     }
 
     template <typename TL, typename TR>
@@ -216,7 +203,6 @@ namespace quan{ namespace two_d{
             quan::meta::times,
             TR
         >::type (lhs.x * rhs, lhs.y * rhs);
-       // return result;
     }
 
     template <typename TL, typename TR>
@@ -229,14 +215,13 @@ namespace quan{ namespace two_d{
          >::type
       >
     >::type
-    operator  *( TL const & lhs, quan::two_d::vect<TR> const & rhs)
+    operator *( TL const & lhs, quan::two_d::vect<TR> const & rhs)
     {
         return typename quan::meta::binary_op<
             quan::two_d::vect<TL> ,
             quan::meta::times,
             TR
         >::type (lhs * rhs.x, lhs * rhs.y);
-       // return result;
     }
 
 
@@ -258,10 +243,6 @@ namespace quan{ namespace two_d{
 
     }
 
-#ifdef QUAN_SUPPRESS_VC8_ADL_BUG
-namespace quan{ namespace two_d{
-#endif
-
     template <typename Value_type>
     inline constexpr 
     quan::two_d::vect<Value_type>
@@ -271,7 +252,7 @@ namespace quan{ namespace two_d{
     }
 
     template <typename Value_type>
-    inline
+    inline constexpr
     typename quan::meta::binary_op<
         Value_type,
         quan::meta::times,
@@ -279,29 +260,19 @@ namespace quan{ namespace two_d{
     >::type
     norm( quan::two_d::vect<Value_type> const & v)
     {
-       /* typename quan::meta::binary_op<
-            Value_type,
-            quan::meta::times,
-            Value_type
-        >::type result = v.x * v.x ;
-        result += v.y * v.y ;*/
-         return v.x * v.x + v.y * v.y;
-       // return result;
+       return v.x * v.x + v.y * v.y;
     }
 
    template <typename Value_type>
-   inline
+   inline constexpr
    Value_type
    magnitude( vect<Value_type> const & v)
    {
-
       return sqrt(norm(v));
-      //Value_type result = sqrt(norm(v)/*v.x * v.x + v.y * v.y*/);
-      //return result;
    }
 
    template <typename TL, typename TR>
-   inline
+   inline constexpr
    typename quan::meta::binary_op<
       TL, quan::meta::times,TR
    >::type
@@ -313,7 +284,7 @@ namespace quan{ namespace two_d{
    }
 
    template <typename TL, typename TR>
-   inline
+   inline constexpr 
    typename quan::meta::binary_op<
       TL, quan::meta::times,TR
    >::type
@@ -325,7 +296,7 @@ namespace quan{ namespace two_d{
    }
 
    template <typename T>
-   inline
+   inline constexpr
    vect<T>
    perp_vector(vect<T> const & in)
    {
@@ -333,14 +304,14 @@ namespace quan{ namespace two_d{
    }
 
    template <typename T>
-   inline
+   inline 
    vect<T> rotate( vect<T> const & in , quan::angle::rad const & theta)
    {
       return  in * cos(theta) + perp_vector(in) * sin(theta);
    }
 
    template <typename T>
-   inline
+   inline constexpr
    vect<
       typename quan::meta::binary_op<
          T,quan::meta::divides,T
@@ -351,7 +322,8 @@ namespace quan{ namespace two_d{
       return in / magnitude(in);
    }
 
-   inline vect<double>
+   inline 
+   vect<double>
    unit_vector(quan::angle::rad angle_in)
    {
       return vect<double>(quan::cos(angle_in),quan::sin(angle_in));

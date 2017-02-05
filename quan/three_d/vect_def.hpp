@@ -38,12 +38,14 @@ namespace quan{ namespace three_d{
     struct vect
     {
         typedef T value_type;
-        vect() 
+        constexpr vect() 
         : x( static_cast<T>(0) )
         , y( static_cast<T>(0) )
         , z( static_cast<T>(0) )
         {}
+
         template <typename Tx, typename Ty, typename Tz>
+        constexpr 
         vect(Tx const & x_in, Ty const & y_in, Tz const & z_in)
         : x( quan::implicit_cast<T>(x_in) )
         , y( quan::implicit_cast<T>(y_in) )
@@ -51,39 +53,34 @@ namespace quan{ namespace three_d{
         T x,y,z;
 
         template <typename T1>
+        constexpr
         vect( vect<T1> const & in)
         : x(in.x),y(in.y),z(in.z){}
+
         template <typename T1>
         vect &
         operator = (vect<T1> const & in)
         {
-            this->x = in.x;
-            this->y = in.y;
-            this->z = in.z;
-            return * this;
+            return * this = vect{in} ;
         }
         
-        vect operator -()const
+        constexpr vect operator -()const
         {
             return vect(-x,-y,-z);
         }
+        
         template <typename T1>
         vect &
         operator += (vect<T1> const & in)
         {
-            this->x += in.x;
-            this->y += in.y;
-            this->z += in.z;
-            return * this;
+           return *this = vect{this->x + in.x,this->y + in.y, this->z + in.z};
         }
+
         template <typename T1>
         vect &
         operator -= (vect<T1> const & in)
         {
-            this->x -= in.x;
-            this->y -= in.y;
-            this->z -= in.z;
-            return * this;
+           return *this = vect{this->x - in.x,this->y - in.y, this->z - in.z};
         }
 
         template <typename T1>
@@ -93,10 +90,7 @@ namespace quan{ namespace three_d{
         >::type
         operator *= (T1 const & in)
         {
-            this->x *= in;
-            this->y *= in;
-            this->z *= in;
-            return *this;
+            return *this = vect{this->x * in,this->y * in, this->z * in};
         }
 
         template <typename T1>
@@ -106,51 +100,29 @@ namespace quan{ namespace three_d{
         >::type
         operator /= (T1 const & in)
         {
-            this->x /= in;
-            this->y /= in;
-            this->z /= in;
-            return *this;
+            return *this = vect{this->x / in,this->y / in, this->z / in};
         }
 
         T & operator[](int n)
         {
-            switch (n){
-                case 0:
-                    return x;
-                case 1:
-                    return y; 
-                case 2:
-                    return z;
-                default:
-#if defined QUAN_NO_EXCEPTIONS
-// crap really maybe some dummy static value?
-                 return x;
-#else
-                 throw std::logic_error(
-                     "array subscript out of range in vect"
-                 );         
+           static_assert( (sizeof(vect) == 3 * sizeof(T)), "array operator malformed" );
+#if !defined QUAN_NO_EXCEPTIONS
+           if( (n < 0) || (n >2)){
+                throw std::length_error("array subscript out of range in quat");
+           }
 #endif
-            }
+           return (&x)[n];
         }
+
         T const & operator[](int n)const
         {
-            switch (n){
-                case 0:
-                    return x;
-                case 1:
-                    return y; 
-                case 2:
-                    return z;
-                default:
-#if defined QUAN_NO_EXCEPTIONS
-                    return x;
-#else
-                    throw std::logic_error(
-                        "array subscript out of range in vect"
-                    );
-                    
+           static_assert( (sizeof(vect) == 3 * sizeof(T)), "array operator malformed" );
+#if !defined QUAN_NO_EXCEPTIONS
+           if( (n < 0) || (n >2)){
+                throw std::length_error("array subscript out of range in quat");
+           }
 #endif
-            }
+           return (&x)[n];
         }
         
     };

@@ -35,7 +35,7 @@
     
 */
 
-#include <quan/out/time.hpp>
+#include <quan/time.hpp>
 #include <quan/meta/eval_rational.hpp>
 #include <quan/static_assert.hpp>
 #include <type_traits>

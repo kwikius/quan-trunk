@@ -30,19 +30,26 @@
 #include <quan/where.hpp>
 #include <type_traits>
 
+#if ! defined QUAN_NO_EXCEPTIONS
+#include <stdexcept>
+#endif
+
 namespace quan{ namespace two_d{
 
     template <typename T>
     struct vect{
         typedef T value_type;
         constexpr vect() : x( static_cast<T>(0) ),  y( static_cast<T>(0) ){}
+
         template <typename Ta, typename Tb>
         constexpr vect(Ta const & x_in, Tb const & y_in)
         : x( quan::implicit_cast<T>(x_in) ),  y( quan::implicit_cast<T>(y_in) ){}
+
         template <typename T1>
         constexpr vect(vect<T1> const & in)
         : x( quan::implicit_cast<T>(in.x) ),  y( quan::implicit_cast<T>(in.y) ){}
         T x,y;
+
         template <typename T1>
         vect& operator =( vect<T1> const & in)
         {
@@ -50,6 +57,7 @@ namespace quan{ namespace two_d{
             this->y = in.y;
             return *this;
         }
+
         template <typename T1>
         vect& operator +=( vect<T1> const & in)
         {
@@ -91,6 +99,28 @@ namespace quan{ namespace two_d{
             this->x /=in;
             this->y /=in;
             return *this;
+        }
+
+        T & operator[](int n)
+        {
+           static_assert( (sizeof(vect) == 2 * sizeof(T)), "array operator malformed" );
+#if !defined QUAN_NO_EXCEPTIONS
+           if( (n < 0) || (n >1)){
+                throw std::length_error("array subscript out of range in quat");
+           }
+#endif
+           return (&x)[n];
+        }
+
+        T const & operator[](int n)const
+        {
+           static_assert( (sizeof(vect) == 2 * sizeof(T)), "array operator malformed" );
+#if !defined QUAN_NO_EXCEPTIONS
+           if( (n < 0) || (n >1)){
+                throw std::length_error("array subscript out of range in quat");
+           }
+#endif
+           return (&x)[n];
         }
     };
 

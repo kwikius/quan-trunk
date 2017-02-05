@@ -24,6 +24,7 @@
 
 #include <quan_matters/test/test.hpp>
 #include <quan/out/angle.hpp>
+#include <quan/angle/literal.hpp>
 #include <quan/fixed_quantity/operations/atan2.hpp>
 #include <quan/length.hpp>
 //-----------------------------------
@@ -34,21 +35,45 @@
 
 //-------------------------------------
 
+namespace {
+// declare some literal angle functions
+   QUAN_ANGLE_LITERAL(rad)
+   QUAN_ANGLE_LITERAL(deg)
+}
+
 void angle_test1();
+void angle_test2();
 void modulo_test();
+
 int errors = 0;
 
 int main()
 {
    angle_test1();
+   angle_test2();
    modulo_test();
 
    EPILOGUE
 }
 
+void angle_test2()
+{
+   auto constexpr x = 90_deg;
+
+   quan::angle::rad y = x;
+
+   QUAN_CHECK(x == quan::angle::pi / 2);
+   QUAN_CHECK(y == quan::angle::pi / 2);
+
+   auto constexpr z = -90_deg;
+   QUAN_CHECK(z == -quan::angle::pi / 2);
+   
+}
+
 void modulo_test()
 {
-    
+   QUAN_CHECK( modulo(33_deg) == 33.0_deg); 
+   QUAN_CHECK( modulo(393_deg) == 33.0_deg); 
    QUAN_CHECK( modulo(quan::angle_<int>::deg{33}) == quan::angle_<int>::deg{33});
    QUAN_CHECK(signed_modulo(quan::angle::deg{27}) == quan::angle::deg{27});
 
@@ -91,10 +116,11 @@ void modulo_test()
 void angle_test1()
 {
     quan::angle::deg a{90};
+   
     QUAN_CHECK(a.numeric_value() == 90.0);
     a += quan::angle::min{1};
     a += quan::angle::s(1);
-    a = quan::angle::deg{90};
+    a = 90.0_deg;
     QUAN_CHECK(a == quan::angle::pi/2);
     quan::angle::rad b = a;
     quan::angle::rad c = quan::angle::deg(180);

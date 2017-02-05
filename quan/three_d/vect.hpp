@@ -52,7 +52,7 @@ namespace quan{ namespace meta{
 namespace quan{namespace three_d{
 
    template <typename TL, typename TR>
-   inline 
+   inline  constexpr
    bool operator ==( 
       quan::three_d::vect<TL> const & lhs, 
       quan::three_d::vect<TR> const & rhs
@@ -60,8 +60,9 @@ namespace quan{namespace three_d{
    {
       return (lhs.x == rhs.x) && (lhs.y == rhs.y) && (lhs.z == rhs.z);
    }
+
    template <typename TL, typename TR>
-   inline 
+   inline constexpr 
    bool operator !=( 
       quan::three_d::vect<TL> const & lhs, 
       quan::three_d::vect<TR> const & rhs
@@ -71,7 +72,7 @@ namespace quan{namespace three_d{
    }
     
     template <typename TL, typename TR>
-    inline
+    inline constexpr
     quan::three_d::vect<
         typename quan::meta::binary_op< 
             TL,
@@ -84,18 +85,18 @@ namespace quan{namespace three_d{
         quan::three_d::vect<TR> const & rhs
     )
     {
-        quan::three_d::vect<
+        typedef quan::three_d::vect<
             typename quan::meta::binary_op< 
                 TL,
                 quan::meta::plus,
                 TR
             >::type
-        > result = lhs;
-        return (result+= rhs);
+        > result_type;
+        return result_type{lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z};
     }
 
     template <typename TL, typename TR>
-    inline
+    inline constexpr
     quan::three_d::vect<
         typename quan::meta::binary_op< 
             TL,
@@ -108,18 +109,18 @@ namespace quan{namespace three_d{
         quan::three_d::vect<TR> const & rhs
     )
     {
-         quan::three_d::vect<
+        typedef quan::three_d::vect<
             typename quan::meta::binary_op< 
                 TL,
                 quan::meta::minus,
                 TR
             >::type
-        > result = lhs;
-        return (result -= rhs);
+        > result_type;
+        return result_type{lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z};
     }
 
     template <typename TL, typename TR>
-    inline
+    inline constexpr 
     typename quan::where_<
       quan::meta::is_scalar<TR>,
       quan::three_d::vect<
@@ -139,11 +140,11 @@ namespace quan{namespace three_d{
                TR
             >::type 
         > result_type;  
-        return result_type(lhs.x * rhs,lhs.y * rhs,lhs.z * rhs);
+        return result_type{lhs.x * rhs,lhs.y * rhs,lhs.z * rhs};
     }
 
    template <typename TL, typename TR>
-   inline
+   inline constexpr
    typename quan::where_<
       quan::meta::is_scalar<TL>,
       quan::three_d::vect<
@@ -163,11 +164,11 @@ namespace quan{namespace three_d{
                 TR
             >::type
         > result_type;
-        return result_type(lhs *rhs.x, lhs * rhs.y,lhs * rhs.z);
+        return result_type{lhs * rhs.x, lhs * rhs.y,lhs * rhs.z};
     }
 
     template <typename TL, typename TR>
-    inline
+    inline constexpr
     quan::three_d::vect<
         typename quan::meta::binary_op< 
             TL,
@@ -184,12 +185,12 @@ namespace quan{namespace three_d{
                 TR
             >::type
         > result_type;
-        return result_type(lhs.x / rhs, lhs.y / rhs, lhs.z / rhs);
+        return result_type{lhs.x / rhs, lhs.y / rhs, lhs.z / rhs};
 
     }
 
     template <typename Value_type>
-    inline
+    inline constexpr
     typename quan::meta::binary_op<
         Value_type,
         quan::meta::times,
@@ -201,7 +202,7 @@ namespace quan{namespace three_d{
     }
 
     template <typename Value_type>
-    inline
+    inline constexpr
     quan::three_d::vect<Value_type>
     abs( quan::three_d::vect<Value_type> const & v)
     {
@@ -209,7 +210,7 @@ namespace quan{namespace three_d{
     }
 
     template <typename Value_type>
-    inline
+    inline constexpr
     Value_type
     magnitude( quan::three_d::vect<Value_type> const & v)
     {
@@ -217,7 +218,7 @@ namespace quan{namespace three_d{
     }
 
     template <typename T1,typename T2>
-    inline 
+    inline constexpr
     typename quan::meta::binary_op< 
         T1,
         quan::meta::times,
@@ -231,7 +232,7 @@ namespace quan{namespace three_d{
     }
 
     template<typename T1, typename T2>
-    inline
+    inline constexpr
     quan::three_d::vect<
         typename quan::meta::binary_op< 
             T1,
@@ -258,7 +259,7 @@ namespace quan{namespace three_d{
     }
 
    template <typename T>
-   inline
+   inline constexpr
    vect<
       typename quan::meta::binary_op<
          T,quan::meta::divides,T
@@ -270,7 +271,7 @@ namespace quan{namespace three_d{
    }
 
    template <typename T>
-   inline
+   inline constexpr
    vect<T>
    perp_vector_axis_x(vect<T> const & in)
    {
@@ -278,7 +279,7 @@ namespace quan{namespace three_d{
    }
 
    template <typename T>
-   inline
+   inline constexpr
    vect<T>
    perp_vector_axis_y(vect<T> const & in)
    {
@@ -286,7 +287,7 @@ namespace quan{namespace three_d{
    }
 
    template <typename T>
-   inline
+   inline constexpr
    vect<T>
    perp_vector_axis_z(vect<T> const & in)
    {
@@ -294,7 +295,7 @@ namespace quan{namespace three_d{
    }
 
    template <typename T>
-   inline
+   inline  constexpr
    T
    magnitude_axis_z(vect<T> const & in)
    {
@@ -302,7 +303,7 @@ namespace quan{namespace three_d{
    }
 
    template <typename T>
-   inline
+   inline  constexpr
    T
    magnitude_axis_x(vect<T> const & in)
    {
@@ -310,7 +311,7 @@ namespace quan{namespace three_d{
    }
 
    template <typename T>
-   inline
+   inline  constexpr
    T
    magnitude_axis_y(vect<T> const & in)
    {

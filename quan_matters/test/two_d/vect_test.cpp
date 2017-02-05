@@ -1,3 +1,4 @@
+
 /*
  Copyright (c) 2003-2014 Andy Little.
 
@@ -18,42 +19,72 @@
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 /*
-    Preliminary tests on three_d vects
+    Preliminary tests on two_d vects
 */
 
 #include <quan_matters/test/test.hpp>
-#include <quan/three_d/vect.hpp>
+#include <quan/two_d/vect.hpp>
 #include <quan/length.hpp>
+#include <quan/area.hpp>
+#include <quan/fixed_quantity/literal.hpp>
 
 void vect_test1();
 void vect_t1_quantity_test1();
+void vect_test3();
 
 int errors = 0;
 int main()
 {
    vect_test1();
    vect_t1_quantity_test1();
+   vect_test3();
 
    EPILOGUE
 }
 
+namespace {
+
+   QUAN_QUANTITY_LITERAL(length,mm) 
+   QUAN_QUANTITY_LITERAL(length,m) 
+}
+
+void vect_test3()
+{
+     typedef quan::length::mm mm;
+     typedef quan::two_d::vect<mm> vect;
+
+     constexpr auto v = 20_mm;
+
+     constexpr vect x{v,18.5_mm};
+
+     QUAN_CHECK(x.x == 20.0_mm);
+     static_assert(x.x == 20.0_mm,"error");
+     static_assert(x.x == 20_mm,"error");
+
+     
+}
+
 void vect_test1()
 {
-    typedef quan::three_d::vect<double> vect;
+    typedef quan::two_d::vect<double> vect;
 
-    constexpr vect c1{20,-20,10};
-    constexpr vect c2{20,-20,10};
+    constexpr vect c1{20,-20};
+    constexpr vect c2{20,-20};
     constexpr vect c3 = c1 - c2;
 
-
-    QUAN_CHECK( (c3 == vect{}) );
-    vect v1(1.,2.,3.);
+    static_assert( c3 == vect{},"error");
+    constexpr vect c4 = c1 * 2;
+    static_assert(c4.x == 40,"error");
+    static_assert(c4.y == -40,"error");
+    vect v1(1.,2.);
     QUAN_CHECK(v1.x == 1.);
     QUAN_CHECK(v1[0] == 1.);
     QUAN_CHECK(v1.y == 2.);
     QUAN_CHECK(v1[1] == 2.);
-    QUAN_CHECK(v1.z == 3.);
-    QUAN_CHECK(v1[2] == 3.);
+
+    constexpr vect c5 = c4 / 2;
+    static_assert( c5 == c1,"error");
+
 
 #if ! defined QUAN_NO_EXCEPTIONS
     bool caught = false;
@@ -68,65 +99,69 @@ void vect_test1()
     vect v2 = v1 * 2;
     QUAN_CHECK(v2.x == 2.);
     QUAN_CHECK(v2.y == 4.);
-    QUAN_CHECK(v2.z == 6.);
+
     vect v3 = v1 + v2;
     QUAN_CHECK(v3.x == 3.);
     QUAN_CHECK(v3.y == 6.);
-    QUAN_CHECK(v3.z == 9.);
+
     vect v4 = v1 - v2;
     QUAN_CHECK(v4.x == -1.);
     QUAN_CHECK(v4.y == -2.);
-    QUAN_CHECK(v4.z == -3.);
-    
-    typedef quan::three_d::vect<int> vect1;
 
-    vect1 v5(1,2,3);
+    
+    typedef quan::two_d::vect<int> vect1;
+
+    vect1 v5(1,2);
     vect  v6 = v5 + v1;
     QUAN_CHECK(v6.x == 2.);
     QUAN_CHECK(v6.y == 4.);
-    QUAN_CHECK(v6.z == 6.); 
 
-    v5 = vect(1,2,3);
-    v6 = vect(1,2,3);
+    v5 = vect(1,2);
+    v6 = vect(1,2);
     v5 += v6;
 
     QUAN_CHECK(v5.x == 2.);
     QUAN_CHECK(v5.y == 4.);
-    QUAN_CHECK(v5.z == 6.); 
-      
+
+    auto vq = v5 * 20_mm;
+
+    QUAN_CHECK( (vq == quan::two_d::vect<quan::length::mm>{40_mm,80_mm}) ); 
 }
 
 void vect_t1_quantity_test1()
 {
     typedef quan::length::mm len;
-    typedef quan::three_d::vect<len> vect;
-    vect v1(len(1.),len(2.),len(3.));
+    typedef quan::two_d::vect<len> vect;
+    vect v1(len(1.),len(2.));
     QUAN_CHECK(v1.x.numeric_value() == 1.);
     QUAN_CHECK(v1[0] == len{1.});
     QUAN_CHECK(v1.y.numeric_value() == 2.);
-    QUAN_CHECK(v1.z.numeric_value() == 3.);
+
     vect v2 =v1 * 2.;
     QUAN_CHECK(v2.x.numeric_value() == 2.);
     QUAN_CHECK(v2.y.numeric_value() == 4.);
-    QUAN_CHECK(v2.z.numeric_value() == 6.);
+
     vect v3 = v1 + v2;
     QUAN_CHECK(v3.x.numeric_value() == 3.);
     QUAN_CHECK(v3.y.numeric_value() == 6.);
-    QUAN_CHECK(v3.z.numeric_value() == 9.);
+
     vect v4 = v1 - v2;
     QUAN_CHECK(v4.x.numeric_value() == -1.);
     QUAN_CHECK(v4.y.numeric_value() == -2.);
-    QUAN_CHECK(v4.z.numeric_value() == -3.);
+
     
     typedef quan::length_<int>::mm len1;
-    typedef quan::three_d::vect<
+    typedef quan::two_d::vect<
         len1
     > vect1;
 
-    vect1 v5(len1(1),len1(2),len1(3));
+    vect1 v5(len1(1),len1(2));
     vect  v6 = v5 + v1;
     QUAN_CHECK(v6.x.numeric_value() == 2.);
     QUAN_CHECK(v6.y.numeric_value() == 4.);
-    QUAN_CHECK(v6.z.numeric_value() == 6.); 
+
 }
+
+ 
+
 

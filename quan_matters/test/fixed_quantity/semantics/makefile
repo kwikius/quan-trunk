@@ -4,6 +4,9 @@
 # should depend also on quan headers to trigger build? 
 
 #  env  QUAN_ROOT is the parent of the quan directory
+ifeq ($(QUAN_ROOT),)
+$(error ****************QUAN_ROOT not defined.QUAN_ROOT must be defined to path to your quan library installation ********)
+endif
 
 TARGET      ?= test.exe
 CXX         ?= /usr/local/bin/g++
