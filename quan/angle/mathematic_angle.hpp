@@ -47,6 +47,7 @@
 #include <cmath>
 #endif
 
+#include <quan/meta/if.hpp>
 #include <quan/meta/is_angle.hpp>
 #include <quan/angle/meta_math_angle.hpp>
 #include <quan/meta/binary_op_if.hpp>
@@ -55,7 +56,7 @@
 #include <quan/implicit_cast.hpp>
 #include <quan/constants/constant.hpp>
 #include <quan/arithmetic_convert.hpp>
-#include <quan/meta/if.hpp>
+#include <quan/modulus.hpp>
 
 namespace quan{
 
@@ -77,12 +78,9 @@ namespace quan{
             mathematic_angle
         >::type type;
 
-     QUAN_CONSTEXPR   mathematic_angle(): m_value{static_cast<Value_type>(0)}{}
-
-      //  mathematic_angle(Value_type const & v): m_value(v){}
+      QUAN_CONSTEXPR mathematic_angle(): m_value{static_cast<Value_type>(0)}{}
 
       template<typename Value_type1>
-
       QUAN_CONSTEXPR
       mathematic_angle(
             Value_type1 const & v,
@@ -769,31 +767,88 @@ namespace quan {
      
     }
 
-    template<
-        typename Extent,
-        typename Value_type
-    >
-    quan::mathematic_angle<Extent, Value_type>
-    modulo( quan::mathematic_angle<Extent,Value_type> const & fr)
-    {
-        // check extent == 1
-        Value_type v = fr.numeric_value() / (2 * quan::constant_<Value_type>::pi);
-        Value_type n;
+   template<
+      typename Extent,
+      typename Value_type
+   >
+   inline 
+   quan::mathematic_angle<
+      Extent, 
+      typename std::common_type<
+         Value_type,QUAN_FLOAT_TYPE
+      >::type
+   >
+   modulo( quan::mathematic_angle<Extent,Value_type> const & fr)
+   {
+      typedef quan::mathematic_angle<
+         Extent, 
+         typename std::common_type<
+            Value_type,QUAN_FLOAT_TYPE
+         >::type
+      > result_type;
+      return result_type{quan::modulus(fr.numeric_value(),2 * quan::constant_<QUAN_FLOAT_TYPE>::pi) };
+   }
 
-#ifndef __AVR__
-        using std::modf;
-#else 
-        using ::modf;
-#endif
-     //   Value_type fract = modf(v,&n);
-        return quan::mathematic_angle<
-            Extent,
-            Value_type
-        > (modf(v,&n) * 2 * quan::constant_<Value_type>::pi);
-       
-    }
+   template<
+      typename Extent,
+      typename Value_type
+   >
+   inline 
+   quan::mathematic_angle<
+      Extent, 
+      typename std::common_type<
+         Value_type,QUAN_FLOAT_TYPE
+      >::type
+   >
+   unsigned_modulo( quan::mathematic_angle<Extent,Value_type> const & fr)
+   {
+      typedef quan::mathematic_angle<
+         Extent, 
+         typename std::common_type<
+            Value_type,QUAN_FLOAT_TYPE
+         >::type
+      > result_type;
+      constexpr auto one_rev = 2 * quan::constant_<QUAN_FLOAT_TYPE>::pi;
+      if ( fr.numeric_value() >= Value_type{0}){
+        return result_type(
+           quan::modulus(fr.numeric_value(),one_rev )
+        );
+      }else{
+         return result_type(
+            quan::modulus(fr.numeric_value(), one_rev) + one_rev
+         );
+      }
+   }
 
-   
+   template<
+      typename Extent,
+      typename Value_type
+   >
+   inline 
+   quan::mathematic_angle<
+      Extent, 
+      typename std::common_type<
+         Value_type,QUAN_FLOAT_TYPE
+      >::type
+   >
+   signed_modulo( quan::mathematic_angle<Extent,Value_type> const & fr)
+   {
+      static_assert(std::is_unsigned<Value_type>::value == false,"not useful for unsigned types");
+      typedef quan::mathematic_angle<
+         Extent, 
+         typename std::common_type<
+            Value_type,QUAN_FLOAT_TYPE
+         >::type
+      > result_type;
+      result_type const unsigned_result = unsigned_modulo(fr);
+      constexpr auto one_rev = 2 * quan::constant_<QUAN_FLOAT_TYPE>::pi;
+      if (unsigned_result.numeric_value() <= one_rev/2 ){
+          return unsigned_result;
+      }else{
+          return unsigned_result - result_type{one_rev} ;
+      }
+   }
+
 }
 
 

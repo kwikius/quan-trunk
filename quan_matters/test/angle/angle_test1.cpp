@@ -43,7 +43,8 @@ namespace {
 
 void angle_test1();
 void angle_test2();
-void modulo_test();
+void deg_modulo_test();
+void rad_modulo_test();
 
 int errors = 0;
 
@@ -51,7 +52,8 @@ int main()
 {
    angle_test1();
    angle_test2();
-   modulo_test();
+   deg_modulo_test();
+   rad_modulo_test();
 
    EPILOGUE
 }
@@ -67,10 +69,41 @@ void angle_test2()
 
    auto constexpr z = -90_deg;
    QUAN_CHECK(z == -quan::angle::pi / 2);
+
+   typedef decltype (1_rad) int_rad_type;
+   static_assert(std::is_same<int_rad_type::value_type,int32_t>::value,"error");
+
+   typedef decltype (1_deg) int_deg_type;
+   static_assert(std::is_same<int_deg_type::value_type,int32_t>::value,"error");
    
 }
 
-void modulo_test()
+void rad_modulo_test()
+{
+   QUAN_CHECK( modulo(1.0_rad) == 1_rad);
+   QUAN_CHECK( 0_rad == modulo(2 * quan::angle::pi));
+   QUAN_CHECK( modulo(2 * quan::angle::pi) == 0_rad); 
+   QUAN_CHECK( modulo(4 * quan::angle::pi) == 0_rad); 
+   QUAN_CHECK( modulo(-4 * quan::angle::pi) == 0_rad); 
+   QUAN_CHECK( modulo(3 * quan::angle::pi) == quan::angle::pi); 
+   QUAN_CHECK( modulo(-3 * quan::angle::pi) == -quan::angle::pi); 
+   QUAN_CHECK( modulo(0_rad) == 0_rad);
+   QUAN_CHECK( modulo(5 * quan::angle::pi) == 180_deg);
+   QUAN_CHECK( modulo(-5 * quan::angle::pi) == -180_deg);
+
+   QUAN_CHECK( unsigned_modulo(-5 * quan::angle::pi) == quan::angle::pi);
+   QUAN_CHECK( unsigned_modulo(2 * quan::angle::pi) == 0_rad);
+
+   typedef decltype (unsigned_modulo(1_rad)) unsigned_modulo_result_type;
+   static_assert(
+      std::is_same<
+         unsigned_modulo_result_type::value_type,QUAN_FLOAT_TYPE
+      >::value
+      ,"error"
+   );
+}
+
+void deg_modulo_test()
 {
    QUAN_CHECK( modulo(33_deg) == 33.0_deg); 
    QUAN_CHECK( modulo(393_deg) == 33.0_deg); 
@@ -113,6 +146,8 @@ void modulo_test()
 }
 
 
+
+
 void angle_test1()
 {
     quan::angle::deg a{90};
@@ -123,7 +158,9 @@ void angle_test1()
     a = 90.0_deg;
     QUAN_CHECK(a == quan::angle::pi/2);
     quan::angle::rad b = a;
+    QUAN_CHECK(b == a);
     quan::angle::rad c = quan::angle::deg(180);
+    QUAN_CHECK( c == 2 * a);
 
     QUAN_CHECK(c == quan::angle::pi);
     
@@ -137,6 +174,7 @@ void angle_test1()
     quan::angle::sr d = b * c;
 //   b = b + 1; // should wotk and promote to mathematic_angle
     b *= 1;  
+ 
  //   b = b - 1; //should work and promote to math_angle
     b + c;
     b - c;
