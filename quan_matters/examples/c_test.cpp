@@ -34,7 +34,7 @@ int main()
 
    std::cout << "mass = " << m << '\n';
 
-   double const c1 = pow<3>(12/39.4) * 1000;
+   double const c1 = 1000 * ( pow<3>(12/39.3701) ) ;
 
    std::cout << "c1 = " << c1 <<'\n';
 

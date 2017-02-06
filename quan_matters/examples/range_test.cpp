@@ -40,7 +40,7 @@ int main()
         std::cout << "(!!!Unexpected!!!) conversion 2 succeeded \n";
     }
     catch ( std::exception & e){
-        std::cout << "OK (expected) out of range conversion failed with \"" << e.what() << "\n";
+        std::cout << "OK (expected) out of range conversion failed with \"" << e.what() << "\"\n";
     }
 
 }

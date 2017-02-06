@@ -16,18 +16,8 @@
  along with this program. If not, see http://www.gnu.org/licenses./
 */
 
-//
- 
- 
- 
-//
 // See <QUAN_ROOT/quan_matters/index.html> for documentation.
 
-/*
-    Demostrates various ways a unit library can be implemented.
-    I think Quan way is better, but I would wouldnt I
-
-*/
 #include <quan/config.hpp>
 #include <quan/out/length.hpp>
 #include <quan/out/area.hpp>
@@ -61,7 +51,6 @@ void f_first()
 
 void f_pqs()
 {
- 
     using quan::length;
     using quan::time;
 
