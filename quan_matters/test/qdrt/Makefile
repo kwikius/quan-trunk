@@ -1,21 +1,34 @@
+#  env  QUAN_ROOT is the parent of the quan directory
+ifeq ($(QUAN_ROOT),)
+$(error ****************QUAN_ROOT not defined.QUAN_ROOT must be defined to path to your quan library installation ********)
+endif
 
+TARGET      ?= test.exe
+CXX         ?= /usr/local/bin/g++
+CXXFLAGS    ?= -std=c++11 -I${QUAN_ROOT}
 
-include_directories = /home/andy/cpp/projects/quan-trunk
+MEMBER_FILES = qdrt
 
-INCLUDES = $(patsubst %,-I%,$(include_directories))
+SRCS =    $(patsubst %,%.cpp,$(MEMBER_FILES)) 
 
-.PHONY: all test clean
+OBJECTS = $(patsubst %,%.o,$(MEMBER_FILES)) 
 
-all : test.exe
+PHONY : all
 
-test.exe : main.o
-	g++ -o $@  $<
+all : $(TARGET)
 
-main.o : qdrt.cpp
-	g++ -std=c++11 $(INCLUDES) -c $< -o $@
+$(TARGET) : $(OBJECTS)
+	$(CXX) -o $(TARGET) $(CXXFLAGS) $(OBJECTS)
+
+%.o : %.cpp
+	$(CXX) -c $(CXXFLAGS) $< -o $@
+
+.PHONY : clean
+.PHONY : test
+
+test : $(TARGET)
+	./$(TARGET)
 
 clean :
-	rm -f *.o *.exe
-
-test : test.exe
-	./test.exe
+	rm -f *.o
+	rm -f $(TARGET)
