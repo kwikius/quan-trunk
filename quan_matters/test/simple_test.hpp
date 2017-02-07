@@ -26,22 +26,27 @@
 #endif
 /// count errors
 extern int errors;
+
+// return true if no errors, else false
 inline
-void check_function( const char* filename ,  long line,const char* pred, bool pred1)
+bool check_function( const char* filename ,  long line,const char* pred, bool pred1)
 {
-    if(! pred1){
-        std::cout << filename << ":" << line  << "( " << pred << " ) failed\n";
-        errors ++;
-    }
- #ifdef QUAN_CHECK_VERBOSE 
-     else {
-       std::cout << filename << ":" << line  << "( " << pred << " ) succeeded\n";
-    }
- #endif
+   if(! pred1){
+      std::cout << filename << ":" << line  << "( " << pred << " ) failed\n";
+      errors ++;
+      return false;
+   } else {
+      #ifdef QUAN_CHECK_VERBOSE 
+      std::cout << filename << ":" << line  << "( " << pred << " ) succeeded\n";
+      #endif
+      return true;
+   }
 }
+
+// return true if no errors, else false
 template<typename Ta, typename Tb, typename Te>
 inline
-void check_close_function(
+bool check_close_function(
 const char* filename ,long line,
 const char* predac,const char* predbc,const char* epsc,Ta vala, Tb valb, Te eps)
 {
@@ -52,26 +57,36 @@ const char* predac,const char* predbc,const char* epsc,Ta vala, Tb valb, Te eps)
         << "( " << predac << " == " << predbc << " +/- " << epsc << " ) failed\n"
         << "actual error = " << absval <<'\n';
         errors ++;
+        return false;
+    }else{
+       return true;
     }
 }
+
+// return true if no errors, else false
 template<typename Ta, typename Tb>
 inline
-void check_equal_function( const char* filename ,long line,
+bool check_equal_function( const char* filename ,long line,
 const char* predac,const char* predbc,Ta vala, Tb valb)
 {
     typedef typename quan::meta::binary_op<
         Ta,quan::meta::minus,Tb
     >::type Te;
-     Te  absval = (vala - valb >= 0) ? vala - valb : valb - vala;
+    Te  absval = (vala - valb >= 0) ? vala - valb : valb - vala;
     if (! (absval == Te(0) )){
         std::cout << filename << ":" << line
         << "( " << predac << " == " << predbc << " ) failed\n"
         << "actual error = " << absval <<'\n';
         errors ++;
+        return false;
+    }else{
+       return true;
     }
 }
 
 #define QUAN_CHECK(x) check_function( __FILE__ , __LINE__ , #x, x);
+#define QUAN_CHECK_I(x,i) if (!check_function( __FILE__ , __LINE__ , #x, x) ) { std::cout << "   at iteration[" << i << "]\n\n";}
+#define QUAN_CHECK_IJ(x,i,j) if (!check_function( __FILE__ , __LINE__ , #x, x) ) { std::cout << "   at iteration[" << i << ',' << j << "]\n\n";}
 #define QUAN_CHECK_CLOSE(a,b,e) check_close_function( __FILE__ , __LINE__ , #a , #b ,#e, a, b, e)
 #define QUAN_CHECK_EQUAL(a,b) check_equal_function( __FILE__ , __LINE__ , #a , #b , a , b )
 
