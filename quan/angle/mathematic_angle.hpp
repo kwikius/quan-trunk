@@ -563,9 +563,6 @@ namespace quan { //quan
         >::type{b / ra.numeric_value()};
     }
 
-
-
-
     template<
         typename Extent,
         typename Value_typeL,
@@ -582,7 +579,14 @@ namespace quan { //quan
                 quan::meta::minus,
                 Value_typeR
             >::type
-        > const & epsilon
+        > const & epsilon = quan::mathematic_angle<
+            Extent,
+            typename quan::meta::binary_op<
+                Value_typeL,
+                quan::meta::minus,
+                Value_typeR
+            >::type
+        >{0}
     )
     {
         typedef typename quan::meta::binary_op<
