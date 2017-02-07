@@ -54,7 +54,7 @@ void f_pqs()
     using quan::length;
     using quan::time;
 
-   length::km km(1);
+    length::km km(1);
 
 // for convenience...
     typedef length distance;
