@@ -7,6 +7,7 @@ namespace quan{ namespace tracker{namespace zapp4{
 
    struct command_id{
       static constexpr uint16_t   position = 1;
+      static constexpr uint16_t   gps_status = 2;
    };
 
    
