@@ -3,26 +3,12 @@
 
 #include <quan/uav/position.hpp>
 #include <quan/tracker/zapp4/ids.hpp>
+#include <quan/tracker/zapp4/crc.hpp>
 #include <quan/tracker/detail/normalise_angle.hpp>
 #include <quan/uav/cobs/protocol.hpp>
 #include <cstring>
 
 namespace quan{ namespace tracker{ namespace zapp4{
-
-// naive crc32 Ethernet algorithm
-// todo verify against the stm32 hardware
-   inline uint32_t crc32(uint32_t crc, uint32_t data)
-   {
-      crc = crc ^ data;
-      for ( uint32_t i = 0U; i < 32U; ++i){
-         if (crc & (1 << 31)){
-            crc =  (crc << 1) ^ 0x4c11db7;
-         }else{
-            crc <<= 1;
-         }
-      }
-      return crc;
-   }
 
     //  1 input frame 0
     //  1 id
