@@ -28,6 +28,4 @@
 #include <quan/stm32/gpio/pin.hpp>
 #include <quan/stm32/periph_reg_actions/apply.hpp>
 
-
-
 #endif // QUAN_STM32F$_GPIO_HPP_INCLUDED
