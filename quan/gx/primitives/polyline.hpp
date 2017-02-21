@@ -37,6 +37,11 @@ namespace quan{ namespace gx{ namespace primitives{
          length_type const & width ,
          abc_color::ptr color = quan::gx::rgb::colors::black)
       : m_width(width),m_color(color){}
+
+      polyline(std_vect const & v, 
+         length_type const & width = length_type{0},
+         abc_color::ptr color = quan::gx::rgb::colors::black
+      ) : m_width{width},m_points(v),m_color{color}{}
       
       length_type get_line_width() const
       {return m_width;}
@@ -44,6 +49,7 @@ namespace quan{ namespace gx{ namespace primitives{
       {
          return m_color;
       }
+
       void push_back(vect const& v)
       {
          m_points.push_back(v);
@@ -55,6 +61,12 @@ namespace quan{ namespace gx{ namespace primitives{
              push_back(v);
          }
       }
+
+      void push_back(std_vect const & list)
+      {
+         m_points = list;
+      }
+
       typename std_vect::size_type get_num_elements()const
       {
          return m_points.size();
