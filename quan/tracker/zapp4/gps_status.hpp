@@ -9,6 +9,7 @@ namespace quan{ namespace tracker{ namespace zapp4{
   encode the gps status mainly useful for when initialising or when there is no gps or no fix etc
   Actually could send extra data here e.g dead reckoning info, course and direction
   however that is for another ID
+  Actually could mod this to add num sats info/ aircraft uptime etc. For startup this keeps interest.
 */
    enum class gps_status_t: uint8_t{
      no_gps,no_fix,fix_2d,fix_3d,unknown
