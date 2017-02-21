@@ -81,9 +81,9 @@ namespace quan{ namespace gx{ namespace primitives{
       }
     
       private:
-      length_type m_height;
-      vect m_pos;
       std::string m_text;
+      vect m_pos;
+      length_type m_height;
       std::string m_font_face;
       abc_color::ptr m_color;
       horz_align m_horizontal_alignment;
