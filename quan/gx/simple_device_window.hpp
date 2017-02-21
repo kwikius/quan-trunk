@@ -22,6 +22,10 @@
 namespace quan{ namespace gx{
   
    struct simple_device_window : device_window{
+      simple_device_window()
+      :m_size_px{ 1,1 }
+      ,m_size_mm{quan::length::mm{1},quan::length::mm{1}}
+      {}
       // current size of client area of pane in px
       quan::two_d::vect<int>  get_size_in_px() const 
       { return m_size_px;}
