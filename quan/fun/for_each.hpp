@@ -81,8 +81,6 @@ namespace quan{ namespace fun{
          f(i);
       }
    }
-
-
    
    template <typename Sequence,typename F, typename Fback>
    typename quan::where_<
