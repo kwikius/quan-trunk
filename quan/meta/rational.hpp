@@ -378,39 +378,6 @@ namespace quan{namespace meta{
     template <int64_t N, int64_t D>
     struct is_rational<rational<N,D> > : std::true_type{};
 
-#if (0)
-     //+- 46340 
-    #define QUAN_META_RATIONAL_COMPARISON_OP( Operator,OpSymbol)\
-    template <\
-            int64_t Nlhs ,\
-            int64_t Dlhs ,\
-            int64_t Nrhs ,\
-            int64_t Drhs\
-    >\
-    struct  Operator <\
-        quan::meta::rational<Nlhs , Dlhs > ,\
-        quan::meta::rational<Nrhs , Drhs >\
-    > : quan::concept_checking::Assert<\
-            (quan::meta::is_lossless_calculation<\
-                quan::meta::rational<Nlhs , Dlhs >,\
-                quan::meta::divides,\
-                quan::meta::rational<Nrhs , Drhs >\
-             >::value)\
-        >{\
-        typedef typename quan::meta::rational<Nlhs , Dlhs>::type lhs;\
-        typedef typename quan::meta::rational<Nrhs , Drhs>::type rhs;\
-        enum{\
-            lhsn = lhs::numerator ,\
-            lhsd = lhs::denominator ,\
-            rhsn = rhs::numerator ,\
-            rhsd = rhs::denominator ,\
-            value = ((static_cast<int64_t>(lhsn) \
-                * rhsd) OpSymbol (static_cast<int64_t>(rhsn) * lhsd) )\
-        };\
-        typedef bool_<value> type;\
-    };
- #endif
-//
     #define QUAN_META_RATIONAL_COMPARISON_OP( Operator,OpSymbol)\
     template <\
             int64_t Nlhs ,\
