@@ -25,16 +25,30 @@
 */
 
 #include <quan/archetypes/meta/static_numeric_concept.hpp>
-#include <quan/meta/numerator.hpp>
-#include <quan/meta/denominator.hpp>
+#include <type_traits>
 
 namespace quan{namespace meta{
 
+    template <typename T>
+    struct is_rational : std::false_type{}; 
+
+#if defined __cpp_concepts
+   template <typename T>
+   concept bool Rational = is_rational<T>::value;
+
+   template <Rational R>
+   struct eval;
+
+   template <Rational R>
+   struct is_integer;
+
+#else
     template < typename StaticRational>
     struct eval;
 
     template <typename StaticRational>
     struct is_integer;
+#endif
     
 }}
 

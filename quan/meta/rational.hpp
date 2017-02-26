@@ -27,6 +27,8 @@
 
 #include <quan/config.hpp>
 #include <quan/archetypes/meta/static_rational_concept.hpp>
+#include <quan/meta/numerator.hpp>
+#include <quan/meta/denominator.hpp>
 #include <quan/concept_checking.hpp>
 #include <quan/meta/is_lossless_calculation.hpp>
 #include <quan/meta/rational_fwd.hpp>
@@ -63,6 +65,9 @@ namespace quan{namespace meta{
             >::denominator;        
         typedef rational<numerator,denominator> type;
     };
+
+    template <int64_t N, int64_t D>
+    struct is_rational<rational<N,D> > : std::true_type{};
 
     template<
        int64_t N,
@@ -373,10 +378,8 @@ namespace quan{namespace meta{
         >::type type;
     };
 
-    template <typename T>
-    struct is_rational : std::false_type{};   
-    template <int64_t N, int64_t D>
-    struct is_rational<rational<N,D> > : std::true_type{};
+ 
+
 
     #define QUAN_META_RATIONAL_COMPARISON_OP( Operator,OpSymbol)\
     template <\

@@ -26,6 +26,7 @@
 */
 #include <quan/meta/bool.hpp>
 #include <quan/meta/not.hpp>
+
 namespace quan{namespace meta{
 
     template <typename T>

@@ -11,29 +11,30 @@ TwodVectTestDir               = quan_matters/test/two_d/
 ExamplesDir                   = quan_matters/examples/
 QDRTDir                       = quan_matters/test/qdrt/
 
+USE_CONCEPTS_VALUE = True
+
 .PHONY: fixed_quantity_semantics_test angle_test three_d_test two_d_test examples qdrt
 
 all: fixed_quantity_semantics_test angle_test three_d_test two_d_test examples qdrt
 
 fixed_quantity_semantics_test: 
-	make -C $(FixedQuantitySemanticsTestDir) test
+	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) -C $(FixedQuantitySemanticsTestDir) test
 
 angle_test:
-	make -C $(AngleTestDir) test
+	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) -C $(AngleTestDir) test
 
 three_d_test:
-	make -C $(ThreedVectTestDir) test
+	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) -C $(ThreedVectTestDir) test
 
 two_d_test:
-	make -C $(TwodVectTestDir) test	
+	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) -C $(TwodVectTestDir) test	
 
 examples:
-	make -C $(ExamplesDir) test
+	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) -C $(ExamplesDir) test
 
 qdrt:
-	make -C $(QDRTDir) test
+	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) -C $(QDRTDir) test
 	
-
 clean: 
 	make -C $(FixedQuantitySemanticsTestDir) clean
 	make -C $(AngleTestDir) clean

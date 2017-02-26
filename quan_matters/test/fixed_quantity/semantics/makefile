@@ -9,8 +9,13 @@ $(error ****************QUAN_ROOT not defined.QUAN_ROOT must be defined to path 
 endif
 
 TARGET      ?= test.exe
+ifeq ($(USE_CONCEPTS),True)
+CXX         = /usr/bin/g++-6
+CXXFLAGS    = -std=c++14 -fconcepts -I${QUAN_ROOT}
+else
 CXX         ?= /usr/local/bin/g++
 CXXFLAGS    ?= -std=c++11 -I${QUAN_ROOT}
+endif
 
 MEMBER_FILES = abs anonymous_cast compare construction assignment conversion \
  dim_checks dimless_divide dimless_multiply divide divide_assignment incoh_corner_case \

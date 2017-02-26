@@ -3,8 +3,13 @@ ifeq ($(QUAN_ROOT),)
 QUAN_ROOT = ../../
 endif
 
+ifeq ($(USE_CONCEPTS),True)
+CXX         = /usr/bin/g++-6
+CXXFLAGS    = -std=c++14 -fconcepts -I${QUAN_ROOT}
+else
 CXX         ?= /usr/local/bin/g++
-CXXFLAGS    ?= -O3 -std=c++11 -I${QUAN_ROOT}
+CXXFLAGS    ?= -std=c++11 -I${QUAN_ROOT}
+endif
 
 .PHONY : all test clean
 
