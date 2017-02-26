@@ -16,10 +16,7 @@ Copyright (c) 2003-2014 Andy Little.
 */
 
 #include <quan/gx/wxwidgets/graphics_context.hpp>
-
 #include <quan/gx/primitives/simple_text.hpp>
-#include <quan/gx/rgb_color.hpp>
-#include <quan/gx/abc_color.hpp>
 
 void quan::gx::wxwidgets::graphics_context::draw_text(
    quan::gx::primitives::simple_text<mm> const & text
@@ -32,5 +29,4 @@ void quan::gx::wxwidgets::graphics_context::draw_text(
       ,quan::arithmetic_convert<int>(pos.x)
       ,quan::arithmetic_convert<int>(pos.y)
    );
-   
 }
