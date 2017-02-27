@@ -1,25 +1,32 @@
+
+
+# quan fixed_quantity test makefile
+# builds the.o and .exe in the makefile dir
+# should depend also on quan headers to trigger build? 
+
 #  env  QUAN_ROOT is the parent of the quan directory
+
 ifeq ($(QUAN_ROOT),)
-$(error ****************QUAN_ROOT not defined.QUAN_ROOT must be defined to path to your quan library installation ********)
+QUAN_ROOT = ../../../
 endif
 
-TARGET      ?= test.exe
+MEMBER_FILES = type_sequence
+
+TARGET      = $(patsubst %,%.exe,$(MEMBER_FILES))
 
 ifeq ($(USE_CONCEPTS),True)
 CXX         = g++-6
 CXXFLAGS    = -std=c++14 -fconcepts -I${QUAN_ROOT}
 else
-CXX         ?= /usr/local/bin/g++
+CXX         ?= g++
 CXXFLAGS    ?= -std=c++11 -I${QUAN_ROOT}
 endif
-
-MEMBER_FILES = qdrt
 
 SRCS =    $(patsubst %,%.cpp,$(MEMBER_FILES)) 
 
 OBJECTS = $(patsubst %,%.o,$(MEMBER_FILES)) 
 
-PHONY : all
+.PHONY : all clean test
 
 all : $(TARGET)
 
@@ -29,12 +36,10 @@ $(TARGET) : $(OBJECTS)
 %.o : %.cpp
 	$(CXX) -c $(CXXFLAGS) $< -o $@
 
-.PHONY : clean
-.PHONY : test
-
 test : $(TARGET)
 	./$(TARGET)
 
 clean :
-	rm -f *.o
+	rm -f *.o *.exe
 	rm -f $(TARGET)
+

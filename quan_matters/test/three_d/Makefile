@@ -11,7 +11,7 @@ endif
 TARGET      ?= test.exe
 
 ifeq ($(USE_CONCEPTS),True)
-CXX         = /usr/bin/g++-6
+CXX         = g++-6
 CXXFLAGS    = -std=c++14 -fconcepts -I${QUAN_ROOT}
 else
 CXX         ?= /usr/local/bin/g++
