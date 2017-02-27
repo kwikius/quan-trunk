@@ -24,10 +24,17 @@
     Get the normalised denominator of a StaticRational
 */
 
+#include <quan/archetypes/meta/static_rational_concept.hpp>
+
 namespace quan{namespace meta{
 
+#if defined __cpp_concepts
+    template <Rational R>
+    struct denominator;
+#else
     template <typename StaticRational>
     struct denominator;
+#endif
 
 }}//quan::meta
 

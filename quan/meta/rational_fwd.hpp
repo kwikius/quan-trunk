@@ -24,11 +24,16 @@
 // See QUAN_ROOT/quan_matters/doc/index.html for documentation.
 
 #include <quan/config.hpp>
+#include <quan/archetypes/meta/static_rational_concept.hpp>
 
 namespace quan{namespace meta{
 
     template <int64_t N, int64_t D= 1>
     struct rational;
+
+    // make a model of Rational
+    template <int64_t N, int64_t D>
+    struct is_rational<rational<N,D> > : std::true_type{};
 
 }}//quan::meta
 

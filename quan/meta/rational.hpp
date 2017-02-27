@@ -26,12 +26,13 @@
 */
 
 #include <quan/config.hpp>
-#include <quan/archetypes/meta/static_rational_concept.hpp>
+
+#include <quan/meta/rational_fwd.hpp>
 #include <quan/meta/numerator.hpp>
 #include <quan/meta/denominator.hpp>
-#include <quan/concept_checking.hpp>
+
 #include <quan/meta/is_lossless_calculation.hpp>
-#include <quan/meta/rational_fwd.hpp>
+
 #include <quan/meta/detail/rational_impl.hpp>
 #include <quan/meta/binary_op.hpp>
 #include <quan/meta/is_runtime_type.hpp>
@@ -65,9 +66,6 @@ namespace quan{namespace meta{
             >::denominator;        
         typedef rational<numerator,denominator> type;
     };
-
-    template <int64_t N, int64_t D>
-    struct is_rational<rational<N,D> > : std::true_type{};
 
     template<
        int64_t N,
