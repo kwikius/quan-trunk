@@ -5,7 +5,7 @@
 #endif
 
 /*
- Copyright (c) 2003-2014 Andy Little.
+ Copyright (c) 2003-2017 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
