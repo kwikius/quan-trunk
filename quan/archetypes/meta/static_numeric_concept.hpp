@@ -27,13 +27,14 @@
 #include <quan/meta/bool.hpp>
 #include <quan/meta/not.hpp>
 
+#include <quan/meta/eq_zero.hpp>
+#include <quan/meta/neq_zero.hpp>
+
 namespace quan{namespace meta{
 
-    template <typename T>
-    struct eq_zero : bool_<((T::value) ==0)>{};
-    
-    template <typename T>
-    struct neq_zero : not_<eq_zero<T> >{};
+
+//    template <typename T>
+//    struct neq_zero : not_<eq_zero<T> >{};
 
     template <typename T>
     struct eq_one : bool_<((T::value) ==1)>{};
