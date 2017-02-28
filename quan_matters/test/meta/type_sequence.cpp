@@ -72,6 +72,7 @@ int main()
    
    typedef push_back<t5,my_type>::type t7;
    static_assert(std::is_same<t7,type_sequence<int,double,my_type> >::value, "error");
+   static_assert(std::is_same<at<2,t7>::type,my_type>::value, "error");
    static_assert(get_num_elements<t7>::value == 3, "error");
    
    QUAN_EPILOGUE
