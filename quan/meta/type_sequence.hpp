@@ -37,8 +37,13 @@ namespace quan{ namespace meta{
      static const uint32_t length = 0;
    };
 
-}}
+#if defined __cpp_concepts
+  template <typename ... T> struct is_type_sequence <type_sequence<T...> > : std::true_type{};
+  template <> struct is_type_sequence <type_sequence<> > : std::true_type{};
+#endif
 
+}}
+#if  ! defined __cpp_concepts
 namespace quan{ namespace impl{
 
    template <typename ...T>
@@ -47,6 +52,7 @@ namespace quan{ namespace impl{
       quan::meta::type_sequence<T...> 
    > : quan::meta::true_{};
 }}
+#endif
 
 namespace quan{ namespace meta{
 
