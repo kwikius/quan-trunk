@@ -16,7 +16,7 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-
+#include <quan/concepts/meta/type_sequence/definition.hpp>
 #include <quan/meta/push_back.hpp>
 #include <quan/meta/push_front.hpp>
 #include <quan/meta/get_num_elements.hpp>
@@ -25,11 +25,5 @@
 #include <quan/meta/front.hpp>
 #include <quan/meta/back.hpp>
 #include <quan/meta/at.hpp>
-
-namespace quan{ namespace meta{
-
-   struct TypeSequence;
-
-}}//quan::meta
 
 #endif
