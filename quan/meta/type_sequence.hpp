@@ -151,13 +151,11 @@ namespace quan{ namespace meta{
    template< typename Last>
    struct pop_back<type_sequence<Last> >{
        typedef type_sequence<> type;
-     // typedef typename get_first_n<List::length-1,List>::type type;
    };
 
    template <>
    struct pop_back<type_sequence<> >
    {
-      // could just be empty_list?
       typedef quan::undefined type;
    };
 
