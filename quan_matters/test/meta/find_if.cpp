@@ -12,6 +12,8 @@
 
 #include <iostream>
 
+// Only useful with concepts
+#if defined __cpp_concepts
 namespace {
 
    template <typename T> struct is_dimension : std::false_type{};
@@ -31,6 +33,7 @@ namespace {
    >{};
 
 }
+#endif
 
 int errors = 0;
 
@@ -57,6 +60,7 @@ int main(){
    static_assert(quan::meta::find_if<other,quan::meta::is_same<bool> >::value == false,"error");
    static_assert(quan::meta::find_if<other,quan::meta::is_same<char> >::value == false,"error");
 
+#if defined __cpp_concepts
    static_assert(is_dimension<velocity>::value ==true,"error");
 
    static_assert( is_dimension<other>::value == false,"error");
@@ -66,7 +70,7 @@ int main(){
    static_assert(is_dimensionless<dimless>::value == true,"error");
 
    static_assert(is_dimensionless<velocity>::value == false,"error");
-
+#endif
    QUAN_EPILOGUE
      
 }
