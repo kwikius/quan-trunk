@@ -1,6 +1,8 @@
 #ifndef QUAN_CONCEPTS_META_TYPE_SEQUENCE_DEFINITION_HPP_INCLUDED
 #define QUAN_CONCEPTS_META_TYPE_SEQUENCE_DEFINITION_HPP_INCLUDED
 
+#include <type_traits>
+
 namespace quan{ namespace meta{
 
 #if defined __cpp_concepts

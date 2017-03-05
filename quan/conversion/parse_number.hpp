@@ -31,8 +31,6 @@
 
 #include <quan/conversion/basic_char_ptr_converter.hpp>
 
- // 
-
 namespace quan{ namespace detail{
 
 	struct number_parser : basic_char_ptr_converter
