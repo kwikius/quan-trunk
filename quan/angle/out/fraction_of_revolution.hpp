@@ -51,6 +51,18 @@ namespace quan{
         return "deg";
     }
 
+     template<typename Value_type>
+    inline
+    std::string 
+    units_str(fraction_of_revolution<
+            quan::meta::rational<1>,
+            quan::meta::rational<36000>,
+            Value_type
+        > const& )
+    {
+        return "cdeg";
+    }
+
     template<typename Value_type>
     inline
     std::string 
