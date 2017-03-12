@@ -30,7 +30,9 @@
 #include <quan/where.hpp>
 #include <type_traits>
 #include <quan/static_assert.hpp>
+#if !defined QUAN_NO_EXCEPTIONS
 #include <stdexcept>
+#endif
 
 namespace quan{ namespace three_d{
  
