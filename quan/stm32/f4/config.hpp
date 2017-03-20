@@ -86,12 +86,13 @@
 #ifndef QUAN_STM32_AHB3_DIVISOR
 #define QUAN_STM32_AHB3_DIVISOR 1
 #endif
-// think this is actually 1
+
+// APB2 timer clock is * 2 to the APB2 periph clock
 #ifndef QUAN_STM32_APB2_DIVISOR
 #define QUAN_STM32_APB2_DIVISOR 2
 #endif
 
-// think this is actually 2 ...
+// APB1 timer clock is * 2 to the APB1 periph clock
 #ifndef QUAN_STM32_APB1_DIVISOR
 #define QUAN_STM32_APB1_DIVISOR 4
 #endif
