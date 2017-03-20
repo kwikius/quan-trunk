@@ -23,7 +23,7 @@
 #include <quan/config.hpp>
 #include <quan/angle.hpp>
 #include <quan/two_d/vect.hpp>
-
+#include <cmath>
 
 namespace quan{ namespace two_d{
 
@@ -44,9 +44,11 @@ namespace quan{ namespace two_d{
    };
 
    struct rotationf{
-      rotationf( quan::angle_<float>::rad  in) 
+      rotationf( quan::angle_<float>::rad  in)
+      :m_cos_theta{cos(in)}
+      ,m_sin_theta{sin(in)} 
       {
-         ::sincosf(in.numeric_value(),&m_sin_theta,&m_cos_theta);
+         //::sincosf(in.numeric_value(),&m_sin_theta,&m_cos_theta);
       }
 
       template <typename T>
