@@ -34,7 +34,7 @@
 #include <quan/meta/gcd.hpp>
 
 namespace quan { namespace stm32{ namespace detail{
-
+#if 0
    template <uint32_t N>
    struct system_pll_constants_impl;
 
@@ -95,6 +95,40 @@ namespace quan { namespace stm32{ namespace detail{
       static_assert( (pll_vco % 48000000) == 0 , "pll calc usb clock remainder in division");
       static_assert( (pllq >= 2) && (pllq <= 15) ,"pllq out of range");
    };
+#else
+   #if QUAN_STM32_SOURCE_CLOCK_Hz == 8000000
+      #if QUAN_STM32_SYSCLK_Hz == 168000000
+         struct system_pll_constants {
+            static constexpr uint32_t pllm = 4;
+            static constexpr uint32_t plln = 168;
+            static constexpr uint32_t pllp = 2;
+            static constexpr uint32_t pllq = 7;
+         };
+     #elif QUAN_STM32_SYSCLK_Hz == 96000000
+        struct system_pll_constants {
+            static constexpr uint32_t pllm = 7;
+            static constexpr uint32_t plln = 336;
+            static constexpr uint32_t pllp = 4;
+            static constexpr uint32_t pllq = 8;
+         };
+     #elif  QUAN_STM32_SYSCLK_Hz == 84000000
+        struct system_pll_constants {
+            static constexpr uint32_t pllm = 4;
+            static constexpr uint32_t plln = 168;
+            static constexpr uint32_t pllp = 4;
+            static constexpr uint32_t pllq = 7;
+        };
+     #elif QUAN_STM32_SYSCLK_Hz == 72000000
+        struct system_pll_constants {
+            static constexpr uint32_t pllm = 4;
+            static constexpr uint32_t plln = 72;
+            static constexpr uint32_t pllp = 2;
+            static constexpr uint32_t pllq = 3;
+         };
+     #else
+     #endif
+   #endif
+#endif
 
 }}} // quan::stm32::detail
 
