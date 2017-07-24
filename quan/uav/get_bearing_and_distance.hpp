@@ -9,8 +9,12 @@
 namespace quan{ namespace uav{
 
 /*
-   always puts distance, but only put bearing if distance > 2m
-   to avoid div 0, returns treu if put bearing else false
+   Always write results, but return false if too close to home to calculate
+
+   N.B. Dont input a uav_position with the quan::angle_<int32_t>::deg10e7 for lat lon
+   It will provide incorrect results
+   Convert it to a quan::angle_<float>::deg for correct results
+   eg deg_float temp  = deg10_e7;
 */
 
    template <typename AngleType, typename LengthType, typename AngleType1, typename LengthType1>
@@ -20,38 +24,14 @@ namespace quan{ namespace uav{
       quan::uav::position<AngleType, LengthType> const & to, 
       AngleType1 & bearing_out, LengthType1 & distance_out)
    {
+       static_assert( std::is_same<AngleType,quan::angle_<int32_t>::deg10e7>::value == false,"Error not a good choice of angle type");
 
-#if 1
-
-//     template <typename PositionType>
-//	inline 
-//	typename PositionType::angle_type 
-//	get_bearing(PositionType const & gps1, PositionType const & gps2)
-//	{
-      quan::angle_<float>::deg  dlat = from.lat - to.lat; // sort diffence for angle
-      quan::angle_<float>::deg  dlon = from.lon - to.lon;
-      constexpr typename quan::length_<float>::m R{6371000.f};
-      quan::length_<float>::m  rlat = cos(quan::angle_<float>::rad{abs(to.lat)}) * R;
-      quan::length_<float>::m  dx = (dlon * rlat) / quan::angle_<float>::rad{1};
-      quan::length_<float>::m  dy =  (dlat * R ) / quan::angle_<float>::rad{1.f};
-      quan::length_<float>::m  distance = quan::sqrt(dx * dx + dy * dy);
-      distance_out = distance;
-      if ( abs(distance) > quan::length_<float>::m{2.f}){
-        bearing_out = quan::atan2(-dy, dx) + quan::angle::pi/2;
-        return true;
-      }else{
-        bearing_out = AngleType1{0};
-        return false;
-      }
-
-#else
-// note that to and from are reversed from above impl
        typedef AngleType angle_type;
        typedef LengthType length_type;
 
-       constexpr quan::length_<QUAN_FLOAT_TYPE>::m rworld{6371000};
-       angle_type const dlat = to.lat - from.lat; // sort diffence for angle
-       angle_type const dlon = to.lon - from.lon;
+       constexpr quan::length_<QUAN_FLOAT_TYPE>::m rworld{static_cast<QUAN_FLOAT_TYPE>(6371000)};
+       angle_type const dlat = from.lat - to.lat; // sort diffence for angle
+       angle_type const dlon = from.lon - to.lon;
 
        length_type const rlat = cos(quan::angle_<QUAN_FLOAT_TYPE>::rad{abs((to.lat + from.lat)/2)}) * rworld;
        length_type const dx = (dlon * rlat) / quan::angle_<QUAN_FLOAT_TYPE>::rad{1};
@@ -62,13 +42,11 @@ namespace quan{ namespace uav{
          bearing_out = quan::atan2(-dy, dx) + quan::angle::pi/2;
          return true;
        }else{
+         bearing_out = AngleType1{0};
          return false;
        }
-
-#endif
    }
 
 }}
-
 
 #endif // QUAN_UAV_GET_BEARING_AND_DISTANCE_HPP_INCLUDED
