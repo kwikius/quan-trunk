@@ -38,7 +38,11 @@ namespace quan{ namespace tracker{ namespace zapp4{
       u.vals.empty[0] = 'G';
       u.vals.empty[1] = 'P';
       u.vals.empty[2] = 'S';
-      uint32_t const crc_check = u.vals.gps_status | (u.vals.empty[0] << 8U) | (u.vals.empty[1] << 16) |(u.vals.empty[2] <<24);
+      uint32_t const crc_check = 
+       static_cast<uint32_t>(u.vals.gps_status) | 
+       (static_cast<uint32_t>(u.vals.empty[0]) << static_cast<uint32_t>(8U)) | 
+       (static_cast<uint32_t>(u.vals.empty[1]) << static_cast<uint32_t>(16)) |
+       (static_cast<uint32_t>(u.vals.empty[2]) << static_cast<uint32_t>(24));
       u.vals.crc = crc32(0xffffffff,crc_check);
       // encode starting at the id byte
       quan::uav::cobs::encode(u.arr + 3,9,encoded+1);
@@ -61,7 +65,10 @@ namespace quan{ namespace tracker{ namespace zapp4{
       if ( u.vals.id != quan::tracker::zapp4::command_id::gps_status){
          return false;
       }
-      uint32_t const crc_check = u.vals.gps_status | (u.vals.empty[0] << 8U) | (u.vals.empty[1] << 16) |(u.vals.empty[2] <<24);
+      uint32_t const crc_check = static_cast<uint32_t>(u.vals.gps_status) |
+      (static_cast<uint32_t>(u.vals.empty[0]) << static_cast<uint32_t>(8U)) |
+      (static_cast<uint32_t>(u.vals.empty[1]) << static_cast<uint32_t>(16)) |
+      (static_cast<uint32_t>(u.vals.empty[2]) << static_cast<uint32_t>(24));
       uint32_t const crc = quan::tracker::zapp4::crc32(0xffffffff,crc_check);
       if ( u.vals.crc == crc){
          gps_status_out = static_cast<gps_status_t>(u.vals.gps_status);

@@ -1,7 +1,7 @@
 #ifndef QUAN_TRACKER_ZAPP4_IDS_HPP_INCLUDED
 #define QUAN_TRACKER_ZAPP4_IDS_HPP_INCLUDED
 
-#include <cstdint>
+#include <quan/config.hpp>
 
 namespace quan{ namespace tracker{namespace zapp4{
 

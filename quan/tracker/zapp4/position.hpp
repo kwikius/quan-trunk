@@ -6,7 +6,11 @@
 #include <quan/tracker/zapp4/crc.hpp>
 #include <quan/tracker/detail/normalise_angle.hpp>
 #include <quan/uav/cobs/protocol.hpp>
+#ifndef __AVR__
 #include <cstring>
+#else
+#include <string.h>
+#endif
 
 namespace quan{ namespace tracker{ namespace zapp4{
 

@@ -1,7 +1,6 @@
 #ifndef QUAN_TRACKER_DETAIL_NORMALISE_ANGLE_HPP_INCLUDED
 #define QUAN_TRACKER_DETAIL_NORMALISE_ANGLE_HPP_INCLUDED
 
-#include <cstdint>
 #include <quan/angle.hpp>
 
 namespace quan{ namespace tracker{

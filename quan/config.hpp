@@ -147,6 +147,12 @@
 // (note:This may actually be incorrect,
 // but cured a previous issue with gcc)
 
+#ifndef __AVR__
+#define RATIONAL_INT_TYPE int64_t
+#else
+#define RATIONAL_INT_TYPE int32_t
+#endif
+
 //#define int64_t int64_t
 /*
 #if  (INT_MAX >= 0x7fffffff)
@@ -212,9 +218,9 @@
 //prevent conversion of math angle to numeric
 //#define QUAN_NO_MATH_ANGLE_NUMERIC_CONVERSION
 // may not have if 
-//#ifndef __AVR__
+#ifndef __AVR__
 #define QUAN_HAS_LONG_LONG
-//#endif
+#endif
 #endif
 
 
