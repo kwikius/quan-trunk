@@ -29,20 +29,23 @@ int main()
 {
    quan::gc_init();
    typedef quan::atomicstring<char> atom_str;
-   auto stra = "hello";
-// try to avoid string concatting by gcc
-   auto strb = "shello";
-   ++strb;
-   QUAN_CHECK(! (stra == strb))
+
+   // try to avoid string concatting by gcc
+   // trying to get 2 c strings with same string but different pointers
+   char stra [] = "hello";
+   char strb [] = "hello";
+   // if this fails it is due to optimisation by the compiler
+   QUAN_CHECK((stra != strb))
    auto strc  = "cello";
   
    atom_str a = stra;
    atom_str b = strb;
 
+   QUAN_CHECK(a == b)
+
    std::string stringa = "hello";
    std::string stringb = "xhello";
    
-   QUAN_CHECK(a == b)
    // check copy ctor
    auto copied = a;
    QUAN_CHECK(copied == a)
@@ -58,6 +61,7 @@ int main()
    QUAN_CHECK( ! ( a == stringb) )
 
    atom_str c  = "cello";
+   QUAN_CHECK ( ( a != c) )
    QUAN_CHECK ( ! ( a == c) )
 
    QUAN_CHECK( !(a != stra))
@@ -76,7 +80,25 @@ int main()
    // check assign
    c = a;
    QUAN_CHECK ( ( a == c) )
-   QUAN_CHECK ( ( a != c) )
+   QUAN_CHECK ( !( a != c) )
+
+   char nil1 [] = "";
+   char nil2 [] = "";
+   
+   QUAN_CHECK((nil1 != nil2))
+
+   atom_str atom_nil1 = nil1;
+   atom_str atom_nil2 = nil2;
+
+   QUAN_CHECK(atom_nil1 == atom_nil2)
+
+   a = atom_nil1;
+
+   QUAN_CHECK(a != b);
+   QUAN_CHECK(b != a);
+   QUAN_CHECK(a == atom_nil1)
+   QUAN_CHECK(atom_nil1 == a)
+   
 
    QUAN_EPILOGUE
 }
