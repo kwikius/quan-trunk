@@ -8,7 +8,9 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <linux/joystick.h>
+#if ! defined QUAN_NO_EXCEPTIONS
 #include <stdexcept>
+#endif
 #include <thread>    
 #include <chrono> 
 #include <atomic> 
@@ -25,9 +27,17 @@ namespace quan{
       joystick(const char* device_name) // e.g device_name = "/dev/input/js0"
       : m_fd{open(device_name, O_RDONLY | O_NONBLOCK)}, m_thread_running{false}, m_want_thread_quit{true}
       {
+#if ! defined QUAN_NO_EXCEPTIONS
          if (m_fd < 0){
             throw std::runtime_error("failed to open joystick device");
+           return;
          }
+#else
+        if ( m_fd < 0){
+           perror("quan::joystick : ");
+           return;
+        }
+#endif
          for (auto & v : m_channel){v = 0;}
          m_thread_running = true;
          m_want_thread_quit = false;
