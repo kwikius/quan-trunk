@@ -2,7 +2,13 @@
 #define QUAN_MODULUS_HPP_INCLUDED
 
 #include <quan/where.hpp>
+
+#ifndef __AVR__
 #include <type_traits>
+#else
+#include <quan/std/tr1/integral_constant.hpp>
+#include <quan/std/tr1/common_type.hpp>
+#endif
 
 namespace quan{
 
