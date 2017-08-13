@@ -6,10 +6,10 @@
 
 namespace quan{ namespace dom{
 
-   template <typename NodePtr>
+   template <typename IDType>
    inline
-   std::basic_string<typename NodePtr::pointed_type::identifier_type::char_type>
-   get_full_path_string(NodePtr const & p, bool add_leading_dot=false)
+   IDType
+   get_full_path_string(node<IDType>* p, bool add_leading_dot=false)
    {
       return  make_path_string(get_node_path(p,true),add_leading_dot);
    }

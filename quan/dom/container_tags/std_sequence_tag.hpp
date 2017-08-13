@@ -31,6 +31,8 @@ namespace quan{ namespace dom{
                   iter != end; 
                      ++iter){
                if( (*iter)->get_id() == id){
+                  delete *iter;
+                  *iter = nullptr;
                   seq.erase(iter);
                   return true;
                }

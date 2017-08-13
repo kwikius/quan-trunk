@@ -11,48 +11,60 @@
 
 namespace quan{ namespace dom{
 
+   /*
+      Add a new child branch of style ContainerTag, 
+      identified by child_branch_id, 
+      to the node p
+      and return a pointer to it
+      else if p is null throw an exception
+      or if p is not a branch throw an exception
+      or if there is already a branch of that name throw exception
+   */
+
    template <
-      typename ContainerTag,
-      typename NodePtr, typename ID1
+      typename ContainerTag, typename ID, typename ChildID
    >
    inline
-   typename container_node<ContainerTag>::ptr
-   add_branch(NodePtr const & p, ID1 const & id_in)
+   container_node<ContainerTag>*
+   add_branch(node<ID> * p, ChildID const & child_branch_id)
    {
       if (!p){
          std::string str = "add_branch: bad branch_node";
          throw bad_branch_node(str);
       }
-      
-      typedef typename ContainerTag::identifier_type id_type;
-      typename branch<id_type>::ptr br = as_branch_node(p);
-      id_type id = normalise_id(id_in);
+
+      auto br = as_branch_node(p);
+      auto id = normalise_id(child_branch_id);
       if(br->get_child(id)){
          std::string str = "add_branch: id  already_exists";
          throw element_id_already_exists(str);
       }
-      typedef container_node<ContainerTag> container_node_type;;
-      typename container_node_type::ptr child_branch 
-      = new container_node_type{id};
+      typedef container_node<ContainerTag> child_container_type; // type of the branch to be added
+      auto child_branch = new child_container_type{id};
       br->add_child(child_branch);
       return child_branch;
    }
 
+   /*
+      Add a new child branch of style ContainerTag, 
+      identified by child_branch_id, 
+      to the node p, initialised with the element t
+   */
    template <
-   typename ContainerTag, 
-   typename NodePtr, typename ID1, typename T
+      typename T,
+      typename ContainerTag,typename ID, typename ChildID 
    >
    inline
-   typename container_data<ContainerTag,T>::ptr
-   add_branch(NodePtr const &  p, ID1 const & id_in,T const & t)
+   container_data<ContainerTag,T>*
+   add_branch(node<ID> * p, ChildID const & child_branch_id,T const & t)
    {
       if (!p){
          std::string str ="add_element: bad node";
          throw bad_branch_node(str);
       }
-      typedef typename ContainerTag::identifier_type id_type;
-      typename branch<id_type>::ptr br = as_branch_node(p);
-      id_type id = normalise_id(id_in);
+      //typedef typename ContainerTag::identifier_type id_type;
+      auto br = as_branch_node(p);
+      auto id = normalise_id(child_branch_id);
       
       if(br->get_child(id)){
          std::string str = "add_element: id already_exists";
@@ -60,14 +72,11 @@ namespace quan{ namespace dom{
       }
       typedef typename storage_traits<T>::type sT;
       sT s = t;
-
-      typedef container_data<ContainerTag,T> cont_data_node;
+      typedef container_data<ContainerTag,T> child_container_type;
+      auto child_branch = new child_container_type{id,s};
+      br->add_child(child_branch);
       
-      typename cont_data_node::ptr d = new cont_data_node{id,s};
-
-      br->add_child(d);
-      
-      return d;
+      return child_branch;
    }
 
 }}//quan::dom

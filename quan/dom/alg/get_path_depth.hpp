@@ -6,14 +6,16 @@
 
 namespace quan{ namespace dom{
 
-   template <typename NodePtr>
+   template <typename ID>
    inline
-   int get_path_depth( NodePtr const & in)
+   int get_path_depth(node<ID>* in)
    {
-      assert(in);
+      if (!in){
+         std::string str = "get_path_depth: bad node";
+         throw bad_branch_node(str);
+      }
       int depth=0;
-      
-      typename node<typename NodePtr::pointed_type::identifier_type>::lazy_ptr n =in->get_parent();
+      auto n =in->get_parent();
       while (n){
          ++depth;
          n = n->get_parent();

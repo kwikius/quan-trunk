@@ -9,26 +9,22 @@
 
 namespace quan{ namespace dom{
 
-   template <typename NodePtr, typename NodePath>
+   template <typename ID, typename Path>
    inline
-   typename node<typename NodePtr::pointed_type::identifier_type>::ptr
-   get_node( NodePtr const & p_in,NodePath const & path_in)
+   node<ID>*
+   get_node( node<ID>* p_in,Path const & path_in)
    {
-      typedef typename NodePtr::pointed_type::identifier_type identifier_type;
-     /* if (!p_in){
-          throw bad_node("empty node in get_node");
-      }
-      typename node<identifier_type>::ptr p = quan::smart::dyna_cast<node<identifier_type> >(p_in); */
-      typename node<identifier_type>::ptr p = p_in;
+
+      auto p = p_in;
       if (!p){
           throw bad_node("bad node in get_node");
       }
-      std::list<identifier_type> path = make_path(path_in);
+      auto path = make_path(path_in);
     //  for (std::list<identifier_type>::const_iterator iter = path.begin(),end = path.end();
     for (auto iter = path.begin(),end = path.end();
                iter !=end; ++iter){
-         typename node<identifier_type>::ptr old_p = p;
-         typename branch<identifier_type>::ptr br = as_branch_node(p);
+         auto old_p = p;
+         auto br = as_branch_node(p);
          if (! (p= br->get_child(*iter)) ){
             //std::string str0 = *iter;
             std::string child = *iter;

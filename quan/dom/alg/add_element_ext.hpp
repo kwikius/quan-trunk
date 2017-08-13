@@ -7,13 +7,13 @@
 
 namespace quan{ namespace dom{
 
-    template <typename NodePtr, typename Path, typename ID1,typename T>
+    /*
+      add element of type T with id id_in to a distant sub-branch(referenced by Path path) of branch p
+    */
+    template <typename T, typename ID, typename Path, typename ID1>
     inline
-    typename data_node<
-      typename NodePtr::pointed_type::identifier_type,
-      typename storage_traits<T>::type
-    >::ptr
-    add_element_ext(NodePtr const & p,Path const & path, ID1 const & id_in,T const & t)
+    data_node<ID,typename storage_traits<T>::type>*
+    add_element_ext(node<ID>*  p,Path const & path, ID1 const & id_in,T const & t)
     {
        return add_element(get_branch(p,path),id_in,t);
     }

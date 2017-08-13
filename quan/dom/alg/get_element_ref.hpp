@@ -6,13 +6,16 @@
 
 namespace quan{ namespace dom{
 
-    template <typename T, typename NodePtr, typename Path>
+    template <typename T, typename ID, typename Path>
     inline
-    T & get_element_ref(NodePtr const & p_in,Path const & path)
+    T & get_element_ref(node<ID>* p_in,Path const & path)
     {
-        typedef typename NodePtr::pointed_type::identifier_type identifier_type;
-        typename leaf<identifier_type,T>::ptr d = get_leaf_node<T>(p_in,path);
-        return d->get_data_ref();
+#if 1
+       return get_leaf_node<T>(p_in,path)->get_data_ref();
+#else
+       auto d = get_leaf_node<T>(p_in,path);
+       return d->get_data_ref();
+#endif
     }
     
 }}//quan::dom

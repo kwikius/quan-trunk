@@ -8,21 +8,17 @@
 
 namespace quan{ namespace dom{
 
-   template <typename NodePtr>
+   template <typename IDType>
    inline
-   std::list<typename NodePtr::pointed_type::identifier_type>
-   get_node_path(NodePtr const & p, bool add_head=false)
+   std::list<IDType>
+   get_node_path(node<IDType>* p, bool add_head=false)
    {
       if(!p){
          throw bad_branch_node("get_node_path: bad branch_node");
       }
-      typedef typename NodePtr::pointed_type::identifier_type identifier_type;
+      typedef IDType identifier_type;
       std::list<identifier_type> result;
-     // typename node<identifier_type>::lazy_ptr p1 = p;
-     typename node<identifier_type>::lazy_ptr p1 = p->get_lazy_ptr();;
-      if(!p1){
-          throw bad_branch_node("get_node_path: cant convert to node");
-      }
+      auto p1 = p;
       while(! p1->is_head()){
          result.push_front(p1->get_id());
          p1 = p1->get_parent();

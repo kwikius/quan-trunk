@@ -5,14 +5,16 @@
 
 namespace quan{ namespace dom{
 
- template <typename T, typename NodePtr >
+    /*
+      return the node in as a leaf node
+      else if p is not a valid leaf then throw exception
+    */
+    template <typename T, typename ID >
     inline
-    typename leaf<typename NodePtr::pointed_type::identifier_type,T>::ptr
-    as_leaf_node(NodePtr const & p)
+    leaf<ID,T>*
+    as_leaf_node(node<ID> * p)
     {
-        typedef typename NodePtr::pointed_type::identifier_type identifier_type;
-        typedef leaf<identifier_type,T> leaf_type;
-        typename leaf_type::ptr d = quan::smart::dyna_cast<leaf_type>(p);
+        auto d = dynamic_cast<leaf<ID,T>* >(p);
         if(!d){
             std::string str = "get_leaf_node: cannot convert node to leaf_node{";
             str += typeid(T).name();
@@ -25,6 +27,7 @@ namespace quan{ namespace dom{
         }
         return d;
     }
+
 }}//quan::dom
 
 #endif

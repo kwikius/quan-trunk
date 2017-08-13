@@ -8,16 +8,19 @@
 
 namespace quan{ namespace dom{
 
-    template <typename NodePtr, typename Path>
+    template <typename ID, typename Path>
     inline
-    typename branch<typename NodePtr::pointed_type::identifier_type>::ptr
-    get_branch(NodePtr const & p_in,Path const & path_in)
+    branch<ID>*
+    get_branch(node<ID>* p_in,Path const & path_in)
     {
-      typedef typename NodePtr::pointed_type::identifier_type identifier_type;
-      std::list<identifier_type> path = make_path(path_in);
-      typename node<identifier_type>::ptr p = get_node(p_in,path);
-      typename branch<identifier_type>::ptr b = as_branch_node(p);
+#if 1
+      return as_branch_node(get_node(p_in,make_path(path_in)));
+#else
+      auto path = make_path(path_in);
+      auto p = get_node(p_in,path);
+      auto b = as_branch_node(p);
       return b;
+#endif
     }
 
 }}//quan::dom

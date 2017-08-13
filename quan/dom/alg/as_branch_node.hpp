@@ -7,16 +7,19 @@
 
 namespace quan{ namespace dom{
 
-    template <typename NodePtr>
+    /*
+      return the node in as a branch node
+      else if in is not a valid branch node then throw exception
+    */
+    template <typename ID>
     inline
-    typename branch<typename NodePtr::pointed_type::identifier_type>::ptr
-    as_branch_node(NodePtr const & in)
+    branch<ID>*
+    as_branch_node(node<ID> * in)
     {
       if(!in){
          throw bad_node("empty node in as_branch_node");
       }
-      typedef branch<typename NodePtr::pointed_type::identifier_type> branch_type;
-      typename branch_type::ptr b = dynamic_cast<typename branch_type::ptr>(in);
+      auto * b = dynamic_cast<branch<ID>*>(in);
       if(b){
          return b;
       }
@@ -24,7 +27,6 @@ namespace quan{ namespace dom{
       str += " where target node path is ";
       str += get_full_path_string(in);
       throw not_a_branch_node(str);
-      
     }
 
 }}//quan::dom

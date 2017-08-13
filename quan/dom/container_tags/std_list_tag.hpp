@@ -8,34 +8,30 @@
 
 namespace quan{ namespace dom{
 
-   template <typename IdentifierType>
+   template <typename IDType>
    struct std_list_tag : 
-      std_sequence_tag<IdentifierType,std::list<node<IdentifierType>*> >
+      std_sequence_tag<IDType,std::list<node<IDType>*> >
    {
-      static std::string get_type_id()
-       {
-            return "std::list";
-       }
    };
 
    template <
-      typename ID, typename Alias
+      typename IDType, typename Alias
    >
    inline
-   container_node<std_list_tag<ID> >*
-   add_list_branch(node<ID>* p, Alias const & id_in)
+   container_node<std_list_tag<IDType> >*
+   add_list_branch(node<IDType>* p, Alias const & id_in)
    {
-      return add_branch<std_list_tag<ID> >(p,id_in);
+      return add_branch<std_list_tag<IDType> >(p,id_in);
    }
 
    template < 
-   typename ID, typename Alias, typename T
+   typename IDType, typename Alias, typename T
    >
    inline
-   container_data<std_list_tag<ID>,T >*
-   add_list_branch(node<ID>*  p, Alias const & id_in,T const & t)
+   container_data<std_list_tag<IDType>,T >*
+   add_list_branch(node<IDType>*  p, Alias const & id_in,T const & t)
    {
-      return add_branch<std_list_tag<ID> >(p,id_in,t);
+      return add_branch<std_list_tag<IDType> >(p,id_in,t);
    }
 
 }}//quan::dom

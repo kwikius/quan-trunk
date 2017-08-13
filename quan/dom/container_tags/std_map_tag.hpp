@@ -28,7 +28,7 @@ namespace quan{ namespace dom{
             return iter->second;
          }
          else{
-            return  node_ptr();
+            return  nullptr;
          }
       }
 
@@ -37,11 +37,12 @@ namespace quan{ namespace dom{
          typename container_type::iterator iter = seq.find(id);
          if(iter != seq.end())
          {
+            delete iter->second;
             seq.erase(iter);
             return true;
          }
          else{
-            return  false;
+            return false;
          }
       }
 
@@ -69,10 +70,7 @@ namespace quan{ namespace dom{
         {
             return seq.size();
         }
-      static std::string get_type_id()
-       {
-            return "std::map";
-       }
+
    };
 
    template <
@@ -94,17 +92,6 @@ namespace quan{ namespace dom{
    {
       return add_branch<std_map_tag<typename NodePtr::pointed_type::identifier_type> >(p,id_in,t);
    }
-
-  /* template <
-   typename NodePtr, typename ID1, typename T
-   >
-   inline
-   typename container_data<std_list_tag<typename NodePtr::pointed_type::identifier_type>,T>::ptr
-   add_list_branch(NodePtr const &  p, ID1 const & id_in,T const & t)
-   {
-      return add_branch<std_list_tag<typename NodePtr::pointed_type::identifier_type> >(p,id_in,t);
-   }*/
-
 
 }}//quan::dom
 

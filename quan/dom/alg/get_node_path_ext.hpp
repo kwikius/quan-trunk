@@ -6,14 +6,12 @@
 
 namespace quan{ namespace dom{
 
-    template <typename NodePtr, typename Path>
+    template <typename ID, typename Path>
     inline
-    std::list<typename NodePtr::pointed_type::identifier_type> 
-    get_node_path_ext( NodePtr const & p_in,Path const & path_in)
+    std::list<ID> 
+    get_node_path_ext( node<ID> * p_in,Path const & path_in)
     {
-        typedef typename NodePtr::pointed_type::identifier_type identifier_type;
-        typename node<identifier_type>::ptr v = quan::dom::get_node(p_in,path_in);
-        return quan::dom::get_node_path(v);
+       return quan::dom::get_node_path(get_node(p_in,path_in));
     }
 
 }}//quan:;dom

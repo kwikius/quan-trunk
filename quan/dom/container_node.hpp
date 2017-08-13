@@ -2,6 +2,7 @@
 #define QUAN_DOM_CONTAINER_NODE_HPP_INCLUDED
 
 #include <quan/dom/branch.hpp>
+#include <quan/dom/container_tags/get_container_type_id.hpp>
 
 /*
   container node is a branch of some container type
@@ -53,7 +54,7 @@ namespace quan{ namespace dom{
       }
       std::string get_type_id() const
       {
-         return container_tag::get_type_id();
+         return get_container_type_id<typename container_tag::container_type>::apply();
       } 
 
       std::ostream & output(std::ostream & os) const

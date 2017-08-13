@@ -10,32 +10,33 @@
 
 namespace quan{ namespace dom{
 
-    template <typename NodePtr, typename ID1,typename T>
-    inline
-    typename data_node<
-      typename NodePtr::pointed_type::identifier_type,
-      typename storage_traits<T>::type
-    >::ptr
-    add_element(NodePtr const &  p, ID1 const & id_in,T const & t)
-    {
-        if (!p){
-            std::string str ="add_element: bad node";
-            throw bad_branch_node(str);
-        }
-        typedef typename NodePtr::pointed_type::identifier_type identifier_type;
-        identifier_type id = normalise_id(id_in);
-        typename branch<identifier_type>::ptr br = as_branch_node(p);
-        if(br->get_child(id)){
-            std::string str = "add_element: id already_exists";
-            throw element_id_already_exists(str);
-        }
-        typedef typename storage_traits<T>::type sT;
-        sT s = t;
-        typename data_node<identifier_type,sT>::ptr d 
-         = quan::smart::gc_alloc<data_node<identifier_type,sT> >(id, s);
-         br->add_child(d);
-         return d;
-    }
+   /*
+      Add data element of type T with id element_id_in ,
+      to a branch p 
+      return the resulting data node
+   */
+   template <typename T, typename ID, typename ElementID>
+   inline
+   data_node< ID,typename storage_traits<T>::type>*
+   add_element(node<ID>* p, ElementID const & element_id_in,T const & t)
+   {
+     if (!p){
+         std::string str ="add_element: bad node";
+         throw bad_branch_node(str);
+     }
+
+     auto element_id = normalise_id(element_id_in);
+     auto br = as_branch_node(p);
+     if(br->get_child(element_id)){
+         std::string str = "add_element: id already_exists";
+         throw element_id_already_exists(str);
+     }
+     typedef typename storage_traits<T>::type sT;
+     sT s = t;
+     auto element = new data_node<ID,sT>{element_id, s};
+     br->add_child(element);
+     return element;
+   }
 
 }}//quan::dom
 

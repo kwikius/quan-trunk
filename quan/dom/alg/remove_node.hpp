@@ -7,17 +7,17 @@
 
 namespace quan{ namespace dom{
 
-    template <typename NodePtr,typename ID>
+    template <typename ID,typename ChildID>
     inline
-    void remove_node(NodePtr const & n, ID const & id_in)
+    void remove_node(node<ID>* n, ChildID const & child_id)
     {
         if (!n){
             std::string str = "remove_node: bad node";
             throw bad_node(str);
         }
-        typedef typename NodePtr::pointed_type::identifier_type identifier_type;
-        identifier_type id = normalise_id(id_in);
-        typename branch<identifier_type>::ptr br = as_branch_node(n);
+        
+        auto id = normalise_id(child_id);
+        auto br = as_branch_node(n);
         if (! br->remove_child(id)){
             std::string str = "id not found in remove_node";
             str += "where node path is ";
