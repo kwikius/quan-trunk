@@ -4,24 +4,24 @@
 #include <cstddef>
 #include <cassert>
 #include <vector>
+#include <quan/size.hpp>
+#include <quan/meta/get_value_type.hpp>
 
 /*
-   a view of a std::vector
+   a view of a std::vector, c style array ( or a nested vector_view etc)
 */
 
 namespace quan{
 
-   template <typename StdVector>
+   template <typename Vect>
    struct vector_view{
-
-      typedef StdVector vector_type;
-      typedef typename vector_type::value_type value_type;
-
+      typedef typename quan::meta::get_value_type<Vect>::type value_type;
+    
       // first is the first index and last is the last index to be included in the view of the container cont
-      vector_view( StdVector const & cont,std::size_t first, std::size_t last)
+      vector_view(Vect const & cont,std::size_t first, std::size_t last)
       : m_first{first},m_last{last},m_cont{cont}
       {
-         assert(last < m_cont.size());
+         assert(last < quan::size(m_cont));
       }
 
       std::size_t size() const
@@ -31,20 +31,21 @@ namespace quan{
 
       value_type const & operator [] (std::size_t n) const
       {
-         return m_cont[ m_first + n];
+         return m_cont[m_first + n];
       }
 
    private :
       std::size_t m_first;
       std::size_t m_last;
-      StdVector const & m_cont;
+      Vect const & m_cont;
    };
 
-   template <typename StdVector>
-   inline vector_view<StdVector> 
-   make_vector_view(StdVector const & in, int first , int last)
+   template <typename Vect>
+   inline 
+   vector_view<Vect> 
+   make_vector_view(Vect const & in,std::size_t  first , std::size_t last)
    {
-      return vector_view<StdVector>(in, first, last);
+      return vector_view<Vect>(in, first, last);
    }
 
 }
