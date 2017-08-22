@@ -1,12 +1,10 @@
 #ifndef QUAN_DOM_NODE_ADD_ELEMENT_HPP_INCLUDED
 #define QUAN_DOM_NODE_ADD_ELEMENT_HPP_INCLUDED
 
-
 #include <quan/dom/alg/get_full_path_string.hpp>
 #include <quan/dom/alg/as_branch_node.hpp>
 #include <quan/dom/storage_traits.hpp>
 #include <quan/dom/leaves/data_node.hpp>
-
 
 namespace quan{ namespace dom{
 

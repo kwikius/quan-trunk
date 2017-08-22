@@ -8,7 +8,7 @@
 namespace quan{ namespace dom{
 
    /*
-     return the child node identified by the alias if it exists
+     return the direct child node of n identified by the alias if it exists
      else nullptr
    */
    template <typename ID, typename Alias>
@@ -26,7 +26,7 @@ namespace quan{ namespace dom{
    }
 
    /*
-     return the distant child node identified by the path if it exists
+     return the distant child node of n identified by the path if it exists
      else nullptr
    */
    template <typename ID, typename Path>
