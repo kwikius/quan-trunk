@@ -15,7 +15,7 @@
 #include <quan/dom/alg/get_node.hpp>
 #include <quan/dom/alg/get_leaf_node.hpp>
 #include <quan/dom/alg/get_branch.hpp>
-#include <quan/dom/alg/get_element.hpp>
+#include <quan/dom/alg/get_value.hpp>
 #include <quan/dom/alg/get_element_ref.hpp>
 #include <quan/dom/alg/get_element_cref.hpp>
 #include <quan/dom/alg/get_node_path.hpp>
