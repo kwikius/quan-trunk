@@ -12,21 +12,21 @@ namespace quan{ namespace dom{
    template <typename T>
    struct get_container_type_id;
 
-   template <typename T, typename Allocator>
-   struct get_container_type_id<std::list<T,Allocator> > {
-       static std::string apply()
-       {
-            return "std::list";
-       }
-   };
-
-   template <typename T, typename Allocator>
-   struct get_container_type_id<std::vector<T,Allocator> > {
-       static std::string apply()
-       {
-           return "std::vector";
-       }
-   };
+//   template <typename T, typename Allocator>
+//   struct get_container_type_id<std::list<T,Allocator> > {
+//       static std::string apply()
+//       {
+//            return "std::list";
+//       }
+//   };
+//
+//   template <typename T, typename Allocator>
+//   struct get_container_type_id<std::vector<T,Allocator> > {
+//       static std::string apply()
+//       {
+//           return "std::vector";
+//       }
+//   };
 
    template <typename K, typename T,typename C,typename A>
    struct get_container_type_id<std::map<K,T,C,A> >{

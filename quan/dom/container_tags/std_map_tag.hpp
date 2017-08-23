@@ -74,23 +74,23 @@ namespace quan{ namespace dom{
    };
 
    template <
-      typename NodePtr, typename ID1
+      typename IDType, typename ID1
    >
    inline
-   typename container_node<std_map_tag<typename NodePtr::pointed_type::identifier_type> >::ptr
-   add_map_branch(NodePtr const & p, ID1 const & id_in)
+   container_node<std_map_tag<IDType> >*
+   add_map_branch(node<IDType>* p, ID1 const & id_in)
    {
-      return add_branch<std_map_tag<typename NodePtr::pointed_type::identifier_type> >(p,id_in);
+      return add_branch<std_map_tag<IDType> >(p,id_in);
    }
 
    template <
-   typename NodePtr, typename ID1, typename T
+   typename IDType, typename ID1, typename T
    >
    inline
-   typename container_data<std_map_tag<typename NodePtr::pointed_type::identifier_type>,T>::ptr
-   add_map_branch(NodePtr const &  p, ID1 const & id_in,T const & t)
+   container_data<std_map_tag<IDType>,T>*
+   add_map_branch(node<IDType>* p, ID1 const & id_in,T const & t)
    {
-      return add_branch<std_map_tag<typename NodePtr::pointed_type::identifier_type> >(p,id_in,t);
+      return add_branch<std_map_tag<IDType> >(p,id_in,t);
    }
 
 }}//quan::dom

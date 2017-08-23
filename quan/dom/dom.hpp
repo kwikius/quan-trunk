@@ -25,8 +25,7 @@
 #include <quan/dom/alg/find_child.hpp>
 #include <quan/dom/alg/remove_node.hpp>
 #include <quan/dom/alg/get_path_depth.hpp>
-#include <quan/dom/container_tags/std_list_tag.hpp>
 #include <quan/dom/container_tags/std_map_tag.hpp>
-#include <quan/dom/container_tags/std_vector_tag.hpp>
+
 #endif
 
