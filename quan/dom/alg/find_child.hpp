@@ -11,10 +11,10 @@ namespace quan{ namespace dom{
      return the direct child node of n identified by the alias if it exists
      else nullptr
    */
-   template <typename ID, typename Alias>
+   template <typename ID, typename ChildID>
    inline
    node<ID>*
-   find_child(node<ID>* n, Alias const & id_in)
+   find_direct_child(node<ID>* n, ChildID const & id_in)
    {
       auto p = is_branch_node(n);
       if(p != nullptr) {
@@ -32,7 +32,7 @@ namespace quan{ namespace dom{
    template <typename ID, typename Path>
    inline
    node<ID>*
-   find_child_ext(node<ID>* n, Path const & path_in)
+   find_child(node<ID>* n, Path const & path_in)
    {
       auto const path = make_path(path_in);
       
@@ -40,7 +40,7 @@ namespace quan{ namespace dom{
       auto* p = n;
       auto const path_end = path.end();
       while (p && (iter !=path_end )){
-         p = find_child(p,*iter);
+         p = find_direct_child(p,*iter);
          ++iter;
       }
       return p;

@@ -2,7 +2,8 @@
 #define QUAN_DOM_ADD_BRANCH_HPP_INCLUDED
 
 
-#include <quan/dom/container_data.hpp>
+//#include <quan/dom/container_data.hpp>
+#include <quan/dom/branch.hpp>
 #include <quan/dom/alg/get_full_path_string.hpp>
 #include <quan/dom/alg/normalise_id.hpp>
 #include <quan/dom/alg/as_branch_node.hpp>
@@ -12,7 +13,7 @@
 namespace quan{ namespace dom{
 
    /*
-      Add a new child branch of style ContainerTag, 
+      Add a new child branch 
       identified by child_branch_id, 
       to the node p
       and return a pointer to it
@@ -22,10 +23,10 @@ namespace quan{ namespace dom{
    */
 
    template <
-      typename ContainerTag, typename ID, typename ChildID
+      typename ID, typename ChildID
    >
    inline
-   container_node<ContainerTag>*
+   branch<ID>*
    add_branch(node<ID> * p, ChildID const & child_branch_id)
    {
       if (!p){
@@ -39,43 +40,9 @@ namespace quan{ namespace dom{
          std::string str = "add_branch: id  already_exists";
          throw element_id_already_exists(str);
       }
-      typedef container_node<ContainerTag> child_container_type; // type of the branch to be added
-      auto child_branch = new child_container_type{id};
-      br->add_child(child_branch);
-      return child_branch;
-   }
 
-   /*
-      Add a new child branch of style ContainerTag, 
-      identified by child_branch_id, 
-      to the node p, initialised with the element t
-   */
-   template <
-      typename T,
-      typename ContainerTag,typename ID, typename ChildID 
-   >
-   inline
-   container_data<ContainerTag,T>*
-   add_branch(node<ID> * p, ChildID const & child_branch_id,T const & t)
-   {
-      if (!p){
-         std::string str ="add_element: bad node";
-         throw bad_branch_node(str);
-      }
-      //typedef typename ContainerTag::identifier_type id_type;
-      auto br = as_branch_node(p);
-      auto id = normalise_id(child_branch_id);
-      
-      if(br->get_child(id)){
-         std::string str = "add_element: id already_exists";
-         throw element_id_already_exists(str);
-      }
-      typedef typename storage_traits<T>::type sT;
-      sT s = t;
-      typedef container_data<ContainerTag,T> child_container_type;
-      auto child_branch = new child_container_type{id,s};
+      auto child_branch = new branch<ID>{id};
       br->add_child(child_branch);
-      
       return child_branch;
    }
 

@@ -10,17 +10,16 @@ namespace quan{ namespace dom{
    /*
       Add a branch identified by id_in to the distant child of p identified by the path path
    */
-   template <
-      typename ContainerTag, 
+   template < 
       typename ID, 
       typename Path, 
       typename ChildID
    >
    inline
-   container_node<ContainerTag>*
+   branch<ID>*
    add_branch_ext(node<ID>* p, Path const & path, ChildID const & child_id)
    {
-      return add_branch<ContainerTag>(get_branch(p,path),child_id);
+      return add_branch(get_branch(p,path),child_id);
    }
 
 }}//quan::dom

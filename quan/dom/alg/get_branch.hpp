@@ -13,14 +13,7 @@ namespace quan{ namespace dom{
     branch<ID>*
     get_branch(node<ID>* p_in,Path const & path_in)
     {
-#if 1
       return as_branch_node(get_node(p_in,make_path(path_in)));
-#else
-      auto path = make_path(path_in);
-      auto p = get_node(p_in,path);
-      auto b = as_branch_node(p);
-      return b;
-#endif
     }
 
 }}//quan::dom
