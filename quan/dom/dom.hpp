@@ -19,7 +19,7 @@
 #include <quan/dom/alg/get_value_cref.hpp>
 #include <quan/dom/alg/get_node_path.hpp>
 #include <quan/dom/alg/get_node_path_ext.hpp>
-#include <quan/dom/alg/set_element.hpp>
+#include <quan/dom/alg/set_value.hpp>
 #include <quan/dom/alg/as_branch_node.hpp>
 #include <quan/dom/alg/as_leaf_node.hpp>
 #include <quan/dom/alg/find_child.hpp>
