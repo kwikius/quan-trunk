@@ -26,4 +26,21 @@
 #include <quan/angle/out/fraction_of_revolution.hpp>
 #include <quan/angle.hpp>
 
+#ifndef __AVR__
+#include <quan/is_model_of.hpp>
+#include <quan/concepts/ostreamable.hpp>
+
+namespace quan{ namespace impl{
+
+   template < 
+      typename T
+   >
+   struct is_model_of_impl<
+      quan::Ostreamable_
+      ,T
+      ,typename quan::where_<quan::meta::is_angle<T> >::type
+   > : quan::meta::true_{};
+}} 
+#endif
+
 #endif

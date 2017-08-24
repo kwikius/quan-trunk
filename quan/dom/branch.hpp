@@ -5,6 +5,7 @@
 
 #include <quan/dom/node.hpp>
 #include <quan/dom/except.hpp>
+#include <quan/dom/alg/get_path_depth.hpp>
 
 /*
    abstract base class for all branch nodes
@@ -22,7 +23,15 @@ namespace quan{ namespace dom{
       typedef std::map<identifier_type,node_ptr> container_type;
     public:
       branch(identifier_type const & id):m_id{id},m_parent{nullptr}{}
-      ~branch(){}
+      ~branch()
+       {
+         auto iter = m_container.begin();
+         while (iter != m_container.end()){
+            delete iter->second;
+            m_container.erase(iter);
+             ++iter ;
+         }
+       }
 
       void add_child(node_ptr in )
       {
@@ -63,14 +72,20 @@ namespace quan{ namespace dom{
 
       std::ostream & output(std::ostream & os)const
        {
+            auto const depth = get_path_depth(this);
+            for ( auto i = 0; i < depth; ++i){
+               os << "   ";
+            }
+            os << m_id << " {\n";
             auto iter = m_container.begin();
             while (iter != m_container.end()){
-               
                iter->second->output(os);
-               //(*iter)->output(os);
                 ++iter ;
             }
-            return os;
+            for ( auto i = 0; i < depth; ++i){
+               os << "   ";
+            }
+            return os << "}\n";
         }
 
       identifier_type const & get_id()const {return m_id;}

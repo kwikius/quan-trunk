@@ -31,11 +31,15 @@
 #ifndef __AVR__
 #include <iostream>
 #include <sstream>
+#include <quan/concepts/ostreamable.hpp>
 #else
 #include <quan/avr/iostream_dummy.hpp>
 #include <quan/avr/sstream_dummy.hpp>
 #endif
 #include <quan/fixed_quantity/io/aux_units_out.hpp>
+
+
+
 
 namespace quan{
     // This function provides output of fixed_quantities
@@ -125,12 +129,24 @@ namespace quan{namespace meta{
     struct binary_op< 
         std::basic_ostream<CharType>,
         shift_left, 
-        fixed_quantity<StaticUnit,Value_type>
+        quan::fixed_quantity<StaticUnit,Value_type>
     >{
         typedef std::basic_ostream<CharType>& type;
     };
 
 }}//quan::meta
+
+#ifndef __AVR__
+namespace quan{ namespace impl{
+
+   template < 
+      typename StaticUnit,
+      typename Value_type
+   >
+   struct is_model_of_impl<quan::Ostreamable_,quan::fixed_quantity<StaticUnit,Value_type> > : quan::meta::true_{};
+}} // quan::impl
+
+#endif
 
 #endif
 

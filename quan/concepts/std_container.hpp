@@ -17,23 +17,25 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
- 
- 
-//
+
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
-#include <quan/where.hpp>
 #include <list>
-#include <quan/meta/bool.hpp>
+#include <vector>
+#include <quan/is_model_of.hpp>
 
 namespace quan{
 
    struct StdContainer_;
 
-   template <typename T>
-   struct is_model_of<StdContainer_, std::list<T> > : quan::meta::true_{};
+   namespace impl{
+
+      template <typename T>
+      struct is_model_of_impl<StdContainer_, std::list<T> > : quan::meta::true_{};
+
+      template <typename T>
+      struct is_model_of_impl<StdContainer_, std::vector<T> > : quan::meta::true_{};
+   }
 
 
 }//quan

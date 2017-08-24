@@ -2,6 +2,7 @@
 #define QUAN_DOM_DATA_NODE_HPP_INCLUDED
 
 #include <typeinfo>
+#include <iomanip>
 
 #include <quan/dom/leaf.hpp>
 #include <quan/where.hpp>
@@ -42,9 +43,13 @@ namespace quan{ namespace dom{
       }
       std::ostream & output(std::ostream & os) const
       {
-         os << "data node : ";
+         auto const depth = get_path_depth(this);
+            for ( auto i = 0; i < depth; ++i){
+               os << "   ";
+         }
+         os << this->m_id << " = " ;
          do_output(os, this->m_data) ;
-         os <<'\n';
+         os << " ;\n";
          return os;
       }
       void set_data(data_type const & data){ m_data = data;}
@@ -69,32 +74,64 @@ namespace quan{ namespace dom{
       >::type
       do_output(std::ostream & os, V const & v)
       {
+         
+         os << "[ ";
          for (typename V::const_iterator iter = v.begin(); iter != v.end() ; ++iter){
-            os << '\n'<< *iter;
+            if (iter != v.begin()){
+               os << ", ";
+            }
+            //os << *iter;
+            do_output(os,*iter);
          }
+         os << " ]";
          return os;
       }
 
-      static std::ostream & do_output( std::ostream & os,
-         std::list<std::pair<std::string, std::string> > const & v)
+//      static std::ostream & do_output( std::ostream & os,
+//         std::list<std::pair<std::string, std::string> > const & v)
+//      {
+//         typedef std::list<std::pair<std::string, std::string> > list;
+//            for (list::const_iterator iter = v.begin(); iter != v.end() ; ++iter){
+//            os << '\n';
+//            os << '(' << iter->first << "," << iter->second << ')';
+//         }
+//         return os;
+//      }
+
+      template <typename V>
+      static
+      typename quan::where_<
+         quan::meta::and_<
+            quan::is_model_of<quan::Ostreamable_,V>
+            ,quan::meta::not_<std::is_same<V,bool> >
+         >
+         ,std::ostream &
+      >::type
+      do_output( std::ostream & os, V const & v)
       {
-         typedef std::list<std::pair<std::string, std::string> > list;
-            for (list::const_iterator iter = v.begin(); iter != v.end() ; ++iter){
-            os << '\n';
-            os << '(' << iter->first << "," << iter->second << ')';
-         }
+         os.unsetf( std::ios::floatfield );
+         os.precision(2);
+         os.setf( std::ios::fixed, std::ios::floatfield );
+         os << std::showpoint <<  v ;
          return os;
+      }
+
+      inline 
+      std::ostream & 
+      do_output(std::ostream & os, std::string const & str)
+      {
+         return os << '"' << str << '"' ;
       }
 
       template <typename V>
       static
       typename quan::where_<
-         quan::is_model_of<quan::Ostreamable_,V> ,
+         std::is_same<V,bool> ,
          std::ostream &
       >::type
       do_output( std::ostream & os, V const & v)
       {
-         os << v;
+         os << std::boolalpha << v ;
          return os;
       }
 

@@ -3,21 +3,21 @@
 
 #include <quan/dom/except.hpp>
 #include <quan/dom/node.hpp>
+#include <quan/dom/alg/get_node.hpp>
 #include <quan/dom/alg/make_path_string.hpp>
 #include <list>
 
 namespace quan{ namespace dom{
 
-   template <typename IDType>
+   template <typename ID>
    inline
-   std::list<IDType>
-   get_node_path(node<IDType>* p, bool add_head=false)
+   std::list<ID>
+   get_node_path(node<ID>* p, bool add_head=false)
    {
       if(!p){
          throw bad_branch_node("get_node_path: bad branch_node");
       }
-      typedef IDType identifier_type;
-      std::list<identifier_type> result;
+      std::list<ID> result;
       auto p1 = p;
       while(! p1->is_head()){
          result.push_front(p1->get_id());
@@ -33,6 +33,14 @@ namespace quan{ namespace dom{
       }
       return result;
    }
+
+    template <typename ID, typename Path>
+    inline
+    std::list<ID> 
+    get_node_path( node<ID> * p_in,Path const & path_in)
+    {
+       return quan::dom::get_node_path(get_node(p_in,path_in));
+    }
 
 
 }}//quan::dom

@@ -9,7 +9,6 @@
 //#include <quan/dom/abstract_out.hpp>
 
 #include <quan/dom/alg/add_branch.hpp>
-#include <quan/dom/alg/add_branch_ext.hpp>
 #include <quan/dom/alg/add_value.hpp>
 #include <quan/dom/alg/get_node.hpp>
 #include <quan/dom/alg/get_leaf_node.hpp>
@@ -18,7 +17,6 @@
 #include <quan/dom/alg/get_value_ref.hpp>
 #include <quan/dom/alg/get_value_cref.hpp>
 #include <quan/dom/alg/get_node_path.hpp>
-#include <quan/dom/alg/get_node_path_ext.hpp>
 #include <quan/dom/alg/set_value.hpp>
 #include <quan/dom/alg/as_branch_node.hpp>
 #include <quan/dom/alg/as_leaf_node.hpp>

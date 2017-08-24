@@ -14,7 +14,6 @@ namespace quan{ namespace dom{
    node<ID>*
    get_node( node<ID>* p_in,Path const & path_in)
    {
-
       auto p = p_in;
       if (!p){
           throw bad_node("bad node in get_node");

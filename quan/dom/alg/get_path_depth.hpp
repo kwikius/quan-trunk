@@ -8,7 +8,7 @@ namespace quan{ namespace dom{
 
    template <typename ID>
    inline
-   int get_path_depth(node<ID>* in)
+   int get_path_depth(node<ID> const* in)
    {
       if (!in){
          std::string str = "get_path_depth: bad node";
