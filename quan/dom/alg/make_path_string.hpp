@@ -3,20 +3,20 @@
 
 #include <list>
 #include <string>
-#include <quan/dom/string_handle.hpp>
+#include <quan/atomicstring.hpp>
 
 namespace quan{ namespace dom{
 
     template <typename CharType>
     inline
     std::basic_string<CharType>
-    make_path_string(std::list<string_handle<CharType> > const & in, bool add_leading_dot = true)
+    make_path_string(std::list<atomicstring<CharType> > const & in, bool add_leading_dot = true)
     {
         std::basic_string<CharType> str;
         if (add_leading_dot){
             str += '.';
         }
-        typedef typename std::list<string_handle<CharType> >::const_iterator const_iterator;
+        typedef typename std::list<atomicstring<CharType> >::const_iterator const_iterator;
         for(const_iterator iter = in.begin(),end = in.end();
                 iter!= end;
                 ++iter){

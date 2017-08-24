@@ -1,13 +1,13 @@
 #ifndef QUAN_DOM_NORMALISE_ID_HPP_INCLUDED
 #define QUAN_DOM_NORMALISE_ID_HPP_INCLUDED
 
-#include <quan/dom/string_handle.hpp>
+#include <quan/atomicstring.hpp>
 
 namespace quan{ namespace dom{
 
     template <typename CharType>
     inline
-    string_handle<CharType> normalise_id( std::basic_string<CharType> const & str)
+    atomicstring<CharType> normalise_id( std::basic_string<CharType> const & str)
     {
         std::basic_string<CharType>  result = str;
          
@@ -15,24 +15,24 @@ namespace quan{ namespace dom{
             result = result.substr(1,std::string::npos);
         }
       
-        return string_handle<CharType> (result);
+        return atomicstring<CharType> (result);
     }
 
     template <typename CharType>
     inline
-    string_handle<CharType> normalise_id( const CharType * p)
+    atomicstring<CharType> normalise_id( const CharType * p)
     {
         std::basic_string<CharType> result = p;
          
         if ( result.size() && result.at(0) == '.'){
             result = result.substr(1,std::string::npos);
         }
-        return string_handle<CharType> (result);
+        return atomicstring<CharType> (result);
     }
 
     template<typename CharType>
     inline
-    string_handle<CharType> normalise_id( string_handle<CharType> const & in)
+    atomicstring<CharType> normalise_id( atomicstring<CharType> const & in)
     {
         return in;
     }

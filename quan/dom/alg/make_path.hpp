@@ -12,7 +12,7 @@ namespace quan{ namespace dom{
 // template <typename ID>
    template <typename CharType>
    inline
-   std::list<string_handle<CharType> > make_path( std::basic_string<CharType> const & str_path)
+   std::list<atomicstring<CharType> > make_path( std::basic_string<CharType> const & str_path)
    {
       if (!str_path.size()){
          throw empty_id_string();
@@ -27,11 +27,11 @@ namespace quan{ namespace dom{
       std::stringstream s; 
       s << str; 
 
-      std::list<string_handle<CharType> > tokens; 
+      std::list<atomicstring<CharType> > tokens; 
       while (! s.eof() ){ 
          std::basic_string<CharType> str; 
          getline(s,str,'.'); 
-         tokens.push_back(string_handle<CharType>(str)); 
+         tokens.push_back(atomicstring<CharType>(str)); 
       } 
       return tokens;
    }
@@ -40,7 +40,7 @@ namespace quan{ namespace dom{
 
    template <typename CharType>
    inline
-   std::list<string_handle<CharType> > 
+   std::list<atomicstring<CharType> > 
    make_path( const CharType* const str_path)
    {
       std::basic_string<CharType> s(str_path); 
@@ -49,8 +49,8 @@ namespace quan{ namespace dom{
 
    template <typename CharType>
    inline
-   std::list<string_handle<CharType> > 
-   const & make_path( std::list<string_handle<CharType> > const & in)
+   std::list<atomicstring<CharType> > 
+   const & make_path( std::list<atomicstring<CharType> > const & in)
    {
       return in;
    }
