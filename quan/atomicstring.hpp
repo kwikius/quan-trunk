@@ -111,7 +111,13 @@ namespace quan{
          {
             return rep;
          }
-         int cmp ( CharType const * str) const {
+
+         operator std::basic_string<CharType>()const { return this->get_rep();}
+
+         operator const CharType* ()const { return this->get_rep();}
+
+         int cmp ( CharType const * str) const 
+         {
              return  quan::detail::comp(quan::detail::cstr_wrapper<CharType>(rep),
                          quan::detail::cstr_wrapper<CharType>(str));
          }
