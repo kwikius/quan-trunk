@@ -17,6 +17,13 @@
 
 namespace quan{ namespace dom{
 
+   inline 
+   std::ostream & 
+   do_output(std::ostream & os, std::string const & str)
+   {
+      return os << '"' << str << '"' ;
+   }
+
    template <typename IdentifierType,typename DataType>
    class data_node : public leaf<IdentifierType,DataType>{
 
@@ -87,23 +94,13 @@ namespace quan{ namespace dom{
          return os;
       }
 
-//      static std::ostream & do_output( std::ostream & os,
-//         std::list<std::pair<std::string, std::string> > const & v)
-//      {
-//         typedef std::list<std::pair<std::string, std::string> > list;
-//            for (list::const_iterator iter = v.begin(); iter != v.end() ; ++iter){
-//            os << '\n';
-//            os << '(' << iter->first << "," << iter->second << ')';
-//         }
-//         return os;
-//      }
-
       template <typename V>
       static
       typename quan::where_<
          quan::meta::and_<
             quan::is_model_of<quan::Ostreamable_,V>
             ,quan::meta::not_<std::is_same<V,bool> >
+            ,quan::meta::not_<std::is_same<V,std::string> >
          >
          ,std::ostream &
       >::type
@@ -116,9 +113,13 @@ namespace quan{ namespace dom{
          return os;
       }
 
-      inline 
-      std::ostream & 
-      do_output(std::ostream & os, std::string const & str)
+      template <typename Str>
+      static
+      typename quan::where_<
+         std::is_same<Str,std::string> ,
+         std::ostream &
+      >::type
+      do_output( std::ostream & os, Str const & str)
       {
          return os << '"' << str << '"' ;
       }
