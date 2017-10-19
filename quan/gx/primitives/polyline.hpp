@@ -64,16 +64,34 @@ namespace quan{ namespace gx{ namespace primitives{
 
       void push_back(std_vect const & list)
       {
-         m_points = list;
+         for(vect const & v: list){
+             push_back(v);
+         }
       }
 
       typename std_vect::size_type get_num_elements()const
       {
          return m_points.size();
       }
+
       std_vect const & get_points()const
       {
          return m_points;
+      }
+
+      polyline & operator += (vect const & t)
+      {
+         for(vect & v: m_points){
+             v += t;
+         }
+         return *this;
+      }
+      polyline & operator -= (vect const & t)
+      {
+         for(vect & v: m_points){
+             v -= t;
+         }
+         return *this;
       }
    
       private:
