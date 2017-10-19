@@ -107,7 +107,7 @@ namespace quan{ namespace dom{
       do_output( std::ostream & os, V const & v)
       {
          os.unsetf( std::ios::floatfield );
-         os.precision(2);
+         os.precision(7);
          os.setf( std::ios::fixed, std::ios::floatfield );
          os << std::showpoint <<  v ;
          return os;
