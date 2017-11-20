@@ -27,12 +27,18 @@
 namespace quan{
 
    template <typename IntType>
+   inline constexpr size_t get_itoasc_buf_size()
+   {
+      return sizeof(IntType) * 8 + 2;
+   }
+
+   template <typename IntType>
    inline char * itoasc( IntType in, char * array,  int base )
    {
       if ( (base > 16) || ( base < 2)){
         return nullptr;
       }
-      static constexpr size_t arlen = sizeof(IntType) * 8 + 2;
+      static constexpr size_t arlen = get_itoasc_buf_size<IntType>();
       char local_array[arlen];
       char* ptr = local_array + arlen-1;
       *ptr = '\0';
