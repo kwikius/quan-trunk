@@ -63,8 +63,8 @@ namespace quan{ namespace stm32{ namespace tim{ namespace detail{
 
 //ccer 1
    template<> struct has_ccer<quan::stm32::tim6>  : quan::meta::false_{};
-   template<> struct has_ccer<quan::stm32::tim16>  : quan::meta::false_{};
-   template<> struct has_ccer<quan::stm32::tim17>  : quan::meta::false_{};
+  // template<> struct has_ccer<quan::stm32::tim16>  : quan::meta::false_{};
+  // template<> struct has_ccer<quan::stm32::tim17>  : quan::meta::false_{};
 //rcr 1
    template<> struct has_rcr<quan::stm32::tim2>  : quan::meta::false_{};
    template<> struct has_rcr<quan::stm32::tim3>  : quan::meta::false_{};
