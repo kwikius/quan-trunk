@@ -48,16 +48,16 @@ namespace quan{namespace stm32{
 #endif
    namespace detail{
       struct systick_tick{
-#if defined (QUAN_SYSTICK_TIMER_UINT32)
-      static volatile uint32_t current;
-#else
-      typedef 
-         union{
+        #if defined (QUAN_SYSTICK_TIMER_UINT32)
+         static volatile uint32_t current;
+        #else
+         union current_t{
             volatile uint32_t ar[2];
             volatile int64_t v;
-         }current_t;
-      static current_t current;
-#endif       
+            current_t():v{0}{}
+         };
+         static current_t current;
+        #endif       
       };
    }
    
