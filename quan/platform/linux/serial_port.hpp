@@ -94,7 +94,7 @@ namespace quan {
       serial_port (serial_port const &) = delete;
       serial_port& operator = (serial_port const &) = delete;
 
-      bool set_pin( unsigned int pin, bool val);
+      bool set_pin( int pin, bool val);
    };
 }// quan
 

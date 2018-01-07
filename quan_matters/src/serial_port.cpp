@@ -170,7 +170,7 @@ ssize_t quan::serial_port::write(const char* buf, size_t num)
     return ::write(this->m_fd,reinterpret_cast<const data_type*>(buf),num);
 }
 
-bool quan::serial_port::set_pin( unsigned int pin, bool val)
+bool quan::serial_port::set_pin( int pin, bool val)
 {
     
     int sp_state ;
