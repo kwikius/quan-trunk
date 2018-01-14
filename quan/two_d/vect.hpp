@@ -329,6 +329,31 @@ namespace quan{ namespace two_d{
       return vect<double>(quan::cos(angle_in),quan::sin(angle_in));
    }
 
+/*
+    multiply x and y parts of each vector together independently
+    equivalent to matrix multiply
+    where lhs -> mM_lhs ->
+         [ lhs.x, 0 |
+         | 0, lhs.y ]
+    rhs -> M_rhs ->
+         [ rhs.x |
+         | rhs.y ]
+
+    so Mresult ->
+          [  lhs.x * rhs.x |
+          |  lhs.y * rhs.y]
+
+    so result = [ lhs.x * rhs.x , lhs.y * rhs.y]
+*/
+
+   template < typename TL, typename TR>
+   inline constexpr auto independent_product(
+      quan::two_d::vect<TL> const & lhs, quan::two_d::vect<TR> const & rhs) 
+   -> quan::two_d::vect<decltype(TL{} * TR{})>
+   {
+      return  { lhs.x * rhs.x,lhs.y * rhs.y};
+   }
+
 }}//quan::two_d
 
 #endif
