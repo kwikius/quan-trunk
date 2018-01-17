@@ -21,13 +21,12 @@
 #include <quan/fun/is_fun_sequence.hpp>
 #include <quan/fun/size_seq.hpp>
 
-
 namespace quan{namespace fun{
 
    template <typename Seq>
    struct seq_arg_type{
     
-      typedef typename std::add_reference<
+      typedef typename std::add_lvalue_reference<
          Seq
       >::type type;
    };
@@ -35,7 +34,7 @@ namespace quan{namespace fun{
    template <typename Seq>
    struct seq_arg_type<const Seq>{
     
-      typedef typename std::add_reference<
+      typedef typename std::add_lvalue_reference<
          typename std::add_const<Seq>::type
       >::type type;
    };

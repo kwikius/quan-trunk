@@ -36,9 +36,6 @@ namespace quan{ namespace fun{
    template <typename Matrix>
    struct matrix_col_size : std::integral_constant<int,-1>{};
 
-   
-   
-
 }}
 
 

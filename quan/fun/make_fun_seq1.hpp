@@ -22,7 +22,6 @@
 #include <quan/fun/is_fun_sequence.hpp>
 #include <quan/fun/push_back_seq.hpp>
 #include <quan/fun/as_vector.hpp>
->
 
 namespace quan{ namespace fun{
 

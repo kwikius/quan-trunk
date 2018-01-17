@@ -25,16 +25,9 @@
 */
 
 #include <quan/archetypes/meta/static_numeric_concept.hpp>
-#ifndef __AVR__
-#include <type_traits>
-#else
-#include <quan/std/tr1/integral_constant.hpp>
-#endif
+#include <quan/meta/is_rational.hpp>
 
 namespace quan{namespace meta{
-
-    template <typename T>
-    struct is_rational : std::false_type{}; 
 
 #if defined __cpp_concepts
    template <typename T>

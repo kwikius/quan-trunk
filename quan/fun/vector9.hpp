@@ -126,7 +126,7 @@ namespace quan{ namespace fun{
          v7(implicit_cast<t7>(at_seq<7,Seq,as_ref>()(seq))),
          v8(implicit_cast<t8>(at_seq<8,Seq,as_ref>()(seq)))
       {
-         static_assert(size_seq<Seq>::value ==9>,"error");
+         static_assert(size_seq<Seq>::value ==9,"error");
       }
 
       template<typename Seq>

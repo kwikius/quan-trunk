@@ -35,7 +35,7 @@ namespace quan{namespace fun{namespace detail{
                 >
             >,
             T,
-            typename std::add_reference<
+            typename std::add_lvalue_reference<
                 typename std::add_const<
                     T
                 >::type

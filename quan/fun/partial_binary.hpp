@@ -28,12 +28,12 @@ namespace quan{ namespace fun{
     struct _;
    
     template <typename TL, typename Op, typename Rhs>
-    struct binary_operation;
+    struct binary_op;
 
     template <typename Lhs,typename Function>
     struct binary_op<Lhs,Function,_>{
 
-        binary_operation(Lhs const & left,Function const & func = Function())
+        binary_op(Lhs const & left,Function const & func = Function())
         :m_left(left),m_function(func){}
         Lhs const &  m_left;
         Function  m_function;
@@ -60,7 +60,7 @@ namespace quan{ namespace fun{
 
     template <typename Function, typename Rhs>
     struct binary_op<_,Function,Rhs>{
-        binary_operation(Rhs const & right,Function const & f = Function())
+        binary_op(Rhs const & right,Function const & f = Function())
         :m_right(right),m_function(f){}
        
         Rhs const &  m_right;
