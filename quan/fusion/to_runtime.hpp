@@ -31,21 +31,31 @@ namespace quan{ namespace fusion{
         };
     } // impl
 
-    struct to_runtime{
-
-        template <typename T>
-        struct result{
-            typedef typename impl::to_runtime_impl<T>::type type;
-        };
-
-        template <typename T>
-        constexpr typename result<T>::type
-        operator()(T const & t)const
-        {
-            typedef impl::to_runtime_impl<T> f;
-            return f{}(t);
-        }
-    };
+    template <typename T>
+    inline
+    constexpr 
+    typename impl::to_runtime_impl<T>::type
+    to_runtime( T const & t)
+    {
+       typedef impl::to_runtime_impl<T> f;
+       return f{}(t);
+    }
+    
+//    struct to_runtime{
+//
+//        template <typename T>
+//        struct result{
+//            typedef typename impl::to_runtime_impl<T>::type type;
+//        };
+//
+//        template <typename T>
+//        constexpr typename result<T>::type
+//        operator()(T const & t)const
+//        {
+//            typedef impl::to_runtime_impl<T> f;
+//            return f{}(t);
+//        }
+//    };
 
 }}
 

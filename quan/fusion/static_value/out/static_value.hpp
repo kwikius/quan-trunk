@@ -21,23 +21,9 @@
 namespace quan{namespace fusion{
 
     template <typename R, typename S>
-    std::ostream & operator << (std::ostream& os, static_value<R,S>)
+    inline constexpr std::ostream & operator << (std::ostream& os, static_value<R,S>)
     {
-        to_runtime runtime;
-        S s;
-        os << "static<"<< typeid(R).name() << ": " << runtime(s)  << " >";
-        return os;
-    }
-
-    template <typename StaticUnit, typename Numeric, typename S>
-     std::ostream & operator << (std::ostream& os, 
-        static_value<quan::fixed_quantity<StaticUnit,Numeric> ,S>)
-    {
-        to_runtime runtime;
-        typedef quan::fixed_quantity<StaticUnit,Numeric> rt_type;
-        S s;
-        os << "static{" << runtime(s) << ' ' << quan::units_str(rt_type()) << '}';
-        return os;
+        return os << "static_value{" << R{quan::fusion::to_runtime(S{})}  << "}";
     }
 
 }}//quan::fusion

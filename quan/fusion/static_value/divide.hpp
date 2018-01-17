@@ -131,6 +131,7 @@ namespace quan{namespace fusion{
     //lossless so stay in ct
     template <typename RL, typename SL, typename RR, typename SR>
     inline
+    constexpr
     typename quan::where_<
         quan::meta::and_<
             quan::meta::is_lossless_calculation<RL,quan::meta::divides,RR>,
@@ -153,12 +154,13 @@ namespace quan{namespace fusion{
             quan::meta::divides,
             quan::fusion::static_value<RR,SR>
         >::type result_type;
-        return result_type();
+        return result_type{};
     }
 
     // move to rt
     template <typename RL, typename SL, typename RR, typename SR>
     inline
+    constexpr
     typename quan::where_not<
         quan::meta::and_<
             quan::meta::is_lossless_calculation<RL,quan::meta::divides,RR>,
@@ -193,6 +195,7 @@ namespace quan{namespace fusion{
     // not zero so move to rt
     template<typename RL, typename SL, typename TR>
     inline
+    constexpr
     typename quan::where_<
         quan::meta::and_<
             quan::meta::neq_zero<SL>,
@@ -226,6 +229,7 @@ namespace quan{namespace fusion{
     //zero so move all to ct
     template<typename RL, typename SL, typename TR>
     inline
+    constexpr
     typename quan::where_<
         quan::meta::and_<
             quan::meta::eq_zero<SL>,
@@ -257,6 +261,7 @@ namespace quan{namespace fusion{
     //other non zero case
     template<typename TL, typename RR, typename SR>
     inline
+    constexpr
     typename quan::where_<
         quan::meta::and_<
             quan::meta::neq_zero<SR>,
@@ -290,6 +295,7 @@ namespace quan{namespace fusion{
     //other zero case
     template<typename TL, typename RR, typename SR>
     inline
+    constexpr
     typename quan::where_<
         quan::meta::and_<
             quan::meta::eq_zero<SR>,

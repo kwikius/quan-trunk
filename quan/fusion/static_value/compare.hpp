@@ -44,6 +44,7 @@ namespace quan{ namespace fusion{
 
    template <typename RL, typename SL, typename RR, typename SR>
    inline
+   constexpr
    typename quan::where_<
       quan::meta::is_valid_binary_op<
          RL,
@@ -70,6 +71,7 @@ namespace quan{ namespace fusion{
 
    template <typename TL, typename RR, typename SR>
    inline
+   constexpr
    typename quan::where_<
       quan::meta::and_<
          quan::meta::not_<quan::fusion::is_static_value<TL> >,
@@ -86,6 +88,7 @@ namespace quan{ namespace fusion{
    
    template <typename RL, typename SL, typename TR >
    inline
+   constexpr
    typename quan::where_<
       quan::meta::and_<
          quan::meta::not_<quan::fusion::is_static_value<TR> >,
@@ -102,6 +105,7 @@ namespace quan{ namespace fusion{
 
    template <typename RL, typename SL, typename RR, typename SR>
    inline
+   constexpr
    typename quan::where_<
       quan::meta::is_valid_binary_op<
          RL,
@@ -128,6 +132,7 @@ namespace quan{ namespace fusion{
 
    template <typename TL, typename RR, typename SR>
    inline
+   constexpr
    typename quan::where_<
       quan::meta::and_<
          quan::meta::not_<quan::fusion::is_static_value<TL> >,
@@ -144,6 +149,7 @@ namespace quan{ namespace fusion{
    
    template <typename RL, typename SL, typename TR >
    inline
+   constexpr
    typename quan::where_<
       quan::meta::and_<
          quan::meta::not_<quan::fusion::is_static_value<TR> >,
@@ -160,6 +166,5 @@ namespace quan{ namespace fusion{
 
    
 }}//quan::fusion
-
 
 #endif

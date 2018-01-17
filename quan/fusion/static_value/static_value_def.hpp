@@ -15,16 +15,16 @@
 
 namespace quan{ namespace fusion{
 
-    template <typename RuntimeType,typename StaticValue>
+    template <typename RuntimeType,typename StaticNumericValue>
     struct static_value{
         typedef RuntimeType runtime_type;
-        typedef StaticValue static_value_type;
+        typedef StaticNumericValue static_value_type;
         typedef static_value type;
 
         constexpr static RuntimeType to_runtime()
         {
-            typedef quan::fusion::impl::to_runtime_impl<StaticValue> f;
-            return RuntimeType{f{}( StaticValue{} )};
+            typedef quan::fusion::impl::to_runtime_impl<StaticNumericValue> f;
+            return RuntimeType{f{}( StaticNumericValue{} )};
         }
     };
 
@@ -34,19 +34,19 @@ namespace quan{ namespace fusion{
 
     namespace impl{
         #if defined __cpp_concepts
-        template <StaticValue V>
+        template <quan::fusion::StaticValue V>
         struct to_runtime_impl<V>
         {
-            typedef V type;
+            typedef typename V::runtime_type type;
             constexpr type operator()(V v) const
             {
                 return V::to_runtime();
             }
         };
         #else
-        template <typename RuntimeType,typename StaticValue>
+        template <typename RuntimeType,typename StaticNumericValue>
         struct to_runtime_impl<
-            quan::fusion::static_value<RuntimeType, StaticValue>
+            quan::fusion::static_value<RuntimeType, StaticNumericValue>
         >
         {
             typedef quan::fusion::static_value<
