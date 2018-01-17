@@ -83,7 +83,7 @@ namespace quan{namespace meta{
     template<
        unsigned long long Base
     >
-    struct pow_c<unsigned long,Base ,0>{
+    struct pow_c<unsigned long long,Base ,0>{
         enum{ value = 1};
     };
 

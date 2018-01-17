@@ -15,7 +15,7 @@ MEMBER_FILES = type_sequence
 TARGET      = $(patsubst %,%.exe,$(MEMBER_FILES))
 
 ifeq ($(USE_CONCEPTS),True)
-CXX         = g++-6
+CXX         = g++-7
 CXXFLAGS    = -std=c++14 -fconcepts -I${QUAN_ROOT}
 else
 CXX         ?= g++
