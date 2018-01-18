@@ -60,7 +60,7 @@ namespace quan{namespace fusion{
    ){
       //typedef quan::fusion::static_value<RL,SL> lhs_type;
      // typedef quan::fusion::static_value<RR,SR> rhs_type;
-      return to_runtime{}(lhs) QUAN_FUSION_RT_OP to_runtime(rhs);
+      return to_runtime{}(lhs) QUAN_FUSION_RT_OP to_runtime{}(rhs);
    }
    // could add extra constraint for zero static unit here
    template <typename RL, typename SL, typename TR>
@@ -80,7 +80,7 @@ namespace quan{namespace fusion{
       TR const & rhs
    ){
      // typedef quan::fusion::static_value<RL,SL> s_val;
-      return to_runtime(lhs) QUAN_FUSION_RT_OP rhs;
+      return to_runtime{}(lhs) QUAN_FUSION_RT_OP rhs;
    }
 
    template <typename RL, typename SL, typename TR>
@@ -119,7 +119,7 @@ namespace quan{namespace fusion{
       quan::fusion::static_value<RR,SR> const &  rhs          
    ){
      // typedef quan::fusion::static_value<RR,SR> s_val;
-      return lhs QUAN_FUSION_RT_OP to_runtime(rhs);
+      return lhs QUAN_FUSION_RT_OP to_runtime{}(rhs);
    }
 
    template <typename TL,typename RR, typename SR>
