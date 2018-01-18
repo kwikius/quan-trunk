@@ -73,10 +73,6 @@ namespace quan{namespace meta{
 
 }}//quan::meta
 
-
-
-//#include <boost/preprocessor/cat.hpp>
-
 #define QUAN_FUSION_META_OP quan::meta::plus
 #define QUAN_FUSION_RT_OP +
 

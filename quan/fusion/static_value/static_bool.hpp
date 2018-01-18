@@ -5,31 +5,36 @@
 #include <quan/meta/is_runtime_type.hpp>
 #include <quan/fusion/static_value/is_static_value.hpp>
 
+#include <quan/meta/bool.hpp>
+#include <quan/fusion/meta_bool_to_runtime.hpp>
+
 namespace quan{ namespace fusion{
 
    template <bool B>
    struct static_bool{
       typedef bool runtime_type;
-      enum { value = B};
+      typedef quan::meta::bool_<B> static_value_type;
+      
+      static constexpr bool value = B;
+      
       typedef static_bool type;
    };
 
-   namespace detail{
-
-      template <typename T> struct to_runtime;
+   namespace impl{
 
       template <bool B>
-      struct to_runtime<
+      struct to_runtime_impl<
          static_bool<B>
       >
       {
          typedef bool type;
-         type operator()( static_bool<B>) const
+         constexpr type operator()( static_bool<B>) const
          {
-               return B;
+            return B;
          }
       };
    }
+
    template <bool B>
    struct is_static_value<static_bool<B> > : std::true_type{};
 }}
@@ -123,7 +128,7 @@ namespace quan{namespace meta{
 namespace quan{namespace fusion{
 
    template <bool L, bool R>
-   inline
+   inline constexpr 
    static_bool< (L && R) || !(L || R)>
 
    operator== (static_bool<L> lhs, static_bool<R> rhs)
@@ -132,7 +137,7 @@ namespace quan{namespace fusion{
    }
 
    template <bool L>
-   inline
+   inline constexpr
    bool
    operator==(static_bool<L>, bool rhs)
    {
@@ -140,7 +145,7 @@ namespace quan{namespace fusion{
    }
 
    template <bool R>
-   inline
+   inline constexpr
    bool
    operator==( bool lhs, static_bool<R> rhs)
    {
@@ -148,7 +153,7 @@ namespace quan{namespace fusion{
    }
    
    template <bool L, bool R>
-   inline
+   inline constexpr
    static_bool<(L && !R) || ( R && !L)>
    operator!=(static_bool<L>, static_bool<R>)
    {
@@ -156,7 +161,7 @@ namespace quan{namespace fusion{
    }
 
    template <bool L>
-   inline
+   inline constexpr
    bool
    operator!=(static_bool<L>, bool rhs)
    {
@@ -164,7 +169,7 @@ namespace quan{namespace fusion{
    }
 
    template <bool R>
-   inline
+   inline constexpr
    bool
    operator!=( bool lhs, static_bool<R> rhs)
    {
@@ -172,7 +177,7 @@ namespace quan{namespace fusion{
    }
 //and
    template <bool L, bool R>
-   inline
+   inline constexpr
    static_bool<(L && R)>
    operator && (static_bool<L>, static_bool<R>)
    {
@@ -180,15 +185,15 @@ namespace quan{namespace fusion{
    }
 
    template <bool L>
-   inline
+   inline constexpr
    bool
    operator &&(static_bool<L>, bool rhs)
    {
-      return  L && rhs;
+      return L && rhs;
    }
 
    template <bool R>
-   inline
+   inline constexpr
    bool
    operator &&( bool lhs, static_bool<R> rhs)
    {
@@ -197,7 +202,7 @@ namespace quan{namespace fusion{
 
 
    template <bool L, bool R>
-   inline
+   inline constexpr
    static_bool< static_cast<bool>(L && R) >
    operator & (static_bool<L>, static_bool<R>)
    {
@@ -205,7 +210,7 @@ namespace quan{namespace fusion{
    }
 
    template <bool L>
-   inline
+   inline constexpr
    bool
    operator &(static_bool<L>, bool rhs)
    {
@@ -213,7 +218,7 @@ namespace quan{namespace fusion{
    }
 
    template <bool R>
-   inline
+   inline constexpr
    bool
    operator &( bool lhs, static_bool<R> rhs)
    {
@@ -221,7 +226,7 @@ namespace quan{namespace fusion{
    }
    
    template <bool L, bool R>
-   inline
+   inline constexpr
    static_bool<(L && R)>
    operator | (static_bool<L>, static_bool<R>)
    {
@@ -229,7 +234,7 @@ namespace quan{namespace fusion{
    }
 
    template <bool L>
-   inline
+   inline constexpr
    bool
    operator |(static_bool<L>, bool rhs)
    {
@@ -237,7 +242,7 @@ namespace quan{namespace fusion{
    }
 
    template <bool R>
-   inline
+   inline constexpr
    bool
    operator |( bool lhs, static_bool<R> rhs)
    {
@@ -245,7 +250,7 @@ namespace quan{namespace fusion{
    }
 
    template <bool L, bool R>
-   inline
+   inline constexpr
    static_bool< static_cast<bool>(L | R) >
    operator || (static_bool<L>, static_bool<R>)
    {
@@ -253,7 +258,7 @@ namespace quan{namespace fusion{
    }
 
    template <bool L>
-   inline
+   inline constexpr
    bool
    operator ||(static_bool<L>, bool rhs)
    {
@@ -261,7 +266,7 @@ namespace quan{namespace fusion{
    }
 
    template <bool R>
-   inline
+   inline constexpr
    bool
    operator ||( bool lhs, static_bool<R> rhs)
    {

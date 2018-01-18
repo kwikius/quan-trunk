@@ -27,13 +27,9 @@ namespace quan{ namespace meta{
       typename quan::where_<
          and_<
             neq_zero<SL>,
-            and_<
-               not_<quan::fusion::is_static_value<TR> >,
-               and_<
-                  is_valid_binary_op<RL,divides,TR>,
-                  is_scalar<TR>
-               >
-            >
+            not_<quan::fusion::is_static_value<TR> >,
+            is_valid_binary_op<RL,divides,TR>,
+            is_scalar<TR>
          >
       >::type
    > : binary_op< RL,divides, TR>{};
@@ -47,13 +43,9 @@ namespace quan{ namespace meta{
       typename quan::where_<
          and_<
             eq_zero<SL>,
-            and_<
-               not_<quan::fusion::is_static_value<TR> >,
-               and_<
-                  is_valid_binary_op<RL,divides,TR>,
-                  is_scalar<TR>
-               >
-            >
+            not_<quan::fusion::is_static_value<TR> >,
+            is_valid_binary_op<RL,divides,TR>,
+            is_scalar<TR>
          >
       >::type
    > : quan::fusion::static_value<
@@ -71,13 +63,9 @@ namespace quan{ namespace meta{
       typename quan::where_<
          and_<
             neq_zero<SR> ,
-            and_<
-               not_<quan::fusion::is_static_value<TL> >,
-               and_<
-                  is_valid_binary_op<TL,times,RR>,
-                  is_scalar<TL>
-               >
-            >
+            not_<quan::fusion::is_static_value<TL> >,
+            is_valid_binary_op<TL,times,RR>,
+            is_scalar<TL>
          >
       >::type
    > : binary_op<TL,times,RR>{};
@@ -91,13 +79,9 @@ namespace quan{ namespace meta{
       typename quan::where_<
          and_<
             neq_zero<SR>,
-            and_<
-               not_<quan::fusion::is_static_value<TL> >,
-               and_<
-                  is_valid_binary_op<TL,divides,RR>,
-                  is_scalar<TL>
-               >
-            >
+            not_<quan::fusion::is_static_value<TL> >,
+            is_valid_binary_op<TL,divides,RR>,
+            is_scalar<TL>
          >
       >::type
    > : binary_op<TL,divides,RR>{};
@@ -111,22 +95,17 @@ namespace quan{ namespace meta{
       typename quan::where_<
          and_<
             eq_zero<SR>,
-            and_<
-               not_<quan::fusion::is_static_value<TL> >,
-               and_<
-                  is_valid_binary_op<TL,divides,RR>,
-                  is_scalar<TL>
-               >
-            >
+            not_<quan::fusion::is_static_value<TL> >,
+            is_valid_binary_op<TL,divides,RR>,
+            is_scalar<TL>
          >
       >::type
    > : quan::undefined{};
 
 }}//quan::meta
 
-#if !(defined QUAN_SUPPRESS_VC8_ADL_BUG)
+
 namespace quan{namespace fusion{ 
-#endif
 
     //lossless so stay in ct
     template <typename RL, typename SL, typename RR, typename SR>
@@ -173,23 +152,14 @@ namespace quan{namespace fusion{
         >::type
     >::type
     operator /  (
-            quan::fusion::static_value<RL,SL> const &,
-            quan::fusion::static_value<RR,SR> const &
+            quan::fusion::static_value<RL,SL> const & lhs,
+            quan::fusion::static_value<RR,SR> const & rhs
     ){
         typedef quan::meta::neq_zero<SR> division_by_zero;
         static_assert(division_by_zero::value, "division by zero");
-        typedef quan::fusion::static_value<RL,SL> suL;
-        typedef quan::fusion::static_value<RR,SR> suR; 
-        return suL::to_runtime()/ suR::to_runtime();
-        /*typename suL::runtime_type rtL = suL::to_runtime();
-        typename suR::runtime_type rtR = suR::to_runtime();  
-        typedef typename quan::meta::binary_op<
-            suL,
-            quan::meta::divides,
-            suR
-        >::type result_type;
-        result_type result = rtL / rtR;
-        return result;*/
+      //  typedef quan::fusion::static_value<RL,SL> suL;
+       // typedef quan::fusion::static_value<RR,SR> suR; 
+        return to_runtime{}(lhs) / to_runtime{}(rhs);
     }
 
     // not zero so move to rt
@@ -199,10 +169,8 @@ namespace quan{namespace fusion{
     typename quan::where_<
         quan::meta::and_<
             quan::meta::neq_zero<SL>,
-            quan::meta::and_<
-               quan::meta::not_<quan::fusion::is_static_value<TR> >,
-               quan::meta::is_scalar<TR>
-            >
+            quan::meta::not_<quan::fusion::is_static_value<TR> >,
+            quan::meta::is_scalar<TR>
         >,
         typename quan::meta::binary_op<
             quan::fusion::static_value<RL,SL>,
@@ -211,19 +179,12 @@ namespace quan{namespace fusion{
         >::type
     >::type
     operator / (
-        quan::fusion::static_value<RL,SL> const &,
+        quan::fusion::static_value<RL,SL> const & lhs,
         TR const & rhs
     )
     {
-        typedef quan::fusion::static_value<RL,SL> suL;
-//        typedef typename quan::meta::binary_op<
-//            suL,
-//            quan::meta::divides,
-//            TR
-//        >::type result_type;
-         return suL::to_runtime() / rhs;
-        /*result_type result  =*/ 
-       // return result;
+       // typedef quan::fusion::static_value<RL,SL> suL;
+        return to_runtime(lhs) / rhs;
     }
 
     //zero so move all to ct
@@ -232,11 +193,9 @@ namespace quan{namespace fusion{
     constexpr
     typename quan::where_<
         quan::meta::and_<
-            quan::meta::eq_zero<SL>,
-            quan::meta::and_<
-               quan::meta::not_<quan::fusion::is_static_value<TR> >,
-               quan::meta::is_scalar<TR>
-            >
+           quan::meta::eq_zero<SL>,
+           quan::meta::not_<quan::fusion::is_static_value<TR> >,
+           quan::meta::is_scalar<TR>
         >,
         typename quan::meta::binary_op<
             quan::fusion::static_value<RL,SL>,
@@ -255,7 +214,7 @@ namespace quan{namespace fusion{
             quan::meta::divides,
             TR
         >::type result_type;
-        return result_type();
+        return result_type{};
     }
 
     //other non zero case
@@ -265,10 +224,8 @@ namespace quan{namespace fusion{
     typename quan::where_<
         quan::meta::and_<
             quan::meta::neq_zero<SR>,
-            quan::meta::and_<
-               quan::meta::not_<quan::fusion::is_static_value<TL> >,
-               quan::meta::is_scalar<TL>
-            >
+            quan::meta::not_<quan::fusion::is_static_value<TL> >,
+            quan::meta::is_scalar<TL>
         >,
         typename quan::meta::binary_op<
             TL,
@@ -278,18 +235,11 @@ namespace quan{namespace fusion{
     >::type
     operator / (
         TL const & lhs,
-        quan::fusion::static_value<RR,SR> const &
+        quan::fusion::static_value<RR,SR> const & rhs
     )
     {
-        typedef quan::fusion::static_value<RR,SR> suR;
-//        typedef typename quan::meta::binary_op<
-//            TL,
-//            quan::meta::divides,
-//            suR
-//        >::type result_type;
-        /*result_type result =*/
-         return lhs / suR::to_runtime();
-        //return result;
+        //typedef quan::fusion::static_value<RR,SR> suR;
+        return lhs / to_runtime(rhs);
     }
 
     //other zero case
@@ -298,11 +248,9 @@ namespace quan{namespace fusion{
     constexpr
     typename quan::where_<
         quan::meta::and_<
-            quan::meta::eq_zero<SR>,
-            quan::meta::and_<
-               quan::meta::not_<quan::fusion::is_static_value<TL> >,
-               quan::meta::is_scalar<TL>
-            >
+           quan::meta::eq_zero<SR>,
+           quan::meta::not_<quan::fusion::is_static_value<TL> >,
+           quan::meta::is_scalar<TL>
         >,
         typename quan::meta::binary_op<
             TL,
@@ -326,11 +274,9 @@ namespace quan{namespace fusion{
             quan::meta::divides,
             suR
         >::type result_type;
-        return result_type();
+        return result_type{};
          //#######Division by Zero #############
     }
 
-#if !(defined QUAN_SUPPRESS_VC8_ADL_BUG)
 }}//quan::fusion
-#endif
 #endif

@@ -81,9 +81,9 @@ namespace quan{ namespace fusion{
       >,
       bool
    >::type
-   operator == (TL const & lhs ,quan::fusion::static_value<RR,SR> const &)
+   operator == (TL const & lhs ,quan::fusion::static_value<RR,SR> const & rhs)
    {
-      return lhs == quan::fusion::static_value<RR,SR>::to_runtime();
+      return lhs == to_runtime{}(rhs);
    }
    
    template <typename RL, typename SL, typename TR >
@@ -98,9 +98,9 @@ namespace quan{ namespace fusion{
       >,
       bool
    >::type
-   operator == (quan::fusion::static_value<RL,SL> const &, TR const & rhs)
+   operator == (quan::fusion::static_value<RL,SL> const & lhs, TR const & rhs)
    {
-      return quan::fusion::static_value<RL,SL>::to_runtime() == rhs;
+      return to_runtime{}(lhs) == rhs;
    }
 
    template <typename RL, typename SL, typename RR, typename SR>
@@ -127,7 +127,7 @@ namespace quan{ namespace fusion{
          quan::meta::not_equal_to, 
          quan::fusion::static_value<RR,SR>
       >::type result_type;
-      return result_type();
+      return result_type{};
    }
 
    template <typename TL, typename RR, typename SR>
@@ -142,9 +142,9 @@ namespace quan{ namespace fusion{
       >,
       bool
    >::type
-   operator != (TL const & lhs ,quan::fusion::static_value<RR,SR> const &)
+   operator != (TL const & lhs ,quan::fusion::static_value<RR,SR> const & rhs)
    {
-      return lhs != quan::fusion::static_value<RR,SR>::to_runtime();
+      return lhs != to_runtime(rhs);
    }
    
    template <typename RL, typename SL, typename TR >
@@ -159,12 +159,11 @@ namespace quan{ namespace fusion{
       >,
       bool
    >::type
-   operator != (quan::fusion::static_value<RL,SL> const &, TR const & rhs)
+   operator != (quan::fusion::static_value<RL,SL> const & lhs, TR const & rhs)
    {
-      return quan::fusion::static_value<RL,SL>::to_runtime() != rhs;
+      return to_runtime(lhs) != rhs;
    }
 
-   
 }}//quan::fusion
 
 #endif

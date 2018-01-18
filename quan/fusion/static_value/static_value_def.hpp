@@ -10,7 +10,7 @@
 #include <quan/config.hpp>
 #include <quan/fusion/static_value/is_static_value.hpp>
 #include <quan/concepts/fusion/static_value.hpp>
-#include <quan/fusion/to_runtime.hpp>
+#include <quan/fusion/meta_rational_to_runtime.hpp>
 #include <quan/meta/is_scalar.hpp>
 
 namespace quan{ namespace fusion{
@@ -20,45 +20,31 @@ namespace quan{ namespace fusion{
         typedef RuntimeType runtime_type;
         typedef StaticNumericValue static_value_type;
         typedef static_value type;
-
-        constexpr static RuntimeType to_runtime()
-        {
-            typedef quan::fusion::impl::to_runtime_impl<StaticNumericValue> f;
-            return RuntimeType{f{}( StaticNumericValue{} )};
-        }
     };
 
     template <typename Runtime, typename Static>
     struct is_static_value< static_value<Runtime,Static> > : std::true_type{};
 
-
     namespace impl{
-        #if defined __cpp_concepts
-        template <quan::fusion::StaticValue V>
-        struct to_runtime_impl<V>
-        {
-            typedef typename V::runtime_type type;
-            constexpr type operator()(V v) const
-            {
-                return V::to_runtime();
-            }
-        };
-        #else
-        template <typename RuntimeType,typename StaticNumericValue>
+
+        template <
+            typename RuntimeType,
+            typename StaticNumericValue
+        >
         struct to_runtime_impl<
             quan::fusion::static_value<RuntimeType, StaticNumericValue>
         >
         {
             typedef quan::fusion::static_value<
-                RuntimeType, StaticValue
+                RuntimeType, StaticNumericValue
             > static_value_type;
             typedef RuntimeType type;
             constexpr type operator()(static_value_type ) const
             {
-                return static_value_type::to_runtime();
+               typedef quan::fusion::impl::to_runtime_impl<StaticNumericValue> f;
+               return RuntimeType{f{}( StaticNumericValue{} )};
             }
         };
-        #endif
     }//impl
 
 }} //quan::fusion
