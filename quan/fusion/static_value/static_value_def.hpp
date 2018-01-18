@@ -12,6 +12,7 @@
 #include <quan/concepts/fusion/static_value.hpp>
 #include <quan/fusion/meta_rational_to_runtime.hpp>
 #include <quan/meta/is_scalar.hpp>
+#include <quan/meta/is_runtime_type.hpp>
 
 namespace quan{ namespace fusion{
 
@@ -51,14 +52,17 @@ namespace quan{ namespace fusion{
 
 namespace quan{ namespace meta{
 
-   template <typename Runtime, typename Static>
-   struct is_runtime_type<
-      quan::fusion::static_value<Runtime,Static>
-   > : std::false_type{};
+   namespace impl{
 
-   template <typename Runtime, typename Static>
-   struct is_scalar< quan::fusion::static_value<Runtime,Static> > : 
-   is_scalar<Runtime>{};
+      template <typename Runtime, typename Static>
+      struct is_runtime_type_impl<
+         quan::fusion::static_value<Runtime,Static>
+      > : std::false_type{};
+
+      template <typename Runtime, typename Static>
+      struct is_scalar_impl< quan::fusion::static_value<Runtime,Static> > : 
+      quan::meta::is_scalar<Runtime>{};
+   }
 }}
 
 #endif

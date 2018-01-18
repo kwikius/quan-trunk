@@ -21,7 +21,8 @@ MEMBER_FILES = abs anonymous_cast compare construction assignment conversion \
  dim_checks dimless_divide dimless_multiply divide divide_assignment incoh_corner_case \
  io_test minus minus_assignment multiply multiply_assignment plus plus_assignment \
  post_decrement post_increment pow pre_decrement pre_increment scalar_divide \
- scalar_multiply test_units_data test_units_data1 unary_minus unary_plus
+ scalar_multiply test_units_data test_units_data1 unary_minus unary_plus \
+ fixed_quantity_concepts
 
 # udt_value_type 
 

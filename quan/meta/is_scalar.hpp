@@ -33,8 +33,17 @@
 #endif
 namespace quan{ namespace meta{
 
+    namespace impl{
+        template <typename T>
+        struct is_scalar_impl : std::is_arithmetic<T>{};
+    };
+
     template <typename T>
-    struct is_scalar : std::is_arithmetic<T>{};
+    struct is_scalar : impl::is_scalar_impl<
+      typename std::remove_const<
+         typename std::remove_reference<T>::type
+      >::type 
+    >{};
 
 }}//quan::meta
 

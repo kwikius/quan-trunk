@@ -18,12 +18,22 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
  
-#include <quan/meta/bool/true.hpp>
+
+#include <type_traits>
 
 namespace quan{ namespace meta{
 
+   namespace impl{
+        template <typename T>
+        struct is_runtime_type_impl : std::true_type{}; 
+   }
+
    template <typename T>
-   struct is_runtime_type : true_{};
+   struct is_runtime_type : impl::is_runtime_type_impl<
+      typename std::remove_const<
+         typename std::remove_reference<T>::type
+      >::type 
+   >{};
       
 }}
 

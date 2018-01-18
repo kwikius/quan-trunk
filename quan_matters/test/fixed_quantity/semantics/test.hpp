@@ -48,5 +48,6 @@ QUAN_TEST_FUN(test_units_data1)
 //QUAN_TEST_FUN(udt_value_type_test)
 QUAN_TEST_FUN(unary_minus_test)
 QUAN_TEST_FUN(unary_plus_test)
+QUAN_TEST_FUN(fixed_quantity_concepts)
 
 //#endif // QUAN_MATTERS_TEST_FIXED_QUANTITY_SEMANTICS_MAIN_HPP_INCLUDED

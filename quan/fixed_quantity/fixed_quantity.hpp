@@ -461,17 +461,18 @@ namespace quan { namespace meta {
         StaticUnit_L,StaticUnit_R
     >{};
 
-   
-   template <
-        typename StaticUnit,
-        typename NumericType
-    >
-    struct is_scalar<
-      quan ::fixed_quantity<
-            StaticUnit,
-            NumericType
-        >
-    > : std::true_type{};
+    namespace impl{
+       template <
+           typename StaticUnit,
+           typename NumericType
+       >
+       struct is_scalar_impl<
+         quan ::fixed_quantity<
+               StaticUnit,
+               NumericType
+           >
+       > : std::true_type{};
+    }//impl
 
     template <
         typename StaticUnit,
