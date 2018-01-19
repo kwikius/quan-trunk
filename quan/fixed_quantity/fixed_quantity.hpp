@@ -540,44 +540,24 @@ namespace quan { namespace meta {
 
     template <
         typename StaticUnitL, typename NumericTypeL,
+        typename Op,
         typename StaticUnitR, typename NumericTypeR
     > struct is_lossless_calculation<
         quan::fixed_quantity<StaticUnitL,NumericTypeL>,
-        plus,
-        quan::fixed_quantity<StaticUnitR,NumericTypeR> 
-     > : is_math_same_conversion_factor<
+        Op,
+        quan::fixed_quantity<StaticUnitR,NumericTypeR> ,
+        typename quan::where_<
+            quan::meta::or_<
+               quan::meta::is_additive_operator<Op>,
+               quan::meta::is_equality_operator<Op>,
+               quan::meta::is_relational_operator<Op>
+            >
+        >::type
+    > : is_math_same_conversion_factor<
            typename get_conversion_factor<StaticUnitL>::type,
            typename get_conversion_factor<StaticUnitR>::type 
      >{};
     
-    template <
-        typename StaticUnitL, typename NumericTypeL,
-        typename StaticUnitR, typename NumericTypeR
-    > struct is_lossless_calculation<
-        quan::fixed_quantity<StaticUnitL,NumericTypeL>,
-        minus,
-        quan::fixed_quantity<StaticUnitR,NumericTypeR> 
-     > : is_math_same_conversion_factor<
-           typename get_conversion_factor<StaticUnitL>::type,
-           typename get_conversion_factor<StaticUnitR>::type
-     >{};
-
-     template <
-        typename StaticUnitL, typename NumericTypeL,
-        typename StaticUnitR, typename NumericTypeR
-    > struct is_lossless_calculation<
-        quan::fixed_quantity<StaticUnitL,NumericTypeL>,
-        equal_to,
-        quan::fixed_quantity<StaticUnitR,NumericTypeR> ,
-        typename quan::where_<
-            is_valid_binary_op<
-               quan::fixed_quantity<StaticUnitL,NumericTypeL>,
-               minus,
-               quan::fixed_quantity<StaticUnitR,NumericTypeR>
-            >
-         >::type
-     > : std::true_type{};
-
     //// multiply conditions dimensionfull dimensionless
     namespace detail{
 
