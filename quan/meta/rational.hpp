@@ -214,6 +214,10 @@ namespace quan{namespace meta{
         struct is_lossless_rational_calc<RationalL,quan::meta::equal_to, RationalR>
         : std::true_type{};
 
+        template <typename RationalL, typename RationalR>
+        struct is_lossless_rational_calc<RationalL,quan::meta::not_equal_to, RationalR>
+        : std::true_type{};
+
     }//detail
 
    template <
