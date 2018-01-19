@@ -8,6 +8,7 @@
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 #include <quan/config.hpp>
 #include <quan/fusion/static_value/static_val_op_static_val.hpp>
+#include <quan/meta/unary_operation.hpp>
 #include <quan/meta/and.hpp>
 #include <quan/meta/not.hpp>
 #include <quan/meta/eq.hpp>
@@ -15,6 +16,13 @@
 
 namespace quan{namespace meta{
 
+   
+   template <typename R, typename S>
+   struct unary_operation<negate,quan::fusion::static_value<R,S> >{
+      typedef quan::fusion::static_value<
+         R, typename quan::meta::unary_operation<negate,S>::type
+      > type;
+   };
    //static + runtime type
    template <typename RL, typename SL, typename TR>
    struct binary_op<
@@ -72,6 +80,34 @@ namespace quan{namespace meta{
    > : binary_op<TL,minus,RR> {};
 
 }}//quan::meta
+
+namespace quan{ namespace fusion{
+
+   template <typename R, typename S>
+   inline constexpr
+   typename quan::fusion::static_value<R,S> 
+   operator + ( quan::fusion::static_value<R,S> const & in)
+   {
+      return in;
+   }
+
+   template <typename R, typename S>
+   inline constexpr
+   typename quan::meta::unary_operation<
+      quan::meta::negate,
+      quan::fusion::static_value<R,S> 
+   >::type
+   operator - ( quan::fusion::static_value<R,S> const & in)
+   {
+      typedef typename quan::meta::unary_operation<
+         quan::meta::negate,
+         quan::fusion::static_value<R,S> 
+      >::type result_type;
+
+      return result_type{};
+   }
+
+}}
 
 #define QUAN_FUSION_META_OP quan::meta::plus
 #define QUAN_FUSION_RT_OP +

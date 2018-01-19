@@ -239,7 +239,7 @@ namespace quan{namespace fusion{
     )
     {
         //typedef quan::fusion::static_value<RR,SR> suR;
-        return lhs / to_runtime(rhs);
+        return lhs / to_runtime{}(rhs);
     }
 
     //other zero case
