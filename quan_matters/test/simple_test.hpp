@@ -50,8 +50,11 @@ bool check_close_function(
 const char* filename ,long line,
 const char* predac,const char* predbc,const char* epsc,Ta vala, Tb valb, Te eps)
 {
-    Te absval = (vala - valb >= 0 )? vala - valb : valb - vala;
-    Te abs_eps = ( eps >=0) ? eps : -eps;
+    typedef typename quan::meta::binary_op<
+        Ta,quan::meta::minus,Tb
+    >::type Tc;
+    Te absval = (vala - valb >= Tc{0} )? vala - valb : valb - vala;
+    Te abs_eps = ( eps >= Tc{0}) ? eps : -eps;
     if (! (absval < abs_eps)){
         std::cout << filename << ":" << line
         << "( " << predac << " == " << predbc << " +/- " << epsc << " ) failed\n"
@@ -87,8 +90,8 @@ const char* predac,const char* predbc,Ta vala, Tb valb)
 #define QUAN_CHECK(x) check_function( __FILE__ , __LINE__ , #x, x);
 #define QUAN_CHECK_I(x,i) if (!check_function( __FILE__ , __LINE__ , #x, x) ) { std::cout << "   at iteration[" << i << "]\n\n";}
 #define QUAN_CHECK_IJ(x,i,j) if (!check_function( __FILE__ , __LINE__ , #x, x) ) { std::cout << "   at iteration[" << i << ',' << j << "]\n\n";}
-#define QUAN_CHECK_CLOSE(a,b,e) check_close_function( __FILE__ , __LINE__ , #a , #b ,#e, a, b, e)
-#define QUAN_CHECK_EQUAL(a,b) check_equal_function( __FILE__ , __LINE__ , #a , #b , a , b )
+#define QUAN_CHECK_CLOSE(a,b,e) check_close_function( __FILE__ , __LINE__ , #a , #b ,#e, a, b, e);
+#define QUAN_CHECK_EQUAL(a,b) check_equal_function( __FILE__ , __LINE__ , #a , #b , a , b );
 
 // best show we've been on success
 inline
