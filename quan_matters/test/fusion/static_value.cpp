@@ -91,44 +91,83 @@ void static_value_concepts_test()
   
    QUAN_CHECK((quan::meta::is_scalar<decltype(v1)>::value))
    QUAN_CHECK((quan::meta::is_runtime_type<decltype(v1)>::value == false))
+
+   // self assign ok if same type
+   auto v2 = v1;
+   v2 = static_mm<3,11>{};
    
 }
 
-// n.b missing unary_plus and unary_minus atm
+
+// N.B technically possible to compile time add and sub static values of same dim but different si units
+// but this is not done atm, so is converted to runtime
+namespace {
+   constexpr int array [] = {0,1, 10,1, 18,9, 7,1, 120,7};
+}
 void static_value_op_plus_test()
 {
    constexpr auto v1 = static_mm<11,3>{};
    QUAN_CHECK(to_runtime{}(v1) == 11_mm / 3.0)
 
+   // sv unary +
    constexpr auto v1a = +v1;
    QUAN_CHECK( to_runtime{}(v1a == v1) )
   
+   // sv + sv
    auto constexpr v2 = v1 + v1;
    QUAN_CHECK(is_static_value(v2)== true)
    QUAN_CHECK(to_runtime{}(v2) == 22_mm / 3.0)
 
    QUAN_CHECK(to_runtime{}((v1 + zero_mm ) == v1))
 
+  // sv + rtq
    auto constexpr v3 = v1 + 20_m;
    QUAN_CHECK(is_static_value(v3)== false)
    auto constexpr rtv3 = to_runtime{}(v3);
    auto constexpr calc_rtv3 = (11_mm / 3.0) + 20_m;
    QUAN_CHECK(rtv3 == calc_rtv3 )
 
+   // rtq + sv
    auto constexpr v4 = 20_m + v1;
    QUAN_CHECK(is_static_value(v4)== false);
    auto constexpr rtv4 = to_runtime{}(v4);
    auto constexpr calc_rtv4 = 20_m + (11_mm / 3.0);
    QUAN_CHECK(rtv4 == calc_rtv4 )
 
+   // rtv + zero_sv
    auto constexpr v5 = 2_mm + zero_mm;
    QUAN_CHECK(is_static_value(v5)== false);
    QUAN_CHECK( v5 == 2_mm)
 
+   // zero_sv + rtv
    auto constexpr v6 = zero_mm + 2_mm ;
    QUAN_CHECK(is_static_value(v6)== false);
    QUAN_CHECK( v6 == 2_mm)
+   
+   // wher not same unit then  -> rtv
+   auto constexpr v7 = one_mm + one_m;
+   QUAN_CHECK(is_static_value(v7)== false);
+   QUAN_CHECK( v7 == 1_mm + 1_m)
 
+   auto constexpr v8 = static_float<array[0],array[1]>{};
+   auto constexpr v9 = static_float<array[2],array[3]>{};
+   auto constexpr v10 = static_float<array[4],array[5]>{};
+   auto constexpr v11 = static_float<array[6],array[7]>{};
+   auto constexpr v12 = static_float<array[8],array[9]>{};
+
+   auto vsum = v8 + v9 + v10 + v11 + v12;
+   QUAN_CHECK(is_static_value(vsum));
+
+   auto v8a = static_cast<double>(array[0])/ array[1];
+   auto v9a = static_cast<double>(array[2])/ array[3];
+   auto v10a = static_cast<double>(array[4])/ array[5];
+   auto v11a = static_cast<double>(array[6])/ array[7];
+   auto v12a = static_cast<double>(array[8])/ array[9];
+
+   auto vsuma = v8a + v9a + v10a + v11a + v12a;
+
+   QUAN_CHECK_CLOSE(to_runtime{}(vsum),vsuma, 1.e-6);
+   
    
 /*  //TODO compile fail tests
    auto constexpr v7 = zero_mm + one; // ! same dimension
@@ -142,11 +181,13 @@ void static_value_op_minus_test()
 {
     constexpr auto v1 = static_mm<11,3>{};
     
+    //sv - sv
     QUAN_CHECK(to_runtime{}( (v1 - v1) == zero_mm))
     constexpr auto v1a = -static_mm<11,3>{};
     QUAN_CHECK(is_static_value(v1a)== true)
     QUAN_CHECK(to_runtime{}(v1a) == (- 11_mm / 3.0) )
 
+    
     constexpr auto v2 = v1 - v1a;
     QUAN_CHECK(is_static_value(v2)== true)
     QUAN_CHECK(to_runtime{}(v2) == 22_mm / 3.0)
@@ -162,6 +203,25 @@ void static_value_op_minus_test()
     constexpr auto v5 = zero_mm - v1;
     QUAN_CHECK(is_static_value(v5))
     QUAN_CHECK(to_runtime{}(v5 == -v1))
+
+    auto constexpr v8 = static_float<array[0],array[1]>{};
+   auto constexpr v9 = static_float<array[2],array[3]>{};
+   auto constexpr v10 = static_float<array[4],array[5]>{};
+   auto constexpr v11 = static_float<array[6],array[7]>{};
+   auto constexpr v12 = static_float<array[8],array[9]>{};
+
+   auto vsum = v8 - v9 - v10 - v11 - v12;
+   QUAN_CHECK(is_static_value(vsum));
+
+   auto v8a = static_cast<double>(array[0])/ array[1];
+   auto v9a = static_cast<double>(array[2])/ array[3];
+   auto v10a = static_cast<double>(array[4])/ array[5];
+   auto v11a = static_cast<double>(array[6])/ array[7];
+   auto v12a = static_cast<double>(array[8])/ array[9];
+
+   auto vsuma = v8a - v9a - v10a - v11a - v12a;
+
+   QUAN_CHECK_CLOSE(to_runtime{}(vsum),vsuma, 1.e-6);
 }
 
 
@@ -182,7 +242,6 @@ void to_runtime_test()
 }
 
 float extern_float = -1234567.98765;
-int errors =0;
 
 void static_value_op_multiply_test()
 {
@@ -280,30 +339,84 @@ void static_value_op_compare_test()
    //todo though some comparse done above
     constexpr auto v1 = static_mm<11,3>{};
 
+//==
     constexpr auto v2 = static_mm<22,6>{};
-    QUAN_CHECK(to_runtime{}(v2 == v1) )
-
-    QUAN_CHECK( to_runtime{}(v2 != one_mm) )
-
-    QUAN_CHECK( one_mm == 1_mm)
+    QUAN_CHECK(is_static_value(v2 == v1))
+    QUAN_CHECK( to_runtime{}(v2 == v1) )
+    QUAN_CHECK( (one_mm == v1) == false )
 
     QUAN_CHECK( 25_mm == static_mm<25>{})
 
-/*
-    To do other comparison ops
+    QUAN_CHECK(is_static_value(v1 == v2 ))
+    QUAN_CHECK( to_runtime{}(v1 == v2) == true)
+
+    QUAN_CHECK(is_static_value( one_mm == 1_mm) == false)
+    QUAN_CHECK( (one_mm == 1_mm) == true)
+
+    QUAN_CHECK(is_static_value( 1_mm == one_mm ) == false)
+    QUAN_CHECK( (1_mm == one_mm) == true)
+
+    QUAN_CHECK(is_static_value( v1 == 1_mm) == false)
+    QUAN_CHECK( (v1 == 1_mm) == false)
+
+    QUAN_CHECK(is_static_value( 1_mm == v1 ) == false)
+    QUAN_CHECK( (1_mm == v1) == false)
+
+// != 
+    QUAN_CHECK( is_static_value(v2 != v1))
+    QUAN_CHECK( to_runtime{}(v1 != v2) == false)
+
+    QUAN_CHECK( is_static_value(v2 != one_mm))
+    QUAN_CHECK( to_runtime{}(v2 != one_mm) )
+
+    QUAN_CHECK( is_static_value( v1 != 1_mm) == false)
+    QUAN_CHECK( (v1 != 1_mm) == true)
+
+    QUAN_CHECK(is_static_value( 1_mm != v1 ) == false)
+    QUAN_CHECK( (1_mm != v1) == true)
+
+    QUAN_CHECK( is_static_value( one_mm != 1_mm) == false)
+    QUAN_CHECK( (one_mm != 1_mm) == false)
+
+    QUAN_CHECK(is_static_value( 1_mm != one_mm ) == false)
+    QUAN_CHECK( (1_mm != one_mm) == false)
+
+// <
+    QUAN_CHECK( is_static_value(v1 < v1))
     QUAN_CHECK( to_runtime{}(v1 < v1) == false)
-    QUAN_CHECK( to_runtime{}(v1 < v2))
+    
+    QUAN_CHECK( is_static_value(one_mm < v1))
+    QUAN_CHECK( to_runtime{}(one_mm < v1) == true)
+    
+    QUAN_CHECK( is_static_value(v1 < one_mm ))
+    QUAN_CHECK( to_runtime{}(v1 < one_mm ) == false)
+
+    QUAN_CHECK( is_static_value(v1 < v2 ))
+    QUAN_CHECK( to_runtime{}(v1 < v2) == false)
+
+    QUAN_CHECK( is_static_value(v2 < v1 ))
     QUAN_CHECK( to_runtime{}(v2 < v1) == false)
-    QUAN_CHECK( to_runtime{}(v1 > v2) == false)
+
+// <=
+    QUAN_CHECK( is_static_value(one_mm <= v1))
+    QUAN_CHECK( to_runtime{}(one_mm <= v1) == true)
+
+    QUAN_CHECK( to_runtime{}(one_mm <= v1) == true)
+
+    QUAN_CHECK( is_static_value(v1 <= one_mm ))
+    QUAN_CHECK( to_runtime{}(v1 <= one_mm ) == false)
+    QUAN_CHECK( to_runtime{}(v1 <= v2) == true)
+
     QUAN_CHECK( to_runtime{}(v1 <= v2))
+// >=
     QUAN_CHECK( to_runtime{}(v1 >= v1))
+ //>
     QUAN_CHECK( to_runtime{}(v1 > v1) == false)
-*/
-   
+    QUAN_CHECK( to_runtime{}(v1 > v2) == false)
+
 }
 
-
-int main()
+void static_value_test()
 {
    to_runtime_test();
    static_value_concepts_test();
@@ -315,5 +428,4 @@ int main()
    static_value_op_divide_test();
    static_value_op_compare_test();
 
-   QUAN_EPILOGUE;
 }

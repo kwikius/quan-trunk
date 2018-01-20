@@ -13,6 +13,7 @@
 #include <quan/fusion/meta_rational_to_runtime.hpp>
 #include <quan/meta/is_scalar.hpp>
 #include <quan/meta/is_runtime_type.hpp>
+#include <quan/meta/is_numeric.hpp>
 
 namespace quan{ namespace fusion{
 
@@ -63,6 +64,11 @@ namespace quan{ namespace meta{
       struct is_scalar_impl< quan::fusion::static_value<Runtime,Static> > : 
       quan::meta::is_scalar<Runtime>{};
    }
+
+// question why is it not numeric?
+//    
+//    template <typename R, typename S>
+//    struct is_numeric<quan::fusion::static_value<R,S> > : is_numeric<R>{};
 }}
 
 #endif

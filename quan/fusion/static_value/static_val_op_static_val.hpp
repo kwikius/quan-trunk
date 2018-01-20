@@ -34,10 +34,13 @@ namespace quan{ namespace meta{
       quan::fusion::static_value<RuntimeType_R,StaticValue_R>,
       typename quan::where_<
          and_<
-            is_lossless_calculation<RuntimeType_L,Op,RuntimeType_R>,
-            is_lossless_calculation<StaticValue_L,Op,StaticValue_R>,
-            not_<quan::meta::is_logical_operator<Op> >,
-            is_valid_binary_op<RuntimeType_L,Op,RuntimeType_R>
+            is_lossless_calculation<RuntimeType_L,Op,RuntimeType_R>
+            ,is_lossless_calculation<StaticValue_L,Op,StaticValue_R>
+            ,or_<
+               is_additive_operator<Op>
+               ,is_multiplicative_operator<Op>
+            >
+            ,is_valid_binary_op<RuntimeType_L,Op,RuntimeType_R>
          >
       >::type
    > : quan::fusion::static_value<
@@ -55,15 +58,16 @@ namespace quan{ namespace meta{
       quan::fusion::static_value<RuntimeType_L,StaticValue_L>,
       Op, 
       quan::fusion::static_value<RuntimeType_R,StaticValue_R>,
-      typename quan::where_not<
-         or_<
-            quan::meta::is_logical_operator<Op>,
-            and_<
-               is_lossless_calculation<RuntimeType_L,Op,RuntimeType_R>,
-               is_lossless_calculation<StaticValue_L,Op,StaticValue_R>
-            >,
-            not_<
-               is_valid_binary_op<RuntimeType_L,Op,RuntimeType_R>
+      typename quan::where_<
+         and_<
+            is_valid_binary_op<RuntimeType_L,Op,RuntimeType_R>
+            ,or_<
+               not_< is_lossless_calculation<RuntimeType_L,Op,RuntimeType_R> >
+               ,not_< is_lossless_calculation<StaticValue_L,Op,StaticValue_R> >
+            >
+            ,or_<
+               is_additive_operator<Op>
+               ,is_multiplicative_operator<Op>
             >
          >
       >::type

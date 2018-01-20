@@ -203,6 +203,22 @@ namespace quan{namespace meta{
         : rational_elements_in_range2<32767,RationalL,RationalR>{};
 
         template <typename RationalL, typename RationalR>
+        struct is_lossless_rational_calc<RationalL,quan::meta::less, RationalR>
+        : rational_elements_in_range2<32767,RationalL,RationalR>{};
+
+        template <typename RationalL, typename RationalR>
+        struct is_lossless_rational_calc<RationalL,quan::meta::less_equal, RationalR>
+        : rational_elements_in_range2<32767,RationalL,RationalR>{};
+
+        template <typename RationalL, typename RationalR>
+        struct is_lossless_rational_calc<RationalL,quan::meta::greater, RationalR>
+        : rational_elements_in_range2<32767,RationalL,RationalR>{};
+        template <typename RationalL, typename RationalR>
+        struct is_lossless_rational_calc<RationalL,quan::meta::greater_equal, RationalR>
+        : rational_elements_in_range2<32767,RationalL,RationalR>{};
+
+
+        template <typename RationalL, typename RationalR>
         struct is_lossless_rational_calc<RationalL,quan::meta::times, RationalR>
         : rational_elements_in_range2<46340,RationalL,RationalR>{};
 
@@ -380,9 +396,6 @@ namespace quan{namespace meta{
         >::type type;
     };
 
- 
-
-
     #define QUAN_META_RATIONAL_COMPARISON_OP( Operator,OpSymbol)\
     template <\
             int64_t Nlhs ,\
@@ -416,6 +429,30 @@ namespace quan{namespace meta{
 
     #undef QUAN_META_RATIONAL_COMPARISON_OP
 
+     template <
+        int64_t Nlhs,int64_t Dlhs,
+        int64_t Nrhs, int64_t Drhs
+    > struct binary_op<
+        rational<Nlhs,Dlhs>,
+        less,
+        rational<Nrhs,Drhs>
+    >  : lt_<
+         rational<Nlhs,Dlhs>,
+         rational<Nrhs,Drhs>
+     >{};
+
+     template <
+        int64_t Nlhs,int64_t Dlhs,
+        int64_t Nrhs, int64_t Drhs
+    > struct binary_op<
+        rational<Nlhs,Dlhs>,
+        less_equal,
+        rational<Nrhs,Drhs>
+    >  : lte_<
+         rational<Nlhs,Dlhs>,
+         rational<Nrhs,Drhs>
+     >{};
+
     template <
         int64_t Nlhs,int64_t Dlhs,
         int64_t Nrhs, int64_t Drhs
@@ -439,6 +476,30 @@ namespace quan{namespace meta{
         rational<Nlhs,Dlhs>,
         rational<Nrhs,Drhs>
     >{};
+
+      template <
+        int64_t Nlhs,int64_t Dlhs,
+        int64_t Nrhs, int64_t Drhs
+    > struct binary_op<
+        rational<Nlhs,Dlhs>,
+        greater_equal,
+        rational<Nrhs,Drhs>
+    >  : gte_<
+         rational<Nlhs,Dlhs>,
+         rational<Nrhs,Drhs>
+     >{};
+
+     template <
+        int64_t Nlhs,int64_t Dlhs,
+        int64_t Nrhs, int64_t Drhs
+    > struct binary_op<
+        rational<Nlhs,Dlhs>,
+        greater,
+        rational<Nrhs,Drhs>
+    >  : gt_<
+         rational<Nlhs,Dlhs>,
+         rational<Nrhs,Drhs>
+     >{};
 
 }}//quan::meta
 

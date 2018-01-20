@@ -10,160 +10,77 @@ namespace quan{ namespace meta{
 
    template <
       typename RuntimeType_L, typename StaticValue_L, 
+      typename Op,
       typename RuntimeType_R, typename StaticValue_R
    >
    struct binary_op<
       quan::fusion::static_value<RuntimeType_L,StaticValue_L>,
-      equal_to, 
+      Op, 
       quan::fusion::static_value<RuntimeType_R,StaticValue_R>,
       typename quan::where_<
-         is_valid_binary_op<RuntimeType_L,minus,RuntimeType_R>
+         quan::meta::and_<
+            is_valid_binary_op<RuntimeType_L,quan::meta::minus,RuntimeType_R>
+            ,or_<
+               is_logical_operator<Op>
+               ,is_relational_operator<Op>
+               ,is_equality_operator<Op>
+            >
+            ,is_lossless_calculation<RuntimeType_L,quan::meta::minus,RuntimeType_R>
+            ,is_lossless_calculation<StaticValue_L,quan::meta::minus,StaticValue_R>
+         >  
       >::type
    >: quan::fusion::static_bool<
-         (eq_<StaticValue_L,StaticValue_R>::type::value)
+         (quan::meta::binary_op<StaticValue_L,Op,StaticValue_R>::type::value)
    >{};
 
-   template <
-      typename RuntimeType_L, typename StaticValue_L, 
-      typename RuntimeType_R, typename StaticValue_R
-   >
-   struct binary_op<
-      quan::fusion::static_value<RuntimeType_L,StaticValue_L>,
-      not_equal_to, 
-      quan::fusion::static_value<RuntimeType_R,StaticValue_R>,
-      typename quan::where_<
-         is_valid_binary_op<RuntimeType_L,minus,RuntimeType_R>
-      >::type
-   >: quan::fusion::static_bool<
-         (neq_<StaticValue_L,StaticValue_R>::type::value)
-   >{};
-     
 }}
 
-namespace quan{ namespace fusion{
+#define QUAN_FUSION_META_OP quan::meta::less
+#define QUAN_FUSION_RT_OP <
 
-   template <typename RL, typename SL, typename RR, typename SR>
-   inline
-   constexpr
-   typename quan::where_<
-      quan::meta::is_valid_binary_op<
-         RL,
-         quan::meta::minus,
-         RR
-      >,
-      typename  quan::meta::binary_op<
-         quan::fusion::static_value<RL,SL>,
-         quan::meta::equal_to, 
-         quan::fusion::static_value<RR,SR>
-      >::type
-   >::type
-   operator == (
-         quan::fusion::static_value<RL,SL> const &,
-         quan::fusion::static_value<RR,SR> const &
-   ){
-      typedef typename quan::meta::binary_op<
-         quan::fusion::static_value<RL,SL>,
-         quan::meta::equal_to, 
-         quan::fusion::static_value<RR,SR>
-      >::type result_type;
-      return result_type();
-   }
+#include "compare_i.hpp"
 
-   template <typename TL, typename RR, typename SR>
-   inline
-   constexpr
-   typename quan::where_<
-      quan::meta::and_<
-         quan::meta::not_<quan::fusion::is_static_value<TL> >,
-         quan::meta::is_valid_binary_op<
-            TL,quan::meta::minus,RR
-         >
-      >,
-      bool
-   >::type
-   operator == (TL const & lhs ,quan::fusion::static_value<RR,SR> const & rhs)
-   {
-      return lhs == to_runtime{}(rhs);
-   }
-   
-   template <typename RL, typename SL, typename TR >
-   inline
-   constexpr
-   typename quan::where_<
-      quan::meta::and_<
-         quan::meta::not_<quan::fusion::is_static_value<TR> >,
-         quan::meta::is_valid_binary_op<
-            RL,quan::meta::minus,TR
-         >
-      >,
-      bool
-   >::type
-   operator == (quan::fusion::static_value<RL,SL> const & lhs, TR const & rhs)
-   {
-      return to_runtime{}(lhs) == rhs;
-   }
+#undef QUAN_FUSION_META_OP
+#undef QUAN_FUSION_RT_OP
 
-   template <typename RL, typename SL, typename RR, typename SR>
-   inline
-   constexpr
-   typename quan::where_<
-      quan::meta::is_valid_binary_op<
-         RL,
-         quan::meta::minus,
-         RR
-      >,
-      typename  quan::meta::binary_op<
-         quan::fusion::static_value<RL,SL>,
-         quan::meta::not_equal_to, 
-         quan::fusion::static_value<RR,SR>
-      >::type
-   >::type
-   operator != (
-         quan::fusion::static_value<RL,SL> const &,
-         quan::fusion::static_value<RR,SR> const &
-   ){
-      typedef typename quan::meta::binary_op<
-         quan::fusion::static_value<RL,SL>,
-         quan::meta::not_equal_to, 
-         quan::fusion::static_value<RR,SR>
-      >::type result_type;
-      return result_type{};
-   }
+#define QUAN_FUSION_META_OP quan::meta::less_equal
+#define QUAN_FUSION_RT_OP <=
 
-   template <typename TL, typename RR, typename SR>
-   inline
-   constexpr
-   typename quan::where_<
-      quan::meta::and_<
-         quan::meta::not_<quan::fusion::is_static_value<TL> >,
-         quan::meta::is_valid_binary_op<
-            TL,quan::meta::minus,RR
-         >
-      >,
-      bool
-   >::type
-   operator != (TL const & lhs ,quan::fusion::static_value<RR,SR> const & rhs)
-   {
-      return lhs != to_runtime(rhs);
-   }
-   
-   template <typename RL, typename SL, typename TR >
-   inline
-   constexpr
-   typename quan::where_<
-      quan::meta::and_<
-         quan::meta::not_<quan::fusion::is_static_value<TR> >,
-         quan::meta::is_valid_binary_op<
-            RL,quan::meta::minus,TR
-         >
-      >,
-      bool
-   >::type
-   operator != (quan::fusion::static_value<RL,SL> const & lhs, TR const & rhs)
-   {
-      return to_runtime(lhs) != rhs;
-   }
+#include "compare_i.hpp"
 
-}}//quan::fusion
+#undef QUAN_FUSION_META_OP
+#undef QUAN_FUSION_RT_OP
+
+#define QUAN_FUSION_META_OP quan::meta::equal_to
+#define QUAN_FUSION_RT_OP ==
+
+#include "compare_i.hpp"
+
+#undef QUAN_FUSION_META_OP
+#undef QUAN_FUSION_RT_OP
+
+#define QUAN_FUSION_META_OP quan::meta::not_equal_to
+#define QUAN_FUSION_RT_OP !=
+
+#include "compare_i.hpp"
+
+#undef QUAN_FUSION_META_OP
+#undef QUAN_FUSION_RT_OP
+
+#define QUAN_FUSION_META_OP quan::meta::greater_equal
+#define QUAN_FUSION_RT_OP >=
+
+#include "compare_i.hpp"
+
+#undef QUAN_FUSION_META_OP
+#undef QUAN_FUSION_RT_OP
+
+#define QUAN_FUSION_META_OP quan::meta::greater
+#define QUAN_FUSION_RT_OP >
+
+#include "compare_i.hpp"
+
+#undef QUAN_FUSION_META_OP
+#undef QUAN_FUSION_RT_OP
 
 #endif

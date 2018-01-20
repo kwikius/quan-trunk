@@ -17,6 +17,7 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 
+#include <quan/fun/fun_seq2.hpp>
 #include <quan/fun/make_fun_seq2.hpp>
 #include <quan/fun/at_seq.hpp>
 #include <quan/fun/fold_seq.hpp>

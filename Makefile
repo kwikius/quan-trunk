@@ -13,15 +13,15 @@ QDRTDir                       = quan_matters/test/qdrt/
 MetaDir                       = quan_matters/test/meta/
 ConversionDir                 = quan_matters/test/conversion/
 BigintDir                     = quan_matters/test/bigint/
-StaticValueDir                =  quan_matters/test/fusion/static_value/
+FusionDir                = quan_matters/test/fusion/
 
 USE_CONCEPTS_VALUE = True
 
 .PHONY: fixed_quantity_semantics_test angle_test three_d_test two_d_test examples qdrt meta conversion bigint \
- static_value
+fusion
 
 all: fixed_quantity_semantics_test angle_test three_d_test two_d_test examples qdrt meta conversion bigint \
-static_value
+fusion
 
 fixed_quantity_semantics_test: 
 	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) -C $(FixedQuantitySemanticsTestDir) test
@@ -50,8 +50,8 @@ conversion:
 bigint:
 	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) -C $(BigintDir) test 
 
-static_value:
-	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) -C $(StaticValueDir) test 
+fusion:
+	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) -C $(FusionDir) test 
 
 clean: 
 	make -C $(FixedQuantitySemanticsTestDir) clean
@@ -63,4 +63,4 @@ clean:
 	make -C $(MetaDir) clean
 	make -C $(ConversionDir) clean
 	make -C $(BigintDir) clean
-	make -C $(StaticValueDir) clean
+	make -C $(FusionDir) clean

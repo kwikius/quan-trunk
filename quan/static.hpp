@@ -28,7 +28,7 @@
 //
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
-#include <quan/fusion/static_value/out/static_value.hpp>
+#include <quan/fusion/static_value/static_value.hpp>
 
 namespace quan{ 
 
