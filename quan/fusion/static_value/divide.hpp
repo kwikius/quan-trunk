@@ -19,88 +19,90 @@
 namespace quan{ namespace meta{
 
  // nonzero static / runtime type
-   template <typename RL,typename SL, typename TR>
-   struct binary_op<
-      quan::fusion::static_value<RL,SL>,
-      divides,
-      TR,
-      typename quan::where_<
-         and_<
-            neq_zero<SL>,
-            not_<quan::fusion::is_static_value<TR> >,
-            is_valid_binary_op<RL,divides,TR>,
-            is_scalar<TR>
-         >
-      >::type
-   > : binary_op< RL,divides, TR>{};
-   
-   // zero / runtime
-   template <typename RL,typename SL, typename TR>
-   struct binary_op<
-      quan::fusion::static_value<RL,SL>,
-      divides,
-      TR,
-      typename quan::where_<
-         and_<
-            eq_zero<SL>,
-            not_<quan::fusion::is_static_value<TR> >,
-            is_valid_binary_op<RL,divides,TR>,
-            is_scalar<TR>
-         >
-      >::type
-   > : quan::fusion::static_value<
-      typename binary_op< RL, divides, TR>::type,
-      SL
-   > {};
+   namespace impl { 
+      template <typename RL,typename SL, typename TR>
+      struct binary_op_impl<
+         quan::fusion::static_value<RL,SL>,
+         quan::meta::divides,
+         TR,
+         typename quan::where_<
+            quan::meta::and_<
+               quan::meta::neq_zero<SL>,
+               quan::meta::not_<quan::fusion::is_static_value<TR> >,
+               quan::meta::is_valid_binary_op<RL,divides,TR>,
+               quan::meta::is_scalar<TR>
+            >
+         >::type
+      > : quan::meta::binary_op< RL,divides, TR>{};
+      
+      // zero / runtime
+      template <typename RL,typename SL, typename TR>
+      struct binary_op_impl<
+         quan::fusion::static_value<RL,SL>,
+         quan::meta::divides,
+         TR,
+         typename quan::where_<
+           quan::meta::and_<
+               quan::meta::eq_zero<SL>,
+               quan::meta::not_<quan::fusion::is_static_value<TR> >,
+               quan::meta::is_valid_binary_op<RL,divides,TR>,
+               quan::meta::is_scalar<TR>
+            >
+         >::type
+      > : quan::fusion::static_value<
+         typename quan::meta::binary_op< RL, divides, TR>::type,
+         SL
+      > {};
 
 
-   // runtime / non zero static
-   template <typename TL,typename RR, typename SR>
-   struct binary_op<
-      TL,
-      times,
-      quan::fusion::static_value<RR,SR>,
-      typename quan::where_<
-         and_<
-            neq_zero<SR> ,
-            not_<quan::fusion::is_static_value<TL> >,
-            is_valid_binary_op<TL,times,RR>,
-            is_scalar<TL>
-         >
-      >::type
-   > : binary_op<TL,times,RR>{};
+      // runtime / non zero static
+      template <typename TL,typename RR, typename SR>
+      struct binary_op_impl<
+         TL,
+         quan::meta::times,
+         quan::fusion::static_value<RR,SR>,
+         typename quan::where_<
+            quan::meta::and_<
+               quan::meta::neq_zero<SR> ,
+               quan::meta::not_<quan::fusion::is_static_value<TL> >,
+               quan::meta::is_valid_binary_op<TL,times,RR>,
+               quan::meta::is_scalar<TL>
+            >
+         >::type
+      > : quan::meta::binary_op<TL,times,RR>{};
 
-   // TL / static
-   template <typename TL,typename RR, typename SR>
-   struct binary_op<
-      TL,
-      divides,
-      quan::fusion::static_value<RR,SR>,
-      typename quan::where_<
-         and_<
-            neq_zero<SR>,
-            not_<quan::fusion::is_static_value<TL> >,
-            is_valid_binary_op<TL,divides,RR>,
-            is_scalar<TL>
-         >
-      >::type
-   > : binary_op<TL,divides,RR>{};
+      // TL / static
+      template <typename TL,typename RR, typename SR>
+      struct binary_op_impl<
+         TL,
+         quan::meta::divides,
+         quan::fusion::static_value<RR,SR>,
+         typename quan::where_<
+            quan::meta::and_<
+               quan::meta::neq_zero<SR>,
+               quan::meta::not_<quan::fusion::is_static_value<TL> >,
+               quan::meta::is_valid_binary_op<TL,divides,RR>,
+               quan::meta::is_scalar<TL>
+            >
+         >::type
+      > : quan::meta::binary_op<TL,divides,RR>{};
 
-// division  by zero
-   template <typename TL,typename RR, typename SR>
-   struct binary_op<
-      TL,
-      divides,
-      quan::fusion::static_value<RR,SR>,
-      typename quan::where_<
-         and_<
-            eq_zero<SR>,
-            not_<quan::fusion::is_static_value<TL> >,
-            is_valid_binary_op<TL,divides,RR>,
-            is_scalar<TL>
-         >
-      >::type
-   > : quan::undefined{};
+   // division  by zero
+      template <typename TL,typename RR, typename SR>
+      struct binary_op_impl<
+         TL,
+         quan::meta::divides,
+         quan::fusion::static_value<RR,SR>,
+         typename quan::where_<
+            quan::meta::and_<
+               quan::meta::eq_zero<SR>,
+               quan::meta::not_<quan::fusion::is_static_value<TL> >,
+               quan::meta::is_valid_binary_op<TL,divides,RR>,
+               quan::meta::is_scalar<TL>
+            >
+         >::type
+      > : quan::undefined{};
+   } // impl
 
 }}//quan::meta
 

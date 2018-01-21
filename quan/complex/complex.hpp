@@ -246,49 +246,49 @@ namespace quan{
 }//quan
 namespace quan{namespace meta{
 
-   template <typename QL, typename Op, typename QR>
-   struct binary_op<
-      quan::complex<QL>,Op,quan::complex<QR>
-   > {
-      typedef quan::complex<
-         typename binary_op<
-            QL,Op,QR
+   namespace impl {
+      template <typename QL, typename Op, typename QR>
+      struct binary_op_impl<
+         quan::complex<QL>,Op,quan::complex<QR>
+      > {
+         typedef quan::complex<
+            typename binary_op<
+               QL,Op,QR
+            >::type
+         > type;
+      };
+      template <typename QL, typename Op, typename QR>
+      struct binary_op_impl<
+         quan::complex<QL>,Op,QR,
+         typename quan::where_<
+            quan::meta::is_scalar<QR>
          >::type
-      > type;
-   };
-   template <typename QL, typename Op, typename QR>
-   struct binary_op<
-      quan::complex<QL>,Op,QR,
-      typename quan::where_<
-         quan::meta::is_scalar<QR>
-      >::type
-   > {
-      typedef quan::complex<
-         typename binary_op<
-            QL,Op,QR
-         >::type
-      > type;
-   };
+      > {
+         typedef quan::complex<
+            typename binary_op<
+               QL,Op,QR
+            >::type
+         > type;
+      };
 
-   template <typename QL, typename Op, typename QR>
-   struct binary_op<
-      QL,Op,quan::complex<QR>,
-      typename quan::where_<
-         quan::meta::is_scalar<QL>
-      >::type
-   > {
-      typedef quan::complex<
-         typename binary_op<
-            QL,Op,QR
+      template <typename QL, typename Op, typename QR>
+      struct binary_op_impl<
+         QL,Op,quan::complex<QR>,
+         typename quan::where_<
+            quan::meta::is_scalar<QL>
          >::type
-      > type;
-   };
+      > {
+         typedef quan::complex<
+            typename binary_op<
+               QL,Op,QR
+            >::type
+         > type;
+      };
+   }// impl
 
 }}
 
-#if !(defined QUAN_SUPPRESS_VC8_ADL_BUG)
 namespace quan {
-#endif
 
       template <typename QL, typename QR>
       typename quan::meta::binary_op<
@@ -302,10 +302,6 @@ namespace quan {
       >::type
       operator /(quan::complex<QL> const & lhs,quan::complex<QR> const & ths);
 
-#if !(defined QUAN_SUPPRESS_VC8_ADL_BUG)
 } //quan
-#endif
-
-
 
 #endif

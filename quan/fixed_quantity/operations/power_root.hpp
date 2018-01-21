@@ -77,13 +77,14 @@ namespace quan {
             };
          }
  
+       namespace impl{
         template <
             int64_t N,
             int64_t D,
             typename StaticUnit,
             typename NumericType
         >
-        struct binary_op<
+        struct binary_op_impl<
             fixed_quantity<
                 StaticUnit,
                 NumericType
@@ -111,6 +112,7 @@ namespace quan {
                 >::type
             >::type type;    
         };
+      } // impl
 
     }// meta
 

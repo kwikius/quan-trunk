@@ -265,136 +265,138 @@ namespace quan{namespace meta{
         rational<Nrhs,Drhs>
     >{};
 
+    namespace impl{
 
-    template <
-        int64_t Nlhs,
-        int64_t Dlhs,
-        int64_t Nrhs,
-        int64_t Drhs
-    > struct binary_op<
-        rational<Nlhs,Dlhs>,
-        plus,
-        rational<Nrhs,Drhs>
-    >{
-        typedef typename rational<Nlhs,Dlhs>::type lhs;
-        typedef typename rational<Nrhs,Drhs>::type rhs;
-#ifndef QUAN_HAS_LONG_LONG
-        typedef is_lossless_calculation<lhs,plus,rhs> lossless;
-        enum{
-            lhsn = lhs::numerator,
-            lhsd = lhs::denominator,
-            rhsn = rhs::numerator,
-            rhsd = rhs::denominator
-        };
-        //+/- 32767
-        typedef typename rational<
-            static_cast<int64_t>(lhsn) * rhsd 
-                + static_cast<int64_t>(rhsn) * lhsd, 
-            static_cast<int64_t>(lhsd) * rhsd
-        >::type type;
-#else
-        static const long long lhsn = lhs::numerator;
-        static const long long lhsd = lhs::denominator;
-        static const long long rhsn = rhs::numerator;
-        static const long long rhsd = rhs::denominator;
-        static const long long sum1 = lhsn * rhsd;
-        static const long long sum2 = rhsn * lhsd;
-        static const long long abs_sum1 = sum1<0?-sum1:sum1;
-        static const long long abs_sum2 = sum2<0?-sum2:sum2;
-        static_assert(abs_sum1 < INT_MAX,"rational value too big");
-        static_assert(abs_sum2 < INT_MAX,"rational value too big");
-        static const long long nume = sum1 + sum2;
-        static const long long abs_nume = nume<0 ? -nume:nume;
-        static_assert( abs_nume < INT_MAX,"rational value too big");
-        
-        static const long long denom = lhsd * rhsd;
-        static const long long abs_denom = denom<0?-denom:denom;
-        static_assert( abs_denom < INT_MAX,"rational value too big");
+       template <
+           int64_t Nlhs,
+           int64_t Dlhs,
+           int64_t Nrhs,
+           int64_t Drhs
+       > struct binary_op_impl<
+           rational<Nlhs,Dlhs>,
+           plus,
+           rational<Nrhs,Drhs>
+       >{
+           typedef typename rational<Nlhs,Dlhs>::type lhs;
+           typedef typename rational<Nrhs,Drhs>::type rhs;
+   #ifndef QUAN_HAS_LONG_LONG
+           typedef is_lossless_calculation<lhs,plus,rhs> lossless;
+           enum{
+               lhsn = lhs::numerator,
+               lhsd = lhs::denominator,
+               rhsn = rhs::numerator,
+               rhsd = rhs::denominator
+           };
+           //+/- 32767
+           typedef typename rational<
+               static_cast<int64_t>(lhsn) * rhsd 
+                   + static_cast<int64_t>(rhsn) * lhsd, 
+               static_cast<int64_t>(lhsd) * rhsd
+           >::type type;
+   #else
+           static const long long lhsn = lhs::numerator;
+           static const long long lhsd = lhs::denominator;
+           static const long long rhsn = rhs::numerator;
+           static const long long rhsd = rhs::denominator;
+           static const long long sum1 = lhsn * rhsd;
+           static const long long sum2 = rhsn * lhsd;
+           static const long long abs_sum1 = sum1<0?-sum1:sum1;
+           static const long long abs_sum2 = sum2<0?-sum2:sum2;
+           static_assert(abs_sum1 < INT_MAX,"rational value too big");
+           static_assert(abs_sum2 < INT_MAX,"rational value too big");
+           static const long long nume = sum1 + sum2;
+           static const long long abs_nume = nume<0 ? -nume:nume;
+           static_assert( abs_nume < INT_MAX,"rational value too big");
+           
+           static const long long denom = lhsd * rhsd;
+           static const long long abs_denom = denom<0?-denom:denom;
+           static_assert( abs_denom < INT_MAX,"rational value too big");
 
-        typedef typename rational<
-            static_cast<int64_t>(nume),
-            static_cast<int64_t>(denom)
-        >::type type;
-        
-#endif
+           typedef typename rational<
+               static_cast<int64_t>(nume),
+               static_cast<int64_t>(denom)
+           >::type type;
+           
+   #endif
 
-    };
+       };
 
-    
-    //+/- 32767
-    template <
-       int64_t Nlhs,int64_t Dlhs,
-       int64_t Nrhs,int64_t Drhs
-    > struct binary_op<
-        rational<Nlhs,Dlhs>,
-        minus,
-        rational<Nrhs,Drhs>
-    >{
-        typedef typename rational<Nlhs,Dlhs>::type lhs;
-        typedef typename rational<Nrhs,Drhs>::type rhs;
-        typedef is_lossless_calculation<lhs,minus,rhs> lossless;
+       
+       //+/- 32767
+       template <
+          int64_t Nlhs,int64_t Dlhs,
+          int64_t Nrhs,int64_t Drhs
+       > struct binary_op_impl<
+           rational<Nlhs,Dlhs>,
+           minus,
+           rational<Nrhs,Drhs>
+       >{
+           typedef typename rational<Nlhs,Dlhs>::type lhs;
+           typedef typename rational<Nrhs,Drhs>::type rhs;
+           typedef is_lossless_calculation<lhs,minus,rhs> lossless;
 
-        enum{
-            lhsn = lhs::numerator,
-            lhsd = lhs::denominator,
-            rhsn = rhs::numerator,
-            rhsd = rhs::denominator
-        };
-        
-        typedef typename rational<
-            static_cast<int64_t>(lhsn) * rhsd 
-                - static_cast<int64_t>(rhsn) * lhsd, 
-            static_cast<int64_t>(lhsd) * rhsd
-        >::type type;
-    };
-    
-    template <
-       int64_t Nlhs,int64_t Dlhs,
-        int64_t Nrhs, int64_t Drhs
-    > struct binary_op<
-        rational<Nlhs,Dlhs>,
-        times,
-        rational<Nrhs,Drhs>
-    >{
-        typedef typename rational<Nlhs,Dlhs>::type lhs;
-        typedef typename rational<Nrhs,Drhs>::type rhs;
+           enum{
+               lhsn = lhs::numerator,
+               lhsd = lhs::denominator,
+               rhsn = rhs::numerator,
+               rhsd = rhs::denominator
+           };
+           
+           typedef typename rational<
+               static_cast<int64_t>(lhsn) * rhsd 
+                   - static_cast<int64_t>(rhsn) * lhsd, 
+               static_cast<int64_t>(lhsd) * rhsd
+           >::type type;
+       };
+       
+       template <
+          int64_t Nlhs,int64_t Dlhs,
+           int64_t Nrhs, int64_t Drhs
+       > struct binary_op_impl<
+           rational<Nlhs,Dlhs>,
+           times,
+           rational<Nrhs,Drhs>
+       >{
+           typedef typename rational<Nlhs,Dlhs>::type lhs;
+           typedef typename rational<Nrhs,Drhs>::type rhs;
 
-        enum{ 
-            n = lhs::numerator * rhs::numerator,
-            d = lhs::denominator * rhs::denominator
-        };
-        //+/- 46340
-        typedef typename rational<
-          n , d
-        >::type type;
-    };
-   
-    template <
-        int64_t Nlhs,int64_t Dlhs,
-        int64_t Nrhs, int64_t Drhs
-    > struct binary_op<
-        rational<Nlhs,Dlhs>,
-        divides,
-        rational<Nrhs,Drhs>
-    >{
-        typedef typename rational<Nlhs,Dlhs>::type lhs;
-        typedef typename rational<Nrhs,Drhs>::type rhs;
-        typedef is_lossless_calculation<lhs,divides,rhs> lossless;
+           enum{ 
+               n = lhs::numerator * rhs::numerator,
+               d = lhs::denominator * rhs::denominator
+           };
+           //+/- 46340
+           typedef typename rational<
+             n , d
+           >::type type;
+       };
+      
+       template <
+           int64_t Nlhs,int64_t Dlhs,
+           int64_t Nrhs, int64_t Drhs
+       > struct binary_op_impl<
+           rational<Nlhs,Dlhs>,
+           divides,
+           rational<Nrhs,Drhs>
+       >{
+           typedef typename rational<Nlhs,Dlhs>::type lhs;
+           typedef typename rational<Nrhs,Drhs>::type rhs;
+           typedef is_lossless_calculation<lhs,divides,rhs> lossless;
 
-        enum{
-            lhsn = lhs::numerator,
-            lhsd = lhs::denominator,
-            rhsn = rhs::numerator,
-            rhsd = rhs::denominator
-        };
-        //+- 46340
-        typedef typename rational<
-            static_cast<int64_t>(lhsn) * rhsd , 
-            (static_cast<int64_t>(lhsn) == 0) 
-                ? 1 
-                : static_cast<int64_t>(lhsd) * rhsn
-        >::type type;
-    };
+           enum{
+               lhsn = lhs::numerator,
+               lhsd = lhs::denominator,
+               rhsn = rhs::numerator,
+               rhsd = rhs::denominator
+           };
+           //+- 46340
+           typedef typename rational<
+               static_cast<int64_t>(lhsn) * rhsd , 
+               (static_cast<int64_t>(lhsn) == 0) 
+                   ? 1 
+                   : static_cast<int64_t>(lhsd) * rhsn
+           >::type type;
+       };
+    } // impl
 
     #define QUAN_META_RATIONAL_COMPARISON_OP( Operator,OpSymbol)\
     template <\
@@ -428,11 +430,12 @@ namespace quan{namespace meta{
     QUAN_META_RATIONAL_COMPARISON_OP( gt_, > )
 
     #undef QUAN_META_RATIONAL_COMPARISON_OP
-
+    
+    namespace impl {
      template <
         int64_t Nlhs,int64_t Dlhs,
         int64_t Nrhs, int64_t Drhs
-    > struct binary_op<
+    > struct binary_op_impl<
         rational<Nlhs,Dlhs>,
         less,
         rational<Nrhs,Drhs>
@@ -444,7 +447,7 @@ namespace quan{namespace meta{
      template <
         int64_t Nlhs,int64_t Dlhs,
         int64_t Nrhs, int64_t Drhs
-    > struct binary_op<
+    > struct binary_op_impl<
         rational<Nlhs,Dlhs>,
         less_equal,
         rational<Nrhs,Drhs>
@@ -456,7 +459,7 @@ namespace quan{namespace meta{
     template <
         int64_t Nlhs,int64_t Dlhs,
         int64_t Nrhs, int64_t Drhs
-    > struct binary_op<
+    > struct binary_op_impl<
         rational<Nlhs,Dlhs>,
         equal_to,
         rational<Nrhs,Drhs>
@@ -468,7 +471,7 @@ namespace quan{namespace meta{
     template <
         int64_t Nlhs,int64_t Dlhs,
         int64_t Nrhs, int64_t Drhs
-    > struct binary_op<
+    > struct binary_op_impl<
         rational<Nlhs,Dlhs>,
         not_equal_to,
         rational<Nrhs,Drhs>
@@ -480,7 +483,7 @@ namespace quan{namespace meta{
       template <
         int64_t Nlhs,int64_t Dlhs,
         int64_t Nrhs, int64_t Drhs
-    > struct binary_op<
+    > struct binary_op_impl<
         rational<Nlhs,Dlhs>,
         greater_equal,
         rational<Nrhs,Drhs>
@@ -492,7 +495,7 @@ namespace quan{namespace meta{
      template <
         int64_t Nlhs,int64_t Dlhs,
         int64_t Nrhs, int64_t Drhs
-    > struct binary_op<
+    > struct binary_op_impl<
         rational<Nlhs,Dlhs>,
         greater,
         rational<Nrhs,Drhs>
@@ -500,6 +503,8 @@ namespace quan{namespace meta{
          rational<Nlhs,Dlhs>,
          rational<Nrhs,Drhs>
      >{};
+
+   } // impl
 
 }}//quan::meta
 

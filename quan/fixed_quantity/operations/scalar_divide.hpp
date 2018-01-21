@@ -32,13 +32,14 @@
 #include <quan/meta/eval_if.hpp>
 
 namespace quan{ namespace meta{
-       
+
+    namespace impl{   
         template<
             typename NumericType_1,
             typename StaticUnit,
             typename NumericType
         >
-        struct binary_op<
+        struct binary_op_impl<
             NumericType_1,
             divides,
             quan ::fixed_quantity<
@@ -77,7 +78,7 @@ namespace quan{ namespace meta{
             typename NumericType,
             typename NumericType_1
         >
-        struct binary_op<
+        struct binary_op_impl<
             typename quan ::fixed_quantity<
                 StaticUnit,
                 NumericType
@@ -97,6 +98,8 @@ namespace quan{ namespace meta{
                 >::type
             > type;
         };
+
+    } // impl
            
 }}//quan::meta
 

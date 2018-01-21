@@ -215,25 +215,27 @@ namespace quan{ namespace meta{
         
     }//detail
 
-    template <
-        typename DL, typename IDL,
-        typename Op,
-        typename DR, typename IDR
-    >
-    struct binary_op<
-        abstract_quantity<
-            DL, IDL
-        >,
-        Op,
-        abstract_quantity<
-            DR, IDR
-        >
-    > :  //detail::do_promote_abstract_quantity<
-         abstract_quantity<
-           typename binary_op<DL,Op,DR>::type,
-           typename detail::transform_abstract_quantity_traits<IDL,Op,IDR>::type
-         >{};
-      //>::type{};
+    namespace impl{
+
+       template <
+           typename DL, typename IDL,
+           typename Op,
+           typename DR, typename IDR
+       >
+       struct binary_op_impl<
+           abstract_quantity<
+               DL, IDL
+           >,
+           Op,
+           abstract_quantity<
+               DR, IDR
+           >
+       > :  abstract_quantity<
+              typename binary_op<DL,Op,DR>::type,
+              typename detail::transform_abstract_quantity_traits<IDL,Op,IDR>::type
+            >{};
+
+    } // impl
 
     template <typename D, typename ID, typename Op>
     struct unary_operation<
@@ -248,25 +250,27 @@ namespace quan{ namespace meta{
         >::type type;
     };
 
-    template <
-        typename Dimension, 
-        typename NamedQuantityTraits,
-        typename Exp
-    >
-    struct binary_op<
-        abstract_quantity<
-            Dimension, NamedQuantityTraits
-        >,
-        pow,
-        Exp
-    > : if_<
-         eq_one<Exp>,
-         abstract_quantity<Dimension,NamedQuantityTraits>,
-         abstract_quantity<
-            typename binary_op<Dimension,pow,Exp>::type,
-            anonymous_quantity_traits
-         >
-    >{};
+    namespace impl{
+       template <
+           typename Dimension, 
+           typename NamedQuantityTraits,
+           typename Exp
+       >
+       struct binary_op_impl<
+           abstract_quantity<
+               Dimension, NamedQuantityTraits
+           >,
+           pow,
+           Exp
+       > : if_<
+            eq_one<Exp>,
+            abstract_quantity<Dimension,NamedQuantityTraits>,
+            abstract_quantity<
+               typename binary_op<Dimension,pow,Exp>::type,
+               anonymous_quantity_traits
+            >
+       >{};
+    } // impl
 
 }}//quan::meta
 

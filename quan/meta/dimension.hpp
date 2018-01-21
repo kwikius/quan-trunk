@@ -135,78 +135,80 @@ namespace quan{namespace meta{
         typedef si_unit_system type;
     };    
 
-    template <
-        typename D1L,
-        typename D2L,
-        typename D3L,
-        typename D4L,
-        typename D5L,
-        typename D6L,
-        typename D7L,
-        typename Op,
-        typename D1R,
-        typename D2R,
-        typename D3R,
-        typename D4R,
-        typename D5R,
-        typename D6R,
-        typename D7R
-    >
-    struct binary_op<
-        dimension<
-            D1L,
-            D2L,
-            D3L,
-            D4L,
-            D5L,
-            D6L,
-            D7L
-        >,
-        Op,
-        dimension<
-            D1R,
-            D2R,
-            D3R,
-            D4R,
-            D5R,
-            D6R,
-            D7R
-        > 
-    > : dimension <
-        typename binary_log_transform<D1L,Op,D1R>::type,
-        typename binary_log_transform<D2L,Op,D2R>::type,
-        typename binary_log_transform<D3L,Op,D3R>::type,
-        typename binary_log_transform<D4L,Op,D4R>::type,
-        typename binary_log_transform<D5L,Op,D5R>::type,
-        typename binary_log_transform<D6L,Op,D6R>::type,
-        typename binary_log_transform<D7L,Op,D7R>::type
-    >{};
+    namespace impl {
+       template <
+           typename D1L,
+           typename D2L,
+           typename D3L,
+           typename D4L,
+           typename D5L,
+           typename D6L,
+           typename D7L,
+           typename Op,
+           typename D1R,
+           typename D2R,
+           typename D3R,
+           typename D4R,
+           typename D5R,
+           typename D6R,
+           typename D7R
+       >
+       struct binary_op_impl<
+           dimension<
+               D1L,
+               D2L,
+               D3L,
+               D4L,
+               D5L,
+               D6L,
+               D7L
+           >,
+           Op,
+           dimension<
+               D1R,
+               D2R,
+               D3R,
+               D4R,
+               D5R,
+               D6R,
+               D7R
+           > 
+       > : dimension <
+           typename binary_log_transform<D1L,Op,D1R>::type,
+           typename binary_log_transform<D2L,Op,D2R>::type,
+           typename binary_log_transform<D3L,Op,D3R>::type,
+           typename binary_log_transform<D4L,Op,D4R>::type,
+           typename binary_log_transform<D5L,Op,D5R>::type,
+           typename binary_log_transform<D6L,Op,D6R>::type,
+           typename binary_log_transform<D7L,Op,D7R>::type
+       >{};
 
-    template <
-        typename D1,
-        typename D2,
-        typename D3,
-        typename D4,
-        typename D5,
-        typename D6,
-        typename D7,
-        typename Exp
-    >
-    struct binary_op<
-        dimension<
-            D1, D2, D3, D4, D5, D6, D7
-        >,
-        pow,
-        Exp
-    > : dimension<
-        typename binary_op<D1,times,Exp>::type,
-        typename binary_op<D2,times,Exp>::type,
-        typename binary_op<D3,times,Exp>::type,
-        typename binary_op<D4,times,Exp>::type,
-        typename binary_op<D5,times,Exp>::type,
-        typename binary_op<D6,times,Exp>::type,
-        typename binary_op<D7,times,Exp>::type
-     >{};
+       template <
+           typename D1,
+           typename D2,
+           typename D3,
+           typename D4,
+           typename D5,
+           typename D6,
+           typename D7,
+           typename Exp
+       >
+       struct binary_op_impl<
+           dimension<
+               D1, D2, D3, D4, D5, D6, D7
+           >,
+           pow,
+           Exp
+       > : dimension<
+           typename binary_op<D1,times,Exp>::type,
+           typename binary_op<D2,times,Exp>::type,
+           typename binary_op<D3,times,Exp>::type,
+           typename binary_op<D4,times,Exp>::type,
+           typename binary_op<D5,times,Exp>::type,
+           typename binary_op<D6,times,Exp>::type,
+           typename binary_op<D7,times,Exp>::type
+        >{};
+    }
     
     template <
         typename D1,

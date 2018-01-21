@@ -50,26 +50,28 @@ namespace quan{ namespace meta{
       typedef typename quan::fun::make_fun_seq1<left_part,SeqR>::type type;
    };*/
    
-   template <typename SeqL, typename TR>
-   struct binary_op<
-      SeqL,
-      quan::meta::divides,
-      TR,      
-      typename quan::where_<
-         quan::meta::and_<
-            quan::fun::is_fun_sequence<SeqL>,
-            quan::meta::is_scalar<TR>
-         >
-      >::type
-   >{
-      typedef quan::fun::binary_op<
-         quan::fun::_,
-         quan::operator_divides,
-         TR
-      > right_part;
+   namespace impl{
+      template <typename SeqL, typename TR>
+      struct binary_op_impl<
+         SeqL,
+         quan::meta::divides,
+         TR,      
+         typename quan::where_<
+            quan::meta::and_<
+               quan::fun::is_fun_sequence<SeqL>,
+               quan::meta::is_scalar<TR>
+            >
+         >::type
+      >{
+         typedef quan::fun::binary_op<
+            quan::fun::_,
+            quan::operator_divides,
+            TR
+         > right_part;
 
-      typedef typename quan::fun::make_fun_seq1<right_part,SeqL>::type type;
-   };
+         typedef typename quan::fun::make_fun_seq1<right_part,SeqL>::type type;
+      };
+   }
 }}
 
 namespace quan { namespace fun{

@@ -20,11 +20,7 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
- 
- 
-//
+
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 /*
@@ -208,167 +204,169 @@ namespace quan{namespace meta{
         
     }//detail
 
-//+
-    template<
-        typename LhsExponent,
-        typename LhsMultiplier, 
-        typename LhsId,
-        typename RhsExponent,
-        typename RhsMultiplier, 
-        typename RhsId
-    >
-    struct  binary_op<
-        conversion_factor<
-                LhsExponent,
-                LhsMultiplier, 
-                LhsId
-        >,
-        plus,
-        conversion_factor<
-                RhsExponent,
-                RhsMultiplier, 
-                RhsId
-        >
-    > 
-    : detail::plus_minus_unit<
-        conversion_factor<
-                LhsExponent,
-                LhsMultiplier, 
-                LhsId
-        >,
-        conversion_factor<
-            RhsExponent,
-            RhsMultiplier, 
-            RhsId
-        >
-    >{};
-//-
-    template<
-        typename LhsExponent,
-        typename LhsMultiplier, 
-        typename LhsId,
-        typename RhsExponent,
-        typename RhsMultiplier, 
-        typename RhsId
-    >
-    struct binary_op<
-        conversion_factor<
-                LhsExponent,
-                LhsMultiplier, 
-                LhsId
-        >,
-        minus,
-        conversion_factor<
-                RhsExponent,
-                RhsMultiplier, 
-                RhsId
-        >
-    > : detail::plus_minus_unit<
-        conversion_factor<
-                LhsExponent,
-                LhsMultiplier, 
-                LhsId
-        >,
-        conversion_factor<
-            RhsExponent,
-            RhsMultiplier, 
-            RhsId
-        >
-    >{};
-//*
-    template<
-        typename LhsExponent,
-        typename LhsMultiplier, 
-        typename LhsId,
-        typename RhsExponent,
-        typename RhsMultiplier, 
-        typename RhsId
-    >
-    struct binary_op<
-        conversion_factor<
-                LhsExponent,
-                LhsMultiplier, 
-                LhsId
-        >,
-        times,
-        conversion_factor<
-                RhsExponent,
-                RhsMultiplier, 
-                RhsId
-        >
-    >{ 
-    // in multiplication
-    // add exponents
-    // transform multiplier and id to default
-        typedef conversion_factor<
-            typename binary_op<
-                LhsExponent,
-                plus,
-                RhsExponent
-            >::type,
-            rational<1>,
-            quan::meta::int32<0>
-        >  type;
-    };
+    namespace impl {
+      //+
+       template<
+           typename LhsExponent,
+           typename LhsMultiplier, 
+           typename LhsId,
+           typename RhsExponent,
+           typename RhsMultiplier, 
+           typename RhsId
+       >
+       struct binary_op_impl<
+           conversion_factor<
+                   LhsExponent,
+                   LhsMultiplier, 
+                   LhsId
+           >,
+           plus,
+           conversion_factor<
+                   RhsExponent,
+                   RhsMultiplier, 
+                   RhsId
+           >
+       > 
+       : detail::plus_minus_unit<
+           conversion_factor<
+                   LhsExponent,
+                   LhsMultiplier, 
+                   LhsId
+           >,
+           conversion_factor<
+               RhsExponent,
+               RhsMultiplier, 
+               RhsId
+           >
+       >{};
+   //-
+       template<
+           typename LhsExponent,
+           typename LhsMultiplier, 
+           typename LhsId,
+           typename RhsExponent,
+           typename RhsMultiplier, 
+           typename RhsId
+       >
+       struct binary_op_impl<
+           conversion_factor<
+                   LhsExponent,
+                   LhsMultiplier, 
+                   LhsId
+           >,
+           minus,
+           conversion_factor<
+                   RhsExponent,
+                   RhsMultiplier, 
+                   RhsId
+           >
+       > : detail::plus_minus_unit<
+           conversion_factor<
+                   LhsExponent,
+                   LhsMultiplier, 
+                   LhsId
+           >,
+           conversion_factor<
+               RhsExponent,
+               RhsMultiplier, 
+               RhsId
+           >
+       >{};
+   //*
+       template<
+           typename LhsExponent,
+           typename LhsMultiplier, 
+           typename LhsId,
+           typename RhsExponent,
+           typename RhsMultiplier, 
+           typename RhsId
+       >
+       struct binary_op_impl<
+           conversion_factor<
+                   LhsExponent,
+                   LhsMultiplier, 
+                   LhsId
+           >,
+           times,
+           conversion_factor<
+                   RhsExponent,
+                   RhsMultiplier, 
+                   RhsId
+           >
+       >{ 
+       // in multiplication
+       // add exponents
+       // transform multiplier and id to default
+           typedef conversion_factor<
+               typename binary_op<
+                   LhsExponent,
+                   plus,
+                   RhsExponent
+               >::type,
+               rational<1>,
+               quan::meta::int32<0>
+           >  type;
+       };
 
-    template<
-        typename LhsExponent,
-        typename LhsMultiplier, 
-        typename LhsId,
-        typename RhsExponent,
-        typename RhsMultiplier, 
-        typename RhsId
-    >
-    struct binary_op<
-        conversion_factor<
-                LhsExponent,
-                LhsMultiplier, 
-                LhsId
-        >,
-        divides,
-        conversion_factor<
-                RhsExponent,
-                RhsMultiplier, 
-                RhsId
-        >
-    >{ 
-    // in division
-    // subtract exponents
-    // transform multiplier and id to default
-    // type is always a coherent quantity
-        typedef  conversion_factor<
-            typename binary_op<
-                LhsExponent,
-                minus,
-                RhsExponent
-            >::type,
-            rational<1>,
-            quan::meta::int32<0>
-        > type;
-    };
-//^
-    template<
-        typename Exponent,
-        typename Multiplier, 
-        typename Id,
-        typename PowType
-    >
-    struct binary_op<
-        quan::meta::conversion_factor<
-                Exponent,
-                Multiplier, 
-                Id
-        >,
-        pow,
-        PowType 
-    > : detail::pow_conversion_factor<
-        conversion_factor<
-                Exponent,
-                Multiplier, 
-                Id
-        >,
-        PowType
-    >{};
+       template<
+           typename LhsExponent,
+           typename LhsMultiplier, 
+           typename LhsId,
+           typename RhsExponent,
+           typename RhsMultiplier, 
+           typename RhsId
+       >
+       struct binary_op_impl<
+           conversion_factor<
+                   LhsExponent,
+                   LhsMultiplier, 
+                   LhsId
+           >,
+           divides,
+           conversion_factor<
+                   RhsExponent,
+                   RhsMultiplier, 
+                   RhsId
+           >
+       >{ 
+       // in division
+       // subtract exponents
+       // transform multiplier and id to default
+       // type is always a coherent quantity
+           typedef  conversion_factor<
+               typename binary_op<
+                   LhsExponent,
+                   minus,
+                   RhsExponent
+               >::type,
+               rational<1>,
+               quan::meta::int32<0>
+           > type;
+       };
+   //^
+       template<
+           typename Exponent,
+           typename Multiplier, 
+           typename Id,
+           typename PowType
+       >
+       struct binary_op_impl<
+           quan::meta::conversion_factor<
+                   Exponent,
+                   Multiplier, 
+                   Id
+           >,
+           pow,
+           PowType 
+       > : detail::pow_conversion_factor<
+           conversion_factor<
+                   Exponent,
+                   Multiplier, 
+                   Id
+           >,
+           PowType
+       >{};
+   } // impl
 // 1/
     template<
         typename Exponent,

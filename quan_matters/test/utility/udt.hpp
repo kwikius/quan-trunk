@@ -45,84 +45,87 @@ namespace my{
 
 namespace quan{namespace meta{
 
-    template <typename T1, typename Op, typename T2>
-    struct binary_op<
-        my::udt<T1>, Op, my::udt<T2> 
-    >{
-        typedef my::udt<
-            typename binary_op<T1,Op,T2>::type
-        > type;
-    };
+    namespace impl{
 
-    template <typename T1, typename T2>
-    struct binary_op<
-        my::udt<T1>, times, T2 ,
-        typename quan::where_<
-            quan::meta::and_<
-                std::is_convertible<T2,T1>,
-                std::is_convertible<T1,T2>
-            >
-        >::type
-    >{
-        typedef my::udt<
-            typename binary_op<T1,times,T2>::type
-        > type;
-    };
+       template <typename T1, typename Op, typename T2>
+       struct binary_op_impl<
+           my::udt<T1>, Op, my::udt<T2> 
+       >{
+           typedef my::udt<
+               typename binary_op<T1,Op,T2>::type
+           > type;
+       };
 
-    template <typename T1, typename T2>
-    struct binary_op<
-        T1, times, my::udt<T2> ,
-        typename quan::where_<
-            quan::meta::and_<
-                std::is_convertible<T2,T1>,
-                std::is_convertible<T1,T2>
-            >
-        >::type
-    >{
-        typedef my::udt<
-            typename binary_op<T1,times,T2>::type
-        > type;
-    };
+       template <typename T1, typename T2>
+       struct binary_op_impl<
+           my::udt<T1>, times, T2 ,
+           typename quan::where_<
+               quan::meta::and_<
+                   std::is_convertible<T2,T1>,
+                   std::is_convertible<T1,T2>
+               >
+           >::type
+       >{
+           typedef my::udt<
+               typename binary_op<T1,times,T2>::type
+           > type;
+       };
 
-    template <typename T1, typename T2>
-    struct binary_op<
-        my::udt<T1>, divides, T2 ,
-        typename quan::where_<
-            quan::meta::and_<
-                std::is_convertible<T2,T1>,
-                std::is_convertible<T1,T2>
-            >
-        >::type
-    >{
-        typedef my::udt<
-            typename binary_op<T1,divides,T2>::type
-        > type;
-    };
+       template <typename T1, typename T2>
+       struct binary_op_impl<
+           T1, times, my::udt<T2> ,
+           typename quan::where_<
+               quan::meta::and_<
+                   std::is_convertible<T2,T1>,
+                   std::is_convertible<T1,T2>
+               >
+           >::type
+       >{
+           typedef my::udt<
+               typename binary_op<T1,times,T2>::type
+           > type;
+       };
 
-    template <typename T1, typename T2>
-    struct binary_op<
-        T1, divides, my::udt<T2> ,
-        typename quan::where_<
-            quan::meta::and_<
-                std::is_convertible<T2,T1>,
-                std::is_convertible<T1,T2>
-            >
-        >::type
-    >{
-        typedef my::udt<
-            typename binary_op<T1,divides,T2>::type
-        > type;
-    };
+       template <typename T1, typename T2>
+       struct binary_op_impl<
+           my::udt<T1>, divides, T2 ,
+           typename quan::where_<
+               quan::meta::and_<
+                   std::is_convertible<T2,T1>,
+                   std::is_convertible<T1,T2>
+               >
+           >::type
+       >{
+           typedef my::udt<
+               typename binary_op<T1,divides,T2>::type
+           > type;
+       };
 
-    template <typename T1, typename Exp>
-    struct binary_op<
-       my::udt<T1>, pow, Exp
-    >{
-        typedef my::udt<
-            typename binary_op<T1,times,T1>::type
-        > type;
-    };
-    
+       template <typename T1, typename T2>
+       struct binary_op_impl<
+           T1, divides, my::udt<T2> ,
+           typename quan::where_<
+               quan::meta::and_<
+                   std::is_convertible<T2,T1>,
+                   std::is_convertible<T1,T2>
+               >
+           >::type
+       >{
+           typedef my::udt<
+               typename binary_op<T1,divides,T2>::type
+           > type;
+       };
+
+       template <typename T1, typename Exp>
+       struct binary_op_impl<
+          my::udt<T1>, pow, Exp
+       >{
+           typedef my::udt<
+               typename binary_op<T1,times,T1>::type
+           > type;
+       };
+
+    } //impl
 
 }}//quan::meta
 

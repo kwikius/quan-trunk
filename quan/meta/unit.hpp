@@ -36,7 +36,6 @@
 #include <quan/meta/not.hpp>
 #include <quan/meta/if.hpp>
 
-
 namespace quan{ namespace meta{
 
     template <
@@ -286,60 +285,64 @@ namespace quan{ namespace meta{
 
     #undef QUAN_META_GET_DIMENSION
 
-    template<
-        typename StaticAbstractQuantity_L,
-        typename StaticConversionFactor_L,
-        typename Op,
-        typename StaticAbstractQuantity_R,
-        typename StaticConversionFactor_R
-    >
-    struct  binary_op<
-        unit<
-            StaticAbstractQuantity_L,
-            StaticConversionFactor_L
-        >,
-        Op,
-        unit<
-            StaticAbstractQuantity_R,
-            StaticConversionFactor_R
-        >
-    > : unit<
-        typename binary_op<
-            StaticAbstractQuantity_L,
-            Op,
-            StaticAbstractQuantity_R
-        >::type,
-        typename binary_op<
-            StaticConversionFactor_L,
-            Op,
-            StaticConversionFactor_R
-        >::type
-     >{};
+    namespace impl{
 
-    template<
-         typename StaticAbstractQuantity,
-         typename StaticConversionFactor,
-         typename Exponent
-    >
-    struct binary_op<
-        unit<
-            StaticAbstractQuantity,
-            StaticConversionFactor
-        >,
-        pow,
-        Exponent
-    > : unit<
-         typename  binary_op<
-             StaticAbstractQuantity,
-             pow,
-             Exponent
-         >::type,
-         typename binary_op<
-             StaticConversionFactor,
-             pow,
-             Exponent
-         >::type
-     >{};
+       template<
+           typename StaticAbstractQuantity_L,
+           typename StaticConversionFactor_L,
+           typename Op,
+           typename StaticAbstractQuantity_R,
+           typename StaticConversionFactor_R
+       >
+       struct binary_op_impl<
+           unit<
+               StaticAbstractQuantity_L,
+               StaticConversionFactor_L
+           >,
+           Op,
+           unit<
+               StaticAbstractQuantity_R,
+               StaticConversionFactor_R
+           >
+       > : unit<
+           typename binary_op<
+               StaticAbstractQuantity_L,
+               Op,
+               StaticAbstractQuantity_R
+           >::type,
+           typename binary_op<
+               StaticConversionFactor_L,
+               Op,
+               StaticConversionFactor_R
+           >::type
+        >{};
+
+       template<
+            typename StaticAbstractQuantity,
+            typename StaticConversionFactor,
+            typename Exponent
+       >
+       struct binary_op_impl<
+           unit<
+               StaticAbstractQuantity,
+               StaticConversionFactor
+           >,
+           pow,
+           Exponent
+       > : unit<
+            typename  binary_op<
+                StaticAbstractQuantity,
+                pow,
+                Exponent
+            >::type,
+            typename binary_op<
+                StaticConversionFactor,
+                pow,
+                Exponent
+            >::type
+        >{};
+
+    } // impl
 
     template<
       typename StaticAbstractQuantity,

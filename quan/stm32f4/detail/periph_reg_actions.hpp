@@ -184,32 +184,35 @@ namespace quan{ namespace meta{
 /*
    compile time and and or binary ops for periph_reg_action
 */
+   namespace impl {
 
-   template  <
-      typename PeriphReg ,
-      typename PeriphReg::value_type LhsValue, 
-      typename PeriphReg::value_type RhsValue
-   >
-   struct binary_op<
-         quan::stm32f4::detail::periph_reg_action<PeriphReg,quan::meta::bit_or,LhsValue>,
-         quan::meta::bit_or,
-          quan::stm32f4::detail::periph_reg_action<PeriphReg,quan::meta::bit_or,RhsValue>
-   >{
-       typedef quan::stm32f4::detail::periph_reg_action<PeriphReg,quan::meta::bit_or,LhsValue | RhsValue> type;
-   };
+      template  <
+         typename PeriphReg ,
+         typename PeriphReg::value_type LhsValue, 
+         typename PeriphReg::value_type RhsValue
+      >
+      struct binary_op_impl<
+            quan::stm32f4::detail::periph_reg_action<PeriphReg,quan::meta::bit_or,LhsValue>,
+            quan::meta::bit_or,
+             quan::stm32f4::detail::periph_reg_action<PeriphReg,quan::meta::bit_or,RhsValue>
+      >{
+          typedef quan::stm32f4::detail::periph_reg_action<PeriphReg,quan::meta::bit_or,LhsValue | RhsValue> type;
+      };
 
-   template  <
-      typename PeriphReg ,
-      typename PeriphReg::value_type LhsValue, 
-      typename PeriphReg::value_type RhsValue
-   >
-   struct binary_op<
-         quan::stm32f4::detail::periph_reg_action<PeriphReg,quan::meta::bit_and,LhsValue>,
-         quan::meta::bit_and,
-         quan::stm32f4::detail::periph_reg_action<PeriphReg,quan::meta::bit_and,RhsValue>
-   >{
-       typedef quan::stm32f4::detail::periph_reg_action<PeriphReg,quan::meta::bit_and,LhsValue & RhsValue> type;
-   };
+      template  <
+         typename PeriphReg ,
+         typename PeriphReg::value_type LhsValue, 
+         typename PeriphReg::value_type RhsValue
+      >
+      struct binary_op_impl<
+            quan::stm32f4::detail::periph_reg_action<PeriphReg,quan::meta::bit_and,LhsValue>,
+            quan::meta::bit_and,
+            quan::stm32f4::detail::periph_reg_action<PeriphReg,quan::meta::bit_and,RhsValue>
+      >{
+          typedef quan::stm32f4::detail::periph_reg_action<PeriphReg,quan::meta::bit_and,LhsValue & RhsValue> type;
+      };
+
+   } // impl
 
 }}//quan::meta
 

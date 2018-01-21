@@ -28,20 +28,22 @@ namespace quan{ namespace fun{
 
 namespace quan{ namespace meta{
 
-   template <typename MatL, typename MatR>
-   struct binary_op<
-      MatL, quan::meta::times,MatR,
-      typename quan::where_<
-         quan::meta::and_<
-            quan::fun::are_fun_matrices<MatL,MatR>,
-            std::integral_constant<
-               bool,
-               (quan::fun::matrix_col_size<MatL>::value
-               == quan::fun::matrix_row_size<MatR>::value)
+   namespace impl{
+      template <typename MatL, typename MatR>
+      struct binary_op_impl<
+         MatL, quan::meta::times,MatR,
+         typename quan::where_<
+            quan::meta::and_<
+               quan::fun::are_fun_matrices<MatL,MatR>,
+               std::integral_constant<
+                  bool,
+                  (quan::fun::matrix_col_size<MatL>::value
+                  == quan::fun::matrix_row_size<MatR>::value)
+               >
             >
-         >
-      >::type
-   > : quan::fun::make_matrix_mux_result<MatL,MatR>{};
+         >::type
+      > : quan::fun::make_matrix_mux_result<MatL,MatR>{};
+   }
 
 }}//quan::meta::
 

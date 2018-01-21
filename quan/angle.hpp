@@ -77,261 +77,264 @@ namespace quan{
 
 namespace quan{namespace meta{
 
-// rad * fr
-    template<
-        typename ExtentL,
-        typename Value_typeL,
-        typename ExtentR,
-        typename ReciprocalFractionR,
-        typename Value_typeR
-    >
-    struct binary_op<
-        quan::mathematic_angle<
-            ExtentL,Value_typeL
-        >,
-        times,
-        quan::fraction_of_revolution<
-            ExtentR,
-            ReciprocalFractionR,
-            Value_typeR
-        >
-    >
-    {
-        typedef typename quan::mathematic_angle<
-            typename binary_op<
-                ExtentL,
-                plus,
-                ExtentR
-            >::type,
-            typename binary_op<
-                Value_typeL,
-                times,
-                Value_typeR
-            >::type
-        >::type type;
-    };
-// rad / fr
-    template<
-        typename ExtentL,
-        typename Value_typeL,
-        typename ExtentR,
-        typename ReciprocalFractionR,
-        typename Value_typeR
-    >
-    struct binary_op<
-        quan::mathematic_angle<
-            ExtentL,
-            Value_typeL
-        >,
-        divides,
-        quan::fraction_of_revolution<
-            ExtentR,
-            ReciprocalFractionR,
-            Value_typeR
-        >
-    >
-    {
-        typedef typename quan::mathematic_angle<
-            typename binary_op<
-                ExtentL,
-                minus,
-                ExtentR
-            >::type,
-            typename binary_op<
-                Value_typeL,
-                divides,
-                Value_typeR
-            >::type
-        >::type type;
-    };
+    namespace impl {
 
-//fr * rad
-    template<
-        typename ExtentL,
-        typename ReciprocalFractionL,
-        typename Value_typeL,
-        typename ExtentR,
-        typename Value_typeR
-    >
-    struct binary_op<
-        quan::fraction_of_revolution<
-            ExtentL,
-            ReciprocalFractionL,
-            Value_typeL
-        >,
-        times,
-        quan::mathematic_angle<
-            ExtentR,
-            Value_typeR
-        >
-    >
-    {
-        typedef typename quan::mathematic_angle<
-            typename binary_op<
-                ExtentL,
-                plus,
-                ExtentR
-            >::type,
-            typename binary_op<
-                Value_typeL,
-                times,
-                Value_typeR
-            >::type
-        >::type type;
-    };
-// fr / rad
-    template<
-        typename ExtentL,
-        typename ReciprocalFractionL,
-        typename Value_typeL,
-        typename ExtentR,
-        typename Value_typeR
-    >
-    struct binary_op<
-        quan::fraction_of_revolution<
-            ExtentL,
-            ReciprocalFractionL,
-            Value_typeL
-        >,
-        divides,
-        quan::mathematic_angle<
-            ExtentR,
-            Value_typeR
-        >
-    >
-    {
-        typedef typename quan::mathematic_angle<
-            typename binary_op<
-                ExtentL,
-                minus,
-                ExtentR
-            >::type,
-            typename binary_op<
-                Value_typeL,
-                divides,
-                Value_typeR
-            >::type
-        >::type type;
-    };
-// fr + rad
-    template<
-        typename Extent,
-        typename ReciprocalFractionL,
-        typename Value_typeL,
-        typename Value_typeR
-    >
-    struct binary_op<
-        quan::fraction_of_revolution<
-            Extent,
-            ReciprocalFractionL,
-            Value_typeL
-        >,
-        plus,
-        quan::mathematic_angle<
-            Extent,
-            Value_typeR
-        >
-    >
-    {
-        typedef typename quan::mathematic_angle<
-            Extent,
-            typename binary_op<
-                Value_typeL,
-                plus,
-                Value_typeR
-            >::type
-        >::type type;
-    };
+   // rad * fr
+       template<
+           typename ExtentL,
+           typename Value_typeL,
+           typename ExtentR,
+           typename ReciprocalFractionR,
+           typename Value_typeR
+       >
+       struct binary_op_impl<
+           quan::mathematic_angle<
+               ExtentL,Value_typeL
+           >,
+           times,
+           quan::fraction_of_revolution<
+               ExtentR,
+               ReciprocalFractionR,
+               Value_typeR
+           >
+       >
+       {
+           typedef typename quan::mathematic_angle<
+               typename binary_op<
+                   ExtentL,
+                   plus,
+                   ExtentR
+               >::type,
+               typename binary_op<
+                   Value_typeL,
+                   times,
+                   Value_typeR
+               >::type
+           >::type type;
+       };
+   // rad / fr
+       template<
+           typename ExtentL,
+           typename Value_typeL,
+           typename ExtentR,
+           typename ReciprocalFractionR,
+           typename Value_typeR
+       >
+       struct binary_op_impl<
+           quan::mathematic_angle<
+               ExtentL,
+               Value_typeL
+           >,
+           divides,
+           quan::fraction_of_revolution<
+               ExtentR,
+               ReciprocalFractionR,
+               Value_typeR
+           >
+       >
+       {
+           typedef typename quan::mathematic_angle<
+               typename binary_op<
+                   ExtentL,
+                   minus,
+                   ExtentR
+               >::type,
+               typename binary_op<
+                   Value_typeL,
+                   divides,
+                   Value_typeR
+               >::type
+           >::type type;
+       };
 
-// rad + fr
-    template<
-        typename Extent,
-        typename Value_typeL,
-        typename ReciprocalFractionR,
-        typename Value_typeR
-    >
-    struct binary_op<
-        quan::mathematic_angle<
-            Extent,
-            Value_typeL
-        >,
-        plus,
-        quan::fraction_of_revolution<
-            Extent,
-            ReciprocalFractionR,
-            Value_typeR
-        >
-    >
-    {
-        typedef typename quan::mathematic_angle<
-            Extent,
-            typename binary_op<
-                Value_typeL,
-                plus,
-                Value_typeR
-            >::type
-        >::type type;
-    };
+   //fr * rad
+       template<
+           typename ExtentL,
+           typename ReciprocalFractionL,
+           typename Value_typeL,
+           typename ExtentR,
+           typename Value_typeR
+       >
+       struct binary_op_impl<
+           quan::fraction_of_revolution<
+               ExtentL,
+               ReciprocalFractionL,
+               Value_typeL
+           >,
+           times,
+           quan::mathematic_angle<
+               ExtentR,
+               Value_typeR
+           >
+       >
+       {
+           typedef typename quan::mathematic_angle<
+               typename binary_op<
+                   ExtentL,
+                   plus,
+                   ExtentR
+               >::type,
+               typename binary_op<
+                   Value_typeL,
+                   times,
+                   Value_typeR
+               >::type
+           >::type type;
+       };
+   // fr / rad
+       template<
+           typename ExtentL,
+           typename ReciprocalFractionL,
+           typename Value_typeL,
+           typename ExtentR,
+           typename Value_typeR
+       >
+       struct binary_op_impl<
+           quan::fraction_of_revolution<
+               ExtentL,
+               ReciprocalFractionL,
+               Value_typeL
+           >,
+           divides,
+           quan::mathematic_angle<
+               ExtentR,
+               Value_typeR
+           >
+       >
+       {
+           typedef typename quan::mathematic_angle<
+               typename binary_op<
+                   ExtentL,
+                   minus,
+                   ExtentR
+               >::type,
+               typename binary_op<
+                   Value_typeL,
+                   divides,
+                   Value_typeR
+               >::type
+           >::type type;
+       };
+   // fr + rad
+       template<
+           typename Extent,
+           typename ReciprocalFractionL,
+           typename Value_typeL,
+           typename Value_typeR
+       >
+       struct binary_op_impl<
+           quan::fraction_of_revolution<
+               Extent,
+               ReciprocalFractionL,
+               Value_typeL
+           >,
+           plus,
+           quan::mathematic_angle<
+               Extent,
+               Value_typeR
+           >
+       >
+       {
+           typedef typename quan::mathematic_angle<
+               Extent,
+               typename binary_op<
+                   Value_typeL,
+                   plus,
+                   Value_typeR
+               >::type
+           >::type type;
+       };
 
-//rad-fr
-    template<
-        typename Extent,
-        typename Value_typeL,
-        typename ReciprocalFractionR,
-        typename Value_typeR
-    >
-    struct binary_op<
-        quan::mathematic_angle<
-            Extent,
-            Value_typeL
-        >,
-        minus,
-        quan::fraction_of_revolution<
-            Extent,
-            ReciprocalFractionR,
-            Value_typeR
-        >
-    >
-    {
-        typedef typename quan::mathematic_angle<
-            Extent,
-            typename binary_op<
-                Value_typeL,
-                minus,
-                Value_typeR
-            >::type
-        >::type type;
-    };
+   // rad + fr
+       template<
+           typename Extent,
+           typename Value_typeL,
+           typename ReciprocalFractionR,
+           typename Value_typeR
+       >
+       struct binary_op_impl<
+           quan::mathematic_angle<
+               Extent,
+               Value_typeL
+           >,
+           plus,
+           quan::fraction_of_revolution<
+               Extent,
+               ReciprocalFractionR,
+               Value_typeR
+           >
+       >
+       {
+           typedef typename quan::mathematic_angle<
+               Extent,
+               typename binary_op<
+                   Value_typeL,
+                   plus,
+                   Value_typeR
+               >::type
+           >::type type;
+       };
 
-// fr - rad
-    template<
-        typename Extent,
-        typename ReciprocalFractionL,
-        typename Value_typeL,
-        typename Value_typeR
-    >
-    struct binary_op<
-        quan::fraction_of_revolution<
-            Extent,
-            ReciprocalFractionL,
-            Value_typeL
-        >,
-        minus,
-        quan::mathematic_angle<
-            Extent,
-            Value_typeR
-        >
-    >
-    {
-        typedef typename quan::mathematic_angle<
-            Extent,
-            typename binary_op<
-                Value_typeL,
-                minus,
-                Value_typeR
-            >::type
-        >::type type;
-    };
+   //rad-fr
+       template<
+           typename Extent,
+           typename Value_typeL,
+           typename ReciprocalFractionR,
+           typename Value_typeR
+       >
+       struct binary_op_impl<
+           quan::mathematic_angle<
+               Extent,
+               Value_typeL
+           >,
+           minus,
+           quan::fraction_of_revolution<
+               Extent,
+               ReciprocalFractionR,
+               Value_typeR
+           >
+       >
+       {
+           typedef typename quan::mathematic_angle<
+               Extent,
+               typename binary_op<
+                   Value_typeL,
+                   minus,
+                   Value_typeR
+               >::type
+           >::type type;
+       };
+
+   // fr - rad
+       template<
+           typename Extent,
+           typename ReciprocalFractionL,
+           typename Value_typeL,
+           typename Value_typeR
+       >
+       struct binary_op_impl<
+           quan::fraction_of_revolution<
+               Extent,
+               ReciprocalFractionL,
+               Value_typeL
+           >,
+           minus,
+           quan::mathematic_angle<
+               Extent,
+               Value_typeR
+           >
+       >
+       {
+           typedef typename quan::mathematic_angle<
+               Extent,
+               typename binary_op<
+                   Value_typeL,
+                   minus,
+                   Value_typeR
+               >::type
+           >::type type;
+       };
+   }// impl
 
 }}//quan::meta
 

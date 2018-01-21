@@ -42,91 +42,92 @@ namespace quan{namespace meta{
     struct is_vector<quan::two_d::vect<T1> > : quan::meta::true_{}; 
 
     namespace impl{
+
         template <typename T1>
         struct get_num_elements_impl<quan::two_d::vect<T1> > : quan::meta::int32<2>{};
-    }
+    
 
-    template <typename T1, typename T2>
-    struct binary_op<
-        quan::two_d::vect<T1>,plus, quan::two_d::vect<T2>,
-        typename quan::where_<
-            is_valid_binary_op<T1,plus,T2>
-        >::type
-    >
-    {
-        typedef quan::two_d::vect<
-            typename quan::meta::binary_op<
-                T1,plus, T2
-            >::type
-        > type;
-    };
+       template <typename T1, typename T2>
+       struct binary_op_impl<
+           quan::two_d::vect<T1>,plus, quan::two_d::vect<T2>,
+           typename quan::where_<
+               is_valid_binary_op<T1,plus,T2>
+           >::type
+       >
+       {
+           typedef quan::two_d::vect<
+               typename quan::meta::binary_op<
+                   T1,plus, T2
+               >::type
+           > type;
+       };
 
-    template <typename T1, typename T2>
-    struct binary_op<
-        quan::two_d::vect<T1>, minus, quan::two_d::vect<T2>,
-        typename quan::where_<
-            is_valid_binary_op<T1,minus,T2>
-        >::type
-    >
-    {
-        typedef quan::two_d::vect<
-            typename quan::meta::binary_op<
-                T1,minus, T2
-            >::type
-        > type;
-    };
+       template <typename T1, typename T2>
+       struct binary_op_impl<
+           quan::two_d::vect<T1>, minus, quan::two_d::vect<T2>,
+           typename quan::where_<
+               is_valid_binary_op<T1,minus,T2>
+           >::type
+       >
+       {
+           typedef quan::two_d::vect<
+               typename quan::meta::binary_op<
+                   T1,minus, T2
+               >::type
+           > type;
+       };
 
-    template <typename T1, typename T2>
-    struct binary_op<
-        quan::two_d::vect<T1>, times, T2,
-        typename quan::where_<
-            quan::meta::and_<
-               is_valid_binary_op<T1,times,T2>,
-               is_scalar<T2>
-            >
-        >::type
-    >
-    {
-        typedef quan::two_d::vect<
-            typename quan::meta::binary_op<
-                T1,times, T2
-            >::type
-        > type;
-    };
+       template <typename T1, typename T2>
+       struct binary_op_impl<
+           quan::two_d::vect<T1>, times, T2,
+           typename quan::where_<
+               quan::meta::and_<
+                  is_valid_binary_op<T1,times,T2>,
+                  is_scalar<T2>
+               >
+           >::type
+       >
+       {
+           typedef quan::two_d::vect<
+               typename quan::meta::binary_op<
+                   T1,times, T2
+               >::type
+           > type;
+       };
 
-    template <typename T1, typename T2>
-    struct binary_op<
-        T1, times, quan::two_d::vect<T2>,
-        typename quan::where_<
-            quan::meta::and_<
-               is_valid_binary_op<T1,times,T2>,
-               is_scalar<T1>
-            >
-        >::type
-    >
-    {
-        typedef quan::two_d::vect<
-            typename quan::meta::binary_op<
-                T1,times, T2
-            >::type
-        > type;
-    };
+       template <typename T1, typename T2>
+       struct binary_op_impl<
+           T1, times, quan::two_d::vect<T2>,
+           typename quan::where_<
+               quan::meta::and_<
+                  is_valid_binary_op<T1,times,T2>,
+                  is_scalar<T1>
+               >
+           >::type
+       >
+       {
+           typedef quan::two_d::vect<
+               typename quan::meta::binary_op<
+                   T1,times, T2
+               >::type
+           > type;
+       };
 
-    template <typename T1, typename T2>
-    struct binary_op<
-        quan::two_d::vect<T1>, divides, T2,
-        typename quan::where_<
-            is_valid_binary_op<T1,divides,T2>
-        >::type
-    >
-    {
-        typedef quan::two_d::vect<
-            typename quan::meta::binary_op<
-                T1,divides, T2
-            >::type
-        > type;
-    };
-
+       template <typename T1, typename T2>
+       struct binary_op_impl<
+           quan::two_d::vect<T1>, divides, T2,
+           typename quan::where_<
+               is_valid_binary_op<T1,divides,T2>
+           >::type
+       >
+       {
+           typedef quan::two_d::vect<
+               typename quan::meta::binary_op<
+                   T1,divides, T2
+               >::type
+           > type;
+       };
+   } //impl
 }}//quan::meta
 
 

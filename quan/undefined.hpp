@@ -30,20 +30,14 @@ namespace quan{
      
       typedef undefined type;
       private:
+         undefined() = delete;
          undefined(undefined const &) = delete;
          undefined& operator= (undefined const &) = delete;
-         undefined() = delete;
-         
+         undefined& operator= (undefined &&) = delete;
+         undefined& operator= (undefined const &&) = delete;
+         undefined(undefined const &&) = delete;
+         undefined(undefined &&) = delete;
    };
- 
-   namespace impl{
-      template <typename T,typename Where = void >
-      struct is_any_type_impl : quan::meta::true_{};
-
-      template <>
-      struct is_any_type_impl<quan::undefined> 
-      : quan::meta::false_{};
-   }
 
 }
 

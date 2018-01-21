@@ -20,11 +20,7 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
- 
- 
-//
+
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 /*
@@ -216,22 +212,24 @@ namespace quan{
 
 namespace quan{namespace meta{
 
-    template < 
-        typename Extent,
-        typename ReciprocalFraction,
-        typename Value_type
-    >
-    struct binary_op< 
-        std::ostream,
-        shift_left, 
-        quan::fraction_of_revolution<
-            Extent, 
-            ReciprocalFraction,
-            Value_type
-        >
-    >{
-        typedef std::ostream& result_type;
-    };
+   namespace impl{
+       template < 
+           typename Extent,
+           typename ReciprocalFraction,
+           typename Value_type
+       >
+       struct binary_op_impl< 
+           std::ostream,
+           shift_left, 
+           quan::fraction_of_revolution<
+               Extent, 
+               ReciprocalFraction,
+               Value_type
+           >
+       >{
+           typedef std::ostream& result_type;
+       };
+   }
 
 }}//quan::meta
 

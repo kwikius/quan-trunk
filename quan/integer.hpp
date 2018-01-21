@@ -55,11 +55,13 @@ namespace quan{
 
 namespace quan { namespace meta {
 
+  namespace impl {
   template <typename I, typename Op>
-  struct binary_op<
-      quan::integer<I>, Op,quan::integer<I> ,
-      typename quan::where_<not_<is_assignment_operator<Op> > >::type
-  > : identity <quan::integer<I> >{};
+     struct binary_op_impl<
+         quan::integer<I>, Op,quan::integer<I> ,
+         typename quan::where_<not_<is_assignment_operator<Op> > >::type
+     > : identity <quan::integer<I> >{};
+  }
       
 }}
 

@@ -86,23 +86,24 @@ namespace quan{
         return os;
      }
          
-
 }//quan
 
 namespace quan{namespace meta{
 
-    template < 
-        typename CharType,
-        typename Extent,
-        typename Value_type
-    >
-    struct binary_op< 
-        std::basic_ostream<CharType>,
-        shift_left, 
-        quan::mathematic_angle<Extent,Value_type>
-    >{
-        typedef std::basic_ostream<CharType>& result_type;
-    };
+    namespace impl{
+       template < 
+           typename CharType,
+           typename Extent,
+           typename Value_type
+       >
+       struct binary_op_impl< 
+           std::basic_ostream<CharType>,
+           shift_left, 
+           quan::mathematic_angle<Extent,Value_type>
+       >{
+           typedef std::basic_ostream<CharType>& result_type;
+       };
+    }
 
 }}//quan::meta
 

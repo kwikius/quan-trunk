@@ -8,31 +8,32 @@
 
 namespace quan{ namespace meta{
 
-   template <
-      typename RuntimeType_L, typename StaticValue_L, 
-      typename Op,
-      typename RuntimeType_R, typename StaticValue_R
-   >
-   struct binary_op<
-      quan::fusion::static_value<RuntimeType_L,StaticValue_L>,
-      Op, 
-      quan::fusion::static_value<RuntimeType_R,StaticValue_R>,
-      typename quan::where_<
-         quan::meta::and_<
-            is_valid_binary_op<RuntimeType_L,quan::meta::minus,RuntimeType_R>
-            ,or_<
-               is_logical_operator<Op>
-               ,is_relational_operator<Op>
-               ,is_equality_operator<Op>
-            >
-            ,is_lossless_calculation<RuntimeType_L,quan::meta::minus,RuntimeType_R>
-            ,is_lossless_calculation<StaticValue_L,quan::meta::minus,StaticValue_R>
-         >  
-      >::type
-   >: quan::fusion::static_bool<
-         (quan::meta::binary_op<StaticValue_L,Op,StaticValue_R>::type::value)
-   >{};
-
+   namespace impl {
+      template <
+         typename RuntimeType_L, typename StaticValue_L, 
+         typename Op,
+         typename RuntimeType_R, typename StaticValue_R
+      >
+      struct binary_op_impl<
+         quan::fusion::static_value<RuntimeType_L,StaticValue_L>,
+         Op, 
+         quan::fusion::static_value<RuntimeType_R,StaticValue_R>,
+         typename quan::where_<
+            quan::meta::and_<
+               quan::meta::is_valid_binary_op<RuntimeType_L,quan::meta::minus,RuntimeType_R>
+               ,quan::meta::or_<
+                  quan::meta::is_logical_operator<Op>
+                  ,quan::meta::is_relational_operator<Op>
+                  ,quan::meta::is_equality_operator<Op>
+               >
+               ,quan::meta::is_lossless_calculation<RuntimeType_L,quan::meta::minus,RuntimeType_R>
+               ,quan::meta::is_lossless_calculation<StaticValue_L,quan::meta::minus,StaticValue_R>
+            >  
+         >::type
+      >: quan::fusion::static_bool<
+            (quan::meta::binary_op<StaticValue_L,Op,StaticValue_R>::type::value)
+      >{};
+   }//impl
 }}
 
 #define QUAN_FUSION_META_OP quan::meta::less

@@ -36,6 +36,7 @@
 
 namespace quan{ namespace meta{
 
+  namespace impl{
 #define QUAN_UNITED_VALUE_BINOP(Op) \
     template < \
         typename ConversionFactor_L , \
@@ -43,7 +44,7 @@ namespace quan{ namespace meta{
         typename ConversionFactor_R , \
         typename NumericType_R \
     > \
-    struct binary_op< \
+    struct binary_op_impl< \
         quan ::detail::united_value<ConversionFactor_L , NumericType_L> , \
         Op ,\
         quan ::detail::united_value<ConversionFactor_R , NumericType_R> \
@@ -72,7 +73,7 @@ namespace quan{ namespace meta{
         typename NumericType, 
         typename PowType
     >
-    struct binary_op<
+    struct binary_op_impl<
         quan ::detail::united_value<ConversionFactor,NumericType>,
         pow,
         PowType 
@@ -90,7 +91,8 @@ namespace quan{ namespace meta{
             >::type
         > type;
     };
-         
+        
+   } // impl 
 } }//quan::meta
 
 namespace quan{ namespace detail{

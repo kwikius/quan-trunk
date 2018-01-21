@@ -1,5 +1,5 @@
-#ifndef QUAN_ARCHETYPES_ANY_TYPE_HPP_INCLUDED
-#define QUAN_ARCHETYPES_ANY_TYPE_HPP_INCLUDED
+#ifndef QUAN_CONCEPTS_ANY_TYPE_HPP_INCLUDED
+#define QUAN_CONCEPTS_ANY_TYPE_HPP_INCLUDED
 
 
 /*
@@ -20,18 +20,11 @@
  */
 
 #include <quan/meta/is_any_type.hpp>
-#include <quan/is_model_of.hpp>
 
 namespace quan{ 
 
-   struct AnyType_;
-
-   namespace impl{
-
-      template <typename T>
-      struct is_model_of_impl<quan::AnyType_,T>: quan::meta::is_any_type<T> {};
-
-   }
+   template <typename T>
+   concept bool AnyType = quan::meta::is_any_type<T>::value;
 
 }//quan
 

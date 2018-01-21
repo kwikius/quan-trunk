@@ -20,11 +20,7 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
- 
- 
-//
+
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 /*
@@ -42,12 +38,13 @@
 
 namespace quan{ namespace meta{
 
+    namespace impl{
         template <
             typename StaticUnit_L ,
             typename NumericType_L ,
             typename StaticUnit_R ,
             typename NumericType_R
-        > struct binary_op<
+        > struct binary_op_impl<
             fixed_quantity<
                 StaticUnit_L ,
                 NumericType_L
@@ -82,6 +79,7 @@ namespace quan{ namespace meta{
                 value_type
             >::type type;
         };
+    } // impl
 }}//quan::meta
 
 namespace quan{ 

@@ -46,84 +46,85 @@ namespace quan{namespace meta{
       quan::fusion::static_bool<B>
    > : std::false_type{};
 
-   template <bool L,bool R>
-   struct binary_op<
-      quan::fusion::static_bool<L>,
-      equal_to,
-      quan::fusion::static_bool<R>
-   > : quan::fusion::static_bool<(L && R) || !(L || R)>{};
+   namespace impl { 
+      template <bool L,bool R>
+      struct binary_op_impl<
+         quan::fusion::static_bool<L>,
+         quan::meta::equal_to,
+         quan::fusion::static_bool<R>
+      > : quan::fusion::static_bool<(L && R) || !(L || R)>{};
 
-  
-   template <bool L,bool R>
-   struct binary_op<
-      quan::fusion::static_bool<L>,
-      not_equal_to,
-      quan::fusion::static_bool<R>
-   > : quan::fusion::static_bool<(L!=R)>{};
+      template <bool L,bool R>
+      struct binary_op_impl<
+         quan::fusion::static_bool<L>,
+         quan::meta::not_equal_to,
+         quan::fusion::static_bool<R>
+      > : quan::fusion::static_bool<(L!=R)>{};
 
-   template <bool L,bool R>
-   struct binary_op<
-      quan::fusion::static_bool<L>,
-      logical_or,
-      quan::fusion::static_bool<R>
-   > : quan::fusion::static_bool<(L || R)>{};
+      template <bool L,bool R>
+      struct binary_op_impl<
+         quan::fusion::static_bool<L>,
+         quan::meta::logical_or,
+         quan::fusion::static_bool<R>
+      > : quan::fusion::static_bool<(L || R)>{};
 
-   template <bool L>
-   struct binary_op<
-      quan::fusion::static_bool<L>,
-      logical_or,
-      bool
-   > {typedef bool type;};
+      template <bool L>
+      struct binary_op_impl<
+         quan::fusion::static_bool<L>,
+         quan::meta::logical_or,
+         bool
+      > {typedef bool type;};
 
-   template <bool R>
-   struct binary_op<
-      bool,
-      logical_or,
-      quan::fusion::static_bool<R>
-   > {typedef bool type;};
+      template <bool R>
+      struct binary_op_impl<
+         bool,
+         quan::meta::logical_or,
+         quan::fusion::static_bool<R>
+      > {typedef bool type;};
 
-   template <bool L,bool R>
-   struct binary_op<
-      quan::fusion::static_bool<L>,
-      logical_and,
-      quan::fusion::static_bool<R>
-   > : quan::fusion::static_bool<(L && R)>{};
+      template <bool L,bool R>
+      struct binary_op_impl<
+         quan::fusion::static_bool<L>,
+         quan::meta::logical_and,
+         quan::fusion::static_bool<R>
+      > : quan::fusion::static_bool<(L && R)>{};
 
-   template <bool L>
-   struct binary_op<
-      quan::fusion::static_bool<L>,
-      logical_and,
-      bool
-   > {typedef bool type;};
+      template <bool L>
+      struct binary_op_impl<
+         quan::fusion::static_bool<L>,
+         quan::meta::logical_and,
+         bool
+      > {typedef bool type;};
 
-   template <bool R>
-   struct binary_op<
-      bool,
-      logical_and,
-      quan::fusion::static_bool<R>
-   > {typedef bool type;};
+      template <bool R>
+      struct binary_op_impl<
+         bool,
+         quan::meta::logical_and,
+         quan::fusion::static_bool<R>
+      > {typedef bool type;};
 
-    template <bool L,bool R>
-   struct binary_op<
-      quan::fusion::static_bool<L>,
-      bit_and,
-      quan::fusion::static_bool<R>
-   > : quan::fusion::static_bool<(L & R)>{};
+      template <bool L,bool R>
+      struct binary_op_impl<
+         quan::fusion::static_bool<L>,
+         quan::meta::bit_and,
+         quan::fusion::static_bool<R>
+      > : quan::fusion::static_bool<(L & R)>{};
 
-   template <bool L>
-   struct binary_op<
-      quan::fusion::static_bool<L>,
-      bit_and,
-      bool
-   > {typedef bool type;};
+      template <bool L>
+      struct binary_op_impl<
+         quan::fusion::static_bool<L>,
+         quan::meta::bit_and,
+         bool
+      > {typedef bool type;};
 
-   template <bool R>
-   struct binary_op<
-      bool,
-      bit_and,
-      quan::fusion::static_bool<R>
-   > {typedef bool type;};
-}}
+      template <bool R>
+      struct binary_op_impl<
+         bool,
+         quan::meta::bit_and,
+         quan::fusion::static_bool<R>
+      > {typedef bool type;};
+   }//impl
+}} // quan::meta
 
 namespace quan{namespace fusion{
 

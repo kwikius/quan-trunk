@@ -23,13 +23,13 @@ gravity.exe  particle.exe windturbine.exe clcpp_response.exe doc_output_demo.exe
 conversion_factor.exe electronics_example.exe ideal_gas_law.exe rad_per_s.exe
 
 %.exe : %.o
-	$(CXX) $(CXXFLAGS) -o $@  $<
+	$(CXX) $(CXXFLAGS) -O3 -o $@  $<
 	@echo .......................
 	./$@
 	@echo ....... OK ............
 
 %.o : %.cpp 
-	$(CXX) $(CXXFLAGS) -c $<
+	$(CXX) $(CXXFLAGS) -O3 -c $<
 
 clean :
 	rm -rf *.o

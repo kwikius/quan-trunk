@@ -15,59 +15,61 @@
 
 namespace quan{ namespace meta{
 
-   // non-zero * runtime type
-      template <typename RL,typename SL, typename TR>
-      struct binary_op<
-         quan::fusion::static_value<RL,SL>,
-         times,
-         TR,
-         typename quan::where_<
-            and_<
-               neq_zero<SL>,
-               not_<quan::fusion::is_static_value<TR> >,
-               is_valid_binary_op<RL,times,TR>,
-               is_scalar<TR>
-            >
-         >::type
-      > : binary_op< RL, times, TR>{};
+      namespace impl {
+      // non-zero * runtime type
+         template <typename RL,typename SL, typename TR>
+         struct binary_op_impl<
+            quan::fusion::static_value<RL,SL>,
+            quan::meta::times,
+            TR,
+            typename quan::where_<
+               quan::meta::and_<
+                  quan::meta::neq_zero<SL>,
+                  quan::meta::not_<quan::fusion::is_static_value<TR> >,
+                  quan::meta::is_valid_binary_op<RL,times,TR>,
+                  quan::meta::is_scalar<TR>
+               >
+            >::type
+         > : quan::meta::binary_op< RL, times, TR>{};
 
-      // 0 * runtime_type
-      template <typename RL,typename SL, typename TR>
-      struct binary_op<
-         quan::fusion::static_value<RL,SL>,
-         times,
-         TR,
-         typename quan::where_<
-            and_<
-               eq_zero<SL>,
-               not_<quan::fusion::is_static_value<TR> >,
-               is_scalar<TR>,
-               is_valid_binary_op<RL,times,TR>
-            >
-         >::type
-      > : quan::fusion::static_value<
-         typename binary_op< RL, times, TR>::type,
-         SL
-      > {};
+         // 0 * runtime_type
+         template <typename RL,typename SL, typename TR>
+         struct binary_op_impl<
+            quan::fusion::static_value<RL,SL>,
+            quan::meta::times,
+            TR,
+            typename quan::where_<
+               quan::meta::and_<
+                  quan::meta::eq_zero<SL>,
+                  quan::meta::not_<quan::fusion::is_static_value<TR> >,
+                  quan::meta::is_scalar<TR>,
+                  quan::meta::is_valid_binary_op<RL,times,TR>
+               >
+            >::type
+         > : quan::fusion::static_value<
+               typename quan::meta::binary_op< RL, times, TR>::type,
+            SL
+         > {};
 
-   // runtime * static 0
-      template <typename TL,typename RR, typename SR>
-      struct binary_op<
-         TL,
-         times,
-         quan::fusion::static_value<RR,SR>,
-         typename quan::where_<
-            and_<
-               eq_zero<SR>,
-               not_<quan::fusion::is_static_value<TL> >,
-               is_scalar<TL>,
-               is_valid_binary_op<TL,times,RR>
-            >
-         >::type
-      > : quan::fusion::static_value<
-         typename binary_op<TL,times,RR>::type,
-         SR
-      >{};
+      // runtime * static 0
+         template <typename TL,typename RR, typename SR>
+         struct binary_op_impl<
+            TL,
+            quan::meta::times,
+            quan::fusion::static_value<RR,SR>,
+            typename quan::where_<
+               quan::meta::and_<
+                  quan::meta::eq_zero<SR>,
+                  quan::meta::not_<quan::fusion::is_static_value<TL> >,
+                  quan::meta::is_scalar<TL>,
+                  quan::meta::is_valid_binary_op<TL,times,RR>
+               >
+            >::type
+         > : quan::fusion::static_value<
+              typename quan::meta::binary_op<TL,times,RR>::type,
+            SR
+         >{};
+   } // impl
 
 }}//quan::meta
 

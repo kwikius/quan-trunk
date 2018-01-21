@@ -29,217 +29,218 @@ namespace quan{
 
 namespace quan{ namespace meta{
 
-   template <>
-   struct binary_op<
-      quan::big_rational,quan::meta::plus, quan::big_rational
-   >{
-      typedef quan::big_rational type;
-   };
+   namespace impl{
+      template <>
+      struct binary_op_impl<
+         quan::big_rational,quan::meta::plus, quan::big_rational
+      >{
+         typedef quan::big_rational type;
+      };
 
-   template <>
-   struct binary_op<
-      quan::big_rational,quan::meta::plus, quan::bigint
-   >{
-      typedef quan::big_rational type;
-   };
+      template <>
+      struct binary_op_impl<
+         quan::big_rational,quan::meta::plus, quan::bigint
+      >{
+         typedef quan::big_rational type;
+      };
 
-   template <>
-   struct binary_op<
-      quan::bigint,quan::meta::plus, quan::big_rational
-   >{
-      typedef quan::big_rational type;
-   };
+      template <>
+      struct binary_op_impl<
+         quan::bigint,quan::meta::plus, quan::big_rational
+      >{
+         typedef quan::big_rational type;
+      };
 
-   template <>
-   struct binary_op<
-      quan::big_rational,quan::meta::minus, quan::big_rational
-   >{
-      typedef quan::big_rational type;
-   };
+      template <>
+      struct binary_op_impl<
+         quan::big_rational,quan::meta::minus, quan::big_rational
+      >{
+         typedef quan::big_rational type;
+      };
 
-   template <>
-   struct binary_op<
-      quan::big_rational,quan::meta::minus, quan::bigint
-   >{
-      typedef quan::big_rational type;
-   };
+      template <>
+      struct binary_op_impl<
+         quan::big_rational,quan::meta::minus, quan::bigint
+      >{
+         typedef quan::big_rational type;
+      };
 
-   template <>
-   struct binary_op<
-      quan::bigint,quan::meta::minus, quan::big_rational
-   >{
-      typedef quan::big_rational type;
-   };
+      template <>
+      struct binary_op_impl<
+         quan::bigint,quan::meta::minus, quan::big_rational
+      >{
+         typedef quan::big_rational type;
+      };
 
-   template <>
-   struct binary_op<
-      quan::big_rational,quan::meta::times, quan::big_rational
-   >{
-      typedef quan::big_rational type;
-   };
+      template <>
+      struct binary_op_impl<
+         quan::big_rational,quan::meta::times, quan::big_rational
+      >{
+         typedef quan::big_rational type;
+      };
 
-   template <>
-   struct binary_op<
-      quan::big_rational,quan::meta::times, quan::bigint
-   >{
-      typedef quan::big_rational type;
-   };
+      template <>
+      struct binary_op_impl<
+         quan::big_rational,quan::meta::times, quan::bigint
+      >{
+         typedef quan::big_rational type;
+      };
 
-   template <>
-   struct binary_op<
-      quan::bigint,quan::meta::times, quan::big_rational
-   >{
-      typedef quan::big_rational type;
-   };
+      template <>
+      struct binary_op_impl<
+         quan::bigint,quan::meta::times, quan::big_rational
+      >{
+         typedef quan::big_rational type;
+      };
 
-   template <>
-   struct binary_op<
-      quan::big_rational,quan::meta::divides, quan::big_rational
-   >{
-      typedef quan::big_rational type;
-   };
+      template <>
+      struct binary_op_impl<
+         quan::big_rational,quan::meta::divides, quan::big_rational
+      >{
+         typedef quan::big_rational type;
+      };
 
-   template <>
-   struct binary_op<
-      quan::big_rational,quan::meta::divides, quan::bigint
-   >{
-      typedef quan::big_rational type;
-   };
+      template <>
+      struct binary_op_impl<
+         quan::big_rational,quan::meta::divides, quan::bigint
+      >{
+         typedef quan::big_rational type;
+      };
 
-   template <>
-   struct binary_op<
-      quan::bigint,quan::meta::divides, quan::big_rational
-   >{
-      typedef quan::big_rational type;
-   };
+      template <>
+      struct binary_op_impl<
+         quan::bigint,quan::meta::divides, quan::big_rational
+      >{
+         typedef quan::big_rational type;
+      };
 
-//comp
-   template <>
-   struct binary_op<
-      quan::big_rational,quan::meta::less, quan::big_rational
-   >{
-      typedef bool type;
-   };
+   //comp
+      template <>
+      struct binary_op_impl<
+         quan::big_rational,quan::meta::less, quan::big_rational
+      >{
+         typedef bool type;
+      };
 
-   template <>
-   struct binary_op<
-      quan::big_rational,quan::meta::less, quan::bigint
-   >{
-      typedef bool type;
-   };
+      template <>
+      struct binary_op_impl<
+         quan::big_rational,quan::meta::less, quan::bigint
+      >{
+         typedef bool type;
+      };
 
-   template <>
-   struct binary_op<
-      quan::bigint,quan::meta::less, quan::big_rational
-   >{
-      typedef bool type;
-   };
+      template <>
+      struct binary_op_impl<
+         quan::bigint,quan::meta::less, quan::big_rational
+      >{
+         typedef bool type;
+      };
 
-   template <>
-   struct binary_op<
-      quan::big_rational,quan::meta::less_equal, quan::big_rational
-   >{
-      typedef bool type;
-   };
+      template <>
+      struct binary_op_impl<
+         quan::big_rational,quan::meta::less_equal, quan::big_rational
+      >{
+         typedef bool type;
+      };
 
-    template <>
-   struct binary_op<
-      quan::big_rational,quan::meta::less_equal, quan::bigint
-   >{
-      typedef bool type;
-   };
+       template <>
+      struct binary_op_impl<
+         quan::big_rational,quan::meta::less_equal, quan::bigint
+      >{
+         typedef bool type;
+      };
 
-   template <>
-   struct binary_op<
-      quan::bigint,quan::meta::less_equal, quan::big_rational
-   >{
-      typedef bool type;
-   };
+      template <>
+      struct binary_op_impl<
+         quan::bigint,quan::meta::less_equal, quan::big_rational
+      >{
+         typedef bool type;
+      };
 
-   template <>
-   struct binary_op<
-      quan::big_rational,quan::meta::equal_to, quan::big_rational
-   >{
-      typedef bool type;
-   };
+      template <>
+      struct binary_op_impl<
+         quan::big_rational,quan::meta::equal_to, quan::big_rational
+      >{
+         typedef bool type;
+      };
 
-   template <>
-   struct binary_op<
-      quan::big_rational,quan::meta::equal_to, quan::bigint
-   >{
-      typedef bool type;
-   };
+      template <>
+      struct binary_op_impl<
+         quan::big_rational,quan::meta::equal_to, quan::bigint
+      >{
+         typedef bool type;
+      };
 
-   template <>
-   struct binary_op<
-      quan::bigint,quan::meta::equal_to, quan::big_rational
-   >{
-      typedef bool type;
-   };
+      template <>
+      struct binary_op_impl<
+         quan::bigint,quan::meta::equal_to, quan::big_rational
+      >{
+         typedef bool type;
+      };
 
-   template <>
-   struct binary_op<
-      quan::big_rational,quan::meta::not_equal_to, quan::big_rational
-   >{
-      typedef bool type;
-   };
+      template <>
+      struct binary_op_impl<
+         quan::big_rational,quan::meta::not_equal_to, quan::big_rational
+      >{
+         typedef bool type;
+      };
 
-    template <>
-   struct binary_op<
-      quan::big_rational,quan::meta::not_equal_to, quan::bigint
-   >{
-      typedef bool type;
-   };
+       template <>
+      struct binary_op_impl<
+         quan::big_rational,quan::meta::not_equal_to, quan::bigint
+      >{
+         typedef bool type;
+      };
 
-   template <>
-   struct binary_op<
-      quan::bigint,quan::meta::not_equal_to, quan::big_rational
-   >{
-      typedef bool type;
-   };
+      template <>
+      struct binary_op_impl<
+         quan::bigint,quan::meta::not_equal_to, quan::big_rational
+      >{
+         typedef bool type;
+      };
 
-   template <>
-   struct binary_op<
-      quan::big_rational,quan::meta::greater_equal, quan::big_rational
-   >{
-      typedef bool type;
-   };
+      template <>
+      struct binary_op_impl<
+         quan::big_rational,quan::meta::greater_equal, quan::big_rational
+      >{
+         typedef bool type;
+      };
 
-    template <>
-   struct binary_op<
-      quan::big_rational,quan::meta::greater_equal, quan::bigint
-   >{
-      typedef bool type;
-   };
+       template <>
+      struct binary_op_impl<
+         quan::big_rational,quan::meta::greater_equal, quan::bigint
+      >{
+         typedef bool type;
+      };
 
-   template <>
-   struct binary_op<
-      quan::bigint,quan::meta::greater_equal, quan::big_rational
-   >{
-      typedef bool type;
-   };
+      template <>
+      struct binary_op_impl<
+         quan::bigint,quan::meta::greater_equal, quan::big_rational
+      >{
+         typedef bool type;
+      };
 
-   template <>
-   struct binary_op<
-      quan::big_rational,quan::meta::greater, quan::big_rational
-   >{
-      typedef bool type;
-   };
+      template <>
+      struct binary_op_impl<
+         quan::big_rational,quan::meta::greater, quan::big_rational
+      >{
+         typedef bool type;
+      };
 
-   template <>
-   struct binary_op<
-      quan::big_rational,quan::meta::greater, quan::bigint
-   >{
-      typedef bool type;
-   };
+      template <>
+      struct binary_op_impl<
+         quan::big_rational,quan::meta::greater, quan::bigint
+      >{
+         typedef bool type;
+      };
 
-   template <>
-   struct binary_op<
-      quan::bigint,quan::meta::greater, quan::big_rational
-   >{
-      typedef bool type;
-   };
-   
+      template <>
+      struct binary_op_impl<
+         quan::bigint,quan::meta::greater, quan::big_rational
+      >{
+         typedef bool type;
+      };
+   } // impl
 }}
 
 

@@ -28,48 +28,50 @@
 
 namespace quan{ namespace meta{
 
-   template <typename TL, typename SeqR>
-   struct binary_op<
-      TL,
-      quan::meta::times,
-      SeqR,      
-      typename quan::where_<
-         quan::meta::and_<
-            quan::meta::is_scalar<TL>,
-            quan::fun::is_fun_sequence<SeqR>
-         >
-      >::type
-   >{
-      
-      typedef quan::fun::binary_op<
+   namespace impl {
+      template <typename TL, typename SeqR>
+      struct binary_op_impl<
          TL,
-         quan::operator_times,
-         quan::fun::_
-      > left_part;
+         quan::meta::times,
+         SeqR,      
+         typename quan::where_<
+            quan::meta::and_<
+               quan::meta::is_scalar<TL>,
+               quan::fun::is_fun_sequence<SeqR>
+            >
+         >::type
+      >{
+         
+         typedef quan::fun::binary_op<
+            TL,
+            quan::operator_times,
+            quan::fun::_
+         > left_part;
 
-      typedef typename quan::fun::make_fun_seq1<left_part,SeqR>::type type;
-   };
-   
-   template <typename SeqL, typename TR>
-   struct binary_op<
-      SeqL,
-      quan::meta::times,
-      TR,      
-      typename quan::where_<
-         quan::meta::and_<
-            quan::fun::is_fun_sequence<SeqL>,
-            quan::meta::is_scalar<TR>
-         >
-      >::type
-   >{
-      typedef quan::fun::binary_op<
-         quan::fun::_,
-         quan::operator_times,
-         TR
-      > right_part;
+         typedef typename quan::fun::make_fun_seq1<left_part,SeqR>::type type;
+      };
+      
+      template <typename SeqL, typename TR>
+      struct binary_op_impl<
+         SeqL,
+         quan::meta::times,
+         TR,      
+         typename quan::where_<
+            quan::meta::and_<
+               quan::fun::is_fun_sequence<SeqL>,
+               quan::meta::is_scalar<TR>
+            >
+         >::type
+      >{
+         typedef quan::fun::binary_op<
+            quan::fun::_,
+            quan::operator_times,
+            TR
+         > right_part;
 
-      typedef typename quan::fun::make_fun_seq1<right_part,SeqL>::type type;
-   };
+         typedef typename quan::fun::make_fun_seq1<right_part,SeqL>::type type;
+      };
+   } //impl
 }}
 
 namespace quan { namespace fun{

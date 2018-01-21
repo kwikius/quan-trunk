@@ -22,57 +22,58 @@
 
 namespace quan{ namespace meta{
 
-   // if calc is lossless, return a static value
-   template <
-      typename RuntimeType_L,typename StaticValue_L,
-      typename Op, 
-      typename RuntimeType_R, typename StaticValue_R
-   >
-   struct binary_op<
-      quan::fusion::static_value<RuntimeType_L,StaticValue_L>,
-      Op, 
-      quan::fusion::static_value<RuntimeType_R,StaticValue_R>,
-      typename quan::where_<
-         and_<
-            is_lossless_calculation<RuntimeType_L,Op,RuntimeType_R>
-            ,is_lossless_calculation<StaticValue_L,Op,StaticValue_R>
-            ,or_<
-               is_additive_operator<Op>
-               ,is_multiplicative_operator<Op>
+   namespace impl {
+      // if calc is lossless, return a static value
+      template <
+         typename RuntimeType_L,typename StaticValue_L,
+         typename Op, 
+         typename RuntimeType_R, typename StaticValue_R
+      >
+      struct binary_op_impl<
+         quan::fusion::static_value<RuntimeType_L,StaticValue_L>,
+         Op, 
+         quan::fusion::static_value<RuntimeType_R,StaticValue_R>,
+         typename quan::where_<
+            quan::meta::and_<
+               quan::meta::is_lossless_calculation<RuntimeType_L,Op,RuntimeType_R>
+               ,quan::meta::is_lossless_calculation<StaticValue_L,Op,StaticValue_R>
+               ,quan::meta::or_<
+                  quan::meta::is_additive_operator<Op>
+                  ,quan::meta::is_multiplicative_operator<Op>
+               >
+               ,quan::meta::is_valid_binary_op<RuntimeType_L,Op,RuntimeType_R>
             >
-            ,is_valid_binary_op<RuntimeType_L,Op,RuntimeType_R>
-         >
-      >::type
-   > : quan::fusion::static_value<
-      typename binary_op<RuntimeType_L,Op,RuntimeType_R>::type, 
-      typename binary_op<StaticValue_L,Op,StaticValue_R>::type 
-   >{};
+         >::type
+      > : quan::fusion::static_value<
+         typename quan::meta::binary_op<RuntimeType_L,Op,RuntimeType_R>::type, 
+         typename quan::meta::binary_op<StaticValue_L,Op,StaticValue_R>::type 
+      >{};
 
-   // if not lossless static calc return runtime type
-   template <
-      typename RuntimeType_L, typename StaticValue_L, 
-      typename Op, 
-      typename RuntimeType_R, typename StaticValue_R
-   >
-   struct binary_op<
-      quan::fusion::static_value<RuntimeType_L,StaticValue_L>,
-      Op, 
-      quan::fusion::static_value<RuntimeType_R,StaticValue_R>,
-      typename quan::where_<
-         and_<
-            is_valid_binary_op<RuntimeType_L,Op,RuntimeType_R>
-            ,or_<
-               not_< is_lossless_calculation<RuntimeType_L,Op,RuntimeType_R> >
-               ,not_< is_lossless_calculation<StaticValue_L,Op,StaticValue_R> >
+      // if not lossless static calc return runtime type
+      template <
+         typename RuntimeType_L, typename StaticValue_L, 
+         typename Op, 
+         typename RuntimeType_R, typename StaticValue_R
+      >
+      struct binary_op_impl<
+         quan::fusion::static_value<RuntimeType_L,StaticValue_L>,
+         Op, 
+         quan::fusion::static_value<RuntimeType_R,StaticValue_R>,
+         typename quan::where_<
+            quan::meta::and_<
+               quan::meta::is_valid_binary_op<RuntimeType_L,Op,RuntimeType_R>
+               ,quan::meta::or_<
+                  quan::meta::not_< is_lossless_calculation<RuntimeType_L,Op,RuntimeType_R> >
+                  ,quan::meta::not_< is_lossless_calculation<StaticValue_L,Op,StaticValue_R> >
+               >
+               ,quan::meta::or_<
+                  quan::meta::is_additive_operator<Op>
+                  ,quan::meta::is_multiplicative_operator<Op>
+               >
             >
-            ,or_<
-               is_additive_operator<Op>
-               ,is_multiplicative_operator<Op>
-            >
-         >
-      >::type
-   > :  binary_op<RuntimeType_L,Op,RuntimeType_R>{};
-
+         >::type
+      > : quan::meta::binary_op<RuntimeType_L,Op,RuntimeType_R>{};
+   }//impl
 }}//quan::meta
 
 #endif

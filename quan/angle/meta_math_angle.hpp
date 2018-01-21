@@ -20,11 +20,7 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
 
-
- 
-//
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/config.hpp>
@@ -35,13 +31,14 @@
 
 namespace quan{namespace meta{
 
+    namespace impl {
 //r + r
     template<
         typename Value_typeA,
         typename Extent,
         typename Value_typeB
     >
-    struct binary_op<
+    struct binary_op_impl<
          quan::mathematic_angle<Extent,Value_typeA>,
          plus,
          quan::mathematic_angle<Extent,Value_typeB>
@@ -64,7 +61,7 @@ namespace quan{namespace meta{
         typename Extent,
         typename Value_typeB
     >
-    struct binary_op<
+    struct binary_op_impl<
             quan::mathematic_angle<Extent,Value_typeA>,
             minus,
             quan::mathematic_angle<Extent,Value_typeB>
@@ -88,7 +85,7 @@ namespace quan{namespace meta{
         typename Extent,
         typename Value_typeB
     >
-    struct binary_op<
+    struct binary_op_impl<
       quan::mathematic_angle<Extent,Value_typeA>,
       plus,
       Value_typeB,
@@ -113,7 +110,7 @@ namespace quan{namespace meta{
         typename Extent,
         typename Value_typeB
     >
-    struct binary_op<
+    struct binary_op_impl<
       Value_typeA,
       plus,
       quan::mathematic_angle<Extent,Value_typeB>,
@@ -139,7 +136,7 @@ namespace quan{namespace meta{
         typename Extent,
         typename Value_typeB
     >
-    struct binary_op<
+    struct binary_op_impl<
             quan::mathematic_angle<Extent,Value_typeA>,
             minus,
             Value_typeB,
@@ -164,7 +161,7 @@ namespace quan{namespace meta{
         typename Extent,
         typename Value_typeB
     >
-    struct binary_op<
+    struct binary_op_impl<
       Value_typeA,
       minus,
       quan::mathematic_angle<Extent,Value_typeB>,
@@ -191,7 +188,7 @@ namespace quan{namespace meta{
         typename ExtentB,
         typename Value_typeB
     >
-    struct binary_op<
+    struct binary_op_impl<
             quan::mathematic_angle<ExtentA,Value_typeA>,
             times,
             quan::mathematic_angle<ExtentB,Value_typeB>
@@ -217,7 +214,7 @@ namespace quan{namespace meta{
         typename Value_type,
         typename Value_type1
     >
-    struct binary_op<
+    struct binary_op_impl<
             quan::mathematic_angle<Extent,Value_type>,
             times,
             Value_type1,
@@ -241,7 +238,7 @@ namespace quan{namespace meta{
         typename Extent,
         typename Value_type
     >
-    struct binary_op<
+    struct binary_op_impl<
             Value_type1,
             times,
             quan::mathematic_angle<Extent,Value_type>,
@@ -266,7 +263,7 @@ namespace quan{namespace meta{
         typename ExtentB,
         typename Value_typeB
     >
-    struct binary_op<
+    struct binary_op_impl<
             quan::mathematic_angle<ExtentA,Value_typeA>,
             divides,
             quan::mathematic_angle<ExtentB,Value_typeB>
@@ -292,7 +289,7 @@ namespace quan{namespace meta{
         typename Value_type,
         typename Value_type1
     >
-    struct binary_op<
+    struct binary_op_impl<
             quan::mathematic_angle<Extent,Value_type>,
             divides,
             Value_type1,
@@ -318,7 +315,7 @@ namespace quan{namespace meta{
         typename Extent,
         typename Value_type
     >
-    struct binary_op<
+    struct binary_op_impl<
             Value_type1,
             divides,
             quan::mathematic_angle<Extent,Value_type>,
@@ -342,7 +339,7 @@ namespace quan{namespace meta{
     };
     // r to power rational<int,N,D>
     template <typename Extent,typename Value_type, int N, int D>
-    struct binary_op<
+    struct binary_op_impl<
          quan::mathematic_angle<Extent,Value_type>,
          pow,
          rational<N,D>
@@ -361,7 +358,7 @@ namespace quan{namespace meta{
             >::type
         >::type type;
     };
-
+   } // impl
 }}//quan::meta
 
 #endif

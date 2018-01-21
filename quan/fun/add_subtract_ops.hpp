@@ -31,39 +31,43 @@
 
 namespace quan{ namespace meta{
 
-   template <typename SeqL, typename SeqR>
-   struct binary_op<
-      SeqL,
-      plus,
-      SeqR,
-      typename quan::where_<
-         and_<
-            quan::fun::are_fun_sequences<SeqL,SeqR>,
-            quan::fun::same_size_seq<SeqL,SeqR>
-         >
-      >::type
-   >{
-      typedef typename quan::fun::make_fun_seq2<
-        quan::operator_plus,SeqL,SeqR
-      >::type type;
-   };
+   namespace impl {
 
-   template <typename SeqL,typename SeqR>
-   struct binary_op<
-      SeqL,
-      minus,
-      SeqR,
-      typename quan::where_<
-         and_<
-            quan::fun::are_fun_sequences<SeqL,SeqR>,
-            quan::fun::same_size_seq<SeqL,SeqR>
-         >
-      >::type
-   >{
-      typedef typename quan::fun::make_fun_seq2<
-        quan::operator_minus,SeqL,SeqR
-      >::type type;
-   };
+      template <typename SeqL, typename SeqR>
+      struct binary_op_impl<
+         SeqL,
+         plus,
+         SeqR,
+         typename quan::where_<
+            and_<
+               quan::fun::are_fun_sequences<SeqL,SeqR>,
+               quan::fun::same_size_seq<SeqL,SeqR>
+            >
+         >::type
+      >{
+         typedef typename quan::fun::make_fun_seq2<
+           quan::operator_plus,SeqL,SeqR
+         >::type type;
+      };
+
+      template <typename SeqL,typename SeqR>
+      struct binary_op_impl<
+         SeqL,
+         minus,
+         SeqR,
+         typename quan::where_<
+            and_<
+               quan::fun::are_fun_sequences<SeqL,SeqR>,
+               quan::fun::same_size_seq<SeqL,SeqR>
+            >
+         >::type
+      >{
+         typedef typename quan::fun::make_fun_seq2<
+           quan::operator_minus,SeqL,SeqR
+         >::type type;
+      };
+
+   }//impl
 
 }}//quan::meta
 

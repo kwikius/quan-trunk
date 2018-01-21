@@ -119,21 +119,22 @@ namespace quan{
 
 //useful specialisation of binary_operation stream output
 
-namespace quan{namespace meta{
+namespace quan{namespace meta{ 
+   namespace impl{
 
     template < 
         typename StaticUnit,
         typename Value_type,    
         typename CharType
     >
-    struct binary_op< 
+    struct binary_op_impl< 
         std::basic_ostream<CharType>,
         shift_left, 
         quan::fixed_quantity<StaticUnit,Value_type>
     >{
         typedef std::basic_ostream<CharType>& type;
     };
-
+  } // impl
 }}//quan::meta
 
 #ifndef __AVR__

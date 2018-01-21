@@ -35,12 +35,13 @@
 
 namespace quan{ namespace meta{
 
+   namespace impl{
     template<
         typename StaticUnit,
         typename NumericType,
         typename NumericType_1
     >
-    struct binary_op<
+    struct binary_op_impl<
         quan::fixed_quantity<
             StaticUnit,
             NumericType
@@ -66,7 +67,7 @@ namespace quan{ namespace meta{
             typename StaticUnit,
             typename NumericType
     >
-    struct binary_op<
+    struct binary_op_impl<
         NumericType_1,
         times,
         quan::fixed_quantity<
@@ -86,7 +87,7 @@ namespace quan{ namespace meta{
             >::type
         > type;
      };            
-
+  } // impl
 }}//quan::meta
 
 
@@ -127,10 +128,8 @@ namespace quan{
         >::type result_type;
      
         return result_type{ pq.numeric_value() * v };
-
     }
 
-    
     template<
         typename NumericType_1,
         typename StaticUnit,

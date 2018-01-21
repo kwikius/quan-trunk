@@ -28,27 +28,23 @@ namespace quan{
 
 namespace quan{ namespace meta{
 
-   template <typename Op>
-   struct binary_op<
-      quan::bigint,Op, quan::bigint,
-      typename quan::where_<
-         or_<
-            is_additive_operator<Op>,
-            or_< 
-               is_shift_operator<Op>,
-               or_<
-                  is_multiplicative_operator<Op>,
-                  is_bit_operator<Op>
-               >
-            >
-         >
-      >::type
-   >{
-      typedef quan::bigint type;
-   };
+   namespace impl {
 
-   
-  
+      template <typename Op>
+      struct binary_op_impl<
+         quan::bigint,Op, quan::bigint,
+         typename quan::where_<
+            or_<
+               is_additive_operator<Op>,
+               is_shift_operator<Op>,
+               is_multiplicative_operator<Op>,
+               is_bit_operator<Op>
+            >
+         >::type
+      >{
+         typedef quan::bigint type;
+      };
+   } // impl
 
 }}
 

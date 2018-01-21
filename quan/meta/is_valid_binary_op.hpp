@@ -33,41 +33,41 @@
 */
 
 #include <quan/meta/binary_op.hpp>
-#ifndef __AVR__
-#include <type_traits>
-#else
-#include <quan/std/tr1/remove_reference.hpp>
-#include <quan/std/tr1/is_same.hpp>
-#endif
-
-namespace quan{ namespace meta{
-
-    template <
-        typename Left, 
-        typename Op, 
-        typename Right
-    >
-    struct is_valid_binary_op {
-
-         typedef typename std::remove_cv<
-               typename std::remove_reference<
-                  Left
-               >::type
-         >::type lhs;
-          typedef typename std::remove_cv<
-               typename std::remove_reference<
-                  Right
-               >::type
-         >::type rhs;
-         typedef  typename quan::meta::binary_op<
-            lhs, Op, rhs
-         >::type result_type;
-        enum{
-            value = (std::is_same<result_type,quan::undefined>::value == 0)
-        };
-        typedef is_valid_binary_op type;
-    };
-
-}}//quan::meta
+//#ifndef __AVR__
+//#include <type_traits>
+//#else
+//#include <quan/std/tr1/remove_reference.hpp>
+//#include <quan/std/tr1/is_same.hpp>
+//#endif
+//
+//namespace quan{ namespace meta{
+//
+////    template <
+////        typename Left, 
+////        typename Op, 
+////        typename Right
+////    >
+////    struct is_valid_binary_op {
+////
+////         typedef typename std::remove_cv<
+////               typename std::remove_reference<
+////                  Left
+////               >::type
+////         >::type lhs;
+////          typedef typename std::remove_cv<
+////               typename std::remove_reference<
+////                  Right
+////               >::type
+////         >::type rhs;
+////         typedef  typename quan::meta::binary_op<
+////            lhs, Op, rhs
+////         >::type result_type;
+////        enum{
+////            value = (std::is_same<result_type,quan::undefined>::value == 0)
+////        };
+////        typedef is_valid_binary_op type;
+////    };
+//
+//}}//quan::meta
 
 #endif
