@@ -17,7 +17,7 @@
 namespace quan{ namespace meta{
 
    // remove the extra where param when happy
-   template <typename TL, typename Op, typename TR, typename Where = void>
+   template <typename TL, typename Op, typename TR>
    struct binary_op : impl::binary_op_impl<
       typename strip_cr<TL>::type,Op,
       typename strip_cr<TR>::type
