@@ -17,7 +17,7 @@ CXX         = g++
 CXXFLAGS    = -std=c++11 -I${QUAN_ROOT}
 endif
 
-TEST_FILES = test static_value static_monoid
+TEST_FILES = test static_value static_monoid access_modifiers
 
 TEST_SRCS =  $(patsubst %,%.cpp,$(TEST_FILES)) 
 TEST_OBJECTS = $(patsubst %,%.o,$(TEST_FILES))
