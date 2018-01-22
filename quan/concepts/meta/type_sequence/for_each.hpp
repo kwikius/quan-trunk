@@ -25,6 +25,8 @@
 
 /*
    overload quan::meta::for_each for models of TypeSequence
+   n.b In practise only sueful if the function has side effects
+   
 */
 
 namespace quan{ namespace meta{ namespace impl{
@@ -61,6 +63,7 @@ namespace quan{ namespace meta{ namespace impl{
       // add versions for various flavours of SimplePolymorphicFunctor
       // the first should cover it
       // this version calls the function with arg as a template arg
+      // so useful for types that cant be instantiated
       template <typename Sequence, typename Fun>
       struct for_each_type_sequence_impl<Sequence, Fun, true,
          typename quan::where_<quan::is_model_of<quan::meta::PolymorphicFunctor<1,0>,Fun> >::type
