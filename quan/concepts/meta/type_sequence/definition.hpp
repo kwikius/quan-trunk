@@ -12,9 +12,10 @@ namespace quan{ namespace meta{
    template <typename T>
    concept bool TypeSequence = is_type_sequence<T>::value;
 
-#else
-   struct TypeSequence;
 #endif
+   // for legacy code
+   struct TypeSequence_;
+
 
 }}//quan::meta
 

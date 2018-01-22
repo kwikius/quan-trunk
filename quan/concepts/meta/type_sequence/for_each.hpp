@@ -17,14 +17,14 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 
-#include <quan/concepts/meta/polymorphic_functor.hpp>
 #include <quan/concepts/meta/type_sequence.hpp>
+#include <quan/concepts/meta/polymorphic_functor.hpp>
 #include <quan/meta/for_each.hpp>
 #include <quan/meta/front.hpp>
 #include <quan/meta/pop_front.hpp>
 
 /*
-   overload quan::meta::for_each for models of TypeSequence
+   overload quan::meta::for_each for models of TypeSequence_
    n.b In practise only sueful if the function has side effects
    
 */
@@ -44,7 +44,7 @@ namespace quan{ namespace meta{ namespace impl{
       template <typename Sequence, typename Fun>
       struct for_each_impl<
          Sequence, Fun, 
-         typename quan::where_<quan::is_model_of<quan::meta::TypeSequence, Sequence> >::type
+         typename quan::where_<quan::is_model_of<quan::meta::TypeSequence_, Sequence> >::type
        > : for_each_type_sequence_impl<Sequence, Fun> {};
 
       // all for_each_type_sequence terminate here

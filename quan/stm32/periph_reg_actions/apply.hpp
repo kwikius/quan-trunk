@@ -118,8 +118,8 @@ namespace quan{ namespace stm32{
       typedef typename get_module<E>::type module_type;
 
       static_assert(
-         quan::is_model_of<quan::meta::TypeSequence, typename module_type::periph_reg_list>::value == true,
-         "periph_reg_list must be a  model of TypeSequence"
+         quan::is_model_of<quan::meta::TypeSequence_, typename module_type::periph_reg_list>::value == true,
+         "periph_reg_list must be a  model of TypeSequence_"
       );
       // apply the list of actions
      

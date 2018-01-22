@@ -43,16 +43,16 @@ namespace quan{ namespace meta{
 #endif
 
 }}
-#if  ! defined __cpp_concepts
+
 namespace quan{ namespace impl{
 
    template <typename ...T>
    struct is_model_of_impl<
-      quan::meta::TypeSequence,
+      quan::meta::TypeSequence_,
       quan::meta::type_sequence<T...> 
    > : quan::meta::true_{};
 }}
-#endif
+
 
 namespace quan{ namespace meta{
 

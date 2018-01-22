@@ -40,7 +40,7 @@ namespace quan{ namespace tuple{
    struct at {
       template <typename Tuple_>
       struct apply {
-         QUAN_STATIC_ASSERT((quan::is_model_of<quan::meta::TypeSequence,Tuple_>::value));
+         QUAN_STATIC_ASSERT((quan::is_model_of<quan::meta::TypeSequence_,Tuple_>::value));
 
          typedef typename impl::at_impl<N,Tuple_,Access>::type type;
          //############# Static Assertion failure ##################################

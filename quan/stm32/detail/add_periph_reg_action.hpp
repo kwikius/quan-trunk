@@ -29,7 +29,7 @@ namespace quan{ namespace stm32{  namespace detail{
       typename Module, typename PeriphRegSetting, typename Where = void
    >
    struct add_periph_reg_action{
-        static_assert(quan::is_model_of<quan::meta::TypeSequence, Listof_PeriphRegAction>::value == true,"error");
+        static_assert(quan::is_model_of<quan::meta::TypeSequence_, Listof_PeriphRegAction>::value == true,"error");
        typedef typename quan::meta::push_back<
             typename quan::meta::push_back<Listof_PeriphRegAction,PeriphRegOrAction>::type ,PeriphRegAndAction
       >::type type;

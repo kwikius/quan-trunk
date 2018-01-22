@@ -49,7 +49,7 @@ namespace quan{ namespace impl{
 
    template <typename T, typename Front>
    struct is_model_of_impl<
-      quan::meta::TypeSequence,
+      quan::meta::TypeSequence_,
       quan::cons::list<T,Front>
    > : quan::meta::true_{};
 }}
