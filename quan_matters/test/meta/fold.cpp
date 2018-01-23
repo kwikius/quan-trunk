@@ -26,9 +26,9 @@ namespace {
 int errors = 0;
 int main()
 {
-   typedef rational <0> zero;
+   typedef rational<0> zero;
    typedef rational<1,2> half;
-   typedef rational <1> one;
+   typedef rational<1> one;
    typedef rational<2> two;
    typedef quan::fusion::static_bool<true> true_;
    typedef quan::fusion::static_bool<false> false_;
