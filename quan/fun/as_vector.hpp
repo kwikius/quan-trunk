@@ -42,7 +42,7 @@ namespace quan{namespace fun{
    {
       static_assert(is_fun_sequence<Seq>::value ==true ,"error");
       static_assert(quan::meta::bool_<(size_seq<Seq>::value ==3)>::value ==true ,"error");
-      
+      static_assert(size_seq<Seq>::value ==3,"error");
       typedef quan::fun::vector3<
          typename at_seq<0,Seq>::type,
          typename at_seq<1,Seq>::type,
@@ -54,7 +54,7 @@ namespace quan{namespace fun{
    template <typename Seq, typename F>
    struct as_vector<Seq,F,4>
    {
-      static_assert(is_fun_sequence<Seq>::value ==true ,"error");
+     static_assert(is_fun_sequence<Seq>::value ==true ,"error");
       static_assert(quan::meta::bool_<(size_seq<Seq>::value ==4)>::value ==true ,"error");
       
       typedef quan::fun::vector4<

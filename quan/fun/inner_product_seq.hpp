@@ -33,7 +33,8 @@ namespace quan{namespace fun{
 
       template <typename SeqL, typename SeqR, typename FF, typename F>
       struct result{
-          static_assert( are_fun_sequences<SeqL,SeqR>::value,"error" );
+          static_assert( is_fun_sequence<SeqL>::value,"error : SeqL is not a fun_sequence" );
+          static_assert( is_fun_sequence<SeqR>::value,"error : SeqR is not a fun_sequence" );
           static_assert( same_size_seq<SeqL,SeqR> ::value,"error");
          typedef typename quan::fun::make_fun_seq2<F,SeqL,SeqR>::type
          muxed_type;
