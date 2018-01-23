@@ -34,7 +34,6 @@
 #include <quan/operators/unary_operators.hpp>
 #include <quan/meta/is_valid_binary_op.hpp>
 #include <quan/where.hpp>
-//#include <quan/static_assert.hpp>
 #include <type_traits>
 
 namespace quan{
