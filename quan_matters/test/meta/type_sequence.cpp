@@ -24,6 +24,10 @@ int errors = 0;
 
 struct my_type;
 
+#if defined __cpp_concepts
+     
+#endif
+
 int main()
 {
    using quan::meta::type_sequence; 

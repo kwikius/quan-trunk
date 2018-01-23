@@ -21,14 +21,19 @@
 
 namespace quan{ namespace meta{
 
+#if defined __cpp_concepts 
+  template <quan::meta::TypeSequence Seq, typename Init, typename F>
+#else
    template < typename Seq, typename Init, typename F>
+#endif
    struct fold{
       typedef typename quan::meta::eval_if_c<
          (quan::meta::get_num_elements<Seq>::value > 0),
          quan::meta::detail::fold_i<Seq,Init,F>,
-         Init
+         identity<Init>
       > ::type type;
    };
+
 
 }}// quan::meta
 

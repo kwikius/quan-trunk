@@ -19,10 +19,15 @@
 
 #include <quan/meta/type_sequence.hpp>
 #include <quan/meta/eval_if.hpp>
+#include <quan/meta/identity.hpp>
 
 namespace quan{ namespace meta{ namespace detail{
 
-      template <typename Seq, typename Init, typename F>
+#if defined __cpp_concepts 
+  template <quan::meta::TypeSequence Seq, typename Init, typename F>
+#else
+   template < typename Seq, typename Init, typename F>
+#endif
       struct fold_i{
          typedef typename quan::meta::front<Seq>::type element_type;
          typedef typename F::template apply<Init,element_type>::type output_type;
@@ -30,7 +35,7 @@ namespace quan{ namespace meta{ namespace detail{
          typedef typename quan::meta::eval_if_c<
             (quan::meta::get_num_elements<list_in_next>::value > 0),
             fold_i<list_in_next,output_type,F>,
-            output_type
+            identity<output_type>
          >::type type;
            
       };
