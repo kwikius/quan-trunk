@@ -21,6 +21,7 @@
 #include <stddef.h>
 #include <quan/fun/at_seq.hpp>
 #include <quan/fun/access_modifiers.hpp>
+#include <type_traits>
 
 namespace quan{ namespace fun{
 
@@ -32,11 +33,16 @@ namespace quan{ namespace fun{
    }
 
    template <int I,typename T>
-   typename at_seq<I,T>::type
+   typename at_seq<I,T,quan::fun::as_ref>::type
    at(T & in)
    {
-      return at_seq<I,T,as_ref>()(in);
+      typedef typename at_seq<I,T,as_ref>::type result_type;
+    //  static_assert(!std::is_const<result_type>::value,"error");
+    //  static_assert(std::is_reference<result_type>::value,"error");
+      return at_seq<I,T, quan::fun::as_ref>{}(in);
    }
+
+
 
    template <size_t I,typename T, size_t N>
    T at( T (& ar)[N])

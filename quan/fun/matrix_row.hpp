@@ -75,9 +75,9 @@ namespace quan{ namespace fun{
          return at(in.m_matrix.elements);
       }
 
-      typename at_seq_ref_type::type operator()( matrix_row<N,Matrix>& in)const
+      typename at_seq_ref_type::type operator()( matrix_row<N,Matrix>& in)
       {
-         at_seq_const_ref_type at;
+         at_seq_ref_type at;
          return at(in.m_matrix.elements);
       }
       

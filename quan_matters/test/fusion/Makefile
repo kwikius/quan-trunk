@@ -17,7 +17,7 @@ CXX         = g++
 CXXFLAGS    = -std=c++14 -I${QUAN_ROOT}
 endif
 
-TEST_FILES = test static_value static_monoid fold inner_product
+TEST_FILES = test static_value static_monoid fold inner_product matrix
 
 TEST_SRCS =  $(patsubst %,%.cpp,$(TEST_FILES)) 
 TEST_OBJECTS = $(patsubst %,%.o,$(TEST_FILES))

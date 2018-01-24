@@ -19,6 +19,7 @@
 
 #include <quan/fun/vector3.hpp>
 #include <quan/fun/vector9.hpp>
+#include <quan/fun/same_size_seq.hpp>
 
 namespace quan {namespace fun{
 
@@ -64,6 +65,10 @@ namespace quan {namespace fun{
         template <typename Seq1>
         matrix (matrix<3,3,Seq1> const & in)
         : elements(in.elements){}
+
+
+        matrix (Seq const & in )
+        : elements(in){}
         
         template <int R1, int C1>
         typename type_at<R1,C1,as_ref>::type

@@ -5,6 +5,7 @@ void static_value_test();
 void static_monoid_test();
 void inner_product_test();
 void fold_test();
+void matrix_test();
 
 int errors = 0;
 
@@ -16,6 +17,7 @@ int main()
   static_monoid_test();
   fold_test();
   inner_product_test();
+  matrix_test();
 
   QUAN_EPILOGUE
 }
