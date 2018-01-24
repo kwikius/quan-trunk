@@ -49,6 +49,7 @@ namespace quan{namespace fun{
       };
 
       template <typename SeqL,typename SeqR, typename FF, typename F>
+      constexpr
       typename result<SeqL,SeqR,FF,F>::type
       operator()(SeqL &seqL, SeqR & seqR, FF const & ff, F const & f)const
       {
@@ -56,14 +57,15 @@ namespace quan{namespace fun{
             F,SeqL,SeqR
          > mux_seq_type;
 
-         quan::fun::fold_seq folder;
+         typedef quan::fun::fold_seq folder;
 
          typedef typename static_monoid<
             FF,typename quan::fun::at_seq<0,mux_seq_type>::type
          >::type initialiser;
        
-         return folder(mux_seq_type(seqL,seqR),initialiser(),ff) ;
+         return folder{}(mux_seq_type(seqL,seqR),initialiser(),ff) ;
       }
+
       typedef inner_product_seq type;
    };
 

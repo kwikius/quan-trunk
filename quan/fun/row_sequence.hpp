@@ -26,6 +26,10 @@
 
 namespace quan{namespace fun{
 
+   /*
+      row_sequence is a sequence of matrix_rows of a matrix
+   */
+
    template<typename Matrix>
    struct row_sequence{
       typedef typename seq_arg_type<Matrix>::type arg_type;

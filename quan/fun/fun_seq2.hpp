@@ -20,6 +20,7 @@
 #include <quan/fun/make_fun_seq2.hpp>
 #include <quan/fun/access_type_seq.hpp>
 #include <quan/fun/seq_arg_type.hpp>
+#include <quan/meta/if.hpp>
 
 namespace quan{namespace fun{
 

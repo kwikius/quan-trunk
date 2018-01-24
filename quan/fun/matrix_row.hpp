@@ -23,6 +23,10 @@
 #include <quan/fun/is_fun_sequence.hpp>
 #include <quan/fun/seq_arg_type.hpp>
 
+/*
+  matrix_row is row N of a matrix
+*/
+
 namespace quan{ namespace fun{
 
     template <int N, typename Matrix>
