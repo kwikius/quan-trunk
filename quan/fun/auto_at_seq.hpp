@@ -18,37 +18,67 @@
  */
 
 #include <quan/fun/at_seq.hpp>
+#include <quan/meta/if.hpp>
 #include <type_traits>
 
 namespace quan{ namespace fun{
 
    template<int N, typename Seq>
    struct auto_at_seq {
+#if 0
       typedef typename std::remove_const<
          typename std::remove_reference<Seq>::type
       >::type seq_type;
+  
+
       typedef at_seq<N,seq_type,as_ref> access_modifier;
       typedef typename access_modifier::type type;
-      
-         type operator()(Seq & seq)
-         {
-            return access_modifier()(seq);
-         }
-      };
-   
-   template<int N, typename Seq>
-   struct auto_at_seq<N,const Seq> {
-      typedef typename std::remove_const<
-         typename std::remove_reference<Seq>::type
-      >::type seq_type;
-      typedef at_seq<N,seq_type,as_const_ref> access_modifier;
-      typedef typename access_modifier::type type;
-      
-      type operator()(Seq const & seq)
+
+      type operator()(seq_type & seq)
       {
-         return access_modifier()(seq);
-      }     
+      return access_modifier{}(seq);
+      }
+
+      typedef at_seq<N,seq_type,as_const_ref> const_access_modifier;
+      typedef typename const_access_modifier::type const_type;
+      const_type operator()(seq_type const & seq)const
+      {
+      return const_access_modifier{}(seq);
+      }
+#else
+        /*
+      if seq is const then use as_const_ref
+      else use as_ref
+      */
+      typedef typename std::remove_reference<Seq>::type seq_type;
+      typedef typename quan::meta::if_<
+         std::is_const<seq_type>
+         ,as_const_ref
+         ,as_ref
+      >::type access_type;
+      typedef at_seq<N,seq_type,access_type> access_modifier;
+      typedef typename access_modifier::type type;
+      constexpr type operator()(seq_type & seq)
+      {
+         return access_modifier{}(seq);
+      }
+      
+#endif
    };
+   
+//   template<int N, typename Seq>
+//   struct auto_at_seq<N,const Seq> {
+//      typedef typename std::remove_const<
+//         typename std::remove_reference<Seq>::type
+//      >::type seq_type;
+//      typedef at_seq<N,seq_type,as_const_ref> access_modifier;
+//      typedef typename access_modifier::type type;
+//      
+//      type operator()(Seq const & seq)
+//      {
+//         return access_modifier()(seq);
+//      }     
+//   };
   
    
 }}

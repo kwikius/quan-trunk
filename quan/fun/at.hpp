@@ -26,19 +26,21 @@
 namespace quan{ namespace fun{
 
    template <int I,typename T>
-   typename at_seq<I,T>::type
+   typename at_seq<I,T, quan::fun::as_const_ref>::type
    at(T const & in)
    {
-      return at_seq<I,T,as_const_ref>()(in);
+      return at_seq<I,T,as_const_ref>{}(in);
    }
 
    template <int I,typename T>
    typename at_seq<I,T,quan::fun::as_ref>::type
    at(T & in)
    {
-      typedef typename at_seq<I,T,as_ref>::type result_type;
-    //  static_assert(!std::is_const<result_type>::value,"error");
+      //typedef typename at_seq<I,T,as_ref>::type result_type;
+ //     static_assert(!std::is_const<result_type>::value,"error");
+ //
     //  static_assert(std::is_reference<result_type>::value,"error");
+      //static_assert(false);
       return at_seq<I,T, quan::fun::as_ref>{}(in);
    }
 

@@ -28,19 +28,6 @@ void inner_product_test()
          decltype(seqL),decltype(seqR),quan::operator_plus,quan::operator_times
    >::type
    result_type;
-#if defined __cpp_concepts 
-   QUAN_CHECK(quan::fusion::Sequence<decltype(seqL)>);
-   QUAN_CHECK(quan::fusion::Sequence<decltype(seqR)>);
- #else
-   QUAN_CHECK(quan::fun::is_fun_sequence<decltype(seqL)>::value);
-   QUAN_CHECK(quan::fun::is_fun_sequence<decltype(seqR)>::value);
-#endif
-
-   QUAN_CHECK(quan::fusion::num_elements<decltype(seqL)> == 16);
-   QUAN_CHECK(quan::fusion::num_elements<decltype(seqR)> == 16);
-
-   QUAN_CHECK( ( std::is_same<quan::fusion::type_at<0,decltype(seqL)>,int>::value ) );
-   QUAN_CHECK( ( std::is_same<quan::fusion::type_at<15,decltype(seqL)>,int>::value ) );
 
    auto r = quan::fusion::inner_product(seqL,seqR,quan::operator_plus{},quan::operator_times{});
 

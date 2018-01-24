@@ -71,19 +71,21 @@ namespace quan {namespace fun{
         : elements(in){}
         
         template <int R1, int C1>
+        constexpr 
         typename type_at<R1,C1,as_ref>::type
         at()
         {
-            at_seq<rows * R1 + C1,elements_type,as_ref> f;
-            return f(elements);
+           typedef at_seq<rows * R1 + C1,elements_type,as_ref> f;
+           return f{}(elements);
         };
 
         template <int R1, int C1>
+        constexpr 
         typename type_at<R1,C1,as_const_ref>::type
         at()const
         {
-            at_seq<rows * R1 + C1,elements_type,as_const_ref> f;
-            return f(elements);
+           typedef at_seq<rows * R1 + C1,elements_type,as_const_ref> f;
+           return f{}(elements);
         };
     };
     
