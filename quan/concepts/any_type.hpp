@@ -21,6 +21,8 @@
 
 #include <quan/meta/is_any_type.hpp>
 
+#if defined __cpp_concepts
+
 namespace quan{ 
 
    template <typename T>
@@ -28,5 +30,6 @@ namespace quan{
 
 }//quan
 
+#endif
 #endif
 
