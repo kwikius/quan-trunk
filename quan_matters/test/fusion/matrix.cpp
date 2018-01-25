@@ -1,7 +1,6 @@
 
 #include <quan_matters/test/test.hpp>
 #include <quan/fun/matrix.hpp>
-//#include <quan/fun/matrix33.hpp>
 
 #include <quan/concepts/fusion/sequence.hpp>
 #include <quan/fun/matrix_row.hpp>
@@ -17,7 +16,6 @@
 #include <quan/fusion/static_value.hpp>
 #include <quan/fixed_quantity/literal.hpp>
 #include <quan/fun/vector9.hpp>
-#include <quan/undefined.hpp>
 
 namespace {
 
@@ -96,6 +94,7 @@ namespace {
               one , zero
             ,zero ,  one 
          );
+
          QUAN_CHECK( ( static_cast<bool>(id2.at<0,0>() == one) ) );
          QUAN_CHECK( ( id2.at<0,0>() == 1.0 ) );
          QUAN_CHECK( ( static_cast<bool>(id2.at<0,1>() == zero) ) ); 
@@ -107,16 +106,43 @@ namespace {
          typedef static_float<0> zero;
          typedef static_float<1> one;
 
-         auto id2a = make_matrix<2,2> (
-           // std::make_tuple(
-                one {}, zero{}
-               ,zero{}, one {}
-            //)
+         auto id2a 
+         = make_matrix<2,2> 
+         (
+              one{}, zero{}
+            ,zero{},  one{}
          );
-         QUAN_CHECK( ( static_cast<bool>(id2a.at<0,0>() == one{}) ) );
-         QUAN_CHECK( ( id2a.at<0,0>() == 1.0 ) );
-         QUAN_CHECK( ( static_cast<bool>(id2a.at<0,1>() == zero{}) ) ); 
-         QUAN_CHECK( ( id2a.at<0,1>() == 0.0 ) );
+
+         QUAN_CHECK( ( static_cast<bool>(id2a.at<0,0>() == one{}) ) )
+         QUAN_CHECK( ( id2a.at<0,0>() == 1.0 ) )
+         QUAN_CHECK( ( static_cast<bool>(id2a.at<0,1>() == zero{}) ) );
+         QUAN_CHECK( ( id2a.at<0,1>() == 0.0 ) )
+      }
+
+       {
+         // identity matrix temporaries 
+         typedef static_float<0> zero;
+         typedef static_float<1> one;
+         
+
+         float v00 = 2345.0;
+         float two = 2.0;
+         auto id2a 
+         = make_matrix<2,3> 
+         (
+              v00, one{},zero{}
+              , 2 ,static_mm<20>{}  , std::string{"Hello World"}
+         );
+         // row 0
+         QUAN_CHECK( ( id2a.at<0,0>() == v00) )
+         QUAN_CHECK( ( static_cast<bool>(id2a.at<0,1>() == one{})) )
+         QUAN_CHECK( ( static_cast<bool>(id2a.at<0,2>() == zero{}) ) ) 
+         
+         // row 1
+         QUAN_CHECK( ( id2a.at<1,0>() == 2 ) )
+         QUAN_CHECK( ( id2a.at<1,0>() == two ) )
+         QUAN_CHECK( ( id2a.at<1,1>() == quan::length::mm{20} ) )
+         QUAN_CHECK( ( id2a.at<1,2>() == "Hello World")  )
       }
    }
 
@@ -135,6 +161,7 @@ namespace {
       auto v = make_matrix<3,3>(sequence);
 
       QUAN_CHECK( (v.at<0,0>() == 11));
+      QUAN_CHECK( (v.at<1,2>() == 23));
       QUAN_CHECK( (v.at<2,2>() == 33));
 
       // test assignment of element

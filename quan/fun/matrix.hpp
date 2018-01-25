@@ -24,15 +24,15 @@ namespace quan {namespace fun{
     template <int R, int C, typename Seq>
     struct matrix{
         typedef matrix type;
-        const static int rows = R;
-        const static int cols = C;
+        static constexpr int rows = R;
+        static constexpr int cols = C;
         typedef Seq elements_type;
         Seq elements;
         //check num of elements
         template <int R1, int C1, typename F = as_value>
         struct type_at{
             typedef typename at_seq<
-               rows * R1 + C1, Seq, F
+               cols * R1 + C1, Seq, F
             >::type type;
         };  
 /*
@@ -71,7 +71,7 @@ namespace quan {namespace fun{
         typename type_at<R1,C1,as_ref>::type
         at()
         {
-           typedef at_seq<rows * R1 + C1,elements_type,as_ref> f;
+           typedef at_seq<cols * R1 + C1,elements_type,as_ref> f;
            return f{}(elements);
         };
 
@@ -80,7 +80,7 @@ namespace quan {namespace fun{
         typename type_at<R1,C1,as_const_ref>::type
         at()const
         {
-           typedef at_seq<rows * R1 + C1,elements_type,as_const_ref> f;
+           typedef at_seq<cols * R1 + C1,elements_type,as_const_ref> f;
            return f{}(elements);
         };
     };
