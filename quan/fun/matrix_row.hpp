@@ -22,7 +22,7 @@
 #include <quan/fun/size_seq.hpp>
 #include <quan/fun/is_fun_sequence.hpp>
 #include <quan/fun/seq_arg_type.hpp>
-
+#include <quan/meta/int32.hpp>
 /*
   matrix_row is row N of a matrix
 */
