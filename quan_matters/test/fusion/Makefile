@@ -8,13 +8,12 @@ ifeq ($(QUAN_ROOT),)
 $(error ****************QUAN_ROOT not defined.QUAN_ROOT must be defined to path to your quan library installation ********)
 endif
 
-TARGET      ?= test.exe
-ifeq ($(USE_CONCEPTS),True)
+TARGET      = test.exe
 CXX         = g++-7
-CXXFLAGS    = -std=c++14 -fconcepts -I${QUAN_ROOT}
-else
-CXX         = g++
 CXXFLAGS    = -std=c++14 -I${QUAN_ROOT}
+
+ifeq ($(USE_CONCEPTS),True)
+CXXFLAGS    += -fconcepts
 endif
 
 TEST_FILES = test static_value static_monoid fold inner_product matrix sequence

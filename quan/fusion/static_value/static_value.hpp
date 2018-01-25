@@ -1,10 +1,10 @@
-#ifndef QUAN_FUSION_STATIC_VALUE_HPP_INCLUDED
-#define QUAN_FUSION_STATIC_VALUE_HPP_INCLUDED
+#ifndef QUAN_FUSION_STATIC_VALUE_STATIC_VALUE_HPP_INCLUDED
+#define QUAN_FUSION_STATIC_VALUE_STATIC_VALUE_HPP_INCLUDED
 #if (defined _MSC_VER) && (_MSC_VER >= 1200)
 # pragma once
 #endif
 
-// Copyright Andrew Little 2005
+// Copyright Andrew Little 2005 - 2018
 
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 

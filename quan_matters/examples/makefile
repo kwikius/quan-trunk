@@ -3,12 +3,11 @@ ifeq ($(QUAN_ROOT),)
 QUAN_ROOT = ../../
 endif
 
-ifeq ($(USE_CONCEPTS),True)
 CXX         = g++-7
-CXXFLAGS    = -std=c++14 -fconcepts -I${QUAN_ROOT}
-else
-CXX         ?= g++
-CXXFLAGS    ?= -std=c++11 -I${QUAN_ROOT}
+CXXFLAGS    = -std=c++14 -I${QUAN_ROOT}
+
+ifeq ($(USE_CONCEPTS),True)
+CXXFLAGS    += -fconcepts
 endif
 
 .PHONY : all test clean

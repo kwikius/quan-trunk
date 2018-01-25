@@ -9,12 +9,11 @@ $(error ****************QUAN_ROOT not defined.QUAN_ROOT must be defined to path 
 endif
 
 TARGET      ?= test.exe
-ifeq ($(USE_CONCEPTS),True)
 CXX         = g++-7
-CXXFLAGS    = -std=c++14 -fconcepts -I${QUAN_ROOT}
-else
-CXX         = g++
-CXXFLAGS    = -std=c++11 -I${QUAN_ROOT}
+CXXFLAGS    = -std=c++14 -I${QUAN_ROOT}
+
+ifeq ($(USE_CONCEPTS),True)
+CXXFLAGS    += -fconcepts
 endif
 
 MEMBER_FILES = abs anonymous_cast compare construction assignment conversion \

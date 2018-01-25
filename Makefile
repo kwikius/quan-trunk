@@ -16,7 +16,7 @@ BigintDir                     = quan_matters/test/bigint/
 FusionDir                = quan_matters/test/fusion/
 
 #USE_CONCEPTS_VALUE = True
-USE_CONCEPTS_VALUE = False
+USE_CONCEPTS_VALUE ?= False
 
 .PHONY: fixed_quantity_semantics_test angle_test three_d_test two_d_test examples qdrt meta conversion bigint \
 fusion

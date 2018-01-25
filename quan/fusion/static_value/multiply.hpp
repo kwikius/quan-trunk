@@ -3,7 +3,7 @@
 #if (defined _MSC_VER) && (_MSC_VER >= 1200)
 #  pragma once
 #endif
-/// Copyright Andrew Little 2005
+/// Copyright Andrew Little 2005 - 2018
 
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 

@@ -35,12 +35,17 @@ namespace quan{ namespace fun{
  
     template<int N, typename Matrix>
     struct matrix_col{
-      typedef typename Matrix::elements_type::access_type access_type;
+
+      typedef matrix_col type;
       typedef typename seq_arg_type<Matrix>::type arg_type;
+      typedef typename quan::meta::strip_cr<Matrix>::type matrix_type;
+      typedef typename quan::meta::strip_cr<typename matrix_type::elements_type>::type elements_type;
+      typedef typename elements_type::access_type access_type;
+      
       arg_type m_matrix;
       matrix_col(arg_type matrix_in) : m_matrix( matrix_in){}
     };
-
+#if 0
     template <int I, int N, typename Matrix, typename F>
     struct at_seq_impl<I,matrix_col<N,Matrix>,F>{
       typedef at_seq<
@@ -75,6 +80,24 @@ namespace quan{ namespace fun{
          return at(in.m_matrix.elements);
       }
       
+    };
+#endif
+
+    template <int I, int N, typename Matrix, typename F>
+    struct at_seq_impl<I,matrix_col<N,Matrix>,F>{
+      typedef at_seq<
+         (N + Matrix::cols *I),
+         typename Matrix::elements_type,
+         F
+      > at_seq_type;
+      typedef typename at_seq_type::type type;
+      // note that the constness of the row seems not to matter here
+      // possibly try 
+      constexpr 
+      typename at_seq_type::type operator()( matrix_col<N,Matrix>const & in)const
+      {
+         return at_seq_type{}(in.m_matrix.elements);
+      }
     };
 
    /* template<int N, typename Matrix>

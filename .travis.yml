@@ -13,5 +13,8 @@ addons:
     - g++-7
     - gcc-7
     
-script: export CXX="g++-7" && make 
-
+script: 
+    - export CXX="g++-7"
+    - make USE_CONCEPTS_VALUE=False
+    - make clean
+    - make USE_CONCEPTS_VALUE=True

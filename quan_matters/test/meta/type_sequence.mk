@@ -14,12 +14,10 @@ MEMBER_FILES = type_sequence
 
 TARGET      = $(patsubst %,%.exe,$(MEMBER_FILES))
 
-ifeq ($(USE_CONCEPTS),True)
 CXX         = g++-7
-CXXFLAGS    = -std=c++14 -fconcepts -I${QUAN_ROOT}
-else
-CXX         ?= g++
-CXXFLAGS    ?= -std=c++11 -I${QUAN_ROOT}
+CXXFLAGS    = -std=c++14 -I${QUAN_ROOT}
+ifeq ($(USE_CONCEPTS),True)
+CXXFLAGS    += -fconcepts
 endif
 
 SRCS =    $(patsubst %,%.cpp,$(MEMBER_FILES)) 

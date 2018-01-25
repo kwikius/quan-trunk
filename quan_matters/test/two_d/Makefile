@@ -9,13 +9,11 @@ QUAN_ROOT = ../../../
 endif
 
 TARGET      ?= test.exe
+CXX         = g++-7
+CXXFLAGS    = -std=c++14 -I${QUAN_ROOT}
 
 ifeq ($(USE_CONCEPTS),True)
-CXX         = g++-7
-CXXFLAGS    = -std=c++14 -fconcepts -I${QUAN_ROOT}
-else
-CXX         ?= /usr/local/bin/g++
-CXXFLAGS    ?= -std=c++11 -I${QUAN_ROOT}
+CXXFLAGS    += -fconcepts
 endif
 
 MEMBER_FILES = vect_test
