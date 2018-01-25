@@ -36,7 +36,5 @@ namespace quan{ namespace fun{
     template<typename ...Elements >
     struct size_seq_impl<std::tuple<Elements...> > : std::tuple_size<std::tuple<Elements...> >{};
          
-        
-
 }}//quan::fun
 #endif
