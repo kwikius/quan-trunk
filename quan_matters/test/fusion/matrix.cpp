@@ -19,8 +19,6 @@
 #include <quan/fun/vector9.hpp>
 #include <quan/undefined.hpp>
 
-
-
 namespace {
 
 #if defined __cpp_concepts

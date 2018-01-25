@@ -43,13 +43,13 @@ namespace quan{ namespace fun{
          
         typedef typename Access:: template result<tuple_element_type>::type type;
 
-        type operator() ( std::tuple<Elements...> & in)
+        constexpr type operator() ( std::tuple<Elements...> & in)
         {
            return std::get<N>(in);
         }
 
         typedef typename as_const_ref:: template result<tuple_element_type>::type const_type;
-        const_type operator() ( std::tuple<Elements...> const & in)
+        constexpr const_type operator() ( std::tuple<Elements...> const & in)
         {
            return std::get<N>(in);
         }
