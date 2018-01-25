@@ -4,9 +4,11 @@
 # should depend also on quan headers to trigger build? 
 
 #  env  QUAN_ROOT is the parent of the quan directory
-ifeq ($(QUAN_ROOT),)
-$(error ****************QUAN_ROOT not defined.QUAN_ROOT must be defined to path to your quan library installation ********)
-endif
+#ifeq ($(QUAN_ROOT),)
+#$(error ****************QUAN_ROOT not defined.QUAN_ROOT must be defined to path to your quan library installation ********)
+#endif
+
+QUAN_ROOT ?= ../../../../quan-trunk
 
 TARGET      = test.exe
 CXX         = g++-7
@@ -34,6 +36,10 @@ $(TEST_OBJECTS) : %.o : %.cpp
 	$(CXX) -c $(CXXFLAGS) $< -o $@
 
 test : $(TARGET)
+	./$(TARGET)
+
+concept_test : CXXFLAGS += -fconcepts
+concept_test : $(TARGET)
 	./$(TARGET)
 
 clean :
