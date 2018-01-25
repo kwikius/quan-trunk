@@ -23,6 +23,7 @@
 #include <quan/fun/is_fun_sequence.hpp>
 #include <quan/fun/seq_arg_type.hpp>
 #include <quan/meta/int32.hpp>
+#include <quan/fun/access_type_seq.hpp>
 /*
   matrix_row is row N of a matrix
 */
@@ -44,12 +45,9 @@ namespace quan{ namespace fun{
       typedef matrix_row type;
       // calc arg type for constructor
       typedef typename seq_arg_type<Matrix>::type arg_type; 
-       // get the underlying type of the matrix
       typedef typename quan::meta::strip_cr<Matrix>::type matrix_type;
-      // get the underlying type of the elements
       typedef typename quan::meta::strip_cr<typename matrix_type::elements_type>::type elements_type;
-      // get the access type for the sequence
-      typedef typename elements_type::access_type access_type;
+      typedef typename access_type_seq<matrix_type>::type access_type;
       
       arg_type m_matrix;
       matrix_row(arg_type matrix_in) : m_matrix( matrix_in){}

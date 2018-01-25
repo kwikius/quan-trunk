@@ -18,8 +18,9 @@
  */
 
 #include <quan/config.hpp>
-#include <quan/fun/matrix33.hpp>
-#include <quan/fun/matrix44.hpp>
+//#include <quan/fun/matrix33.hpp>
+//#include <quan/fun/matrix44.hpp>
+#include <quan/fun/matrix.hpp>
 #include <quan/fun/dot_product_seq.hpp>
 #include <quan/fun/push_back_seq.hpp>
 #include <quan/fun/as_vector.hpp>
@@ -42,11 +43,12 @@ namespace quan{ namespace fun{
          typedef typename seq_arg_type<Matrix2>::type rhs_type;
          lhs_type m1;
          rhs_type m2;
-         const static int rows = Matrix1::rows;
-         const static int cols = Matrix2::cols;
+         static constexpr int rows = Matrix1::rows;
+         static constexpr int cols = Matrix2::cols;
          typedef quan::fun::as_value access_type;
-         eval_matrix_mux_dot(lhs_type m1_in, rhs_type m2_in)
-         :m1(m1_in),m2(m2_in){}
+         constexpr eval_matrix_mux_dot(lhs_type m1_in, rhs_type m2_in)
+         :m1{m1_in},m2{m2_in}{}
+
          template <int R, int C>
          struct result{
             typedef quan::fun::matrix_row<R,Matrix1> row;
@@ -57,13 +59,14 @@ namespace quan{ namespace fun{
          };
        
          template <int R, int C>
+         constexpr 
          typename result<R,C>::type 
          eval() const
          {
             typedef typename result<R,C>::row row;//(m1);
             typedef typename result<R,C>::col col;//(m2);
             typedef quan::fun::dot_product_seq dot;
-            return dot()(row(m1),col(m2));
+            return dot{}(row{m1},col{m2});
          }
        };
 
@@ -80,7 +83,7 @@ namespace quan{ namespace fun{
    >{
       typedef detail::eval_matrix_mux_dot<Matrix1,Matrix2> mat_init;
    
-      enum {value = mat_init::rows * mat_init::cols};
+      static constexpr int value = mat_init::rows * mat_init::cols;
    };
 
    template <int I,typename Matrix1, typename Matrix2, typename F>
@@ -92,19 +95,21 @@ namespace quan{ namespace fun{
       
       typedef detail::eval_matrix_mux_dot<Matrix1,Matrix2> mat_init;
    
-      enum {row_pos = (I / mat_init::cols), col_pos = (I % mat_init::cols)};
+      static constexpr int row_pos = (I / mat_init::cols);
+      static constexpr int col_pos = (I % mat_init::cols);
 
       typedef typename mat_init::template result<row_pos,col_pos>::type type;
+
       typedef typename mat_init::template result<row_pos,col_pos>::row row_type;
       typedef typename mat_init::template result<row_pos,col_pos>::col col_type;
-
+      constexpr 
       type operator()(mat_init const & in)const
       {
             
-            row_type row(in.m1);
-            col_type col(in.m2);
-            quan::fun::dot_product_seq dot;
-            return dot(row,col);
+           // row_type row{in.m1};
+           // col_type col{in.m2};
+            typedef quan::fun::dot_product_seq dot;
+            return dot{}(row_type{in.m1},col_type{in.m2});
       }
    };
 
@@ -117,8 +122,9 @@ namespace quan{ namespace fun{
       const static int rows = elements_type::rows;
       const static int cols = elements_type::cols;
       elements_type elements;
+      constexpr 
       matrix_initialiser(lhs_type m1, rhs_type m2)
-      :elements(m1,m2){}
+      :elements{m1,m2}{}
       typedef matrix_initialiser type;
    };
    

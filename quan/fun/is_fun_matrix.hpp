@@ -19,22 +19,35 @@
 
 #include <type_traits>
 #include <quan/meta/and.hpp>
+#include <quan/meta/strip_cr.hpp>
+#include <type_traits>
 
 namespace quan{ namespace fun{
-   
-   template <typename T>
-   struct is_fun_matrix : std::false_type{};
 
-   template <typename TL,typename TR>
+   namespace impl {
+      // defualts not a matrix
+      template <typename M> struct is_fun_matrix_impl : std::false_type{};
+
+      template <typename M>
+      struct matrix_row_size_impl : std::integral_constant<int,-1>{};
+
+      template <typename M>
+      struct matrix_col_size_impl : std::integral_constant<int,-1>{};
+   }
+   
+   template <typename M>
+   struct is_fun_matrix : impl::is_fun_matrix_impl<typename quan::meta::strip_cr<M>::type>{};
+
+   template <typename ML,typename MR>
    struct are_fun_matrices : quan::meta::and_<
-     is_fun_matrix<TL>,is_fun_matrix<TR>
+      is_fun_matrix<ML>,is_fun_matrix<MR>
    >{} ;
 
-   template <typename Matrix>
-   struct matrix_row_size : std::integral_constant<int,-1>{};
+   template <typename M>
+   struct matrix_row_size : impl::matrix_row_size_impl<typename quan::meta::strip_cr<M>::type>{};
 
-   template <typename Matrix>
-   struct matrix_col_size : std::integral_constant<int,-1>{};
+   template <typename M>
+   struct matrix_col_size : impl::matrix_col_size_impl<typename quan::meta::strip_cr<M>::type>{};
 
 }}
 

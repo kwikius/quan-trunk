@@ -18,17 +18,33 @@
  */
 
 #include <quan/meta/strip_cr.hpp>
+#include <quan/fun/access_modifiers.hpp>
+#include <tuple>
 
 namespace quan{ namespace fun{
 
-   template <typename Seq>
-   struct access_type_seq_impl {
-      typedef typename Seq::access_type type;
-   };
+   namespace impl {
+
+      template <typename Seq>
+      struct access_type_seq_impl {
+         typedef typename Seq::access_type type;
+      };
+
+   } // impl
    
    template <typename Seq>
-   struct access_type_seq : access_type_seq_impl<
-        typename quan::meta::strip_cr<Seq>::type::type
+   struct access_type_seq : impl::access_type_seq_impl<
+        typename quan::meta::strip_cr<Seq>::type
    >{};
-}}
+
+   namespace impl {
+
+     template<typename... Elements> 
+     struct access_type_seq_impl<std::tuple<Elements...> > {
+        typedef quan::fun::as_ref type;
+     };
+
+   } // impl
+}} // quan::dun
+
 #endif

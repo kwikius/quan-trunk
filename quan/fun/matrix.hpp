@@ -18,14 +18,20 @@
  */
 
 #include <quan/fun/at_seq.hpp>
+#include <quan/fun/is_fun_matrix.hpp>
+#include <quan/fun/access_type_seq.hpp>
 
 namespace quan {namespace fun{
+
+    template <int R, int C, typename Seq> struct matrix;
+
 
     template <int R, int C, typename Seq>
     struct matrix{
         typedef matrix type;
         static constexpr int rows = R;
         static constexpr int cols = C;
+        typedef typename access_type_seq<Seq>::type access_type;
         typedef Seq elements_type;
         Seq elements;
         //check num of elements
@@ -35,33 +41,10 @@ namespace quan {namespace fun{
                cols * R1 + C1, Seq, F
             >::type type;
         };  
-/*
-        matrix():elements(
-            typename Seq::t0(),typename Seq::t1(),typename Seq::t2(),
-            typename Seq::t3(),typename Seq::t4(),typename Seq::t5(),
-            typename Seq::t6(),typename Seq::t7(),typename Seq::t8()
-        ){}
-        
-        template <
-            typename T0, typename T1, typename T2, 
-            typename T3, typename T4, typename T5,
-            typename T6, typename T7, typename T8
-        >
-        matrix(
-            T0 const & t0, T1 const & t1, T2 const & t2,
-            T3 const & t3, T4 const & t4, T5 const & t5,
-            T6 const & t6, T7 const & t7, T8 const & t8
-        )
-        : elements(
-            t0,t1,t2,
-            t3,t4,t5,
-            t6,t7,t8
-         ){}
-*/
+
         template <typename Seq1>
         matrix (matrix<R,C,Seq1> const & in)
         : elements(in.elements){}
-
 
         matrix (Seq const & in )
         : elements(in){}
@@ -84,6 +67,24 @@ namespace quan {namespace fun{
            return f{}(elements);
         };
     };
+
+
+   namespace impl {
+
+      template <int R, int C, typename Seq>
+      struct is_fun_matrix_impl<matrix<R,C,Seq> >: std::true_type{};
+
+      template <int R, int C, typename Seq>
+      struct matrix_row_size_impl<matrix<R,C,Seq> > : std::integral_constant<
+         int,(matrix<R,C,Seq>::rows)
+      >{};
+
+      template <int R, int C, typename Seq>
+      struct matrix_col_size_impl<matrix<R,C,Seq> > : std::integral_constant<
+         int,(matrix<R,C,Seq>::cols)
+      >{};
+
+   }// impl
     
 }}//quan::fun
 

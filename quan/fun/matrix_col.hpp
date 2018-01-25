@@ -21,6 +21,7 @@
 #include <quan/fun/size_seq.hpp>
 #include <quan/fun/is_fun_sequence.hpp>
 #include <quan/fun/seq_arg_type.hpp>
+#include <quan/fun/access_type_seq.hpp>
 
 namespace quan{ namespace fun{
 
@@ -40,7 +41,7 @@ namespace quan{ namespace fun{
       typedef typename seq_arg_type<Matrix>::type arg_type;
       typedef typename quan::meta::strip_cr<Matrix>::type matrix_type;
       typedef typename quan::meta::strip_cr<typename matrix_type::elements_type>::type elements_type;
-      typedef typename elements_type::access_type access_type;
+      typedef typename access_type_seq<matrix_type>::type access_type;
       
       arg_type m_matrix;
       matrix_col(arg_type matrix_in) : m_matrix( matrix_in){}

@@ -1,13 +1,9 @@
 
 #include <quan_matters/test/test.hpp>
-#include <quan/fun/matrix.hpp>
-
-#include <quan/concepts/fusion/sequence.hpp>
+#include <quan/fusion/make_matrix.hpp>
 #include <quan/fun/matrix_row.hpp>
 #include <quan/fun/matrix_col.hpp>
 #include <quan/fun/at.hpp>
-#include <tuple>
-
 #include <quan/length.hpp>
 #include <quan/time.hpp>
 #include <quan/area.hpp>
@@ -18,52 +14,6 @@
 #include <quan/fun/vector9.hpp>
 
 namespace {
-
-#if defined __cpp_concepts
-   template <int R, int C, quan::fusion::Sequence Seq>
-     requires quan::fusion::num_elements<Seq> == R * C
-   constexpr 
-   quan::fun::matrix<R,C,Seq>
-   make_matrix( Seq && seq)
-   {
-      return quan::fun::matrix<R,C,Seq>(seq);
-   }
-
-   template<int R, int C, typename... Elements>
-     requires sizeof ...(Elements)  == R * C
-   constexpr quan::fun::matrix<R,C,std::tuple<Elements...> >
-   make_matrix(Elements&&... args)
-   {
-      return make_matrix<R,C>(std::forward_as_tuple(args...));
-   }
-
-#else
-   template <int R, int C, typename Seq>
-   constexpr 
-   typename quan::where_<
-      quan::meta::and_<
-         quan::is_model_of<quan::fusion::Sequence_,Seq>
-         ,quan::meta::bool_< ( quan::fusion::num_elements<Seq> == R * C ) >
-      >,
-      quan::fun::matrix<R,C,Seq>
-   >::type
-   make_matrix( Seq && seq)
-   {
-      return quan::fun::matrix<R,C,Seq>(seq);
-   }
-
-   template<int R, int C, typename... Elements>
-   constexpr 
-   typename quan::where_c<
-      ( sizeof ...(Elements) == R * C)
-     ,quan::fun::matrix<R,C,std::tuple<Elements...> >
-   >::type
-   make_matrix(Elements&&... args)
-   {
-      return make_matrix<R,C>(std::forward_as_tuple(args...));
-   }
-
-#endif
 
    template <int64_t N, int64_t D = 1>
    using static_mm = quan::fusion::static_value<quan::length::mm,quan::meta::rational<N,D> >;
@@ -90,7 +40,7 @@ namespace {
          constexpr static_float<0> zero;
          constexpr static_float<1> one;
 
-         auto id2 = make_matrix<2,2> (
+         auto id2 = quan::fusion::make_matrix<2,2> (
               one , zero
             ,zero ,  one 
          );
@@ -107,11 +57,15 @@ namespace {
          typedef static_float<1> one;
 
          auto id2a 
-         = make_matrix<2,2> 
+         = quan::fusion::make_matrix<2,2> 
          (
               one{}, zero{}
             ,zero{},  one{}
          );
+
+         QUAN_CHECK( (quan::fun::is_fun_matrix<decltype(id2a)>::value == true) )
+         QUAN_CHECK( (quan::fun::matrix_row_size<decltype(id2a)>::value == 2) )
+         QUAN_CHECK( (quan::fun::matrix_col_size<decltype(id2a)>::value == 2) )
 
          QUAN_CHECK( ( static_cast<bool>(id2a.at<0,0>() == one{}) ) )
          QUAN_CHECK( ( id2a.at<0,0>() == 1.0 ) )
@@ -119,31 +73,44 @@ namespace {
          QUAN_CHECK( ( id2a.at<0,1>() == 0.0 ) )
       }
 
-       {
-         // identity matrix temporaries 
+      {
+         // identity matrix temporaries non square matrix
          typedef static_float<0> zero;
          typedef static_float<1> one;
-         
 
          float v00 = 2345.0;
          float two = 2.0;
          auto id2a 
-         = make_matrix<2,3> 
+         = quan::fusion::make_matrix<2,3> 
          (
-              v00, one{},zero{}
-              , 2 ,static_mm<20>{}  , std::string{"Hello World"}
+             v00,          one{},                     zero{}
+            ,  2,static_mm<20>{}, std::string{"Hello World"}
          );
+
+         QUAN_CHECK( (quan::fun::is_fun_matrix<decltype(id2a)>::value == true) )
+         QUAN_CHECK( (quan::fun::matrix_row_size<decltype(id2a)>::value == 2) )
+         QUAN_CHECK( (quan::fun::matrix_col_size<decltype(id2a)>::value == 3) )
          // row 0
          QUAN_CHECK( ( id2a.at<0,0>() == v00) )
+
          QUAN_CHECK( ( static_cast<bool>(id2a.at<0,1>() == one{})) )
+
          QUAN_CHECK( ( static_cast<bool>(id2a.at<0,2>() == zero{}) ) ) 
-         
+
          // row 1
          QUAN_CHECK( ( id2a.at<1,0>() == 2 ) )
          QUAN_CHECK( ( id2a.at<1,0>() == two ) )
+
          QUAN_CHECK( ( id2a.at<1,1>() == quan::length::mm{20} ) )
+         QUAN_CHECK( ( static_cast<bool>(id2a.at<1,1>() == static_mm<20>{}) ) )
+
          QUAN_CHECK( ( id2a.at<1,2>() == "Hello World")  )
       }
+
+      // so a 2d coord would be a matrix<1,2> 
+      // 3d matrix<1,3> 
+      // quat a matrix 1,4
+      // note to adapt a quan two d vect etc to a matrix should be quite easy too
    }
 
    void matrix_row_test()
@@ -158,7 +125,7 @@ namespace {
          31,32,33
       };
 
-      auto v = make_matrix<3,3>(sequence);
+      auto v = quan::fusion::make_matrix<3,3>(sequence);
 
       QUAN_CHECK( (v.at<0,0>() == 11));
       QUAN_CHECK( (v.at<1,2>() == 23));
@@ -172,6 +139,14 @@ namespace {
 
    //--- matrix row
       typedef  quan::fun::matrix_row<0,matrix_type> row0_type;
+
+      #if defined __cpp_concepts
+      QUAN_CHECK((quan::fusion::Sequence<row0_type> == true))
+      #endif
+      QUAN_CHECK((quan::fun::is_fun_sequence<row0_type>::value == true))
+      QUAN_CHECK((quan::is_model_of<quan::fusion::Sequence_,row0_type>::value == true))
+
+      QUAN_CHECK((quan::fusion::num_elements<row0_type> == 3))
 
       row0_type row0{v};
 
@@ -196,6 +171,50 @@ namespace {
       QUAN_CHECK( (quan::fun::at<0>(row0) == 10));
    }
 
+   void matrix_column_test()
+   {
+      auto m = quan::fusion::make_matrix<3,2> (
+          0.0,0.1
+         ,1.0,1.1
+         ,2.0,2.1
+      );
+      {
+         typedef quan::fun::matrix_col<0,decltype(m)> col0_type;
+        #if defined __cpp_concepts
+          QUAN_CHECK((quan::fusion::Sequence<col0_type> == true))
+        #endif
+         QUAN_CHECK((quan::fun::is_fun_sequence<col0_type>::value == true))
+         QUAN_CHECK((quan::is_model_of<quan::fusion::Sequence_,col0_type>::value == true))
+
+         QUAN_CHECK((quan::fusion::num_elements<col0_type> == 3))
+
+         col0_type col0{m};
+
+         QUAN_CHECK((quan::fun::at_seq<0,col0_type>{}(col0) == 0.0));
+         QUAN_CHECK((quan::fun::at_seq<1,col0_type>{}(col0) == 1.0));
+         QUAN_CHECK((quan::fun::at_seq<2,col0_type>{}(col0) == 2.0));
+
+      }
+      {
+         typedef quan::fun::matrix_col<1,decltype(m)> col1_type;
+
+        #if defined __cpp_concepts
+         QUAN_CHECK((quan::fusion::Sequence<col1_type> == true))
+        #endif
+         QUAN_CHECK((quan::fun::is_fun_sequence<col1_type>::value == true))
+         QUAN_CHECK((quan::is_model_of<quan::fusion::Sequence_,col1_type>::value == true))
+
+         QUAN_CHECK((quan::fusion::num_elements<col1_type> == 3))
+
+         col1_type col1{m};
+
+         QUAN_CHECK((quan::fun::at_seq<0,col1_type>{}(col1) == 0.1));
+         QUAN_CHECK((quan::fun::at_seq<1,col1_type>{}(col1) == 1.1));
+         QUAN_CHECK((quan::fun::at_seq<2,col1_type>{}(col1) == 2.1));
+
+      }
+   }
+
    void basic_matrix_test()
    {
       quan::fun::vector9<
@@ -208,7 +227,11 @@ namespace {
          31,32,33
       };
 
-      auto v = make_matrix<3,3>(sequence);
+      auto v = quan::fusion::make_matrix<3,3>(sequence);
+
+      QUAN_CHECK( (quan::fun::is_fun_matrix<decltype(v)>::value == true) )
+      QUAN_CHECK( (quan::fun::matrix_row_size<decltype(v)>::value == 3) )
+      QUAN_CHECK( (quan::fun::matrix_col_size<decltype(v)>::value == 3) )
 
       QUAN_CHECK( (v.at<0,0>() == 11));
       QUAN_CHECK( (v.at<0,1>() == 12));
@@ -227,7 +250,7 @@ namespace {
       QUAN_CHECK( (v.at<0,0>() == 3));
 
       // test std::tuple elements
-      auto v1 = make_matrix<3,3> (
+      auto v1 = quan::fusion::make_matrix<3,3> (
            std::make_tuple(
                110,120,130,
                210,220,230,
@@ -244,9 +267,13 @@ namespace {
    }
 }
 
+void matrix_mux_result_test();
+
 void matrix_test()
 {
    basic_matrix_test();
    matrix_row_test();
+   matrix_column_test();
    static_value_matrix_test();
+   matrix_mux_result_test();
 }
