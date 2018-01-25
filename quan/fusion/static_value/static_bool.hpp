@@ -14,7 +14,7 @@ namespace quan{ namespace fusion{
    struct static_bool{
       typedef bool runtime_type;
       typedef quan::meta::bool_<B> static_value_type;
-      
+      explicit constexpr operator bool()const { return B;}
       static constexpr bool value = B;
       
       typedef static_bool type;
