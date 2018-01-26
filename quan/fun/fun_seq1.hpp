@@ -36,9 +36,8 @@ namespace quan{namespace fun{
    struct fun_seq1{
    
       static_assert(is_fun_sequence<Seq>::value,"error");
-      enum {
-         size = (size_seq<Seq>::value )
-      };
+      static constexpr int size = size_seq<Seq>::value;
+      
       static_assert(size > 0,"error");
       F const & f;
       typedef typename seq_arg_type<Seq>::type arg_type;

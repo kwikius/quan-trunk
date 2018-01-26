@@ -46,6 +46,7 @@ namespace quan{ namespace fun{
          static constexpr int rows = Matrix1::rows;
          static constexpr int cols = Matrix2::cols;
          typedef quan::fun::as_value access_type;
+
          constexpr eval_matrix_mux_dot(lhs_type m1_in, rhs_type m2_in)
          :m1{m1_in},m2{m2_in}{}
 
@@ -105,11 +106,8 @@ namespace quan{ namespace fun{
       constexpr 
       type operator()(mat_init const & in)const
       {
-            
-           // row_type row{in.m1};
-           // col_type col{in.m2};
-            typedef quan::fun::dot_product_seq dot;
-            return dot{}(row_type{in.m1},col_type{in.m2});
+          typedef quan::fun::dot_product_seq dot;
+          return dot{}(row_type{in.m1},col_type{in.m2});
       }
    };
 

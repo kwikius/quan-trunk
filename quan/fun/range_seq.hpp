@@ -34,7 +34,7 @@ namespace quan{namespace fun{
       static_assert(is_fun_sequence<Seq>::value,"error");
       static_assert(quan::meta::bool_< (Last < (size_seq<Seq>::value)) >::value,"error");
       static_assert(quan::meta::bool_< (First >= 0) >::value,"error");   
-      enum { size = (Last - First) + 1 };
+      static constexpr int size = (Last - First) + 1 ;
       static_assert(quan::meta::bool_< (size > 0) >::value,"error");
       typedef typename seq_arg_type<Seq>::type arg_type;
       
@@ -55,7 +55,7 @@ namespace quan{namespace fun{
    
    template <int I,typename Seq, int First, int Last, typename Access>
    struct at_seq_impl<I,range_seq<Seq,First,Last> ,Access>{
-       enum{ real_pos = I + First};
+       static constexpr int real_pos = I + First;
        static_assert(quan::meta::bool_< (real_pos >= 0) >::value,"error");
        static_assert(quan::meta::bool_< (real_pos < size_seq<Seq>::value) >::value,"error"); 
        typedef typename at_seq<(real_pos),Seq,Access>::type type;
@@ -74,21 +74,6 @@ namespace quan{namespace fun{
          return (at_seq_var(seq.m_seq));
        }
    };
-   
-  /* template <int I,typename Seq, int First, int Last, typename Access>
-   struct at_seq_impl<I,const range_seq<Seq,First,Last> ,Access>{
-       enum{ real_pos = I + First};
-       static_assert(quan::meta::bool_< (real_pos >= 0) >::value,"error");
-       static_assert(quan::meta::bool_< (real_pos < size_seq<Seq>::value) >::value,"error"); 
-       typedef typename at_seq<(real_pos),Seq,Access>::type type;
-             
-      type
-      operator()(range_seq<const Seq,First,Last> const & seq) const
-       {
-         at_seq<real_pos,Seq, as_const_ref> at_seq_var;
-         return (at_seq_var(seq.m_seq));
-       }
-   };*/
    
 }}//quan::fun
 

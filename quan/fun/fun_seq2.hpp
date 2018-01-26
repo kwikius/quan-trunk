@@ -32,23 +32,15 @@ namespace quan{namespace fun{
    struct fun_seq2{
       
       typedef as_value access_type;
-      // type of resulting sequence
-     // typedef typename make_fun_seq2<F,SeqL,SeqR>::type type;
-   
+
       static_assert( are_fun_sequences<SeqL,SeqR>::value,"must be fun_seq" );
       static_assert( same_size_seq<SeqL,SeqR>::value, "must be same size" );
-      enum {
-         size = (size_seq<SeqL>::value )
-      };
+      
+      static constexpr int size = size_seq<SeqL>::value ;
+      
       typedef typename seq_arg_type<SeqL>::type lhs_arg_type;
       typedef typename seq_arg_type<SeqR>::type rhs_arg_type;
 
- /*     SeqL const & seqL;
-      SeqR const & seqR;
-      
-      fun_seq2(SeqL const & seqL_in, SeqR const & seqR_in)
-      : seqL(seqL_in),seqR(seqR_in){}*/
-      
       lhs_arg_type seqL;
       rhs_arg_type seqR;
       
@@ -74,10 +66,8 @@ namespace quan{namespace fun{
        
        constexpr type operator()(fun_seq2<F,SeqL,SeqR>  & seq) const
        {
-        // int x= 1;
          typedef auto_at_seq<I,SeqL> lhs_f;
          typedef auto_at_seq<I,SeqR> rhs_f;
-        // F f;
          return F{}(lhs_f{}(seq.seqL),rhs_f{}(seq.seqR));
        }
 
@@ -101,7 +91,6 @@ namespace quan{namespace fun{
          >::type rhs_access;
          typedef at_seq<I,SeqL,lhs_access> lhs_f;
          typedef at_seq<I,SeqR,rhs_access> rhs_f;
-         //F f;
          return F{}(lhs_f{}(seq.seqL),rhs_f{}(seq.seqR));
        }
    };

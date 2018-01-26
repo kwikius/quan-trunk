@@ -32,15 +32,6 @@ namespace quan{ namespace fun{
       template <int I,typename F,typename SeqL, typename SeqR>
       struct make_fun_seq2_n;
 
-      //template <typename F,typename SeqL, typename SeqR>
-      //struct make_fun_seq2_n<0,F,SeqL,SeqR>{
-      //   
-      //   typedef typename auto_at_seq<0,SeqL>::type lhs_type;
-      //   typedef typename auto_at_seq<0,SeqR>::type rhs_type;
-      //   typedef typename F:: template result<lhs_type,rhs_type>::type fun_result_type;
-      //   typedef typename push_back_seq<fun_result_type,nil>::type type;
-      //};
-
       template <int I,typename F,typename SeqL, typename SeqR>
       struct make_fun_seq2_n{
          
@@ -48,11 +39,11 @@ namespace quan{ namespace fun{
          typedef typename auto_at_seq<I,SeqR>::type rhs_type;
          typedef typename F::template result<lhs_type,rhs_type>::type fun_result_type;
          typedef typename quan::meta::eval_if_c<
-            (I == 0),
-            nil,
-            make_fun_seq2_n<I-1,F,SeqL,SeqR>
+            ( I > 0)
+            ,make_fun_seq2_n<I-1,F,SeqL,SeqR>
+            ,nil
          >::type prev_type;
-        // typedef typename make_fun_seq2_n<I-1,F,SeqL,SeqR>::type prev_type;
+         // push
          typedef typename push_back_seq<fun_result_type,prev_type>::type type;
       };
    }//detail

@@ -17,9 +17,6 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
- // No part of this document may be reproduced or transmitted 
- // in any form or by any means without the written permission 
- // of the author.
 
 /*
    fixed length vector of 3 elements
