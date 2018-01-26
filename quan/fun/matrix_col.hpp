@@ -44,7 +44,7 @@ namespace quan{ namespace fun{
       typedef typename access_type_seq<matrix_type>::type access_type;
       
       arg_type m_matrix;
-      matrix_col(arg_type matrix_in) : m_matrix( matrix_in){}
+      constexpr matrix_col(arg_type matrix_in) : m_matrix{matrix_in}{}
     };
 #if 0
     template <int I, int N, typename Matrix, typename F>

@@ -64,6 +64,7 @@ namespace quan{ namespace fun{
          MatL,quan::meta::times,MatR
       >::type
    >::type
+   constexpr
    operator*(MatL const & lhs, MatR const & rhs)
    {
       typedef quan::fun::detail::eval_matrix_mux_dot<
@@ -72,7 +73,7 @@ namespace quan{ namespace fun{
       typedef typename quan::fun::make_matrix_mux_result<
          MatL,MatR
       >::type result_type;
-      return result_type(matrix_init(lhs,rhs));
+      return result_type{matrix_init{lhs,rhs}};
    }
 }}
 

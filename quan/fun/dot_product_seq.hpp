@@ -30,10 +30,11 @@ namespace quan{namespace fun{
       >{};
 
       template <typename SeqL,typename SeqR>
+      constexpr
       typename result<SeqL,SeqR>::type
       operator()(SeqL const &seqL, SeqR const & seqR)const
       {
-         return inner_product_seq()(seqL,seqR,quan::operator_plus(),quan::operator_times());
+         return inner_product_seq{}(seqL,seqR,quan::operator_plus{},quan::operator_times{});
       }
       typedef dot_product_seq type;
    };

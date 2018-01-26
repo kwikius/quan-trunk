@@ -50,7 +50,7 @@ namespace quan{ namespace fun{
       typedef typename access_type_seq<matrix_type>::type access_type;
       
       arg_type m_matrix;
-      matrix_row(arg_type matrix_in) : m_matrix( matrix_in){}
+      constexpr matrix_row(arg_type matrix_in) : m_matrix( matrix_in){}
     };
 
     template <int I, int N, typename Matrix, typename F>

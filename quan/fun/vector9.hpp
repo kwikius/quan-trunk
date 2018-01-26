@@ -91,13 +91,13 @@ namespace quan{ namespace fun{
       typedef typename detail::arg_type<t7>::type t7_arg;
       typedef typename detail::arg_type<t8>::type t8_arg;
       
-      vector9()
+      constexpr vector9()
       :  v0(T0()), v1(T1()),v2(T2()),
          v3(T3()), v4(T4()),v5(T5()),
          v6(T6()), v7(T7()),v8(T8())
       {}
 
-      vector9(
+      constexpr vector9(
          t0_arg t0_in, t1_arg  t1_in, t2_arg  t2_in,
          t3_arg t3_in, t4_arg  t4_in, t5_arg  t5_in,
          t6_arg t6_in, t7_arg  t7_in, t8_arg  t8_in
@@ -108,7 +108,7 @@ namespace quan{ namespace fun{
       {}
 
       template<typename Seq>
-      vector9(Seq & seq,
+      constexpr vector9(Seq & seq,
          typename quan::where_<
             quan::fun::is_fun_sequence<Seq>,
             void*
@@ -130,6 +130,7 @@ namespace quan{ namespace fun{
       }
 
       template<typename Seq>
+      constexpr 
       vector9(Seq const & seq,
          typename quan::where_<
             quan::fun::is_fun_sequence<Seq>,

@@ -73,6 +73,7 @@ namespace quan{
         };
 
         template<typename L, typename R>
+        constexpr 
         typename result<
            L,R
         >::type 
@@ -117,6 +118,7 @@ namespace quan{
         };
 
         template<typename L, typename R>
+        constexpr 
         typename result<
            L,R
         >::type 

@@ -11,7 +11,7 @@ namespace quan{ namespace fusion {
    typename quan::fun::fold_seq::result<Seq,T,F>::type
    fold(Seq && seq, T && init, F&& f)
    {
-       return quan::fun::fold_seq{}(std::forward<Seq>(seq),std::forward<T>(init),std::forward<F>(f));
+      return quan::fun::fold_seq{}(std::forward<Seq>(seq),std::forward<T>(init),std::forward<F>(f));
    }
 
 }} // quan::fusion

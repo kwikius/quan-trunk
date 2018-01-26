@@ -63,7 +63,7 @@ namespace quan{namespace fun{
             FF,typename quan::fun::at_seq<0,mux_seq_type>::type
          >::type initialiser;
        
-         return folder{}(mux_seq_type(seqL,seqR),initialiser(),ff) ;
+         return folder{}(mux_seq_type{seqL,seqR},initialiser{},ff) ;
       }
 
       typedef inner_product_seq type;

@@ -43,11 +43,17 @@ namespace quan {namespace fun{
         };  
 
         template <typename Seq1>
-        matrix (matrix<R,C,Seq1> const & in)
+        constexpr matrix (matrix<R,C,Seq1> const & in)
         : elements(in.elements){}
 
-        matrix (Seq const & in )
+        constexpr matrix (Seq const & in )
         : elements(in){}
+        
+        constexpr matrix (matrix && in )
+        : elements(in.elements){}
+
+//         constexpr matrix (Seq && in )
+//        : elements(in){}
         
         template <int R1, int C1>
         constexpr 
