@@ -12,13 +12,13 @@
 
 void inner_product_test()
 {
-   auto seqL = quan::fun::vector16<
+   auto constexpr seqL = quan::fun::vector16<
          int,int,int,int,
          int,int,int,int,
          int,int,int,int,
          int,int,int,int >{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
 
-   auto seqR = quan::fun::vector16<
+   auto constexpr seqR = quan::fun::vector16<
          int,int,int,int,
          int,int,int,int,
          int,int,int,int,
@@ -26,12 +26,11 @@ void inner_product_test()
 
    typedef quan::fun::inner_product_seq::result<
          decltype(seqL),decltype(seqR),quan::operator_plus,quan::operator_times
-   >::type
-   result_type;
+   >::type result_type;
 
-   auto r = quan::fusion::inner_product(seqL,seqR,quan::operator_plus{},quan::operator_times{});
+   auto constexpr r = quan::fusion::inner_product(seqL,seqR,quan::operator_plus{},quan::operator_times{});
 
-   QUAN_CHECK( (std::is_same<decltype(r),double>::value) )
+   QUAN_CHECK( (std::is_same<decltype(r),const double>::value) )
    QUAN_CHECK( (std::is_same<result_type,double>::value) )
 
    int sum = 0;

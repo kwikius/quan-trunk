@@ -56,7 +56,7 @@ namespace {
          typedef static_float<0> zero;
          typedef static_float<1> one;
 
-         auto id2a 
+         auto constexpr id2a 
          = quan::fusion::make_matrix<2,2> 
          (
               one{}, zero{}
@@ -173,7 +173,7 @@ namespace {
 
    void matrix_column_test()
    {
-      auto m = quan::fusion::make_matrix<3,2> (
+      auto constexpr m = quan::fusion::make_matrix<3,2> (
           0.0,0.1
          ,1.0,1.1
          ,2.0,2.1
@@ -188,7 +188,7 @@ namespace {
 
          QUAN_CHECK((quan::fusion::num_elements<col0_type> == 3))
 
-         col0_type col0{m};
+         col0_type const col0{m};
 
          QUAN_CHECK((quan::fun::at_seq<0,col0_type>{}(col0) == 0.0));
          QUAN_CHECK((quan::fun::at_seq<1,col0_type>{}(col0) == 1.0));

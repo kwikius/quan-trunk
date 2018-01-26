@@ -121,7 +121,7 @@ namespace quan{ namespace fun{
          v12(T12()),v13(T13()),v14(T14()),v15(t15())
       {}*/
 
-      vector16(
+      constexpr vector16(
          t0_arg t0_in, t1_arg t1_in, t2_arg t2_in, t3_arg t3_in,
          t4_arg t4_in, t5_arg t5_in, t6_arg t6_in, t7_arg  t7_in,
          t8_arg t8_in, t9_arg t9_in, t10_arg t10_in, t11_arg t11_in,
@@ -146,7 +146,7 @@ namespace quan{ namespace fun{
       {}
 
       template<typename Seq>
-      vector16(Seq & seq,
+      constexpr vector16(Seq & seq,
          typename quan::where_<
           // quan::meta::and_<
                quan::fun::is_fun_sequence<Seq>,
@@ -175,7 +175,7 @@ namespace quan{ namespace fun{
       }
 
       template<typename Seq>
-      vector16(Seq const & seq,
+      constexpr vector16(Seq const & seq,
           typename quan::where_<
            // quan::meta::and_<
                quan::fun::is_fun_sequence<Seq>,

@@ -18,7 +18,7 @@ namespace {
             int,int,int,int,
             int,int,int,int >{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
 
-      auto seqR = quan::fun::vector16<
+      auto constexpr seqR = quan::fun::vector16<
             int,int,int,int,
             int,int,int,int,
             int,int,int,int,

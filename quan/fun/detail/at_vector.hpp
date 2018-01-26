@@ -27,16 +27,16 @@ namespace quan{ namespace fun{ namespace detail{
 
         typedef typename F::template result<typename Vector::t0>::type type;
 
-        type operator()(Vector & vect) const
+        constexpr type operator()(Vector & vect) const
         {
-            F f;
-            return f(vect.v0);
+           // F f;
+            return F{}(vect.v0);
         }
 
-        type operator()(Vector const & vect) const
+        constexpr type operator()(Vector const & vect) const
         {
-            F f;
-            return f(vect.v0);
+            //F f;
+            return F{}(vect.v0);
         }
     };
 
@@ -45,15 +45,15 @@ namespace quan{ namespace fun{ namespace detail{
         
         typedef typename F::template result<typename Vector::t1>::type type;
        
-        type operator()(Vector & vect) const
+        constexpr type operator()(Vector & vect) const
         {
-            F f;
-            return f(vect.v1);
+            //F f;
+            return F{}(vect.v1);
         }
-        type operator()(Vector const & vect) const
+        constexpr type operator()(Vector const & vect) const
         {
-            F f;
-            return f(vect.v1);
+           // F f;
+            return F{}(vect.v1);
         }
     };
 
@@ -62,16 +62,16 @@ namespace quan{ namespace fun{ namespace detail{
         
         typedef typename F::template result<typename Vector::t2>::type type;
        
-        type operator()(Vector & vect) const
+        constexpr type operator()(Vector & vect) const
         {
-            F f;
-            return f(vect.v2);
+            //F f;
+            return F{}(vect.v2);
         }
 
-        type operator()(Vector const & vect) const
+        constexpr type operator()(Vector const & vect) const
         {
-            F f;
-            return f(vect.v2);
+           // F f;
+            return F{}(vect.v2);
         }
     };
 
@@ -79,16 +79,16 @@ namespace quan{ namespace fun{ namespace detail{
     struct at_vector<3,Vector,F>{
         typedef typename F::template result<typename Vector::t3>::type type;
 
-        type operator()(Vector & vect) const
+        constexpr type operator()(Vector & vect) const
         {
-            F f;
-            return f(vect.v3);
+            //F f;
+            return F{}(vect.v3);
         }
 
-        type operator()(Vector const & vect) const
+        constexpr type operator()(Vector const & vect) const
         {
-            F f;
-            return f(vect.v3);
+            //F f;
+            return F{}(vect.v3);
         }
     };
 
@@ -97,15 +97,15 @@ namespace quan{ namespace fun{ namespace detail{
 
         typedef typename F::template result<typename Vector::t4>::type type;
         
-        type operator()(Vector & vect) const{
-            F f;
-            return f(vect.v4);
+       constexpr  type operator()(Vector & vect) const{
+          //  F f;
+            return F{}(vect.v4);
         }
    
-        type operator()(Vector const & vect) const
+        constexpr type operator()(Vector const & vect) const
         {
-            F f;
-            return f(vect.v4);
+           // F f;
+            return F{}(vect.v4);
         }
     };
 
@@ -114,16 +114,16 @@ namespace quan{ namespace fun{ namespace detail{
         
         typedef typename F::template result<typename Vector::t5>::type type;
       
-        type operator()(Vector & vect) const
+        constexpr type operator()(Vector & vect) const
         {
-            F f;
-            return f(vect.v5);
+           // F f;
+            return F{}(vect.v5);
         }
 
-        type operator()(Vector const & vect) const
+        constexpr type operator()(Vector const & vect) const
         {
-            F f;
-            return f(vect.v5);
+           // F f;
+            return F{}(vect.v5);
         }
     };
 
@@ -132,16 +132,16 @@ namespace quan{ namespace fun{ namespace detail{
         
         typedef typename F::template result<typename Vector::t6>::type type;
 
-        type operator()(Vector & vect) const
+        constexpr type operator()(Vector & vect) const
         {
-            F f;
-            return f(vect.v6);
+           // F f;
+            return F{}(vect.v6);
         }
 
-        type operator()(Vector const & vect) const
+        constexpr type operator()(Vector const & vect) const
         {
-            F f;
-            return f(vect.v6);
+           // F f;
+            return F{}(vect.v6);
         }
     };
 
@@ -150,16 +150,16 @@ namespace quan{ namespace fun{ namespace detail{
         
         typedef typename F::template result<typename Vector::t7>::type type;
               
-        type operator()(Vector & vect) const
+        constexpr type operator()(Vector & vect) const
         {
-            F f;
-            return f(vect.v7);
+           // F f;
+            return F{}(vect.v7);
         }
 
-        type operator()(Vector const & vect) const
+        constexpr type operator()(Vector const & vect) const
         {
-            F f;
-            return f(vect.v7);
+           // F f;
+            return F{}(vect.v7);
         }
     };
 
@@ -168,16 +168,16 @@ namespace quan{ namespace fun{ namespace detail{
         
         typedef typename F::template result<typename Vector::t8>::type type;
        
-        type operator()(Vector & vect) const
+        constexpr type operator()(Vector & vect) const
         {
-            F f;
-            return f(vect.v8);
+           // F f;
+            return F{}(vect.v8);
         }
 
-        type operator()(Vector const & vect) const
+        constexpr type operator()(Vector const & vect) const
         {
-            F f;
-            return f(vect.v8);
+           // F f;
+            return F{}(vect.v8);
         }
     };
 
@@ -186,16 +186,16 @@ namespace quan{ namespace fun{ namespace detail{
         
         typedef typename F::template result<typename Vector::t9>::type type;
    
-        type operator()(Vector & vect) const
+        constexpr type operator()(Vector & vect) const
         {
-            F f;
-            return f(vect.v9);
+           // F f;
+            return F{}(vect.v9);
         }
 
-        type operator()(Vector const & vect) const
+        constexpr type operator()(Vector const & vect) const
         {
-            F f;
-            return f(vect.v9);
+           // F f;
+            return F{}(vect.v9);
         }
     };
 
@@ -204,16 +204,16 @@ namespace quan{ namespace fun{ namespace detail{
         
         typedef typename F::template result<typename Vector::t10>::type type;
 
-        type operator()(Vector & vect) const
+        constexpr type operator()(Vector & vect) const
         {
-            F f;
-            return f(vect.v10);
+           // F f;
+            return F{}(vect.v10);
         }
 
-        type operator()(Vector const & vect) const
+        constexpr type operator()(Vector const & vect) const
         {
-            F f;
-            return f(vect.v10);
+           // F f;
+            return F{}(vect.v10);
         }
     };
 
@@ -222,16 +222,16 @@ namespace quan{ namespace fun{ namespace detail{
         
         typedef typename F::template result<typename Vector::t11>::type type;
         
-        type operator()(Vector & vect) const
+        constexpr type operator()(Vector & vect) const
         {
-            F f;
-            return f(vect.v11);
+           // F f;
+            return F{}(vect.v11);
         }
 
-        type operator()(Vector const & vect) const
+        constexpr type operator()(Vector const & vect) const
         {
-            F f;
-            return f(vect.v11);
+           // F f;
+            return F{}(vect.v11);
         }
     };
 
@@ -240,16 +240,16 @@ namespace quan{ namespace fun{ namespace detail{
         
         typedef typename F::template result<typename Vector::t12>::type type;
                 
-        type operator()(Vector & vect) const
+        constexpr type operator()(Vector & vect) const
         {
-            F f;
-            return f(vect.v12);
+           // F f;
+            return F{}(vect.v12);
         }
 
-        type operator()(Vector const & vect) const
+        constexpr type operator()(Vector const & vect) const
         {
-            F f;
-            return f(vect.v12);
+           // F f;
+            return F{}(vect.v12);
         }
     };
 
@@ -258,16 +258,16 @@ namespace quan{ namespace fun{ namespace detail{
         
         typedef typename F::template result<typename Vector::t13>::type type;
 
-        type operator()(Vector & vect) const
+        constexpr type operator()(Vector & vect) const
         {
-            F f;
-            return f(vect.v13);
+           // F f;
+            return F{}(vect.v13);
         }
 
-        type operator()(Vector const & vect) const
+        constexpr type operator()(Vector const & vect) const
         {
-            F f;
-            return f(vect.v13);
+           // F f;
+            return F{}(vect.v13);
         }
     };
 
@@ -276,16 +276,16 @@ namespace quan{ namespace fun{ namespace detail{
         
         typedef typename F::template result<typename Vector::t14>::type type;
         
-        type operator()(Vector & vect) const
+        constexpr type operator()(Vector & vect) const
         {
-            F f;
-            return f(vect.v14);
+           // F f;
+            return F{}(vect.v14);
         }
 
-        type operator()(Vector const & vect) const
+        constexpr type operator()(Vector const & vect) const
         {
-            F f;
-            return f(vect.v14);
+           // F f;
+            return F{}(vect.v14);
         }
     };
 
@@ -294,16 +294,16 @@ namespace quan{ namespace fun{ namespace detail{
         
         typedef typename F::template result<typename Vector::t15>::type type;
 
-        type operator()(Vector & vect) const
+        constexpr type operator()(Vector & vect) const
         {
-            F f;
-            return f(vect.v15);
+           // F f;
+            return F{}(vect.v15);
         }
 
-        type operator()(Vector const & vect) const
+        constexpr type operator()(Vector const & vect) const
         {
-            F f;
-            return f(vect.v15);
+           // F f;
+            return F{}(vect.v15);
         }
     };
 

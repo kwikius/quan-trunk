@@ -59,6 +59,7 @@ namespace quan{
         >::type result_type;
         static_assert(quan::meta::not_<std::is_const<A> >::value,"error");
         typedef typename std::add_lvalue_reference<A>::type first_arg_type;
+
         result_type operator() (
             first_arg_type a,
             typename meta::as_const_argument<B>::type b
@@ -74,6 +75,7 @@ namespace quan{
         >::type result_type;
         static_assert(quan::meta::not_<std::is_const<A> >::value,"error");
         typedef typename std::add_lvalue_reference<A>::type first_arg_type;
+
         result_type operator() (
             first_arg_type a,
             typename meta::as_const_argument<B>::type b
@@ -89,6 +91,7 @@ namespace quan{
         >::type result_type;
         static_assert(quan::meta::not_<std::is_const<A> >::value,"error");
         typedef typename std::add_lvalue_reference<A>::type first_arg_type;
+
         result_type operator() (
             first_arg_type a,
             typename meta::as_const_argument<B>::type b
@@ -104,6 +107,7 @@ namespace quan{
         >::type result_type;
         static_assert(quan::meta::not_<std::is_const<A> >::value,"error");
         typedef typename std::add_lvalue_reference<A>::type first_arg_type;
+
         result_type operator() (
             first_arg_type a,
             typename meta::as_const_argument<B>::type b
@@ -119,6 +123,7 @@ namespace quan{
         >::type result_type;
         static_assert(quan::meta::not_<std::is_const<A> >::value,"error");
         typedef typename std::add_lvalue_reference<A>::type first_arg_type;
+
         result_type operator() (
             first_arg_type a,
             typename meta::as_const_argument<B>::type b
@@ -134,6 +139,7 @@ namespace quan{
         >::type result_type;
         static_assert(quan::meta::not_<std::is_const<A> >::value,"error");
         typedef typename std::add_lvalue_reference<A>::type first_arg_type;
+
         result_type operator() (
             first_arg_type a,
             typename meta::as_const_argument<B>::type b
@@ -149,6 +155,7 @@ namespace quan{
         >::type result_type;
         static_assert(quan::meta::not_<std::is_const<A> >::value,"error");
         typedef typename std::add_lvalue_reference<A>::type first_arg_type;
+
         result_type operator() (
             first_arg_type a,
             typename meta::as_const_argument<B>::type b
@@ -164,6 +171,7 @@ namespace quan{
         >::type result_type;
         static_assert(quan::meta::not_<std::is_const<A> >::value,"error");
         typedef typename std::add_lvalue_reference<A>::type first_arg_type;
+
         result_type operator() (
             first_arg_type a,
             typename meta::as_const_argument<B>::type b
@@ -178,7 +186,9 @@ namespace quan{
             A,quan::meta::minus_equals,B
         >::type result_type;
         static_assert(quan::meta::not_<std::is_const<A> >::value,"error");
+
         typedef typename std::add_lvalue_reference<A>::type first_arg_type;
+
         result_type operator() (
             first_arg_type a,
             typename meta::as_const_argument<B>::type b
@@ -193,7 +203,9 @@ namespace quan{
             A,quan::meta::times_equals,B
         >::type result_type;
         static_assert(quan::meta::not_<std::is_const<A> >::value,"error");
+
         typedef typename std::add_lvalue_reference<A>::type first_arg_type;
+
         result_type operator() (
             first_arg_type a,
             typename meta::as_const_argument<B>::type b
@@ -208,7 +220,9 @@ namespace quan{
             A,quan::meta::divide_equals,B
         >::type result_type;
         static_assert(quan::meta::not_<std::is_const<A> >::value,"error");
+
         typedef typename std::add_lvalue_reference<A>::type first_arg_type;
+
         result_type operator() (
             first_arg_type a,
             typename meta::as_const_argument<B>::type b
@@ -222,6 +236,8 @@ namespace quan{
         typedef typename meta::binary_op<
             A,quan::meta::logical_or,B
         >::type result_type;
+         
+        constexpr 
         result_type operator() (
             typename meta::as_const_argument<A>::type a,
             typename meta::as_const_argument<B>::type b
@@ -231,9 +247,12 @@ namespace quan{
 
     template <typename A, typename B>
     struct binary_operator<A,quan::meta::logical_and,B>{
+
         typedef typename meta::binary_op<
             A,quan::meta::logical_and,B
         >::type result_type;
+
+        constexpr
         result_type operator() (
                 typename meta::as_const_argument<A>::type a,
                 typename meta::as_const_argument<B>::type b)const
@@ -242,9 +261,12 @@ namespace quan{
 
     template <typename A, typename B>
     struct binary_operator<A,quan::meta::bit_or,B>{
+
         typedef typename meta::binary_op<
             A,quan::meta::bit_or,B
-        >::type result_type;       
+        >::type result_type; 
+
+        constexpr       
         result_type operator() (
                 typename meta::as_const_argument<A>::type a,
                 typename meta::as_const_argument<B>::type b)const
@@ -253,9 +275,12 @@ namespace quan{
 
     template <typename A, typename B>
     struct binary_operator<A,quan::meta::bit_xor,B>{
+
         typedef typename meta::binary_op<
             A,quan::meta::bit_xor,B
-        >::type result_type;       
+        >::type result_type;
+
+        constexpr        
         result_type operator() (
                 typename meta::as_const_argument<A>::type a,
                 typename meta::as_const_argument<B>::type b)const
@@ -264,9 +289,12 @@ namespace quan{
 
     template <typename A, typename B>
     struct binary_operator<A,quan::meta::bit_and,B>{
+
         typedef typename meta::binary_op<
             A,quan::meta::bit_and,B
-        >::type result_type;       
+        >::type result_type;  
+
+        constexpr  
         result_type operator() (
                 typename meta::as_const_argument<A>::type a,
                 typename meta::as_const_argument<B>::type b)const
@@ -275,9 +303,12 @@ namespace quan{
 
     template <typename A, typename B>
     struct binary_operator<A,quan::meta::equal_to,B>{
+
         typedef typename meta::binary_op<
             A,quan::meta::equal_to,B
-        >::type result_type;       
+        >::type result_type;
+
+        constexpr  
         result_type operator() (
                 typename meta::as_const_argument<A>::type a,
                 typename meta::as_const_argument<B>::type b)const
@@ -286,9 +317,12 @@ namespace quan{
 
     template <typename A, typename B>
     struct binary_operator<A,quan::meta::not_equal_to,B>{
+
         typedef typename meta::binary_op<
             A,quan::meta::not_equal_to,B
-        >::type result_type;       
+        >::type result_type;
+
+        constexpr   
         result_type operator() (
                 typename meta::as_const_argument<A>::type a,
                 typename meta::as_const_argument<B>::type b)const
@@ -297,9 +331,12 @@ namespace quan{
 
     template <typename A, typename B>
     struct binary_operator<A,quan::meta::greater_equal,B>{
+
         typedef typename meta::binary_op<
             A,quan::meta::greater_equal,B
-        >::type result_type;       
+        >::type result_type;
+
+        constexpr   
         result_type operator() (
                 typename meta::as_const_argument<A>::type a,
                 typename meta::as_const_argument<B>::type b)const
@@ -308,9 +345,12 @@ namespace quan{
 
     template <typename A, typename B>
     struct binary_operator<A,quan::meta::less_equal,B>{
+
         typedef typename meta::binary_op<
             A,quan::meta::less_equal,B
-        >::type result_type;       
+        >::type result_type;
+
+        constexpr     
         result_type operator() (
                 typename meta::as_const_argument<A>::type a,
                 typename meta::as_const_argument<B>::type b)const
@@ -319,9 +359,12 @@ namespace quan{
 
    template <typename A, typename B>
     struct binary_operator<A,quan::meta::greater,B>{
+
         typedef typename meta::binary_op<
             A,quan::meta::greater,B
-        >::type result_type;       
+        >::type result_type;
+     
+        constexpr
         result_type operator() (
                 typename meta::as_const_argument<A>::type a,
                 typename meta::as_const_argument<B>::type b)const
@@ -330,9 +373,12 @@ namespace quan{
 
     template <typename A, typename B>
     struct binary_operator<A,quan::meta::less,B>{
+
         typedef typename meta::binary_op<
             A,quan::meta::less,B
-        >::type result_type;       
+        >::type result_type;
+
+        constexpr   
         result_type operator() (
                 typename meta::as_const_argument<A>::type a,
                 typename meta::as_const_argument<B>::type b)const
@@ -341,9 +387,12 @@ namespace quan{
     
 template <typename A, typename B>
     struct binary_operator<A,quan::meta::shift_right,B>{
+
         typedef typename meta::binary_op<
             A,quan::meta::shift_right,B
-        >::type result_type;       
+        >::type result_type; 
+
+        constexpr     
         result_type operator() (
                 typename meta::as_const_argument<A>::type a,
                 typename meta::as_const_argument<B>::type b)const
@@ -352,9 +401,12 @@ template <typename A, typename B>
 
   template <typename A, typename B>
     struct binary_operator<A,quan::meta::shift_left,B>{
+
         typedef typename meta::binary_op<
             A,quan::meta::shift_left,B
-        >::type result_type;       
+        >::type result_type;
+
+        constexpr    
         result_type operator() (
                 typename meta::as_const_argument<A>::type a,
                 typename meta::as_const_argument<B>::type b)const
@@ -366,9 +418,12 @@ template <typename A, typename B>
 
     template <typename A, typename B>
     struct binary_operator<A,quan::meta::plus,B>{
+
         typedef typename meta::binary_op<
             A,quan::meta::plus,B
-        >::type result_type;       
+        >::type result_type;
+ 
+        constexpr
         result_type operator() (
                 typename meta::as_const_argument<A>::type a,
                 typename meta::as_const_argument<B>::type b)const
@@ -378,9 +433,12 @@ template <typename A, typename B>
     
    template <typename A, typename B>
     struct binary_operator<A,quan::meta::minus,B>{
+
         typedef typename meta::binary_op<
             A,quan::meta::minus,B
-        >::type result_type;       
+        >::type result_type;
+
+        constexpr
         result_type operator() (
                 typename meta::as_const_argument<A>::type a,
                 typename meta::as_const_argument<B>::type b)const
@@ -389,9 +447,12 @@ template <typename A, typename B>
 
     template <typename A, typename B>
     struct binary_operator<A,quan::meta::times,B>{
+
         typedef typename meta::binary_op<
             A,quan::meta::times,B
-        >::type result_type;       
+        >::type result_type;
+ 
+        constexpr     
         result_type operator() (
                 typename meta::as_const_argument<A>::type a,
                 typename meta::as_const_argument<B>::type b)const
@@ -400,9 +461,12 @@ template <typename A, typename B>
 
     template <typename A, typename B>
     struct binary_operator<A,quan::meta::divides,B>{
+
         typedef typename meta::binary_op<
             A,quan::meta::divides,B
-        >::type result_type;       
+        >::type result_type;
+
+        constexpr  
         result_type operator() (
                 typename meta::as_const_argument<A>::type a,
                 typename meta::as_const_argument<B>::type b)const

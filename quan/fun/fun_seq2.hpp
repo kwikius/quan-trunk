@@ -52,7 +52,7 @@ namespace quan{namespace fun{
       lhs_arg_type seqL;
       rhs_arg_type seqR;
       
-      fun_seq2(lhs_arg_type seqL_in, rhs_arg_type seqR_in)
+      constexpr fun_seq2(lhs_arg_type seqL_in, rhs_arg_type seqR_in)
       : seqL(seqL_in),seqR(seqR_in){}
       
    };
@@ -72,16 +72,16 @@ namespace quan{namespace fun{
        typedef typename at_seq<I,SeqR,as_const_ref>::type rhs_type;       
        typedef typename F::template result<lhs_type,rhs_type>::type type;
        
-       type operator()(fun_seq2<F,SeqL,SeqR>  & seq) const
+       constexpr type operator()(fun_seq2<F,SeqL,SeqR>  & seq) const
        {
-         int x= 1;
-         auto_at_seq<I,SeqL> lhs_f;
-         auto_at_seq<I,SeqR> rhs_f;
-         F f;
-         return f(lhs_f(seq.seqL),rhs_f(seq.seqR));
+        // int x= 1;
+         typedef auto_at_seq<I,SeqL> lhs_f;
+         typedef auto_at_seq<I,SeqR> rhs_f;
+        // F f;
+         return F{}(lhs_f{}(seq.seqL),rhs_f{}(seq.seqR));
        }
 
-       type operator()(fun_seq2<F,SeqL,SeqR> const & seq) const
+       constexpr type operator()(fun_seq2<F,SeqL,SeqR> const & seq) const
        {
          typedef typename quan::meta::if_<
             std::is_same<
@@ -99,10 +99,10 @@ namespace quan{namespace fun{
             as_value,
             as_const_ref
          >::type rhs_access;
-         at_seq<I,SeqL,lhs_access> lhs_f;
-         at_seq<I,SeqR,rhs_access> rhs_f;
-         F f;
-         return f(lhs_f(seq.seqL),rhs_f(seq.seqR));
+         typedef at_seq<I,SeqL,lhs_access> lhs_f;
+         typedef at_seq<I,SeqR,rhs_access> rhs_f;
+         //F f;
+         return F{}(lhs_f{}(seq.seqL),rhs_f{}(seq.seqR));
        }
    };
    

@@ -42,14 +42,14 @@ namespace {
           ,0.0, 1.0 , 0.0
           ,0.0, 0.0 , 1.0
        );
-      // std::cout << "sizeof ( m1 ) == " << sizeof (m1) <<'\n';
+     //  std::cout << "sizeof ( m1 ) == " << sizeof (m1) <<'\n';
        auto constexpr m2 = quan::fusion::make_matrix<3,3>(
            2.0, 0.0 , 0.0
           ,0.0, 2.0 , 0.0
           ,0.0, 0.0 , 2.0
        );
      //  std::cout << "sizeof ( m2 ) == " << sizeof (m2) <<'\n';
-       auto const result = m1 * m2;
+       auto constexpr result = m1 * m2;
 
        QUAN_CHECK( (result.at<0,0>() == 2.0))
        QUAN_CHECK( (result.at<0,1>() == 0.0))
@@ -94,9 +94,9 @@ namespace {
 
     //  std::cout << "sizeof ( m2 ) == " << sizeof (m2) <<'\n';
 
-      auto const result = m1 * m2;
+      auto constexpr result = m1 * m2;
 
-    //  std::cout << "sizeof ( result ) == " << sizeof (result) <<'\n';
+     // std::cout << "sizeof ( result ) == " << sizeof (result) <<'\n';
 
       QUAN_CHECK( is_static_value(result.at<0,0>()) )
       QUAN_CHECK( (static_cast<bool>(result.at<0,0>() == two{})))
@@ -154,9 +154,9 @@ namespace {
 
      // std::cout << "sizeof ( m2 ) == " << sizeof (m2) <<'\n';
 
-      auto const result = m1 * m2;
+      auto constexpr result = m1 * m2;
 
-    //  std::cout << "sizeof ( result ) == " << sizeof (result) <<'\n';
+     // std::cout << "sizeof ( result ) == " << sizeof (result) <<'\n';
 
       QUAN_CHECK( !is_static_value(result.at<0,0>()) )
       QUAN_CHECK( (result.at<0,0>() == two{}))

@@ -12,7 +12,7 @@ void fold_test()
 
    QUAN_CHECK(quan::fun::is_fun_sequence<decltype(seq)>::value == true)
 
-   auto const r = quan::fusion::fold(seq,0,quan::operator_plus{});
+   auto constexpr r = quan::fusion::fold(seq,0,quan::operator_plus{});
 
    QUAN_CHECK( (std::is_same<decltype(r),const double>::value))
 
