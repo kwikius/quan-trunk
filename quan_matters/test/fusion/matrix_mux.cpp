@@ -16,6 +16,7 @@
 #include <quan/reciprocal_length.hpp>
 #include <quan/fusion/static_value.hpp>
 #include <quan/fixed_quantity/literal.hpp>
+#include <typeinfo>
 
 namespace {
 
@@ -35,20 +36,19 @@ namespace {
 
    void matrix_mux_result_test1()
    {
-      // std::cout << "matrix mux 1\n";
-       //std::cout << "sizeof double == " << sizeof (double) <<'\n';
+
        auto constexpr m1 = quan::fusion::make_matrix<3,3>(
            1.0, 0.0 , 0.0
           ,0.0, 1.0 , 0.0
           ,0.0, 0.0 , 1.0
        );
-     //  std::cout << "sizeof ( m1 ) == " << sizeof (m1) <<'\n';
+
        auto constexpr m2 = quan::fusion::make_matrix<3,3>(
            2.0, 0.0 , 0.0
           ,0.0, 2.0 , 0.0
           ,0.0, 0.0 , 2.0
        );
-     //  std::cout << "sizeof ( m2 ) == " << sizeof (m2) <<'\n';
+
        auto constexpr result = m1 * m2;
 
        QUAN_CHECK( (result.at<0,0>() == 2.0))
@@ -62,10 +62,8 @@ namespace {
        QUAN_CHECK( (result.at<2,0>() == 0.0))
        QUAN_CHECK( (result.at<2,1>() == 0.0))
        QUAN_CHECK( (result.at<2,2>() == 2.0))
-      // std::cout << "sizeof ( result ) == " << sizeof (result) <<'\n';
 
        QUAN_CHECK(sizeof (result) == 9 * sizeof(double));
-
    }
 
    template <int64_t N, int64_t D= 1>
@@ -77,14 +75,12 @@ namespace {
 
    void matrix_mux_result_test2()
    {
-      // std::cout << "matrix mux 2\n";
+
       auto constexpr m1 = quan::fusion::make_matrix<3,3>(
         one{}, zero{} , zero{}
        ,zero{}, one{} , zero{}
        ,zero{}, zero{}, one{}
       );
-
-     // std::cout << "sizeof ( m1 ) == " << sizeof (m1) <<'\n';
 
       auto constexpr m2 = quan::fusion::make_matrix<3,3>(
         two{}, zero{} , zero{}
@@ -92,11 +88,7 @@ namespace {
        ,zero{}, zero{}, two{}
       );
 
-    //  std::cout << "sizeof ( m2 ) == " << sizeof (m2) <<'\n';
-
       auto constexpr result = m1 * m2;
-
-     // std::cout << "sizeof ( result ) == " << sizeof (result) <<'\n';
 
       QUAN_CHECK( is_static_value(result.at<0,0>()) )
       QUAN_CHECK( (static_cast<bool>(result.at<0,0>() == two{})))
@@ -137,14 +129,11 @@ namespace {
 
    void matrix_mux_result_test3()
    {
-     // std::cout << "matrix mux 3\n";
       auto constexpr m1 = quan::fusion::make_matrix<3,3>(
         one{}, zero{} , zero{}
        ,zero{}, one{} , zero{}
        ,zero{}, zero{}, one{}
       );
-
-     // std::cout << "sizeof ( m1 ) == " << sizeof (m1) <<'\n';
 
       auto constexpr m2 = quan::fusion::make_matrix<3,3>(
         2, zero{} , zero{}
@@ -152,44 +141,65 @@ namespace {
        ,zero{}, zero{}, 2
       );
 
-     // std::cout << "sizeof ( m2 ) == " << sizeof (m2) <<'\n';
-
       auto constexpr result = m1 * m2;
 
-     // std::cout << "sizeof ( result ) == " << sizeof (result) <<'\n';
+      auto constexpr r00 = result.at<0,0>();
+
+      QUAN_CHECK( !is_static_value(r00) )
+      QUAN_CHECK( (r00 == two{}))
+      QUAN_CHECK( (r00 == 2))
 
       QUAN_CHECK( !is_static_value(result.at<0,0>()) )
       QUAN_CHECK( (result.at<0,0>() == two{}))
       QUAN_CHECK( (result.at<0,0>() == 2))
 
+      auto constexpr r01 = result.at<0,1>();
+      QUAN_CHECK( is_static_value(r01) )
+      QUAN_CHECK( (static_cast<bool>(r01 == zero{})))
+      QUAN_CHECK( (r01 == 0))
+
       QUAN_CHECK( is_static_value(result.at<0,1>()) )
       QUAN_CHECK( (static_cast<bool>(result.at<0,1>() == zero{})))
       QUAN_CHECK( (result.at<0,1>() == 0))
 
+      auto constexpr r02 = result.at<0,2>();
+      QUAN_CHECK( (static_cast<bool>(r02 == zero{})))
       QUAN_CHECK( is_static_value(result.at<0,2>()) )
       QUAN_CHECK( (static_cast<bool>(result.at<0,2>() == zero{})))
       QUAN_CHECK( (result.at<0,2>() == 0))
 
+      auto constexpr r10 = result.at<1,0>();
+      QUAN_CHECK( (r10 == 0));
       QUAN_CHECK( is_static_value(result.at<1,0>()) )
       QUAN_CHECK( (static_cast<bool>(result.at<1,0>() == zero{})))
       QUAN_CHECK( (result.at<1,0>() == 0))
 
+      auto constexpr r11 = result.at<1,1>();
+      QUAN_CHECK( (r11 == 2));
       QUAN_CHECK( !is_static_value(result.at<1,1>()) )
       QUAN_CHECK( (result.at<1,1>() == two{}))
       QUAN_CHECK( (result.at<1,1>() == 2))
 
+      auto constexpr r12 = result.at<1,2>();
+      QUAN_CHECK( (r12 == 0));
       QUAN_CHECK( is_static_value(result.at<1,2>()) )
       QUAN_CHECK( (static_cast<bool>(result.at<1,2>() == zero{})))
       QUAN_CHECK( (result.at<1,2>() == 0))
 
+      auto constexpr r20 = result.at<2,0>();
+      QUAN_CHECK( (r20 == 0));
       QUAN_CHECK( is_static_value(result.at<2,0>()) )
       QUAN_CHECK( (static_cast<bool>(result.at<2,0>() == zero{})))
       QUAN_CHECK( (result.at<2,0>() == 0))
 
+      auto constexpr r21 = result.at<2,1>();
+      QUAN_CHECK( (r21 == 0));
       QUAN_CHECK( is_static_value(result.at<2,1>()) )
       QUAN_CHECK( (static_cast<bool>(result.at<2,1>() == zero{})))
       QUAN_CHECK( (result.at<2,1>() == 0))
 
+      auto constexpr r22 = result.at<2,2>();
+      QUAN_CHECK( (r22 == 2));
       QUAN_CHECK(! is_static_value(result.at<2,2>()) )
       QUAN_CHECK( (result.at<2,2>() == two{}))
       QUAN_CHECK( (result.at<2,2>() == 2))
