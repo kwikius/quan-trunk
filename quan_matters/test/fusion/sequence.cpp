@@ -2,6 +2,8 @@
 #include <quan/concepts/fusion/sequence.hpp>
 #include <quan/fun/vector16.hpp>
 
+#include <quan/fusion/make_vector.hpp>
+
 #include <quan_matters/test/test.hpp>
 
 #if ( __cplusplus < 201402L )
@@ -44,10 +46,16 @@ namespace {
       quan::fun::at<2>(seqL) = 1;
       QUAN_CHECK(quan::fun::at<2>(seqL) == 1);
    }
+
+   void sequence_variadic_tpl_vector_test()
+   {
+     
+   }
 }
 
 void sequence_test()
 {
    sequence_fun_vector_test();
+   sequence_variadic_tpl_vector_test();
 }
 
