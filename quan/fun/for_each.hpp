@@ -140,7 +140,7 @@ namespace quan{ namespace fun{
    {
       detail::for_each_in_seq_n<size_seq<Sequence>::value -2> ff;
       ff(seq,f);
-      f_back(at_seq<(size_seq<Sequence>::value -1),Sequence,as_const_ref>()(seq));
+      f_back(at_seq<(size_seq<Sequence>::value -1),Sequence,as_value>{}(seq));
    }
    
    template <typename Sequence,typename F, typename Fback>
@@ -153,7 +153,7 @@ namespace quan{ namespace fun{
    >::type
    for_each_and_last(Sequence const & seq,F const & f, Fback const & f_back )
    {
-      f_back(at_seq<0,Sequence,as_const_ref>()(seq));
+      f_back(at_seq<0,Sequence,as_value>()(seq));
    }
    
    namespace impl_detail{
