@@ -35,15 +35,15 @@ namespace quan{ namespace fun {namespace detail{
       void
       operator()(Sequence& a, F const & f)const
       {
-         at_seq<0,Sequence,as_ref> at;
-         f(at(a));
+         typedef at_seq<0,Sequence,as_ref> at;
+         f(at{}(a));
       }
       template <typename Sequence, typename F>
       void
       operator()(Sequence const& a, F const & f)const
       {
-         at_seq<0,Sequence,as_const_ref> at;
-         f(at(a));
+         typedef at_seq<0,Sequence,as_value> at;
+         f(at{}(a));
       }
       typedef for_each_in_seq_n type;
    };
@@ -55,20 +55,20 @@ namespace quan{ namespace fun {namespace detail{
       operator()(Sequence& a, F const & f)const
       {
          static_assert( quan::fun::size_seq<Sequence>::value >= N ,"error" );
-         for_each_in_seq_n<N-1> prev;
-         prev(a,f);
-         at_seq<N,Sequence,as_ref> at;
-         f(at(a));
+         typedef for_each_in_seq_n<N-1> prev;
+         prev{}(a,f);
+         typedef at_seq<N,Sequence,as_ref> at;
+         f(at{}(a));
       }
       template <typename Sequence, typename F>
       void
       operator()(Sequence const & a, F const & f)const
       {
          static_assert( quan::fun::size_seq<Sequence>::value >= N ,"error" );
-         for_each_in_seq_n<N-1> prev;
-         prev(a,f);
-         at_seq<N,Sequence,as_const_ref> at;
-         f(at(a));
+         typedef for_each_in_seq_n<N-1> prev;
+         prev{}(a,f);
+         typedef at_seq<N,Sequence,as_value> at;
+         f(at{}(a));
       }
       typedef for_each_in_seq_n type;
    };
