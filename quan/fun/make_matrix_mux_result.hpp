@@ -111,20 +111,20 @@ namespace quan{ namespace fun{
       }
    };
 
-   template <typename Matrix1, typename Matrix2>
-   struct matrix_initialiser{
-      
-      typedef detail::eval_matrix_mux_dot<Matrix1,Matrix2> elements_type;
-      typedef typename seq_arg_type<Matrix1>::type lhs_type;
-      typedef typename seq_arg_type<Matrix2>::type rhs_type;
-      const static int rows = elements_type::rows;
-      const static int cols = elements_type::cols;
-      elements_type elements;
-      constexpr 
-      matrix_initialiser(lhs_type m1, rhs_type m2)
-      :elements{m1,m2}{}
-      typedef matrix_initialiser type;
-   };
+//   template <typename Matrix1, typename Matrix2>
+//   struct matrix_initialiser{
+//      
+//      typedef detail::eval_matrix_mux_dot<Matrix1,Matrix2> elements_type;
+//      typedef typename seq_arg_type<Matrix1>::type lhs_type;
+//      typedef typename seq_arg_type<Matrix2>::type rhs_type;
+//      const static int rows = elements_type::rows;
+//      const static int cols = elements_type::cols;
+//      elements_type elements;
+//      constexpr 
+//      matrix_initialiser(lhs_type m1, rhs_type m2)
+//      :elements{m1,m2}{}
+//      typedef matrix_initialiser type;
+//   };
    
    namespace detail{
 
