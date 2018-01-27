@@ -72,7 +72,7 @@ namespace quan{ namespace fun{
       typename quan::where_c<
          (N==0), 
          TL 
-      >::type
+      >::type const &
       at() const
       {
          return m_value;
@@ -83,7 +83,7 @@ namespace quan{ namespace fun{
       typename quan::where_c<
          (N!=0), 
          typename result<N>::type
-      >::type 
+      >::type const &
       at() const
       {
          return vector<TR...>:: template at<(N-1)>();
@@ -134,7 +134,7 @@ namespace quan{ namespace fun{
       typename quan::where_c<
          (N==0), 
          T 
-      >::type
+      >::type const &
       at() const
       {
          return m_value;
@@ -152,15 +152,6 @@ namespace quan{ namespace fun{
       }
    };
 
-#if 0
-   template <>
-   struct vector<>
-   {
-      typedef vector type;
-      typedef quan::fun::as_value access_type;
-      static constexpr int size = 0;
-   };
-#endif
 }} //quan::fun
 
 #endif // QUAN_FUN_VECTOR_HPP_INCLUDED
