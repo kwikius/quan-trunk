@@ -36,7 +36,7 @@ namespace quan{ namespace fun{
    namespace detail{
    
        template <typename Matrix1, typename Matrix2>
-       struct eval_matrix_mux_dot{
+       struct matrix_initialiser{
 
       // at_seq<N,eval.. > --> at<  N/cols , N %cols >
          typedef typename seq_arg_type<Matrix1>::type lhs_type;
@@ -47,7 +47,7 @@ namespace quan{ namespace fun{
          static constexpr int cols = Matrix2::cols;
          typedef quan::fun::as_value access_type;
 
-         constexpr eval_matrix_mux_dot(lhs_type m1_in, rhs_type m2_in)
+         constexpr matrix_initialiser(lhs_type m1_in, rhs_type m2_in)
          :m1{m1_in},m2{m2_in}{}
 
          template <int R, int C>
@@ -75,14 +75,14 @@ namespace quan{ namespace fun{
 
    template <typename Matrix1, typename Matrix2>
    struct is_fun_sequence_impl<
-      detail::eval_matrix_mux_dot<Matrix1,Matrix2> 
+      detail::matrix_initialiser<Matrix1,Matrix2> 
    > : std::true_type{};
 
    template <typename Matrix1, typename Matrix2>
    struct size_seq_impl<
-      detail::eval_matrix_mux_dot<Matrix1,Matrix2> 
+      detail::matrix_initialiser<Matrix1,Matrix2> 
    >{
-      typedef detail::eval_matrix_mux_dot<Matrix1,Matrix2> mat_init;
+      typedef detail::matrix_initialiser<Matrix1,Matrix2> mat_init;
    
       static constexpr int value = mat_init::rows * mat_init::cols;
    };
@@ -90,11 +90,11 @@ namespace quan{ namespace fun{
    template <int I,typename Matrix1, typename Matrix2, typename F>
    struct at_seq_impl<
       I,
-      detail::eval_matrix_mux_dot<Matrix1,Matrix2>,
+      detail::matrix_initialiser<Matrix1,Matrix2>,
       F
    >{
       
-      typedef detail::eval_matrix_mux_dot<Matrix1,Matrix2> mat_init;
+      typedef detail::matrix_initialiser<Matrix1,Matrix2> mat_init;
    
       static constexpr int row_pos = (I / mat_init::cols);
       static constexpr int col_pos = (I % mat_init::cols);
@@ -114,7 +114,7 @@ namespace quan{ namespace fun{
 //   template <typename Matrix1, typename Matrix2>
 //   struct matrix_initialiser{
 //      
-//      typedef detail::eval_matrix_mux_dot<Matrix1,Matrix2> elements_type;
+//      typedef detail::matrix_initialiser<Matrix1,Matrix2> elements_type;
 //      typedef typename seq_arg_type<Matrix1>::type lhs_type;
 //      typedef typename seq_arg_type<Matrix2>::type rhs_type;
 //      const static int rows = elements_type::rows;
@@ -133,21 +133,21 @@ namespace quan{ namespace fun{
 
       template < typename Matrix1, typename Matrix2>
       struct make_matrix_mux_result_n<0,0,Matrix1, Matrix2>{
-         typedef typename eval_matrix_mux_dot<Matrix1,Matrix2>::template result<0,0>::type result_type;
+         typedef typename matrix_initialiser<Matrix1,Matrix2>::template result<0,0>::type result_type;
          typedef typename push_back_seq<result_type,nil>::type type;
       };
 
       template <int R, typename Matrix1, typename Matrix2>
       struct make_matrix_mux_result_n<R,0,Matrix1, Matrix2>{
          typedef typename make_matrix_mux_result_n<R-1,Matrix2::cols-1,Matrix1,Matrix2>::type prev_type;
-         typedef typename eval_matrix_mux_dot<Matrix1,Matrix2>::template result<R,0>::type result_type;
+         typedef typename matrix_initialiser<Matrix1,Matrix2>::template result<R,0>::type result_type;
          typedef typename push_back_seq<result_type,prev_type>::type type;
       };
 
       template <int R, int C, typename Matrix1, typename Matrix2>
       struct make_matrix_mux_result_n{
          typedef typename make_matrix_mux_result_n<R,C-1,Matrix1,Matrix2>::type prev_type;
-         typedef typename eval_matrix_mux_dot<Matrix1,Matrix2>::template result<R,C>::type result_type;
+         typedef typename matrix_initialiser<Matrix1,Matrix2>::template result<R,C>::type result_type;
          typedef typename quan::fun::push_back_seq<result_type,prev_type>::type type;
       };
       
