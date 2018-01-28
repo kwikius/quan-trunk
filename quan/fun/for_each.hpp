@@ -52,8 +52,8 @@ namespace quan{ namespace fun{
    >::type
    for_each(Sequence & seq,F const & f)
    {
-      detail::for_each_in_seq_n<size_seq<Sequence>::value -1> ff;
-      ff(seq,f);
+      typedef detail::for_each_in_seq_n<size_seq<Sequence>::value -1> ff;
+      ff{}(seq,f);
    }
    
    template <typename Sequence,typename F>
@@ -63,11 +63,9 @@ namespace quan{ namespace fun{
    >::type
    for_each(Sequence const & seq,F const & f)
    {
-      detail::for_each_in_seq_n<size_seq<Sequence>::value -1> ff;
-      ff(seq,f);
+      typedef detail::for_each_in_seq_n<size_seq<Sequence>::value -1> ff;
+      ff{}(seq,f);
    }
-
-
 
 //overload for_each to wrap integral iterator...
    template <typename T, typename F>
@@ -92,8 +90,8 @@ namespace quan{ namespace fun{
    >::type
    for_each_and_last(Sequence & seq,F const & f, Fback const & f_back )
    {
-      detail::for_each_in_seq_n<size_seq<Sequence>::value -2> ff;
-      ff(seq,f);
+      typedef detail::for_each_in_seq_n<size_seq<Sequence>::value -2> ff;
+      ff{}(seq,f);
       f_back(at_seq<(size_seq<Sequence>::value -1),Sequence,as_ref>()(seq));
    }
 
@@ -112,7 +110,6 @@ namespace quan{ namespace fun{
       iterator last = seq.end()-1;
       std::for_each(seq.begin(),last,f);
       f_back(*last);
-    
    }
    
    template <typename Sequence,typename F, typename Fback>
@@ -125,21 +122,21 @@ namespace quan{ namespace fun{
    >::type
    for_each_and_last(Sequence & seq,F const & f, Fback const & f_back )
    {
-      f_back(at_seq<0,Sequence,as_ref>()(seq));
+      f_back(at_seq<0,Sequence,as_value>()(seq));
    }
    
    template <typename Sequence,typename F, typename Fback>
    typename quan::where_<
        quan::meta::and_<
          is_fun_sequence<Sequence>,
-         quan::meta::bool_<(size_seq<Sequence>::value >1)>
+         quan::meta::bool_<(size_seq<Sequence>::value > 1)>
       >,
       void
    >::type
    for_each_and_last(Sequence const & seq,F const & f, Fback const & f_back )
    {
-      detail::for_each_in_seq_n<size_seq<Sequence>::value -2> ff;
-      ff(seq,f);
+      typedef detail::for_each_in_seq_n<size_seq<Sequence>::value -2> ff;
+      ff{}(seq,f);
       f_back(at_seq<(size_seq<Sequence>::value -1),Sequence,as_value>{}(seq));
    }
    
@@ -153,7 +150,7 @@ namespace quan{ namespace fun{
    >::type
    for_each_and_last(Sequence const & seq,F const & f, Fback const & f_back )
    {
-      f_back(at_seq<0,Sequence,as_value>()(seq));
+      f_back(at_seq<0,Sequence,as_value>{}(seq));
    }
    
    namespace impl_detail{
@@ -174,8 +171,8 @@ namespace quan{ namespace fun{
           template <typename T,int N,typename F>
           void operator() (T (&ar)[N], F const & f) const
           {
-            quan::fun::array_wrapper<T,N> arw(ar);
-            quan::fun::for_each(arw,f);
+            //quan::fun::array_wrapper<T,N> arw(ar);
+            quan::fun::for_each(quan::fun::array_wrapper<T,N>{ar},f);
           }
       };
 
@@ -188,8 +185,8 @@ namespace quan{ namespace fun{
          impl_detail::large_array_for_each,
          impl_detail::small_array_for_each
       >::type fun;
-      fun ff;
-      ff(ar,f);
+      //fun ff;
+      fun{}(ar,f);
      /* array_wrapper<T,N> arw(ar);
       for_each(arw,f);*/
    }
