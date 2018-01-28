@@ -13,9 +13,19 @@ namespace quan{ namespace fusion {
 #endif
    inline constexpr
    typename quan::fun::inner_product_seq::result<SeqL,SeqR,FF,F>::type
-   inner_product(SeqL & seql, SeqR & seqr, FF const & ff, F const & f)
+   inner_product(SeqL && seql, SeqR && seqr, FF && ff, F && f)
    {
-       return quan::fun::inner_product_seq{}(seql,seqr,ff,f);
+       static_assert( std::is_reference<
+         typename quan::fun::inner_product_seq::result<SeqL,SeqR,FF,F>::type
+       >::value == false,
+       "no ref return");
+
+       return quan::fun::inner_product_seq{}(
+         std::forward<SeqL>(seql),
+            std::forward<SeqR>(seqr),
+               std::forward<FF>(ff),
+                  std::forward<F>(f)
+       );
    }
 
 } } // quan::fusion
