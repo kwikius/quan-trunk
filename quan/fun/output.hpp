@@ -68,8 +68,8 @@ namespace quan{ namespace fun{
    detail::output_<CharType>
    output(std::basic_ostream<CharType>& os, CharType  sep)
    {
-      std::basic_string<CharType> ss = sep;
-      return detail::output_<CharType>(os,ss);
+      
+      return detail::output_<CharType>(os,std::basic_string<CharType>{sep});
    }
 
 }}//quan::fun
