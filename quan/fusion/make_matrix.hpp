@@ -2,6 +2,7 @@
 #define QUAN_FUSION_MAKE_MATRIX_HPP_INCLUDED
 
 #include <quan/fun/matrix.hpp>
+#include <quan/fusion/make_vector.hpp>
 #include <quan/concepts/fusion/sequence.hpp>
 #include <tuple>
 
@@ -19,10 +20,10 @@ namespace quan{ namespace fusion{
 
    template<int R, int C, typename... Elements>
      requires sizeof ...(Elements) == R * C
-   inline constexpr quan::fun::matrix<R,C,std::tuple<Elements...> >
+   inline constexpr quan::fun::matrix<R,C,quan::fun::vector<typename quan::meta::strip_cr<Elements>::type...> >
    make_matrix(Elements&&... args)
    {
-      return make_matrix<R,C>(std::forward_as_tuple(args...));
+      return make_matrix<R,C>(quan::fusion::make_vector(args...));
    }
 
 #else
@@ -44,11 +45,11 @@ namespace quan{ namespace fusion{
    inline constexpr 
    typename quan::where_c<
       ( sizeof ...(Elements) == R * C)
-     ,quan::fun::matrix<R,C,std::tuple<Elements...> >
+     ,quan::fun::matrix<R,C,quan::fun::vector<typename quan::meta::strip_cr<Elements>::type...> >
    >::type
    make_matrix(Elements&&... args)
    {
-      return make_matrix<R,C>(std::forward_as_tuple(args...));
+      return make_matrix<R,C>(quan::fusion::make_vector(args...));
    }
 
 #endif
