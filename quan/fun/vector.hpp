@@ -48,13 +48,13 @@ namespace quan{ namespace fun{
       typedef quan::fun::as_value access_type;
       static constexpr int size = (sizeof  ...(TR)) + 1;
       
-      template <typename S, typename T1 = typename quan::where_<quan::fun::is_fun_sequence<S> >::type>
+      template <typename S, typename = typename quan::where_<quan::fun::is_fun_sequence<S> >::type>
       constexpr 
       vector( S const & s )
       :vector<TR...>{s,quan::meta::int32<1>{} },m_value { quan::fun::at_seq<0,S>{}(s) }{}
 
     protected:
-      template <typename S, int N, typename T1 = typename quan::where_<quan::fun::is_fun_sequence<S> >::type>
+      template <typename S, int N, typename = typename quan::where_<quan::fun::is_fun_sequence<S> >::type>
       constexpr 
       vector( S const & s,quan::meta::int32<N> )
       :vector<TR...>{s,quan::meta::int32<N+1>{} },m_value { quan::fun::at_seq<N,S>{}(s) }{}
