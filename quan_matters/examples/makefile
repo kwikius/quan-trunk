@@ -10,7 +10,10 @@ ifeq ($(USE_CONCEPTS),True)
 CXXFLAGS    += -fconcepts
 endif
 
-.PHONY : all test clean
+DomDir = dom/
+FusionDir = fusion/
+
+.PHONY : all test clean dom fusion
 
 all : test
 
@@ -19,7 +22,7 @@ angles2.exe custom_def_unit.exe flexible_two_arg_cmath_functions1.exe  intdiv.ex
 box_example.exe  johnson_noise.exe  SI_units_syntax.exe \
 capacitor_time_curve.exe  defining_own_unit.exe lab_example.exe synthetic_dims.exe \
 gravity.exe  particle.exe windturbine.exe clcpp_response.exe doc_output_demo.exe house_plan.exe  \
-conversion_factor.exe electronics_example.exe ideal_gas_law.exe rad_per_s.exe
+conversion_factor.exe electronics_example.exe ideal_gas_law.exe rad_per_s.exe dom fusion
 
 %.exe : %.o
 	$(CXX) $(CXXFLAGS) -O3 -o $@  $<
@@ -30,14 +33,17 @@ conversion_factor.exe electronics_example.exe ideal_gas_law.exe rad_per_s.exe
 %.o : %.cpp 
 	$(CXX) $(CXXFLAGS) -O3 -c $<
 
+dom:
+	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) -C $(DomDir) test
+
+fusion:
+	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) -C $(FusionDir) test
+
 clean :
 	rm -rf *.o
 	rm -rf *.exe
-
-
-
-
-
+	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) -C $(DomDir) clean
+	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) -C $(FusionDir) clean
 
 
 

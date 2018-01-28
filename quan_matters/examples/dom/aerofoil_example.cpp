@@ -58,7 +58,9 @@ schema {
 
 int aerofoil_example ()
 {
-   std::ofstream out("output.txt");
+  // std::ofstream out("output.txt");
+   std::ostream & out = std::cout;
+
    out << "// aerofoil example\n";
 
    auto wings = new branch{"wings"};
@@ -67,7 +69,7 @@ int aerofoil_example ()
          add_value(wing0,"sweep_spline",std::vector<std::vector<mm> >{{0.0_mm,0.0_mm},{850.0_mm,10.0_mm}});
          add_branch(wing0,"sections");
             auto sections0 = add_branch(wing0,"sections","[0]"); 
-            add_value(sections0,"aerofoil_file",std::string{"/home/andy/cpp/projects/aerofoil/Sections/selig/mh32.dat"});
+            add_value(sections0,"aerofoil_file",std::string{"./aerofoils/mh32.dat"});
             add_value(sections0,"chord",165.0_mm);
             add_value(sections0,"y_position",0.0_mm);
             add_value(sections0,"TE_thickness",0.5_mm);
