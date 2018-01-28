@@ -1,8 +1,6 @@
 
 #include <quan_matters/test/test.hpp>
 
-#include <quan/fun/vector3.hpp>
-#include <quan/fun/vector9.hpp>
 #include <quan/fun/binary_matrix_ops.hpp>
 #include <quan/fusion/make_matrix.hpp>
 

@@ -1,7 +1,7 @@
 
 #include <quan/concepts/fusion/sequence.hpp>
-#include <quan/fun/vector16.hpp>
-
+#include <quan/fun/vector.hpp>
+#include <quan/fun/at.hpp>
 #include <quan/fusion/make_vector.hpp>
 
 #include <quan_matters/test/test.hpp>
@@ -14,13 +14,13 @@ namespace {
 
    void sequence_fun_vector_test()
    {
-      auto seqL = quan::fun::vector16<
+      auto seqL = quan::fun::vector<
             int,int,int,int,
             int,int,int,int,
             int,int,int,int,
             int,int,int,int >{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
 
-      auto constexpr seqR = quan::fun::vector16<
+      auto constexpr seqR = quan::fun::vector<
             int,int,int,int,
             int,int,int,int,
             int,int,int,int,

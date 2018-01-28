@@ -1,8 +1,6 @@
 
 #include <quan/fun/vector.hpp>
 
-#include <quan/fun/vector9.hpp>
-
 #include <quan/fun/for_each.hpp>
 #include <quan/fun/output.hpp>
 
@@ -20,7 +18,7 @@ int main()
 
     quan::fun::for_each(v1,quan::fun::output(std::cout, " "));
 
-    auto constexpr seqL = quan::fun::vector9<
+    auto constexpr seqL = quan::fun::vector<
             int,int,int,
             int,int,int,
             int,int,int >{1,2,3,4,5,6,7,8,9};

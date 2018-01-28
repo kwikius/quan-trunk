@@ -11,7 +11,7 @@
 #include <quan/reciprocal_length.hpp>
 #include <quan/fusion/static_value.hpp>
 #include <quan/fixed_quantity/literal.hpp>
-#include <quan/fun/vector9.hpp>
+//#include <quan/fun/vector9.hpp>
 
 namespace {
 
@@ -115,7 +115,7 @@ namespace {
 
    void matrix_row_test()
    {
-      quan::fun::vector9<
+      quan::fun::vector<
          int,int,int,
          int,int,int,
          int,int,int
@@ -217,7 +217,7 @@ namespace {
 
    void basic_matrix_test()
    {
-      quan::fun::vector9<
+      quan::fun::vector<
          int,int,int,
          int,int,int,
          int,int,int

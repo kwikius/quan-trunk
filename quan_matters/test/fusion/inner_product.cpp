@@ -2,7 +2,7 @@
 
 #include <quan/fusion/inner_product.hpp>
 #include <quan/operators/binary_operator_functors.hpp>
-#include <quan/fun/vector16.hpp>
+#include <quan/fun/vector.hpp>
 
 #include <quan_matters/test/test.hpp>
 
@@ -12,13 +12,13 @@
 
 void inner_product_test()
 {
-   auto constexpr seqL = quan::fun::vector16<
+   auto constexpr seqL = quan::fun::vector<
          int,int,int,int,
          int,int,int,int,
          int,int,int,int,
          int,int,int,int >{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
 
-   auto constexpr seqR = quan::fun::vector16<
+   auto constexpr seqR = quan::fun::vector<
          int,int,int,int,
          int,int,int,int,
          int,int,int,int,

@@ -18,12 +18,26 @@
  */
 
 #include <quan/fun/cons.hpp>
+#include <quan/meta/type_sequence.hpp>
 
 namespace quan{namespace fun{
 
- template <typename T, typename Seq>
+   template <typename T, typename Seq>
    struct push_back_seq;
 
+#if 1
+   template <typename T>
+   struct push_back_seq<T,nil>{
+      typedef quan::meta::type_sequence<T> type;
+   };
+
+   template <typename T, typename... Prev >
+   struct push_back_seq<T,quan::meta::type_sequence<Prev...> >{
+      typedef typename quan::meta::push_back<quan::meta::type_sequence<Prev...>,T>::type type;
+   };
+
+#else
+ 
    template <typename T>
    struct push_back_seq<T,nil>{
       typedef cons<T> type;
@@ -33,6 +47,7 @@ namespace quan{namespace fun{
    struct push_back_seq<T,cons<TL,TR> >{
       typedef cons<T,cons<TL,TR> > type;
    };
+#endif
 
 }}
 

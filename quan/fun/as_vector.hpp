@@ -17,6 +17,22 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 
+#if 1
+#include <quan/fun/vector.hpp>
+
+ template <
+      typename  Seq,
+      typename F = quan::fun::as_value 
+     //,int Size = size_seq<Seq>::value
+   >
+   struct as_vector;
+
+   template <typename ... T>
+   struct as_vector<quan::meta::type_sequence<T...> >{
+      typedef quan::fun::vector<T...> type;
+   };
+#else
+
 #include <quan/fun/size_seq.hpp>
 #include <quan/fun/at_seq.hpp>
 #include <quan/fun/is_fun_sequence.hpp>
@@ -134,4 +150,5 @@ namespace quan{namespace fun{
 
 }}//quan::fun
 
+#endif
 #endif
