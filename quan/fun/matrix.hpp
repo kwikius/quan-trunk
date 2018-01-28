@@ -25,7 +25,6 @@ namespace quan {namespace fun{
 
     template <int R, int C, typename Seq> struct matrix;
 
-
     template <int R, int C, typename Seq>
     struct matrix{
         typedef matrix type;
@@ -46,32 +45,50 @@ namespace quan {namespace fun{
         constexpr matrix (matrix<R,C,Seq1> const & in)
         : elements(in.elements){}
 
+        constexpr matrix (matrix const & in)
+        : elements(in.elements){}
+
         constexpr matrix (Seq const & in )
         : elements(in){}
         
         constexpr matrix (matrix && in )
         : elements(in.elements){}
 
-//         constexpr matrix (Seq && in )
-//        : elements(in){}
-        
         template <int R1, int C1>
         constexpr 
-        typename type_at<R1,C1,as_ref>::type
-        at()
+        typename quan::where_c< 
+            ((R1 < rows) && ( C1 < cols))
+           ,typename type_at<R1,C1,as_ref>::type
+        >::type
+        at() &
         {
            typedef at_seq<cols * R1 + C1,elements_type,as_ref> f;
            return f{}(elements);
-        };
+        }
 
         template <int R1, int C1>
         constexpr 
-        typename type_at<R1,C1,as_const_ref>::type
-        at()const
+        typename quan::where_c< 
+            ((R1 < rows) && ( C1 < cols))
+           ,typename type_at<R1,C1,as_const_ref>::type
+        >::type
+        at()const &
         {
            typedef at_seq<cols * R1 + C1,elements_type,as_const_ref> f;
            return f{}(elements);
-        };
+        }
+
+        template <int R1, int C1>
+        constexpr 
+        typename quan::where_c< 
+            ((R1 < rows) && ( C1 < cols))
+           ,typename type_at<R1,C1,as_value>::type
+        >::type
+        at()&&
+        {
+           typedef at_seq<cols * R1 + C1,elements_type,as_const_ref> f;
+           return f{}(elements);
+        }
     };
 
 

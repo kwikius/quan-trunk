@@ -19,11 +19,20 @@ namespace quan{ namespace fusion{
    }
 
    template<int R, int C, typename... Elements>
-     requires sizeof ...(Elements) == R * C
+      requires sizeof ...(Elements) == R * C
    inline constexpr quan::fun::matrix<R,C,quan::fun::vector<typename quan::meta::strip_cr<Elements>::type...> >
    make_matrix(Elements&&... args)
    {
       return make_matrix<R,C>(quan::fusion::make_vector(args...));
+   }
+
+   template<int R, typename... Elements>
+      requires sizeof...(Elements) % R  == 0
+   inline constexpr 
+   quan::fun::matrix<R,sizeof...(Elements) / R,quan::fun::vector<typename quan::meta::strip_cr<Elements>::type...> >
+   make_matrix(Elements&&... args)
+   {
+      return make_matrix<R,sizeof...(Elements) / R>(quan::fusion::make_vector(args...));
    }
 
 #else
@@ -51,6 +60,18 @@ namespace quan{ namespace fusion{
    {
       return make_matrix<R,C>(quan::fusion::make_vector(args...));
    }
+
+   template<int R, typename... Elements>
+   inline constexpr 
+     typename quan::where_c<
+         (((sizeof...(Elements)) % R ) == 0)
+         ,quan::fun::matrix<R,sizeof...(Elements) / R,quan::fun::vector<typename quan::meta::strip_cr<Elements>::type...> >
+     >::type
+   make_matrix(Elements&&... args)
+   {
+      return make_matrix<R,sizeof...(Elements) / R>(quan::fusion::make_vector(args...));
+   }
+
 
 #endif
 

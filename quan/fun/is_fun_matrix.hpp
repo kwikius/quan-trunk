@@ -26,12 +26,12 @@ namespace quan{ namespace fun{
 
    namespace impl {
       // defualts not a matrix
-      template <typename M> struct is_fun_matrix_impl : std::false_type{};
+      template <typename M, typename Where = void> struct is_fun_matrix_impl : std::false_type{};
 
-      template <typename M>
+      template <typename M, typename Where = void>
       struct matrix_row_size_impl : std::integral_constant<int,-1>{};
 
-      template <typename M>
+      template <typename M, typename Where = void>
       struct matrix_col_size_impl : std::integral_constant<int,-1>{};
    }
    

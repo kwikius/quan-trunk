@@ -268,6 +268,7 @@ namespace {
 }
 
 void matrix_mux_result_test();
+void transpose_matrix_test();
 
 void matrix_test()
 {
@@ -276,4 +277,6 @@ void matrix_test()
    matrix_column_test();
    static_value_matrix_test();
    matrix_mux_result_test();
+  
+   transpose_matrix_test();
 }

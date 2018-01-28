@@ -73,7 +73,7 @@ namespace quan{ namespace fun{
          (N==0), 
          TL 
       >::type const &
-      at() const
+      at() const &
       {
          return m_value;
       }
@@ -81,10 +81,10 @@ namespace quan{ namespace fun{
       template <int N>
       constexpr 
       typename quan::where_c<
-         (N!=0), 
+         ((N > 0) && ( N < size)), 
          typename result<N>::type
       >::type const &
-      at() const
+      at() const &
       {
          return vector<TR...>:: template at<(N-1)>();
       }
@@ -95,7 +95,7 @@ namespace quan{ namespace fun{
          (N==0), 
          TL 
       >::type &
-      at() 
+      at() &
       {
          return m_value;
       }
@@ -103,10 +103,32 @@ namespace quan{ namespace fun{
       template <int N>
       constexpr 
       typename quan::where_c<
-         (N!=0), 
+         ((N > 0) && ( N < size)), 
          typename result<N>::type
       >::type &
-      at() 
+      at() &
+      {
+         return vector<TR...>:: template at<(N-1)>();
+      }
+
+      template <int N>
+      constexpr 
+      typename quan::where_c<
+         (N==0), 
+         TL 
+      >::type 
+      at() &&
+      {
+         return m_value;
+      }
+
+      template <int N>
+      constexpr 
+      typename quan::where_c<
+         ((N > 0) && ( N < size)), 
+         typename result<N>::type
+      >::type 
+      at() &&
       {
          return vector<TR...>:: template at<(N-1)>();
       }
@@ -130,12 +152,18 @@ namespace quan{ namespace fun{
       public:
 
       template <int N>
+      struct result{
+         static_assert ( N==0,"expected N to be zero");
+         typedef typename quan::meta::at<N,quan::meta::type_sequence<T> >::type type;
+      };
+
+      template <int N>
       constexpr 
       typename quan::where_c<
          (N==0), 
          T 
       >::type const &
-      at() const
+      at() const &
       {
          return m_value;
       }
@@ -146,7 +174,18 @@ namespace quan{ namespace fun{
          (N==0), 
          T 
       >::type &
-      at() 
+      at() &
+      {
+         return m_value;
+      }
+
+      template <int N>
+      constexpr 
+      typename quan::where_c<
+         (N==0), 
+         T 
+      >::type 
+      at() &&
       {
          return m_value;
       }
