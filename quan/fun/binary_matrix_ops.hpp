@@ -67,7 +67,7 @@ namespace quan{ namespace fun{
    constexpr
    operator*(MatL const & lhs, MatR const & rhs)
    {
-      typedef quan::fun::detail::eval_matrix_mux_dot<
+      typedef quan::fun::detail::matrix_initialiser<
          const MatL, const MatR
       > matrix_init;
       typedef typename quan::fun::make_matrix_mux_result<
