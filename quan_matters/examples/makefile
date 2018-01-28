@@ -34,16 +34,14 @@ conversion_factor.exe electronics_example.exe ideal_gas_law.exe rad_per_s.exe do
 	$(CXX) $(CXXFLAGS) -O3 -c $<
 
 dom:
-	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) -C $(DomDir) test
+	make USE_CONCEPTS=$(USE_CONCEPTS) -C $(DomDir) test
 
 fusion:
-	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) -C $(FusionDir) test
+	make USE_CONCEPTS=$(USE_CONCEPTS) -C $(FusionDir) test
 
 clean :
 	rm -rf *.o
 	rm -rf *.exe
-	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) -C $(DomDir) clean
-	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) -C $(FusionDir) clean
-
-
+	make -C $(DomDir) clean
+	make -C $(FusionDir) clean
 
