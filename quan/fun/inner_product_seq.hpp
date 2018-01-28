@@ -33,25 +33,25 @@ namespace quan{namespace fun{
 
       template <typename SeqL, typename SeqR, typename FF, typename F>
       struct result{
-          static_assert( is_fun_sequence<SeqL>::value,"error : SeqL is not a fun_sequence" );
-          static_assert( is_fun_sequence<SeqR>::value,"error : SeqR is not a fun_sequence" );
-          static_assert( same_size_seq<SeqL,SeqR> ::value,"error");
+         static_assert( is_fun_sequence<SeqL>::value,"error : SeqL is not a fun_sequence" );
+         static_assert( is_fun_sequence<SeqR>::value,"error : SeqR is not a fun_sequence" );
+         static_assert( same_size_seq<SeqL,SeqR> ::value,"error");
          typedef typename quan::fun::make_fun_seq2<F,SeqL,SeqR>::type
          muxed_type;
 
          typedef typename static_monoid<
-               FF,typename quan::fun::at_seq<0,muxed_type>::type
+         FF,typename quan::fun::at_seq<0,muxed_type>::type
          >::type initialiser;
-         
+
          typedef typename quan::fun::fold_seq::template result<
-               muxed_type,initialiser,FF
+         muxed_type,initialiser,FF
          >::type type;
       };
 
       template <typename SeqL,typename SeqR, typename FF, typename F>
       constexpr
       typename result<SeqL,SeqR,FF,F>::type
-      operator()(SeqL &seqL, SeqR & seqR, FF const & ff, F const & f)const
+      operator()(SeqL &&seqL, SeqR && seqR, FF && ff, F && f)const
       {
          typedef quan::fun::fun_seq2<
             F,SeqL,SeqR
@@ -63,7 +63,7 @@ namespace quan{namespace fun{
             FF,typename quan::fun::at_seq<0,mux_seq_type>::type
          >::type initialiser;
        
-         return folder{}(mux_seq_type{seqL,seqR},initialiser{},ff) ;
+         return folder{}(mux_seq_type{std::forward<SeqL>(seqL),std::forward<SeqR>(seqR)},initialiser{},std::forward<FF>(ff)) ;
       }
 
       typedef inner_product_seq type;
