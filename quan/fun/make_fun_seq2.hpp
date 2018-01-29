@@ -16,15 +16,16 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-
+#include <quan/meta/type_sequence.hpp>
+#include <quan/meta/eval_if.hpp>
 #include <quan/fun/at_seq.hpp>
 #include <quan/fun/auto_at_seq.hpp>
 #include <quan/fun/size_seq.hpp>
 #include <quan/fun/are_fun_sequences.hpp>
-#include <quan/fun/push_back_seq.hpp>
+
 #include <quan/fun/as_vector.hpp>
 #include <quan/fun/same_size_seq.hpp>
-#include <quan/meta/eval_if.hpp>
+
 
 namespace quan{ namespace fun{
 
@@ -41,10 +42,9 @@ namespace quan{ namespace fun{
          typedef typename quan::meta::eval_if_c<
             ( I > 0)
             ,make_fun_seq2_n<I-1,F,SeqL,SeqR>
-            ,nil
+            ,quan::meta::type_sequence<>
          >::type prev_type;
-         // push
-         typedef typename push_back_seq<fun_result_type,prev_type>::type type;
+         typedef typename quan::meta::push_back<prev_type,fun_result_type>::type type;
       };
    }//detail
    

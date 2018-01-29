@@ -59,6 +59,11 @@ namespace quan{ namespace meta{
        > : quan::meta::int32< (sizeof...(T) )>{};
     }
 
+   template <typename T>
+   struct push_back<type_sequence<>,T >{
+      typedef type_sequence<T> type;
+   };
+
    template <typename ... L, typename T>
    struct push_back<type_sequence<L...>,T >{
       typedef type_sequence<L...,T> type;

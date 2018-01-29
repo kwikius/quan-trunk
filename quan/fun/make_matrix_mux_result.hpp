@@ -18,11 +18,9 @@
  */
 
 #include <quan/config.hpp>
-//#include <quan/fun/matrix33.hpp>
-//#include <quan/fun/matrix44.hpp>
+#include <quan/meta/type_sequence.hpp>
 #include <quan/fun/matrix.hpp>
 #include <quan/fun/dot_product_seq.hpp>
-#include <quan/fun/push_back_seq.hpp>
 #include <quan/fun/as_vector.hpp>
 #include <quan/fun/matrix_col.hpp>
 #include <quan/fun/matrix_row.hpp>
@@ -111,21 +109,6 @@ namespace quan{ namespace fun{
       }
    };
 
-//   template <typename Matrix1, typename Matrix2>
-//   struct matrix_initialiser{
-//      
-//      typedef detail::matrix_initialiser<Matrix1,Matrix2> elements_type;
-//      typedef typename seq_arg_type<Matrix1>::type lhs_type;
-//      typedef typename seq_arg_type<Matrix2>::type rhs_type;
-//      const static int rows = elements_type::rows;
-//      const static int cols = elements_type::cols;
-//      elements_type elements;
-//      constexpr 
-//      matrix_initialiser(lhs_type m1, rhs_type m2)
-//      :elements{m1,m2}{}
-//      typedef matrix_initialiser type;
-//   };
-   
    namespace detail{
 
       template <int R, int C, typename Matrix1, typename Matrix2>
@@ -134,21 +117,21 @@ namespace quan{ namespace fun{
       template < typename Matrix1, typename Matrix2>
       struct make_matrix_mux_result_n<0,0,Matrix1, Matrix2>{
          typedef typename matrix_initialiser<Matrix1,Matrix2>::template result<0,0>::type result_type;
-         typedef typename push_back_seq<result_type,nil>::type type;
+         typedef quan::meta::type_sequence<result_type> type;
       };
 
       template <int R, typename Matrix1, typename Matrix2>
       struct make_matrix_mux_result_n<R,0,Matrix1, Matrix2>{
          typedef typename make_matrix_mux_result_n<R-1,Matrix2::cols-1,Matrix1,Matrix2>::type prev_type;
          typedef typename matrix_initialiser<Matrix1,Matrix2>::template result<R,0>::type result_type;
-         typedef typename push_back_seq<result_type,prev_type>::type type;
+         typedef typename quan::meta::push_back<prev_type,result_type>::type type;
       };
 
       template <int R, int C, typename Matrix1, typename Matrix2>
       struct make_matrix_mux_result_n{
          typedef typename make_matrix_mux_result_n<R,C-1,Matrix1,Matrix2>::type prev_type;
          typedef typename matrix_initialiser<Matrix1,Matrix2>::template result<R,C>::type result_type;
-         typedef typename quan::fun::push_back_seq<result_type,prev_type>::type type;
+         typedef typename quan::meta::push_back<prev_type,result_type>::type type;
       };
       
    }//detail
@@ -159,8 +142,8 @@ namespace quan{ namespace fun{
       typedef typename detail::make_matrix_mux_result_n<
          Matrix1::rows -1,Matrix2::cols-1,
          Matrix1,Matrix2
-      >::type cons_type;
-      typedef typename as_vector<cons_type>::type elements_type;
+      >::type meta_elements_type;
+      typedef typename as_vector<meta_elements_type>::type elements_type;
       typedef quan::fun::matrix<Matrix1::rows,Matrix2::cols,elements_type> type;
    };
    

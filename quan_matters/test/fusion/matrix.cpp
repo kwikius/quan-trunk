@@ -11,7 +11,14 @@
 #include <quan/reciprocal_length.hpp>
 #include <quan/fusion/static_value.hpp>
 #include <quan/fixed_quantity/literal.hpp>
-//#include <quan/fun/vector9.hpp>
+/*
+ todo 
+determinant,
+https://www.geeksforgeeks.org/determinant-of-a-matrix/
+cofactor matrix, 
+adjoint, 
+ hence inverse
+*/
 
 namespace {
 
