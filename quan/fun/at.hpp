@@ -36,15 +36,8 @@ namespace quan{ namespace fun{
    typename at_seq<I,T,quan::fun::as_ref>::type
    at(T & in)
    {
-      //typedef typename at_seq<I,T,as_ref>::type result_type;
- //     static_assert(!std::is_const<result_type>::value,"error");
- //
-    //  static_assert(std::is_reference<result_type>::value,"error");
-      //static_assert(false);
       return at_seq<I,T, quan::fun::as_ref>{}(in);
    }
-
-
 
    template <size_t I,typename T, size_t N>
    T at( T (& ar)[N])
