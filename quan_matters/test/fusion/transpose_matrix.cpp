@@ -38,17 +38,9 @@ namespace {
 
    }
 
-   void transpose_matrix_test2()
-   {
-     auto constexpr m = quan::fusion::make_matrix<1>(1.23456);
-     QUAN_CHECK(sizeof(m) == sizeof(double))
-     QUAN_CHECK((m.at<0,0>() == 1.23456))
-   }
-
 }
 
 void transpose_matrix_test()
 {
    transpose_matrix_test1();
-   transpose_matrix_test2();
 }

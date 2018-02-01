@@ -18,6 +18,7 @@ https://www.geeksforgeeks.org/determinant-of-a-matrix/
 cofactor matrix, 
 adjoint, 
  hence inverse
+https://www.geeksforgeeks.org/adjoint-inverse-matrix/
 */
 
 namespace {
@@ -272,6 +273,13 @@ namespace {
       v1.at<1,1>() = 20;
       QUAN_CHECK( (v1.at<1,1>() == 20) );
    }
+
+   void matrix_1x1_test()
+   {
+     auto constexpr m = quan::fusion::make_matrix<1>(1.23456);
+     QUAN_CHECK(sizeof(m) == sizeof(double))
+     QUAN_CHECK((m.at<0,0>() == 1.23456))
+   }
 }
 
 void matrix_mux_result_test();
@@ -285,5 +293,5 @@ void matrix_test()
    static_value_matrix_test();
    matrix_mux_result_test();
   
-   transpose_matrix_test();
+   matrix_1x1_test();
 }

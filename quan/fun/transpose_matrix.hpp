@@ -4,6 +4,12 @@
 #include <quan/fun/matrix.hpp>
 #include <quan/where.hpp>
 
+/*
+  alt transpose_view
+  also obvious version, iow a matrix inited with sequence values in the transpose positions
+  or maybe like the mux init, do an init or even a custom init sequence
+*/
+
 namespace quan{ namespace fun{
 
      template <typename M, typename = typename quan::where_<quan::fun::is_fun_matrix<M> >::type>
