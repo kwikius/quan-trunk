@@ -29,6 +29,7 @@ namespace quan{ namespace fun{
 namespace quan{ namespace meta{
 
    namespace impl{
+
       template <typename MatL, typename MatR>
       struct binary_op_impl<
          MatL, quan::meta::times,MatR,
@@ -43,14 +44,15 @@ namespace quan{ namespace meta{
             >
          >::type
       > : quan::fun::make_matrix_mux_result<MatL,MatR>{};
-   }
+
+   } //impl
 
 }}//quan::meta::
 
 namespace quan{ namespace fun{
 
    template <typename MatL, typename MatR>
-   inline
+   inline constexpr
    typename quan::where_<
       quan::meta::and_<
          quan::fun::are_fun_matrices<MatL,MatR>,
@@ -64,16 +66,18 @@ namespace quan{ namespace fun{
          MatL,quan::meta::times,MatR
       >::type
    >::type
-   constexpr
    operator*(MatL const & lhs, MatR const & rhs)
    {
-      typedef quan::fun::detail::matrix_initialiser<
+      typedef quan::fun::detail::matrix_mux_initialiser<
          const MatL, const MatR
-      > matrix_init;
-      typedef typename quan::fun::make_matrix_mux_result<
-         MatL,MatR
+      > initialiser;
+
+     // typedef quan::fun::matrix_initialiser<MatL,quan::meta::times, MatR>::type initialiser;
+
+      typedef typename quan::meta::binary_op<
+         MatL,quan::meta::times,MatR
       >::type result_type;
-      return result_type{matrix_init{lhs,rhs}};
+      return result_type{initialiser{lhs,rhs}};
    }
 }}
 
