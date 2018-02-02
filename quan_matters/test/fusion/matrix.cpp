@@ -4,6 +4,7 @@
 #include <quan/fun/matrix_row.hpp>
 #include <quan/fun/matrix_col.hpp>
 #include <quan/fusion/make_sub_matrix_view.hpp>
+#include <quan/fusion/determinant.hpp>
 #include <quan/fun/at.hpp>
 #include <quan/length.hpp>
 #include <quan/time.hpp>
@@ -14,9 +15,9 @@
 #include <quan/fixed_quantity/literal.hpp>
 /*
  todo 
-determinant,
+
 https://www.geeksforgeeks.org/determinant-of-a-matrix/
-cofactor matrix, 
+
 adjoint, 
  hence inverse
 https://www.geeksforgeeks.org/adjoint-inverse-matrix/
@@ -302,6 +303,48 @@ namespace {
       auto const s11 = quan::fusion::make_sub_matrix_view<1,1>(m);
       QUAN_CHECK((s11.at<0,0>() == 1))
    }
+
+   void fusion_determinant_test()
+   {
+      auto constexpr m1 = quan::fusion::make_matrix<1>
+      (
+         99.f
+      );
+
+      auto constexpr res1 = quan::fusion::determinant(m1);
+      QUAN_CHECK(res1 == 99.f)
+
+      auto constexpr m2 = quan::fusion::make_matrix<2>
+      (
+         1.f, 2.f
+         ,3.f , 4.f
+      );
+
+      auto constexpr res2 = quan::fusion::determinant(m2);
+      QUAN_CHECK ( res2 == -2.f)  // 1 * 4 - 2 * 3
+
+      auto constexpr m3 = quan::fusion::make_matrix<3>
+      (
+         56.f,  90.f,  72.f,
+         2.f,   4.f,   7.f,
+         -3.f,   1.f,   5.f
+      );
+
+      auto constexpr res3 = quan::fusion::determinant(m3);
+      QUAN_CHECK ( res3 == -1054.f)
+
+      auto constexpr m4 = quan::fusion::make_matrix<4>
+      (                       
+           56,  90,   72,    65, 
+            2,   4,    7,  - 20, 
+           -3,   1,    5,     6, 
+          125,  50,   97, -1000 
+      );
+
+      auto constexpr res4 = quan::fusion::determinant(m4);
+      QUAN_CHECK ( res4 == -328293)
+
+   }
 }
 
 void matrix_mux_result_test();
@@ -317,4 +360,5 @@ void matrix_test()
   
    matrix_1x1_test();
    fusion_submatrix_test();
+   fusion_determinant_test();
 }

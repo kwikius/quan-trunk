@@ -14,12 +14,12 @@ namespace quan{ namespace fun{
       template <int N, int Sign, typename Sum , typename Matrix, typename Where = void> 
       struct fold_determinant;
 
-      template <int N, int Sign, typename Sum, typename Matrix>
-      struct fold_determinant<N,Sign,Sum,Matrix
+      template <int Sign, typename Sum, typename Matrix>
+      struct fold_determinant<0,Sign,Sum,Matrix
         , typename quan::where_<
             quan::meta::and_<
                quan::fun::is_fun_matrix<Matrix>   // its a matrix
-               ,quan::meta::bool_<(N == 0)>
+              // ,quan::meta::bool_<(N == 0)>
                ,quan::meta::bool_<(quan::fun::matrix_row_size<Matrix>::value == 1)>
                ,quan::meta::bool_<(quan::fun::matrix_col_size<Matrix>::value == 1)>
             >
@@ -44,12 +44,12 @@ namespace quan{ namespace fun{
          }
       };
 
-      template <int N, int Sign, typename Sum, typename Matrix>
-      struct fold_determinant<N,Sign,Sum,Matrix
+      template <int Sign, typename Sum, typename Matrix>
+      struct fold_determinant<0,Sign,Sum,Matrix
         , typename quan::where_<
             quan::meta::and_<
                quan::fun::is_fun_matrix<Matrix>   // its a matrix
-               ,quan::meta::bool_<(N == 0)>
+               //,quan::meta::bool_<(N == 0)>
                ,quan::meta::bool_<(quan::fun::matrix_row_size<Matrix>::value > 1)>
                ,quan::meta::bool_<(quan::fun::matrix_row_size<Matrix>::value == quan::fun::matrix_col_size<Matrix>::value)>
             >
@@ -58,7 +58,7 @@ namespace quan{ namespace fun{
          typedef typename quan::meta::strip_cr<Sum>::type sum_type;
          typedef typename quan::meta::strip_cr<Matrix>::type matrix_type;
          static constexpr int RC = quan::fun::matrix_row_size<matrix_type>::value;
-         static constexpr int Iter = (RC-1) - N; // note N == 0
+         static constexpr int Iter = (RC-1) ; // note N == 0
          typedef quan::fun::sub_matrix_view<0,Iter,matrix_type> sub_matrix;
          static constexpr int matrix_sub_type_RC = quan::fun::matrix_row_size<sub_matrix>::value; // should be RC-1
          typedef quan::fusion::static_value<int,quan::meta::rational<0,1> > zero_type;
