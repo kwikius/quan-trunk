@@ -3,6 +3,7 @@
 #include <quan/fusion/make_matrix.hpp>
 #include <quan/fun/matrix_row.hpp>
 #include <quan/fun/matrix_col.hpp>
+#include <quan/fusion/make_sub_matrix_view.hpp>
 #include <quan/fun/at.hpp>
 #include <quan/length.hpp>
 #include <quan/time.hpp>
@@ -280,6 +281,27 @@ namespace {
      QUAN_CHECK(sizeof(m) == sizeof(double))
      QUAN_CHECK((m.at<0,0>() == 1.23456))
    }
+
+   void fusion_submatrix_test()
+   {
+      auto constexpr m = quan::fusion::make_matrix<2>
+      (
+         1.f, 2.f
+        ,3.f , 4.f
+      );
+
+      auto const s00 = quan::fusion::make_sub_matrix_view<0,0>(m);
+      QUAN_CHECK((s00.at<0,0>() == 4))
+
+      auto const s01 = quan::fusion::make_sub_matrix_view<0,1>(m);
+      QUAN_CHECK((s01.at<0,0>() == 3))
+
+      auto const s10 = quan::fusion::make_sub_matrix_view<1,0>(m);
+      QUAN_CHECK((s10.at<0,0>() == 2))
+
+      auto const s11 = quan::fusion::make_sub_matrix_view<1,1>(m);
+      QUAN_CHECK((s11.at<0,0>() == 1))
+   }
 }
 
 void matrix_mux_result_test();
@@ -294,4 +316,5 @@ void matrix_test()
    matrix_mux_result_test();
   
    matrix_1x1_test();
+   fusion_submatrix_test();
 }
