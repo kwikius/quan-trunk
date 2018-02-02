@@ -8,9 +8,9 @@ namespace quan{ namespace fusion{
    template <int R, int C, typename Matrix>
    inline constexpr
    quan::fun::sub_matrix_view<R,C,Matrix>
-   make_sub_matrix_view(Matrix const & in)
+   make_sub_matrix_view(Matrix && in)
    {
-      return quan::fun::sub_matrix_view<R,C,Matrix>{in};
+      return quan::fun::sub_matrix_view<R,C,Matrix>{std::forward<Matrix>(in)};
    }
    
 }}  // quan::fusion
