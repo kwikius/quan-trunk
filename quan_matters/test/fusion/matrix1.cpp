@@ -60,7 +60,6 @@ namespace {
       constexpr auto v = quan::fusion::determinant(m);
 
       QUAN_CHECK(is_static_value<decltype(v)>)
-     // std::cout << "v1 = " << v << '\n';
       QUAN_CHECK(quan::fusion::to_runtime{}(v) == 1)
 
       auto constexpr m1 = quan::fusion::make_matrix<2>
@@ -71,14 +70,11 @@ namespace {
 
       constexpr auto v1 = quan::fusion::determinant(m1);
       QUAN_CHECK(is_static_value<decltype(v1)>)
-      //std::cout << "v1 = " << v1 << '\n';
       QUAN_CHECK(quan::fusion::to_runtime{}(v1) == 4.f)
  }
 
  void test_sub_matrix_of_m3()
  {
-      //std::cout << "quan::test::test_sub_matrix_of_m3()\n";
-
       auto constexpr m = quan::fusion::make_matrix<3>
       ( 
          static_float<56>{},  static_float<90>{},  static_float<72>{},
@@ -93,7 +89,6 @@ namespace {
 
    // s00
       auto const s00 = quan::fusion::make_sub_matrix_view<0,0>(m);
-    //  display(s00, "s00");
 
       QUAN_CHECK((s00.at<0,0>() == 4))
       QUAN_CHECK((s00.at<0,1>() == 7))

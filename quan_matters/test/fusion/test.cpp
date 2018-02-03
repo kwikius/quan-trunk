@@ -8,6 +8,9 @@ void fold_test();
 void matrix_test();
 void sequence_test();
 
+void adjunct_matrix_test1();
+void fusion_inverse_matrix_test1();
+
 int errors = 0;
 
 int main()
@@ -20,6 +23,8 @@ int main()
   fold_test();
   inner_product_test();
   matrix_test();
+  adjunct_matrix_test1();
+  fusion_inverse_matrix_test1();
 
   QUAN_EPILOGUE
 }
