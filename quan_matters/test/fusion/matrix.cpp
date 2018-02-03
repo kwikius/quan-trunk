@@ -364,6 +364,5 @@ void matrix_test()
    fusion_submatrix_test();
    fusion_determinant_test();
    test_sub_matrix_of_m3();
-
    qty_matrix_test();
 }
