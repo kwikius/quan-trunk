@@ -1,167 +1,9 @@
 #ifndef QUAN_FUN_MATRIX_DETERMINANT_HPP_INCLUDED
 #define QUAN_FUN_MATRIX_DETERMINANT_HPP_INCLUDED
 
-#include <quan/meta/binary_op.hpp>
-#include <quan/fun/is_fun_matrix.hpp>
-#include <quan/fun/access_modifiers.hpp>
-#include <quan/fun/sub_matrix_view.hpp>
-#include <quan/fusion/static_value.hpp>
+#include <quan/fun/detail/fold_determinant.hpp>
 
 namespace quan{ namespace fun{
-
-   namespace detail{
-      
-      template <int N, int Sign, typename Matrix, typename Where = void> 
-      struct fold_determinant;
-
-      template <int Sign, typename Matrix>
-      struct fold_determinant<0,Sign,Matrix
-        , typename quan::where_<
-            quan::meta::and_<
-               quan::fun::is_fun_matrix<Matrix> 
-               ,quan::meta::bool_<(quan::fun::matrix_row_size<Matrix>::value == 1)>
-               ,quan::meta::bool_<(quan::fun::matrix_col_size<Matrix>::value == 1)>
-            >
-        >::type
-      >{
-         typedef typename quan::meta::strip_cr<Matrix>::type matrix_type;
-         typedef typename matrix_type::template type_at<0,0>::type matrix_value_type;
-         typedef quan::fusion::static_value<int,quan::meta::rational<Sign,1> > sign_type;
-         typedef typename quan::meta::binary_op<
-            sign_type, 
-            quan::meta::times,
-            matrix_value_type
-         >::type type;
-
-         static_assert( ! std::is_same<
-               typename quan::meta::strip_cr<type>::type,quan::undefined
-         >::value,"invalid calculation");
-
-         static constexpr type apply( Matrix const & m)
-         {
-             return sign_type{} * m. template at<0,0>();
-         }
-      };
-
-      template <int Sign,typename Matrix>
-      struct fold_determinant<0,Sign,Matrix
-        , typename quan::where_<
-            quan::meta::and_<
-               quan::fun::is_fun_matrix<Matrix> 
-               ,quan::meta::bool_<(quan::fun::matrix_row_size<Matrix>::value > 1)>
-               ,quan::meta::bool_<(quan::fun::matrix_row_size<Matrix>::value == quan::fun::matrix_col_size<Matrix>::value)>
-            >
-        >::type
-      >{
-         typedef typename quan::meta::strip_cr<Matrix>::type matrix_type;
-         static constexpr int RC = quan::fun::matrix_row_size<matrix_type>::value;
-         static constexpr int Iter = (RC-1) ; // note N == 0
-         typedef quan::fun::sub_matrix_view<0,Iter,matrix_type> sub_matrix;
-         static constexpr int matrix_sub_type_RC = quan::fun::matrix_row_size<sub_matrix>::value; // should be RC-1
-         typedef fold_determinant<matrix_sub_type_RC-1,1,sub_matrix> sub_fold_determinant;
-
-         typedef typename quan::meta::binary_op<
-            typename matrix_type::template type_at<0,Iter>::type, 
-            quan::meta::times,
-            typename sub_fold_determinant::type
-         >::type temp1_type;
-
-         typedef quan::fusion::static_value<int,quan::meta::rational<Sign,1> > sign_type;
-
-         typedef typename quan::meta::binary_op<
-            sign_type, 
-            quan::meta::times,
-            temp1_type
-         >::type this_sum_type;
-
-         static_assert( ! std::is_same<
-            typename quan::meta::strip_cr<this_sum_type>::type,quan::undefined
-         >::value,"invalid calculation");
-
-         template <typename Sum>
-         struct result{
-            typedef typename quan::meta::binary_op<Sum,quan::meta::plus,this_sum_type>::type type;
-         };
-
-         template <typename Sum>
-         static constexpr 
-         typename result<Sum>::type
-         apply(Sum && sum,Matrix const & m)
-         {
-            return sum + sign_type{} * m. template at<0,Iter>() * sub_fold_determinant::apply(sub_matrix{m});
-         }
-      };
-
-      template <int N, int Sign, typename Matrix>
-      struct fold_determinant<N,Sign,Matrix
-        , typename quan::where_<
-            quan::meta::and_<
-               quan::fun::is_fun_matrix<Matrix>   // its a matrix
-               ,quan::meta::bool_<(N > 0)>
-               ,quan::meta::bool_<(quan::fun::matrix_row_size<Matrix>::value > 1)>
-               ,quan::meta::bool_<(quan::fun::matrix_row_size<Matrix>::value == quan::fun::matrix_col_size<Matrix>::value)>
-            >
-        >::type
-      >{
-
-         typedef typename quan::meta::strip_cr<Matrix>::type matrix_type;
-         typedef quan::fun::detail::fold_determinant<
-            N-1,-Sign,matrix_type
-         > next_fold_determinant_type;
-         static constexpr int RC = quan::fun::matrix_row_size<matrix_type>::value;
-         static constexpr int Iter = (RC-1) - N;
-         typedef quan::fun::sub_matrix_view<0,Iter,matrix_type> sub_matrix;
-         static constexpr int matrix_sub_type_RC = quan::fun::matrix_row_size<sub_matrix>::value; // should be RC-1
-         static_assert(quan::fun::is_fun_matrix<sub_matrix>::value,"odd1");
-         static_assert(matrix_sub_type_RC > 0, "odd");
-       //  typedef quan::fusion::static_value<int,quan::meta::rational<0,1> > zero_type;
-         typedef fold_determinant<matrix_sub_type_RC-1,1,sub_matrix> sub_fold_determinant;
-         typedef typename matrix_type::template type_at<0,Iter>::type matrix_value_type;
-
-         typedef typename quan::meta::binary_op<
-            matrix_value_type, quan::meta::times,typename sub_fold_determinant::type
-         >::type temp1_type;
-
-         typedef quan::fusion::static_value<int,quan::meta::rational<Sign,1> > sign_type;
-
-         typedef typename quan::meta::binary_op<
-            sign_type, 
-            quan::meta::times,
-            temp1_type
-         >::type this_sum_type;
-
-         static_assert( ! std::is_same<
-            typename quan::meta::strip_cr<this_sum_type>::type,quan::undefined
-         >::value,"invalid calculation");
-
-         typedef typename next_fold_determinant_type:: template result<this_sum_type>::type type;
-
-         template <typename Sum>
-         struct result{
-            typedef typename quan::meta::binary_op<Sum,quan::meta::plus,typename fold_determinant::type>::type type;
-         };
-
-         static constexpr 
-         type 
-         apply(Matrix const& m)
-         {   
-           return next_fold_determinant_type::apply(
-              sign_type{} * m. template at<0,Iter>() * sub_fold_determinant::apply(sub_matrix{m})
-              ,m
-           );
-         }
-
-         template <typename Sum>
-         static constexpr 
-         typename result<Sum>::type 
-         apply(Sum && sum,Matrix const& m)
-         {   
-            return sum + fold_determinant::apply(m);
-         }
-        
-      };
-
-   } //detail
 
    template <typename M, typename Where = void>
    struct make_determinant;
@@ -178,10 +20,27 @@ namespace quan{ namespace fun{
          >
       >::type
    >{
+    #if defined (__cpp_decltype_auto) &&  ( (__cpp_decltype_auto) >= 201304)
+
+      constexpr auto operator()( M const & m)const
+      {
+         typedef typename quan::meta::strip_cr<M>::type matrix_type;
+         typedef quan::fun::detail::fold_determinant<
+            quan::fun::matrix_row_size<matrix_type>::value-1  // iter
+            ,1     // sign
+            ,matrix_type // matrix type
+         > fold_determinant_type;
+         return fold_determinant_type::apply(m);
+      }
+
+      typedef decltype( std::declval<make_determinant>()(std::declval<M>())) type;
+
+    #else
+
       typedef typename quan::meta::strip_cr<M>::type matrix_type;
-      typedef quan::fusion::static_value<int,quan::meta::rational<0,1> > zero_type;
+     // typedef quan::fusion::static_value<int,quan::meta::rational<0,1> > zero_type;
       typedef quan::fun::detail::fold_determinant<
-         quan::fun::matrix_row_size<M>::value-1  // iter
+         quan::fun::matrix_row_size<matrix_type>::value-1  // iter
          ,1     // sign
          ,matrix_type // matrix type
       > fold_determinant_type;
@@ -192,6 +51,8 @@ namespace quan{ namespace fun{
       {
          return fold_determinant_type::apply( m);
       }
+
+    #endif
    };
 
 }} // quan::fun
