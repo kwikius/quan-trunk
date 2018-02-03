@@ -3,7 +3,6 @@
 #define QUAN_FUN_SUB_MATRIX_VIEW_HPP_INCLUDED
 
 #include <quan/fun/is_fun_matrix.hpp>
-#include <quan/fun/seq_arg_type.hpp>
 
 namespace quan { namespace fun{
 
@@ -11,8 +10,7 @@ namespace quan { namespace fun{
   struct sub_matrix_view{
      typedef sub_matrix_view type;
      typedef typename quan::meta::strip_cr<Matrix>::type parent_matrix_type;
-     typedef typename seq_arg_type<Matrix>::type arg_type;
-     
+
      static constexpr int rows = matrix_row_size<parent_matrix_type>::value -1;
      static constexpr int cols = matrix_col_size<parent_matrix_type>::value -1;
      static_assert( rows > 0 && cols > 0, "zero size sub-matrix");
