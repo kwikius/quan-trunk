@@ -33,10 +33,14 @@ namespace quan{ namespace fusion{
             return B;
          }
       };
-   }
 
-   template <bool B>
-   struct is_static_value<static_bool<B> > : std::true_type{};
+      template <bool B>
+      struct is_static_value_impl<static_bool<B> > : std::true_type{};
+
+      
+   } // impl
+
+
 }}
 
 namespace quan{namespace meta{

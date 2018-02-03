@@ -24,10 +24,10 @@ namespace quan{ namespace fusion{
         typedef static_value type;
     };
 
-    template <typename Runtime, typename Static>
-    struct is_static_value< static_value<Runtime,Static> > : std::true_type{};
-
     namespace impl{
+
+        template <typename Runtime, typename Static>
+        struct is_static_value_impl< static_value<Runtime,Static> > : std::true_type{};
 
         template <
             typename RuntimeType,

@@ -8,8 +8,14 @@
 
 namespace quan{namespace fusion{
 
+    namespace impl{
+       template <typename T>
+      struct is_static_value_impl : quan::meta::false_{};
+      
+    } // impl
+
     template <typename T>
-    struct is_static_value : quan::meta::false_{};
+    struct is_static_value : impl::is_static_value_impl<typename quan::meta::strip_cr<T>::type>{};
 
 }}//quan::fusion
 
