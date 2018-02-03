@@ -76,8 +76,8 @@ namespace {
  }
 
  void test_sub_matrix_of_m3()
-   {
-      std::cout << "quan::test::test_sub_matrix_of_m3()\n";
+ {
+      //std::cout << "quan::test::test_sub_matrix_of_m3()\n";
 
       auto constexpr m = quan::fusion::make_matrix<3>
       ( 
@@ -91,16 +91,23 @@ namespace {
       QUAN_CHECK(is_static_value<decltype(v)>)
       QUAN_CHECK(quan::fusion::to_runtime{}(v) == -1054)
 
-// s00
+   // s00
       auto const s00 = quan::fusion::make_sub_matrix_view<0,0>(m);
+    //  display(s00, "s00");
+
       QUAN_CHECK((s00.at<0,0>() == 4))
       QUAN_CHECK((s00.at<0,1>() == 7))
 
       QUAN_CHECK((s00.at<1,0>() == 1))
       QUAN_CHECK((s00.at<1,1>() == 5))
+
+      QUAN_CHECK((s00.at<1,0>() == 1))
+      QUAN_CHECK((s00.at<1,1>() == 5))
     
    // s01
+
       auto const s01 =quan::fusion::make_sub_matrix_view<0,1> (m);
+
 
       QUAN_CHECK((s01.at<0,0>() == 2))
       QUAN_CHECK((s01.at<0,1>() == 7))
@@ -167,6 +174,7 @@ namespace {
 
       QUAN_CHECK((s22.at<0,0>() == 56))
       QUAN_CHECK((s22.at<0,1>() == 90))
+
 
       QUAN_CHECK((s22.at<1,0>() == 2))
       QUAN_CHECK((s22.at<1,1>() == 4))

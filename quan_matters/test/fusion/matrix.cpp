@@ -13,10 +13,12 @@
 #include <quan/reciprocal_length.hpp>
 #include <quan/fusion/static_value.hpp>
 #include <quan/fixed_quantity/literal.hpp>
+#include <quan/concepts/fusion/matrix.hpp>
+#include <quan/concepts/fusion/sequence.hpp>
 /*
  todo 
 
-https://www.geeksforgeeks.org/determinant-of-a-matrix/
+
 
 adjoint, 
  hence inverse
