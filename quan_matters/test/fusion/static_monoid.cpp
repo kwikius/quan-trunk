@@ -28,4 +28,7 @@ void static_monoid_test()
     typedef quan::fusion::static_monoid<quan::operator_logical_and,bool> monoid_logical_and;
     QUAN_CHECK(to_runtime{}(monoid_logical_and::type{}) == true)
 
+    typedef quan::fusion::static_monoid<quan::operator_plus,int> monoid_plus_int;
+    QUAN_CHECK(to_runtime{}(monoid_plus_int::type{}) == 0)
+
 }
