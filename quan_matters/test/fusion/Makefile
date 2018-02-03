@@ -19,7 +19,7 @@ CXXFLAGS    += -fconcepts
 endif
 
 TEST_FILES = test static_value static_monoid fold inner_product matrix sequence matrix_mux \
-transpose_matrix matrix1
+transpose_matrix matrix1 adjunct_matrix inverse_matrix
 
 TEST_SRCS =  $(patsubst %,%.cpp,$(TEST_FILES)) 
 TEST_OBJECTS = $(patsubst %,%.o,$(TEST_FILES))
