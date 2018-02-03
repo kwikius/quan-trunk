@@ -39,8 +39,8 @@ namespace {
       QUAN_CHECK(quan::fusion::num_elements<decltype(seqL)> == 16);
       QUAN_CHECK(quan::fusion::num_elements<decltype(seqR)> == 16);
 
-      QUAN_CHECK( ( std::is_same<quan::fusion::type_at<0,decltype(seqL)>,int>::value ) );
-      QUAN_CHECK( ( std::is_same<quan::fusion::type_at<15,decltype(seqL)>,int>::value ) );
+      QUAN_CHECK( ( std::is_same<quan::fusion::sequence_at_t<0,decltype(seqL)>,int>::value ) );
+      QUAN_CHECK( ( std::is_same<quan::fusion::sequence_at_t<15,decltype(seqL)>,int>::value ) );
 
       QUAN_CHECK(quan::fun::at<2>(seqL) == 3);
       quan::fun::at<2>(seqL) = 1;
