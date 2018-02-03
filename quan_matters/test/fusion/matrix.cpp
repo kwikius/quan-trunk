@@ -349,6 +349,8 @@ namespace {
 
 void matrix_mux_result_test();
 void transpose_matrix_test();
+void test_sub_matrix_of_m3();
+void qty_matrix_test();
 
 void matrix_test()
 {
@@ -361,4 +363,7 @@ void matrix_test()
    matrix_1x1_test();
    fusion_submatrix_test();
    fusion_determinant_test();
+   test_sub_matrix_of_m3();
+
+   qty_matrix_test();
 }
