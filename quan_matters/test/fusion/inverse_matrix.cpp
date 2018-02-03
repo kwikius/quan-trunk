@@ -33,8 +33,6 @@ void fusion_inverse_matrix_test1()
    QUAN_CHECK(quan::fun::is_fun_matrix<m_type>::value)
    auto const inv = quan::fun::inverse_view<m_type>{m};
 
-  // std::cout << typeid(inv).name() <<'\n';
-//
    typedef quan::meta::strip_cr<decltype(inv)>::type inv_type;
    
    QUAN_CHECK(quan::fun::is_fun_matrix<inv_type>::value)
@@ -43,5 +41,12 @@ void fusion_inverse_matrix_test1()
    std::cout << inv.at<1,0>() << ", " << inv.at<1,1>() << ", " << inv.at<1,2>() << ", " << inv.at<1,3>() << '\n';
    std::cout << inv.at<2,0>() << ", " << inv.at<2,1>() << ", " << inv.at<2,2>() << ", " << inv.at<2,3>() << '\n';
    std::cout << inv.at<3,0>() << ", " << inv.at<3,1>() << ", " << inv.at<3,2>() << ", " << inv.at<3,3>() << '\n';
+
+   auto const mux = m * inv;
+
+   std::cout << mux.at<0,0>() << ", " << mux.at<0,1>() << ", " << mux.at<0,2>() << ", " << mux.at<0,3>() << '\n';
+   std::cout << mux.at<1,0>() << ", " << mux.at<1,1>() << ", " << mux.at<1,2>() << ", " << mux.at<1,3>() << '\n';
+   std::cout << mux.at<2,0>() << ", " << mux.at<2,1>() << ", " << mux.at<2,2>() << ", " << mux.at<2,3>() << '\n';
+   std::cout << mux.at<3,0>() << ", " << mux.at<3,1>() << ", " << mux.at<3,2>() << ", " << mux.at<3,3>() << '\n';
 
 }

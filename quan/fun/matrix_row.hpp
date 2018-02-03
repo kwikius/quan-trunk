@@ -24,23 +24,25 @@
 #include <quan/fun/seq_arg_type.hpp>
 #include <quan/meta/int32.hpp>
 #include <quan/fun/access_type_seq.hpp>
+
+#include <quan/fun/at_matrix.hpp>
 /*
   matrix_row is row N of a matrix
 */
 
 namespace quan{ namespace fun{
 
-    template <int N, typename Matrix>
+    template <int R, typename Matrix>
     struct matrix_row;
 
     // make it a model of fun_sequence
-    template <int N, typename Matrix>
-    struct is_fun_sequence_impl<matrix_row<N,Matrix> > : std::true_type{};
+    template <int R, typename Matrix>
+    struct is_fun_sequence_impl<matrix_row<R,Matrix> > : std::true_type{};
 
-    template <int N, typename Matrix>
-    struct size_seq_impl<matrix_row<N,Matrix> > : quan::meta::int32<Matrix::cols>{};
+    template <int R, typename Matrix>
+    struct size_seq_impl<matrix_row<R,Matrix> > : matrix_col_size<Matrix>{};
  
-    template<int N, typename Matrix>
+    template<int R, typename Matrix>
     struct matrix_row{
       typedef matrix_row type;
       // calc arg type for constructor
@@ -52,11 +54,11 @@ namespace quan{ namespace fun{
       arg_type m_matrix;
       constexpr matrix_row(arg_type matrix_in) : m_matrix( matrix_in){}
     };
-
-    template <int I, int N, typename Matrix, typename F>
-    struct at_seq_impl<I,matrix_row<N,Matrix>,F>{
+#if 0
+    template <int C, int R, typename Matrix, typename F>
+    struct at_seq_impl<C,matrix_row<R,Matrix>,F>{
       typedef at_seq<
-         ((Matrix::cols * N) + I ),
+         ((Matrix::cols * N) + C ),
          typename Matrix::elements_type,
          F
       > at_seq_type;
@@ -69,6 +71,22 @@ namespace quan{ namespace fun{
          return at_seq_type{}(in.m_matrix.elements);
       }
     };
+#else
+    template <int C, int R, typename Matrix, typename F>
+    struct at_seq_impl<C,matrix_row<R,Matrix>,F>{
+
+        typedef at_matrix<R,C,Matrix,F> at_matrix_type;
+        typedef typename at_matrix_type::type type;
+
+         constexpr 
+         type operator()( matrix_row<R,Matrix>const & in)const
+         {
+            return at_matrix_type{}(in.m_matrix);
+         }
+
+    };
+
+#endif
 
 }}//quan::fun
 
