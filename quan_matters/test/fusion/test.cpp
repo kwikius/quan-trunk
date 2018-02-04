@@ -11,6 +11,8 @@ void sequence_test();
 void adjunct_matrix_test1();
 void fusion_inverse_matrix_test1();
 
+void fusion_compare_seq();
+
 int errors = 0;
 
 int main()
@@ -25,6 +27,7 @@ int main()
   matrix_test();
   adjunct_matrix_test1();
   fusion_inverse_matrix_test1();
+  fusion_compare_seq();
 
   QUAN_EPILOGUE
 }
