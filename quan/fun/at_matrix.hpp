@@ -23,15 +23,15 @@ namespace quan{ namespace fun{
          >::type
        >{
 
-           typedef typename Matrix::template type_at<R,C,Access>::type type;
+           typedef typename Matrix::template type_at<R,C,as_value>::type type;
          //  typedef typename Access::template result<raw_type>::type type;
 
-           constexpr type operator()( Matrix & m)
+           constexpr type & operator()( Matrix & m)
            {
                return m. template at<R,C>();
            }
 
-           constexpr type operator()( Matrix const & m)
+           constexpr type  operator()( Matrix const & m)
            {
                return m. template at<R,C>();
            }
