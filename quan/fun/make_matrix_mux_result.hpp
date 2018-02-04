@@ -35,8 +35,8 @@ namespace quan{ namespace fun{
 
        template<int R, int C, typename Matrix1, typename Matrix2>
        struct matrix_mux_row_col_result{
-            typedef quan::fun::matrix_row<R,Matrix1> row;
-            typedef quan::fun::matrix_col<C,Matrix2> col;
+            typedef quan::fun::matrix_row<R,const Matrix1> row;
+            typedef quan::fun::matrix_col<C,const Matrix2> col;
             typedef typename quan::fun::dot_product_seq:: template result<
                row,col
             >::type type;
@@ -51,19 +51,21 @@ namespace quan{ namespace fun{
                R,C,Matrix1,Matrix2
             >::type type;
          };
+         typedef typename quan::meta::strip_cr<Matrix1>::type lhs_type;
+         typedef typename quan::meta::strip_cr<Matrix2>::type rhs_type;
 
-         typedef typename seq_arg_type<Matrix1>::type lhs_type;
-         typedef typename seq_arg_type<Matrix2>::type rhs_type;
+       //  typedef typename seq_arg_type<Matrix1>::type lhs_type;
+        // typedef typename seq_arg_type<Matrix2>::type rhs_type;
 
-         static constexpr int rows = Matrix1::rows;
-         static constexpr int cols = Matrix2::cols;
+         static constexpr int rows = matrix_row_size<Matrix1>::value;
+         static constexpr int cols = matrix_col_size<Matrix2>::value;
          typedef quan::fun::as_value access_type;
 
-         constexpr matrix_mux_initialiser(lhs_type lhs_in, rhs_type rhs_in)
+         constexpr matrix_mux_initialiser(lhs_type const & lhs_in, rhs_type const & rhs_in)
          :lhs{lhs_in},rhs{rhs_in}{}
 
-         lhs_type lhs;
-         rhs_type rhs;
+         lhs_type const & lhs;
+         rhs_type const & rhs;
        };
 
    }//detail
@@ -94,8 +96,8 @@ namespace quan{ namespace fun{
       static constexpr int row_pos = (I / mat_init::cols);
       static constexpr int col_pos = (I % mat_init::cols);
 
-      typedef quan::fun::matrix_row<row_pos,Matrix1> row_type;
-      typedef quan::fun::matrix_col<col_pos,Matrix2> col_type;
+      typedef quan::fun::matrix_row<row_pos,const Matrix1> row_type;
+      typedef quan::fun::matrix_col<col_pos,const Matrix2> col_type;
 
       typedef typename mat_init::template result<row_pos,col_pos>::type type;
 
