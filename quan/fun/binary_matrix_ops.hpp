@@ -69,7 +69,7 @@ namespace quan{ namespace fun{
    operator*(MatL const & lhs, MatR const & rhs)
    {
       typedef quan::fun::detail::matrix_mux_initialiser<
-         const MatL, const MatR
+         MatL, MatR
       > initialiser;
 
      // typedef quan::fun::matrix_initialiser<MatL,quan::meta::times, MatR>::type initialiser;
