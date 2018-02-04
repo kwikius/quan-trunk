@@ -57,7 +57,7 @@ namespace quan{ namespace fun{
          template <typename Seq,typename T, typename F>
          struct result{
             typedef typename fold_fun_seq_n<I-1>:: template result<Seq,T,F>::type lhs_type;
-            typedef typename at_seq<I,Seq,as_const_ref>::type rhs_type;
+            typedef typename at_seq<I,Seq,as_value>::type rhs_type;
             typedef typename quan::meta::strip_cr<F>::type f_type;
             typedef typename f_type::template result<lhs_type,rhs_type>::type type;
          };
@@ -68,7 +68,7 @@ namespace quan{ namespace fun{
          operator()(Seq && seq,T && t, F && f)const
          {
              typedef fold_fun_seq_n<I-1> prev_type;
-             typedef at_seq<I,Seq,as_const_ref> at_type;
+             typedef at_seq<I,Seq,as_value> at_type;
              return f(prev_type{}(std::forward<Seq>(seq),std::forward<T>(t),std::forward<F>(f)),at_type{}(std::forward<Seq>(seq)));
          }
          typedef fold_fun_seq_n type;
