@@ -20,6 +20,7 @@
 #include <quan/fun/at_seq.hpp>
 #include <quan/fun/is_fun_matrix.hpp>
 #include <quan/fun/access_type_seq.hpp>
+#include <quan/where.hpp>
 
 namespace quan {namespace fun{
 

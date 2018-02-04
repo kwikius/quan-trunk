@@ -2,6 +2,7 @@
 #define QUAN_CONCEPTS_FUSION_MATRIX_HPP_INCLUDED
 
 #include <quan/fun/is_fun_matrix.hpp>
+#include <quan/fun/access_modifiers.hpp>
 #include <quan/is_model_of.hpp>
 
 namespace quan { namespace fusion{
