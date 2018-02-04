@@ -21,7 +21,7 @@
 #include <quan/fun/fun_seq2.hpp>
 #include <quan/fun/at_seq.hpp>
 #include <quan/fun/fold_seq.hpp>
-#include <quan/static.hpp>
+//#include <quan/static.hpp>
 #include <quan/operators/binary_operator_functors.hpp>
 #include <quan/fun/are_fun_sequences.hpp>
 #include <quan/fun/same_size_seq.hpp>
