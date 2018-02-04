@@ -45,48 +45,54 @@ namespace quan{ namespace fun{
     template<int R, typename Matrix>
     struct matrix_row{
       typedef matrix_row type;
-      // calc arg type for constructor
       typedef typename seq_arg_type<Matrix>::type arg_type; 
       typedef typename quan::meta::strip_cr<Matrix>::type matrix_type;
-      typedef typename quan::meta::strip_cr<typename matrix_type::elements_type>::type elements_type;
       typedef typename access_type_seq<matrix_type>::type access_type;
       
       arg_type m_matrix;
       constexpr matrix_row(arg_type matrix_in) : m_matrix( matrix_in){}
     };
-#if 0
-    template <int C, int R, typename Matrix, typename F>
-    struct at_seq_impl<C,matrix_row<R,Matrix>,F>{
-      typedef at_seq<
-         ((Matrix::cols * N) + C ),
-         typename Matrix::elements_type,
-         F
-      > at_seq_type;
-      typedef typename at_seq_type::type type;
-      // note that the constness of the row seems not to matter here
-      // possibly try 
-      constexpr 
-      typename at_seq_type::type operator()( matrix_row<N,Matrix>const & in)const
-      {
-         return at_seq_type{}(in.m_matrix.elements);
-      }
-    };
-#else
-    template <int C, int R, typename Matrix, typename F>
-    struct at_seq_impl<C,matrix_row<R,Matrix>,F>{
 
-        typedef at_matrix<R,C,Matrix,F> at_matrix_type;
-        typedef typename at_matrix_type::type type;
 
+    template <int C, int R, typename Matrix>
+    struct at_seq_impl<C,matrix_row<R,Matrix>,quan::fun::as_ref>{
+
+         typedef typename at_matrix<R,C,Matrix,as_ref>::type type;
+       
          constexpr 
-         type operator()( matrix_row<R,Matrix>const & in)const
+         type  operator()( matrix_row<R,Matrix> & in)const
          {
-            return at_matrix_type{}(in.m_matrix);
+            typedef at_matrix<R,C,Matrix,as_ref> at_type;
+            return at_type{}(in.m_matrix);
          }
-
     };
 
-#endif
+    template <int C, int R, typename Matrix>
+    struct at_seq_impl<C,matrix_row<R,Matrix>,quan::fun::as_const_ref>{
+
+         typedef typename at_matrix<R,C,Matrix,as_const_ref>::type type;
+       
+         constexpr 
+         type  operator()( matrix_row<R,Matrix> const & in)const
+         {
+            typedef at_matrix<R,C,Matrix,as_const_ref> at_type;
+            return at_type{}(in.m_matrix);
+         }
+    };
+
+    template <int C, int R, typename Matrix>
+    struct at_seq_impl<C,matrix_row<R,Matrix>,quan::fun::as_value>{
+
+         typedef typename at_matrix<R,C,Matrix,as_value>::type type;
+       
+         constexpr 
+         type  operator()( matrix_row<R,Matrix> const & in)const
+         {
+            typedef at_matrix<R,C,Matrix,as_value> at_type;
+            return at_type{}(in.m_matrix);
+         }
+    };
+
 
 }}//quan::fun
 
