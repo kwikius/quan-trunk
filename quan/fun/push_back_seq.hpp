@@ -17,7 +17,7 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 
-#include <quan/fun/cons.hpp>
+//#include <quan/fun/cons.hpp>
 #include <quan/meta/type_sequence.hpp>
 
 namespace quan{namespace fun{
