@@ -142,8 +142,6 @@ namespace quan{ namespace meta{
           typedef bool type;
        };
 
-      
-         
    } //impl
 
 }}
