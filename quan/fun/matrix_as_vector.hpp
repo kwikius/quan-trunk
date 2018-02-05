@@ -1,8 +1,9 @@
 #ifndef QUAN_FUN_MATRIX_AS_VECTOR_HPP_INCLUDED
 #define QUAN_FUN_MATRIX_AS_VECTOR_HPP_INCLUDED
 
+#include <quan/fun/matrix.hpp>
 #include <quan/fun/as_vector.hpp>
-#include <quan/fun/at_matrix.hpp>
+
 #include <quan/meta/type_sequence.hpp>
 
 namespace quan{ namespace fun{

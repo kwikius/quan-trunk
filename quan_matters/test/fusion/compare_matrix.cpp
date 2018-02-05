@@ -1,13 +1,9 @@
 
 #include <quan_matters/test/test.hpp>
 
-#include <quan/fun/compare_seq_ops.hpp>
+#include <quan/fusion/matrix.hpp>
 
-#include <quan/fun/binary_matrix_ops.hpp>
-#include <quan/fusion/make_matrix.hpp>
-#include <quan/fusion/make_multiplies_view.hpp>
-#include <quan/fun/matrix_as_vector.hpp>
-#include <quan/fusion/as_sequence.hpp>
+#include <quan/fun/compare_seq_ops.hpp>
 
 void fusion_compare_seq()
 {

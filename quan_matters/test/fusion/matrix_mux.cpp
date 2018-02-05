@@ -1,21 +1,18 @@
 
+#include <typeinfo>
+
 #include <quan_matters/test/test.hpp>
 
-#include <quan/fun/binary_matrix_ops.hpp>
-#include <quan/fusion/make_matrix.hpp>
-#include <quan/fusion/make_multiplies_view.hpp>
-#include <quan/fun/matrix_as_vector.hpp>
-#include <quan/fun/matrix_row.hpp>
-#include <quan/fun/matrix_col.hpp>
-#include <quan/fun/at.hpp>
+#include <quan/fusion/matrix.hpp>
+#include <quan/fusion/static_value.hpp>
+
 #include <quan/length.hpp>
 #include <quan/time.hpp>
 #include <quan/area.hpp>
 #include <quan/velocity.hpp>
 #include <quan/reciprocal_length.hpp>
-#include <quan/fusion/static_value.hpp>
+
 #include <quan/fixed_quantity/literal.hpp>
-#include <typeinfo>
 
 namespace {
 
@@ -54,12 +51,16 @@ namespace {
       );
 
       auto constexpr result = m1 * m2;
+      display(result,"m1 * m2 : ");
 
       typedef quan::meta::strip_cr<decltype(result)>::type result_type;
 
       auto const res_view = quan::fusion::make_multiplies_view(m1,m2);
-
       typedef quan::meta::strip_cr<decltype(res_view)>::type res_view_type;
+      typedef quan::fun::as_value_matrix<res_view_type>::type mux_val_type;
+      auto const mux_val = mux_val_type{quan::fusion::as_sequence(res_view)};
+
+      display(mux_val,"The synthesised  mux of m1 , m2: ");
 
       QUAN_CHECK((res_view.at<0,0>() == result.at<0,0>() ))
 
@@ -75,6 +76,8 @@ namespace {
 
       typedef quan::fun::matrix_as_sequence<result_type> mat_as_seq2;
       mat_as_seq2 s2{result};
+
+      
 
       // TODO no at in as_seq
       //QUAN_CHECK( (s1.at<0>() == s2.at<0,0>() ) )

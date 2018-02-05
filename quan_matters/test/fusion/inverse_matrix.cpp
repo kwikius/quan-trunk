@@ -1,25 +1,7 @@
 
 #include <quan_matters/test/test.hpp>
-#include <quan/fun/binary_matrix_ops.hpp>
-#include <quan/out/length.hpp>
-#include <quan/fusion/make_matrix.hpp>
-#include <quan/fun/adjunct_view.hpp>
-#include <quan/fun/inverse_view.hpp>
-#include <quan/fun/matrix_row.hpp>
-#include <quan/fun/matrix_col.hpp>
-#include <quan/fun/display_matrix.hpp>
-#include <quan/fun/at.hpp>
-#include <quan/fusion/static_value.hpp>
 
-#include <quan/length.hpp>
-#include <quan/time.hpp>
-#include <quan/area.hpp>
-#include <quan/velocity.hpp>
-#include <quan/reciprocal_length.hpp>
-
-#include <quan/fixed_quantity/literal.hpp>
-
-#include <typeinfo>
+#include <quan/fusion/matrix.hpp>
 
 void fusion_inverse_matrix_test1()
 {

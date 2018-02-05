@@ -1,20 +1,12 @@
 
 #include <quan_matters/test/test.hpp>
-#include <quan/fusion/make_matrix.hpp>
-#include <quan/fun/matrix_row.hpp>
-#include <quan/fun/matrix_col.hpp>
-#include <quan/fusion/make_sub_matrix_view.hpp>
-#include <quan/fusion/determinant.hpp>
-#include <quan/fun/at.hpp>
+
+#include <quan/fusion/matrix.hpp>
 #include <quan/length.hpp>
 #include <quan/time.hpp>
 #include <quan/area.hpp>
 #include <quan/velocity.hpp>
-#include <quan/reciprocal_length.hpp>
 #include <quan/fusion/static_value.hpp>
-#include <quan/fixed_quantity/literal.hpp>
-#include <quan/concepts/fusion/matrix.hpp>
-#include <quan/concepts/fusion/sequence.hpp>
 /*
  todo 
 

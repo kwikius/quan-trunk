@@ -8,7 +8,6 @@
 
 #include <quan/fusion/make_vector.hpp>
 
-
 namespace {
 
    // constexpr seq of rvalues in constexpr result
@@ -25,7 +24,7 @@ namespace {
       QUAN_CHECK(r == 27.5);
    }
 
-    void fold_test1a()
+   void fold_test1a()
    {
       auto constexpr seq = quan::fusion::make_vector(1,2,3,27.5,-3,-2,-1);
 

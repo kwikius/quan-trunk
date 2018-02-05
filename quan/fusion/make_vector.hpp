@@ -2,7 +2,6 @@
 #define QUAN_FUSION_MAKE_VECTOR_HPP_INCLUDED
 
 #include <quan/fun/vector.hpp>
-#include <type_traits>
 #include <quan/meta/strip_cr.hpp>
 
 namespace quan{ namespace fusion{

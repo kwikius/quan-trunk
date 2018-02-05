@@ -4,22 +4,26 @@
 #include <quan/fusion/matrix.hpp>
 #include <quan/fun/for_each.hpp>
 
+#include <iostream>
+
 namespace quan { namespace fun{
 
    namespace detail{
       // type dependent print formatting functions
-      inline void print_format(int v)
-      {
-         printf("% 5i ?",v);  // int in 6 characters
-      }
+//      inline void print_format(int v)
+//      {
+//        // printf("% 5i ?",v);  // int in 6 characters
+//      }
 
       template <typename T>
       
       inline 
-      typename quan::where_<std::is_floating_point<T> >::type
+    //  typename quan::where_<std::is_floating_point<T> >::type
+      void
       print_format(T v)
       {
-         printf("% 8.3f",v);  // float in 9 characters
+         std::cout << v ;
+        // printf("% 8.3f",v);  // float in 9 characters
       }
 
       template <typename T> struct num_chars;
@@ -42,15 +46,15 @@ namespace quan { namespace fun{
       template <typename T>
       inline void print_sep(char ch)
       {
-         for ( int i=0; i < num_chars<T>::value; ++i){
-            printf("%c",ch);
+         for ( int i=0; i < 9; ++i){
+            std::cout << ch;
          }
       }
 
       template <typename T, int C>
       inline void print_seps()
       {
-          printf("|");
+          std::cout << '|';
           for ( int i = 0; i < C; ++i){
             if ( (i == 0) || ( i == ( C-1))){
                print_sep<T>('-');
@@ -58,7 +62,7 @@ namespace quan { namespace fun{
                print_sep<T>(' ');
             }
           }
-          printf("|\n");
+          std::cout << "|\n";
       }
 
       struct output_format{
@@ -73,7 +77,7 @@ namespace quan { namespace fun{
          operator()(T const & v)const
          {
             print_format(v);
-            printf(" ");
+           std::cout << ' ';
          }
       };
 
@@ -86,9 +90,9 @@ namespace quan { namespace fun{
       display_matrix_n(Matrix const & m)
       {
          typedef quan::fun::matrix_row<N,const Matrix> last_row;
-         printf("|");
+         std::cout << "|";
          quan::fun::for_each(last_row{m},detail::output_format{});
-         printf("|\n");
+         std::cout << "|\n";
       }
 
       template <int N, typename Matrix>
@@ -100,9 +104,9 @@ namespace quan { namespace fun{
       display_matrix_n(Matrix const & m)
       {
          typedef quan::fun::matrix_row<N,const Matrix> row_n;
-         printf("|");
+         std::cout << "|";
          quan::fun::for_each(row_n{m},detail::output_format{});
-         printf("|\n");
+         std::cout << "|\n";
          display_matrix_n<N+1>(m);
       }
 
@@ -123,7 +127,7 @@ namespace quan { namespace fun{
       typedef typename quan::meta::strip_cr<decltype(m. template at<0,0>())>::type arg_type;
       int constexpr C = quan::fun::matrix_col_size<decltype(m)>::value;  
       if (text != nullptr){
-         printf("\n%s\n",text);
+         std::cout << text << '\n';
       }
       detail::print_seps<arg_type,C>();
       detail::display_matrix_n<0>(m);
