@@ -33,6 +33,7 @@
 #include <quan/config.hpp>
 #include <quan/undefined.hpp>
 #include <quan/meta/is_numeric.hpp>
+#include <quan/meta/is_scalar.hpp>
 #include <quan/quantity_traits.hpp>
 #include <quan/meta/binary_operator_traits.hpp>
 #include <quan/archetypes/meta/static_rational_concept.hpp>
@@ -107,6 +108,8 @@ namespace quan{  namespace meta{
            A,Op,B,
            typename quan::where_<
                and_<
+                  is_scalar<A>,
+                  is_scalar<B>,
                   or_<
                      quan::meta::is_equality_operator<Op>,
                      quan::meta::is_relational_operator<Op>

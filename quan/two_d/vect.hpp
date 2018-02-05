@@ -127,6 +127,21 @@ namespace quan{namespace meta{
                >::type
            > type;
        };
+
+       template <typename T1, typename Op, typename T2>
+       struct binary_op_impl<
+         quan::two_d::vect<T1>, Op, quan::two_d::vect<T2>,
+         typename quan::where_<
+            quan::meta::and_<
+               quan::meta::is_equality_operator<Op>
+               ,quan::meta::is_valid_binary_op<T1,Op,T2>
+            >
+         >::type
+       >
+       {
+          typedef bool type;
+       };
+
    } //impl
 }}//quan::meta
 

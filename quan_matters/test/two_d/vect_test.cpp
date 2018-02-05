@@ -31,6 +31,7 @@
 void vect_test1();
 void vect_t1_quantity_test1();
 void vect_test3();
+void  vect_valid_binary_op_test();
 
 int errors = 0;
 int main()
@@ -38,6 +39,7 @@ int main()
    vect_test1();
    vect_t1_quantity_test1();
    vect_test3();
+   vect_valid_binary_op_test();
 
    EPILOGUE
 }
@@ -140,6 +142,9 @@ void vect_t1_quantity_test1()
     vect v2 =v1 * 2.;
     QUAN_CHECK(v2.x.numeric_value() == 2.);
     QUAN_CHECK(v2.y.numeric_value() == 4.);
+    QUAN_CHECK( v2 != v1)
+    QUAN_CHECK( v2 == 2. * v1)
+    QUAN_CHECK( v1 == v2 / 2.);
 
     vect v3 = v1 + v2;
     QUAN_CHECK(v3.x.numeric_value() == 3.);
@@ -159,6 +164,60 @@ void vect_t1_quantity_test1()
     vect  v6 = v5 + v1;
     QUAN_CHECK(v6.x.numeric_value() == 2.);
     QUAN_CHECK(v6.y.numeric_value() == 4.);
+
+}
+
+void  vect_valid_binary_op_test()
+{
+    typedef quan::two_d::vect<double> vect_d;
+
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<vect_d, quan::meta::plus,double>::value == false))
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<double,quan::meta::plus,vect_d>::value ==false))
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<vect_d, quan::meta::plus,vect_d>::value == true))
+
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<vect_d, quan::meta::minus,vect_d>::value == true))
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<double,quan::meta::minus,vect_d>::value == false))
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<double,quan::meta::minus,vect_d>::value ==false))
+
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<vect_d, quan::meta::times,double>::value))
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<double,quan::meta::times,vect_d>::value))
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<vect_d, quan::meta::divides,double>::value))
+
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<vect_d, quan::meta::times,vect_d>::value) == false)
+
+    typedef quan::length::mm mm;
+
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<vect_d, quan::meta::times,mm>::value))
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<mm,quan::meta::times,vect_d>::value))
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<vect_d, quan::meta::divides,mm>::value))
+   
+  // should this work? vect/scalar  ->  1/scalar * vect which seems ok
+  //  QUAN_CHECK( (quan::meta::is_valid_binary_op<double,quan::meta::divides,vect_d>::value))
+   // QUAN_CHECK( (quan::meta::is_valid_binary_op<mm,quan::meta::divides,vect_d>::value))
+
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<vect_d, quan::meta::equal_to,vect_d>::value ))
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<vect_d,quan::meta::not_equal_to,vect_d>::value))
+
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<mm, quan::meta::equal_to,vect_d>::value ==false))
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<vect_d,quan::meta::not_equal_to,mm>::value == false))
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<vect_d, quan::meta::equal_to,mm>::value == false))
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<mm,quan::meta::not_equal_to,vect_d>::value == false))
+
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<vect_d, quan::meta::less,double>::value ==false))
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<double, quan::meta::less,vect_d>::value ==false))
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<vect_d, quan::meta::less,vect_d>::value ==false))
+
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<vect_d, quan::meta::greater,double>::value ==false))
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<double, quan::meta::greater,vect_d>::value ==false))
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<vect_d, quan::meta::greater,vect_d>::value ==false))
+
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<vect_d, quan::meta::less_equal,double>::value ==false))
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<double, quan::meta::less_equal,vect_d>::value ==false))
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<vect_d, quan::meta::less_equal,vect_d>::value ==false))
+
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<vect_d, quan::meta::greater_equal,double>::value ==false))
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<double, quan::meta::greater_equal,vect_d>::value ==false))
+    QUAN_CHECK( (quan::meta::is_valid_binary_op<vect_d, quan::meta::greater_equal,vect_d>::value ==false))
 
 }
 
