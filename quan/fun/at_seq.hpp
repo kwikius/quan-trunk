@@ -23,35 +23,56 @@
 
 namespace quan{ namespace fun{
 
-    template<int N, typename Seq, typename Access>
+    template<int I, typename Seq, typename Access>
     struct at_seq_impl;
 
-    template<int N, typename Seq, typename Access = as_value>
+    template<int I, typename Seq, typename Access = as_value>
     struct at_seq : at_seq_impl<
-      N,
+      I,
       typename std::remove_const<
          typename std::remove_reference<Seq>::type
       >::type,
       Access
     >{};
 
-    
-    template<int N, typename ...Elements , typename Access>
-    struct at_seq_impl<N,std::tuple<Elements...>, Access>{
+    template <int I, int N, typename T, typename Access>
+    struct at_seq_impl<I, T[N], Access>{
 
-        typedef typename std::tuple_element<N, std::tuple<Elements...> >::type tuple_element_type;
+        typedef typename Access:: template result<T>::type type;
+
+        constexpr type operator() ( T(&in)[N])
+        {
+           return in[I];
+        }
+
+    };
+
+    template <int I, int N, typename T, typename Access>
+    struct at_seq_impl<I, T const[N], Access>{
+        typedef T const & type;
+        constexpr T const & operator() ( T const(&in)[N])
+        {
+           return in[I];
+        }
+
+    };
+
+    template<int I, typename ...Elements , typename Access>
+    struct at_seq_impl<I,std::tuple<Elements...>, Access>{
+
+        typedef typename std::tuple_element<I, std::tuple<Elements...> >::type tuple_element_type;
          
         typedef typename Access:: template result<tuple_element_type>::type type;
 
         constexpr type operator() ( std::tuple<Elements...> & in)
         {
-           return std::get<N>(in);
+           return std::get<I>(in);
         }
 
         typedef typename as_const_ref:: template result<tuple_element_type>::type const_type;
         constexpr const_type operator() ( std::tuple<Elements...> const & in)
         {
-           return std::get<N>(in);
+           return std::get<I>(in);
         }
         
     };

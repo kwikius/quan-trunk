@@ -22,6 +22,7 @@
 #include <quan/fun/is_fun_matrix.hpp>
 #include <quan/fun/access_type_seq.hpp>
 #include <quan/where.hpp>
+#include <utility>
 
 namespace quan {namespace fun{
 
@@ -47,13 +48,29 @@ namespace quan {namespace fun{
         constexpr matrix (matrix<R,C,Seq1> const & in)
         : elements(in.elements){}
 
+        template <typename Seq1>
+        constexpr matrix (matrix<R,C,Seq1> & in)
+        : elements(in.elements){}
+
         constexpr matrix (matrix const & in)
         : elements(in.elements){}
 
         constexpr matrix (Seq const & in )
         : elements(in){}
+
+        matrix & operator = ( matrix const & in)
+        {
+            elements = in.elements;
+            return *this;
+        }
+
+        matrix & operator = ( matrix && in)
+        {
+            elements = in.elements;
+            return *this;
+        }
         
-        constexpr matrix (matrix && in )
+        matrix (matrix && in )
         : elements(in.elements){}
 
         template <int R1, int C1>

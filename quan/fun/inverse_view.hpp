@@ -1,6 +1,7 @@
 #ifndef QUAN_FUN_INVERSE_VIEW_HPP_INCLUDED
 #define QUAN_FUN_INVERSE_VIEW_HPP_INCLUDED
 
+#include <quan/concepts/fusion/matrix.hpp>
 #include <quan/fun/matrix_determinant.hpp>
 #include <quan/fun/adjunct_view.hpp>
 #include <quan/fusion/static_value.hpp>
@@ -8,12 +9,29 @@
 
 namespace quan{namespace fun{
 
+ #if ! defined __cpp_concepts
+   template <typename Matrix, typename Where = void >
+   struct inverse_view;
+#else
+   template <typename M >
+   struct inverse_view;
+#endif
+
+#if defined  __cpp_concepts
+   template <quan::fusion::Matrix M>
+   struct inverse_view<M
+#else
    // Matrix must be a square matrix
-   template <typename Matrix>
-   struct inverse_view{
+   template <typename M>
+   struct inverse_view<M, 
+      typename quan::where_<
+         quan::is_model_of<quan::fusion::Matrix_,M>
+      >::type
+#endif
+   >{
       
       typedef inverse_view type;
-      typedef typename quan::meta::strip_cr<Matrix>::type matrix_type;
+      typedef typename quan::meta::strip_cr<M>::type matrix_type;
       static_assert(quan::fun::is_fun_matrix<matrix_type>::value,"not a matrix");
       static constexpr int rows = matrix_row_size<matrix_type>::value;
       static constexpr int cols = matrix_col_size<matrix_type>::value;

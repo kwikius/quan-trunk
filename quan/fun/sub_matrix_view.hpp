@@ -6,7 +6,7 @@
 
 namespace quan { namespace fun{
 
-  template <int MatrixRow, int MatrixCol, typename Matrix>
+  template <int MatrixRow, int MatrixCol, typename Matrix, typename Where = void >
   struct sub_matrix_view{
      typedef sub_matrix_view type;
      typedef typename quan::meta::strip_cr<Matrix>::type parent_matrix_type;

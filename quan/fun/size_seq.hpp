@@ -32,7 +32,9 @@ namespace quan{ namespace fun{
       >::type
    >{};
 
-  
+    template <int N, typename T>
+    struct size_seq_impl<T[N]> : std::integral_constant<std::size_t, N>{};
+
     template<typename ...Elements >
     struct size_seq_impl<std::tuple<Elements...> > : std::tuple_size<std::tuple<Elements...> >{};
          

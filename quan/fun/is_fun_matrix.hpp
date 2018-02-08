@@ -20,6 +20,7 @@
 #include <type_traits>
 #include <quan/meta/and.hpp>
 #include <quan/meta/strip_cr.hpp>
+#include <quan/meta/bool/false.hpp>
 #include <type_traits>
 
 namespace quan{ namespace fun{
@@ -38,10 +39,8 @@ namespace quan{ namespace fun{
    template <typename M>
    struct is_fun_matrix : impl::is_fun_matrix_impl<typename quan::meta::strip_cr<M>::type>{};
 
-   template <typename ML,typename MR>
-   struct are_fun_matrices : quan::meta::and_<
-      is_fun_matrix<ML>,is_fun_matrix<MR>
-   >{} ;
+   template <typename ...T>
+   struct are_fun_matrices : quan::meta::and_<is_fun_matrix<T>... >{};
 
    template <typename M>
    struct matrix_row_size : impl::matrix_row_size_impl<typename quan::meta::strip_cr<M>::type>{};

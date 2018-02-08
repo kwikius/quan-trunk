@@ -18,7 +18,7 @@
  */
 
 #include <type_traits>
- #include <tuple>
+#include <tuple>
 /*
  to make a model of fun::Sequence
 
@@ -37,6 +37,9 @@ namespace quan{ namespace fun{
          typename std::remove_reference<T>::type
       >::type
    >{};
+
+   template <int N, typename T>
+   struct is_fun_sequence_impl<T[N]> : std::true_type{};
 
    
    template<typename... Elements> 

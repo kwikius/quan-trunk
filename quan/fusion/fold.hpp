@@ -15,7 +15,7 @@ namespace quan{ namespace fusion {
    
    template <typename Seq, typename T , typename F>
    inline constexpr
-   typename quan::fun::fold_seq::result<Seq,T,F>::type
+   typename quan::fun::fold_seq:: template result<Seq,T,F>::type
    fold(Seq && seq, T && init, F&& f)
    {
       // For simplicity fold cannot mutate its sequence or its init

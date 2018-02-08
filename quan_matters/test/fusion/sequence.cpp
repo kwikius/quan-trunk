@@ -45,17 +45,37 @@ namespace {
       QUAN_CHECK(quan::fun::at<2>(seqL) == 3);
       quan::fun::at<2>(seqL) = 1;
       QUAN_CHECK(quan::fun::at<2>(seqL) == 1);
+
+      auto new_seq = seqL;
+
+      new_seq = seqL;
+
+      new_seq = quan::fun::vector<
+            int,int,int,int,
+            int,int,int,int,
+            int,int,int,int,
+            int,int,int,int >{-1,-2,-3,-4,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,-15,-16};
    }
 
    void sequence_variadic_tpl_vector_test()
    {
      
    }
-}
+
+   void sequence_array_test()
+   {
+      int ar[] = {1,2,3,4};
+
+      typedef quan::fun::at_seq<0,int(&)[4],quan::fun::as_value> at_seq;
+      QUAN_CHECK((at_seq{}(ar) == 1))
+      QUAN_CHECK(( quan::fun::size_seq<decltype(ar)>::value == 4))
+   }
+} //namespace
 
 void sequence_test()
 {
    sequence_fun_vector_test();
    sequence_variadic_tpl_vector_test();
+   sequence_array_test();
 }
 
