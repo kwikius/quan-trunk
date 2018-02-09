@@ -16,7 +16,7 @@ ifeq ($(USE_CONCEPTS),True)
 CXXFLAGS    += -fconcepts
 endif
 
-MEMBER_FILES = vect_test
+MEMBER_FILES = vect_test quat
 
 # udt_value_type 
 

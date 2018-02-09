@@ -43,9 +43,10 @@ namespace quan{
         value_type real() const {return m_array[0];}
         value_type imag() const {return m_array[1];}
         complex()
+        : m_array{static_cast<Q>(0),static_cast<Q>(0)}
         {
-            m_array[0] = static_cast<Q>(0);
-            m_array[1] = static_cast<Q>(0);
+           // m_array[0] = static_cast<Q>(0);
+           // m_array[1] = static_cast<Q>(0);
         }
 
         template <typename Q1>
@@ -216,7 +217,7 @@ namespace quan{
             return *this;
         }
 
-         template <typename Numeric>
+        template <typename Numeric>
         typename quan::where_<
             std::is_convertible<
                 Q,
@@ -234,7 +235,7 @@ namespace quan{
                     Numeric
             >::result_type denom = in.real() * in.real() + in.imag() * in.imag(); 
             // check for division by zero
-            Value_type t_real
+            value_type t_real
             =(this->real() * in.real() + this->imag() * in.imag()) / denom;
             m_array[1] 
             = (in.real() * this->imag() - this->real() * in.imag()) / denom;

@@ -28,6 +28,7 @@
 void vect_test1();
 void vect_t1_quantity_test1();
 void vect_valid_binary_op_test();
+void quat_test();
 
 int errors = 0;
 int main()
@@ -35,6 +36,8 @@ int main()
    vect_test1();
    vect_t1_quantity_test1();
    vect_valid_binary_op_test();
+
+   quat_test();
 
    EPILOGUE
 }

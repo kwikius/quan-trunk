@@ -2,6 +2,7 @@
 #define QUAN_BASIC_MATRIX_HPP_INCLUDED
 
 #include <cstdint>
+#include <cstring>
 #include <type_traits>
 #include <quan/where.hpp>
 #include <quan/meta/and.hpp>
@@ -10,6 +11,7 @@
 #include <quan/meta/binary_op.hpp>
 #include <quan/meta/get_value_type.hpp>
 #include <quan/meta/bool.hpp>
+#include <quan/implicit_cast.hpp>
 
 namespace quan{ 
 
@@ -34,10 +36,61 @@ namespace quan{
     static constexpr int rows = R;
     static constexpr int cols = C;
 
-    template <typename  ...Args>
-    constexpr basic_matrix( Args ... args)
-    : m_array{static_cast<T>(args)...}
+    basic_matrix( basic_matrix const & in)  
     {
+        std::memcpy(m_array, in.m_array, R * C * sizeof(T));
+    }
+   
+    basic_matrix & operator =( basic_matrix const & in)
+    { 
+       if ( this != &in){
+          std::memcpy(m_array, in.m_array, R * C * sizeof(T));
+       }
+       return *this;
+    }
+
+    template <typename... Args>
+    constexpr basic_matrix( Args ... args)
+    : m_array{quan::implicit_cast<T>(args)...}
+    {
+      static_assert(sizeof...(Args) == R * C, "invalid args");
+    }
+
+
+    template <
+      typename  M,
+      typename = typename quan::where_<
+         quan::meta::and_<
+           quan::is_basic_matrix<M> 
+           ,std::is_convertible<typename quan::meta::get_value_type<M>::type,T>
+         >
+      >::type
+    >
+    basic_matrix( M const & m)
+    {
+      for ( uint32_t r = 0U; r < R; ++r){
+         for ( uint32_t c = 0U; c < C; ++c){
+            this->at(r,c) = m.at(r,c);
+         }
+      }
+    }
+
+    template < typename  M>
+    typename quan::where_<
+       quan::meta::and_<
+         quan::is_basic_matrix<M> 
+         ,std::is_convertible<typename quan::meta::get_value_type<M>::type,T>
+       >
+      ,basic_matrix&
+    >::type
+    operator = ( M const & m)
+    {
+      for ( uint32_t r = 0U; r < R; ++r){
+         for ( uint32_t c = 0U; c < C; ++c){
+            this->at(r,c) = m.at(r,c);
+         }
+      }
+      return *this;
     }
 
     T & at(uint32_t r, uint32_t c) &
@@ -269,6 +322,60 @@ namespace quan{
    }
 
    template <
+      typename M
+      ,typename Where = void 
+   >
+   struct transpose_view;
+
+   template <typename M>
+   struct transpose_view<M,
+      typename quan::where_<
+         quan::is_basic_matrix<M>
+      >::type
+   >{
+      typedef transpose_view type;
+      typedef M src_matrix_type;
+      typedef typename src_matrix_type::value_type value_type;
+      static constexpr int rows = src_matrix_type::cols ;
+      static constexpr int cols = src_matrix_type::rows ;
+
+      transpose_view(src_matrix_type const & in)
+      : m_src_matrix{in}
+      {
+      }
+
+      value_type at(int r, int c) const
+      {
+         assert( (r < rows) && (c < cols) );
+         return m_src_matrix.at(c,r);
+      }
+      private:
+      src_matrix_type const & m_src_matrix;
+   };
+
+   namespace impl {
+
+      template <typename M>
+      struct is_basic_matrix_impl<
+         quan::transpose_view<M>
+         ,typename quan::where_<
+               quan::is_basic_matrix<M>
+         >::type
+      > : quan::meta::true_{};
+   }// impl
+
+   template <typename M>
+   inline
+   typename quan::where_<
+       quan::is_basic_matrix<M>
+      ,transpose_view<M>
+   >::type
+   make_transpose_view( M const & m)
+   {
+      return {m};
+   }
+
+   template <
       typename M, 
       typename Where = void 
    >
@@ -302,7 +409,7 @@ namespace quan{
          int const c1 = ( c < m_col) ? c : c + 1 ;
          return m_parent_matrix.at(r1,c1);
       }
-      ~sub_matrix_view(){};
+     
       private:
       parent_matrix_type const & m_parent_matrix;
       int const m_row;
@@ -506,8 +613,22 @@ namespace quan{
       return {m};
    }
 
-   
+   template <typename M>
+   inline
+   typename quan::where_<
+      quan::is_basic_matrix<M>
+      ,basic_matrix< 
+         M::rows, 
+         M::cols, 
+         typename M::value_type
+      >
+   >::type
+   make_basic_matrix(M const & m)
+   {
+      return {m};
+   }
 
+  
 } // quan
 
 

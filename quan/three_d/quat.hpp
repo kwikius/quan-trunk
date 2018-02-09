@@ -31,7 +31,6 @@
 
 #include <quan/three_d/vect.hpp>
 
-)
 namespace quan{namespace three_d{
 
 
@@ -361,9 +360,6 @@ PQS's own mechanism of throwing
             throw(bad_argument); 
         }
 */  
-
-
-
    typedef typename quan::meta::binary_op<
             quat_squared_type,
             quan::meta::divides,
@@ -398,8 +394,6 @@ PQS's own mechanism of throwing
     }
 
 //#################################################################
-
-   
 
 }}//quan::three_d
 

@@ -31,7 +31,9 @@
 void vect_test1();
 void vect_t1_quantity_test1();
 void vect_test3();
-void  vect_valid_binary_op_test();
+void vect_valid_binary_op_test();
+void complex_test1();
+void complex_test2();
 
 int errors = 0;
 int main()
@@ -40,6 +42,8 @@ int main()
    vect_t1_quantity_test1();
    vect_test3();
    vect_valid_binary_op_test();
+   complex_test1();
+   complex_test2();
 
    EPILOGUE
 }
