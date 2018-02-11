@@ -30,6 +30,8 @@
 #include <type_traits>
 #else
 #include <quan/std/tr1/is_arithmetic.hpp>
+#include <quan/std/tr1/remove_const.hpp>
+#include <quan/std/tr1/remove_reference.hpp>
 #endif
 namespace quan{ namespace meta{
 

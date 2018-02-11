@@ -27,7 +27,7 @@
 #include <quan/meta/binary_op.hpp>
 #include <quan/three_d/vect_def.hpp>
 #include <quan/where.hpp>
-#include <type_traits>
+//#include <type_traits>
 #include <quan/fixed_quantity/operations/power_root.hpp>
 #include <quan/meta/is_scalar.hpp>
 
@@ -35,7 +35,11 @@
 #include <quan/meta/bool/true.hpp>
 #include <quan/meta/get_num_elements.hpp>
 #include <quan/meta/int32.hpp>
+#ifndef __AVR__
 #include <cmath>
+#else
+#include <math.h>
+#endif
 
 namespace quan{ namespace meta{
 

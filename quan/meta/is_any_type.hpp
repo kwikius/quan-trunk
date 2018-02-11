@@ -4,7 +4,11 @@
 #include <quan/undefined.hpp>
 #include <quan/meta/not.hpp>
 #include <quan/meta/strip_cr.hpp>
+#ifndef __AVR__
 #include <type_traits>
+#else
+#include <quan/std/tr1/is_same.hpp>
+#endif
 
 namespace quan{ namespace meta{
 

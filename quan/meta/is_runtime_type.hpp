@@ -18,8 +18,12 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
  
-
+#ifndef __AVR__
 #include <type_traits>
+#else
+#include <quan/std/tr1/remove_const.hpp>
+#include <quan/std/tr1/remove_reference.hpp>
+#endif
 
 namespace quan{ namespace meta{
 
