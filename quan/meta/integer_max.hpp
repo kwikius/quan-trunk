@@ -19,7 +19,7 @@
  */
 
 #include <quan/config.hpp>
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <climits>
 #include <type_traits>
 #else
@@ -59,7 +59,6 @@ namespace quan{ namespace meta{
    struct integer_max<unsigned long> : std::integral_constant<unsigned long,ULONG_MAX>{};
   
 #if (defined QUAN_HAS_LONG_LONG)
-
    template<>
    struct integer_max<signed long long> : std::integral_constant<signed long long,LLONG_MAX>{};
   

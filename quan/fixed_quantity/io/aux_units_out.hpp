@@ -25,7 +25,7 @@
    overloaded stream output of the units of a ct_quantity
    via the units(pq) function.
 */
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <iostream>
 #else
 #include <quan/avr/iostream_dummy.hpp>

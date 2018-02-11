@@ -30,7 +30,7 @@
     e.g int or double
     Only used by testing
 */
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <cstdint>
 #else
 #include <stdint.h>

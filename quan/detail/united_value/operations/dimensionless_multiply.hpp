@@ -69,7 +69,7 @@
 #include <quan/detail/dimless_mul_exp_2mux.hpp>
 #include <quan/detail/calc_triple.hpp>
 #include <quan/meta/eq.hpp>
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <type_traits>
 #include <cstdint>
 #else

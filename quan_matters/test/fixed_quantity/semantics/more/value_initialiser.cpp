@@ -83,7 +83,7 @@ namespace {
 
    void out_of_range_value_init()
    {
-   #ifndef __AVR__
+   #ifndef QUAN_AVR_NO_CPP_STDLIB
        bool caught = false;
 
        try{

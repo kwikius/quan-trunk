@@ -38,7 +38,7 @@
 #include <quan/fixed_quantity/operations/abs.hpp>
 #include <quan/meta/and.hpp>
 #include <quan/where.hpp>
-#if defined __AVR__
+#if defined QUAN_AVR_NO_CPP_STDLIB
 extern "C"{
    #include <math.h>
    #include <stdlib.h>
@@ -60,7 +60,7 @@ namespace quan{
     >::type
     compare( TL const & a, TR const & b, TE const & eps )
     {
- #ifndef __AVR__
+ #ifndef QUAN_AVR_NO_CPP_STDLIB
            using std::abs;
 #endif
 
@@ -126,7 +126,7 @@ namespace quan{
             >
         >::type wkg_type;
 
-       #ifndef __AVR__
+       #ifndef QUAN_AVR_NO_CPP_STDLIB
            using std::abs;
        #endif
       return ( abs( wkg_type{lhs}.numeric_value() - wkg_type{rhs}.numeric_value() ) <= abs(wkg_type{ep}.numeric_value()) )

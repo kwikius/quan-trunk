@@ -32,7 +32,7 @@ Only used by testing
 #include <quan/meta/binary_op.hpp>
 #include <quan/meta/unary_operation.hpp>
 #include <quan/meta/digits10.hpp>
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <limits>
 #else
 #include <limits.h>

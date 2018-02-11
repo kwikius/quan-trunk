@@ -30,7 +30,7 @@
 
    TODO add wide stream functionality
 */
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <locale>
 #include <iostream>
 #include <sstream>
@@ -81,7 +81,7 @@ namespace quan{
             bool operator() ( std::basic_ostream<Char> & os, std::string const & str)const
             {
                typedef std::ctype<Char> ct;
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
                auto & facet = std::use_facet<ct>(std::locale());
 #else
                ct& facet = std::use_facet<ct>(std::locale());
@@ -98,7 +98,7 @@ namespace quan{
             bool operator() ( std::basic_ostream<Char> & os, char ch)const
             {
                typedef std::ctype<Char> ct;
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
                auto & facet = std::use_facet<ct>(std::locale());
 #else
                ct& facet = std::use_facet<ct>(std::locale());

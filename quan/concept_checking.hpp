@@ -26,7 +26,7 @@
     concept checking classes
 */
 #include <quan/config.hpp>
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <type_traits>
 #else
 #include <quan/std/tr1/is_arithmetic.hpp>
@@ -36,7 +36,7 @@
 #include <quan/meta/to_arithmetic.hpp>
 #include <quan/meta/and.hpp>
 #include <quan/meta/if.hpp>
-#if defined __AVR__
+#if defined QUAN_AVR_NO_CPP_STDLIB
 #include <limits.h>
 #else
 #include <limits>

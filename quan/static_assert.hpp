@@ -46,7 +46,7 @@ namespace quan{ namespace static_assertion{
    QUAN_MACRO_CAT( assertion_failure_ , __LINE__ )
 #endif
 
-#if defined __AVR__
+#if defined QUAN_AVR_NO_CPP_STDLIB
  #define static_assert( cond, text) QUAN_STATIC_ASSERT(( cond ) && text);
 #endif
 

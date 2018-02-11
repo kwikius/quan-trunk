@@ -18,7 +18,7 @@
  */
 
 #include <quan/convert.hpp>
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <climits>
 #include <cstdint>
 #include <cctype>

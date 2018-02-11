@@ -19,7 +19,7 @@
 
 #include <quan/meta/binary_op.hpp>
 
-#ifdef __AVR__
+#ifdef QUAN_AVR_NO_CPP_STDLIB
 #include <quan/avr/iostream_dummy.hpp>
 #else
 #include <iostream>

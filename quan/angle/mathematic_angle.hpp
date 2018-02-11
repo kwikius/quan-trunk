@@ -34,7 +34,7 @@
     fraction of revolution angles e.g degrees,minutes, seconds, grad
 */
 #include <quan/config.hpp>
-#ifdef __AVR__
+#ifdef QUAN_AVR_NO_CPP_STDLIB
 #include "math.h"
 #include <quan/std/tr1/is_same.hpp>
 #include <quan/std/tr1/integral_constant.hpp>
@@ -681,7 +681,7 @@ namespace quan {
             Value_type
         >const& r)
     {
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
         using std::cos;
 #else
        using ::cos;
@@ -693,7 +693,7 @@ namespace quan {
     inline
     Value_type sin(quan::mathematic_angle<quan::meta::rational<1>,Value_type>const& r)
     {
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
         using std::sin;
 #else
        using ::sin;
@@ -706,7 +706,7 @@ namespace quan {
     inline
     Value_type tan(quan::mathematic_angle<quan::meta::rational<1>,Value_type>const& r)
     {
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
         using std::tan;
 #else
        using ::tan;

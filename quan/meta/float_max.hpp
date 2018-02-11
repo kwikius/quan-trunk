@@ -21,7 +21,7 @@
  largest negative number
 */
 #include <quan/config.hpp>
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <cfloat>
 #else
   #include <float.h>

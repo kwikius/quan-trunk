@@ -19,7 +19,7 @@
  */
 
 #include <quan/config.hpp>
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <climits>
 #include <type_traits>
 #else
@@ -58,6 +58,12 @@ namespace quan{ namespace meta{
    struct integer_min<unsigned long> : std::integral_constant<unsigned long,0>{};
   
 #if (defined QUAN_HAS_LONG_LONG)
+
+#if defined __AVR__
+#if ! defined LLONG_MIN
+#define LLONG_MIN (-__LONG_LONG_MAX__ - 1)
+#endif
+#endif
 
    template<>
    struct integer_min<signed long long> : std::integral_constant<signed long long,LLONG_MIN>{};

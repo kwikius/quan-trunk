@@ -29,7 +29,7 @@
 #include <quan/meta/eq.hpp>
 #include <quan/meta/not.hpp>
 #include <quan/meta/bool.hpp>
-#ifdef __AVR__
+#ifdef QUAN_AVR_NO_CPP_STDLIB
 #include <quan/std/tr1/is_base_of.hpp>
 #else
 #include <type_traits>

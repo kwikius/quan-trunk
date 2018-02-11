@@ -30,7 +30,7 @@
 //#include <quan/concept_checking.hpp>
 #include <quan/arithmetic_convert.hpp>
 
-#if defined __AVR__
+#if defined QUAN_AVR_NO_CPP_STDLIB
 #include <limits.h>
 #else
 #include <limits>

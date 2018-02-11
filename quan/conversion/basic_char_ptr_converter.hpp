@@ -1,7 +1,7 @@
 #ifndef QUAN_CONVERSION_BASIC_CHAR_PTR_CONVERTER_HPP_INCLUDED
 #define QUAN_CONVERSION_BASIC_CHAR_PTR_CONVERTER_HPP_INCLUDED
 
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <cstdint>
 #else
 #include <stdint.h>

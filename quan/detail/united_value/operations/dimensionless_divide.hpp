@@ -78,7 +78,7 @@
 #include <quan/meta/eq.hpp>
 #include <quan/meta/neq.hpp>
 #include <quan/meta/eval_if.hpp>
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <cstdint>
 #include <limits>
 #else

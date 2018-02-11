@@ -31,7 +31,7 @@
     output a rational in eg 1/2 style
     explicit + for powers
 */
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <iosfwd>
 #else
 #include <quan/avr/iostream_dummy.hpp>

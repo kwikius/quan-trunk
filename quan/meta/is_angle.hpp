@@ -25,7 +25,7 @@
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/config.hpp>
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <type_traits>
 #else
 #include <quan/std/tr1/integral_constant.hpp>

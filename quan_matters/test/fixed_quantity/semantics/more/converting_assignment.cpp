@@ -47,7 +47,7 @@ this->numeric_value() == ( rhs.numeric_value()
 #include <quan/out/pressure.hpp>
 #include <quan/meta/eval_rational.hpp>
 #include <quan_matters/test/utility/eval_exponent.hpp>
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <utility>
 #else
 #include <quan/avr/utility_dummy.hpp>
@@ -215,7 +215,7 @@ namespace {
        bool r1 
        = conv_assign_impl<quan::pressure::MPa>( quan::pressure::Pa(5000000),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r1);
-   #ifndef __AVR__
+   #ifndef QUAN_AVR_NO_CPP_STDLIB
        bool r2
        = conv_assign_impl<quan::pressure::MPa>( quan::pressure::mPa(1.1e9),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r2);
@@ -225,7 +225,7 @@ namespace {
        QUAN_CHECK(r2);
 
    #endif
-   #ifndef __AVR__
+   #ifndef QUAN_AVR_NO_CPP_STDLIB
        bool r3 
        = conv_assign_impl<quan::pressure::cPa>( quan::pressure::fPa(10234.8976),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r3);
@@ -250,7 +250,7 @@ namespace {
        bool r1 
        = conv_assign_impl<quan::pressure_<int64_t>::kPa>( quan::pressure::Pa(10),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r1);
-   #ifndef __AVR__
+   #ifndef QUAN_AVR_NO_CPP_STDLIB
        bool r2
        = conv_assign_impl<quan::pressure_<int64_t>::MPa>( quan::pressure::mPa(10),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r2);
@@ -259,7 +259,7 @@ namespace {
        = conv_assign_impl<quan::pressure_<int64_t>::kPa>( quan::pressure::mPa(10),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r2);
    #endif
-   #ifndef __AVR__
+   #ifndef QUAN_AVR_NO_CPP_STDLIB
        bool r3 
        = conv_assign_impl<quan::pressure_<int64_t>::cPa>( quan::pressure::fPa(10),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r3);
@@ -279,7 +279,7 @@ namespace {
        bool r1 
        = conv_assign_impl<quan::pressure::Pa>( quan::pressure::MPa(1e7),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r1);
-   #ifndef __AVR__
+   #ifndef QUAN_AVR_NO_CPP_STDLIB
        bool r2
        = conv_assign_impl<quan::pressure::mPa>( quan::pressure::MPa(232),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r2);
@@ -288,7 +288,7 @@ namespace {
        = conv_assign_impl<quan::pressure::Pa>( quan::pressure::MPa(232),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r2);
    #endif
-   #ifndef __AVR__
+   #ifndef QUAN_AVR_NO_CPP_STDLIB
        bool r3 
        = conv_assign_impl<quan::pressure::fPa>( quan::pressure::cPa(-34),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r3);
@@ -308,7 +308,7 @@ namespace {
        bool r1 
        = conv_assign_impl<quan::pressure_<int64_t>::Pa>( quan::pressure::kPa(123),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r1);
-   #ifndef __AVR__
+   #ifndef QUAN_AVR_NO_CPP_STDLIB
        bool r2 = false;
        try{
             conv_assign_impl<quan::pressure_<int64_t>::Pa>( quan::pressure::MPa(9876),FP_MAX_DIFFERENCE).first;
@@ -333,7 +333,7 @@ namespace {
        bool r1 
        = conv_assign_impl<quan::pressure::cmHg>( quan::pressure::mPa(1.676),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r1);
-   #ifndef __AVR__
+   #ifndef QUAN_AVR_NO_CPP_STDLIB
        bool r2
        = conv_assign_impl<quan::pressure::mbar>( quan::pressure::pPa(25e3),FP_MAX_DIFFERENCE).first;
        QUAN_CHECK(r2);
@@ -475,7 +475,7 @@ namespace {
         
        bool r3
        = conv_assign_impl<
-   #ifndef __AVR__
+   #ifndef QUAN_AVR_NO_CPP_STDLIB
            quan::meta::rational<-10>,
    #else
           quan::meta::rational<-3>,
@@ -486,7 +486,7 @@ namespace {
 
        bool r4
        = conv_assign_impl<
-   #ifndef __AVR__
+   #ifndef QUAN_AVR_NO_CPP_STDLIB
            quan::meta::rational<-12>,
    #else
            quan::meta::rational<-6>,
@@ -508,7 +508,7 @@ namespace {
         
        bool r3
        = conv_assign_impl<
-   #ifndef __AVR__
+   #ifndef QUAN_AVR_NO_CPP_STDLIB
            quan::meta::rational<-10>,
    #else
           quan::meta::rational<-4>,
@@ -519,7 +519,7 @@ namespace {
 
        bool r4
        = conv_assign_impl<
-   #ifndef __AVR__
+   #ifndef QUAN_AVR_NO_CPP_STDLIB
            quan::meta::rational<-12>,
    #else
               quan::meta::rational<-5>,

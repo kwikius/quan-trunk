@@ -25,7 +25,7 @@
     ostream& operator << (ostream&,fixed_quantity_units_out< ..>);
     defined in <quan/fixed_quantity/io/aux_units_out.hpp>
 */
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <iosfwd>
 #else
 #include <quan/avr/iostream_dummy.hpp>

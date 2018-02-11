@@ -30,7 +30,7 @@
 #include <quan/meta/and.hpp>
 //#include <quan/where.hpp>
 #include <quan/where.hpp>
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <type_traits>
 #else
 #include <quan/std/tr1/integral_constant.hpp>

@@ -32,7 +32,7 @@
 */
 #include <quan/fixed_quantity/fixed_quantity.hpp>
 
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <cmath>
 #else
 #include <math.h>
@@ -66,7 +66,7 @@ namespace quan{
             NumericType
         >const & in)
     {
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
    using std::abs;
 #endif
       return  fixed_quantity<

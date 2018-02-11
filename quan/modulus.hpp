@@ -3,7 +3,7 @@
 
 #include <quan/where.hpp>
 
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <type_traits>
 #else
 #include <quan/std/tr1/integral_constant.hpp>
@@ -20,7 +20,7 @@ namespace quan{
    >::type
    modulus ( Lhs const & lhs, Rhs const & rhs)
    {
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
        using std::fmod;
 #else
        using ::fmod;

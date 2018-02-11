@@ -26,7 +26,7 @@
 #include <quan/meta/numdigits.hpp>
 
 #include <quan/where.hpp>
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <type_traits>
 #include <cfloat>
 #else

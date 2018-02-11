@@ -35,7 +35,7 @@
 #include <quan/meta/not.hpp>
 #include <quan/meta/identity.hpp>
 
-#if defined  __AVR__
+#if defined  QUAN_AVR_NO_CPP_STDLIB
   #include <math.h>
 #else
 #include <cmath>
@@ -127,7 +127,7 @@ namespace quan {
     double
     pow( double const& v)
     {
-#ifndef __AVR__  
+#ifndef QUAN_AVR_NO_CPP_STDLIB  
         return std::pow(
 #else   
         return ::pow(
@@ -144,7 +144,7 @@ namespace quan {
     double
     pow( int64_t const& v)
     {
- #ifndef __AVR__
+ #ifndef QUAN_AVR_NO_CPP_STDLIB
            return std::pow(
 #else
           return ::pow(
@@ -162,7 +162,7 @@ namespace quan {
     double
     pow( int32_t const& v)
     {
- #ifndef __AVR__
+ #ifndef QUAN_AVR_NO_CPP_STDLIB
            return std::pow(
 #else
           return ::pow(

@@ -22,7 +22,7 @@
 #include <quan/uav/get_distance.hpp>
 #include <quan/atan2.hpp>
 
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <cmath>
 #else
 #include <math.h>

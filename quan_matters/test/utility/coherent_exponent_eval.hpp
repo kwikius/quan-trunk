@@ -47,7 +47,7 @@ THIS CODE is now redundant except for testing.
 #include <quan/meta/identity.hpp>
 #include <quan/static_assert.hpp>
 
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <cmath>
 #include <limits>
 #else
@@ -90,7 +90,7 @@ constexpr
             result_type operator()()const 
             {
 
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
                 return std::pow(
 #else
                 return ::pow(

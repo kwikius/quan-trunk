@@ -40,7 +40,7 @@
 #include <quan/meta/is_runtime_type.hpp>
 #include <quan/meta/arithmetic_promote.hpp>
 #include <quan/where.hpp>
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <type_traits>
 #else
 #include <quan/std/tr1/is_arithmetic.hpp>
@@ -92,7 +92,7 @@ namespace quan{  namespace meta{
                is_assignment_operator<Op> 
            >::type
        >{
-   #ifndef __AVR__
+   #ifndef QUAN_AVR_NO_CPP_STDLIB
            typedef typename std::add_lvalue_reference<A>::type type;
    #else
            typedef typename std::add_reference<A>::type type;

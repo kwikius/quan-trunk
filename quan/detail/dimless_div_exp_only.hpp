@@ -57,7 +57,7 @@ namespace quan{ namespace detail{
             >::type constant_arg_type;
             result_type operator()(ValueType_L const & lhs,ValueType_R const & rhs) const
             {
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
                   using std::pow;
 #endif
                 return (static_cast<value_type_L>(lhs) / static_cast<value_type_R>(rhs))
@@ -84,7 +84,7 @@ namespace quan{ namespace detail{
             result_type operator()(ValueType const & v) const
             {
 
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
                   using std::pow;
 #endif
 

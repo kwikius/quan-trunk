@@ -27,7 +27,7 @@
 #include <quan/meta/identity.hpp>
 #include <quan/meta/is_angle.hpp>
 
-#if defined __AVR__
+#if defined QUAN_AVR_NO_CPP_STDLIB
 #include <math.h>
 #include <quan/std/tr1/is_unsigned.hpp>
 #include <quan/std/tr1/is_arithmetic.hpp>
@@ -130,7 +130,7 @@ namespace quan {namespace impl_detail {
          int sign_s = ( s >= Source{0} ) ? 1 : -1;
          Source abs_s = (sign_s ==1)?s:-s;
          Source abs_intpart =0;
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
          Source abs_fract = std::modf(abs_s,&abs_intpart);
 #else
          Source abs_fract = ::modf(abs_s,&abs_intpart);

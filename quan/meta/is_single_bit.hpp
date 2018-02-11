@@ -23,7 +23,7 @@
 #include <quan/config.hpp>
 #include <quan/meta/bool/false.hpp>
 #include <quan/meta/bool/true.hpp>
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <cstdint>
 #else
 #include <stdint.h>

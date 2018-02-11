@@ -1,7 +1,7 @@
 #ifndef QUAN_AVR_NUMERIC_LIMITS_HPP_INCLUDED
 #define QUAN_AVR_NUMERIC_LIMITS_HPP_INCLUDED
 
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #error only for avr
 #endif
 #include <quan/where.hpp>

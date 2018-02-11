@@ -21,7 +21,7 @@
 #include <quan/undefined.hpp>
 #include <quan/meta/if.hpp>
 #include <quan/meta/eval_if.hpp>
-#if defined __AVR__
+#if defined QUAN_AVR_NO_CPP_STDLIB
 #include <quan/std/tr1/is_signed.hpp>
 #include <quan/std/tr1/is_unsigned.hpp>
 #else

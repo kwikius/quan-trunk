@@ -19,7 +19,7 @@
 
 #include <quan/uav/position.hpp>
 #include <quan/cmath.hpp>
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <cmath>
 #else
 #include <math.h>

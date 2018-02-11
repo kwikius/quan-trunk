@@ -1,7 +1,7 @@
 #ifndef QUAN_META_IS_RATIONAL_HPP_INCLUDED
 #define QUAN_META_IS_RATIONAL_HPP_INCLUDED
 
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <type_traits>
 #else
 #include <quan/std/tr1/integral_constant.hpp>

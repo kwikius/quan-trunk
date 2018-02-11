@@ -28,7 +28,7 @@
     of a physical_quantity for demo purposes
    
 */
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <iostream>
 #include <sstream>
 #include <quan/concepts/ostreamable.hpp>
@@ -137,7 +137,7 @@ namespace quan{namespace meta{
   } // impl
 }}//quan::meta
 
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 namespace quan{ namespace impl{
 
    template < 

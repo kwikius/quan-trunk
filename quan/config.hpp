@@ -31,20 +31,25 @@
 #  pragma once
 #endif
 
-#ifndef __AVR__
+#if defined __AVR__ 
+#define QUAN_NO_EXCEPTIONS
+#if defined abs
+#undef abs
+#endif
+#if ! defined (QUAN_AVR_HAS_CPP_STDLIB)
+#define QUAN_AVR_NO_CPP_STDLIB
+#endif
+#endif
+
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <cstdint>
 #else
-#define QUAN_NO_EXCEPTIONS
 #include <stdint.h>
 #define QUAN_USE_QUAN_STD_TR1
 #endif
 
 #if ( defined(QUAN_STM32F4) || defined(QUAN_STM32F3)  || defined(QUAN_STM32F0) )
 #include <quan/stm32/config.hpp>
-#endif
-
-#if defined __AVR__ && defined abs
-#undef abs
 #endif
 
 /*
@@ -76,7 +81,7 @@
 #endif
 #endif
 
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <climits>
 #else
 #include <limits.h>
@@ -105,7 +110,7 @@
 //-------------------------------------------------------
 //Default floating point type for fixed_quantities
 #ifndef QUAN_FLOAT_TYPE
-#if defined __AVR__
+#if defined QUAN_AVR_NO_CPP_STDLIB
  #define QUAN_FLOAT_TYPE double
 #else
  #define QUAN_FLOAT_TYPE double
@@ -147,7 +152,7 @@
 // (note:This may actually be incorrect,
 // but cured a previous issue with gcc)
 
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #define RATIONAL_INT_TYPE int64_t
 #else
 #define RATIONAL_INT_TYPE int32_t
@@ -218,9 +223,16 @@
 //prevent conversion of math angle to numeric
 //#define QUAN_NO_MATH_ANGLE_NUMERIC_CONVERSION
 // may not have if 
-#ifndef __AVR__
-#define QUAN_HAS_LONG_LONG
-#endif
+#ifndef QUAN_AVR_NO_CPP_STDLIB
+   #define QUAN_HAS_LONG_LONG
+   #if defined __AVR__
+      #if ! defined LLONG_MAX
+         #define LLONG_MAX 0x7fffffffffffffff
+         #define LLONG_MIN (-__LONG_LONG_MAX__ - 1)
+         #define ULLONG_MAX 0xffffffffffffffff
+      #endif
+   #endif
 #endif
 
 
+#endif // QUAN_CONFIG_HPP_INCLUDED

@@ -18,7 +18,7 @@
  */
 
 #include <quan/convert.hpp>
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <climits>
 #include <cstdint>
 #include <cctype>
@@ -82,7 +82,7 @@ namespace quan{ namespace detail{
 				return num_type::UNKNOWN;
           }
 			 int sign = 1;
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
       using std::size_t;
 #endif
 			 size_t pos = 0;

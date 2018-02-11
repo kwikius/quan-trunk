@@ -6,7 +6,7 @@
 #include <quan/tracker/zapp4/crc.hpp>
 #include <quan/tracker/detail/normalise_angle.hpp>
 #include <quan/uav/cobs/protocol.hpp>
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <cstring>
 #else
 #include <string.h>

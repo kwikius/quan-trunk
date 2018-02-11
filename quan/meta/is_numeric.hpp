@@ -24,7 +24,7 @@
 /*
     Is T a numeric type
 */
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <type_traits>
 #else
 #include <quan/std/tr1/is_arithmetic.hpp>

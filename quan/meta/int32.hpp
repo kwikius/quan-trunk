@@ -22,7 +22,7 @@
 
 #include <quan/config.hpp>
 
-#if defined __AVR__
+#if defined QUAN_AVR_NO_CPP_STDLIB
 #include <stdint.h>
 #include <quan/std/tr1/integral_constant.hpp>
 #else

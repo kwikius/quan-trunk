@@ -26,7 +26,7 @@
 #include <quan/angle/out/fraction_of_revolution.hpp>
 #include <quan/angle.hpp>
 
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <quan/is_model_of.hpp>
 #include <quan/concepts/ostreamable.hpp>
 

@@ -16,9 +16,9 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-
+#include <quan/config.hpp>
 #include <quan/convert.hpp>
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <climits>
 #include <cstdint>
 #include <cctype>
@@ -77,7 +77,7 @@ namespace quan{ namespace detail{
 				return 0.0f;
           }
 			 int sign = 1;
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
       using std::size_t;
 #endif
 			 size_t pos = 0;

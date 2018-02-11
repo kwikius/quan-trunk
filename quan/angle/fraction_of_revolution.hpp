@@ -24,7 +24,7 @@
     fraction of revolution for angles such as degrees etc
 */
 #include <quan/config.hpp>
-#ifdef __AVR__
+#ifdef QUAN_AVR_NO_CPP_STDLIB
 #include <math.h>
 #include <quan/std/tr1/is_same.hpp>
 #include <quan/std/tr1/integral_constant.hpp>

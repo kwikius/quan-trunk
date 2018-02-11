@@ -38,7 +38,7 @@
 #include <quan/meta/and.hpp>
 #include <quan/meta/or.hpp>
 //#include <quan/static_assert.hpp>
-#ifndef __AVR__
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <cmath>
 #else
 #include <math.h>
@@ -49,7 +49,7 @@ namespace quan {
    inline
    quan::angle::rad atan2(QUAN_FLOAT_TYPE const & lhs, QUAN_FLOAT_TYPE const & rhs)
    {
-   #ifndef __AVR__
+   #ifndef QUAN_AVR_NO_CPP_STDLIB
        using std::atan2;
    #else
        using ::atan2;
@@ -114,7 +114,7 @@ namespace quan {
                      >::value," result not numeric");
 
        typedef typename quan::angle_<result_value_type>::rad result_type;
-   #ifndef __AVR__
+   #ifndef QUAN_AVR_NO_CPP_STDLIB
        using std::atan2;
    #else
        using ::atan2;
