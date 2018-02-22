@@ -4,12 +4,12 @@
 #include <type_traits>
 #include <quan/stm32/f4/config.hpp>
 #include <quan/stm32/f4/detail/get_bus.hpp>
-
+#include <quan/stm32/get_module_bus_frequency.hpp>
 /*
  calcs with acknowledegnment to stm32f4xx_usart.c which is
  COPYRIGHT 2011 STMicroelectronics
 
- Copyright (c) 2013 Andy Little 
+ Copyright (c) 2013-2018 Andy Little 
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -29,6 +29,7 @@ namespace quan { namespace stm32{ namespace usart{ namespace detail{
 
    template <typename Usart,uint32_t BaudRate, bool Over8>
    struct get_baud_rate_values{
+#if 1
       typedef typename quan::stm32::detail::get_bus<Usart>::type bus_type;
 
       static_assert(
@@ -41,6 +42,10 @@ namespace quan { namespace stm32{ namespace usart{ namespace detail{
             : QUAN_STM32_APB1_DIVISOR;
      static constexpr uint32_t usart_bus_clk = QUAN_STM32_SYSCLK_Hz / bus_divisor;
      static_assert(  (QUAN_STM32_SYSCLK_Hz % bus_divisor)==0,"error in calc");
+#else
+    // TODO test this
+    static constexpr uint32_t usart_bus_clk = quan::stm32::get_module_bus_frequency<Usart>();
+#endif
      static constexpr uint32_t integerdivider = Over8
      ? (25 * usart_bus_clk) / (2 * BaudRate)
      : (25 * usart_bus_clk) / (4 * BaudRate); 

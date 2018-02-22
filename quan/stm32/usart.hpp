@@ -24,5 +24,7 @@
 #include <quan/stm32/usart/module_enable_disable.hpp>
 #include <quan/stm32/usart/enable_disable.hpp>
 #include <quan/stm32/periph_reg_actions/apply.hpp>
+#include <quan/stm32/usart/detail/get_reg.hpp>
+#include <quan/stm32/usart/detail/periph_reg_action_pack.hpp>
 
 #endif // QUAN_STM32_USART_HPP_INCLUDED

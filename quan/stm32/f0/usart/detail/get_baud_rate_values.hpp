@@ -3,13 +3,14 @@
 
 #include <type_traits>
 #include <quan/stm32/f0/config.hpp>
-#include <quan/stm32/f0/detail/get_bus.hpp>
+
+#include <quan/stm32/get_module_bus_frequency.hpp>
 
 /*
- calcs with acknowledegnment to stm32f0xx_usart.h which is
+ calcs with acknowledgement to stm32f0xx_usart.h which is
  COPYRIGHT 2011 STMicroelectronics
 
- Copyright (c) 2013 Andy Little 
+ Copyright (c) 2013-2018 Andy Little 
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -27,20 +28,18 @@
 
 namespace quan { namespace stm32{ namespace usart{ namespace detail{
 
+   /*
+      n.b baud 1200 fails with over8 = true, ok with over8 = false
+   */
+
    template <typename Usart,uint32_t BaudRate, bool Over8>
    struct get_baud_rate_values{
-    
-      typedef typename quan::stm32::detail::get_bus<Usart>::type bus_type;
-      static_assert(std::is_same<bus_type,quan::stm32::detail::apb>::value,"unexpecetd bus");
-      static constexpr uint32_t bus_divisor = QUAN_STM32_APB_DIVISOR;
-      static constexpr uint32_t fck = QUAN_STM32_SYSCLK_Hz / bus_divisor;
-      static_assert(  (QUAN_STM32_SYSCLK_Hz % bus_divisor)==0,"error in calc");
+      static constexpr uint32_t fck = quan::stm32::get_module_bus_frequency<Usart>();
+      static constexpr uint32_t divider = Over8
+      ? ((2U * fck) / BaudRate)  +  ((((2U * fck) % BaudRate) > (BaudRate / 2U)) ? 1U:0U)
+      : (fck / BaudRate) + ((( fck % BaudRate) > ( BaudRate / 2U) ) ? 1U:0U);
 
-     static constexpr uint32_t divider = Over8
-         ? ((2U * fck) / BaudRate)  +  ((((2U * fck) % BaudRate) > (BaudRate / 2U)) ? 1U:0U)
-         : (fck / BaudRate) + ((( fck % BaudRate) > ( BaudRate / 2U) ) ? 1U:0U);
-
-     static constexpr uint32_t value = Over8
+      static constexpr uint32_t value = Over8
       ?  (divider & 0x0000FFF0) | ((divider & 0x0000000F) >> 1U)
       :   divider ;
    };

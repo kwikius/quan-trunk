@@ -30,13 +30,6 @@
 #include <quan/stm32/module.hpp>
 
 #include <quan/stm32/detail/periph_reg_actions.hpp>
-#include <quan/stm32/gpio/detail/add_periph_reg_action.hpp>
-
-#include <quan/stm32/gpio/detail/get_reg.hpp>
-#include <quan/stm32/gpio/detail/periph_reg_action_pack.hpp>
-
-#include <quan/stm32/usart/detail/get_reg.hpp>
-#include <quan/stm32/usart/detail/periph_reg_action_pack.hpp>
 
 namespace quan{ namespace stm32{
 
@@ -44,13 +37,13 @@ namespace quan{ namespace stm32{
    struct get_module { 
       typedef E type;
    };
-
+#if 0
    template <typename Pin>
    struct get_module<Pin,typename quan::where_<quan::is_model_of<quan::stm32::gpio::Pin, Pin> >::type>
    {
       typedef typename Pin::port_type type;
    };
-
+#endif
    template <typename E,typename Where = void> 
    struct check{
 
@@ -60,7 +53,11 @@ namespace quan{ namespace stm32{
       };
    };
 
+#if 0
 /*
+   checks that the list of settings is valid
+   check that there is no more than 1 mode setting
+   check that there is no more than 1 alternate function setting
  polymorphicFunctor<-1,-2> ( no runtime, variadic)
   returns the list wrapped in a quan::meta::type_sequence
 */
@@ -70,6 +67,7 @@ namespace quan{ namespace stm32{
       template <typename ... List>
       struct apply{
          typedef quan::meta::type_sequence<List...> list_type;
+        
          typedef  quan::meta::count_if < 
             list_type, quan::meta::is_model_of<quan::stm32::gpio::Mode> 
          > num_mode_settings;
@@ -89,7 +87,7 @@ namespace quan{ namespace stm32{
       };
    };
 
-
+#endif
    /*
       make generic
      Each entity needs a check polymorphicFunctor

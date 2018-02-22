@@ -40,6 +40,6 @@ namespace quan{ namespace stm32{ namespace detail{
 
    #undef QUAN_GET_USART
 
-}}}//quan::stm32f4::detail
+}}}//quan::stm32::detail
 
 #endif //QUAN_STM32_F0_USART_DETAIL_GET_REG_HPP_INCLUDED

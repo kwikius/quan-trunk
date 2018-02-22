@@ -48,9 +48,10 @@ namespace quan{ namespace stm32{
          typedef quan::stm32::periph_reg<type,0x1C> lckr_type;
          typedef quan::stm32::periph_reg<type,0x20> afrl_type;
          typedef quan::stm32::periph_reg<type,0x24> afrh_type;
-//#if defined QUAN_STM32F0
+#if defined(QUAN_STM32F0) || defined (QUAN_STM32L4)
+         typedef quan::stm32::periph_reg<type,0x28> brr_type;
 // n.b f0 also has a brr reg...
-
+#endif
          moder_type     moder;
          otyper_type    otyper;
          ospeedr_type   ospeedr;
@@ -61,7 +62,9 @@ namespace quan{ namespace stm32{
          lckr_type      lckr;
          afrl_type      afrl;
          afrh_type      afrh;
-
+#if defined(QUAN_STM32F0) || defined (QUAN_STM32L4)
+         brr_type       brr;
+#endif
          typedef quan::meta::type_sequence<  
             moder_type ,
             otyper_type ,
@@ -73,6 +76,9 @@ namespace quan{ namespace stm32{
             lckr_type ,
             afrl_type ,
             afrh_type 
+#if defined(QUAN_STM32F0) || defined (QUAN_STM32L4)
+           , brr_type 
+#endif
          > periph_reg_list;
 
          static constexpr module* get(){ return reinterpret_cast<module*>(Address);}
@@ -94,13 +100,6 @@ namespace quan{ namespace impl{
       quan::stm32::Gpio,
       quan::stm32::gpio::module<Address> 
 	> : quan::meta::true_{};
-//
-//   // is a model of Module
-//   template <uint32_t Address>
-//   struct is_model_of_impl<
-//      quan::stm32::Module,
-//      quan::stm32::gpio::module<Address> 
-//	> : quan::meta::true_{};
 
 }}
 

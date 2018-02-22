@@ -24,6 +24,8 @@
 #include <quan/stm32/f3/gpio/module_reset.hpp>
 #elif defined QUAN_STM32F0
 #include <quan/stm32/f0/gpio/module_reset.hpp>
+#elif defined QUAN_STM32L4
+#include <quan/stm32/l4/gpio/module_reset.hpp>
 #else
 #error need to define stm32 processor
 #endif

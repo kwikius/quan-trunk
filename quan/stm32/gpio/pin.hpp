@@ -48,8 +48,6 @@ namespace quan{ namespace impl{
 
 namespace quan{ namespace stm32{
 
-   // f4 yes
-   // f0 
    template< typename P>
    inline
    typename quan::where_<
@@ -116,8 +114,6 @@ namespace quan{ namespace stm32{
      }
 #endif
    }
-
-   
 
 }}
 

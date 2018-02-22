@@ -29,8 +29,7 @@
 #include <quan/meta/front.hpp>
 #include <quan/concepts/meta/type_sequence/for_each.hpp>
 #include <quan/stm32/detail/get_reg.hpp>
-#include <quan/stm32/gpio/detail/get_periph_reg.hpp>
-#include <quan/stm32/gpio/settings.hpp>
+
 #include <quan/stm32/detail/periph_reg_action_pack_fwd.hpp>
 #include <quan/stm32/detail/add_periph_reg_action.hpp>
 

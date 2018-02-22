@@ -26,6 +26,13 @@
 #include <quan/stm32/gpio/module_disable.hpp>
 #include <quan/stm32/gpio/module_reset.hpp>
 #include <quan/stm32/gpio/pin.hpp>
+
 #include <quan/stm32/periph_reg_actions/apply.hpp>
+#include <quan/stm32/gpio/detail/get_reg.hpp>
+#include <quan/stm32/gpio/detail/get_periph_reg.hpp>
+#include <quan/stm32/gpio/settings.hpp>
+#include <quan/stm32/gpio/detail/periph_reg_action_pack.hpp>
+#include <quan/stm32/gpio/detail/add_periph_reg_action.hpp>
+#include <quan/stm32/gpio/apply.hpp>
 
 #endif // QUAN_STM32F$_GPIO_HPP_INCLUDED
