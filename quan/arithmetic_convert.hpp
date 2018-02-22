@@ -40,7 +40,8 @@
 #include <cmath>
 #endif
 #if defined abs
-#error "abs is a macro"
+//#error "abs is a macro"
+#undef abs
 #endif
 #include <quan/meta/max.hpp>
 
