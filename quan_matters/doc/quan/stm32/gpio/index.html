@@ -1,5 +1,5 @@
 <html>
-<!-- root   = /home/andy/website/quan-trunk -->
+<!-- root   = /home/andy/cpp/projects/quan-trunk -->
 <!-- offset = quan_matters/doc/quan/stm32/gpio/index.html -->
 <title>
 quan::stm32::gpio
@@ -57,6 +57,25 @@ type='text/css'
 <tr><td>quan::stm32::gpiog</td><td><a href = ''>stm32::Gpio</a></td><td>type representing GPIOG</td><td>only available if QUAN_HAS_GPIOG is defined</td></tr>
 <tr><td>quan::stm32::gpioh</td><td><a href = ''>stm32::Gpio</a></td><td>type representing GPIOH</td><td>only available if QUAN_HAS_GPIOH is defined</td></tr>
 <tr><td>quan::stm32::gpioi</td><td><a href = ''>stm32::Gpio</a></td><td>type representing GPIOI</td><td>only available if QUAN_HAS_GPIOI is defined</td></tr>
+</table>
+</td></tr>
+<tr><td><table class="notation"><tr><td class="notation-header">Member objects</td></tr>
+<tr><td class="notation-type-value-header">value</td><td class="notation-type-value-header">type</td><td class="notation-type-value-header">description</td></tr>
+<tr><td>p-&gt;moder</td><td>P::moder_type</td><td>rw access mode reg</td></tr>
+<tr><td>p-&gt;otyper</td><td>P::otyper_type</td><td>rw access otype reg</td></tr>
+<tr><td>p-&gt;ospeedr</td><td>P::ospeedr_type</td><td>rw access ospeed reg</td></tr>
+<tr><td>p-&gt;pupdr</td><td>P::pupdr_type</td><td>rw access pupdr reg</td></tr>
+<tr><td>p-&gt;idr</td><td>P::idr_type</td><td>r access idr reg</td></tr>
+<tr><td>p-&gt;odr</td><td>P::odr_type</td><td>rw access odr reg</td></tr>
+<tr><td>p-&gt;bsrr</td><td>P::bsrr_type</td><td>w access bsrr reg</td></tr>
+<tr><td>p-&gt;lckr</td><td>P::lckr_type</td><td>rw access lckr reg</td></tr>
+<tr><td>p-&gt;afrl</td><td>P::afrl_type</td><td>rw access afrl reg</td></tr>
+<tr><td>p-&gt;afrh</td><td>P::afrh_type</td><td>rw access afrh reg</td></tr>
+</table>
+</td></tr>
+<tr><td><table class="expressions"><tr><td class="notation-header">Member expressions</td></tr>
+<tr><td class="expression-header">expression</td><td class="expression-header">result</td><td class="expression-header">notes</td></tr>
+<tr><td class="expression">P::get()</td><td class="expression">p</td><td class="expression">returns a pointer to the module object.</td></tr>
 </table>
 </td></tr>
 </table>

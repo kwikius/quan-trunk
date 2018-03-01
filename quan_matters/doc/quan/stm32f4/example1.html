@@ -1,5 +1,5 @@
 <html>
-<!-- root   = /home/andy/website/quan-trunk -->
+<!-- root   = /home/andy/cpp/projects/quan-trunk -->
 <!-- offset = quan_matters/doc/quan/stm32f4/example1.html -->
 <title>
 quan::stm32f4 - index
@@ -24,6 +24,7 @@ type='text/css'
 <!--QuanLogo-->
 <!--HR-->
 <!--PageHeader-->
+<!--STM32_Index-->
 <!--STM32F4_Index-->
 <!--PageFooter-->
 <!--Gpio-->
@@ -49,12 +50,12 @@ void delay()
     }
 }
    
-   using namespace quan::stm32f4;
-   typedef gpio::pin&lt;gpiod,13&gt; PD13; // A port Pin is aliased by a typedef
+using namespace quan::stm32f4;
+typedef gpio::pin&lt;gpiod,13&gt; PD13; // A port Pin is aliased by a typedef
 
 int main()
 {
-   module_enable&lt;gpiod&gt;();  // On the ARM architecture the GPIO ports must be switch on else no output!
+   module_enable&lt;gpiod&gt;();  // On the ARM architecture the GPIO ports must be switched on else no output!
 
    // The following function is turned into efficient assembler
    // to apply the various settings to the port pin
