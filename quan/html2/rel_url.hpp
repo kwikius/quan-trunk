@@ -26,23 +26,19 @@
 
 namespace quan{namespace html2{
 
+   std::string global_get_offset();
+
    struct rel_url : url{
       rel_url(std::string * in): url(in){}
 
       std::string get_string() const
       {
-        auto doc = get_document();
-        assert (doc);
-        auto offset = doc->get_offset();
-        assert (offset);
-        return quan::fs::get_rel_file_path(*offset,url::get_string());
+        std::string offset = global_get_offset();
+        assert (offset != "");
+        return quan::fs::get_rel_file_path(offset,url::get_string());
       }
       std::ostream & output(std::ostream & os)const
       {
-        auto doc = get_document();
-        assert (doc);
-        auto offset = doc->get_offset();
-        assert (offset);
         return os << '\''<< get_string() << '\'';
       }
 

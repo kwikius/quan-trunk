@@ -44,9 +44,9 @@ namespace quan{ namespace html2{
 
       std::ostream & output(std::ostream & os)const
       {
-         auto doc = this->get_document();
-         assert(doc);
-         m_url->set_document(doc);
+//         auto doc = this->get_document();
+//         assert(doc);
+//        // m_url->set_document(doc);
          os << "<img" ;
          if ( m_tag_identifier){
             this->m_tag_identifier->output(os);

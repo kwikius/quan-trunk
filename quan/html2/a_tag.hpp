@@ -37,9 +37,9 @@ namespace quan{ namespace html2{
             this->m_tag_identifier->output(os);
          }
          os << " href = " ;
-         auto doc = this->get_document();
-         assert(doc);
-         m_url->set_document(doc);
+        // auto doc = this->get_document();
+        // assert(doc);
+        // m_url->set_document(doc);
          m_url->output(os);
          os  << ">";
           if ( m_content.size()==0){

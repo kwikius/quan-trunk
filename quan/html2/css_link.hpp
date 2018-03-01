@@ -28,10 +28,10 @@ namespace quan{namespace html2{
       { assert(m_url != nullptr);};
 
       ~css_link(){delete m_url;}
-      void set_document( document * doc) {
-        m_url->set_document(doc);
-        head_content::set_document(doc);
-      }
+//      void set_document( document * doc) {
+//       // m_url->set_document(doc);
+//       // head_content::set_document(doc);
+//      }
       std::ostream & output(std::ostream & os)const
       {
          os <<  "<link\n";

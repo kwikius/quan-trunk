@@ -21,6 +21,7 @@
 #include <string>
 #include <map>
 #include <list>
+#include <typeinfo>
 
 namespace quan{ namespace html2{
 
@@ -36,8 +37,8 @@ namespace quan{ namespace html2{
 
       void set_root(std::string * in){m_root= in;}
       void set_offset(std::string * in){m_offset = in;}
-      void set_head(head_tag* head); 
-      void set_body (body_or_frameset * body) ;
+      void set_head(head_tag* head);// { m_head = head;}
+      void set_body (body_or_frameset * body);// {m_body = body;}
       std::string* get_root() const {return m_root;}
       std::string* get_offset() const {return m_offset;}
       std::string* get_title() const {return m_title;}
