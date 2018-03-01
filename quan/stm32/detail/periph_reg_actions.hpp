@@ -439,6 +439,16 @@ namespace quan{ namespace stm32{ namespace detail{
       }
    };
 
+   // by default does nothing
+   template <typename E,typename Where = void> 
+   struct periph_reg_action_list_check{
+
+      template <typename ... List>
+      struct apply{
+         typedef quan::meta::type_sequence<List...> type;
+      };
+   };
+   
 }}}// quan::stm32::detail
 
 
