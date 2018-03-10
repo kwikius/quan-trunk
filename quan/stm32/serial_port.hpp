@@ -77,7 +77,7 @@ namespace quan{ namespace stm32{
       static constexpr uint8_t usart_sr_txe = 7;
 
 #else
-   #if defined QUAN_STM32F0
+   #if ((defined(QUAN_STM32F0)) || (defined(STM32L4))) 
       static constexpr uint8_t usart_isr_rxne = 5;
       static constexpr uint8_t usart_isr_txe = 7;
    #else
@@ -87,15 +87,15 @@ namespace quan{ namespace stm32{
 
       static bool is_enabled()
       {
-   #if defined QUAN_STM32F4
-         constexpr uint8_t enable_bit = 13;
-   #else 
-   #if defined QUAN_STM32F0
+#if defined QUAN_STM32F4
+      constexpr uint8_t enable_bit = 13;
+#else 
+   #if ((defined(QUAN_STM32F0)) || (defined(STM32L4)))
          constexpr uint8_t enable_bit = 0;
    #else
    #error need to define for processor
    #endif
-   #endif
+#endif
 
 //   #if QUAN_STM32_HAS_BITBANDING
 //         return usart_type::get()->cr1.template bb_getbit<enable_bit>();
@@ -147,11 +147,11 @@ namespace quan{ namespace stm32{
 #if defined QUAN_STM32F4
          return  usart_type::get()->sr. template getbit<usart_sr_txe>() ; 
 #else
-#if defined QUAN_STM32F0
+   #if ((defined(QUAN_STM32F0)) || (defined(STM32L4)))
          return  usart_type::get()->isr. template getbit<usart_isr_txe>() ; //bit(7)
-#else
-#error processor undefined 
-#endif
+   #else
+   #error processor undefined 
+   #endif
 #endif
       }
 
@@ -165,11 +165,11 @@ namespace quan{ namespace stm32{
 #if defined QUAN_STM32F4
          usart_type::get()->dr = ch;
 #else
-#if defined QUAN_STM32F0
+   #if ((defined(QUAN_STM32F0)) || (defined(STM32L4)))
          usart_type::get()->tdr = ch;
-#else
-#error processor undefined 
-#endif
+   #else
+   #error processor undefined 
+   #endif
 #endif
       }
 
@@ -178,11 +178,11 @@ namespace quan{ namespace stm32{
 #if defined QUAN_STM32F4
         return usart_type::get()->sr. template getbit<usart_sr_rxne>(); 
 #else
-#if defined QUAN_STM32F0
+   #if ((defined(QUAN_STM32F0)) || (defined(STM32L4)))
         return  usart_type::get()->isr. template getbit<usart_isr_rxne>() ; // bit(5)
-#else
-#error processor undefined 
-#endif
+   #else
+   #error processor undefined 
+   #endif
 #endif
       }
 
@@ -191,11 +191,11 @@ namespace quan{ namespace stm32{
 #if defined QUAN_STM32F4
         return static_cast<char>(usart_type::get()->dr);
 #else
-#if defined QUAN_STM32F0
+   #if ((defined(QUAN_STM32F0)) || (defined(STM32L4)))
         return static_cast<char>(usart_type::get()->rdr);
-#else
-#error processor undefined 
-#endif
+   #else
+   #error processor undefined 
+   #endif
 #endif
       }
 
@@ -261,9 +261,9 @@ namespace quan{ namespace stm32{
 #if defined QUAN_STM32F4
          usart_type::get()->sr = 0;
 #else
-#if defined QUAN_STM32F0
+   #if ((defined(QUAN_STM32F0)) || (defined(STM32L4)))
      // do we need to reset?
-#endif
+   #endif
 #endif
          enable_rxneie();
 

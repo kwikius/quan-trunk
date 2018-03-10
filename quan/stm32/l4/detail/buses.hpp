@@ -1,5 +1,5 @@
-#ifndef QUAN_STM32_PERIPH_MAP_HPP_INCLUDED
-#define QUAN_STM32_PERIPH_MAP_HPP_INCLUDED
+#ifndef QUAN_STM32_L4_DETAIL_BUSES_HPP_INCLUDED
+#define QUAN_STM32_L4_DETAIL_BUSES_HPP_INCLUDED
 /*
  Copyright (c) 2003-2014 Andy Little.
 
@@ -17,14 +17,18 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 
-#if defined QUAN_STM32F4
-#include <quan/stm32/f4/periph_map.hpp>
-#elif defined QUAN_STM32L4
-#include <quan/stm32/l4/periph_map.hpp>
-#elif defined QUAN_STM32F0
-#include <quan/stm32/f0/periph_map.hpp>
-#else
-#error need to define stm32 processor
+#ifndef QUAN_STM32L4
+#error dont include directly
 #endif
 
-#endif // QUAN_STM32_PERIPH_MAP_HPP_INCLUDED
+namespace quan{ namespace stm32{ namespace detail{
+    
+    struct ahb2;
+    struct ahb1;
+
+    struct apb2;
+    struct apb1;
+
+}}}
+
+#endif // QUAN_STM32_F0_BUSES_HPP_INCLUDED

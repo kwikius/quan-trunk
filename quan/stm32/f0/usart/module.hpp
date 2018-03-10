@@ -17,7 +17,7 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 
-#ifndef QUAN_STM32F0
+#if ! (defined( QUAN_STM32F0 ) || defined(QUAN_STM32L4))
 #error dont include directly
 #endif
 

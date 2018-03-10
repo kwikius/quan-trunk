@@ -50,7 +50,6 @@ namespace quan{ namespace stm32{
          typedef quan::stm32::periph_reg<type,0x24> afrh_type;
 #if defined(QUAN_STM32F0) || defined (QUAN_STM32L4)
          typedef quan::stm32::periph_reg<type,0x28> brr_type;
-// n.b f0 also has a brr reg...
 #endif
          moder_type     moder;
          otyper_type    otyper;

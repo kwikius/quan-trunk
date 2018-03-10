@@ -21,8 +21,8 @@
 
 #if defined QUAN_STM32F4
 #include <stm32f4xx.h>
-#elif defined QUAN_STM32F3
-#include <stm32f3xx.h>
+#elif defined QUAN_STM32L4
+#include <stm32l4xx.h>
 #elif defined QUAN_STM32F0
 #include <stm32f0xx.h>
 #else

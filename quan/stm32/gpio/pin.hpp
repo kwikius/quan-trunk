@@ -65,7 +65,7 @@ namespace quan{ namespace stm32{
        bool
    >::type get()
    {
-#if QUAN_STM32_HAS_BITBANDING
+#if (QUAN_STM32_HAS_BITBANDING && ! defined (QUAN_STM32L4))
       return P::port_type::get()-> idr.template bb_getbit<P::pin_value>();
 #else
       return P::port_type::get()-> idr.template getbit<P::pin_value>();
@@ -78,10 +78,15 @@ namespace quan{ namespace stm32{
        void
    >::type set()
    {
-#if QUAN_STM32_HAS_BITBANDING
+ // could  do P::port_type::get()-> bsrr = 1U << P::pin_value;
+#if (QUAN_STM32_HAS_BITBANDING && !defined(QUAN_STM32L4))
        P::port_type::get()-> odr.template bb_setbit<P::pin_value>();
 #else
+     #if defined (QUAN_STM32L4)
+       P::port_type::get()-> bsrr = 1U << P::pin_value;
+     #else
        P::port_type::get()-> odr.template setbit<P::pin_value>();
+     #endif
 #endif
    }
 
@@ -91,10 +96,17 @@ namespace quan{ namespace stm32{
        void
    >::type clear()
    {
-#if QUAN_STM32_HAS_BITBANDING
+    
+#if (QUAN_STM32_HAS_BITBANDING && !defined (QUAN_STM32L4))
+     // could  do P::port_type::get()-> bsrr = 0x10000 << P::pin_value;
        P::port_type::get()-> odr.template bb_clearbit<P::pin_value>();
 #else
+    #if defined (QUAN_STM32L4)
+       P::port_type::get()-> brr = 1U << P::pin_value;
+     #else
+      // could do for stm32f0 etc
        P::port_type::get()-> odr.template clearbit<P::pin_value>();
+     #endif
 #endif
    }
 
@@ -104,7 +116,8 @@ namespace quan{ namespace stm32{
        void
    >::type put( bool value)
    {
-#if QUAN_STM32_HAS_BITBANDING
+#if QUAN_STM32_HAS_BITBANDING && ! defined (QUAN_STM32L4)
+     // no gain here 
      P::port_type::get()-> odr.template bb_putbit<P::pin_value>(value);
 #else
      if ( value) {

@@ -16,7 +16,7 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-
+#include <quan/stm32/config.hpp>
 #include <quan/stm32/usart/module.hpp>
 #include <quan/stm32/usart/settings.hpp>
 #include <quan/stm32/usart/detail/setting_to_actions.hpp>

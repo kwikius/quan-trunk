@@ -20,7 +20,7 @@
 #if !defined QUAN_STM32L4
 #error only for stm32l4
 #endif
-
+#include <quan/stm32/config.hpp>
 #include <quan/stm32/l4/periph_map.hpp>
 #include <quan/stm32/periph_reg.hpp>
 
@@ -52,7 +52,7 @@ namespace quan{ namespace stm32{
       quan::stm32::periph_reg<type, 0x4C>     ahb2enr;
       quan::stm32::periph_reg<type, 0x50>     ahb3enr;
       uint32_t      reserved5;     /*!< Reserved, 0x54 */
-      quan::stm32::periph_reg<type, 0x58>     apb1penr1;
+      quan::stm32::periph_reg<type, 0x58>     apb1enr1;
       quan::stm32::periph_reg<type, 0x5C>     apb1enr2;    
       quan::stm32::periph_reg<type, 0x60>     apb2enr;
       uint32_t      reserved6;  /*!< Reserved, 0x64 */  

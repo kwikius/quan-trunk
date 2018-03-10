@@ -60,7 +60,6 @@ namespace quan { namespace stm32{
     get_bus_frequency(){ return quan::stm32::detail::get_bus_frequency_impl<Bus>{}();}
 
    
-  
 }}
 
 #endif // QUAN_STM32_F4_SYS_FREQ_HPP_INCLUDED

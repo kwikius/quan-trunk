@@ -1,23 +1,11 @@
-#ifndef QUAN_STM32_GPIO_APPLY_HPP_INCLUDED
-#define QUAN_STM32_GPIO_APPLY_HPP_INCLUDED
+#ifndef QUAN_STM32_GPIO_DETAIL_PERIPH_REG_ACTION_LIST_CHECK_HPP_INCLUDED
+#define QUAN_STM32_GPIO_DETAIL_PERIPH_REG_ACTION_LIST_CHECK_HPP_INCLUDED
 
+#include <quan/stm32/gpio/get_module.hpp>
 #include <quan/stm32/periph_reg_actions/apply.hpp>
 
 namespace quan{ namespace stm32{
 
-   template <typename Pin>
-   struct get_module<Pin,typename quan::where_<quan::is_model_of<quan::stm32::gpio::Pin, Pin> >::type>
-   {
-      typedef typename Pin::port_type type;
-   };
-
-/*
-   checks that the list of settings is valid
-   check that there is no more than 1 mode setting
-   check that there is no more than 1 alternate function setting
- polymorphicFunctor<-1,-2> ( no runtime, variadic)
-  returns the list wrapped in a quan::meta::type_sequence
-*/
    namespace detail{
       template <typename Pin> 
       struct periph_reg_action_list_check<Pin,typename quan::where_<quan::is_model_of<quan::stm32::gpio::Pin, Pin> >::type>{
@@ -47,4 +35,4 @@ namespace quan{ namespace stm32{
    }// detail
 }}
 
-#endif // QUAN_STM32_GPIO_APPLY_HPP_INCLUDED
+#endif // QUAN_STM32_GPIO_DETAIL_PERIPH_REG_ACTION_LIST_CHECK_HPP_INCLUDED

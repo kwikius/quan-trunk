@@ -1,7 +1,7 @@
-#ifndef QUAN_STM32_PERIPH_MAP_HPP_INCLUDED
-#define QUAN_STM32_PERIPH_MAP_HPP_INCLUDED
+#ifndef QUAN_STM32_USART_ALTERNATE_FUNCTIONS_HPP_INCLUDED
+#define QUAN_STM32_USART_ALTERNATE_FUNCTIONS_HPP_INCLUDED
 /*
- Copyright (c) 2003-2014 Andy Little.
+ Copyright (c) 2003-2018 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -17,14 +17,11 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 
-#if defined QUAN_STM32F4
-#include <quan/stm32/f4/periph_map.hpp>
-#elif defined QUAN_STM32L4
-#include <quan/stm32/l4/periph_map.hpp>
-#elif defined QUAN_STM32F0
-#include <quan/stm32/f0/periph_map.hpp>
-#else
-#error need to define stm32 processor
-#endif
+namespace quan{ namespace stm32{ namespace usart{
 
-#endif // QUAN_STM32_PERIPH_MAP_HPP_INCLUDED
+      struct tx_pin;
+      struct rx_pin;
+
+}}}
+
+#endif // QUAN_STM32_USART_ALTERNATE_FUNCTIONS_HPP_INCLUDED

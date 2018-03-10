@@ -24,7 +24,7 @@ namespace quan{ namespace stm32{ namespace usart{
    template <typename SerialPort>
    inline void irq_handler()
    {
-      typedef typename SerialPort::usart_type usart_type;
+     // typedef typename SerialPort::usart_type usart_type;
    
       if(SerialPort::ll_rxneie_is_enabled()){
             // received data
@@ -56,7 +56,7 @@ namespace quan{ namespace stm32{ namespace usart{
    template <typename SerialPort>
    inline void tx_irq_handler()
    {
-      typedef typename SerialPort::usart_type usart_type;
+    //  typedef typename SerialPort::usart_type usart_type;
 
       if (SerialPort::ll_txeie_is_enabled()) { // (TXE)
          if(! SerialPort::m_tx_fifo.is_empty() ){ 
@@ -74,7 +74,7 @@ namespace quan{ namespace stm32{ namespace usart{
   template <typename SerialPort>
    inline void rx_irq_handler()
    {
-      typedef typename SerialPort::usart_type usart_type;
+     // typedef typename SerialPort::usart_type usart_type;
    
       if(SerialPort::ll_rxneie_is_enabled()){
             // received data
@@ -91,8 +91,6 @@ namespace quan{ namespace stm32{ namespace usart{
          }
       }
    }
-
-  
 
 }}}
 

@@ -19,8 +19,8 @@
 
 #if defined QUAN_STM32F4
 #include <quan/stm32/f4/usart/get_alternate_function.hpp>
-#elif defined QUAN_STM32F3
-#include <quan/stm32/f3/usart/get_alternate_function.hpp>
+#elif defined QUAN_STM32L4
+#include <quan/stm32/l4/usart/get_alternate_function.hpp>
 #elif defined QUAN_STM32F0
 #include <quan/stm32/f0/usart/get_alternate_function.hpp>
 #else

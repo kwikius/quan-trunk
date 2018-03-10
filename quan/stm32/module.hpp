@@ -21,6 +21,11 @@ namespace quan{ namespace stm32{
 
    struct Module ; // Archetype
 
+   template <typename E, typename Where = void>
+   struct get_module { 
+      typedef E type;
+   };
+
 }}
 
 #endif // QUAN_STM32_MODULE_HPP_INCLUDED

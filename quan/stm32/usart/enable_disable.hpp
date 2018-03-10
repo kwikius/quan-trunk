@@ -29,7 +29,7 @@ namespace quan{ namespace stm32{
 #if defined QUAN_STM32F4
       constexpr uint8_t enable_bit = 13;
 #else 
-#if defined QUAN_STM32F0
+#if (defined (QUAN_STM32F0) || defined(QUAN_STM32L4))
       constexpr uint8_t enable_bit = 0;
 #else
 #error need to define for processor
@@ -45,7 +45,7 @@ namespace quan{ namespace stm32{
 #if defined QUAN_STM32F4
       constexpr uint8_t enable_bit = 13;
 #else 
-#if defined QUAN_STM32F0
+#if (defined (QUAN_STM32F0) || defined(QUAN_STM32L4))
       constexpr uint8_t enable_bit = 0;
 #else
 #errot need to define for processor

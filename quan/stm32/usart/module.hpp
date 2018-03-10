@@ -1,7 +1,7 @@
-#ifndef QUAN_STM32F4_USART_MODULE_HPP_INCLUDED
-#define QUAN_STM32F4_USART_MODULE_HPP_INCLUDED
+#ifndef QUAN_STM32_USART_MODULE_HPP_INCLUDED
+#define QUAN_STM32_USART_MODULE_HPP_INCLUDED
 /*
- Copyright (c) 2003-2014 Andy Little.
+ Copyright (c) 2003-2018 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,12 +22,10 @@
 
 #if defined QUAN_STM32F4
 #include <quan/stm32/f4/usart/module.hpp>
-#elif defined QUAN_STM32F3
-#include <quan/stm32/f3/usart/module.hpp>
-#elif defined QUAN_STM32F0
+#elif (defined(QUAN_STM32F0) || defined(QUAN_STM32L4))
 #include <quan/stm32/f0/usart/module.hpp>
 #else
-#error need to define stm32 processor
+#error need to define stm32 processor usart module
 #endif
 
 namespace quan{ namespace impl{
@@ -48,4 +46,4 @@ namespace quan{ namespace impl{
 
 }}
 
-#endif // QUAN_STM32F4_USART_MODULE_HPP_INCLUDED
+#endif // QUAN_STM32_USART_MODULE_HPP_INCLUDED

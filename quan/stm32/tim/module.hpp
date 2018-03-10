@@ -45,10 +45,17 @@ namespace quan{ namespace stm32{
 
          typedef module type;
          
-#define QUAN_STM32_IF_HAS_REG( Name , Address)  \
+  #define QUAN_STM32_IF_HAS_REG( Name , Address)  \
    typedef typename quan::meta::eval_if< \
       quan::stm32::tim::detail::has_ ## Name <type>, \
       quan::stm32::periph_reg<type, Address >, \
+      quan::stm32::undefined_reg<type, Address >  \
+   >::type Name ## _type;
+
+  #define QUAN_STM32_IF_HAS_FLOAT_REG(Name,Address) \
+   typedef typename quan::meta::if_<  \
+      quan::stm32::tim::detail::has_ ## Name <type>, \
+      volatile uint32_t, \
       quan::stm32::undefined_reg<type, Address >  \
    >::type Name ## _type;
 
@@ -64,12 +71,7 @@ namespace quan{ namespace stm32{
          typedef volatile uint32_t cnt_type;
          typedef volatile uint32_t psc_type; 
          typedef volatile uint32_t arr_type;
-        // typedef volatile uint32_t rcr_type;
-         typedef typename quan::meta::if_< 
-            quan::stm32::tim::detail::has_rcr <type>, 
-            volatile uint32_t, 
-            quan::stm32::undefined_reg<type,0x30 >  
-         >::type  rcr_type;
+         QUAN_STM32_IF_HAS_FLOAT_REG(rcr,0x30)
          typedef volatile uint32_t ccr1_type;
          typedef volatile uint32_t ccr2_type;
          typedef volatile uint32_t ccr3_type;
@@ -77,9 +79,19 @@ namespace quan{ namespace stm32{
          QUAN_STM32_IF_HAS_REG(bdtr,0x44)
          QUAN_STM32_IF_HAS_REG(dcr,0x48)
          typedef volatile uint32_t dmar_type;
+#if !defined(QUAN_STM32L4)
          QUAN_STM32_IF_HAS_REG(or_,0x50)
+#else
+         QUAN_STM32_IF_HAS_REG(or1,0x50)
+         QUAN_STM32_IF_HAS_REG(ccmr3,0x54)
+         QUAN_STM32_IF_HAS_FLOAT_REG(ccr5,0x58)
+         QUAN_STM32_IF_HAS_FLOAT_REG(ccr6,0x5C)
+         QUAN_STM32_IF_HAS_REG(or2,0x60)
+         QUAN_STM32_IF_HAS_REG(or3,0x64)
+#endif
 
 #undef QUAN_STM32_IF_HAS_REG
+#undef QUAN_STM32_IF_HAS_FLOAT_REG
                                          
          cr1_type cr1;
          cr2_type cr2;                      
@@ -101,7 +113,16 @@ namespace quan{ namespace stm32{
          bdtr_type bdtr;                               
          dcr_type dcr; 
          dmar_type dmar;
+#if !defined(QUAN_STM32L4)
          or__type or_ ;
+#else
+         or1_type or1;
+         ccmr3_type ccmr3;
+         ccr5_type ccr5;
+         ccr6_type ccr6;
+         or2_type or2;
+         or3_type or3;
+#endif
 
          // remove any undefined registers from lookup
          typedef typename quan::meta::copy_if<
@@ -126,7 +147,16 @@ namespace quan{ namespace stm32{
                bdtr_type,
                dcr_type,
                dmar_type,
+#if !defined(QUAN_STM32L4)
                or__type
+#else
+               or1_type,
+               ccmr3_type,
+               ccr5_type,
+               ccr6_type,
+               or2_type,
+               or3_type
+#endif
             >,
             quan::stm32::detail::periph_reg_is_defined  
          >::type periph_reg_list;

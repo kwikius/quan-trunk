@@ -31,11 +31,6 @@
 
 namespace quan{ namespace stm32{
 
-   template <typename E, typename Where = void>
-   struct get_module { 
-      typedef E type;
-   };
-
    template <typename E, typename ... Listof_Setting>
    typename quan::where_<
       quan::is_model_of<quan::stm32::Module,typename quan::stm32::get_module<E>::type> 

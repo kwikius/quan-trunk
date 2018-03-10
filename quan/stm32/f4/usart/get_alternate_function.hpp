@@ -23,10 +23,10 @@
 
 #include <quan/stm32/f4/config.hpp>
 #include <quan/stm32/get_alternate_function.hpp>
+#include <quan/stm32/usart/alternate_functions.hpp>
 #include <quan/stm32/gpio/pin.hpp>
 #include <quan/stm32/gpio/typedefs.hpp>
 #include <quan/stm32/usart/typedefs.hpp>
-#include <quan/stm32/f4/usart/alternate_functions.hpp>
 
 namespace quan{ namespace stm32{ 
 

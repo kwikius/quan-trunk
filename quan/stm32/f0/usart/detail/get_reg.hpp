@@ -17,11 +17,11 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
-#ifndef QUAN_STM32F0
+#if ! (defined(QUAN_STM32F0) || defined(QUAN_STM32L4))
 #error dont include directly
 #endif
 
-#include <quan/stm32/f0/usart/module.hpp>
+#include <quan/stm32/usart/module.hpp>
 #include <quan/stm32/detail/get_reg.hpp>
 
 namespace quan{ namespace stm32{ namespace detail{

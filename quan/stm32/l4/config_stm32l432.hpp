@@ -9,8 +9,30 @@
 // P has only pin 3 which is also boot0
 // 
 
+#ifndef QUAN_STM32_SOURCE_CLOCK_Hz
+#define QUAN_STM32_SOURCE_CLOCK_Hz  8000000
+#endif
+
 #ifndef QUAN_STM32_SYSCLK_Hz
 #define QUAN_STM32_SYSCLK_Hz  80000000
+#endif
+
+#ifndef QUAN_STM32_AHB1_DIVISOR
+#define QUAN_STM32_AHB1_DIVISOR 1
+#endif
+
+#ifndef QUAN_STM32_AHB2_DIVISOR
+#define QUAN_STM32_AHB2_DIVISOR 1
+#endif
+
+// APB2 timer clock is * 2 to the APB2 periph clock
+#ifndef QUAN_STM32_APB2_DIVISOR
+#define QUAN_STM32_APB2_DIVISOR 1
+#endif
+
+// APB1 timer clock is * 2 to the APB1 periph clock
+#ifndef QUAN_STM32_APB1_DIVISOR
+#define QUAN_STM32_APB1_DIVISOR 1
 #endif
 
 #define QUAN_STM32_HAS_BITBANDING 1

@@ -1,9 +1,12 @@
-#ifndef QUAN_STM32_F0_USART_DETAIL_GET_BAUD_RATE_VALUES_HPP_INCLUDED
-#define QUAN_STM32_F0_USART_DETAIL_GET_BAUD_RATE_VALUES_HPP_INCLUDED
+#ifndef QUAN_STM32_USART_DETAIL_GET_BAUD_RATE_VALUES_F0_L4_HPP_INCLUDED
+#define QUAN_STM32_USART_DETAIL_GET_BAUD_RATE_VALUES_F0_L4_HPP_INCLUDED
+
+#if ( ! ( defined(QUAN_STM32L4) || defined(QUAN_STM32F0) ))
+#error dont include directly
+#endif
 
 #include <type_traits>
 #include <quan/stm32/config.hpp>
-
 #include <quan/stm32/get_module_bus_frequency.hpp>
 
 /*
@@ -48,4 +51,4 @@ namespace quan { namespace stm32{ namespace usart{ namespace detail{
 }}}}
 
 
-#endif // QUAN_STM32_F0_USART_DETAIL_GET_BAUD_RATE_VALUES_HPP_INCLUDED
+#endif //QUAN_STM32_USART_DETAIL_GET_BAUD_RATE_VALUES_F0_L4_HPP_INCLUDED

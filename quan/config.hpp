@@ -48,7 +48,7 @@
 #define QUAN_USE_QUAN_STD_TR1
 #endif
 
-#if ( defined(QUAN_STM32F4) || defined(QUAN_STM32F3)  || defined(QUAN_STM32F0) )
+#if ( defined(QUAN_STM32F4) || defined(QUAN_STM32F3)  || defined(QUAN_STM32F0) || defined(QUAN_STM32L4) )
 #include <quan/stm32/config.hpp>
 #endif
 

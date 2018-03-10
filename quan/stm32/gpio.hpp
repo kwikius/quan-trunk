@@ -33,6 +33,6 @@
 #include <quan/stm32/gpio/settings.hpp>
 #include <quan/stm32/gpio/detail/periph_reg_action_pack.hpp>
 #include <quan/stm32/gpio/detail/add_periph_reg_action.hpp>
-#include <quan/stm32/gpio/apply.hpp>
+#include <quan/stm32/gpio/detail/periph_reg_action_list_check.hpp>
 
 #endif // QUAN_STM32F$_GPIO_HPP_INCLUDED

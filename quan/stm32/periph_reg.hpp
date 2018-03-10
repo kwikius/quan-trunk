@@ -75,6 +75,13 @@ namespace quan { namespace impl{
 
 namespace quan{ namespace stm32{
 
+#if (QUAN_STM32_HAS_BITBANDING)
+   namespace detail {
+        template <typename T, uint32_t Address, typename Where = void>
+        struct bitmanip;
+
+   }
+#endif
    template<typename Module, uint32_t Offset, typename T = typename Module::value_type>
    struct periph_reg : periph_reg_base<T>{
       static_assert(sizeof(periph_reg_base<T>) == 4,"invalid periph reg");
@@ -92,32 +99,28 @@ namespace quan{ namespace stm32{
          is_in_periph_bitband<address>
        >{};
 
-      template <uint8_t Bit> static typename quan::where_<is_in_periph_bitband<address> >::type bb_setbit()
+      template <uint8_t Bit> 
+      static void bb_setbit()
       {
-        // asm volatile("nop" : : :);
-         volatile uint32_t* addr = reinterpret_cast<volatile uint32_t*>(periph_bit_band_address<address,Bit>::value);
-         *addr = static_cast<uint32_t>(1);
+         detail::bitmanip<value_type,address>::template bb_setbit<Bit>();
       }
 
-      template <uint8_t Bit> static typename quan::where_<is_in_periph_bitband<address> >::type bb_clearbit()
+      template <uint8_t Bit> 
+      static void  bb_clearbit()
       {
-         volatile uint32_t* addr = reinterpret_cast<volatile uint32_t*>(periph_bit_band_address<address,Bit>::value);
-         *addr = static_cast<uint32_t>(0);
+         detail::bitmanip<value_type,address>::template bb_clearbit<Bit>();
+      }
+      template <uint8_t Bit>
+      static bool bb_getbit()
+      {
+         return detail::bitmanip<value_type,address>::template bb_getbit<Bit>();
+      }
+      template <uint8_t Bit>
+      static void bb_putbit(bool val)
+      {
+          detail::bitmanip<value_type,address>::template bb_putbit<Bit>(val);
       }
 
-      template <uint8_t Bit> static typename quan::where_<is_in_periph_bitband<address>,bool >::type bb_getbit()
-      {
-         volatile uint32_t* addr =reinterpret_cast<volatile uint32_t*>(periph_bit_band_address<address,Bit>::value);
-         return *addr != 0;
-      }
-
-      template <uint8_t Bit> static typename quan::where_<is_in_periph_bitband<address> >::type bb_putbit(bool val)
-      {
-         volatile uint32_t* addr =reinterpret_cast<volatile uint32_t*>(periph_bit_band_address<address,Bit>::value);
-         *addr = val;
-      }
-
-      
 #endif
 
       using periph_reg_base<T>::m_value;
@@ -129,7 +132,7 @@ namespace quan{ namespace stm32{
 
       void set(value_type v)
       {
-            m_value = v;
+          m_value = v;
       }
 
       template <uint8_t Bit> void setbit()
@@ -236,6 +239,82 @@ namespace quan{ namespace stm32{
    {
          return reg.get() | val;
    }
+
+#if (QUAN_STM32_HAS_BITBANDING)
+   namespace detail{
+      template <typename T, uint32_t Address>
+      struct bitmanip<T,Address, typename quan::where_<is_in_periph_bitband<Address> >::type>{
+         template <uint32_t Bit>
+         static  void bb_setbit()
+         {
+//            volatile T* const addr = reinterpret_cast<volatile T* const>(periph_bit_band_address<Address,Bit>::value);
+//            *addr = static_cast<uint32_t>(1);
+              *reinterpret_cast<volatile T* const>(periph_bit_band_address<Address,Bit>::value) = static_cast<T>(1U);
+         }
+         template <uint32_t Bit>
+         static void bb_clearbit()
+         {
+//            volatile T* const addr = reinterpret_cast<volatile T* const>(periph_bit_band_address<Address,Bit>::value);
+//            *addr = static_cast<T>(0U);
+              *reinterpret_cast<volatile T* const>(periph_bit_band_address<Address,Bit>::value) = static_cast<T>(0U);
+         }
+
+         template <uint32_t Bit>
+         static void bb_putbit(bool val)
+         {
+//            volatile T* const addr =reinterpret_cast<volatile T* const>(periph_bit_band_address<Address,Bit>::value);
+//            *addr = val;
+              *reinterpret_cast<volatile T* const>(periph_bit_band_address<Address,Bit>::value) = static_cast<T>(val);
+         }
+
+         template <uint32_t Bit>
+         static bool bb_getbit()
+         {
+//            volatile T* const addr =reinterpret_cast<volatile T* const>(periph_bit_band_address<Address,Bit>::value);
+//            return *addr != 0;
+              return *reinterpret_cast<volatile T* const>(periph_bit_band_address<Address,Bit>::value) != static_cast<T>(0U);
+         }
+
+      };
+
+      template <typename T, uint32_t Address>
+      struct bitmanip<T, Address, typename quan::where_<quan::meta::not_<is_in_periph_bitband<Address> > >::type>{
+         template <uint32_t Bit>
+         static void bb_setbit()
+         {
+//            volatile T* const addr =reinterpret_cast<volatile T* const>(Address);
+//            addr |= quan::bit<T>(Bit);
+              *reinterpret_cast<volatile T* const>(Address) |= quan::bit<T>(Bit);
+         }
+
+         template <uint32_t Bit>
+         static void bb_clearbit()
+         {
+//            volatile T* const addr =reinterpret_cast<volatile T* const>(Address);
+//            addr &= ~quan::bit<T>(Bit);
+              *reinterpret_cast<volatile T* const>(Address) &= ~quan::bit<T>(Bit);
+         }
+         template <uint32_t Bit>
+         static void bb_putbit(bool val)
+         {
+            if (val){
+               bb_setbit<Bit>();
+            }else{
+               bb_clearbit<Bit>();
+            }
+         }
+
+         template <uint32_t Bit>
+         static bool bb_getbit(bool val)
+         {
+//            const volatile T* const addr =reinterpret_cast<const volatile T*const>(Address);
+//            return *addr & quan::bit<T>(Bit);
+              return (*reinterpret_cast<const volatile T*const>(Address) & quan::bit<T>(Bit) ) != static_cast<T>(0U);
+         }
+
+      };
+   }
+#endif
 
 }}
 
