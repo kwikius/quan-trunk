@@ -3,13 +3,13 @@
 
 #include <list>
 #include <string>
+#include <quan/atomicstring.hpp>
 #include <quan/dom/except.hpp>
 #include <sstream>
 
 namespace quan{ namespace dom{
 
     //throws empty_id_string
-// template <typename ID>
    template <typename CharType>
    inline
    std::list<atomicstring<CharType> > make_path( std::basic_string<CharType> const & str_path)
