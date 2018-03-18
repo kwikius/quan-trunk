@@ -20,8 +20,8 @@
 
 #if defined QUAN_STM32F4
 #include <quan/stm32/f4/rcc.hpp>
-#elif defined QUAN_STM32F3
-#include <quan/stm32/f3/rcc.hpp>
+#elif defined QUAN_STM32L4
+#include <quan/stm32/l4/rcc.hpp>
 #elif defined QUAN_STM32F0
 #include <quan/stm32/f0/rcc.hpp>
 #else
