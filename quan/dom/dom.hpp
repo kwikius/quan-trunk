@@ -6,8 +6,6 @@
  // in any form or by any means without the written permission 
  // of the author.
 
-//#include <quan/dom/abstract_out.hpp>
-
 #include <quan/dom/alg/add_branch.hpp>
 #include <quan/dom/alg/add_value.hpp>
 #include <quan/dom/alg/get_node.hpp>
@@ -19,11 +17,13 @@
 #include <quan/dom/alg/get_node_path.hpp>
 #include <quan/dom/alg/set_value.hpp>
 #include <quan/dom/alg/as_branch_node.hpp>
+#include <quan/dom/alg/is_branch_node.hpp>
 #include <quan/dom/alg/as_leaf_node.hpp>
+#include <quan/dom/alg/is_leaf_node.hpp>
 #include <quan/dom/alg/find_child.hpp>
+#include <quan/dom/alg/find_branch.hpp>
 #include <quan/dom/alg/remove_node.hpp>
 #include <quan/dom/alg/get_path_depth.hpp>
-//#include <quan/dom/container_tags/std_map_tag.hpp>
 
 #endif
 
