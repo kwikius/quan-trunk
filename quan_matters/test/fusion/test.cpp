@@ -11,6 +11,10 @@ void sequence_test();
 void adjunct_matrix_test1();
 void fusion_inverse_matrix_test1();
 
+void matrix_add_test1();
+
+//void matrix_mux_result_test();
+
 void fusion_compare_seq();
 
 int errors = 0;
@@ -28,6 +32,10 @@ int main()
   adjunct_matrix_test1();
   fusion_inverse_matrix_test1();
   fusion_compare_seq();
+
+  matrix_add_test1();
+
+ // matrix_mux_result_test();
 
   QUAN_EPILOGUE
 }
