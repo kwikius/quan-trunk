@@ -14,11 +14,7 @@ namespace quan{ namespace dom{
    branch<ID>*
    is_branch_node(node<ID> * in)
    {
-      if(in){
-         return  dynamic_cast<branch<ID>*>(in);
-      }else{
-         return nullptr;
-      }
+      return  dynamic_cast<branch<ID>*>(in);
    }
 
 }}//quan::dom
