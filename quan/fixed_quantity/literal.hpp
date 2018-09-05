@@ -10,6 +10,11 @@
    constexpr inline quan:: QuantityName ## _<int32_t>:: UnitSuffix operator "" _ ## UnitSuffix ( unsigned long long int v) \
    { \
       return quan:: QuantityName ## _<int32_t>:: UnitSuffix {static_cast<int32_t>(v)}; \
+   } \
+\
+   constexpr inline quan:: QuantityName ## _<uint32_t>:: UnitSuffix operator "" _ ## UnitSuffix ## _U ( unsigned long long int v) \
+   { \
+      return quan:: QuantityName ## _<uint32_t>:: UnitSuffix {static_cast<uint32_t>(v)}; \
    } 
 
 #endif // QUAN_FIXED_QUANTITY_LITERAL_HPP_INCLUDED
