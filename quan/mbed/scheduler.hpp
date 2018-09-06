@@ -8,7 +8,7 @@ define to use an intrusive list else uses std::list
 */
 #define QUAN_INTRUSIVE_LIST
 
-#include <quan/out/time.hpp>
+#include <quan/time.hpp>
 #include <quan/fixed_quantity/literal.hpp>
 #include <cassert>
 #if defined(QUAN_INTRUSIVE_LIST)
@@ -89,15 +89,20 @@ namespace  quan{ namespace mbed{
    };
 
    // make slot time and num_slots template params?
-   template <uint32_t NSlots, uint32_t SlotTime_ms>
+   template <
+      uint32_t NSlots, 
+      uint32_t SlotTime_ms
+   >
    struct scheduler {
 
       static constexpr uint32_t m_num_slots = NSlots;
       static constexpr quan::time_<uint32_t>::ms m_slot_time{SlotTime_ms};
 
-      scheduler()
-      : m_elapsed{quan::time_<uint32_t>::ms{0U}}
-        ,m_start_time{0}, m_current_slot{0}
+      scheduler(void (*sleep_until_fun)(quan::time_<uint32_t>::ms const & ))
+      : 
+         m_sleep_until_fun{sleep_until_fun}
+        ,m_elapsed{quan::time_<uint32_t>::ms{0U}}
+        ,m_current_slot{0}
       {
       #if defined QUAN_INTRUSIVE_LIST
          memset(m_slots, 0, m_num_slots * sizeof(task*));
@@ -106,38 +111,16 @@ namespace  quan{ namespace mbed{
 
       ~scheduler()
       {
-        // delete [] m_slots;
       }
 
-      void run(uint32_t num_iters, std::ostream & out)
+      void run()
       {
-         uint32_t old_slot = m_current_slot;
-
-         for (uint32_t i = 0U; i < num_iters; ++i){
-
-            if ( find_next_slot(m_current_slot)){
-
-               quan::time_<uint32_t>::ms const interval = (get_slot_diff(old_slot,m_current_slot) + 1U) * m_slot_time;
-               old_slot = m_current_slot;
-               m_elapsed += interval;
-               // should be 1000 but
-               // if we do it at real speed we wont see things in action
-               const uint32_t time_scale = 1000;
-
-               //sleep and wake up in time to deal with next slot
-               for(;;){
-                 clock_t elapsed1 = clock() - m_start_time;
-                 if ( elapsed1 >= m_elapsed.numeric_value() * time_scale){
-                    break;
-                 }
-               }
-               // ~sleep
-               out << "elapsed = " << (m_elapsed - quan::time_<uint32_t>::ms{1U}) <<'\n';
-               process_next_task(out);
-            }else {
-              // std::cout << "no slots found\n";
-              // prob want to sleep here
-            }
+         uint32_t const old_slot = m_current_slot;
+         if ( find_next_slot(m_current_slot)){
+            quan::time_<uint32_t>::ms const interval = (get_slot_diff(old_slot,m_current_slot) + 1U) * m_slot_time;
+            m_sleep_until_fun(m_elapsed + interval - quan::time_<uint32_t>::ms{1U} );
+            m_elapsed += interval;
+            process_next_task();
          }
       }
 
@@ -173,24 +156,23 @@ namespace  quan{ namespace mbed{
             out << "---------------------------------\n";
       }
 
-      clock_t set_start_time()
-      {
-         m_start_time = std::clock();
-         return m_start_time;
-      }
-      clock_t get_start_time()const { return m_start_time;}
+//      clock_t set_start_time()
+//      {
+//         quan::time_<uint32_t>::ms const & in
+//      }
+    //  clock_t get_start_time()const { return m_start_time;}
 
       /*
          put the task in the slot to give first firing at the update_rate interval from current_slot
          TODO add an offset to the start position, so that tasks are spread out
       */
-      bool insert_task(task* ptask, std::ostream & out)
+      bool insert_task(task* ptask)
       {
          assert(ptask);
 
          uint32_t const task_interval = ptask->get_update_rate()/m_slot_time;
          uint32_t const loopcount = task_interval / m_num_slots;
-         auto const slot_idx = slot_incr(m_current_slot, task_interval);
+         auto const slot_idx = slot_incr(m_current_slot, task_interval );
 
          assert(slot_idx < m_num_slots);
          assert(slot_idx >=0);
@@ -204,9 +186,8 @@ namespace  quan{ namespace mbed{
       }
 
     private:
-
+      void (*m_sleep_until_fun)(quan::time_<uint32_t>::ms const & );
       quan::time_<uint32_t>::ms        m_elapsed;
-      clock_t                          m_start_time;
       uint32_t                         m_current_slot;
    #if defined QUAN_INTRUSIVE_LIST
       task *                         m_slots[m_num_slots];
@@ -255,7 +236,7 @@ namespace  quan{ namespace mbed{
          }
       }
 
-      bool process_next_task(std::ostream & out)
+      bool process_next_task()
       {
    #if defined QUAN_INTRUSIVE_LIST
          task* temp_list = nullptr;
@@ -311,7 +292,7 @@ namespace  quan{ namespace mbed{
    #if defined QUAN_INTRUSIVE_LIST
             task* item = quan::mbed::dlist_pop_front<1>(temp_list);
    #endif
-            assert(insert_task(item,out));
+            assert(insert_task(item));
             uint32_t const task_interval = item->get_update_rate()/m_slot_time;
             uint32_t const mod_part = task_interval % m_num_slots;
             if ( mod_part == 0){
