@@ -45,6 +45,7 @@ namespace  quan{ namespace mbed{
    */
 
    template <
+      typename Task,
       uint32_t NSlots,
       uint32_t SlotTime_ms,
       void(*sleep_until_fun)(quan::time_<uint32_t>::ms const & )>
@@ -73,10 +74,16 @@ namespace  quan{ namespace mbed{
       const char* get_name() const { return m_name;}
       int32_t get_num_repeats() const { return m_num_repeats;}
       quan::time_<uint32_t>::ms get_update_rate() const { return m_update_rate;}
- 
+      void run() { m_task_fun();}
      private:
-      void execute() { m_task_fun(); }
-      template <uint32_t NSlost, uint32_t SlotTime_ms,void(*sleep_until_fun)(quan::time_<uint32_t>::ms const & )>
+     // void execute() { m_task_fun(); }
+
+      template <
+            typename Task,
+            uint32_t NSlots, 
+            uint32_t SlotTime_ms,
+            void(*sleep_until_fun)(quan::time_<uint32_t>::ms const & )
+      >
       friend struct scheduler;
       const char* const m_name;
       task_fun m_task_fun;
@@ -96,8 +103,15 @@ namespace  quan{ namespace mbed{
       task& operator = (task const &) = delete;
    };
 
+
+   inline void execute(task & ptask)
+   {
+      ptask.run();
+   }
+
    template <
-      uint32_t NSlots
+      typename Task
+      ,uint32_t NSlots
       ,uint32_t SlotTime_ms
       ,void(*sleep_until_fun)( quan::time_<uint32_t>::ms const & )
    >
@@ -105,6 +119,8 @@ namespace  quan{ namespace mbed{
 
       static constexpr uint32_t m_num_slots = NSlots;
       static constexpr quan::time_<uint32_t>::ms m_slot_time{SlotTime_ms};
+
+      typedef Task task;
 
       scheduler()
       : 
@@ -164,14 +180,14 @@ namespace  quan{ namespace mbed{
          put the task in the slot to give first firing at the update_rate interval from current_slot
          TODO add an offset to the start position, so that tasks are spread out
       */
-      void insert_task(task* ptask)
+      void insert_task(task* ptask, uint32_t offset = 0U)
       {
          assert(ptask);
 
-         uint32_t const task_interval = ptask->get_update_rate()/m_slot_time;
+         uint32_t const task_interval = ptask->get_update_rate()/m_slot_time + offset;
          uint32_t const loopcount = task_interval / m_num_slots;
          auto const slot_idx = slot_incr(m_current_slot, task_interval );
-
+        
          assert(slot_idx < m_num_slots);
          assert(slot_idx >=0);
          ptask->set_loopcount(loopcount);
@@ -263,7 +279,7 @@ namespace  quan{ namespace mbed{
                iter = iter->get_next_dlist_element<0>();
    #endif
             }else{
-               ptask->execute();
+               execute(*ptask);
    #if defined QUAN_MBED_SCHEDULER_USE_STD_LIST
                iter = task_list.erase(iter);
    #else
@@ -303,8 +319,8 @@ namespace  quan{ namespace mbed{
       }
    }; // ~struct
 
-   template <uint32_t NSlots, uint32_t SlotTime,void(*sleep_until_fun)(quan::time_<uint32_t>::ms const & )>
-   constexpr quan::time_<uint32_t>::ms  scheduler<NSlots,SlotTime,sleep_until_fun>::m_slot_time;
+   template < typename Task,uint32_t NSlots, uint32_t SlotTime,void(*sleep_until_fun)(quan::time_<uint32_t>::ms const & )>
+   constexpr quan::time_<uint32_t>::ms  scheduler<Task,NSlots,SlotTime,sleep_until_fun>::m_slot_time;
     
 }}// quan::mbed
 
