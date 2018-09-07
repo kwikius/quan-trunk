@@ -95,6 +95,8 @@ namespace  quan{ namespace mbed{
 
       uint32_t get_loopcount()const {return m_loopcount;}
       void set_loopcount(uint32_t val){m_loopcount = val;}
+
+      void destroy () {std::cout << m_name << " destroy called\n";} // cleanup if necessary
  
       task (task const &) = delete;
       task& operator = (task const &) = delete;
@@ -137,10 +139,9 @@ namespace  quan{ namespace mbed{
       {
          uint32_t const old_slot = m_current_slot;
          if ( find_next_slot(m_current_slot)){
-            quan::time_<uint32_t>::ms const interval = (get_slot_diff(old_slot,m_current_slot) + 1U) * m_slot_time;
-            // 
-            sleep_until(m_elapsed + interval - quan::time_<uint32_t>::ms{1U} );
-            m_elapsed += interval;
+            quan::time_<uint32_t>::ms const interval = get_slot_diff(old_slot,m_current_slot) * m_slot_time;
+            sleep_until(m_elapsed + interval );
+            m_elapsed += interval + m_slot_time;
             process_next_task();
          }
       }
@@ -288,6 +289,8 @@ namespace  quan{ namespace mbed{
    #else
                   quan::mbed::dlist_push_front<1>(temp_list,ptask);                   
    #endif
+              }else {
+                  ptask->destroy();
               }
            }      
         }
