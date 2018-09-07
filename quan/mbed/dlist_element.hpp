@@ -1,6 +1,9 @@
 #ifndef QUAN_MBED_DLIST_ELEMENT_HPP_INCLUDED
 #define QUAN_MBED_DLIST_ELEMENT_HPP_INCLUDED
 
+// NOTE: This class uses asserts
+// for release define NDEBUG
+
 #include <cassert>
 #include <type_traits>
 #include <quan/meta/bool.hpp>
@@ -82,21 +85,25 @@ namespace quan {namespace mbed {
    // extracts the first element and returns it
    // the iter is updated to the next in the list
    // and the list itself may be updated
+   // empty list returns nullptr
    template <int I,typename T>
    inline
    typename quan::where_<is_dlist_element<T>, T* >::type
    dlist_pop_front(T*& list){
+      if ( list != nullptr){
+        // assert(list != nullptr);
+         assert( list-> template get_prev_dlist_element<I>() == nullptr);
 
-      assert(list != nullptr);
-      assert( list-> template get_prev_dlist_element<I>() == nullptr);
-
-      T* front_item = list;
-      list = list-> template get_next_dlist_element<I>();
-      if( list){
-         list-> template set_prev_dlist_element<I>(nullptr);
+         T* front_item = list;
+         list = list-> template get_next_dlist_element<I>();
+         if( list){
+            list-> template set_prev_dlist_element<I>(nullptr);
+         }
+         front_item-> template set_next_dlist_element<I>(nullptr);
+         return front_item;
+      }else{
+         return nullptr;
       }
-      front_item-> template set_next_dlist_element<I>(nullptr);
-      return front_item;
    }
 
    // extracts the element at iter and returns it

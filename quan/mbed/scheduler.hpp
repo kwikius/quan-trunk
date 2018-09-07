@@ -1,22 +1,19 @@
 #ifndef QUAN_MBED_SCHEDULER_HPP_INCLUDED
 #define QUAN_MBED_SCHEDULER_HPP_INCLUDED
 
-//#define NDEBUG
-/*
-define to use an intrusive list else uses std::list
+// This class uses asserts
+// for release define NDEBUG
 
-*/
-#define QUAN_INTRUSIVE_LIST
+//define for scheduler to use a std::list elses uses intrusive list 
+#define QUAN_MBED_SCHEDULER_USE_STD_LIST
 
 #include <quan/time.hpp>
-#include <quan/fixed_quantity/literal.hpp>
 #include <cassert>
-#if defined(QUAN_INTRUSIVE_LIST)
-#include <quan/mbed/dlist_element.hpp>
-#else
+#if defined QUAN_MBED_SCHEDULER_USE_STD_LIST
 #include <list>
+#else
+#include <quan/mbed/dlist_element.hpp>
 #endif
-#include <time.h>
 
 namespace  quan{ namespace mbed{
 
@@ -47,15 +44,26 @@ namespace  quan{ namespace mbed{
       Optionally deleting a task once it is done(calling its dtor and freeing memory)
    */
 
-   template <uint32_t NSlots, uint32_t SlotTime_ms>
+   template <
+      uint32_t NSlots,
+      uint32_t SlotTime_ms,
+      void(*sleep_until_fun)(quan::time_<uint32_t>::ms const & )>
    struct scheduler ;
 
-#if defined QUAN_INTRUSIVE_LIST
-   struct task : quan::mbed::dlist_element<task,2>
-#else
+
+   // should be templated on callback function
+   // compat with mbed Callback ?
+   // e.g task<void()>
+   // or derived ?
+   // wont lose much
+
+#if defined QUAN_MBED_SCHEDULER_USE_STD_LIST
    struct task 
+#else
+   struct task : quan::mbed::dlist_element<task,2>
 #endif  
    {
+      
       typedef void (*task_fun)();
       task( const char * name, task_fun fun, quan::time_<uint32_t>::ms update_rate, int32_t num_repeats = -1)
       : m_name{name}, m_task_fun{fun}, m_update_rate{update_rate}, m_loopcount{0}, m_num_repeats{num_repeats}
@@ -67,8 +75,8 @@ namespace  quan{ namespace mbed{
       quan::time_<uint32_t>::ms get_update_rate() const { return m_update_rate;}
  
      private:
-      void execute() {  m_task_fun();}
-      template <uint32_t NSlost, uint32_t SlotTime_ms>
+      void execute() { m_task_fun(); }
+      template <uint32_t NSlost, uint32_t SlotTime_ms,void(*sleep_until_fun)(quan::time_<uint32_t>::ms const & )>
       friend struct scheduler;
       const char* const m_name;
       task_fun m_task_fun;
@@ -84,27 +92,26 @@ namespace  quan{ namespace mbed{
       uint32_t get_loopcount()const {return m_loopcount;}
       void set_loopcount(uint32_t val){m_loopcount = val;}
  
-      task ( task const &) = delete;
-      task & operator = (task const &) = delete;
+      task (task const &) = delete;
+      task& operator = (task const &) = delete;
    };
 
-   // make slot time and num_slots template params?
    template <
-      uint32_t NSlots, 
-      uint32_t SlotTime_ms
+      uint32_t NSlots
+      ,uint32_t SlotTime_ms
+      ,void(*sleep_until_fun)( quan::time_<uint32_t>::ms const & )
    >
    struct scheduler {
 
       static constexpr uint32_t m_num_slots = NSlots;
       static constexpr quan::time_<uint32_t>::ms m_slot_time{SlotTime_ms};
 
-      scheduler(void (*sleep_until_fun)(quan::time_<uint32_t>::ms const & ))
+      scheduler()
       : 
-         m_sleep_until_fun{sleep_until_fun}
-        ,m_elapsed{quan::time_<uint32_t>::ms{0U}}
+        m_elapsed{quan::time_<uint32_t>::ms{0U}}
         ,m_current_slot{0}
       {
-      #if defined QUAN_INTRUSIVE_LIST
+      #if ! (defined QUAN_MBED_SCHEDULER_USE_STD_LIST)
          memset(m_slots, 0, m_num_slots * sizeof(task*));
       #endif
       }
@@ -118,7 +125,8 @@ namespace  quan{ namespace mbed{
          uint32_t const old_slot = m_current_slot;
          if ( find_next_slot(m_current_slot)){
             quan::time_<uint32_t>::ms const interval = (get_slot_diff(old_slot,m_current_slot) + 1U) * m_slot_time;
-            m_sleep_until_fun(m_elapsed + interval - quan::time_<uint32_t>::ms{1U} );
+            // 
+            sleep_until_fun(m_elapsed + interval - quan::time_<uint32_t>::ms{1U} );
             m_elapsed += interval;
             process_next_task();
          }
@@ -129,26 +137,22 @@ namespace  quan{ namespace mbed{
          out << "--------slot state---------------\n";
 
          for ( uint32_t i = 0; i < m_num_slots; ++i){
-              out << "slot[" << i <<"] = ";
-   #if defined QUAN_INTRUSIVE_LIST
-             if (m_slots[i] == nullptr)
+            out << "slot[" << i <<"] = ";
+   #if defined QUAN_MBED_SCHEDULER_USE_STD_LIST
+            if ( m_slots[i].empty())
    #else
-             if ( m_slots[i].empty())
+            if (m_slots[i] == nullptr)
    #endif
-             {
+            {
                 out << "null";
-             }else{
-   #if defined QUAN_INTRUSIVE_LIST
-                task * ev = m_slots[i];
-                while(ev!= nullptr)
-   #else
+            }else{
+   #if defined QUAN_MBED_SCHEDULER_USE_STD_LIST
                 for ( ev : m_slots[i])
+   #else
+                for ( task* ev = m_slots[i]; ev != nullptr; ev = ev->get_next_dlist_element<0>())
    #endif
                 {
                    out << ev->get_name() << ",";
-   #if defined QUAN_INTRUSIVE_LIST
-                   ev = ev->get_next_dlist_element<0>();
-   #endif
                 }
                }
                out << "\n";
@@ -156,17 +160,11 @@ namespace  quan{ namespace mbed{
             out << "---------------------------------\n";
       }
 
-//      clock_t set_start_time()
-//      {
-//         quan::time_<uint32_t>::ms const & in
-//      }
-    //  clock_t get_start_time()const { return m_start_time;}
-
       /*
          put the task in the slot to give first firing at the update_rate interval from current_slot
          TODO add an offset to the start position, so that tasks are spread out
       */
-      bool insert_task(task* ptask)
+      void insert_task(task* ptask)
       {
          assert(ptask);
 
@@ -177,28 +175,26 @@ namespace  quan{ namespace mbed{
          assert(slot_idx < m_num_slots);
          assert(slot_idx >=0);
          ptask->set_loopcount(loopcount);
-   #if defined QUAN_INTRUSIVE_LIST
-         quan::mbed::dlist_push_front<0>(m_slots[slot_idx],ptask);
-   #else
+   #if defined QUAN_MBED_SCHEDULER_USE_STD_LIST
          m_slots[slot_idx].push_front(ptask);
+   #else
+         quan::mbed::dlist_push_front<0>(m_slots[slot_idx],ptask);
    #endif
-         return true;
       }
 
     private:
-      void (*m_sleep_until_fun)(quan::time_<uint32_t>::ms const & );
+      scheduler (scheduler const &) = delete;
+      scheduler& operator = (scheduler const &) = delete;
       quan::time_<uint32_t>::ms        m_elapsed;
       uint32_t                         m_current_slot;
-   #if defined QUAN_INTRUSIVE_LIST
-      task *                         m_slots[m_num_slots];
-   #else
+   #if defined QUAN_MBED_SCHEDULER_USE_STD_LIST
       std::list<task*>               m_slots[m_num_slots];
+   #else
+      task *                         m_slots[m_num_slots];
    #endif
 
    /*
       circular buffer increment of slot
-      n.b that (slot_idx + n_slots) / num_slots is also important
-      but ignored here
    */
       uint32_t slot_incr(uint32_t slot_idx, uint32_t n_slots = 1)const
       {
@@ -206,16 +202,17 @@ namespace  quan{ namespace mbed{
       }
 
       /*
-         go through looking for next slot
+         find next non-empty slot
       */
       bool find_next_slot(uint32_t & result)const
       {
           uint32_t next = m_current_slot;
           for (uint32_t i = 0; i < m_num_slots; ++i){
-   #if defined QUAN_INTRUSIVE_LIST
-             if (m_slots[next] != nullptr)
+
+   #if defined QUAN_MBED_SCHEDULER_USE_STD_LIST
+             if (!m_slots[next].empty())
    #else
-             if ( !m_slots[next].empty())
+             if (m_slots[next] != nullptr)    
    #endif
              {
                  result = next;
@@ -238,74 +235,76 @@ namespace  quan{ namespace mbed{
 
       bool process_next_task()
       {
-   #if defined QUAN_INTRUSIVE_LIST
-         task* temp_list = nullptr;
-         task*& task_list = m_slots[m_current_slot];
-   #else
+   #if defined QUAN_MBED_SCHEDULER_USE_STD_LIST
          std::list<task*> temp_list;
          std::list<task*> & task_list = m_slots[m_current_slot];
+   #else
+         task* temp_list = nullptr;
+         task*& task_list = m_slots[m_current_slot];
    #endif
 
-   #if defined QUAN_INTRUSIVE_LIST
-        for ( task* iter = task_list; iter != nullptr;)
-   #else
+   #if defined QUAN_MBED_SCHEDULER_USE_STD_LIST
         for( auto iter = task_list.begin(); iter != task_list.end();)
+   #else
+        for ( task* iter = task_list; iter != nullptr;)
    #endif
-         {
-   #if defined QUAN_INTRUSIVE_LIST
-            task * ptask = iter;
-   #else      
+        {
+   #if defined QUAN_MBED_SCHEDULER_USE_STD_LIST
             task * ptask = *iter;
+   #else 
+            task * ptask = iter;
    #endif
             assert(ptask);
             if ( ptask->get_loopcount() > 0U){
                ptask->dec_loopcount();
-   #if defined QUAN_INTRUSIVE_LIST
-               iter = iter->get_next_dlist_element<0>();
-   #else
+   #if defined QUAN_MBED_SCHEDULER_USE_STD_LIST
                ++iter;
+   #else
+               iter = iter->get_next_dlist_element<0>();
    #endif
             }else{
                ptask->execute();
-   #if defined QUAN_INTRUSIVE_LIST
-               ptask = dlist_extract<0>(task_list,iter);
-   #else
+   #if defined QUAN_MBED_SCHEDULER_USE_STD_LIST
                iter = task_list.erase(iter);
+   #else
+               ptask = dlist_extract<0>(task_list,iter);     
    #endif   
                if ( ptask->dec_num_repeats() != 0U) {
-   #if defined QUAN_INTRUSIVE_LIST
-                  quan::mbed::dlist_push_front<1>(temp_list,ptask);
+   #if defined QUAN_MBED_SCHEDULER_USE_STD_LIST
+                  temp_list.push_front(ptask);
    #else
-                  temp_list.push_front(ptask); 
+                  quan::mbed::dlist_push_front<1>(temp_list,ptask);                   
    #endif
-               }
-            }      
-         }
+              }
+           }      
+        }
          // move the tasks on the temp_list back into the scheduler
          // in position for next firing
-   #if defined QUAN_INTRUSIVE_LIST
-         while (temp_list != nullptr) 
-   #else
+   #if defined QUAN_MBED_SCHEDULER_USE_STD_LIST
          for (item : temp_list)
+   #else
+         for ( task* item = quan::mbed::dlist_pop_front<1>(temp_list);
+                  item != nullptr; 
+                     item = quan::mbed::dlist_pop_front<1>(temp_list))
    #endif
          {
-   #if defined QUAN_INTRUSIVE_LIST
-            task* item = quan::mbed::dlist_pop_front<1>(temp_list);
-   #endif
-            assert(insert_task(item));
+            
+            insert_task(item);
             uint32_t const task_interval = item->get_update_rate()/m_slot_time;
             uint32_t const mod_part = task_interval % m_num_slots;
             if ( mod_part == 0){
                item->dec_loopcount();
             }
          }
+
          m_current_slot = slot_incr(m_current_slot); // bump the slot
          return true;
+
       }
    }; // ~struct
 
-   template <uint32_t NSlots, uint32_t SlotTime>
-   constexpr quan::time_<uint32_t>::ms  scheduler<NSlots,SlotTime>::m_slot_time;
+   template <uint32_t NSlots, uint32_t SlotTime,void(*sleep_until_fun)(quan::time_<uint32_t>::ms const & )>
+   constexpr quan::time_<uint32_t>::ms  scheduler<NSlots,SlotTime,sleep_until_fun>::m_slot_time;
     
 }}// quan::mbed
 
