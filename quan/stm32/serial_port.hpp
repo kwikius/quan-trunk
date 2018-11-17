@@ -325,7 +325,7 @@ namespace quan{ namespace stm32{
          return result;
       }
 
-       template <uint32_t Buflen>
+      template <uint32_t Buflen>
       static void printf( const char * const format, ...)
       {
            char buffer[Buflen];
