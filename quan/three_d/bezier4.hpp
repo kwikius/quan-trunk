@@ -64,9 +64,14 @@ namespace quan{namespace three_d{
         >::type
         at( const T & t)const
         {
-            typedef quan::quantity_traits::min_real<
-                    typename point_type::value_type
+            typedef typename quan::meta::binary_op<
+               typename point_type::value_type,quan::meta::divides,typename point_type::value_type
+            >::type float_type1;
+
+            typedef typename quan::meta::binary_op<
+               float_type1,quan::meta::times,T
             >::type float_type;
+           
             if ( (t < 0) || ( t > 1)){
                 throw std::out_of_range("bezier at argument out of range");
             }
