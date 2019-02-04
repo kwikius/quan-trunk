@@ -13,7 +13,7 @@ QDRTDir                       = quan_matters/test/qdrt/
 MetaDir                       = quan_matters/test/meta/
 ConversionDir                 = quan_matters/test/conversion/
 BigintDir                     = quan_matters/test/bigint/
-FusionDir                = quan_matters/test/fusion/
+FusionDir                     = quan_matters/test/fusion/
 
 #USE_CONCEPTS_VALUE = True
 USE_CONCEPTS_VALUE ?= False
