@@ -19,73 +19,274 @@
 
 // we dont want any c++ streams 
 // so only C constructs used
-
+#include <utility>
 #include <malloc.h>
 #include <string.h>
 
 namespace quan{
 
+  /*
+      if string is empty then underlying array points to to zero terminator empty string
+      so string pointer is never invalid
+  */
+
   struct string{
-     string():m_c_str{0}{}
-     string(const char* str){
-       if ( str){
-          auto len = strlen(str);
-          this->m_c_str = static_cast<char*>(malloc(len));
-          if(this->m_c_str !=0){
-             strcpy(this->m_c_str,str.m_c_str);
-          }
-          // else error ...
-       }
+
+     string()
+     :m_c_str{&empty_string}{ 
+      //std::cout << "default ctor\n";
+      } // empty
+     ~string(){ clean();}
+     string(const char* str)
+     :m_c_str{&empty_string}{
+       // std::cout << "const char* ctor\n";
+        this->ll_copy_in_c_str(str);
      }
-     string (string const& str):m_c_str(0)
+
+     string (string const& str)
+     :m_c_str{&empty_string}
      {
-        if( str.c_str()){
-			  auto len = strlen(str);
-			  m_c_str() = static_cast<char*>(malloc(len));
-			  if(this->m_c_str !=0){
-				 strcpy(this->m_c_str,str.m_c_str);
-			  }
-          // else error ...
-        }
-       
+        //std::cout << "string ctor\n";
+        this->ll_copy_in_c_str(str.m_c_str);
      }
-     string (string&& str):m_c_str(0)
+
+     string (string&& str)
+     :m_c_str{str.m_c_str}
      {
-        this->m_c_str = str.m_c_str;
-        str.m_c_str = 0;
+       // std::cout << "rvalue ctor\n";
+        str.m_c_str = &empty_string;
      }
 
      string & operator = (string const & str)
      {
-			if (*this != str){
-            auto len = strlen(str);
-            m_c_str() = static_cast<char*>(malloc(len));
-            if(this->m_c_str !=0){
-				 strcpy(this->m_c_str,str.m_c_str);
-			   }
+			if (this != &str){
+            this->ll_copy_in_c_str(str.m_c_str);
          }
+         return *this;
      }
+
      string & operator = (string && str)
      {
-       if ( *this !=str){
-           if (m_c_str != 0) {
-					free( m_c_str());
-           }
+       if ( this != &str){
+           clean();
            this->m_c_str = str.m_c_str;
-           str.m_c_str = 0;
+           str.m_c_str = &empty_string;
        }
        return *this;
      }
-     ~string(){ if( m_c_str != 0) free( m_c_str());
-     
-     
+
+     string & operator = (const char* cstr)
+     {
+        ll_copy_in_c_str(cstr);
+        return * this;
+     }
+
+     string & operator += (const char* cstr)
+     {
+      if ( cstr && (cstr != &empty_string) ){
+         auto const len = strlen(cstr);
+         if ( len > 0){
+            auto const len1 = strlen(m_c_str);
+            auto new_string = static_cast<char*>(malloc(len + len1 +1U));
+            memcpy(new_string,m_c_str,len1);
+            strcpy(new_string + len1,cstr);
+            // strcpy(this->m_c_str,str);
+            clean();
+            m_c_str = new_string;
+         }
+      }
+      return *this;
+     }
+     string & operator += (string const & str)
+     {
+        return string::operator +=(str.get());
+     }
+
+     string & operator += (char c)
+     {
+         auto const len = strlen(m_c_str);
+         auto new_string = static_cast<char*>(malloc(len + 2U));
+         if ( len > 0){
+            memcpy(new_string,m_c_str,len);
+         }
+         new_string[len] = c;
+         new_string[len+1] = '\0';
+         clean();
+         m_c_str = new_string;
+         return *this;
+     }
+
+     const char* get() const
+     {
+        return m_c_str;
+     }
+
+     static string concat (const char* lhs, const char* rhs)
+     {
+         if ( lhs && rhs){
+            auto lhs_len = strlen(lhs);
+            auto rhs_len = strlen(rhs);
+
+            if ( (lhs_len + rhs_len) > 0){
+               char* str = static_cast<char*>(malloc(lhs_len + rhs_len + 1));
+               memcpy( str,lhs, lhs_len);
+               strcpy(str + lhs_len, rhs);
+               string result;
+               result.move(str);
+               return std::move(result);
+            }else {
+               return string{};
+            }
+            
+         }else {
+            if ( lhs){
+               return lhs;
+            }else {
+               if ( rhs) {
+                  return rhs;
+               }else{
+                  return "";
+               }
+            }
+         }
+     }
+
+     static string concat (const char* lhs, char rhs)
+     {
+         if ( lhs && (lhs != &empty_string) ){
+            auto lhs_len = strlen(lhs);
+            auto str = static_cast<char*>(malloc(lhs_len + 2));
+            memcpy(str, lhs,lhs_len);
+            str[lhs_len] = rhs;
+            str[lhs_len +1] = '\0';
+            string result;
+            result.move(str);
+            return std::move(result);
+         } else{
+            auto str = static_cast<char*>(malloc(2));
+            str[0] = rhs;
+            str[1] = '\0';
+            string result;
+            result.move(str);
+            return std::move(result);
+         }
+     }
+
+     static string concat (char lhs, const char* rhs)
+     {
+         if ( rhs && (rhs != &empty_string) ){
+            auto rhs_len = strlen(rhs);
+            auto str = static_cast<char*>(malloc(rhs_len + 2));
+           // memcpy(str, lhs,lhs_len);
+            str[0] = lhs;
+            strcpy(str+1,rhs);
+            string result;
+            result.move(str);
+            return std::move(result);
+         } else{
+            auto str = static_cast<char*>(malloc(2));
+            str[0] = lhs;
+            str[1] = '\0';
+            string result;
+            result.move(str);
+            return std::move(result);
+         }
+     }
+
      private:
-     // if pointer is non-zero the deallocate on out of scope;
-     char * m_c_str;
+
+      static char empty_string;
+      // copy in if its a valid string
+      // else copy in null
+      void ll_copy_in_c_str(const char* str)
+      {
+         clean();
+         if ( str && (str != &empty_string)){
+            
+            auto const len = strlen(str);
+            
+            if ( len > 0){
+               this->m_c_str = static_cast<char*>(malloc(len +1U));
+               strcpy(this->m_c_str,str);
+            }
+         }
+      }
+
+      void move( char* str)
+      {
+         clean();
+         if ( str && (str != &empty_string) ){
+            m_c_str = str;
+         }
+      }
+
+      void clean()
+      {
+         if ( m_c_str != &empty_string){
+            free(m_c_str);
+            m_c_str = &empty_string;
+         }
+      }
+      char * m_c_str;
      
   };
 
-}
+  inline bool operator == (string const & lhs, string const & rhs)
+  {
+     return strcmp(lhs.get(), rhs.get()) == 0;
+  }
 
+  inline bool operator == (string const & lhs, const char * rhs)
+  {
+     return strcmp(lhs.get(), rhs) == 0;
+  }
+
+  inline bool operator == (const char* lhs, string const & rhs)
+  {
+     return strcmp(lhs, rhs.get()) == 0;
+  }
+
+  inline bool operator != (string const & lhs, string const & rhs)
+  {
+     return strcmp(lhs.get(), rhs.get()) != 0;
+  }
+
+  inline bool operator != (string const & lhs, const char * rhs)
+  {
+     return strcmp(lhs.get(), rhs) != 0;
+  }
+
+  inline bool operator != (const char* lhs, string const & rhs)
+  {
+     return strcmp(lhs, rhs.get()) != 0;
+  }
+
+  inline string operator + (string const & lhs, string const & rhs)
+  {
+      return std::move(string::concat(lhs.get(),rhs.get()));
+  }
+
+  inline string operator + (string const & lhs, const char* rhs)
+  {
+      return std::move(string::concat(lhs.get(),rhs));
+  }
+
+  inline string operator + (const char* lhs, string const & rhs)
+  {
+      return std::move(string::concat(lhs,rhs.get()));
+  }
+
+  inline string operator + (string const & lhs, char rhs)
+  {
+      return std::move(string::concat(lhs.get(),rhs));
+  }
+
+  inline string operator + (char lhs, string const & rhs)
+  {
+      return std::move(string::concat(lhs,rhs.get()));
+  }
+
+
+}
 
 #endif // STRING_HPP_INCLUDED
