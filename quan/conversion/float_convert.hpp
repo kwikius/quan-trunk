@@ -31,7 +31,7 @@
 
 #include <quan/conversion/basic_char_ptr_converter.hpp>
 
- // define QUAN_DETAIL_FLOAT_CONVERT_DEBUG
+//#define QUAN_DETAIL_FLOAT_CONVERT_DEBUG
 
 namespace quan{ namespace detail{
 
@@ -64,7 +64,7 @@ namespace quan{ namespace detail{
 
   public:
 
-		float operator()(const char* str, long maxlen = LONG_MAX )
+		float operator()(const char* str, size_t maxlen = 100U )
 		{
           reset();
           m_conversion_error=0;

@@ -38,14 +38,14 @@ namespace quan{ namespace detail{
       }
 
    public:
-      IntType operator()(const char* str, int32_t maxlen = LONG_MAX)
+      IntType operator()(const char* str, size_t maxlen = 100U)
       {
           reset();  // reset error and parse idxs
            
           int length = strnlen(str,maxlen); 
           if ( length < 1){
             m_conversion_error = -1;
-            //std::cout << "expected integer\n";
+          //  std::cout << length << " expected integer 1\n";
             return 0;
           }
           int sign = 1;
@@ -55,7 +55,7 @@ namespace quan{ namespace detail{
             --length;
           }
           if ( length < 1){
-             //std::cout << "expected integer\n";
+           //  std::cout << "expected integer 2\n";
              m_conversion_error = -1;
             return 0;
           }
@@ -84,14 +84,14 @@ namespace quan{ namespace detail{
           }
           if ( sign == 1) {
             if( result > quan::meta::integer_max<IntType>::value){
-               //std::cout << " bad range\n";
+             //  std::cout << " bad range\n";
                m_conversion_error = -1;
                return 0;
             }
           }else{ 
             result *= -1;
             if( result < quan::meta::integer_min<IntType>::value){
-             //  std::cout << " bad range\n";
+            //   std::cout << " bad range\n";
                m_conversion_error = -1;
                return 0;
             }
