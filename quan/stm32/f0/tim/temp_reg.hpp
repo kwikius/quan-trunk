@@ -191,7 +191,7 @@ namespace quan{ namespace stm32{ namespace tim {
          bool cc1np : 1;
          bool cc2e  : 1;
          bool cc2p  : 1;
-         bool ccn2e : 1;
+         bool cc2ne : 1;
          bool cc2np : 1;
          bool cc3e  : 1;
          bool cc3p  : 1;
