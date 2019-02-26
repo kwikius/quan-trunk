@@ -29,6 +29,18 @@ namespace quan {
    // only positive number at mo. neg todo 
    // add a signed_float_to_ascii fun for that
 
+   // integer_part  =int32_t so size of integer part array reqd 
+   // ==  get_itoasc_buf_size<int32_t>()
+   // fract part == same as num deciimals
+   // +1 for pt
+   // + 1 for terminating null
+
+   template <uint32_t NumDecimals>
+   inline constexpr size_t get_float_to_ascii_buf_size()
+   {
+      return sizeof(int32_t) * 8 + 2 + NumDecimals + 1;
+   }
+
    template <uint8_t Decimals>
    inline int32_t float_to_ascii (double const & in, char* outbuf)
    {

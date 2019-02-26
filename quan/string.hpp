@@ -19,8 +19,8 @@
 
 // we dont want any c++ streams 
 // so only C constructs used
-#include <utility>
-#include <malloc.h>
+//#include <utility>
+#include <quan/malloc_free.hpp>
 #include <string.h>
 
 namespace quan{
@@ -87,7 +87,7 @@ namespace quan{
          auto const len = strlen(cstr);
          if ( len > 0){
             auto const len1 = strlen(m_c_str);
-            auto new_string = static_cast<char*>(malloc(len + len1 +1U));
+            auto new_string = static_cast<char*>(quan::malloc(len + len1 +1U));
             memcpy(new_string,m_c_str,len1);
             strcpy(new_string + len1,cstr);
             // strcpy(this->m_c_str,str);
@@ -105,7 +105,7 @@ namespace quan{
      string & operator += (char c)
      {
          auto const len = strlen(m_c_str);
-         auto new_string = static_cast<char*>(malloc(len + 2U));
+         auto new_string = static_cast<char*>(quan::malloc(len + 2U));
          if ( len > 0){
             memcpy(new_string,m_c_str,len);
          }
@@ -128,12 +128,12 @@ namespace quan{
             auto rhs_len = strlen(rhs);
 
             if ( (lhs_len + rhs_len) > 0){
-               char* str = static_cast<char*>(malloc(lhs_len + rhs_len + 1));
+               char* str = static_cast<char*>(quan::malloc(lhs_len + rhs_len + 1));
                memcpy( str,lhs, lhs_len);
                strcpy(str + lhs_len, rhs);
                string result;
                result.move(str);
-               return std::move(result);
+               return static_cast<string&&>(result);
             }else {
                return string{};
             }
@@ -155,41 +155,46 @@ namespace quan{
      {
          if ( lhs && (lhs != &empty_string) ){
             auto lhs_len = strlen(lhs);
-            auto str = static_cast<char*>(malloc(lhs_len + 2));
+            auto str = static_cast<char*>(quan::malloc(lhs_len + 2));
             memcpy(str, lhs,lhs_len);
             str[lhs_len] = rhs;
             str[lhs_len +1] = '\0';
             string result;
             result.move(str);
-            return std::move(result);
+            return static_cast<string&&>(result);
          } else{
-            auto str = static_cast<char*>(malloc(2));
+            auto str = static_cast<char*>(quan::malloc(2));
             str[0] = rhs;
             str[1] = '\0';
             string result;
             result.move(str);
-            return std::move(result);
+            return static_cast<string&&>(result);
          }
      }
+
+//     static   template<typename _Tp>
+//    constexpr typename std::remove_reference<_Tp>::type&&
+//    move(_Tp&& __t) noexcept
+//    { return static_cast<typename std::remove_reference<_Tp>::type&&>(__t); }
 
      static string concat (char lhs, const char* rhs)
      {
          if ( rhs && (rhs != &empty_string) ){
             auto rhs_len = strlen(rhs);
-            auto str = static_cast<char*>(malloc(rhs_len + 2));
+            auto str = static_cast<char*>(quan::malloc(rhs_len + 2));
            // memcpy(str, lhs,lhs_len);
             str[0] = lhs;
             strcpy(str+1,rhs);
             string result;
             result.move(str);
-            return std::move(result);
+            return static_cast<string&&>(result);
          } else{
-            auto str = static_cast<char*>(malloc(2));
+            auto str = static_cast<char*>(quan::malloc(2));
             str[0] = lhs;
             str[1] = '\0';
             string result;
             result.move(str);
-            return std::move(result);
+            return static_cast<string&&>(result);
          }
      }
 
@@ -206,7 +211,7 @@ namespace quan{
             auto const len = strlen(str);
             
             if ( len > 0){
-               this->m_c_str = static_cast<char*>(malloc(len +1U));
+               this->m_c_str = static_cast<char*>(quan::malloc(len +1U));
                strcpy(this->m_c_str,str);
             }
          }
@@ -223,7 +228,7 @@ namespace quan{
       void clean()
       {
          if ( m_c_str != &empty_string){
-            free(m_c_str);
+            quan::free(m_c_str);
             m_c_str = &empty_string;
          }
       }
@@ -263,29 +268,28 @@ namespace quan{
 
   inline string operator + (string const & lhs, string const & rhs)
   {
-      return std::move(string::concat(lhs.get(),rhs.get()));
+      return static_cast<string&&>(string::concat(lhs.get(),rhs.get()));
   }
 
   inline string operator + (string const & lhs, const char* rhs)
   {
-      return std::move(string::concat(lhs.get(),rhs));
+      return static_cast<string&&>(string::concat(lhs.get(),rhs));
   }
 
   inline string operator + (const char* lhs, string const & rhs)
   {
-      return std::move(string::concat(lhs,rhs.get()));
+      return static_cast<string&&>(string::concat(lhs,rhs.get()));
   }
 
   inline string operator + (string const & lhs, char rhs)
   {
-      return std::move(string::concat(lhs.get(),rhs));
+      return static_cast<string&&>(string::concat(lhs.get(),rhs));
   }
 
   inline string operator + (char lhs, string const & rhs)
   {
-      return std::move(string::concat(lhs,rhs.get()));
+      return static_cast<string&&>(string::concat(lhs,rhs.get()));
   }
-
 
 }
 
