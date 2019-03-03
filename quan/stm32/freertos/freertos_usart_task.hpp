@@ -82,7 +82,7 @@ namespace quan{ namespace stm32{namespace freertos{
       
       static size_t in_avail()
       {
-          return uxQueueMessagesWaiting(m_rxi_queue_handle);
+         return uxQueueMessagesWaiting(m_rxi_queue_handle);
       }
 
       static size_t out_waiting()
@@ -92,10 +92,9 @@ namespace quan{ namespace stm32{namespace freertos{
 
       static size_t out_space_avail()
       {
-          return get_tx_queue_size() - out_waiting();
+         return get_tx_queue_size() - out_waiting();
       }
 
-      
       // blocking ( if q full)
       static void put (CharType ch)
       {
