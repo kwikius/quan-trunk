@@ -24,6 +24,7 @@ namespace quan{ namespace uav{ namespace cobs{
       ~packet_parser()
       {
          delete [] m_encoded_packet_buffer;
+         delete [] m_decoded_packet_buffer;
       }
 
       // a pointer to the decoded packet
