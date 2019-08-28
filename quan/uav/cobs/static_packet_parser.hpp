@@ -8,6 +8,7 @@ namespace quan{ namespace uav{ namespace cobs{
 
    template <uint16_t MaxEncodedPacketLength>
    struct static_packet_parser{
+      static constexpr uint16_t max_packet_length = MaxEncodedPacketLength - 1U;
       enum class parser_state_t : uint8_t { not_synced, in_sync, in_packet};
 
       // allocate (2 * max_encoded_packet_length_in)- 1 on heap
