@@ -25,7 +25,11 @@
 */
 
 #include <cctype>
+#if defined QUAN_STM32F4
 #include <stm32f4xx.h>
+#else
+#error "need to define processor"
+#endif
 #include "FreeRTOS.h"
 #include <task.h>
 #include <queue.h>

@@ -18,7 +18,11 @@
  */
 
 #include <cstdint>
+#if defined QUAN_STM32F4
 #include <stm32f4xx.h>
+#else
+#error "need to define processor"
+#endif
 
 namespace quan{ namespace stm32{
 
