@@ -82,11 +82,11 @@ namespace quan{ namespace stm32{
 #if (QUAN_STM32_HAS_BITBANDING && !defined(QUAN_STM32L4))
        P::port_type::get()-> odr.template bb_setbit<P::pin_value>();
 #else
-     #if defined (QUAN_STM32L4)
+   //  #if defined(QUAN_STM32L4) || defined(QUAN_STM32F0)
        P::port_type::get()-> bsrr = 1U << P::pin_value;
-     #else
-       P::port_type::get()-> odr.template setbit<P::pin_value>();
-     #endif
+//     #else
+//       P::port_type::get()-> odr.template setbit<P::pin_value>();
+//     #endif
 #endif
    }
 
@@ -101,12 +101,7 @@ namespace quan{ namespace stm32{
      // could  do P::port_type::get()-> bsrr = 0x10000 << P::pin_value;
        P::port_type::get()-> odr.template bb_clearbit<P::pin_value>();
 #else
-    #if defined (QUAN_STM32L4)
        P::port_type::get()-> brr = 1U << P::pin_value;
-     #else
-      // could do for stm32f0 etc
-       P::port_type::get()-> odr.template clearbit<P::pin_value>();
-     #endif
 #endif
    }
 
@@ -120,11 +115,17 @@ namespace quan{ namespace stm32{
      // no gain here 
      P::port_type::get()-> odr.template bb_putbit<P::pin_value>(value);
 #else
+     
+    #if defined(QUAN_STM32L4) || defined(QUAN_STM32F0)
+      uint32_t const shift = (value)? P::pin_value:(P::pin_value+16U);
+      P::port_type::get()-> bsrr = 1U << shift;
+    #else
      if ( value) {
         set<P>();
      }else{
         clear<P>();
      }
+     #endif
 #endif
    }
 
