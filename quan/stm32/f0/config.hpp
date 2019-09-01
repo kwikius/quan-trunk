@@ -43,6 +43,9 @@
 #define QUAN_STM32_HAS_USART1 1
 #define QUAN_STM32_HAS_USART2 1
 
+#define QUAN_STM32_HAS_SPI1 1
+#define QUAN_STM32_HAS_SPI2 1
+
 #include <quan/stm32/f0/periph_map.hpp>
 
 #define QUAN_STM32_HAS_BITBANDING 0
@@ -51,11 +54,14 @@
 #if defined QUAN_STM32_SUBFAMILY_05X
 
 #define QUAN_STM32_HAS_DAC    1
+
 #define QUAN_STM32_HAS_I2C1   1
 #define QUAN_STM32_HAS_I2C2   1
 //#elif defined QUAN_STM32_SUBFAMILY_03X
 //  #define QUAN_STM32_HAS_DAC 0
 #endif
+
+
 
 // defaults for stm32f0 discovery board
 #ifndef QUAN_STM32_SOURCE_CLOCK_Hz
