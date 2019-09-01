@@ -30,7 +30,7 @@ namespace quan{ namespace stm32 {
    struct syscfg {
       typedef uint32_t value_type;
       typedef syscfg type;
-      static const uint32_t address = quan::stm32::periph_map::syscfg;
+      static constexpr uint32_t address = quan::stm32::periph_map::syscfg;
 
       typedef quan::stm32::periph_reg<type,0x00> memrmp_type;
       typedef quan::stm32::periph_reg<type,0x04> pmc_type;

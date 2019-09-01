@@ -46,7 +46,7 @@ namespace quan{ namespace stm32{
             typedef volatile uint32_t                      rdr_type;
             typedef volatile uint32_t                      tdr_type;
            
-            static const uint32_t address = Address;
+            static constexpr uint32_t address = Address;
 
             cr1_type    cr1;
             cr2_type    cr2;

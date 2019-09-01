@@ -28,7 +28,7 @@ namespace quan{ namespace stm32{
 
    struct rcc {
       typedef uint32_t value_type;
-      static const uint32_t address = quan::stm32::periph_map::rcc;
+      static constexpr uint32_t address = quan::stm32::periph_map::rcc;
       typedef rcc type;
       quan::stm32::periph_reg<type, 0x0>      cr;
       quan::stm32::periph_reg<type, 0x4>      icscr;

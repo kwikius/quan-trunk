@@ -33,47 +33,47 @@ namespace quan{ namespace stm32{namespace gpio { namespace detail{
          template<>
          struct rcc_bit_offset<quan::stm32::gpioa>{
             
-            static const uint32_t value = 0;
+            static constexpr uint32_t value = 0;
          };
 
          template<>
          struct rcc_bit_offset<quan::stm32::gpiob>{
-            static const uint32_t value = 1;
+            static constexpr uint32_t value = 1;
          };
          
          template<>
          struct rcc_bit_offset<quan::stm32::gpioc>{
-            static const uint32_t value = 2;
+            static constexpr uint32_t value = 2;
          };
 
          template<>
          struct rcc_bit_offset<quan::stm32::gpiod>{
-            static const uint32_t value = 3;
+            static constexpr uint32_t value = 3;
          };
 
          template<>
          struct rcc_bit_offset<quan::stm32::gpioe>{
-            static const uint32_t value = 4;
+            static constexpr uint32_t value = 4;
          };
 
          template<>
          struct rcc_bit_offset<quan::stm32::gpiof>{
-            static const uint32_t value = 5;
+            static constexpr uint32_t value = 5;
          };
 
          template<>
          struct rcc_bit_offset<quan::stm32::gpiog>{
-            static const uint32_t value = 6;
+            static constexpr uint32_t value = 6;
          };
 
          template<>
          struct rcc_bit_offset<quan::stm32::gpioh>{
-            static const uint32_t value = 7;
+            static constexpr uint32_t value = 7;
          };
 
          template<>
          struct rcc_bit_offset<quan::stm32::gpioi>{
-            static const uint32_t value = 8;
+            static constexpr uint32_t value = 8;
          };
 
 }}}}// quan::stm32::gpio::detail

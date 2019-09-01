@@ -17,7 +17,7 @@ namespace quan { namespace stm32{
       template <uint32_t Address> 
       struct module{
             typedef uint32_t value_type;
-            static const uint32_t address = Address;
+            static constexpr uint32_t address = Address;
             typedef module type;
             typedef quan::stm32::periph_reg< type,  0x00>  cr1_type;
             typedef quan::stm32::periph_reg< type,  0x04>  cr2_type;
