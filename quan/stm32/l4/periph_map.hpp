@@ -25,6 +25,7 @@
 
 /*
  periph_map for stm32L432
+ periph_map for stm32L412
 */
 
 namespace quan{ namespace stm32{
@@ -36,6 +37,7 @@ namespace quan{ namespace stm32{
       static constexpr uint32_t adc             = 0x50040000;
 
       static constexpr uint32_t gpioh           = 0x48001C00;
+      static constexpr uint32_t gpiod           = 0x48000C00;
       static constexpr uint32_t gpioc           = 0x48000800;
       static constexpr uint32_t gpiob           = 0x48000400;
       static constexpr uint32_t gpioa           = 0x48000000;
@@ -74,15 +76,18 @@ namespace quan{ namespace stm32{
       static constexpr uint32_t can1            = 0x40006400;
       static constexpr uint32_t crs             = 0x40006000;
       static constexpr uint32_t i2c3            = 0x40005C00;
+      static constexpr uint32_t i2c2            = 0x40005800;
       static constexpr uint32_t i2c1            = 0x40005400;
+      static constexpr uint32_t usart3          = 0x40004800;
       static constexpr uint32_t usart2          = 0x40004400;
       static constexpr uint32_t spi3            = 0x40003C00;
+      static constexpr uint32_t spi2            = 0x40003800;
       static constexpr uint32_t iwdg            = 0x40003000;
       static constexpr uint32_t wwdg            = 0x40002C00;
       static constexpr uint32_t rtc             = 0x40002800;
-      static constexpr uint32_t tim7             = 0x40001400;
-      static constexpr uint32_t tim6             = 0x40001000;
-      static constexpr uint32_t tim2             = 0x40000000;
+      static constexpr uint32_t tim7            = 0x40001400;
+      static constexpr uint32_t tim6            = 0x40001000;
+      static constexpr uint32_t tim2            = 0x40000000;
       //- --------------------- ~APB1 -----------------------
    };
 }}

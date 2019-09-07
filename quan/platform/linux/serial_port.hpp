@@ -55,7 +55,14 @@ namespace quan {
       typedef  unsigned char data_type;
       serial_port(const char* filename);
       ~serial_port();
-      void init(int baud= B9600);
+
+// baud baud constant, bits parity, stop bits
+ // databits 5,6,7,8,
+ // parity 0= none, 1 = even , -1 = odd, 
+  //stopbits 1 or 2
+
+      void init(int baud, int databits=8, int parity=0, int stopbits=1);
+     // void init(int baud= B9600);
       ssize_t read( data_type* buf,size_t num);
    
       ssize_t write(const data_type* buf, size_t num) ;

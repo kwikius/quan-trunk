@@ -72,8 +72,11 @@ bool quan::serial_port::is_deleteable() const
 {
    return true;
 }
-
-void quan::serial_port::init(int baud)
+  // 8,N 1
+// baud baud constant, bits parity, stop bits
+ // databits 5,6,7,8,
+ // parity 0= none, 1 = even , -1 = odd, stopbits 1 or 2
+void quan::serial_port::init(int baud, int databits, int parity, int stopbits)
 {
     if ( ! check_valid_baud(baud)){
         throw std::logic_error("invalid baud rate constant");
@@ -91,8 +94,62 @@ void quan::serial_port::init(int baud)
 
     termios new_termios; // new serial port settings
     bzero(&new_termios,sizeof(new_termios)); //set all serial port settings to zero
+
+    switch (databits){
+       case 8:
+         new_termios.c_cflag |= CS8;
+         break;
+       case 7:
+         new_termios.c_cflag |= CS7;
+         break;
+       case 6:
+         new_termios.c_cflag |= CS6;
+         break;
+       case 5:
+         new_termios.c_cflag |= CS5;
+         break;
+       default:
+        throw std::logic_error("init serial port invalid databits");
+         break;
+    }
+
+    switch (parity){
+      
+         case 0:
+           // default none
+            break;
+         case 1:
+            new_termios.c_cflag |= PARENB;
+            break;
+         case -1:
+            new_termios.c_cflag |= (PARENB | PARODD);
+            break;
+         default:
+            throw std::logic_error("init serial port invalid parity");
+            break;
+    }
+
+    switch (stopbits){
+      case 1:
+          //default 1 stop bit
+          break;
+      case 2:
+          new_termios.c_cflag |= CSTOPB;
+          break;
+      default:
+         throw std::logic_error("init serial port invalid stop bits");
+         break;
+    }
+   // stop bits = 1,1/1/2,2
+
+   // CSTOPB means 2 stop bits
+
+   // data bits = 5,6,7,8
  
-    new_termios.c_cflag |= CS8;      // set 8 data bits
+    // add PARENB for even parity
+    // add PARENB | PARODD for odd parity
+    // 
+   // new_termios.c_cflag |= CS8;      // set 8 data bits
     new_termios.c_cflag |= CLOCAL;   // doesnt own port
     new_termios.c_cflag |= CREAD;    // enable reading serial port also
  
