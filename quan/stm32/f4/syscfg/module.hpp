@@ -45,7 +45,7 @@ namespace quan{ namespace stm32 {
   public:
       cmpcr_type cmpcr;
       
-      static syscfg* get(){ return reinterpret_cast<syscfg*>(address);}
+      static constexpr syscfg* get(){ return reinterpret_cast<syscfg*>(address);}
       
   private:
       syscfg() = delete;

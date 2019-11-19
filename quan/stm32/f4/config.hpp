@@ -67,32 +67,25 @@
 
 #include <quan/stm32/f4/periph_map.hpp>
 
+// oscillator hsi etc
 #ifndef QUAN_STM32_SOURCE_CLOCK_Hz
 #define QUAN_STM32_SOURCE_CLOCK_Hz  8000000
 #endif
 
+// sysclk after pll etc
 #ifndef QUAN_STM32_SYSCLK_Hz
 #define QUAN_STM32_SYSCLK_Hz  168000000
 #endif
 
-#ifndef QUAN_STM32_AHB1_DIVISOR
-#define QUAN_STM32_AHB1_DIVISOR 1
+// set in in rcc.cfgr.hpre
+#ifndef QUAN_STM32_AHB_DIVISOR
+#define QUAN_STM32_AHB_DIVISOR 1
 #endif
 
-#ifndef QUAN_STM32_AHB2_DIVISOR
-#define QUAN_STM32_AHB2_DIVISOR 1
-#endif
-
-#ifndef QUAN_STM32_AHB3_DIVISOR
-#define QUAN_STM32_AHB3_DIVISOR 1
-#endif
-
-// APB2 timer clock is * 2 to the APB2 periph clock
 #ifndef QUAN_STM32_APB2_DIVISOR
 #define QUAN_STM32_APB2_DIVISOR 2
 #endif
 
-// APB1 timer clock is * 2 to the APB1 periph clock
 #ifndef QUAN_STM32_APB1_DIVISOR
 #define QUAN_STM32_APB1_DIVISOR 4
 #endif

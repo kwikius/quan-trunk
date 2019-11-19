@@ -10,8 +10,10 @@
 #include <quan/stm32/f3/spi/module.hpp>
 #elif defined QUAN_STM32F0
 #include <quan/stm32/f0/spi/module.hpp>
+#elif defined QUAN_STM32L4
+#include <quan/stm32/l4/spi/module.hpp>
 #else
-#error 
+#error unknown processor for spi module
 #endif
 
 namespace quan{ namespace impl{

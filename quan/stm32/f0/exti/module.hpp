@@ -21,6 +21,10 @@
 #include <quan/stm32/periph_reg.hpp>
 #include <quan/meta/type_sequence.hpp>
 
+#ifndef QUAN_STM32F0
+#error dont include directly
+#endif
+
 namespace quan{ namespace stm32{
 
    struct exti{

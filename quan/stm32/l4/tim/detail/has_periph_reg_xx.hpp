@@ -29,7 +29,7 @@
 TIM1
 TIM2
 TIM6
-TIM7
+TIM7  (not on STM32L412xx)
 TIM15
 TIM16
 LPTIM
@@ -68,32 +68,43 @@ namespace quan{ namespace stm32{ namespace tim{ namespace detail{
  
 // smcr defualt : true
    template<> struct has_smcr<quan::stm32::tim6>  : quan::meta::false_{};
+
+#if QUAN_STM32_HAS_TIM7 
    template<> struct has_smcr<quan::stm32::tim7>  : quan::meta::false_{};
+#endif
+
    template<> struct has_smcr<quan::stm32::tim16>  : quan::meta::false_{};
 
 //ccmr1  default true
    template<> struct has_ccmr1<quan::stm32::tim6>  : quan::meta::false_{};
+#if QUAN_STM32_HAS_TIM7
    template<> struct has_ccmr1<quan::stm32::tim7>  : quan::meta::false_{};
-
+#endif
 //ccmr2  default false
    template<> struct has_ccmr2<quan::stm32::tim1>  : quan::meta::true_{};
    template<> struct has_ccmr2<quan::stm32::tim2>  : quan::meta::true_{};
 
 //ccer 1 default: true
    template<> struct has_ccer<quan::stm32::tim6>  : quan::meta::false_{};
+#if QUAN_STM32_HAS_TIM7
    template<> struct has_ccer<quan::stm32::tim7>  : quan::meta::false_{};
-
+#endif
 //rcr 1 default : true
    template<> struct has_rcr<quan::stm32::tim2>  : quan::meta::false_{};
    template<> struct has_rcr<quan::stm32::tim6>  : quan::meta::false_{};
+#if QUAN_STM32_HAS_TIM7
    template<> struct has_rcr<quan::stm32::tim7>  : quan::meta::false_{};
-
+#endif
 //ccr1  default : true
    template<> struct has_ccr1<quan::stm32::tim6>  : quan::meta::false_{};
+#if QUAN_STM32_HAS_TIM7
    template<> struct has_ccr1<quan::stm32::tim7>  : quan::meta::false_{};
+#endif
 //ccr2 default : true
    template<> struct has_ccr2<quan::stm32::tim6>  : quan::meta::false_{};
+#if QUAN_STM32_HAS_TIM7
    template<> struct has_ccr2<quan::stm32::tim7>  : quan::meta::false_{};
+#endif
    template<> struct has_ccr2<quan::stm32::tim16>  : quan::meta::false_{};
 
 //ccr3 0 default : false
@@ -111,23 +122,33 @@ namespace quan{ namespace stm32{ namespace tim{ namespace detail{
 //bdtr  default : true
    template<> struct has_bdtr<quan::stm32::tim2>  : quan::meta::false_{};
    template<> struct has_bdtr<quan::stm32::tim6>  : quan::meta::false_{};
+#if QUAN_STM32_HAS_TIM7
    template<> struct has_bdtr<quan::stm32::tim7>  : quan::meta::false_{};
+#endif
 
 // dcr  default : true
    template<> struct has_dcr<quan::stm32::tim6>  : quan::meta::false_{};
+#if QUAN_STM32_HAS_TIM7
    template<> struct has_dcr<quan::stm32::tim7>  : quan::meta::false_{};
+#endif
 
 //dmar default: true
    template<> struct has_dmar<quan::stm32::tim6>  : quan::meta::false_{};
+#if QUAN_STM32_HAS_TIM7
    template<> struct has_dmar<quan::stm32::tim7>  : quan::meta::false_{};
+#endif
 
 // or1 default true
    template<> struct has_or1<quan::stm32::tim6> : quan::meta::false_{};
+#if QUAN_STM32_HAS_TIM7
    template<> struct has_or1<quan::stm32::tim7> : quan::meta::false_{};
+#endif
 
 // or2 default true
    template<> struct has_or2<quan::stm32::tim6> : quan::meta::false_{};
+#if QUAN_STM32_HAS_TIM7
    template<> struct has_or2<quan::stm32::tim7> : quan::meta::false_{};
+#endif
 
 // or3 default false
    template<> struct has_or1<quan::stm32::tim1> : quan::meta::true_{};

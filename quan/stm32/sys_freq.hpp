@@ -29,37 +29,40 @@ namespace quan { namespace stm32{
     inline constexpr 
     uint32_t get_sysclk_frequency(){ return QUAN_STM32_SYSCLK_Hz; }
 
+    inline constexpr 
+    uint32_t get_hclk_frequency(){ return QUAN_STM32_SYSCLK_Hz / QUAN_STM32_AHB_DIVISOR; }
+
     namespace detail{
 
       template <typename Bus> struct get_bus_frequency_impl;
 
 #if defined(QUAN_STM32F0)
       template<> struct get_bus_frequency_impl<quan::stm32::detail::apb>{
-         constexpr uint32_t operator()(){ return quan::stm32::get_sysclk_frequency() / QUAN_STM32_APB_DIVISOR;}
+         constexpr uint32_t operator()(){ return quan::stm32::get_hclk_frequency() / QUAN_STM32_APB_DIVISOR;}
       };
 #endif
 
 #if (defined(QUAN_STM32F4) || defined(QUAN_STM32L4) )
       template<> struct get_bus_frequency_impl<quan::stm32::detail::apb1>{
-         constexpr uint32_t operator()(){ return quan::stm32::get_sysclk_frequency() / QUAN_STM32_APB1_DIVISOR;}
+         constexpr uint32_t operator()(){ return quan::stm32::get_hclk_frequency() / QUAN_STM32_APB1_DIVISOR;}
       };
 
       template<> struct get_bus_frequency_impl<quan::stm32::detail::apb2>{
-         constexpr uint32_t operator()(){ return quan::stm32::get_sysclk_frequency() / QUAN_STM32_APB2_DIVISOR;}
+         constexpr uint32_t operator()(){ return quan::stm32::get_hclk_frequency() / QUAN_STM32_APB2_DIVISOR;}
       };
 #endif
-
+      // same as hclk_frequency
       template<> struct get_bus_frequency_impl<quan::stm32::detail::ahb1>{
-         constexpr uint32_t operator()(){ return quan::stm32::get_sysclk_frequency() / QUAN_STM32_AHB1_DIVISOR;}
+         constexpr uint32_t operator()(){ return quan::stm32::get_sysclk_frequency() / QUAN_STM32_AHB_DIVISOR;}
       };
 
       template<> struct get_bus_frequency_impl<quan::stm32::detail::ahb2>{
-         constexpr uint32_t operator()(){ return quan::stm32::get_sysclk_frequency() / QUAN_STM32_AHB2_DIVISOR;}
+         constexpr uint32_t operator()(){ return quan::stm32::get_sysclk_frequency() / QUAN_STM32_AHB_DIVISOR;}
       };
       
 #if defined(QUAN_STM32F4)
       template<> struct get_bus_frequency_impl<quan::stm32::detail::ahb3>{
-         constexpr uint32_t operator()(){ return quan::stm32::get_sysclk_frequency() / QUAN_STM32_AHB3_DIVISOR;}
+         constexpr uint32_t operator()(){ return quan::stm32::get_sysclk_frequency() / QUAN_STM32_AHB_DIVISOR;}
       };
 #endif
    }

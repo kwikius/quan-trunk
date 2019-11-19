@@ -1,5 +1,5 @@
-#ifndef QUAN_STM32_F0_BUSES_HPP_INCLUDED
-#define QUAN_STM32_F0_BUSES_HPP_INCLUDED
+#ifndef QUAN_STM32_L4_SYSCFG_HPP_INCLUDED
+#define QUAN_STM32_L4_SYSCFG_HPP_INCLUDED
 /*
  Copyright (c) 2003-2014 Andy Little.
 
@@ -17,17 +17,6 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 
-#ifndef QUAN_STM32F0
-#error dont include directly
-#endif
+#include <quan/stm32/l4/syscfg/module.hpp>
 
-namespace quan{ namespace stm32{ namespace detail{
-    
-    struct ahb2;
-    struct ahb1;
-
-    struct apb;
-
-}}}
-
-#endif // QUAN_STM32_F0_BUSES_HPP_INCLUDED
+#endif // QUAN_STM32_F0_SYSCFG_HPP_INCLUDED

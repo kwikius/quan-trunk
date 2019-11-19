@@ -34,7 +34,7 @@ namespace quan { namespace stm32{
       template <typename Bus> struct get_bus_frequency_impl;
 
       template<> struct get_bus_frequency_impl<quan::stm32::detail::apb1>{
-         constexpr uint32_t operator()(){ return quan::stm32::get_sysclk_frequency() / QUAN_STM32_APB1_DIVISOR;}
+         constexpr uint32_t operator()(){ return quan::stm32::get_sysclk_frequency() / QUAN_STM32_APB_DIVISOR;}
       };
 
       template<> struct get_bus_frequency_impl<quan::stm32::detail::apb2>{

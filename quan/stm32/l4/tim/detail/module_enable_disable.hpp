@@ -63,7 +63,9 @@ namespace quan{ namespace stm32{ namespace tim{ namespace detail{
       QUAN_STM32_MODULE_ENR(tim1,2,,11) 
       QUAN_STM32_MODULE_ENR(tim2,1,1,0) 
       QUAN_STM32_MODULE_ENR(tim6,1,1,4) 
+#if defined QUAN_STM32_HAS_TIM7
       QUAN_STM32_MODULE_ENR(tim7,1,1,5) 
+#endif
       QUAN_STM32_MODULE_ENR(tim15,2,,16)
       QUAN_STM32_MODULE_ENR(tim16,2,,17)
 
