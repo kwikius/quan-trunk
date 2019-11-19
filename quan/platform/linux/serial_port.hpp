@@ -61,7 +61,7 @@ namespace quan {
  // parity 0= none, 1 = even , -1 = odd, 
   //stopbits 1 or 2
 
-      void init(int baud, int databits=8, int parity=0, int stopbits=1);
+      void init(int baud = B9600, int databits=8, int parity=0, int stopbits=1);
      // void init(int baud= B9600);
       ssize_t read( data_type* buf,size_t num);
    
