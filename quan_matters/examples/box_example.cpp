@@ -75,11 +75,11 @@ namespace {
 //
 int main()
 {
-   auto box = Box{1000_mm, 500_mm, 200_mm};
-   box.set_contents_density(1000_kg_per_m3);
+   auto box = Box{1000.0_mm, 500.0_mm, 200.0_mm};
+   box.set_contents_density(1000.0_kg_per_m3);
 
-   auto fill_time = 200_s;      // time since starting fill
-   auto measured_mass = 20_kg;  // measured mass at fill_time
+   auto fill_time = 200.0_s;      // time since starting fill
+   auto measured_mass = 20.0_kg;  // measured mass at fill_time
 
    std::cout << "fill level at " << fill_time << " = "
    << box.fill_level(measured_mass) <<'\n';
