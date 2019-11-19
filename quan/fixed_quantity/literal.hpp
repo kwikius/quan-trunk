@@ -3,6 +3,12 @@
 
 #include <quan/config.hpp>
 
+   #define QUAN_QUANTITY_REAL_LITERAL(QuantityName,UnitSuffix)  \
+   constexpr inline quan:: QuantityName :: UnitSuffix operator "" _ ## UnitSuffix ( long double v) \
+   { \
+      return quan:: QuantityName :: UnitSuffix {static_cast<QUAN_FLOAT_TYPE>(v)}; \
+   } 
+
    #define QUAN_QUANTITY_LITERAL(QuantityName,UnitSuffix)  \
    constexpr inline quan:: QuantityName :: UnitSuffix operator "" _ ## UnitSuffix ( long double v) \
    { \

@@ -66,11 +66,11 @@ public:
 
 namespace {
 
-   QUAN_QUANTITY_LITERAL(mass,kg)
-   QUAN_QUANTITY_LITERAL(length,mm)
-   QUAN_QUANTITY_LITERAL(volume,m3)
-   QUAN_QUANTITY_LITERAL(density,kg_per_m3)
-   QUAN_QUANTITY_LITERAL(time,s)
+   QUAN_QUANTITY_REAL_LITERAL(mass,kg)
+   QUAN_QUANTITY_REAL_LITERAL(length,mm)
+   QUAN_QUANTITY_REAL_LITERAL(volume,m3)
+   QUAN_QUANTITY_REAL_LITERAL(density,kg_per_m3)
+   QUAN_QUANTITY_REAL_LITERAL(time,s)
 }
 //
 int main()
