@@ -32,7 +32,7 @@ namespace {
   QUAN_QUANTITY_LITERAL(acceleration,m_per_s2)
 }
 
-int main() 
+int kalman1() 
 {
     quan::three_d::vect<quan::length::m>              p{0.0_m,0.0_m,0.0_m};
     quan::three_d::vect<quan::velocity::m_per_s>      v{1.0_m_per_s,0_m_per_s,1_m_per_s};
@@ -62,6 +62,8 @@ int main()
        x = m1 * x;
        display(x,"x = ");
     }
+
+    return 0;
 }
 
 

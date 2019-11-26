@@ -15,7 +15,7 @@ endif
 
 TARGET = fusion.exe
 
-objs = fun_vector_example.o
+objs = kalman1.o fun_vector_example.o main.o
 
 .PHONY : all test clean
 

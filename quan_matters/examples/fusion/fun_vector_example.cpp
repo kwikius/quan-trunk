@@ -10,7 +10,7 @@
 #include <iostream>
 #include <typeinfo>
 
-int main()
+int fun_vector_example()
 {
 
     typedef quan::fun::vector<int,long,double,bool> vtype;
@@ -40,6 +40,8 @@ int main()
 
     std::cout << "[";
     quan::fun::for_each_and_last(v4,quan::fun::output(std::cout, ", "),quan::fun::output(std::cout,"]\n"));
+
+    return 0;
 
 }
 
