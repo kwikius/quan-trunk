@@ -58,27 +58,27 @@ void fusion_inverse_matrix_test1()
 
    display(m,"orig matrix m :");
 
-   auto const inv = quan::fun::inverse_view<m_type>{m};
+   auto const m_inverse = quan::fun::inverse_view<m_type>{m};
 
-   typedef quan::meta::strip_cr<decltype(inv)>::type inv_type;
+   typedef quan::meta::strip_cr<decltype(m_inverse)>::type inv_type;
    
    QUAN_CHECK(quan::fun::is_fun_matrix<inv_type>::value)
 
-   display(inv,"inverse inv :");
+   display(m_inverse,"inverse m_inverse :");
 
-   auto const mux = m * inv;
+   auto const identity_synth = m * m_inverse;
 
-   display(mux,"m * inv (should be identity) :");
+   display(identity_synth,"m * m_inverse (should be identity) :");
 
    auto constexpr identity = quan::fusion::make_matrix<4>
    (
-       1.0, 0.0, 0.0, 0.0,
-       0.0, 1.0, 0.0, 0.0,
-       0.0, 0.0, 1.0, 0.0,
-       0.0, 0.0, 0.0, 1.0
+       1, 0, 0, 0,
+       0, 1, 0, 0,
+       0, 0, 1, 0,
+       0, 0, 0, 1
    );
 
-   auto seq1 = quan::fusion::as_sequence(mux);
+   auto seq1 = quan::fusion::as_sequence(identity_synth);
    auto seq2 = quan::fusion::as_sequence(identity);
 
    bool res = quan::fusion::inner_product(
@@ -86,7 +86,7 @@ void fusion_inverse_matrix_test1()
    );
    QUAN_CHECK(res )
 
-   auto mm = m* mux;
+   auto mm = m* identity_synth;
 
    auto seq3 = quan::fusion::as_sequence(m);
    auto seq4 = quan::fusion::as_sequence(mm);
@@ -96,6 +96,6 @@ void fusion_inverse_matrix_test1()
    );
    QUAN_CHECK(res1 )
 
-   display (m * mux, "m * mus (should be same as m)");
+   display (mm, "m * synthetic identity (should be same as m)");
    
 }
