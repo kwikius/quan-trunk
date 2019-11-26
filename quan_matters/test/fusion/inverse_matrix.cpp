@@ -1,7 +1,44 @@
 
 #include <quan_matters/test/test.hpp>
-
+#include <quan/operators/binary_operator_functors.hpp>
 #include <quan/fusion/matrix.hpp>
+#include <quan/fun/inner_product_seq.hpp>
+
+#include <quan/fusion/inner_product.hpp>
+
+namespace  {
+   
+   // used for compare
+   struct ll_compare{
+
+      ll_compare(double eps = 1.e-6):m_eps{eps}{}
+
+      template< typename L, typename R>
+      struct result
+      { 
+         typedef bool type;
+      };
+
+      template< typename L, typename R>
+      struct  apply {
+         typedef bool type;
+      };
+
+      template< typename L, typename R>
+      bool operator()(L const &  lhs, R const & rhs) const
+      {
+         typedef decltype(lhs - rhs) eps_type;
+         eps_type const eps{m_eps};
+
+         bool res = abs(lhs-rhs) <= abs(eps);
+        // std::cout << " lhs = " << lhs << " , rhs = " << rhs << ", eps = " << eps << ", res = " << res <<'\n';
+         return res;
+      }
+
+      double const m_eps;
+   };
+
+}
 
 void fusion_inverse_matrix_test1()
 {
@@ -33,4 +70,32 @@ void fusion_inverse_matrix_test1()
 
    display(mux,"m * inv (should be identity) :");
 
+   auto constexpr identity = quan::fusion::make_matrix<4>
+   (
+       1.0, 0.0, 0.0, 0.0,
+       0.0, 1.0, 0.0, 0.0,
+       0.0, 0.0, 1.0, 0.0,
+       0.0, 0.0, 0.0, 1.0
+   );
+
+   auto seq1 = quan::fusion::as_sequence(mux);
+   auto seq2 = quan::fusion::as_sequence(identity);
+
+   bool res = quan::fusion::inner_product(
+      seq1,seq2,quan::operator_logical_and(), ll_compare{}
+   );
+   QUAN_CHECK(res )
+
+   auto mm = m* mux;
+
+   auto seq3 = quan::fusion::as_sequence(m);
+   auto seq4 = quan::fusion::as_sequence(mm);
+
+   bool res1 = quan::fusion::inner_product(
+      seq3,seq4,quan::operator_logical_and(), ll_compare{}
+   );
+   QUAN_CHECK(res1 )
+
+   display (m * mux, "m * mus (should be same as m)");
+   
 }

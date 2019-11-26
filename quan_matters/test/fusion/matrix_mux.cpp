@@ -68,7 +68,7 @@ namespace {
 
       QUAN_CHECK( ( typeid(alt_result_type).name() == typeid(result_type).name() ) );
 
-      std::cout << " same = " << std::is_same<result_type,alt_result_type>::value <<'\n';
+      QUAN_CHECK( (std::is_same<result_type,alt_result_type>::value));
 
       typedef quan::fun::matrix_as_sequence<res_view_type> mat_as_seq1;
 

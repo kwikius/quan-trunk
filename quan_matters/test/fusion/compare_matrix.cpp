@@ -32,7 +32,7 @@ void fusion_compare_seq()
 
       typedef quan::fun::as_value_matrix<res_view_type>::type alt_result_type;
 
-      std::cout << " same = " << std::is_same<result_type,alt_result_type>::value <<'\n';
+      QUAN_CHECK( (std::is_same<result_type,alt_result_type>::value) );
 
       typedef quan::fun::matrix_as_sequence<res_view_type> mat_as_seq1;
 
