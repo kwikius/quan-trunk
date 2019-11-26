@@ -20,28 +20,19 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
  
- 
- 
-
-/*
-    Dubious polyline. derivation from std::vector ok?   
-    Currently Not same paradigm as e.g line where 
-    PointType is param rather than value_type
-    to do
-*/
-
 #include <vector>
+#include <list>
 #include <quan/three_d/vect.hpp>
 
 namespace quan{namespace three_d{
 
-    template <typename T>
-    struct polyline : std::vector<vect<T> >{
-
-     polyline(): std::vector<vect<T> >(){}
-     };
+   template <typename T>
+   struct polyline{
+      typedef typedef quan::three_d::vect<double> point_type;
+      private:
+      std::list<point_type> m_points;
+   };
 
 }}}///quan::three_d
 
