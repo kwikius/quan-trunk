@@ -315,7 +315,7 @@ namespace quan{namespace three_d{
     Value_type
     magnitude( quan::three_d::vect<Value_type> const & v)
     {
-        return quan::pow<1,2>(quan::three_d::norm(v));
+        return sqrt(quan::three_d::norm(v));
     }
 
     template <typename T1,typename T2>
