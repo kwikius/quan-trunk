@@ -2,7 +2,6 @@
 #include <quan_matters/test/test.hpp>
 #include <quan/operators/binary_operator_functors.hpp>
 #include <quan/fusion/matrix.hpp>
-#include <quan/fun/inner_product_seq.hpp>
 
 #include <quan/fusion/inner_product.hpp>
 
