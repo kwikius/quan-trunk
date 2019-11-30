@@ -17,6 +17,8 @@ void matrix_add_test1();
 
 void fusion_compare_seq();
 
+void matrix_translation_test();
+
 int errors = 0;
 
 int main()
@@ -34,6 +36,7 @@ int main()
   fusion_compare_seq();
 
   matrix_add_test1();
+  matrix_translation_test();
 
  // matrix_mux_result_test();
 

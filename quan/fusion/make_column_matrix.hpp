@@ -18,6 +18,7 @@ namespace quan { namespace fusion {
             typedef quan::fun::matrix<4,1,vect_type > type;
          };
          template <typename Q>
+         constexpr
          typename apply<Q>::type
          operator()( quan::three_d::vect<Q> const & in) const
          {
@@ -30,6 +31,7 @@ namespace quan { namespace fusion {
 
    template <typename Q>
    inline
+   constexpr
    typename quan::fusion::detail::make_3d_column_matrix_impl::apply<Q>::type
    make_column_matrix(quan::three_d::vect<Q> const & in)
    {
