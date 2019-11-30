@@ -97,10 +97,11 @@ namespace quan{namespace three_d{
             using quan::math::cos;
             using quan::math::sin;
             rc_matrix<T> ret(
-             cos(theta),     0,  -sin(theta),        0 / T(1),
-             0,              1,         0,           0 / T(1),
-             sin(theta),     0,    cos(theta),       0 / T(1),
-             T(0),        T(0),         T(0),                1
+    
+             cos(theta),     0,  sin(theta),        0 / T(1),
+             0,              1,           0,        0 / T(1),
+             -sin(theta),    0,   cos(theta),       0 / T(1),
+             T(0),        T(0),         T(0),               1
             );
             return ret;
         }
