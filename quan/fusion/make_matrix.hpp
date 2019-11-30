@@ -4,7 +4,6 @@
 #include <quan/fun/matrix.hpp>
 #include <quan/fusion/make_vector.hpp>
 #include <quan/concepts/fusion/sequence.hpp>
-//#include <tuple>
 
 namespace quan{ namespace fusion{
 
