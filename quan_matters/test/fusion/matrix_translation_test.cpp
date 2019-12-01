@@ -15,19 +15,19 @@ namespace {
 
    QUAN_QUANTITY_LITERAL(length,mm)
 
-   typedef double mm;
+   typedef quan::length::mm mm;
    typedef quan::three_d::vect<mm> vect;
 }
 
 void matrix_translation_test()
 {
-   auto constexpr v1 = quan::fusion::make_row_matrix(vect{1,2,3});
+   auto constexpr v1 = quan::fusion::make_row_matrix(vect{mm{1},mm{2},mm{3}});
    QUAN_CHECK(quan::fusion::num_rows<decltype(v1)> == 1);
    QUAN_CHECK(quan::fusion::num_columns<decltype(v1)> == 4);
 
    display(v1,"v1 = ");
 
-   auto constexpr v2 = quan::fusion::make_translation_matrix(vect{10,20,30});
+   auto constexpr v2 = quan::fusion::make_translation_matrix(vect{mm{10},mm{20},mm{30}});
    QUAN_CHECK(quan::fusion::num_rows<decltype(v2)> == 4);
    QUAN_CHECK(quan::fusion::num_columns<decltype(v2)> == 4);
 
@@ -38,26 +38,18 @@ void matrix_translation_test()
    display(result, "result = ");
 
    auto result_comp = quan::fusion::make_row_matrix(
-      vect{11,22,33}
+      vect{mm{11},mm{22},mm{33}}
    );
 
    display(result_comp, "result_comp = ");
    
-  // QUAN_CHECK ( result == result_comp);
    QUAN_CHECK( (quan::are_models_of<quan::fusion::Matrix_,decltype(result),decltype(result_comp)>::value) )
    QUAN_CHECK( (quan::fusion::num_rows<decltype(result)>  == quan::fusion::num_rows<decltype(result_comp)>) )
-   QUAN_CHECK(  (quan::fusion::num_columns<decltype(result)>  == quan::fusion::num_columns<decltype(result_comp)>) )
+   QUAN_CHECK( (quan::fusion::num_columns<decltype(result)>  == quan::fusion::num_columns<decltype(result_comp)>) )
 
-    auto same = result == result_comp;
-   QUAN_CHECK(same )
-
-  // QUAN_CHECK( (quan::fun::is_fun_sequence<decltype(result)>::value))
-  // QUAN_CHECK( (quan::fun::is_fun_sequence<decltype(result_comp)>::value))
+   QUAN_CHECK( result == result_comp )
 
    QUAN_CHECK( !(quan::fun::are_fun_sequences<decltype(result),decltype(result_comp)>::value))
-
-   
-
    auto lseq = quan::fusion::as_sequence(result);
    auto rseq = quan::fusion::as_sequence(result_comp);
 
@@ -71,11 +63,8 @@ void matrix_translation_test()
 
    std::cout << typeid(result_type).name() <<'\n';
    
-
    auto res = lseq == rseq;
    QUAN_CHECK(res);
-
-
 }
 
 #if defined CODEBLOCKS_STANDALONE

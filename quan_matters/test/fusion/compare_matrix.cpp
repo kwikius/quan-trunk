@@ -3,9 +3,6 @@
 
 #include <quan/fusion/matrix.hpp>
 
-#include <quan/fun/compare_seq_ops.hpp>
-
-
 
 void fusion_compare_seq()
 {
@@ -25,7 +22,8 @@ void fusion_compare_seq()
       0,0,0,2
    );
 
-   QUAN_CHECK(m1 == m1);
+   QUAN_CHECK(m1 == m1)
+   QUAN_CHECK(!(m1 == m2))
 
    auto constexpr result = m1 * m2;
    typedef quan::meta::strip_cr<decltype(result)>::type result_type;
@@ -51,6 +49,13 @@ void fusion_compare_seq()
 
    QUAN_CHECK( (s1 == quan::fusion::as_sequence(result)) )
    QUAN_CHECK( ( quan::fusion::as_sequence(result) != quan::fusion::as_sequence(m1) ) )
+
+   auto  s3 = quan::fusion::as_sequence(result);
+   QUAN_CHECK( s3 == s1);
+
+   auto m3 = quan::fusion::make_matrix<4,4>(s3);
+   QUAN_CHECK(m3 == result)
+   
 }
 
 #if defined CODEBLOCKS_STANDALONE
