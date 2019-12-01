@@ -12,6 +12,7 @@ void adjunct_matrix_test1();
 void fusion_inverse_matrix_test1();
 
 void matrix_add_test1();
+void matrix_as_sequence_test();
 
 //void matrix_mux_result_test();
 
@@ -37,6 +38,8 @@ int main()
 
   matrix_add_test1();
   matrix_translation_test();
+
+  matrix_as_sequence_test();
 
  // matrix_mux_result_test();
 

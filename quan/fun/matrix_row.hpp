@@ -53,7 +53,6 @@ namespace quan{ namespace fun{
       constexpr matrix_row(arg_type matrix_in) : m_matrix( matrix_in){}
     };
 
-
     template <int C, int R, typename Matrix>
     struct at_seq_impl<C,matrix_row<R,Matrix>,quan::fun::as_ref>{
 

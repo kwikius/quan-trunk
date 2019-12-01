@@ -5,6 +5,7 @@
 
 #include <quan/fun/compare_seq_ops.hpp>
 
+
 void fusion_compare_seq()
 {
     auto constexpr m1 = quan::fusion::make_matrix<4>

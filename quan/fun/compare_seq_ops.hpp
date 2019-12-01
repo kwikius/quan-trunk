@@ -66,14 +66,14 @@ namespace quan{ namespace fun{namespace detail{
 namespace quan{namespace fun{
    template <typename SeqL,typename SeqR>
    inline
-   typename quan::where_<
+   typename quan::eval_where<
       quan::meta::and_<
          quan::fun::are_fun_sequences<SeqL,SeqR>,
          quan::fun::same_size_seq<SeqL,SeqR>
       >,
-      typename inner_product_seq::template result<
-         const SeqL, const SeqR,quan::operator_logical_and, quan::operator_equal_to
-      >::type
+      inner_product_seq::template result<
+         SeqL, SeqR,quan::operator_logical_and, quan::operator_equal_to
+      >
    >::type
    operator == (SeqL const & lhs, SeqR const & rhs)
    {
@@ -81,24 +81,24 @@ namespace quan{namespace fun{
          lhs,rhs,quan::operator_logical_and(), quan::operator_equal_to()
       );
    }
-
-   template <typename SeqL,typename SeqR>
-   inline
-   typename quan::where_<
-      quan::meta::and_<
-         quan::fun::are_fun_sequences<SeqL,SeqR>,
-         quan::fun::same_size_seq<SeqL,SeqR>
-      >,
-      typename inner_product_seq::template result<
-         SeqL,SeqR,quan::operator_logical_and, quan::operator_equal_to
-      >::type
-   >::type
-   operator == (SeqL  & lhs, SeqR  & rhs)
-   {
-      return inner_product_seq()(
-         lhs,rhs,quan::operator_logical_and(), quan::operator_equal_to()
-      );
-   }
+//
+//   template <typename SeqL,typename SeqR>
+//   inline
+//   typename quan::where_<
+//      quan::meta::and_<
+//         quan::fun::are_fun_sequences<SeqL,SeqR>,
+//         quan::fun::same_size_seq<SeqL,SeqR>
+//      >,
+//      inner_product_seq::template result<
+//         SeqL,SeqR,quan::operator_logical_and, quan::operator_equal_to
+//      >
+//   >::type::type
+//   operator == (SeqL  & lhs, SeqR  & rhs)
+//   {
+//      return inner_product_seq()(
+//         lhs,rhs,quan::operator_logical_and(), quan::operator_equal_to()
+//      );
+//   }
    
    template <typename SeqL,typename SeqR>
    inline 

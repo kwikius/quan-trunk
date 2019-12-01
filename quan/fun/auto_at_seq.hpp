@@ -17,6 +17,7 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 
+#include <quan/fun/is_fun_sequence.hpp>
 #include <quan/fun/at_seq.hpp>
 #include <quan/meta/if.hpp>
 #include <type_traits>
@@ -25,6 +26,7 @@ namespace quan{ namespace fun{
 
    template<int N, typename Seq>
    struct auto_at_seq {
+     static_assert(quan::fun::is_fun_sequence<Seq>::value);
 #if 0
       typedef typename std::remove_const<
          typename std::remove_reference<Seq>::type
