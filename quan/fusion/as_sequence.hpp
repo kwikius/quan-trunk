@@ -1,8 +1,11 @@
 #ifndef QUAN_FUSION_AS_SEQUENCE_HPP_INCLUDED
 #define QUAN_FUSION_AS_SEQUENCE_HPP_INCLUDED
 
-#include <quan/fun/matrix_as_vector.hpp>
+#include <quan/where.hpp>
+#include <quan/is_model_of.hpp>
+
 #include <quan/concepts/fusion/matrix.hpp>
+#include <quan/fun/matrix_as_sequence.hpp>
 #include <quan/concepts/fusion/sequence.hpp>
 
 namespace quan{ namespace fusion{
@@ -19,7 +22,6 @@ namespace quan{ namespace fusion{
       return quan::fun::matrix_as_sequence<M>{m};
    }
    
-
 }}  // quan::fusion
 
 #endif // QUAN_FUSION_AS_SEQUENCE_HPP_INCLUDED

@@ -71,7 +71,6 @@ namespace quan{ namespace fusion{
       return make_matrix<R,sizeof...(Elements) / R>(quan::fusion::make_vector(args...));
    }
 
-
 #endif
 
 }} // quan::fusion

@@ -92,7 +92,6 @@ namespace quan{ namespace fun{
          }
     };
 
-
 }}//quan::fun
 
 #endif
