@@ -20,5 +20,6 @@
 #include <quan/fusion/make_matrix.hpp>
 #include <quan/fusion/make_multiplies_view.hpp>
 #include <quan/fusion/as_sequence.hpp>
+#include <quan/fusion/compare_matrix.hpp>
 
 #endif // QUAN_FUSION_MATRIX_HPP_INCLUDED

@@ -9,11 +9,8 @@
 #include <quan/three_d/out/vect.hpp>
 #include <quan/fusion/static_value/out/static_value.hpp>
 
-#include <quan/fusion/compare_matrix.hpp>
-
 void matrix_as_sequence_test()
 {
-
    auto constexpr m2 = quan::fusion::make_matrix<4>
    (
       1,0,0,0,
