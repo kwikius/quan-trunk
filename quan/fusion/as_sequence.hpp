@@ -18,7 +18,7 @@ namespace quan{ namespace fusion{
    >::type
    as_sequence( M const & m)
    {
-      static_assert(quan::fun::is_fun_matrix<M>::value);
+      static_assert(quan::fun::is_fun_matrix<M>::value,"");
       return quan::fun::matrix_as_sequence<M>{m};
    }
    

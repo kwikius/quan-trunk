@@ -13,16 +13,16 @@ namespace quan{ namespace fun{
 
       template <typename Lhs, typename Rhs>
       struct matrix_compare_result{
-         static_assert(quan::are_models_of<quan::fusion::Matrix_,Lhs,Rhs>::value);
-         static_assert(quan::fun::is_fun_matrix<Lhs>::value);
-         static_assert(quan::fun::is_fun_matrix<Lhs>::value);
-         static_assert(quan::fun::is_fun_matrix<Rhs>::value);
+         static_assert(quan::are_models_of<quan::fusion::Matrix_,Lhs,Rhs>::value,"");
+         static_assert(quan::fun::is_fun_matrix<Lhs>::value,"");
+         static_assert(quan::fun::is_fun_matrix<Lhs>::value,"");
+         static_assert(quan::fun::is_fun_matrix<Rhs>::value,"");
 
          typedef quan::fun::matrix_as_sequence<Lhs> lhs_seq;
          typedef quan::fun::matrix_as_sequence<Rhs> rhs_seq;
 
-         static_assert(quan::fun::is_fun_sequence<lhs_seq>::value);
-         static_assert(quan::fun::is_fun_sequence<rhs_seq>::value);
+         static_assert(quan::fun::is_fun_sequence<lhs_seq>::value,"");
+         static_assert(quan::fun::is_fun_sequence<rhs_seq>::value,"");
 
          typedef typename quan::fun::inner_product_seq::template result<
             lhs_seq, rhs_seq,quan::operator_logical_and, quan::operator_equal_to
@@ -44,8 +44,8 @@ namespace quan{ namespace fun{
    >::type
    operator == (LhsM const & lhs, RhsM const & rhs)
    {
-      static_assert(quan::fun::is_fun_matrix<LhsM>::value);
-      static_assert(quan::fun::is_fun_matrix<RhsM>::value);
+      static_assert(quan::fun::is_fun_matrix<LhsM>::value,"");
+      static_assert(quan::fun::is_fun_matrix<RhsM>::value,"");
       auto const lhs_seq = quan::fun::matrix_as_sequence<LhsM>(lhs);
       auto const rhs_seq = quan::fun::matrix_as_sequence<RhsM>(rhs);
       return lhs_seq == rhs_seq;

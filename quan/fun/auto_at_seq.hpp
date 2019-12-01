@@ -26,7 +26,7 @@ namespace quan{ namespace fun{
 
    template<int N, typename Seq>
    struct auto_at_seq {
-     static_assert(quan::fun::is_fun_sequence<Seq>::value);
+     static_assert(quan::fun::is_fun_sequence<Seq>::value,"");
 #if 0
       typedef typename std::remove_const<
          typename std::remove_reference<Seq>::type
