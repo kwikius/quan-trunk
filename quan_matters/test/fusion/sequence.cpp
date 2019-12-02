@@ -80,6 +80,7 @@ namespace {
       QUAN_CHECK((at_seq2{}(ar) == 3))
       typedef quan::fun::at_seq<3,int(&)[4],quan::fun::as_value> at_seq3;
       QUAN_CHECK((at_seq3{}(ar) == 4))
+     // TODO compile fail check
     //  typedef quan::fun::at_seq<4,int(&)[4],quan::fun::as_value> at_seq4;
     //  QUAN_CHECK((at_seq4{}(ar) == 42))
       
@@ -98,7 +99,7 @@ void sequence_test()
 int errors = 0;
 int main()
 {
-   access_modifiers_test();
+   sequence_test();
    QUAN_EPILOGUE
 }
 #endif
