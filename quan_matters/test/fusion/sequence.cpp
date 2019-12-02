@@ -3,7 +3,7 @@
 #include <quan/fun/vector.hpp>
 #include <quan/fun/at.hpp>
 #include <quan/fusion/make_vector.hpp>
-
+#include <quan/are_models_of.hpp>
 #include <quan_matters/test/test.hpp>
 
 #if ( __cplusplus < 201402L )
@@ -34,6 +34,10 @@ namespace {
     #else
       QUAN_CHECK(quan::fun::is_fun_sequence<decltype(seqL)>::value);
       QUAN_CHECK(quan::fun::is_fun_sequence<decltype(seqR)>::value);
+
+      QUAN_CHECK( (quan::is_model_of<quan::fusion::Sequence_,decltype(seqL)>::value) );
+      QUAN_CHECK( (quan::is_model_of<quan::fusion::Sequence_,decltype(seqR)>::value) );
+      QUAN_CHECK( (quan::are_models_of<quan::fusion::Sequence_,decltype(seqR),decltype(seqL)>::value) );
    #endif
 
       QUAN_CHECK(quan::fusion::num_elements<decltype(seqL)> == 16);
@@ -67,6 +71,7 @@ namespace {
       int ar[] = {1,2,3,4};
 
       typedef quan::fun::at_seq<0,int(&)[4],quan::fun::as_value> at_seq;
+      QUAN_CHECK( quan::fun::is_fun_sequence<decltype(ar)>::value)
       QUAN_CHECK((at_seq{}(ar) == 1))
       QUAN_CHECK(( quan::fun::size_seq<decltype(ar)>::value == 4))
    }

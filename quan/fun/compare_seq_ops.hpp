@@ -102,12 +102,14 @@ namespace quan{namespace fun{
    
    template <typename SeqL,typename SeqR>
    inline 
-   typename quan::where_<
+   typename quan::eval_where<
       quan::meta::and_<
          quan::fun::are_fun_sequences<SeqL,SeqR>,
          quan::fun::same_size_seq<SeqL,SeqR>
       >,
-      bool
+       inner_product_seq::template result<
+         SeqL, SeqR,quan::operator_logical_or, quan::operator_not_equal_to
+      >
    >::type
    operator != (SeqL const & lhs, SeqR const & rhs)
    {

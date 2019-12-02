@@ -5,6 +5,7 @@
 
 #include <quan/fun/matrix_row.hpp>
 #include <quan/fun/matrix_col.hpp>
+
 #include <quan/fun/transpose_matrix.hpp>
 #include <quan/fun/get_matrix_type_sequence.hpp>
 #include <quan/fun/get_type_sequence.hpp>

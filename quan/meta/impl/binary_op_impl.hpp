@@ -162,9 +162,10 @@ namespace quan{  namespace meta{
         typename quan::where_<
             quan::meta::are_arithmetic<A,B>
         >::type
-      > {
-          typedef typename arithmetic_promote<A,B>::type type;
-      };
+      > : quan::meta::arithmetic_promote<A,B>{};
+//     {
+//          typedef typename arithmetic_promote<A,B>::type type;
+//      };
 
       template <
        typename A,
@@ -175,9 +176,10 @@ namespace quan{  namespace meta{
         typename quan::where_<
             are_arithmetic<A,B>
         >::type
-      > {
-        typedef typename arithmetic_promote<A,B>::type type;
-      };
+       > : quan::meta::arithmetic_promote<A,B>{};
+//{
+//        typedef typename arithmetic_promote<A,B>::type type;
+//      };
 
       template <
        typename A,
@@ -188,9 +190,10 @@ namespace quan{  namespace meta{
         typename quan::where_<
             are_arithmetic<A,B>
         >::type
-      > {
-        typedef typename arithmetic_promote<A,B>::type type;
-      };
+      > : quan::meta::arithmetic_promote<A,B>{};
+//{
+//        typedef typename arithmetic_promote<A,B>::type type;
+//      };
 
       template <
        typename A,
@@ -201,9 +204,10 @@ namespace quan{  namespace meta{
         typename quan::where_<
             are_arithmetic<A,B>
         >::type
-      > {
-        typedef typename arithmetic_promote<A,B>::type type;
-      };
+      > : quan::meta::arithmetic_promote<A,B>{};
+//{
+//        typedef typename arithmetic_promote<A,B>::type type;
+//      };
 
       template <
          typename A,
@@ -214,10 +218,11 @@ namespace quan{  namespace meta{
         typename quan::where_<
             are_arithmetic<A,B>
         >::type
-      > {
-
-        typedef typename quan::meta::arithmetic_promote<A,B>::type type;
-      };
+      > : quan::meta::arithmetic_promote<A,B>{};
+//{
+//
+//        typedef typename quan::meta::arithmetic_promote<A,B>::type type;
+//      };
 
       template <
          typename A,
@@ -228,9 +233,10 @@ namespace quan{  namespace meta{
         typename quan::where_<
             are_arithmetic<A,B>
         >::type
-      > {
-          typedef typename quan::meta::arithmetic_promote<A,B>::type type;
-      };
+      > : quan::meta::arithmetic_promote<A,B>{};
+// {
+//          typedef typename quan::meta::arithmetic_promote<A,B>::type type;
+//      };
 
       template <
          typename A,
@@ -247,12 +253,16 @@ namespace quan{  namespace meta{
                >
             >
         >::type
-      >{
-          typedef typename quan::meta::arithmetic_promote<
+      > : quan::meta::arithmetic_promote<
             A,
             quan::quantity_traits::default_value_type
-          >::type type;
-      };
+          >{};
+//{
+//          typedef typename quan::meta::arithmetic_promote<
+//            A,
+//            quan::quantity_traits::default_value_type
+//          >::type type;
+//      };
 
    }//impl
    
