@@ -69,11 +69,20 @@ namespace {
    void sequence_array_test()
    {
       int ar[] = {1,2,3,4};
-
-      typedef quan::fun::at_seq<0,int(&)[4],quan::fun::as_value> at_seq;
       QUAN_CHECK( quan::fun::is_fun_sequence<decltype(ar)>::value)
-      QUAN_CHECK((at_seq{}(ar) == 1))
       QUAN_CHECK(( quan::fun::size_seq<decltype(ar)>::value == 4))
+
+      typedef quan::fun::at_seq<0,int(&)[4],quan::fun::as_value> at_seq0;
+      QUAN_CHECK((at_seq0{}(ar) == 1))
+      typedef quan::fun::at_seq<1,int(&)[4],quan::fun::as_value> at_seq1;
+      QUAN_CHECK((at_seq1{}(ar) == 2))
+      typedef quan::fun::at_seq<2,int(&)[4],quan::fun::as_value> at_seq2;
+      QUAN_CHECK((at_seq2{}(ar) == 3))
+      typedef quan::fun::at_seq<3,int(&)[4],quan::fun::as_value> at_seq3;
+      QUAN_CHECK((at_seq3{}(ar) == 4))
+    //  typedef quan::fun::at_seq<4,int(&)[4],quan::fun::as_value> at_seq4;
+    //  QUAN_CHECK((at_seq4{}(ar) == 42))
+      
    }
 } //namespace
 
@@ -83,4 +92,14 @@ void sequence_test()
    sequence_variadic_tpl_vector_test();
    sequence_array_test();
 }
+
+
+#if defined CODEBLOCKS_STANDALONE
+int errors = 0;
+int main()
+{
+   access_modifiers_test();
+   QUAN_EPILOGUE
+}
+#endif
 

@@ -39,11 +39,12 @@ namespace quan{ namespace fun{
       return at_seq<I,T, quan::fun::as_ref>{}(in);
    }
 
-   template <size_t I,typename T, size_t N>
-   T at( T (& ar)[N])
-   {
-      return ar[I];
-   }
+//   template <size_t I,typename T, size_t N>
+//   T at( T (& ar)[N])
+//   {
+//      static_assert( I < N, "array index out of range");
+//      return ar[I];
+//   }
   
 }}//quan::fun
 

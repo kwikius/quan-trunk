@@ -56,9 +56,10 @@ namespace quan{ namespace fun{
         {
             return arr. QUAN_MEMBER_TEMPLATE at<I,F>();
         }*/
-
+         static_assert( I < N,"");
         type operator()(array_wrapper<T,N> const & arr) const
         {
+           
            return arr. QUAN_MEMBER_TEMPLATE at<I,F>();
         }  
    };

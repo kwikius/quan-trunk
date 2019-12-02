@@ -37,11 +37,11 @@ namespace quan{ namespace fun{
 
     template <int I, int N, typename T, typename Access>
     struct at_seq_impl<I, T[N], Access>{
-
+        
         typedef typename Access:: template result<T>::type type;
 
         constexpr type operator() ( T(&in)[N])
-        {
+        {  static_assert( I < N, "array index out of range");
            return in[I];
         }
 
@@ -51,7 +51,7 @@ namespace quan{ namespace fun{
     struct at_seq_impl<I, T const[N], Access>{
         typedef T const & type;
         constexpr T const & operator() ( T const(&in)[N])
-        {
+        {  static_assert( I < N, "array index out of range");
            return in[I];
         }
 
