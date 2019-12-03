@@ -29,8 +29,7 @@ namespace quan{
     template<
         typename Value_type
     >
-    struct length_ : quan::meta::length{
-
+    struct length_ : meta::components::of_length{
         typedef fixed_quantity<
             quan::meta::unit<
                 abstract_quantity,
@@ -87,14 +86,13 @@ namespace quan{
             Value_type
         > um;
 
-//        typedef fixed_quantity<
-//            quan::meta::unit<
-//                abstract_quantity,
-//                typename meta::si_unit::milli // coherent-exponent -3
-//            >,
-//            Value_type
-//        > mm;
-        typedef fixed_quantity<quan::meta::length::mm,Value_type> mm;
+        typedef fixed_quantity<
+            quan::meta::unit<
+                abstract_quantity,
+                typename meta::si_unit::milli // coherent-exponent -3
+            >,
+            Value_type
+        > mm;
 
         typedef fixed_quantity<
             quan::meta::unit<
