@@ -35,7 +35,7 @@ namespace quan{ namespace meta{ namespace components{
 
         static const char* abstract_quantity_name()
         {
-            return "reciprocal time^2";
+            return "reciprocal_time2";
         }
 
         template<typename CharType>
