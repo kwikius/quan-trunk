@@ -26,169 +26,185 @@
 
 namespace quan{
 
+    struct of_length{
+         struct Ym :  quan::meta::unit<
+            quan::meta::components::of_length::abstract_quantity,
+            typename quan::meta::si_unit::yotta // coherent-exponent 24
+         >{};
+         struct Zm :  quan::meta::unit<
+            quan::meta::components::of_length::abstract_quantity,
+            typename quan::meta::si_unit::zetta // coherent-exponent 21
+         >{};
+         struct Em :  quan::meta::unit<
+            quan::meta::components::of_length::abstract_quantity,
+            typename quan::meta::si_unit::exa // coherent-exponent 18
+         >{};
+         struct Pm :  quan::meta::unit<
+            quan::meta::components::of_length::abstract_quantity,
+            typename quan::meta::si_unit::peta // coherent-exponent 15
+         >{};
+         struct Tm :  quan::meta::unit<
+            quan::meta::components::of_length::abstract_quantity,
+            typename quan::meta::si_unit::tera // coherent-exponent 12
+         >{};
+         struct Gm :  quan::meta::unit<
+            quan::meta::components::of_length::abstract_quantity,
+            typename quan::meta::si_unit::giga // coherent-exponent 9
+         >{};
+         struct Mm :  quan::meta::unit<
+            quan::meta::components::of_length::abstract_quantity,
+            typename quan::meta::si_unit::mega // coherent-exponent 6
+         >{};
+         struct km :  quan::meta::unit<
+            quan::meta::components::of_length::abstract_quantity,
+            typename quan::meta::si_unit::kilo // coherent-exponent 3
+         >{};
+         struct hm :  quan::meta::unit<
+            quan::meta::components::of_length::abstract_quantity,
+            typename quan::meta::si_unit::hecto // coherent-exponent 2
+         >{};
+         struct dam :  quan::meta::unit<
+            quan::meta::components::of_length::abstract_quantity,
+            typename quan::meta::si_unit::deka // coherent-exponent 1
+         >{};
+         struct m :  quan::meta::unit<
+            quan::meta::components::of_length::abstract_quantity,
+            typename quan::meta::si_unit::none // coherent-exponent 0
+         >{};
+         struct dm :  quan::meta::unit<
+            quan::meta::components::of_length::abstract_quantity,
+            typename quan::meta::si_unit::deci // coherent-exponent -1
+         >{};
+         struct cm :  quan::meta::unit<
+            quan::meta::components::of_length::abstract_quantity,
+            typename quan::meta::si_unit::centi // coherent-exponent -2
+         >{};
+         struct mm :  quan::meta::unit<
+            quan::meta::components::of_length::abstract_quantity,
+            typename quan::meta::si_unit::milli // coherent-exponent -3
+         >{};
+         struct um :  quan::meta::unit<
+            quan::meta::components::of_length::abstract_quantity,
+            typename quan::meta::si_unit::micro // coherent-exponent -6
+         >{};
+         struct nm :  quan::meta::unit<
+            quan::meta::components::of_length::abstract_quantity,
+            typename quan::meta::si_unit::nano // coherent-exponent -9
+         >{};
+         struct pm :  quan::meta::unit<
+            quan::meta::components::of_length::abstract_quantity,
+            typename quan::meta::si_unit::pico // coherent-exponent -12
+         >{};
+         struct fm :  quan::meta::unit<
+            quan::meta::components::of_length::abstract_quantity,
+            typename quan::meta::si_unit::femto // coherent-exponent -15
+         >{};
+         struct am :  quan::meta::unit<
+            quan::meta::components::of_length::abstract_quantity,
+            typename quan::meta::si_unit::atto // coherent-exponent -18
+         >{};
+         struct zm :  quan::meta::unit<
+            quan::meta::components::of_length::abstract_quantity,
+            typename quan::meta::si_unit::zepto // coherent-exponent -21
+         >{};
+         struct ym :  quan::meta::unit<
+            quan::meta::components::of_length::abstract_quantity,
+            typename quan::meta::si_unit::yocto // coherent-exponent -24
+         >{};
+
+    };
+
     template<
         typename Value_type
     >
     struct length_ : meta::components::of_length{
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > ym;
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zm;
+      typedef quan::fixed_quantity<
+         quan::of_length::Ym,
+         Value_type
+      > Ym;
+      typedef quan::fixed_quantity<
+         quan::of_length::Zm,
+         Value_type
+      > Zm;
+      typedef quan::fixed_quantity<
+         quan::of_length::Em,
+         Value_type
+      > Em;
+      typedef quan::fixed_quantity<
+         quan::of_length::Pm,
+         Value_type
+      > Pm;
+      typedef quan::fixed_quantity<
+         quan::of_length::Tm,
+         Value_type
+      > Tm;
+      typedef quan::fixed_quantity<
+         quan::of_length::Gm,
+         Value_type
+      > Gm;
+      typedef quan::fixed_quantity<
+         quan::of_length::Mm,
+         Value_type
+      > Mm;
+      typedef quan::fixed_quantity<
+         quan::of_length::km,
+         Value_type
+      > km;
+      typedef quan::fixed_quantity<
+         quan::of_length::hm,
+         Value_type
+      > hm;
+      typedef quan::fixed_quantity<
+         quan::of_length::dam,
+         Value_type
+      > dam;
+      typedef quan::fixed_quantity<
+         quan::of_length::m,
+         Value_type
+      > m;
+      typedef quan::fixed_quantity<
+         quan::of_length::dm,
+         Value_type
+      > dm;
+      typedef quan::fixed_quantity<
+         quan::of_length::cm,
+         Value_type
+      > cm;
+      typedef quan::fixed_quantity<
+         quan::of_length::mm,
+         Value_type
+      > mm;
+      typedef quan::fixed_quantity<
+         quan::of_length::um,
+         Value_type
+      > um;
+      typedef quan::fixed_quantity<
+         quan::of_length::nm,
+         Value_type
+      > nm;
+      typedef quan::fixed_quantity<
+         quan::of_length::pm,
+         Value_type
+      > pm;
+      typedef quan::fixed_quantity<
+         quan::of_length::fm,
+         Value_type
+      > fm;
+      typedef quan::fixed_quantity<
+         quan::of_length::am,
+         Value_type
+      > am;
+      typedef quan::fixed_quantity<
+         quan::of_length::zm,
+         Value_type
+      > zm;
+      typedef quan::fixed_quantity<
+         quan::of_length::ym,
+         Value_type
+      > ym;
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > am;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fm;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pm;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nm;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > um;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mm;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cm;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dm;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > m;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > dam;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hm;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > km;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > Mm;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > Gm;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > Tm;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > Pm;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > Em;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > Zm;
+//-- non si
 
         typedef fixed_quantity<
             typename non_si_unit::fathom_us,
