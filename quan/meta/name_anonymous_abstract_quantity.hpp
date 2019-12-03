@@ -20,7 +20,7 @@
 namespace quan{ namespace meta{
 
 //default to no change
-   template <typename AbstractQuantity>
+   template <typename AbstractQuantity, typename Where >
    struct name_anonymous_abstract_quantity{
       typedef AbstractQuantity type;
    };

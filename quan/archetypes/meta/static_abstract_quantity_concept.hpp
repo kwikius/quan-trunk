@@ -58,42 +58,43 @@ namespace quan { namespace meta{
 
     template <
         typename Quantity_L,
-        typename Quantity_R
+        typename Quantity_R,
+        typename Where = void
     > 
-    struct is_same_quantity;
-
-    template <typename Quantity>
-    struct is_named_quantity;
+    struct is_same_quantity : quan::meta::false_{};
 
     template <typename Quantity, typename Where = void>
-    struct make_anonymous;
+    struct is_named_quantity : quan::meta::false_{};
+
+    template <typename Quantity, typename Where = void>
+    struct make_anonymous : quan::undefined{};
 
     template <typename Quantity, typename Where = void>
     struct get_named_quantity_traits : quan::undefined{};
 
-    template <typename Quantity>
-    struct get_length_dimension;
+    template <typename Quantity, typename Where = void>
+    struct get_length_dimension  : quan::undefined{};;
     
-    template <typename Quantity>
-    struct get_time_dimension;
+    template <typename Quantity, typename Where = void>
+    struct get_time_dimension  : quan::undefined{};;
     
-    template <typename Quantity>
-    struct get_mass_dimension;
+    template <typename Quantity, typename Where = void>
+    struct get_mass_dimension  : quan::undefined{};;
 
-    template <typename Quantity>
-    struct get_temperature_dimension;
+    template <typename Quantity, typename Where = void>
+    struct get_temperature_dimension  : quan::undefined{};;
 
-    template <typename Quantity>
-    struct get_current_dimension;
+    template <typename Quantity, typename Where = void>
+    struct get_current_dimension  : quan::undefined{};;
 
-    template <typename Quantity>
-    struct get_substance_dimension;
+    template <typename Quantity, typename Where = void>
+    struct get_substance_dimension  : quan::undefined{};;
 
-    template <typename Quantity>
-    struct get_intensity_dimension;
+    template <typename Quantity, typename Where = void>
+    struct get_intensity_dimension  : quan::undefined{};;
 
-    template <typename Quantity>
-    struct name_anonymous_abstract_quantity;
+    template <typename Quantity, typename Where = void>
+    struct name_anonymous_abstract_quantity ;
     
 
 } }//quan::meta

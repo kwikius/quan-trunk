@@ -26,10 +26,12 @@
 /*
     metafunction for querying the quantity system for a quantity
 */
+#include <quan/undefined.hpp>
+
 namespace quan{namespace meta{
 
-    template <typename StaticAbstractQuantity>
-    struct get_quantity_system;
+    template <typename StaticAbstractQuantity, typename Where = void>
+    struct get_quantity_system : quan::undefined{};
 
 }}//quan::meta
 

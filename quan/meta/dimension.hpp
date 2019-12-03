@@ -115,8 +115,8 @@ namespace quan{namespace meta{
             eq_<D7L,D7R>       
          >{};
      
-    template <typename T>
-    struct get_quantity_system;   
+//    template <typename T>
+//    struct get_quantity_system;   
 
    struct si_unit_system;
 
