@@ -201,6 +201,8 @@ namespace quan{
             Value_type
         > Zg;
 
+// non si
+
         typedef fixed_quantity<
             typename non_si_unit::AT,
             Value_type
