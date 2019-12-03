@@ -76,5 +76,12 @@
 #include <quan/force.hpp>
 #include <quan/capacitance.hpp>
 #include <quan/charge.hpp>
+#include <quan/area_moment_of_inertia.hpp>
+#include <quan/energy_per_area_time_length.hpp>
+#include <quan/force_per_area.hpp>
+#include <quan/force_per_volume.hpp>
+#include <quan/mass_per_area.hpp>
+#include <quan/reciprocal_length.hpp>
+#include <quan/resistivity.hpp>
 
 #endif
