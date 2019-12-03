@@ -25,10 +25,11 @@
 
 #include <quan/components/of_named_quantity.hpp>
 #include <quan/meta/name_anonymous_abstract_quantity.hpp>
+#include <quan/meta/unit.hpp>
 
-namespace quan{ namespace meta{ namespace components{
+namespace quan{ namespace meta{ //namespace components{
 
-    struct of_length{
+    struct length{
 
         static const char* abstract_quantity_name()
         {
@@ -55,8 +56,13 @@ namespace quan{ namespace meta{ namespace components{
 
         typedef meta::abstract_quantity<
             dimension,
-            of_length
+            quan::meta::length
         > abstract_quantity;
+
+        struct mm :  quan::meta::unit<
+                abstract_quantity,
+                typename meta::si_unit::milli // coherent-exponent -3
+            >{};
 
         struct non_si_unit{
             typedef meta::unit<
@@ -224,13 +230,13 @@ namespace quan{ namespace meta{ namespace components{
             > angstrom;
         };
 
-        typedef  of_length type;
+        typedef  quan::meta::length type;
     };
  
     template<>
     inline
     const char*
-    of_length::unprefixed_symbol<char>()
+    quan::meta::length::unprefixed_symbol<char>()
     {
         return "m";
     }
@@ -238,26 +244,26 @@ namespace quan{ namespace meta{ namespace components{
     template<>
     inline
     const wchar_t*
-    of_length::unprefixed_symbol<wchar_t>()
+    quan::meta::length::unprefixed_symbol<wchar_t>()
     {
         return L"m";
     }
 
-}//components
+//}//components
 
 #ifdef QUAN_ENABLE_SELECTED_HOISTED_QUANTITIES
 // enable hoisting of anonymous length
    template<>
    struct name_anonymous_abstract_quantity<
       abstract_quantity<
-         quan::meta::components::of_length::dimension,
+         quan::meta::length::dimension,
          quan::meta::anonymous_quantity_traits
       >
    >{
-      typedef components::of_length::abstract_quantity type;
+      typedef quan::meta::length::abstract_quantity type;
    };
 #endif
 
-}}//quan::meta
+} }//quan::meta
 
 #endif

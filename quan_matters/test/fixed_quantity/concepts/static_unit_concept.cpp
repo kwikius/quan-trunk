@@ -1,4 +1,4 @@
-#include <quan_matters/test/concepts/static_unit_concept.hpp>
+
 
 /*
  Copyright (c) 2003-2014 Andy Little.
@@ -24,7 +24,10 @@
     Check that a type fulfills the StaticUnit requirements
 */
 #include <quan/config.hpp>
+
+
 #include <quan_matters/test/test.hpp>
+#include <quan/archetypes/meta/static_unit_concept.hpp>
 #include "static_unit_concept.hpp"
 #include <quan/length.hpp>
 
@@ -35,7 +38,7 @@ void test1()
     quan::meta::StaticUnitConcept<quan::length::mi::unit>();
 }
 
-#if 0
+#if defined CODEBLOCKS_STANDALONE
 int errors =0;
 int main()
 {

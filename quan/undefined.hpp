@@ -29,6 +29,7 @@ namespace quan{
    struct undefined{
      
       typedef undefined type;
+    //  static constexpr int value = 0;
       private:
          undefined() = delete;
          undefined(undefined const &) = delete;

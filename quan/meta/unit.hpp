@@ -35,19 +35,46 @@
 #include <quan/static_assert.hpp>
 #include <quan/meta/not.hpp>
 #include <quan/meta/if.hpp>
+#include <quan/meta/bool/true.hpp>
+#include <quan/meta/and.hpp>
+#include <quan/where.hpp>
 
 namespace quan{ namespace meta{
+
+    struct unit_base{ 
+//      private: 
+//         unit_base() = delete;
+     };
 
     template <
         typename StaticAbstractQuantity,
         typename StaticConversionFactor
     >
-    struct unit{
+    struct unit : unit_base{
         typedef StaticAbstractQuantity      abstract_quantity;
         typedef StaticConversionFactor      conversion_factor;
         typedef unit                        type;
     };
 
+    template <typename T> 
+    struct is_static_unit<T,typename quan::where_<std::is_base_of<unit_base,T> >::type> : quan::meta::true_{};
+
+#if 1
+      template <typename TL, typename TR>
+      struct dimensionally_equivalent<
+         TL, TR,
+         typename quan::where_<
+            typename quan::meta::and_<
+               is_static_unit<TL>,
+               is_static_unit<TR>
+            >
+         >::type
+      > : dimensionally_equivalent<
+            typename TL::abstract_quantity,
+            typename TR::abstractquantity
+      >{};
+
+#else
     template <
         typename StaticAbstractQuantity_L,
         typename StaticConversionFactor_L,
@@ -67,7 +94,25 @@ namespace quan{ namespace meta{
         StaticAbstractQuantity_L,
         StaticAbstractQuantity_R
       >{};
+#endif
 
+#if 1
+
+    template <typename T> 
+    struct name_anonymous_unit <T,
+      typename quan::where_<
+         is_static_unit<T> 
+      >::type
+    >{
+        typedef unit<
+            typename name_anonymous_abstract_quantity<
+               typename T::abstract_quantity
+            >::type,
+           typename T::conversion_factor
+         > type;
+    };
+
+#else
     template <
          typename StaticAbstractQuantity,
         typename StaticConversionFactor
@@ -94,7 +139,17 @@ namespace quan{ namespace meta{
             StaticConversionFactor
          > type;
      };
+#endif
 
+#if 1
+    template <typename T>
+    struct allow_implicit_unit_conversions<
+      T,
+      typename quan::where_<
+         is_static_unit<T> 
+      >::type
+    >
+#else
     template <
         typename StaticAbstractQuantity,
         typename StaticConversionFactor
@@ -105,12 +160,22 @@ namespace quan{ namespace meta{
             StaticConversionFactor
         >
     >
+#endif
 #ifdef QUAN_DISALLOW_IMPLICIT_UNIT_CONVERSIONS
     : std::false_type{};
 #else
     : std::true_type{};
 #endif
 
+#if 1
+      template <typename T>
+      struct is_dimensionless<
+         T,
+         typename quan::where_<
+           is_static_unit<T> 
+         >::type
+       > : is_dimensionless<typename T::abstract_quantity>{};
+#else
     template <
         typename StaticAbstractQuantity,
         typename StaticConversionFactor
@@ -121,7 +186,11 @@ namespace quan{ namespace meta{
             StaticConversionFactor
         >
     > : is_dimensionless<StaticAbstractQuantity>{};
+#endif
 
+#if 1
+
+#else
     template <
         typename StaticAbstractQuantity,
         typename StaticConversionFactor
@@ -137,6 +206,8 @@ namespace quan{ namespace meta{
         >::type,
         StaticConversionFactor
     >{};
+#endif
+
 
     template <
         typename StaticAbstractQuantity,
@@ -257,7 +328,16 @@ namespace quan{ namespace meta{
                 ConversionFactorR
             >
     >{};
+#if 1
+    template <typename T>
+    struct get_conversion_factor<
+      T,
+      typename quan::where_<is_static_unit<T> >::type
+    >{
+      typedef typename T::conversion_factor type;
+    };
 
+#else
     template <
         typename StaticAbstractQuantity,
         typename StaticConversionFactor
@@ -268,6 +348,7 @@ namespace quan{ namespace meta{
             StaticConversionFactor
         >
     > : StaticConversionFactor{};
+#endif
 
     #define QUAN_META_GET_DIMENSION(Q) \
     template <typename StaticAbstractQuantity,typename StaticConversionFactor>\
