@@ -38,14 +38,16 @@ void anonymous_cast_test()
         quan::meta::times,
         quan::time::s
     >::type auto_length;
-
+#if 0
 #ifdef QUAN_ENABLE_SELECTED_HOISTED_QUANTITIES
 // length is hoisted
+    
     QUAN_CHECK( ( typeid(auto_length) == typeid(length)));
     QUAN_CHECK( ( typeid(auto_length) != typeid(anonymous_cast(length) )));
 #else
    QUAN_CHECK( ( typeid(auto_length) != typeid(length)));
    QUAN_CHECK( ( typeid(auto_length) == typeid(anonymous_cast(length) )));
+#endif
 #endif
 }
 
