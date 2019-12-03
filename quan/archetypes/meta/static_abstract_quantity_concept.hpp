@@ -30,21 +30,31 @@
 #endif
 #include <quan/meta/anonymous_quantity_traits.hpp>
 #include <quan/meta/if.hpp>
+#include <quan/meta/bool/false.hpp>
+#include <quan/meta/bool/true.hpp>
+#include <quan/where.hpp>
+#include <quan/undefined.hpp>
 
 namespace quan { namespace meta{
 
     template <
-        typename Quantity_L,
-        typename Quantity_R
-    > 
-    struct dimensionally_equivalent;
+       typename Lhs,
+       typename Rhs,
+       typename Enable = void
+    > struct dimensionally_equivalent : quan::meta::false_{};
 
-    template <typename StaticAbstractQuantity>
-    struct is_dimensionless : if_<
-      std::is_arithmetic<StaticAbstractQuantity>,
-      std::true_type,
-      void
-    >{};
+
+    template <
+      typename Q, 
+      typename Where = void
+    >
+    struct is_dimensionless : quan::meta::false_{};
+
+    template <typename Q>
+    struct is_dimensionless<
+      Q,
+      typename quan::where_<std::is_arithmetic<Q> >::type
+    > : quan::meta::true_{};
 
     template <
         typename Quantity_L,
@@ -55,11 +65,11 @@ namespace quan { namespace meta{
     template <typename Quantity>
     struct is_named_quantity;
 
-    template <typename Quantity>
+    template <typename Quantity, typename Where = void>
     struct make_anonymous;
 
-    template <typename Quantity>
-    struct get_named_quantity_traits;
+    template <typename Quantity, typename Where = void>
+    struct get_named_quantity_traits : quan::undefined{};
 
     template <typename Quantity>
     struct get_length_dimension;

@@ -39,6 +39,8 @@
 namespace quan{ namespace meta{
 
     namespace impl{
+
+#if 0
         template <
             typename StaticUnit_L ,
             typename NumericType_L ,
@@ -79,6 +81,48 @@ namespace quan{ namespace meta{
                 value_type
             >::type type;
         };
+#else
+
+        template <typename Lhs, typename Rhs>
+         struct binary_op_impl<
+            Lhs,divides, Rhs,
+            typename quan::where_<
+               quan::meta::and_<
+                  quan::meta::is_fixed_quantity<Lhs>,
+                  quan::meta::is_fixed_quantity<Rhs>
+               >
+            >::type
+         >{
+            typedef typename Lhs::unit lhs_unit;
+            typedef typename Rhs::unit rhs_unit;
+            typedef typename binary_op<
+                lhs_unit ,
+                divides ,
+                rhs_unit 
+            >::type def_unit;
+            typedef typename eval_if<
+               and_<
+                  not_<is_named_quantity<def_unit> >,
+                  is_si<def_unit>
+               >,
+               name_anonymous_unit<def_unit>,
+               def_unit
+            >::type mod_units;
+            typedef typename Lhs::value_type lhs_value_type;
+            typedef typename Rhs::value_type rhs_value_type;
+             typedef typename binary_op<
+                lhs_value_type,
+                divides, 
+                rhs_value_type
+            >::type value_type;
+
+           typedef typename fixed_quantity<
+                mod_units ,
+                value_type
+            >::type type;
+
+         };
+#endif
     } // impl
 }}//quan::meta
 

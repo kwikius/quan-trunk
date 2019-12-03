@@ -36,20 +36,25 @@
 #include <quan/archetypes/meta/static_abstract_quantity_concept.hpp>
 #include <quan/meta/get_quantity_system.hpp>
 #include <quan/archetypes/meta/conversion_factor_concept.hpp>
+#include <quan/meta/bool/false.hpp>
+#include <quan/undefined.hpp>
 
 namespace quan { namespace meta{
 
-    template <typename StaticUnit>
-    struct get_conversion_factor;
+    template <typename StaticUnit, typename Where = void >
+    struct get_conversion_factor : quan::undefined{};
 
-    template <typename StaticUnit>
+    template <typename StaticUnit, typename Where>
     struct get_named_quantity_traits;
 
-    template <typename StaticUnit>
-    struct allow_implicit_unit_conversions;
+    template <typename StaticUnit, typename Where = void>
+    struct allow_implicit_unit_conversions : false_{};
 
-    template <typename StaticUnit>
-    struct name_anonymous_unit;
+    template <typename StaticUnit, typename Where = void>
+    struct name_anonymous_unit : quan::undefined{};
+
+    template <typename T, typename where = void>
+    struct is_static_unit : quan::meta::false_{};
 
 } }//quan::meta
 
