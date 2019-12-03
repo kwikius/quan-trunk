@@ -34,22 +34,22 @@
 
 namespace quan{namespace meta{
 
-    template <typename T>
+    template <typename T, typename Where = void>
     struct get_nearest_si;
 
-    template <typename T>
+    template <typename T,typename Where = void>
     struct is_si;
     
-    template<typename TL,typename TR>
+    template<typename TL,typename TR,typename Where = void>
     struct get_finest_grained;
 
-    template <typename Unit>
+    template <typename Unit,typename Where = void>
     struct get_exponent;
     
-    template <typename Unit>
+    template <typename Unit,typename Where = void>
     struct get_multiplier;
     
-    template <typename Unit_L, typename Unit_R>
+    template <typename Unit_L, typename Unit_R,typename Where = void>
     struct is_math_same_conversion_factor;
 
 }}//quan::meta

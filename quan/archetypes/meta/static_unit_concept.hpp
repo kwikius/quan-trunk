@@ -44,11 +44,11 @@ namespace quan { namespace meta{
     template <typename StaticUnit, typename Where = void >
     struct get_conversion_factor : quan::undefined{};
 
-    template <typename StaticUnit, typename Where>
-    struct get_named_quantity_traits;
+//    template <typename StaticUnit, typename Where>
+//    struct get_named_quantity_traits : quan::undefined{};
 
     template <typename StaticUnit, typename Where = void>
-    struct allow_implicit_unit_conversions : false_{};
+    struct allow_implicit_unit_conversions : quan::meta::false_{};
 
     template <typename StaticUnit, typename Where = void>
     struct name_anonymous_unit : quan::undefined{};
