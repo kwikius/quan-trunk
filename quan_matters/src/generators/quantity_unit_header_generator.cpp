@@ -10,6 +10,7 @@
 #include <iostream>
 #include <quan/fusion/make_vector.hpp>
 #include <quan/fun/for_each.hpp>
+#include <quan/fun/integer_range.hpp>
 #include <string>
 #include <fstream>
 
@@ -80,6 +81,7 @@ auto get_quantities_list()
    );
 }
 
+#if 0
 auto get_si_units_list()
 {
   using quan::meta::si_unit;
@@ -107,6 +109,7 @@ auto get_si_units_list()
          si_unit::yocto{}
       ); 
 }
+#endif
 
 /*
    we input an SiUnit and a quantity traits
@@ -149,24 +152,24 @@ auto get_si_units_list()
   };
 
 // we have pretested the SiUnit so it is good
-template <typename SiUnit, typename OfQ>
-void output_unit(std::ostream & out)
-{
-     std::string const quantity_name = OfQ::abstract_quantity_name();
-     std::string const quantity_symbol = OfQ:: template unprefixed_symbol<char>();
-     
-      typedef typename get_adjusted_si_unit::apply<
-         SiUnit,OfQ
-      >::type adjusted_si_unit;
-     std::string const si_unit_name = quan::meta::si_unit::template prefix<SiUnit>::name();
-     
-     std::string const si_unit_prefix = quan::meta::si_unit::template prefix<adjusted_si_unit>:: template symbol<char>();
-     out << "   struct " << si_unit_prefix << quantity_symbol << " :  quan::meta::unit<\n";
-     out << "      quan::meta::components::of_" << quantity_name << "::abstract_quantity,\n";
-     out << "      typename quan::meta::si_unit::" << ((si_unit_name!="")?si_unit_name:"none") << " // coherent-exponent " << SiUnit::exponent::numerator << '\n';
-     out << "   >{};\n";
-
-}
+//template <typename SiUnit, typename OfQ>
+//void output_unit(std::ostream & out)
+//{
+//     std::string const quantity_name = OfQ::abstract_quantity_name();
+//     std::string const quantity_symbol = OfQ:: template unprefixed_symbol<char>();
+//     
+//      typedef typename get_adjusted_si_unit::apply<
+//         SiUnit,OfQ
+//      >::type adjusted_si_unit;
+//     std::string const si_unit_name = quan::meta::si_unit::template prefix<SiUnit>::name();
+//     
+//     std::string const si_unit_prefix = quan::meta::si_unit::template prefix<adjusted_si_unit>:: template symbol<char>();
+//     out << "   struct " << si_unit_prefix << quantity_symbol << " :  quan::meta::unit<\n";
+//     out << "      quan::meta::components::of_" << quantity_name << "::abstract_quantity,\n";
+//     out << "      typename quan::meta::si_unit::" << ((si_unit_name!="")?si_unit_name:"none") << " // coherent_exponent " << SiUnit::exponent::numerator << '\n';
+//     out << "   >{};\n";
+//
+//}
 
 // we have pretested the SiUnit so it is good
 template <typename SiUnit, typename OfQ>
@@ -204,10 +207,17 @@ struct output_typedef_t{
 
 struct null_fun{
    typedef null_fun type;
-   template <typename T>
-   null_fun(T const &){}
-   template <typename T>
-   void operator()(T const & t)const  { std::cout << "nullfun\n";}
+  
+   null_fun(std::ostream & out):m_out{out}{}
+    std::ostream & m_out;
+   template <typename SiUnit>
+   void operator()(SiUnit const & )const 
+   {
+      typedef typename quan::meta::get_exponent<SiUnit>::type exponent;
+      static constexpr int64_t value = quan::meta::numerator<exponent>::value;
+      static_assert( quan::meta::denominator<exponent>::value == 1,"exponent is not integer");
+      m_out << "      // coherent_exponent :" << static_cast<int>( value) << " -> N/A\n";
+   }
 };
 
 template <typename OfQ>
@@ -232,7 +242,7 @@ struct output_unit_t{
      std::string const si_unit_prefix = quan::meta::si_unit::template prefix<adjusted_si_unit>:: template symbol<char>();
      m_out << "   struct " << si_unit_prefix << quantity_symbol << " :  quan::meta::unit<\n";
      m_out << "      quan::meta::components::of_" << quantity_name << "::abstract_quantity,\n";
-     m_out << "      typename quan::meta::si_unit::" << ((si_unit_name!="")?si_unit_name:"none") << " // coherent-exponent " << SiUnit::exponent::numerator << '\n';
+     m_out << "      typename quan::meta::si_unit::" << ((si_unit_name!="")?si_unit_name:"none") << " // coherent_exponent " << SiUnit::exponent::numerator << '\n';
      m_out << "   >{};\n";
 
    }
@@ -248,22 +258,28 @@ struct output_unit_if_t{
    output_unit_if_t(std::ostream & out):m_out{out}{}
 
    std::ostream & m_out;
-   template <typename SiUnit>
-   void operator()(SiUnit const & u)const
+   // pass in an integral_constant
+   template <typename IntegralConstant>
+   void operator()(IntegralConstant const & I)const
    {
+      typedef quan::meta::conversion_factor<
+         quan::meta::rational<IntegralConstant::value>
+      > si_unit;
+
       typedef typename get_adjusted_si_unit::apply<
-         SiUnit,OfQ
+        si_unit,OfQ
       >::type adjusted_si_unit;
+
       typedef typename quan::meta::eval_if<
          quan::meta::or_<
             std::is_same<adjusted_si_unit, quan::undefined>,
             quan::meta::bool_<quan::meta::si_unit::template prefix<adjusted_si_unit>::value == false>,
-            quan::meta::bool_<quan::meta::si_unit::template prefix<SiUnit>::value == false>
+            quan::meta::bool_<quan::meta::si_unit::template prefix<si_unit>::value == false>
          >,
          null_fun,
          F<OfQ>
       >::type fun;
-      fun{m_out}(u);
+      fun{m_out}(si_unit{});
    }
 
 };
@@ -274,13 +290,14 @@ struct output_quantity{
    template <typename Q>
    void operator()(Q const &)const
    {
-      auto si_units = get_si_units_list();
+   
+      quan::fun::integer_range<-27,27> si_exp_range;
       std::string const quantity_name = Q::abstract_quantity_name();
       m_out << "struct of_" << quantity_name <<"{\n";
-      quan::fun::for_each(si_units,output_unit_if_t<Q, output_unit_t >{m_out});
+      quan::fun::for_each(si_exp_range,output_unit_if_t<Q, output_unit_t >{m_out});
       m_out << "};\n";
       m_out << "----------------------------------------\n\n";
-      quan::fun::for_each(si_units,output_unit_if_t<Q,output_typedef_t >{m_out});
+      quan::fun::for_each(si_exp_range,output_unit_if_t<Q,output_typedef_t >{m_out});
       m_out << "------------###############-------------\n\n";
    }
 };
