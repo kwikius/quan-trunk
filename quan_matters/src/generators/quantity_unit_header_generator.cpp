@@ -86,10 +86,8 @@ auto get_quantities_list()
 }
 
 /*
-   Input an SiUnit and a quantity traits
-   the si_unit is adjusted
-   The resulting type may be undefined
-   or an si conversion_factor
+   Input an SiUnit and  quantity_traits
+   output adjusted unit of actual exp it represents
 */
   struct get_adjusted_si_unit{
     template <typename SiUnit, typename OfQ>
@@ -102,26 +100,17 @@ auto get_quantities_list()
          static constexpr int64_t extent = OfQ::extent;
          static constexpr int64_t prefix_offset = OfQ::prefix_offset;
 
-         typedef quan::detail::get_adjusted_prefix<extent, prefix_offset> adjust_fun;
+         // out  exp -> exp/extent + offset
+         // #####################################
+         // in   exp -> (exp - offset) * extent
          // the si_unit exponent
-         static constexpr int64_t si_exponent_value = quan::meta::numerator<exponent>::value;
-         // check for clean divison
-         static constexpr bool divison_clean = si_exponent_value % extent == 0;
 
-         // if clean divison then evaluate the adjusted prefix
-         typedef typename quan::meta::eval_if_c<
-            divison_clean,
-            typename adjust_fun:: template apply<si_exponent_value>,
-            quan::undefined
-         >::type adjusted_exponent;
-         // finlly if its valid create a conversion factor
-         typedef typename quan::meta::if_<
-            std::is_same<quan::undefined,adjusted_exponent>,
-            quan::undefined,
-            quan::meta::conversion_factor<
-               adjusted_exponent
-            >
-         >::type type;
+         static constexpr int64_t si_exponent_value = quan::meta::numerator<exponent>::value;
+         static constexpr int64_t adjusted_exponent_value = (si_exponent_value - prefix_offset) * extent;
+         // check for clean divison
+         typedef quan::meta::conversion_factor<
+            quan::meta::rational<adjusted_exponent_value>
+         > type;
      };
   };
 
@@ -129,19 +118,15 @@ auto get_quantities_list()
 template <typename SiUnit, typename OfQ>
 void output_typedef(std::ostream & out)
 {
-   typedef typename get_adjusted_si_unit::apply<
-      SiUnit,OfQ
-   >::type adjusted_si_unit;
-   static_assert(! std::is_same<adjusted_si_unit, quan::undefined>::value,"wtf");
    std::string const quantity_name = OfQ::abstract_quantity_name();
    std::string const quantity_symbol = OfQ:: template unprefixed_symbol<char>();
-   std::string const si_unit_name = quan::meta::si_unit:: template prefix<SiUnit>::name();
-   std::string const si_unit_prefix = quan::meta::si_unit:: template prefix<adjusted_si_unit>:: template symbol<char>();
-
+  // std::string const si_unit_name = quan::meta::si_unit:: template prefix<SiUnit>::name();
+   std::string const si_unit_prefix = quan::meta::si_unit:: template prefix<SiUnit>:: template symbol<char>();
+   
    out << "      typedef quan::fixed_quantity<\n";
    out << "         quan::of_" << quantity_name << "::" <<  si_unit_prefix << quantity_symbol << ",\n";
    out << "         Value_type\n";
-   out << "      > " <<  si_unit_prefix << quantity_symbol << ";\n";
+   out << "      > " <<  si_unit_prefix << quantity_symbol << ";\n\n";
 }
 
 template <typename OfQ>
@@ -169,9 +154,9 @@ struct null_fun{
    void operator()(SiUnit const & )const 
    {
       typedef typename quan::meta::get_exponent<SiUnit>::type exponent;
-      static constexpr int64_t value = quan::meta::numerator<exponent>::value;
+     // static constexpr int64_t value = quan::meta::numerator<exponent>::value;
       static_assert( quan::meta::denominator<exponent>::value == 1,"exponent is not integer");
-      m_out << "      // coherent_exponent :" << static_cast<int>( value) << " -> N/A\n";
+     // m_out << "      // ... \n";
    }
 };
 
@@ -185,21 +170,21 @@ struct output_unit_t{
    template <typename SiUnit>
    void operator() (SiUnit const &) const
    {
-      //output_unit<SiUnit,OfQ>(m_out);
       std::string const quantity_name = OfQ::abstract_quantity_name();
-     std::string const quantity_symbol = OfQ:: template unprefixed_symbol<char>();
-     
+      std::string const quantity_symbol = OfQ:: template unprefixed_symbol<char>();
+      std::string const si_unit_name = quan::meta::si_unit::template prefix<SiUnit>::name();
+      std::string const si_unit_prefix = quan::meta::si_unit::template prefix<SiUnit>:: template symbol<char>();
+
       typedef typename get_adjusted_si_unit::apply<
          SiUnit,OfQ
       >::type adjusted_si_unit;
-     static_assert(! std::is_same<adjusted_si_unit, quan::undefined>::value,"wtf");
-     std::string const si_unit_name = quan::meta::si_unit::template prefix<SiUnit>::name();
-     
-     std::string const si_unit_prefix = quan::meta::si_unit::template prefix<adjusted_si_unit>:: template symbol<char>();
-     m_out << "      struct " << si_unit_prefix << quantity_symbol << " :  quan::meta::unit<\n";
-     m_out << "         quan::meta::components::of_" << quantity_name << "::abstract_quantity,\n";
-     m_out << "         typename quan::meta::si_unit::" << ((si_unit_name!="")?si_unit_name:"none") << " // coherent_exponent " << SiUnit::exponent::numerator << '\n';
-     m_out << "      >{};\n";
+      typedef typename adjusted_si_unit::exponent adjusted_exponent;
+      
+      m_out << "      struct " << si_unit_prefix << quantity_symbol << " : quan::meta::unit<\n";
+      m_out << "         quan::meta::components::of_" << quantity_name << "::abstract_quantity,\n";
+      m_out << "         quan::meta::conversion_factor<quan::meta::rational<" 
+                            << quan::meta::numerator<adjusted_exponent>::value << "> >\n";
+      m_out << "      >{};\n\n";
 
    }
   
@@ -223,20 +208,11 @@ struct output_unit_if_t{
          quan::meta::rational<IntegralConstant::value>
       > si_unit;
 
-      // adjust for the quantity
-      typedef typename get_adjusted_si_unit::apply<
-        si_unit,OfQ
-      >::type adjusted_si_unit;
-
-      // if it is good output it
       typedef typename quan::meta::eval_if<
-         quan::meta::or_<
-            std::is_same<adjusted_si_unit, quan::undefined>,
-            quan::meta::bool_<quan::meta::si_unit::template prefix<adjusted_si_unit>::value == false>,
-            quan::meta::bool_<quan::meta::si_unit::template prefix<si_unit>::value == false>
-         >,
-         null_fun,
-         F<OfQ>
+         // if its a valid prefix
+         quan::meta::bool_<quan::meta::si_unit::template prefix<si_unit>::value == true >
+         ,F<OfQ>
+         ,null_fun
       >::type fun;
       fun{m_out}(si_unit{});
    }
@@ -255,18 +231,23 @@ struct output_quantity{
       std::string const quantity_name = Q::abstract_quantity_name();
       std::cout << "Outputting units for " << quantity_name << '\n';
 
-      m_out << "#if 1\n";
-      quan::fun::for_each(si_exp_range,output_unit_if_t<Q,output_typedef_t >{m_out});
-      m_out << "#else\n";
-      m_out << "#endif\n\n";
+      m_out << "\\----------------------------------------\n\n";
 
-      m_out << "----------------------------------------\n\n";
-
-      m_out << "   struct of_" << quantity_name <<"{\n";
+      m_out << "   struct of_" << quantity_name <<"{\n\n";
       quan::fun::for_each(si_exp_range,output_unit_if_t<Q, output_unit_t >{m_out});
       m_out << "   };\n\n";
 
-      m_out << "------------###############-------------\n\n";
+      m_out << "   template<\n";
+      m_out << "      typename Value_type\n";
+      m_out << "   >\n";
+      m_out << "   struct " << quantity_name << "_ : quan::meta::components::of_" << quantity_name << "{\n\n";
+
+     // m_out << "#if 1\n";
+      quan::fun::for_each(si_exp_range,output_unit_if_t<Q,output_typedef_t >{m_out});
+     // m_out << "#else\n";
+     // m_out << "#endif\n\n";
+
+      m_out << "\n\\------------###############-------------\n\n";
    }
 };
  // single output
@@ -277,7 +258,7 @@ int main()
 {  
    std::ofstream out("quan_matters/src/generators/output.txt");
 #if 1
-   output_quantity<-27,27>{out}(quan::meta::components::of_area{});
+   output_quantity<-27,27>{out}(quan::meta::components::of_mass{});
 #else
    // N.B takes around 2 minutes to build this version
    quan::fun::for_each(get_quantities_list(),output_quantity<-27,27>{out});
