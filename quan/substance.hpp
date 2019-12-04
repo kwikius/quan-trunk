@@ -31,169 +31,225 @@
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct substance_ : meta::components::of_substance{
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > ymol;
+     struct of_substance{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zmol;
+      struct ymol : quan::meta::unit<
+         quan::meta::components::of_substance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > amol;
+      struct zmol : quan::meta::unit<
+         quan::meta::components::of_substance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fmol;
+      struct amol : quan::meta::unit<
+         quan::meta::components::of_substance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pmol;
+      struct fmol : quan::meta::unit<
+         quan::meta::components::of_substance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nmol;
+      struct pmol : quan::meta::unit<
+         quan::meta::components::of_substance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > umol;
+      struct nmol : quan::meta::unit<
+         quan::meta::components::of_substance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mmol;
+      struct umol : quan::meta::unit<
+         quan::meta::components::of_substance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cmol;
+      struct mmol : quan::meta::unit<
+         quan::meta::components::of_substance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dmol;
+      struct cmol : quan::meta::unit<
+         quan::meta::components::of_substance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > mol;
+      struct dmol : quan::meta::unit<
+         quan::meta::components::of_substance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > damol;
+      struct mol : quan::meta::unit<
+         quan::meta::components::of_substance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hmol;
+      struct damol : quan::meta::unit<
+         quan::meta::components::of_substance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > kmol;
+      struct hmol : quan::meta::unit<
+         quan::meta::components::of_substance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > Mmol;
+      struct kmol : quan::meta::unit<
+         quan::meta::components::of_substance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > Gmol;
+      struct Mmol : quan::meta::unit<
+         quan::meta::components::of_substance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > Tmol;
+      struct Gmol : quan::meta::unit<
+         quan::meta::components::of_substance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > Pmol;
+      struct Tmol : quan::meta::unit<
+         quan::meta::components::of_substance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > Emol;
+      struct Pmol : quan::meta::unit<
+         quan::meta::components::of_substance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > Zmol;
+      struct Emol : quan::meta::unit<
+         quan::meta::components::of_substance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
+
+      struct Zmol : quan::meta::unit<
+         quan::meta::components::of_substance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct Ymol : quan::meta::unit<
+         quan::meta::components::of_substance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct substance_ : quan::meta::components::of_substance{
+
+      typedef quan::fixed_quantity<
+         quan::of_substance::ymol,
+         Value_type
+      > ymol;
+
+      typedef quan::fixed_quantity<
+         quan::of_substance::zmol,
+         Value_type
+      > zmol;
+
+      typedef quan::fixed_quantity<
+         quan::of_substance::amol,
+         Value_type
+      > amol;
+
+      typedef quan::fixed_quantity<
+         quan::of_substance::fmol,
+         Value_type
+      > fmol;
+
+      typedef quan::fixed_quantity<
+         quan::of_substance::pmol,
+         Value_type
+      > pmol;
+
+      typedef quan::fixed_quantity<
+         quan::of_substance::nmol,
+         Value_type
+      > nmol;
+
+      typedef quan::fixed_quantity<
+         quan::of_substance::umol,
+         Value_type
+      > umol;
+
+      typedef quan::fixed_quantity<
+         quan::of_substance::mmol,
+         Value_type
+      > mmol;
+
+      typedef quan::fixed_quantity<
+         quan::of_substance::cmol,
+         Value_type
+      > cmol;
+
+      typedef quan::fixed_quantity<
+         quan::of_substance::dmol,
+         Value_type
+      > dmol;
+
+      typedef quan::fixed_quantity<
+         quan::of_substance::mol,
+         Value_type
+      > mol;
+
+      typedef quan::fixed_quantity<
+         quan::of_substance::damol,
+         Value_type
+      > damol;
+
+      typedef quan::fixed_quantity<
+         quan::of_substance::hmol,
+         Value_type
+      > hmol;
+
+      typedef quan::fixed_quantity<
+         quan::of_substance::kmol,
+         Value_type
+      > kmol;
+
+      typedef quan::fixed_quantity<
+         quan::of_substance::Mmol,
+         Value_type
+      > Mmol;
+
+      typedef quan::fixed_quantity<
+         quan::of_substance::Gmol,
+         Value_type
+      > Gmol;
+
+      typedef quan::fixed_quantity<
+         quan::of_substance::Tmol,
+         Value_type
+      > Tmol;
+
+      typedef quan::fixed_quantity<
+         quan::of_substance::Pmol,
+         Value_type
+      > Pmol;
+
+      typedef quan::fixed_quantity<
+         quan::of_substance::Emol,
+         Value_type
+      > Emol;
+
+      typedef quan::fixed_quantity<
+         quan::of_substance::Zmol,
+         Value_type
+      > Zmol;
+
+      typedef quan::fixed_quantity<
+         quan::of_substance::Ymol,
+         Value_type
+      > Ymol;
+
 
     };
 

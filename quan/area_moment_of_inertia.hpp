@@ -26,175 +26,226 @@
 
 namespace quan{
 
-   struct of_area_moment_of_inertia{
-         // coherent_exponent :-27 -> N/A
-         // coherent_exponent :-26 -> N/A
-         // coherent_exponent :-25 -> N/A
-      struct um4 :  quan::meta::unit<
+    struct of_area_moment_of_inertia{
+
+      struct ym4 : quan::meta::unit<
          quan::meta::components::of_area_moment_of_inertia::abstract_quantity,
-         typename quan::meta::si_unit::yocto // coherent_exponent -24
+         quan::meta::conversion_factor<quan::meta::rational<-96> >
       >{};
-         // coherent_exponent :-23 -> N/A
-         // coherent_exponent :-22 -> N/A
-         // coherent_exponent :-21 -> N/A
-         // coherent_exponent :-20 -> N/A
-         // coherent_exponent :-19 -> N/A
-         // coherent_exponent :-18 -> N/A
-         // coherent_exponent :-17 -> N/A
-         // coherent_exponent :-16 -> N/A
-         // coherent_exponent :-15 -> N/A
-         // coherent_exponent :-14 -> N/A
-         // coherent_exponent :-13 -> N/A
-      struct mm4 :  quan::meta::unit<
+
+      struct zm4 : quan::meta::unit<
          quan::meta::components::of_area_moment_of_inertia::abstract_quantity,
-         typename quan::meta::si_unit::pico // coherent_exponent -12
+         quan::meta::conversion_factor<quan::meta::rational<-84> >
       >{};
-         // coherent_exponent :-11 -> N/A
-         // coherent_exponent :-10 -> N/A
-         // coherent_exponent :-9 -> N/A
-         // coherent_exponent :-8 -> N/A
-         // coherent_exponent :-7 -> N/A
-         // coherent_exponent :-6 -> N/A
-         // coherent_exponent :-5 -> N/A
-         // coherent_exponent :-4 -> N/A
-         // coherent_exponent :-3 -> N/A
-         // coherent_exponent :-2 -> N/A
-         // coherent_exponent :-1 -> N/A
-      struct m4 :  quan::meta::unit<
+
+      struct am4 : quan::meta::unit<
          quan::meta::components::of_area_moment_of_inertia::abstract_quantity,
-         typename quan::meta::si_unit::none // coherent_exponent 0
+         quan::meta::conversion_factor<quan::meta::rational<-72> >
       >{};
-         // coherent_exponent :1 -> N/A
-         // coherent_exponent :2 -> N/A
-         // coherent_exponent :3 -> N/A
-         // coherent_exponent :4 -> N/A
-         // coherent_exponent :5 -> N/A
-         // coherent_exponent :6 -> N/A
-         // coherent_exponent :7 -> N/A
-         // coherent_exponent :8 -> N/A
-         // coherent_exponent :9 -> N/A
-         // coherent_exponent :10 -> N/A
-         // coherent_exponent :11 -> N/A
-      struct km4 :  quan::meta::unit<
+
+      struct fm4 : quan::meta::unit<
          quan::meta::components::of_area_moment_of_inertia::abstract_quantity,
-         typename quan::meta::si_unit::tera // coherent_exponent 12
+         quan::meta::conversion_factor<quan::meta::rational<-60> >
       >{};
-         // coherent_exponent :13 -> N/A
-         // coherent_exponent :14 -> N/A
-         // coherent_exponent :15 -> N/A
-         // coherent_exponent :16 -> N/A
-         // coherent_exponent :17 -> N/A
-         // coherent_exponent :18 -> N/A
-         // coherent_exponent :19 -> N/A
-         // coherent_exponent :20 -> N/A
-         // coherent_exponent :21 -> N/A
-         // coherent_exponent :22 -> N/A
-         // coherent_exponent :23 -> N/A
-      struct Mm4 :  quan::meta::unit<
+
+      struct pm4 : quan::meta::unit<
          quan::meta::components::of_area_moment_of_inertia::abstract_quantity,
-         typename quan::meta::si_unit::yotta // coherent_exponent 24
+         quan::meta::conversion_factor<quan::meta::rational<-48> >
       >{};
-         // coherent_exponent :25 -> N/A
-         // coherent_exponent :26 -> N/A
-         // coherent_exponent :27 -> N/A
+
+      struct nm4 : quan::meta::unit<
+         quan::meta::components::of_area_moment_of_inertia::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-36> >
+      >{};
+
+      struct um4 : quan::meta::unit<
+         quan::meta::components::of_area_moment_of_inertia::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
+
+      struct mm4 : quan::meta::unit<
+         quan::meta::components::of_area_moment_of_inertia::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
+
+      struct cm4 : quan::meta::unit<
+         quan::meta::components::of_area_moment_of_inertia::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-8> >
+      >{};
+
+      struct dm4 : quan::meta::unit<
+         quan::meta::components::of_area_moment_of_inertia::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-4> >
+      >{};
+
+      struct m4 : quan::meta::unit<
+         quan::meta::components::of_area_moment_of_inertia::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
+
+      struct dam4 : quan::meta::unit<
+         quan::meta::components::of_area_moment_of_inertia::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<4> >
+      >{};
+
+      struct hm4 : quan::meta::unit<
+         quan::meta::components::of_area_moment_of_inertia::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<8> >
+      >{};
+
+      struct km4 : quan::meta::unit<
+         quan::meta::components::of_area_moment_of_inertia::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
+
+      struct Mm4 : quan::meta::unit<
+         quan::meta::components::of_area_moment_of_inertia::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+      struct Gm4 : quan::meta::unit<
+         quan::meta::components::of_area_moment_of_inertia::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<36> >
+      >{};
+
+      struct Tm4 : quan::meta::unit<
+         quan::meta::components::of_area_moment_of_inertia::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<48> >
+      >{};
+
+      struct Pm4 : quan::meta::unit<
+         quan::meta::components::of_area_moment_of_inertia::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<60> >
+      >{};
+
+      struct Em4 : quan::meta::unit<
+         quan::meta::components::of_area_moment_of_inertia::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<72> >
+      >{};
+
+      struct Zm4 : quan::meta::unit<
+         quan::meta::components::of_area_moment_of_inertia::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<84> >
+      >{};
+
+      struct Ym4 : quan::meta::unit<
+         quan::meta::components::of_area_moment_of_inertia::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<96> >
+      >{};
+
    };
 
-    template<
-        typename Value_type
-    >
-    struct area_moment_of_inertia_ : meta::components::of_area_moment_of_inertia{
-       
-#if 1
+   template<
+      typename Value_type
+   >
+   struct area_moment_of_inertia_ : quan::meta::components::of_area_moment_of_inertia{
 
-  // coherent_exponent :-27 -> N/A
-      // coherent_exponent :-26 -> N/A
-      // coherent_exponent :-25 -> N/A
+      typedef quan::fixed_quantity<
+         quan::of_area_moment_of_inertia::ym4,
+         Value_type
+      > ym4;
+
+      typedef quan::fixed_quantity<
+         quan::of_area_moment_of_inertia::zm4,
+         Value_type
+      > zm4;
+
+      typedef quan::fixed_quantity<
+         quan::of_area_moment_of_inertia::am4,
+         Value_type
+      > am4;
+
+      typedef quan::fixed_quantity<
+         quan::of_area_moment_of_inertia::fm4,
+         Value_type
+      > fm4;
+
+      typedef quan::fixed_quantity<
+         quan::of_area_moment_of_inertia::pm4,
+         Value_type
+      > pm4;
+
+      typedef quan::fixed_quantity<
+         quan::of_area_moment_of_inertia::nm4,
+         Value_type
+      > nm4;
+
       typedef quan::fixed_quantity<
          quan::of_area_moment_of_inertia::um4,
          Value_type
       > um4;
-      // coherent_exponent :-23 -> N/A
-      // coherent_exponent :-22 -> N/A
-      // coherent_exponent :-21 -> N/A
-      // coherent_exponent :-20 -> N/A
-      // coherent_exponent :-19 -> N/A
-      // coherent_exponent :-18 -> N/A
-      // coherent_exponent :-17 -> N/A
-      // coherent_exponent :-16 -> N/A
-      // coherent_exponent :-15 -> N/A
-      // coherent_exponent :-14 -> N/A
-      // coherent_exponent :-13 -> N/A
+
       typedef quan::fixed_quantity<
          quan::of_area_moment_of_inertia::mm4,
          Value_type
       > mm4;
-      // coherent_exponent :-11 -> N/A
-      // coherent_exponent :-10 -> N/A
-      // coherent_exponent :-9 -> N/A
-      // coherent_exponent :-8 -> N/A
-      // coherent_exponent :-7 -> N/A
-      // coherent_exponent :-6 -> N/A
-      // coherent_exponent :-5 -> N/A
-      // coherent_exponent :-4 -> N/A
-      // coherent_exponent :-3 -> N/A
-      // coherent_exponent :-2 -> N/A
-      // coherent_exponent :-1 -> N/A
+
+      typedef quan::fixed_quantity<
+         quan::of_area_moment_of_inertia::cm4,
+         Value_type
+      > cm4;
+
+      typedef quan::fixed_quantity<
+         quan::of_area_moment_of_inertia::dm4,
+         Value_type
+      > dm4;
+
       typedef quan::fixed_quantity<
          quan::of_area_moment_of_inertia::m4,
          Value_type
       > m4;
-      // coherent_exponent :1 -> N/A
-      // coherent_exponent :2 -> N/A
-      // coherent_exponent :3 -> N/A
-      // coherent_exponent :4 -> N/A
-      // coherent_exponent :5 -> N/A
-      // coherent_exponent :6 -> N/A
-      // coherent_exponent :7 -> N/A
-      // coherent_exponent :8 -> N/A
-      // coherent_exponent :9 -> N/A
-      // coherent_exponent :10 -> N/A
-      // coherent_exponent :11 -> N/A
+
+      typedef quan::fixed_quantity<
+         quan::of_area_moment_of_inertia::dam4,
+         Value_type
+      > dam4;
+
+      typedef quan::fixed_quantity<
+         quan::of_area_moment_of_inertia::hm4,
+         Value_type
+      > hm4;
+
       typedef quan::fixed_quantity<
          quan::of_area_moment_of_inertia::km4,
          Value_type
       > km4;
-      // coherent_exponent :13 -> N/A
-      // coherent_exponent :14 -> N/A
-      // coherent_exponent :15 -> N/A
-      // coherent_exponent :16 -> N/A
-      // coherent_exponent :17 -> N/A
-      // coherent_exponent :18 -> N/A
-      // coherent_exponent :19 -> N/A
-      // coherent_exponent :20 -> N/A
-      // coherent_exponent :21 -> N/A
-      // coherent_exponent :22 -> N/A
-      // coherent_exponent :23 -> N/A
+
       typedef quan::fixed_quantity<
          quan::of_area_moment_of_inertia::Mm4,
          Value_type
       > Mm4;
-      // coherent_exponent :25 -> N/A
-      // coherent_exponent :26 -> N/A
-      // coherent_exponent :27 -> N/A
 
-#else
+      typedef quan::fixed_quantity<
+         quan::of_area_moment_of_inertia::Gm4,
+         Value_type
+      > Gm4;
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > m4;
+      typedef quan::fixed_quantity<
+         quan::of_area_moment_of_inertia::Tm4,
+         Value_type
+      > Tm4;
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -3 * 4 = -12
-            >,
-            Value_type
-        > mm4;
-#endif
+      typedef quan::fixed_quantity<
+         quan::of_area_moment_of_inertia::Pm4,
+         Value_type
+      > Pm4;
+
+      typedef quan::fixed_quantity<
+         quan::of_area_moment_of_inertia::Em4,
+         Value_type
+      > Em4;
+
+      typedef quan::fixed_quantity<
+         quan::of_area_moment_of_inertia::Zm4,
+         Value_type
+      > Zm4;
+
+      typedef quan::fixed_quantity<
+         quan::of_area_moment_of_inertia::Ym4,
+         Value_type
+      > Ym4;
+
+
     };
 
     struct area_moment_of_inertia 

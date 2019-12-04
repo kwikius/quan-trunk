@@ -31,161 +31,225 @@
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct volume_ : meta::components::of_volume{
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                meta::conversion_factor<
-                    meta::rational<-54>
-                >
-            >,
-            Value_type
-        > am3;
+   struct of_volume{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                meta::conversion_factor<
-                    meta::rational<-45>
-                >
-            >,
-            Value_type
-        > fm3;
+      struct ym3 : quan::meta::unit<
+         quan::meta::components::of_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-72> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                meta::conversion_factor<
-                    meta::rational<-36>
-                >
-            >,
-            Value_type
-        > pm3;
+      struct zm3 : quan::meta::unit<
+         quan::meta::components::of_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-63> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                meta::conversion_factor<
-                    meta::rational<-27>
-                >
-            >,
-            Value_type
-        > nm3;
+      struct am3 : quan::meta::unit<
+         quan::meta::components::of_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-54> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > um3;
+      struct fm3 : quan::meta::unit<
+         quan::meta::components::of_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-45> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > mm3;
+      struct pm3 : quan::meta::unit<
+         quan::meta::components::of_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-36> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > cm3;
+      struct nm3 : quan::meta::unit<
+         quan::meta::components::of_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-27> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > dm3;
+      struct um3 : quan::meta::unit<
+         quan::meta::components::of_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > m3;
+      struct mm3 : quan::meta::unit<
+         quan::meta::components::of_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > dam3;
+      struct cm3 : quan::meta::unit<
+         quan::meta::components::of_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > hm3;
+      struct dm3 : quan::meta::unit<
+         quan::meta::components::of_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > km3;
+      struct m3 : quan::meta::unit<
+         quan::meta::components::of_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > Mm3;
+      struct dam3 : quan::meta::unit<
+         quan::meta::components::of_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                meta::conversion_factor<
-                    meta::rational<27>
-                >
-            >,
-            Value_type
-        > Gm3;
+      struct hm3 : quan::meta::unit<
+         quan::meta::components::of_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                meta::conversion_factor<
-                    meta::rational<36>
-                >
-            >,
-            Value_type
-        > Tm3;
+      struct km3 : quan::meta::unit<
+         quan::meta::components::of_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                meta::conversion_factor<
-                    meta::rational<45>
-                >
-            >,
-            Value_type
-        > Pm3;
+      struct Mm3 : quan::meta::unit<
+         quan::meta::components::of_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                meta::conversion_factor<
-                    meta::rational<54>
-                >
-            >,
-            Value_type
-        > Em3;
+      struct Gm3 : quan::meta::unit<
+         quan::meta::components::of_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<27> >
+      >{};
+
+      struct Tm3 : quan::meta::unit<
+         quan::meta::components::of_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<36> >
+      >{};
+
+      struct Pm3 : quan::meta::unit<
+         quan::meta::components::of_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<45> >
+      >{};
+
+      struct Em3 : quan::meta::unit<
+         quan::meta::components::of_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<54> >
+      >{};
+
+      struct Zm3 : quan::meta::unit<
+         quan::meta::components::of_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<63> >
+      >{};
+
+      struct Ym3 : quan::meta::unit<
+         quan::meta::components::of_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<72> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct volume_ : quan::meta::components::of_volume{
+
+      typedef quan::fixed_quantity<
+         quan::of_volume::ym3,
+         Value_type
+      > ym3;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume::zm3,
+         Value_type
+      > zm3;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume::am3,
+         Value_type
+      > am3;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume::fm3,
+         Value_type
+      > fm3;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume::pm3,
+         Value_type
+      > pm3;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume::nm3,
+         Value_type
+      > nm3;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume::um3,
+         Value_type
+      > um3;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume::mm3,
+         Value_type
+      > mm3;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume::cm3,
+         Value_type
+      > cm3;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume::dm3,
+         Value_type
+      > dm3;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume::m3,
+         Value_type
+      > m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume::dam3,
+         Value_type
+      > dam3;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume::hm3,
+         Value_type
+      > hm3;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume::km3,
+         Value_type
+      > km3;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume::Mm3,
+         Value_type
+      > Mm3;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume::Gm3,
+         Value_type
+      > Gm3;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume::Tm3,
+         Value_type
+      > Tm3;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume::Pm3,
+         Value_type
+      > Pm3;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume::Em3,
+         Value_type
+      > Em3;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume::Zm3,
+         Value_type
+      > Zm3;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume::Ym3,
+         Value_type
+      > Ym3;
+
 
         typedef fixed_quantity<
             typename non_si_unit::acre_foot,

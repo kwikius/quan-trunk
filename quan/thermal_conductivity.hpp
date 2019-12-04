@@ -31,170 +31,224 @@
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct thermal_conductivity_ : meta::components::of_thermal_conductivity{
-// SI units...
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > yW_per_m_K;
+    struct of_thermal_conductivity{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zW_per_m_K;
+      struct yW_per_m_K : quan::meta::unit<
+         quan::meta::components::of_thermal_conductivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > aW_per_m_K;
+      struct zW_per_m_K : quan::meta::unit<
+         quan::meta::components::of_thermal_conductivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fW_per_m_K;
+      struct aW_per_m_K : quan::meta::unit<
+         quan::meta::components::of_thermal_conductivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pW_per_m_K;
+      struct fW_per_m_K : quan::meta::unit<
+         quan::meta::components::of_thermal_conductivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nW_per_m_K;
+      struct pW_per_m_K : quan::meta::unit<
+         quan::meta::components::of_thermal_conductivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > uW_per_m_K;
+      struct nW_per_m_K : quan::meta::unit<
+         quan::meta::components::of_thermal_conductivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mW_per_m_K;
+      struct uW_per_m_K : quan::meta::unit<
+         quan::meta::components::of_thermal_conductivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cW_per_m_K;
+      struct mW_per_m_K : quan::meta::unit<
+         quan::meta::components::of_thermal_conductivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dW_per_m_K;
+      struct cW_per_m_K : quan::meta::unit<
+         quan::meta::components::of_thermal_conductivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > W_per_m_K;
+      struct dW_per_m_K : quan::meta::unit<
+         quan::meta::components::of_thermal_conductivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > daW_per_m_K;
+      struct W_per_m_K : quan::meta::unit<
+         quan::meta::components::of_thermal_conductivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hW_per_m_K;
+      struct daW_per_m_K : quan::meta::unit<
+         quan::meta::components::of_thermal_conductivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > kW_per_m_K;
+      struct hW_per_m_K : quan::meta::unit<
+         quan::meta::components::of_thermal_conductivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > MW_per_m_K;
+      struct kW_per_m_K : quan::meta::unit<
+         quan::meta::components::of_thermal_conductivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > GW_per_m_K;
+      struct MW_per_m_K : quan::meta::unit<
+         quan::meta::components::of_thermal_conductivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > TW_per_m_K;
+      struct GW_per_m_K : quan::meta::unit<
+         quan::meta::components::of_thermal_conductivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > PW_per_m_K;
+      struct TW_per_m_K : quan::meta::unit<
+         quan::meta::components::of_thermal_conductivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > EW_per_m_K;
+      struct PW_per_m_K : quan::meta::unit<
+         quan::meta::components::of_thermal_conductivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > ZW_per_m_K;
+      struct EW_per_m_K : quan::meta::unit<
+         quan::meta::components::of_thermal_conductivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
+
+      struct ZW_per_m_K : quan::meta::unit<
+         quan::meta::components::of_thermal_conductivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct YW_per_m_K : quan::meta::unit<
+         quan::meta::components::of_thermal_conductivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct thermal_conductivity_ : quan::meta::components::of_thermal_conductivity{
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_conductivity::yW_per_m_K,
+         Value_type
+      > yW_per_m_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_conductivity::zW_per_m_K,
+         Value_type
+      > zW_per_m_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_conductivity::aW_per_m_K,
+         Value_type
+      > aW_per_m_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_conductivity::fW_per_m_K,
+         Value_type
+      > fW_per_m_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_conductivity::pW_per_m_K,
+         Value_type
+      > pW_per_m_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_conductivity::nW_per_m_K,
+         Value_type
+      > nW_per_m_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_conductivity::uW_per_m_K,
+         Value_type
+      > uW_per_m_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_conductivity::mW_per_m_K,
+         Value_type
+      > mW_per_m_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_conductivity::cW_per_m_K,
+         Value_type
+      > cW_per_m_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_conductivity::dW_per_m_K,
+         Value_type
+      > dW_per_m_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_conductivity::W_per_m_K,
+         Value_type
+      > W_per_m_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_conductivity::daW_per_m_K,
+         Value_type
+      > daW_per_m_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_conductivity::hW_per_m_K,
+         Value_type
+      > hW_per_m_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_conductivity::kW_per_m_K,
+         Value_type
+      > kW_per_m_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_conductivity::MW_per_m_K,
+         Value_type
+      > MW_per_m_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_conductivity::GW_per_m_K,
+         Value_type
+      > GW_per_m_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_conductivity::TW_per_m_K,
+         Value_type
+      > TW_per_m_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_conductivity::PW_per_m_K,
+         Value_type
+      > PW_per_m_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_conductivity::EW_per_m_K,
+         Value_type
+      > EW_per_m_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_conductivity::ZW_per_m_K,
+         Value_type
+      > ZW_per_m_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_conductivity::YW_per_m_K,
+         Value_type
+      > YW_per_m_K;
 
 // non SI units...
     };

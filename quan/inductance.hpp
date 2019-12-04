@@ -5,7 +5,7 @@
 #endif
 
 /*
- Copyright (c) 2003-2014 Andy Little.
+ Copyright (c) 2003-2019 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -20,180 +20,229 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
-
- 
-//
-// See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/components/of_inductance.hpp>
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct inductance_ : meta::components::of_inductance{
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > yH;
+   struct of_inductance{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zH;
+      struct yH : quan::meta::unit<
+         quan::meta::components::of_inductance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > aH;
+      struct zH : quan::meta::unit<
+         quan::meta::components::of_inductance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fH;
+      struct aH : quan::meta::unit<
+         quan::meta::components::of_inductance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pH;
+      struct fH : quan::meta::unit<
+         quan::meta::components::of_inductance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nH;
+      struct pH : quan::meta::unit<
+         quan::meta::components::of_inductance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > uH;
+      struct nH : quan::meta::unit<
+         quan::meta::components::of_inductance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mH;
+      struct uH : quan::meta::unit<
+         quan::meta::components::of_inductance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cH;
+      struct mH : quan::meta::unit<
+         quan::meta::components::of_inductance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dH;
+      struct cH : quan::meta::unit<
+         quan::meta::components::of_inductance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > H;
+      struct dH : quan::meta::unit<
+         quan::meta::components::of_inductance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > daH;
+      struct H : quan::meta::unit<
+         quan::meta::components::of_inductance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hH;
+      struct daH : quan::meta::unit<
+         quan::meta::components::of_inductance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > kH;
+      struct hH : quan::meta::unit<
+         quan::meta::components::of_inductance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > MH;
+      struct kH : quan::meta::unit<
+         quan::meta::components::of_inductance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > GH;
+      struct MH : quan::meta::unit<
+         quan::meta::components::of_inductance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > TH;
+      struct GH : quan::meta::unit<
+         quan::meta::components::of_inductance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > PH;
+      struct TH : quan::meta::unit<
+         quan::meta::components::of_inductance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > EH;
+      struct PH : quan::meta::unit<
+         quan::meta::components::of_inductance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > ZH;
+      struct EH : quan::meta::unit<
+         quan::meta::components::of_inductance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
+
+      struct ZH : quan::meta::unit<
+         quan::meta::components::of_inductance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct YH : quan::meta::unit<
+         quan::meta::components::of_inductance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct inductance_ : quan::meta::components::of_inductance{
+
+      typedef quan::fixed_quantity<
+         quan::of_inductance::yH,
+         Value_type
+      > yH;
+
+      typedef quan::fixed_quantity<
+         quan::of_inductance::zH,
+         Value_type
+      > zH;
+
+      typedef quan::fixed_quantity<
+         quan::of_inductance::aH,
+         Value_type
+      > aH;
+
+      typedef quan::fixed_quantity<
+         quan::of_inductance::fH,
+         Value_type
+      > fH;
+
+      typedef quan::fixed_quantity<
+         quan::of_inductance::pH,
+         Value_type
+      > pH;
+
+      typedef quan::fixed_quantity<
+         quan::of_inductance::nH,
+         Value_type
+      > nH;
+
+      typedef quan::fixed_quantity<
+         quan::of_inductance::uH,
+         Value_type
+      > uH;
+
+      typedef quan::fixed_quantity<
+         quan::of_inductance::mH,
+         Value_type
+      > mH;
+
+      typedef quan::fixed_quantity<
+         quan::of_inductance::cH,
+         Value_type
+      > cH;
+
+      typedef quan::fixed_quantity<
+         quan::of_inductance::dH,
+         Value_type
+      > dH;
+
+      typedef quan::fixed_quantity<
+         quan::of_inductance::H,
+         Value_type
+      > H;
+
+      typedef quan::fixed_quantity<
+         quan::of_inductance::daH,
+         Value_type
+      > daH;
+
+      typedef quan::fixed_quantity<
+         quan::of_inductance::hH,
+         Value_type
+      > hH;
+
+      typedef quan::fixed_quantity<
+         quan::of_inductance::kH,
+         Value_type
+      > kH;
+
+      typedef quan::fixed_quantity<
+         quan::of_inductance::MH,
+         Value_type
+      > MH;
+
+      typedef quan::fixed_quantity<
+         quan::of_inductance::GH,
+         Value_type
+      > GH;
+
+      typedef quan::fixed_quantity<
+         quan::of_inductance::TH,
+         Value_type
+      > TH;
+
+      typedef quan::fixed_quantity<
+         quan::of_inductance::PH,
+         Value_type
+      > PH;
+
+      typedef quan::fixed_quantity<
+         quan::of_inductance::EH,
+         Value_type
+      > EH;
+
+      typedef quan::fixed_quantity<
+         quan::of_inductance::ZH,
+         Value_type
+      > ZH;
+
+      typedef quan::fixed_quantity<
+         quan::of_inductance::YH,
+         Value_type
+      > YH;
 
         typedef fixed_quantity<
             typename non_si_unit::abhenry,

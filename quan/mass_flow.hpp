@@ -20,186 +20,229 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
-
- 
-//
-// See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/components/of_mass_flow.hpp>
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct mass_flow_ : meta::components::of_mass_flow{
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                meta::conversion_factor<
-                    meta::rational<-27>
-                >
-            >,
-            Value_type
-        > yg_per_s;
+    struct of_mass_flow{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > zg_per_s;
+      struct yg_per_s : quan::meta::unit<
+         quan::meta::components::of_mass_flow::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-27> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > ag_per_s;
+      struct zg_per_s : quan::meta::unit<
+         quan::meta::components::of_mass_flow::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > fg_per_s;
+      struct ag_per_s : quan::meta::unit<
+         quan::meta::components::of_mass_flow::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > pg_per_s;
+      struct fg_per_s : quan::meta::unit<
+         quan::meta::components::of_mass_flow::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > ng_per_s;
+      struct pg_per_s : quan::meta::unit<
+         quan::meta::components::of_mass_flow::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > ug_per_s;
+      struct ng_per_s : quan::meta::unit<
+         quan::meta::components::of_mass_flow::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > mg_per_s;
+      struct ug_per_s : quan::meta::unit<
+         quan::meta::components::of_mass_flow::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                meta::conversion_factor<
-                    meta::rational<-5>
-                >
-            >,
-            Value_type
-        > cg_per_s;
+      struct mg_per_s : quan::meta::unit<
+         quan::meta::components::of_mass_flow::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                meta::conversion_factor<
-                    meta::rational<-4>
-                >
-            >,
-            Value_type
-        > dg_per_s;
+      struct cg_per_s : quan::meta::unit<
+         quan::meta::components::of_mass_flow::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-5> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > g_per_s;
+      struct dg_per_s : quan::meta::unit<
+         quan::meta::components::of_mass_flow::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-4> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > dag_per_s;
+      struct g_per_s : quan::meta::unit<
+         quan::meta::components::of_mass_flow::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > hg_per_s;
+      struct dag_per_s : quan::meta::unit<
+         quan::meta::components::of_mass_flow::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > kg_per_s;
+      struct hg_per_s : quan::meta::unit<
+         quan::meta::components::of_mass_flow::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > Mg_per_s;
+      struct kg_per_s : quan::meta::unit<
+         quan::meta::components::of_mass_flow::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > Gg_per_s;
+      struct Mg_per_s : quan::meta::unit<
+         quan::meta::components::of_mass_flow::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > Tg_per_s;
+      struct Gg_per_s : quan::meta::unit<
+         quan::meta::components::of_mass_flow::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > Pg_per_s;
+      struct Tg_per_s : quan::meta::unit<
+         quan::meta::components::of_mass_flow::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > Eg_per_s;
+      struct Pg_per_s : quan::meta::unit<
+         quan::meta::components::of_mass_flow::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > Zg_per_s;
+      struct Eg_per_s : quan::meta::unit<
+         quan::meta::components::of_mass_flow::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
+
+      struct Zg_per_s : quan::meta::unit<
+         quan::meta::components::of_mass_flow::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
+
+      struct Yg_per_s : quan::meta::unit<
+         quan::meta::components::of_mass_flow::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct mass_flow_ : quan::meta::components::of_mass_flow{
+
+      typedef quan::fixed_quantity<
+         quan::of_mass_flow::yg_per_s,
+         Value_type
+      > yg_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_mass_flow::zg_per_s,
+         Value_type
+      > zg_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_mass_flow::ag_per_s,
+         Value_type
+      > ag_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_mass_flow::fg_per_s,
+         Value_type
+      > fg_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_mass_flow::pg_per_s,
+         Value_type
+      > pg_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_mass_flow::ng_per_s,
+         Value_type
+      > ng_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_mass_flow::ug_per_s,
+         Value_type
+      > ug_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_mass_flow::mg_per_s,
+         Value_type
+      > mg_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_mass_flow::cg_per_s,
+         Value_type
+      > cg_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_mass_flow::dg_per_s,
+         Value_type
+      > dg_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_mass_flow::g_per_s,
+         Value_type
+      > g_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_mass_flow::dag_per_s,
+         Value_type
+      > dag_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_mass_flow::hg_per_s,
+         Value_type
+      > hg_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_mass_flow::kg_per_s,
+         Value_type
+      > kg_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_mass_flow::Mg_per_s,
+         Value_type
+      > Mg_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_mass_flow::Gg_per_s,
+         Value_type
+      > Gg_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_mass_flow::Tg_per_s,
+         Value_type
+      > Tg_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_mass_flow::Pg_per_s,
+         Value_type
+      > Pg_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_mass_flow::Eg_per_s,
+         Value_type
+      > Eg_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_mass_flow::Zg_per_s,
+         Value_type
+      > Zg_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_mass_flow::Yg_per_s,
+         Value_type
+      > Yg_per_s;
 
     };
 

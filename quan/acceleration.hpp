@@ -433,7 +433,7 @@ namespace quan{
             >,
             Value_type
         > Zm_per_s2;
-
+#endif
         typedef fixed_quantity<
             typename non_si_unit::g_s,
             Value_type
@@ -453,7 +453,7 @@ namespace quan{
             typename non_si_unit::in_per_s2,
             Value_type
         > in_per_s2;
-#endif
+
         static constexpr m_per_s2 g{Value_type{9.80665}};
 
     };

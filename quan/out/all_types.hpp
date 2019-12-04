@@ -24,6 +24,9 @@
 
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
+#include <quan/out/area_moment_of_inertia.hpp>
+#include <quan/out/energy_per_area_time_length.hpp>
+#include <quan/out/energy_per_area_time.hpp>
 #include <quan/out/circulation.hpp>
 #include <quan/out/conductance.hpp>
 #include <quan/out/density.hpp>
@@ -36,8 +39,10 @@
 #include <quan/out/magnetic_flux_density.hpp>
 #include <quan/out/magnetomotive_force.hpp>
 #include <quan/out/mass_flow.hpp>
+#include <quan/out/mass_per_area.hpp>
 #include <quan/out/power.hpp>
 #include <quan/out/reciprocal_mass.hpp>
+#include <quan/out/reciprocal_length.hpp>
 #include <quan/out/resistance.hpp>
 #include <quan/out/magnetic_permeability.hpp>
 #include <quan/out/torque.hpp>
@@ -49,6 +54,8 @@
 #include <quan/out/force_per_mass.hpp>
 #include <quan/out/energy_per_area_time.hpp>
 #include <quan/out/force_per_length.hpp>
+#include <quan/out/force_per_area.hpp>
+#include <quan/out/force_per_volume.hpp>
 #include <quan/out/energy_per_volume.hpp>
 #include <quan/out/energy_per_mass.hpp>
 #include <quan/out/heat_transfer_coefficient.hpp>

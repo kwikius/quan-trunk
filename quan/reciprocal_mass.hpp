@@ -20,17 +20,231 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
-
- 
-//
-// See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/components/of_reciprocal_mass.hpp>
 
 namespace quan{
 
+   struct of_reciprocal_mass{
+
+      struct  per_yg : quan::meta::unit<
+         quan::meta::components::of_reciprocal_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<27> >
+      >{};
+
+      struct  per_zg : quan::meta::unit<
+         quan::meta::components::of_reciprocal_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+      struct  per_ag : quan::meta::unit<
+         quan::meta::components::of_reciprocal_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct  per_fg : quan::meta::unit<
+         quan::meta::components::of_reciprocal_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
+
+      struct  per_pg : quan::meta::unit<
+         quan::meta::components::of_reciprocal_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
+
+      struct  per_ng : quan::meta::unit<
+         quan::meta::components::of_reciprocal_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
+
+      struct  per_ug : quan::meta::unit<
+         quan::meta::components::of_reciprocal_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
+
+      struct  per_mg : quan::meta::unit<
+         quan::meta::components::of_reciprocal_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
+
+      struct  per_cg : quan::meta::unit<
+         quan::meta::components::of_reciprocal_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<5> >
+      >{};
+
+      struct  per_dg : quan::meta::unit<
+         quan::meta::components::of_reciprocal_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<4> >
+      >{};
+
+      struct  per_g : quan::meta::unit<
+         quan::meta::components::of_reciprocal_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
+
+      struct  per_dag : quan::meta::unit<
+         quan::meta::components::of_reciprocal_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
+
+      struct  per_hg : quan::meta::unit<
+         quan::meta::components::of_reciprocal_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
+
+      struct  per_kg : quan::meta::unit<
+         quan::meta::components::of_reciprocal_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
+
+      struct  per_Mg : quan::meta::unit<
+         quan::meta::components::of_reciprocal_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
+
+      struct  per_Gg : quan::meta::unit<
+         quan::meta::components::of_reciprocal_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
+
+      struct  per_Tg : quan::meta::unit<
+         quan::meta::components::of_reciprocal_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
+
+      struct  per_Pg : quan::meta::unit<
+         quan::meta::components::of_reciprocal_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
+
+      struct  per_Eg : quan::meta::unit<
+         quan::meta::components::of_reciprocal_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
+
+      struct  per_Zg : quan::meta::unit<
+         quan::meta::components::of_reciprocal_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
+
+      struct  per_Yg : quan::meta::unit<
+         quan::meta::components::of_reciprocal_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct reciprocal_mass_ : quan::meta::components::of_reciprocal_mass{
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_mass::per_yg,
+         Value_type
+      >  per_yg;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_mass::per_zg,
+         Value_type
+      >  per_zg;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_mass::per_ag,
+         Value_type
+      >  per_ag;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_mass::per_fg,
+         Value_type
+      >  per_fg;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_mass::per_pg,
+         Value_type
+      >  per_pg;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_mass::per_ng,
+         Value_type
+      >  per_ng;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_mass::per_ug,
+         Value_type
+      >  per_ug;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_mass::per_mg,
+         Value_type
+      >  per_mg;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_mass::per_cg,
+         Value_type
+      >  per_cg;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_mass::per_dg,
+         Value_type
+      >  per_dg;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_mass::per_g,
+         Value_type
+      >  per_g;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_mass::per_dag,
+         Value_type
+      >  per_dag;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_mass::per_hg,
+         Value_type
+      >  per_hg;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_mass::per_kg,
+         Value_type
+      >  per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_mass::per_Mg,
+         Value_type
+      >  per_Mg;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_mass::per_Gg,
+         Value_type
+      >  per_Gg;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_mass::per_Tg,
+         Value_type
+      >  per_Tg;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_mass::per_Pg,
+         Value_type
+      >  per_Pg;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_mass::per_Eg,
+         Value_type
+      >  per_Eg;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_mass::per_Zg,
+         Value_type
+      >  per_Zg;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_mass::per_Yg,
+         Value_type
+      >  per_Yg;
+
+#if 0
     template<
         typename Value_type
     >
@@ -200,7 +414,7 @@ namespace quan{
             >,
             Value_type
         > per_Zg;
-
+#endif
     };
 
     struct reciprocal_mass : reciprocal_mass_<quantity_traits::default_value_type>{};

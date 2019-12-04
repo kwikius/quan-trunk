@@ -31,169 +31,224 @@
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct energy_ : meta::components::of_energy{
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > yJ;
+   struct of_energy{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zJ;
+      struct yJ : quan::meta::unit<
+         quan::meta::components::of_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > aJ;
+      struct zJ : quan::meta::unit<
+         quan::meta::components::of_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fJ;
+      struct aJ : quan::meta::unit<
+         quan::meta::components::of_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pJ;
+      struct fJ : quan::meta::unit<
+         quan::meta::components::of_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nJ;
+      struct pJ : quan::meta::unit<
+         quan::meta::components::of_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > uJ;
+      struct nJ : quan::meta::unit<
+         quan::meta::components::of_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mJ;
+      struct uJ : quan::meta::unit<
+         quan::meta::components::of_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cJ;
+      struct mJ : quan::meta::unit<
+         quan::meta::components::of_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dJ;
+      struct cJ : quan::meta::unit<
+         quan::meta::components::of_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > J;
+      struct dJ : quan::meta::unit<
+         quan::meta::components::of_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > daJ;
+      struct J : quan::meta::unit<
+         quan::meta::components::of_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hJ;
+      struct daJ : quan::meta::unit<
+         quan::meta::components::of_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > kJ;
+      struct hJ : quan::meta::unit<
+         quan::meta::components::of_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > MJ;
+      struct kJ : quan::meta::unit<
+         quan::meta::components::of_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > GJ;
+      struct MJ : quan::meta::unit<
+         quan::meta::components::of_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > TJ;
+      struct GJ : quan::meta::unit<
+         quan::meta::components::of_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > PJ;
+      struct TJ : quan::meta::unit<
+         quan::meta::components::of_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > EJ;
+      struct PJ : quan::meta::unit<
+         quan::meta::components::of_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > ZJ;
+      struct EJ : quan::meta::unit<
+         quan::meta::components::of_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
+
+      struct ZJ : quan::meta::unit<
+         quan::meta::components::of_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct YJ : quan::meta::unit<
+         quan::meta::components::of_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct energy_ : quan::meta::components::of_energy{
+
+      typedef quan::fixed_quantity<
+         quan::of_energy::yJ,
+         Value_type
+      > yJ;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy::zJ,
+         Value_type
+      > zJ;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy::aJ,
+         Value_type
+      > aJ;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy::fJ,
+         Value_type
+      > fJ;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy::pJ,
+         Value_type
+      > pJ;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy::nJ,
+         Value_type
+      > nJ;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy::uJ,
+         Value_type
+      > uJ;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy::mJ,
+         Value_type
+      > mJ;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy::cJ,
+         Value_type
+      > cJ;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy::dJ,
+         Value_type
+      > dJ;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy::J,
+         Value_type
+      > J;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy::daJ,
+         Value_type
+      > daJ;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy::hJ,
+         Value_type
+      > hJ;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy::kJ,
+         Value_type
+      > kJ;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy::MJ,
+         Value_type
+      > MJ;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy::GJ,
+         Value_type
+      > GJ;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy::TJ,
+         Value_type
+      > TJ;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy::PJ,
+         Value_type
+      > PJ;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy::EJ,
+         Value_type
+      > EJ;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy::ZJ,
+         Value_type
+      > ZJ;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy::YJ,
+         Value_type
+      > YJ;
 
     };
 

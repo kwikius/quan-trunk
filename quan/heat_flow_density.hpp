@@ -5,7 +5,7 @@
 #endif
 
 /*
- Copyright (c) 2003-2014 Andy Little.
+ Copyright (c) 2003-2019 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -20,182 +20,229 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
-
- 
-//
-// See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/components/of_heat_flow_density.hpp>
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct heat_flow_density_ : meta::components::of_heat_flow_density{
-// SI units...
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > yW_per_m2;
+   struct of_heat_flow_density{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zW_per_m2;
+      struct yW_per_m2 : quan::meta::unit<
+         quan::meta::components::of_heat_flow_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > aW_per_m2;
+      struct zW_per_m2 : quan::meta::unit<
+         quan::meta::components::of_heat_flow_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fW_per_m2;
+      struct aW_per_m2 : quan::meta::unit<
+         quan::meta::components::of_heat_flow_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pW_per_m2;
+      struct fW_per_m2 : quan::meta::unit<
+         quan::meta::components::of_heat_flow_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nW_per_m2;
+      struct pW_per_m2 : quan::meta::unit<
+         quan::meta::components::of_heat_flow_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > uW_per_m2;
+      struct nW_per_m2 : quan::meta::unit<
+         quan::meta::components::of_heat_flow_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mW_per_m2;
+      struct uW_per_m2 : quan::meta::unit<
+         quan::meta::components::of_heat_flow_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cW_per_m2;
+      struct mW_per_m2 : quan::meta::unit<
+         quan::meta::components::of_heat_flow_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dW_per_m2;
+      struct cW_per_m2 : quan::meta::unit<
+         quan::meta::components::of_heat_flow_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > W_per_m2;
+      struct dW_per_m2 : quan::meta::unit<
+         quan::meta::components::of_heat_flow_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > daW_per_m2;
+      struct W_per_m2 : quan::meta::unit<
+         quan::meta::components::of_heat_flow_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hW_per_m2;
+      struct daW_per_m2 : quan::meta::unit<
+         quan::meta::components::of_heat_flow_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > kW_per_m2;
+      struct hW_per_m2 : quan::meta::unit<
+         quan::meta::components::of_heat_flow_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > MW_per_m2;
+      struct kW_per_m2 : quan::meta::unit<
+         quan::meta::components::of_heat_flow_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > GW_per_m2;
+      struct MW_per_m2 : quan::meta::unit<
+         quan::meta::components::of_heat_flow_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > TW_per_m2;
+      struct GW_per_m2 : quan::meta::unit<
+         quan::meta::components::of_heat_flow_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > PW_per_m2;
+      struct TW_per_m2 : quan::meta::unit<
+         quan::meta::components::of_heat_flow_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > EW_per_m2;
+      struct PW_per_m2 : quan::meta::unit<
+         quan::meta::components::of_heat_flow_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > ZW_per_m2;
+      struct EW_per_m2 : quan::meta::unit<
+         quan::meta::components::of_heat_flow_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
 
+      struct ZW_per_m2 : quan::meta::unit<
+         quan::meta::components::of_heat_flow_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct YW_per_m2 : quan::meta::unit<
+         quan::meta::components::of_heat_flow_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct heat_flow_density_ : quan::meta::components::of_heat_flow_density{
+
+      typedef quan::fixed_quantity<
+         quan::of_heat_flow_density::yW_per_m2,
+         Value_type
+      > yW_per_m2;
+
+      typedef quan::fixed_quantity<
+         quan::of_heat_flow_density::zW_per_m2,
+         Value_type
+      > zW_per_m2;
+
+      typedef quan::fixed_quantity<
+         quan::of_heat_flow_density::aW_per_m2,
+         Value_type
+      > aW_per_m2;
+
+      typedef quan::fixed_quantity<
+         quan::of_heat_flow_density::fW_per_m2,
+         Value_type
+      > fW_per_m2;
+
+      typedef quan::fixed_quantity<
+         quan::of_heat_flow_density::pW_per_m2,
+         Value_type
+      > pW_per_m2;
+
+      typedef quan::fixed_quantity<
+         quan::of_heat_flow_density::nW_per_m2,
+         Value_type
+      > nW_per_m2;
+
+      typedef quan::fixed_quantity<
+         quan::of_heat_flow_density::uW_per_m2,
+         Value_type
+      > uW_per_m2;
+
+      typedef quan::fixed_quantity<
+         quan::of_heat_flow_density::mW_per_m2,
+         Value_type
+      > mW_per_m2;
+
+      typedef quan::fixed_quantity<
+         quan::of_heat_flow_density::cW_per_m2,
+         Value_type
+      > cW_per_m2;
+
+      typedef quan::fixed_quantity<
+         quan::of_heat_flow_density::dW_per_m2,
+         Value_type
+      > dW_per_m2;
+
+      typedef quan::fixed_quantity<
+         quan::of_heat_flow_density::W_per_m2,
+         Value_type
+      > W_per_m2;
+
+      typedef quan::fixed_quantity<
+         quan::of_heat_flow_density::daW_per_m2,
+         Value_type
+      > daW_per_m2;
+
+      typedef quan::fixed_quantity<
+         quan::of_heat_flow_density::hW_per_m2,
+         Value_type
+      > hW_per_m2;
+
+      typedef quan::fixed_quantity<
+         quan::of_heat_flow_density::kW_per_m2,
+         Value_type
+      > kW_per_m2;
+
+      typedef quan::fixed_quantity<
+         quan::of_heat_flow_density::MW_per_m2,
+         Value_type
+      > MW_per_m2;
+
+      typedef quan::fixed_quantity<
+         quan::of_heat_flow_density::GW_per_m2,
+         Value_type
+      > GW_per_m2;
+
+      typedef quan::fixed_quantity<
+         quan::of_heat_flow_density::TW_per_m2,
+         Value_type
+      > TW_per_m2;
+
+      typedef quan::fixed_quantity<
+         quan::of_heat_flow_density::PW_per_m2,
+         Value_type
+      > PW_per_m2;
+
+      typedef quan::fixed_quantity<
+         quan::of_heat_flow_density::EW_per_m2,
+         Value_type
+      > EW_per_m2;
+
+      typedef quan::fixed_quantity<
+         quan::of_heat_flow_density::ZW_per_m2,
+         Value_type
+      > ZW_per_m2;
+
+      typedef quan::fixed_quantity<
+         quan::of_heat_flow_density::YW_per_m2,
+         Value_type
+      > YW_per_m2;
 // non SI units...
     };
 

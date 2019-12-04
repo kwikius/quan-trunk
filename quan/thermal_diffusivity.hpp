@@ -31,170 +31,225 @@
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct thermal_diffusivity_ : meta::components::of_thermal_diffusivity{
-// SI units...
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > ym2_per_s;
+struct of_thermal_diffusivity{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zm2_per_s;
+      struct ym2_per_s : quan::meta::unit<
+         quan::meta::components::of_thermal_diffusivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > am2_per_s;
+      struct zm2_per_s : quan::meta::unit<
+         quan::meta::components::of_thermal_diffusivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fm2_per_s;
+      struct am2_per_s : quan::meta::unit<
+         quan::meta::components::of_thermal_diffusivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pm2_per_s;
+      struct fm2_per_s : quan::meta::unit<
+         quan::meta::components::of_thermal_diffusivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nm2_per_s;
+      struct pm2_per_s : quan::meta::unit<
+         quan::meta::components::of_thermal_diffusivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > um2_per_s;
+      struct nm2_per_s : quan::meta::unit<
+         quan::meta::components::of_thermal_diffusivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mm2_per_s;
+      struct um2_per_s : quan::meta::unit<
+         quan::meta::components::of_thermal_diffusivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cm2_per_s;
+      struct mm2_per_s : quan::meta::unit<
+         quan::meta::components::of_thermal_diffusivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dm2_per_s;
+      struct cm2_per_s : quan::meta::unit<
+         quan::meta::components::of_thermal_diffusivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > m2_per_s;
+      struct dm2_per_s : quan::meta::unit<
+         quan::meta::components::of_thermal_diffusivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > dam2_per_s;
+      struct m2_per_s : quan::meta::unit<
+         quan::meta::components::of_thermal_diffusivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hm2_per_s;
+      struct dam2_per_s : quan::meta::unit<
+         quan::meta::components::of_thermal_diffusivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > km2_per_s;
+      struct hm2_per_s : quan::meta::unit<
+         quan::meta::components::of_thermal_diffusivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > Mm2_per_s;
+      struct km2_per_s : quan::meta::unit<
+         quan::meta::components::of_thermal_diffusivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > Gm2_per_s;
+      struct Mm2_per_s : quan::meta::unit<
+         quan::meta::components::of_thermal_diffusivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > Tm2_per_s;
+      struct Gm2_per_s : quan::meta::unit<
+         quan::meta::components::of_thermal_diffusivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > Pm2_per_s;
+      struct Tm2_per_s : quan::meta::unit<
+         quan::meta::components::of_thermal_diffusivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > Em2_per_s;
+      struct Pm2_per_s : quan::meta::unit<
+         quan::meta::components::of_thermal_diffusivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > Zm2_per_s;
+      struct Em2_per_s : quan::meta::unit<
+         quan::meta::components::of_thermal_diffusivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
+
+      struct Zm2_per_s : quan::meta::unit<
+         quan::meta::components::of_thermal_diffusivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct Ym2_per_s : quan::meta::unit<
+         quan::meta::components::of_thermal_diffusivity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct thermal_diffusivity_ : quan::meta::components::of_thermal_diffusivity{
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_diffusivity::ym2_per_s,
+         Value_type
+      > ym2_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_diffusivity::zm2_per_s,
+         Value_type
+      > zm2_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_diffusivity::am2_per_s,
+         Value_type
+      > am2_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_diffusivity::fm2_per_s,
+         Value_type
+      > fm2_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_diffusivity::pm2_per_s,
+         Value_type
+      > pm2_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_diffusivity::nm2_per_s,
+         Value_type
+      > nm2_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_diffusivity::um2_per_s,
+         Value_type
+      > um2_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_diffusivity::mm2_per_s,
+         Value_type
+      > mm2_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_diffusivity::cm2_per_s,
+         Value_type
+      > cm2_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_diffusivity::dm2_per_s,
+         Value_type
+      > dm2_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_diffusivity::m2_per_s,
+         Value_type
+      > m2_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_diffusivity::dam2_per_s,
+         Value_type
+      > dam2_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_diffusivity::hm2_per_s,
+         Value_type
+      > hm2_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_diffusivity::km2_per_s,
+         Value_type
+      > km2_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_diffusivity::Mm2_per_s,
+         Value_type
+      > Mm2_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_diffusivity::Gm2_per_s,
+         Value_type
+      > Gm2_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_diffusivity::Tm2_per_s,
+         Value_type
+      > Tm2_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_diffusivity::Pm2_per_s,
+         Value_type
+      > Pm2_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_diffusivity::Em2_per_s,
+         Value_type
+      > Em2_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_diffusivity::Zm2_per_s,
+         Value_type
+      > Zm2_per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_diffusivity::Ym2_per_s,
+         Value_type
+      > Ym2_per_s;
+
 
 // non SI units...
     };

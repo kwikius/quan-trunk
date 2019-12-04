@@ -5,7 +5,7 @@
 #endif
 
 /*
- Copyright (c) 2003-2014 Andy Little.
+ Copyright (c) 2003-2019 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -20,180 +20,229 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
-
- 
-//
-// See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/components/of_magnetic_flux.hpp>
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct magnetic_flux_ : meta::components::of_magnetic_flux{
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > yWb;
+   struct of_magnetic_flux{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zWb;
+      struct yWb : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > aWb;
+      struct zWb : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fWb;
+      struct aWb : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pWb;
+      struct fWb : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nWb;
+      struct pWb : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > uWb;
+      struct nWb : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mWb;
+      struct uWb : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cWb;
+      struct mWb : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dWb;
+      struct cWb : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > Wb;
+      struct dWb : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > daWb;
+      struct Wb : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hWb;
+      struct daWb : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > kWb;
+      struct hWb : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > MWb;
+      struct kWb : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > GWb;
+      struct MWb : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > TWb;
+      struct GWb : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > PWb;
+      struct TWb : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > EWb;
+      struct PWb : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > ZWb;
+      struct EWb : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
+
+      struct ZWb : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct YWb : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct magnetic_flux_ : quan::meta::components::of_magnetic_flux{
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux::yWb,
+         Value_type
+      > yWb;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux::zWb,
+         Value_type
+      > zWb;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux::aWb,
+         Value_type
+      > aWb;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux::fWb,
+         Value_type
+      > fWb;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux::pWb,
+         Value_type
+      > pWb;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux::nWb,
+         Value_type
+      > nWb;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux::uWb,
+         Value_type
+      > uWb;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux::mWb,
+         Value_type
+      > mWb;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux::cWb,
+         Value_type
+      > cWb;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux::dWb,
+         Value_type
+      > dWb;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux::Wb,
+         Value_type
+      > Wb;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux::daWb,
+         Value_type
+      > daWb;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux::hWb,
+         Value_type
+      > hWb;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux::kWb,
+         Value_type
+      > kWb;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux::MWb,
+         Value_type
+      > MWb;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux::GWb,
+         Value_type
+      > GWb;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux::TWb,
+         Value_type
+      > TWb;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux::PWb,
+         Value_type
+      > PWb;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux::EWb,
+         Value_type
+      > EWb;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux::ZWb,
+         Value_type
+      > ZWb;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux::YWb,
+         Value_type
+      > YWb;
 
     };
 

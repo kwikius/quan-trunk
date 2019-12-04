@@ -31,171 +31,224 @@
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct thermal_resistance_ : meta::components::of_thermal_resistance{
-// SI units...
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > yK_per_W;
+     struct of_thermal_resistance{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zK_per_W;
+      struct yK_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > aK_per_W;
+      struct zK_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fK_per_W;
+      struct aK_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pK_per_W;
+      struct fK_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nK_per_W;
+      struct pK_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > uK_per_W;
+      struct nK_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mK_per_W;
+      struct uK_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cK_per_W;
+      struct mK_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dK_per_W;
+      struct cK_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > K_per_W;
+      struct dK_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > daK_per_W;
+      struct K_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hK_per_W;
+      struct daK_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > kK_per_W;
+      struct hK_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > MK_per_W;
+      struct kK_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > GK_per_W;
+      struct MK_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > TK_per_W;
+      struct GK_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > PK_per_W;
+      struct TK_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > EK_per_W;
+      struct PK_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > ZK_per_W;
+      struct EK_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
 
+      struct ZK_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct YK_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct thermal_resistance_ : quan::meta::components::of_thermal_resistance{
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_resistance::yK_per_W,
+         Value_type
+      > yK_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_resistance::zK_per_W,
+         Value_type
+      > zK_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_resistance::aK_per_W,
+         Value_type
+      > aK_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_resistance::fK_per_W,
+         Value_type
+      > fK_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_resistance::pK_per_W,
+         Value_type
+      > pK_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_resistance::nK_per_W,
+         Value_type
+      > nK_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_resistance::uK_per_W,
+         Value_type
+      > uK_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_resistance::mK_per_W,
+         Value_type
+      > mK_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_resistance::cK_per_W,
+         Value_type
+      > cK_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_resistance::dK_per_W,
+         Value_type
+      > dK_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_resistance::K_per_W,
+         Value_type
+      > K_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_resistance::daK_per_W,
+         Value_type
+      > daK_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_resistance::hK_per_W,
+         Value_type
+      > hK_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_resistance::kK_per_W,
+         Value_type
+      > kK_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_resistance::MK_per_W,
+         Value_type
+      > MK_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_resistance::GK_per_W,
+         Value_type
+      > GK_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_resistance::TK_per_W,
+         Value_type
+      > TK_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_resistance::PK_per_W,
+         Value_type
+      > PK_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_resistance::EK_per_W,
+         Value_type
+      > EK_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_resistance::ZK_per_W,
+         Value_type
+      > ZK_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_resistance::YK_per_W,
+         Value_type
+      > YK_per_W;
 // non SI units...
     };
 

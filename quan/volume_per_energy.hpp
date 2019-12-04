@@ -31,170 +31,225 @@
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct volume_per_energy_ : meta::components::of_volume_per_energy{
-// SI units...
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > ym3_per_J;
+ struct of_volume_per_energy{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zm3_per_J;
+      struct ym3_per_J : quan::meta::unit<
+         quan::meta::components::of_volume_per_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > am3_per_J;
+      struct zm3_per_J : quan::meta::unit<
+         quan::meta::components::of_volume_per_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fm3_per_J;
+      struct am3_per_J : quan::meta::unit<
+         quan::meta::components::of_volume_per_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pm3_per_J;
+      struct fm3_per_J : quan::meta::unit<
+         quan::meta::components::of_volume_per_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nm3_per_J;
+      struct pm3_per_J : quan::meta::unit<
+         quan::meta::components::of_volume_per_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > um3_per_J;
+      struct nm3_per_J : quan::meta::unit<
+         quan::meta::components::of_volume_per_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mm3_per_J;
+      struct um3_per_J : quan::meta::unit<
+         quan::meta::components::of_volume_per_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cm3_per_J;
+      struct mm3_per_J : quan::meta::unit<
+         quan::meta::components::of_volume_per_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dm3_per_J;
+      struct cm3_per_J : quan::meta::unit<
+         quan::meta::components::of_volume_per_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > m3_per_J;
+      struct dm3_per_J : quan::meta::unit<
+         quan::meta::components::of_volume_per_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > dam3_per_J;
+      struct m3_per_J : quan::meta::unit<
+         quan::meta::components::of_volume_per_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hm3_per_J;
+      struct dam3_per_J : quan::meta::unit<
+         quan::meta::components::of_volume_per_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > km3_per_J;
+      struct hm3_per_J : quan::meta::unit<
+         quan::meta::components::of_volume_per_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > Mm3_per_J;
+      struct km3_per_J : quan::meta::unit<
+         quan::meta::components::of_volume_per_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > Gm3_per_J;
+      struct Mm3_per_J : quan::meta::unit<
+         quan::meta::components::of_volume_per_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > Tm3_per_J;
+      struct Gm3_per_J : quan::meta::unit<
+         quan::meta::components::of_volume_per_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > Pm3_per_J;
+      struct Tm3_per_J : quan::meta::unit<
+         quan::meta::components::of_volume_per_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > Em3_per_J;
+      struct Pm3_per_J : quan::meta::unit<
+         quan::meta::components::of_volume_per_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > Zm3_per_J;
+      struct Em3_per_J : quan::meta::unit<
+         quan::meta::components::of_volume_per_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
+
+      struct Zm3_per_J : quan::meta::unit<
+         quan::meta::components::of_volume_per_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct Ym3_per_J : quan::meta::unit<
+         quan::meta::components::of_volume_per_energy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct volume_per_energy_ : quan::meta::components::of_volume_per_energy{
+
+      typedef quan::fixed_quantity<
+         quan::of_volume_per_energy::ym3_per_J,
+         Value_type
+      > ym3_per_J;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume_per_energy::zm3_per_J,
+         Value_type
+      > zm3_per_J;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume_per_energy::am3_per_J,
+         Value_type
+      > am3_per_J;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume_per_energy::fm3_per_J,
+         Value_type
+      > fm3_per_J;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume_per_energy::pm3_per_J,
+         Value_type
+      > pm3_per_J;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume_per_energy::nm3_per_J,
+         Value_type
+      > nm3_per_J;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume_per_energy::um3_per_J,
+         Value_type
+      > um3_per_J;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume_per_energy::mm3_per_J,
+         Value_type
+      > mm3_per_J;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume_per_energy::cm3_per_J,
+         Value_type
+      > cm3_per_J;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume_per_energy::dm3_per_J,
+         Value_type
+      > dm3_per_J;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume_per_energy::m3_per_J,
+         Value_type
+      > m3_per_J;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume_per_energy::dam3_per_J,
+         Value_type
+      > dam3_per_J;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume_per_energy::hm3_per_J,
+         Value_type
+      > hm3_per_J;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume_per_energy::km3_per_J,
+         Value_type
+      > km3_per_J;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume_per_energy::Mm3_per_J,
+         Value_type
+      > Mm3_per_J;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume_per_energy::Gm3_per_J,
+         Value_type
+      > Gm3_per_J;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume_per_energy::Tm3_per_J,
+         Value_type
+      > Tm3_per_J;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume_per_energy::Pm3_per_J,
+         Value_type
+      > Pm3_per_J;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume_per_energy::Em3_per_J,
+         Value_type
+      > Em3_per_J;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume_per_energy::Zm3_per_J,
+         Value_type
+      > Zm3_per_J;
+
+      typedef quan::fixed_quantity<
+         quan::of_volume_per_energy::Ym3_per_J,
+         Value_type
+      > Ym3_per_J;
+
 
 // non SI units...
     };

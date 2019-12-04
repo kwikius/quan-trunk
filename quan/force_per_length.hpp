@@ -5,7 +5,7 @@
 #endif
 
 /*
- Copyright (c) 2003-2014 Andy Little.
+ Copyright (c) 2003-2019 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -20,183 +20,230 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
-
- 
-//
-// See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/components/of_force_per_length.hpp>
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct force_per_length_ : meta::components::of_force_per_length{
-// SI units...
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > yN_per_m;
+    struct of_force_per_length{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zN_per_m;
+      struct yN_per_m : quan::meta::unit<
+         quan::meta::components::of_force_per_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > aN_per_m;
+      struct zN_per_m : quan::meta::unit<
+         quan::meta::components::of_force_per_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fN_per_m;
+      struct aN_per_m : quan::meta::unit<
+         quan::meta::components::of_force_per_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pN_per_m;
+      struct fN_per_m : quan::meta::unit<
+         quan::meta::components::of_force_per_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nN_per_m;
+      struct pN_per_m : quan::meta::unit<
+         quan::meta::components::of_force_per_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > uN_per_m;
+      struct nN_per_m : quan::meta::unit<
+         quan::meta::components::of_force_per_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mN_per_m;
+      struct uN_per_m : quan::meta::unit<
+         quan::meta::components::of_force_per_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cN_per_m;
+      struct mN_per_m : quan::meta::unit<
+         quan::meta::components::of_force_per_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dN_per_m;
+      struct cN_per_m : quan::meta::unit<
+         quan::meta::components::of_force_per_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > N_per_m;
+      struct dN_per_m : quan::meta::unit<
+         quan::meta::components::of_force_per_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > daN_per_m;
+      struct N_per_m : quan::meta::unit<
+         quan::meta::components::of_force_per_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hN_per_m;
+      struct daN_per_m : quan::meta::unit<
+         quan::meta::components::of_force_per_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > kN_per_m;
+      struct hN_per_m : quan::meta::unit<
+         quan::meta::components::of_force_per_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > MN_per_m;
+      struct kN_per_m : quan::meta::unit<
+         quan::meta::components::of_force_per_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > GN_per_m;
+      struct MN_per_m : quan::meta::unit<
+         quan::meta::components::of_force_per_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > TN_per_m;
+      struct GN_per_m : quan::meta::unit<
+         quan::meta::components::of_force_per_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > PN_per_m;
+      struct TN_per_m : quan::meta::unit<
+         quan::meta::components::of_force_per_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > EN_per_m;
+      struct PN_per_m : quan::meta::unit<
+         quan::meta::components::of_force_per_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > ZN_per_m;
+      struct EN_per_m : quan::meta::unit<
+         quan::meta::components::of_force_per_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
 
-// non SI units...
+      struct ZN_per_m : quan::meta::unit<
+         quan::meta::components::of_force_per_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct YN_per_m : quan::meta::unit<
+         quan::meta::components::of_force_per_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct force_per_length_ : quan::meta::components::of_force_per_length{
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_length::yN_per_m,
+         Value_type
+      > yN_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_length::zN_per_m,
+         Value_type
+      > zN_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_length::aN_per_m,
+         Value_type
+      > aN_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_length::fN_per_m,
+         Value_type
+      > fN_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_length::pN_per_m,
+         Value_type
+      > pN_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_length::nN_per_m,
+         Value_type
+      > nN_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_length::uN_per_m,
+         Value_type
+      > uN_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_length::mN_per_m,
+         Value_type
+      > mN_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_length::cN_per_m,
+         Value_type
+      > cN_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_length::dN_per_m,
+         Value_type
+      > dN_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_length::N_per_m,
+         Value_type
+      > N_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_length::daN_per_m,
+         Value_type
+      > daN_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_length::hN_per_m,
+         Value_type
+      > hN_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_length::kN_per_m,
+         Value_type
+      > kN_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_length::MN_per_m,
+         Value_type
+      > MN_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_length::GN_per_m,
+         Value_type
+      > GN_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_length::TN_per_m,
+         Value_type
+      > TN_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_length::PN_per_m,
+         Value_type
+      > PN_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_length::EN_per_m,
+         Value_type
+      > EN_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_length::ZN_per_m,
+         Value_type
+      > ZN_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_length::YN_per_m,
+         Value_type
+      > YN_per_m;
+
     };
 
     struct force_per_length : force_per_length_<quantity_traits::default_value_type>{};

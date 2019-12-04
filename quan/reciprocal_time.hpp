@@ -20,17 +20,234 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
-
- 
-//
-// See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/components/of_reciprocal_time.hpp>
 
 namespace quan{
 
+ struct of_reciprocal_time{
+
+      struct  per_ys : quan::meta::unit<
+         quan::meta::components::of_reciprocal_time::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+      struct  per_zs : quan::meta::unit<
+         quan::meta::components::of_reciprocal_time::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct  per_as : quan::meta::unit<
+         quan::meta::components::of_reciprocal_time::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
+
+      struct  per_fs : quan::meta::unit<
+         quan::meta::components::of_reciprocal_time::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
+
+      struct  per_ps : quan::meta::unit<
+         quan::meta::components::of_reciprocal_time::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
+
+      struct  per_ns : quan::meta::unit<
+         quan::meta::components::of_reciprocal_time::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
+
+      struct  per_us : quan::meta::unit<
+         quan::meta::components::of_reciprocal_time::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
+
+      struct  per_ms : quan::meta::unit<
+         quan::meta::components::of_reciprocal_time::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
+
+      struct  per_cs : quan::meta::unit<
+         quan::meta::components::of_reciprocal_time::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
+
+      struct  per_ds : quan::meta::unit<
+         quan::meta::components::of_reciprocal_time::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
+
+      struct  per_s : quan::meta::unit<
+         quan::meta::components::of_reciprocal_time::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
+
+      struct  per_das : quan::meta::unit<
+         quan::meta::components::of_reciprocal_time::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
+
+      struct  per_hs : quan::meta::unit<
+         quan::meta::components::of_reciprocal_time::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
+
+      struct  per_ks : quan::meta::unit<
+         quan::meta::components::of_reciprocal_time::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
+
+      struct  per_Ms : quan::meta::unit<
+         quan::meta::components::of_reciprocal_time::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
+
+      struct  per_Gs : quan::meta::unit<
+         quan::meta::components::of_reciprocal_time::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
+
+      struct  per_Ts : quan::meta::unit<
+         quan::meta::components::of_reciprocal_time::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
+
+      struct  per_Ps : quan::meta::unit<
+         quan::meta::components::of_reciprocal_time::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
+
+      struct  per_Es : quan::meta::unit<
+         quan::meta::components::of_reciprocal_time::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
+
+      struct  per_Zs : quan::meta::unit<
+         quan::meta::components::of_reciprocal_time::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
+
+      struct  per_Ys : quan::meta::unit<
+         quan::meta::components::of_reciprocal_time::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct reciprocal_time_ : quan::meta::components::of_reciprocal_time{
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_time::per_ys,
+         Value_type
+      >  per_ys;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_time::per_zs,
+         Value_type
+      >  per_zs;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_time::per_as,
+         Value_type
+      >  per_as;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_time::per_fs,
+         Value_type
+      >  per_fs;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_time::per_ps,
+         Value_type
+      >  per_ps;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_time::per_ns,
+         Value_type
+      >  per_ns;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_time::per_us,
+         Value_type
+      >  per_us;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_time::per_ms,
+         Value_type
+      >  per_ms;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_time::per_cs,
+         Value_type
+      >  per_cs;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_time::per_ds,
+         Value_type
+      >  per_ds;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_time::per_s,
+         Value_type
+      >  per_s;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_time::per_das,
+         Value_type
+      >  per_das;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_time::per_hs,
+         Value_type
+      >  per_hs;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_time::per_ks,
+         Value_type
+      >  per_ks;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_time::per_Ms,
+         Value_type
+      >  per_Ms;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_time::per_Gs,
+         Value_type
+      >  per_Gs;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_time::per_Ts,
+         Value_type
+      >  per_Ts;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_time::per_Ps,
+         Value_type
+      >  per_Ps;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_time::per_Es,
+         Value_type
+      >  per_Es;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_time::per_Zs,
+         Value_type
+      >  per_Zs;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_time::per_Ys,
+         Value_type
+      >  per_Ys;
+
+
+
+
+#if 0
     template<
         typename Value_type
     >
@@ -194,6 +411,8 @@ namespace quan{
             >,
             Value_type
         > per_Zs;
+
+#endif
 
         typedef fixed_quantity<
             typename non_si_unit::per_min,

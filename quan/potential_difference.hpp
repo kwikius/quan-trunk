@@ -20,180 +20,229 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
-
- 
-//
-// See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/components/of_potential_difference.hpp>
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct potential_difference_ : meta::components::of_potential_difference{
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > yV;
+   struct of_potential_difference{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zV;
+      struct yV : quan::meta::unit<
+         quan::meta::components::of_potential_difference::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > aV;
+      struct zV : quan::meta::unit<
+         quan::meta::components::of_potential_difference::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fV;
+      struct aV : quan::meta::unit<
+         quan::meta::components::of_potential_difference::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pV;
+      struct fV : quan::meta::unit<
+         quan::meta::components::of_potential_difference::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nV;
+      struct pV : quan::meta::unit<
+         quan::meta::components::of_potential_difference::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > uV;
+      struct nV : quan::meta::unit<
+         quan::meta::components::of_potential_difference::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mV;
+      struct uV : quan::meta::unit<
+         quan::meta::components::of_potential_difference::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cV;
+      struct mV : quan::meta::unit<
+         quan::meta::components::of_potential_difference::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dV;
+      struct cV : quan::meta::unit<
+         quan::meta::components::of_potential_difference::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > V;
+      struct dV : quan::meta::unit<
+         quan::meta::components::of_potential_difference::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > daV;
+      struct V : quan::meta::unit<
+         quan::meta::components::of_potential_difference::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hV;
+      struct daV : quan::meta::unit<
+         quan::meta::components::of_potential_difference::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > kV;
+      struct hV : quan::meta::unit<
+         quan::meta::components::of_potential_difference::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > MV;
+      struct kV : quan::meta::unit<
+         quan::meta::components::of_potential_difference::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > GV;
+      struct MV : quan::meta::unit<
+         quan::meta::components::of_potential_difference::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > TV;
+      struct GV : quan::meta::unit<
+         quan::meta::components::of_potential_difference::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > PV;
+      struct TV : quan::meta::unit<
+         quan::meta::components::of_potential_difference::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > EV;
+      struct PV : quan::meta::unit<
+         quan::meta::components::of_potential_difference::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > ZV;
+      struct EV : quan::meta::unit<
+         quan::meta::components::of_potential_difference::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
+
+      struct ZV : quan::meta::unit<
+         quan::meta::components::of_potential_difference::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct YV : quan::meta::unit<
+         quan::meta::components::of_potential_difference::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct potential_difference_ : quan::meta::components::of_potential_difference{
+
+      typedef quan::fixed_quantity<
+         quan::of_potential_difference::yV,
+         Value_type
+      > yV;
+
+      typedef quan::fixed_quantity<
+         quan::of_potential_difference::zV,
+         Value_type
+      > zV;
+
+      typedef quan::fixed_quantity<
+         quan::of_potential_difference::aV,
+         Value_type
+      > aV;
+
+      typedef quan::fixed_quantity<
+         quan::of_potential_difference::fV,
+         Value_type
+      > fV;
+
+      typedef quan::fixed_quantity<
+         quan::of_potential_difference::pV,
+         Value_type
+      > pV;
+
+      typedef quan::fixed_quantity<
+         quan::of_potential_difference::nV,
+         Value_type
+      > nV;
+
+      typedef quan::fixed_quantity<
+         quan::of_potential_difference::uV,
+         Value_type
+      > uV;
+
+      typedef quan::fixed_quantity<
+         quan::of_potential_difference::mV,
+         Value_type
+      > mV;
+
+      typedef quan::fixed_quantity<
+         quan::of_potential_difference::cV,
+         Value_type
+      > cV;
+
+      typedef quan::fixed_quantity<
+         quan::of_potential_difference::dV,
+         Value_type
+      > dV;
+
+      typedef quan::fixed_quantity<
+         quan::of_potential_difference::V,
+         Value_type
+      > V;
+
+      typedef quan::fixed_quantity<
+         quan::of_potential_difference::daV,
+         Value_type
+      > daV;
+
+      typedef quan::fixed_quantity<
+         quan::of_potential_difference::hV,
+         Value_type
+      > hV;
+
+      typedef quan::fixed_quantity<
+         quan::of_potential_difference::kV,
+         Value_type
+      > kV;
+
+      typedef quan::fixed_quantity<
+         quan::of_potential_difference::MV,
+         Value_type
+      > MV;
+
+      typedef quan::fixed_quantity<
+         quan::of_potential_difference::GV,
+         Value_type
+      > GV;
+
+      typedef quan::fixed_quantity<
+         quan::of_potential_difference::TV,
+         Value_type
+      > TV;
+
+      typedef quan::fixed_quantity<
+         quan::of_potential_difference::PV,
+         Value_type
+      > PV;
+
+      typedef quan::fixed_quantity<
+         quan::of_potential_difference::EV,
+         Value_type
+      > EV;
+
+      typedef quan::fixed_quantity<
+         quan::of_potential_difference::ZV,
+         Value_type
+      > ZV;
+
+      typedef quan::fixed_quantity<
+         quan::of_potential_difference::YV,
+         Value_type
+      > YV;
 
     };
 

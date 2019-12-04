@@ -5,7 +5,7 @@
 #endif
 
 /*
- Copyright (c) 2003-2014 Andy Little.
+ Copyright (c) 2003-2019 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -20,182 +20,229 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
-
- 
-//
-// See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/components/of_force_per_mass.hpp>
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct force_per_mass_ : meta::components::of_force_per_mass{
-// SI units...
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > yN_per_kg;
+   struct of_force_per_mass{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zN_per_kg;
+      struct yN_per_kg : quan::meta::unit<
+         quan::meta::components::of_force_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > aN_per_kg;
+      struct zN_per_kg : quan::meta::unit<
+         quan::meta::components::of_force_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fN_per_kg;
+      struct aN_per_kg : quan::meta::unit<
+         quan::meta::components::of_force_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pN_per_kg;
+      struct fN_per_kg : quan::meta::unit<
+         quan::meta::components::of_force_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nN_per_kg;
+      struct pN_per_kg : quan::meta::unit<
+         quan::meta::components::of_force_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > uN_per_kg;
+      struct nN_per_kg : quan::meta::unit<
+         quan::meta::components::of_force_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mN_per_kg;
+      struct uN_per_kg : quan::meta::unit<
+         quan::meta::components::of_force_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cN_per_kg;
+      struct mN_per_kg : quan::meta::unit<
+         quan::meta::components::of_force_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dN_per_kg;
+      struct cN_per_kg : quan::meta::unit<
+         quan::meta::components::of_force_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > N_per_kg;
+      struct dN_per_kg : quan::meta::unit<
+         quan::meta::components::of_force_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > daN_per_kg;
+      struct N_per_kg : quan::meta::unit<
+         quan::meta::components::of_force_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hN_per_kg;
+      struct daN_per_kg : quan::meta::unit<
+         quan::meta::components::of_force_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > kN_per_kg;
+      struct hN_per_kg : quan::meta::unit<
+         quan::meta::components::of_force_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > MN_per_kg;
+      struct kN_per_kg : quan::meta::unit<
+         quan::meta::components::of_force_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > GN_per_kg;
+      struct MN_per_kg : quan::meta::unit<
+         quan::meta::components::of_force_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > TN_per_kg;
+      struct GN_per_kg : quan::meta::unit<
+         quan::meta::components::of_force_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > PN_per_kg;
+      struct TN_per_kg : quan::meta::unit<
+         quan::meta::components::of_force_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > EN_per_kg;
+      struct PN_per_kg : quan::meta::unit<
+         quan::meta::components::of_force_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > ZN_per_kg;
+      struct EN_per_kg : quan::meta::unit<
+         quan::meta::components::of_force_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
 
+      struct ZN_per_kg : quan::meta::unit<
+         quan::meta::components::of_force_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct YN_per_kg : quan::meta::unit<
+         quan::meta::components::of_force_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct force_per_mass_ : quan::meta::components::of_force_per_mass{
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_mass::yN_per_kg,
+         Value_type
+      > yN_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_mass::zN_per_kg,
+         Value_type
+      > zN_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_mass::aN_per_kg,
+         Value_type
+      > aN_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_mass::fN_per_kg,
+         Value_type
+      > fN_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_mass::pN_per_kg,
+         Value_type
+      > pN_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_mass::nN_per_kg,
+         Value_type
+      > nN_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_mass::uN_per_kg,
+         Value_type
+      > uN_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_mass::mN_per_kg,
+         Value_type
+      > mN_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_mass::cN_per_kg,
+         Value_type
+      > cN_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_mass::dN_per_kg,
+         Value_type
+      > dN_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_mass::N_per_kg,
+         Value_type
+      > N_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_mass::daN_per_kg,
+         Value_type
+      > daN_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_mass::hN_per_kg,
+         Value_type
+      > hN_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_mass::kN_per_kg,
+         Value_type
+      > kN_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_mass::MN_per_kg,
+         Value_type
+      > MN_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_mass::GN_per_kg,
+         Value_type
+      > GN_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_mass::TN_per_kg,
+         Value_type
+      > TN_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_mass::PN_per_kg,
+         Value_type
+      > PN_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_mass::EN_per_kg,
+         Value_type
+      > EN_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_mass::ZN_per_kg,
+         Value_type
+      > ZN_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_mass::YN_per_kg,
+         Value_type
+      > YN_per_kg;
 // non SI units...
     };
 

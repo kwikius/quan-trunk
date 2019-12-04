@@ -20,181 +20,231 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
-
- 
-//
-// See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/components/of_thermal_insulance.hpp>
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct thermal_insulance_ : meta::components::of_thermal_insulance{
-// SI units...
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > ym2_K_per_W;
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zm2_K_per_W;
+ struct of_thermal_insulance{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > am2_K_per_W;
+      struct ym2_K_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_insulance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fm2_K_per_W;
+      struct zm2_K_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_insulance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pm2_K_per_W;
+      struct am2_K_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_insulance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nm2_K_per_W;
+      struct fm2_K_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_insulance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > um2_K_per_W;
+      struct pm2_K_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_insulance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mm2_K_per_W;
+      struct nm2_K_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_insulance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cm2_K_per_W;
+      struct um2_K_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_insulance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dm2_K_per_W;
+      struct mm2_K_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_insulance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > m2_K_per_W;
+      struct cm2_K_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_insulance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > dam2_K_per_W;
+      struct dm2_K_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_insulance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hm2_K_per_W;
+      struct m2_K_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_insulance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > km2_K_per_W;
+      struct dam2_K_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_insulance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > Mm2_K_per_W;
+      struct hm2_K_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_insulance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > Gm2_K_per_W;
+      struct km2_K_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_insulance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > Tm2_K_per_W;
+      struct Mm2_K_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_insulance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > Pm2_K_per_W;
+      struct Gm2_K_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_insulance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > Em2_K_per_W;
+      struct Tm2_K_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_insulance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > Zm2_K_per_W;
+      struct Pm2_K_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_insulance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
+
+      struct Em2_K_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_insulance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
+
+      struct Zm2_K_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_insulance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct Ym2_K_per_W : quan::meta::unit<
+         quan::meta::components::of_thermal_insulance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct thermal_insulance_ : quan::meta::components::of_thermal_insulance{
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_insulance::ym2_K_per_W,
+         Value_type
+      > ym2_K_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_insulance::zm2_K_per_W,
+         Value_type
+      > zm2_K_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_insulance::am2_K_per_W,
+         Value_type
+      > am2_K_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_insulance::fm2_K_per_W,
+         Value_type
+      > fm2_K_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_insulance::pm2_K_per_W,
+         Value_type
+      > pm2_K_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_insulance::nm2_K_per_W,
+         Value_type
+      > nm2_K_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_insulance::um2_K_per_W,
+         Value_type
+      > um2_K_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_insulance::mm2_K_per_W,
+         Value_type
+      > mm2_K_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_insulance::cm2_K_per_W,
+         Value_type
+      > cm2_K_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_insulance::dm2_K_per_W,
+         Value_type
+      > dm2_K_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_insulance::m2_K_per_W,
+         Value_type
+      > m2_K_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_insulance::dam2_K_per_W,
+         Value_type
+      > dam2_K_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_insulance::hm2_K_per_W,
+         Value_type
+      > hm2_K_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_insulance::km2_K_per_W,
+         Value_type
+      > km2_K_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_insulance::Mm2_K_per_W,
+         Value_type
+      > Mm2_K_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_insulance::Gm2_K_per_W,
+         Value_type
+      > Gm2_K_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_insulance::Tm2_K_per_W,
+         Value_type
+      > Tm2_K_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_insulance::Pm2_K_per_W,
+         Value_type
+      > Pm2_K_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_insulance::Em2_K_per_W,
+         Value_type
+      > Em2_K_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_insulance::Zm2_K_per_W,
+         Value_type
+      > Zm2_K_per_W;
+
+      typedef quan::fixed_quantity<
+         quan::of_thermal_insulance::Ym2_K_per_W,
+         Value_type
+      > Ym2_K_per_W;
+
 
 // non SI units...
     };

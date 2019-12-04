@@ -20,181 +20,229 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
-
- 
-//
-// See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/components/of_entropy.hpp>
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct entropy_ : meta::components::of_entropy{
-// SI units...
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > yJ_per_K;
+   struct of_entropy{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zJ_per_K;
+      struct yJ_per_K : quan::meta::unit<
+         quan::meta::components::of_entropy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > aJ_per_K;
+      struct zJ_per_K : quan::meta::unit<
+         quan::meta::components::of_entropy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fJ_per_K;
+      struct aJ_per_K : quan::meta::unit<
+         quan::meta::components::of_entropy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pJ_per_K;
+      struct fJ_per_K : quan::meta::unit<
+         quan::meta::components::of_entropy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nJ_per_K;
+      struct pJ_per_K : quan::meta::unit<
+         quan::meta::components::of_entropy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > uJ_per_K;
+      struct nJ_per_K : quan::meta::unit<
+         quan::meta::components::of_entropy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mJ_per_K;
+      struct uJ_per_K : quan::meta::unit<
+         quan::meta::components::of_entropy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cJ_per_K;
+      struct mJ_per_K : quan::meta::unit<
+         quan::meta::components::of_entropy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dJ_per_K;
+      struct cJ_per_K : quan::meta::unit<
+         quan::meta::components::of_entropy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > J_per_K;
+      struct dJ_per_K : quan::meta::unit<
+         quan::meta::components::of_entropy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > daJ_per_K;
+      struct J_per_K : quan::meta::unit<
+         quan::meta::components::of_entropy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hJ_per_K;
+      struct daJ_per_K : quan::meta::unit<
+         quan::meta::components::of_entropy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > kJ_per_K;
+      struct hJ_per_K : quan::meta::unit<
+         quan::meta::components::of_entropy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > MJ_per_K;
+      struct kJ_per_K : quan::meta::unit<
+         quan::meta::components::of_entropy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > GJ_per_K;
+      struct MJ_per_K : quan::meta::unit<
+         quan::meta::components::of_entropy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > TJ_per_K;
+      struct GJ_per_K : quan::meta::unit<
+         quan::meta::components::of_entropy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > PJ_per_K;
+      struct TJ_per_K : quan::meta::unit<
+         quan::meta::components::of_entropy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > EJ_per_K;
+      struct PJ_per_K : quan::meta::unit<
+         quan::meta::components::of_entropy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > ZJ_per_K;
+      struct EJ_per_K : quan::meta::unit<
+         quan::meta::components::of_entropy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
+
+      struct ZJ_per_K : quan::meta::unit<
+         quan::meta::components::of_entropy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct YJ_per_K : quan::meta::unit<
+         quan::meta::components::of_entropy::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct entropy_ : quan::meta::components::of_entropy{
+
+      typedef quan::fixed_quantity<
+         quan::of_entropy::yJ_per_K,
+         Value_type
+      > yJ_per_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_entropy::zJ_per_K,
+         Value_type
+      > zJ_per_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_entropy::aJ_per_K,
+         Value_type
+      > aJ_per_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_entropy::fJ_per_K,
+         Value_type
+      > fJ_per_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_entropy::pJ_per_K,
+         Value_type
+      > pJ_per_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_entropy::nJ_per_K,
+         Value_type
+      > nJ_per_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_entropy::uJ_per_K,
+         Value_type
+      > uJ_per_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_entropy::mJ_per_K,
+         Value_type
+      > mJ_per_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_entropy::cJ_per_K,
+         Value_type
+      > cJ_per_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_entropy::dJ_per_K,
+         Value_type
+      > dJ_per_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_entropy::J_per_K,
+         Value_type
+      > J_per_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_entropy::daJ_per_K,
+         Value_type
+      > daJ_per_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_entropy::hJ_per_K,
+         Value_type
+      > hJ_per_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_entropy::kJ_per_K,
+         Value_type
+      > kJ_per_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_entropy::MJ_per_K,
+         Value_type
+      > MJ_per_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_entropy::GJ_per_K,
+         Value_type
+      > GJ_per_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_entropy::TJ_per_K,
+         Value_type
+      > TJ_per_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_entropy::PJ_per_K,
+         Value_type
+      > PJ_per_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_entropy::EJ_per_K,
+         Value_type
+      > EJ_per_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_entropy::ZJ_per_K,
+         Value_type
+      > ZJ_per_K;
+
+      typedef quan::fixed_quantity<
+         quan::of_entropy::YJ_per_K,
+         Value_type
+      > YJ_per_K;
 
 // non SI units...
     };

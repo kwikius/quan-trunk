@@ -5,7 +5,7 @@
 #endif
 
 /*
- Copyright (c) 2003-2014 Andy Little.
+ Copyright (c) 2003-2019 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -20,181 +20,229 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
-
- 
-//
-// See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/components/of_magnetomotive_force.hpp>
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct magnetomotive_force_ : meta::components::of_magnetomotive_force{
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > yA;
+   struct of_magnetomotive_force{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zA;
+      struct yA : quan::meta::unit<
+         quan::meta::components::of_magnetomotive_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > aA;
+      struct zA : quan::meta::unit<
+         quan::meta::components::of_magnetomotive_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fA;
+      struct aA : quan::meta::unit<
+         quan::meta::components::of_magnetomotive_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pA;
+      struct fA : quan::meta::unit<
+         quan::meta::components::of_magnetomotive_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nA;
+      struct pA : quan::meta::unit<
+         quan::meta::components::of_magnetomotive_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > uA;
+      struct nA : quan::meta::unit<
+         quan::meta::components::of_magnetomotive_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mA;
+      struct uA : quan::meta::unit<
+         quan::meta::components::of_magnetomotive_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cA;
+      struct mA : quan::meta::unit<
+         quan::meta::components::of_magnetomotive_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dA;
+      struct cA : quan::meta::unit<
+         quan::meta::components::of_magnetomotive_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > A;
+      struct dA : quan::meta::unit<
+         quan::meta::components::of_magnetomotive_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > daA;
+      struct A : quan::meta::unit<
+         quan::meta::components::of_magnetomotive_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hA;
+      struct daA : quan::meta::unit<
+         quan::meta::components::of_magnetomotive_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > kA;
+      struct hA : quan::meta::unit<
+         quan::meta::components::of_magnetomotive_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > MA;
+      struct kA : quan::meta::unit<
+         quan::meta::components::of_magnetomotive_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > GA;
+      struct MA : quan::meta::unit<
+         quan::meta::components::of_magnetomotive_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > TA;
+      struct GA : quan::meta::unit<
+         quan::meta::components::of_magnetomotive_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > PA;
+      struct TA : quan::meta::unit<
+         quan::meta::components::of_magnetomotive_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > EA;
+      struct PA : quan::meta::unit<
+         quan::meta::components::of_magnetomotive_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > ZA;
+      struct EA : quan::meta::unit<
+         quan::meta::components::of_magnetomotive_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
 
+      struct ZA : quan::meta::unit<
+         quan::meta::components::of_magnetomotive_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct YA : quan::meta::unit<
+         quan::meta::components::of_magnetomotive_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct magnetomotive_force_ : quan::meta::components::of_magnetomotive_force{
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetomotive_force::yA,
+         Value_type
+      > yA;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetomotive_force::zA,
+         Value_type
+      > zA;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetomotive_force::aA,
+         Value_type
+      > aA;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetomotive_force::fA,
+         Value_type
+      > fA;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetomotive_force::pA,
+         Value_type
+      > pA;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetomotive_force::nA,
+         Value_type
+      > nA;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetomotive_force::uA,
+         Value_type
+      > uA;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetomotive_force::mA,
+         Value_type
+      > mA;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetomotive_force::cA,
+         Value_type
+      > cA;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetomotive_force::dA,
+         Value_type
+      > dA;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetomotive_force::A,
+         Value_type
+      > A;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetomotive_force::daA,
+         Value_type
+      > daA;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetomotive_force::hA,
+         Value_type
+      > hA;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetomotive_force::kA,
+         Value_type
+      > kA;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetomotive_force::MA,
+         Value_type
+      > MA;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetomotive_force::GA,
+         Value_type
+      > GA;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetomotive_force::TA,
+         Value_type
+      > TA;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetomotive_force::PA,
+         Value_type
+      > PA;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetomotive_force::EA,
+         Value_type
+      > EA;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetomotive_force::ZA,
+         Value_type
+      > ZA;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetomotive_force::YA,
+         Value_type
+      > YA;
     };
 
     struct magnetomotive_force : magnetomotive_force_<quantity_traits::default_value_type>{};

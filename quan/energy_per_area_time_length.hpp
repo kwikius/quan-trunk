@@ -5,7 +5,7 @@
 #endif
 
 /*
- Copyright (c) 2003-2014 Andy Little.
+ Copyright (c) 2003-2019 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -20,181 +20,230 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
-
- 
-//
-// See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/components/of_energy_per_area_time_length.hpp>
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct energy_per_area_time_length_ : meta::components::of_energy_per_area_time_length{
-// SI units...
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > yW_per_m2_per_m;
+   struct of_energy_per_area_time_length{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zW_per_m2_per_m;
+      struct yW_per_m2_per_m : quan::meta::unit<
+         quan::meta::components::of_energy_per_area_time_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > aW_per_m2_per_m;
+      struct zW_per_m2_per_m : quan::meta::unit<
+         quan::meta::components::of_energy_per_area_time_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fW_per_m2_per_m;
+      struct aW_per_m2_per_m : quan::meta::unit<
+         quan::meta::components::of_energy_per_area_time_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pW_per_m2_per_m;
+      struct fW_per_m2_per_m : quan::meta::unit<
+         quan::meta::components::of_energy_per_area_time_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nW_per_m2_per_m;
+      struct pW_per_m2_per_m : quan::meta::unit<
+         quan::meta::components::of_energy_per_area_time_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > uW_per_m2_per_m;
+      struct nW_per_m2_per_m : quan::meta::unit<
+         quan::meta::components::of_energy_per_area_time_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mW_per_m2_per_m;
+      struct uW_per_m2_per_m : quan::meta::unit<
+         quan::meta::components::of_energy_per_area_time_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cW_per_m2_per_m;
+      struct mW_per_m2_per_m : quan::meta::unit<
+         quan::meta::components::of_energy_per_area_time_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dW_per_m2_per_m;
+      struct cW_per_m2_per_m : quan::meta::unit<
+         quan::meta::components::of_energy_per_area_time_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > W_per_m2_per_m;
+      struct dW_per_m2_per_m : quan::meta::unit<
+         quan::meta::components::of_energy_per_area_time_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > daW_per_m2_per_m;
+      struct W_per_m2_per_m : quan::meta::unit<
+         quan::meta::components::of_energy_per_area_time_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hW_per_m2_per_m;
+      struct daW_per_m2_per_m : quan::meta::unit<
+         quan::meta::components::of_energy_per_area_time_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > kW_per_m2_per_m;
+      struct hW_per_m2_per_m : quan::meta::unit<
+         quan::meta::components::of_energy_per_area_time_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > MW_per_m2_per_m;
+      struct kW_per_m2_per_m : quan::meta::unit<
+         quan::meta::components::of_energy_per_area_time_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > GW_per_m2_per_m;
+      struct MW_per_m2_per_m : quan::meta::unit<
+         quan::meta::components::of_energy_per_area_time_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > TW_per_m2_per_m;
+      struct GW_per_m2_per_m : quan::meta::unit<
+         quan::meta::components::of_energy_per_area_time_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > PW_per_m2_per_m;
+      struct TW_per_m2_per_m : quan::meta::unit<
+         quan::meta::components::of_energy_per_area_time_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > EW_per_m2_per_m;
+      struct PW_per_m2_per_m : quan::meta::unit<
+         quan::meta::components::of_energy_per_area_time_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > ZW_per_m2_per_m;
+      struct EW_per_m2_per_m : quan::meta::unit<
+         quan::meta::components::of_energy_per_area_time_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
+
+      struct ZW_per_m2_per_m : quan::meta::unit<
+         quan::meta::components::of_energy_per_area_time_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct YW_per_m2_per_m : quan::meta::unit<
+         quan::meta::components::of_energy_per_area_time_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct energy_per_area_time_length_ : quan::meta::components::of_energy_per_area_time_length{
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_area_time_length::yW_per_m2_per_m,
+         Value_type
+      > yW_per_m2_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_area_time_length::zW_per_m2_per_m,
+         Value_type
+      > zW_per_m2_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_area_time_length::aW_per_m2_per_m,
+         Value_type
+      > aW_per_m2_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_area_time_length::fW_per_m2_per_m,
+         Value_type
+      > fW_per_m2_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_area_time_length::pW_per_m2_per_m,
+         Value_type
+      > pW_per_m2_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_area_time_length::nW_per_m2_per_m,
+         Value_type
+      > nW_per_m2_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_area_time_length::uW_per_m2_per_m,
+         Value_type
+      > uW_per_m2_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_area_time_length::mW_per_m2_per_m,
+         Value_type
+      > mW_per_m2_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_area_time_length::cW_per_m2_per_m,
+         Value_type
+      > cW_per_m2_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_area_time_length::dW_per_m2_per_m,
+         Value_type
+      > dW_per_m2_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_area_time_length::W_per_m2_per_m,
+         Value_type
+      > W_per_m2_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_area_time_length::daW_per_m2_per_m,
+         Value_type
+      > daW_per_m2_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_area_time_length::hW_per_m2_per_m,
+         Value_type
+      > hW_per_m2_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_area_time_length::kW_per_m2_per_m,
+         Value_type
+      > kW_per_m2_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_area_time_length::MW_per_m2_per_m,
+         Value_type
+      > MW_per_m2_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_area_time_length::GW_per_m2_per_m,
+         Value_type
+      > GW_per_m2_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_area_time_length::TW_per_m2_per_m,
+         Value_type
+      > TW_per_m2_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_area_time_length::PW_per_m2_per_m,
+         Value_type
+      > PW_per_m2_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_area_time_length::EW_per_m2_per_m,
+         Value_type
+      > EW_per_m2_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_area_time_length::ZW_per_m2_per_m,
+         Value_type
+      > ZW_per_m2_per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_area_time_length::YW_per_m2_per_m,
+         Value_type
+      > YW_per_m2_per_m;
+
 
 // non SI units...
     };
