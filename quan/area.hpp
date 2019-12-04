@@ -67,7 +67,10 @@ namespace quan{
          typename quan::meta::si_unit::micro // coherent_exponent -6
       >{};
          // coherent_exponent :-5 -> N/A
-         // coherent_exponent :-4 -> N/A
+      struct cm2 : quan::meta::unit<
+         quan::meta::components::of_area::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-4> > // coherent_exponent -4
+      >{};
          // coherent_exponent :-3 -> N/A
       struct dm2 :  quan::meta::unit<
          quan::meta::components::of_area::abstract_quantity,
@@ -163,7 +166,10 @@ namespace quan{
          Value_type
       > mm2;
       // coherent_exponent :-5 -> N/A
-      // coherent_exponent :-4 -> N/A
+      typedef quan::fixed_quantity<
+         quan::of_area::cm2,
+         Value_type
+      > cm2;
       // coherent_exponent :-3 -> N/A
       typedef quan::fixed_quantity<
          quan::of_area::dm2,

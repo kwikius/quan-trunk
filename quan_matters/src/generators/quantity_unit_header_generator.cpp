@@ -1,6 +1,10 @@
 
 /*
-  TODO apply each unit conv_factor<1> conv_factor<2> etc , not si_units
+  TODO misses some units
+  // e.g. area::cm2
+  // issue with extents > 1
+  // becasues no si unit is defined
+  // therefore should output a conversion_factor direct
 */
 
 #include <quan/meta/find_if.hpp>
@@ -22,10 +26,10 @@ auto get_quantities_list()
      // quan::meta::components::of_area_moment_of_inertia{},
     //  quan::meta::components::of_capacitance{},
      // quan::meta::components::of_charge{},
-      quan::meta::components::of_circulation{},
-      quan::meta::components::of_conductance{},
-      quan::meta::components::of_current{},
-      quan::meta::components::of_density{},
+    //  quan::meta::components::of_circulation{},
+     // quan::meta::components::of_conductance{},
+     // quan::meta::components::of_current{},
+    //  quan::meta::components::of_density{},
       quan::meta::components::of_energy{},
       quan::meta::components::of_energy_per_area_time{},
       quan::meta::components::of_energy_per_area_time_length{},
@@ -192,10 +196,10 @@ struct output_unit_t{
      std::string const si_unit_name = quan::meta::si_unit::template prefix<SiUnit>::name();
      
      std::string const si_unit_prefix = quan::meta::si_unit::template prefix<adjusted_si_unit>:: template symbol<char>();
-     m_out << "   struct " << si_unit_prefix << quantity_symbol << " :  quan::meta::unit<\n";
-     m_out << "      quan::meta::components::of_" << quantity_name << "::abstract_quantity,\n";
-     m_out << "      typename quan::meta::si_unit::" << ((si_unit_name!="")?si_unit_name:"none") << " // coherent_exponent " << SiUnit::exponent::numerator << '\n';
-     m_out << "   >{};\n";
+     m_out << "      struct " << si_unit_prefix << quantity_symbol << " :  quan::meta::unit<\n";
+     m_out << "         quan::meta::components::of_" << quantity_name << "::abstract_quantity,\n";
+     m_out << "         typename quan::meta::si_unit::" << ((si_unit_name!="")?si_unit_name:"none") << " // coherent_exponent " << SiUnit::exponent::numerator << '\n';
+     m_out << "      >{};\n";
 
    }
   
@@ -250,11 +254,18 @@ struct output_quantity{
       quan::fun::integer_range<FirstExp,LastExp> si_exp_range;
       std::string const quantity_name = Q::abstract_quantity_name();
       std::cout << "Outputting units for " << quantity_name << '\n';
-      m_out << "struct of_" << quantity_name <<"{\n";
-      quan::fun::for_each(si_exp_range,output_unit_if_t<Q, output_unit_t >{m_out});
-      m_out << "};\n";
-      m_out << "----------------------------------------\n\n";
+
+      m_out << "#if 1\n";
       quan::fun::for_each(si_exp_range,output_unit_if_t<Q,output_typedef_t >{m_out});
+      m_out << "#else\n";
+      m_out << "#endif\n\n";
+
+      m_out << "----------------------------------------\n\n";
+
+      m_out << "   struct of_" << quantity_name <<"{\n";
+      quan::fun::for_each(si_exp_range,output_unit_if_t<Q, output_unit_t >{m_out});
+      m_out << "   };\n\n";
+
       m_out << "------------###############-------------\n\n";
    }
 };
@@ -265,8 +276,8 @@ struct output_quantity{
 int main()
 {  
    std::ofstream out("quan_matters/src/generators/output.txt");
-#if 0
-   output_quantity<-6,6>{out}(quan::meta::components::of_temperature{});
+#if 1
+   output_quantity<-27,27>{out}(quan::meta::components::of_area{});
 #else
    // N.B takes around 2 minutes to build this version
    quan::fun::for_each(get_quantities_list(),output_quantity<-27,27>{out});
