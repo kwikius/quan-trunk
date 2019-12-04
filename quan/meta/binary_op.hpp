@@ -4,7 +4,7 @@
 #  pragma once
 #endif
 
-// Copyright Andrew Little 2006-2007
+// Copyright Andrew Little 2003-20019
 
 #include <quan/meta/impl/binary_op_impl.hpp>
 #if  defined __cpp_concepts
@@ -16,12 +16,13 @@
 
 namespace quan{ namespace meta{
 
-   // remove the extra where param when happy
    template <typename TL, typename Op, typename TR>
-   struct binary_op : impl::binary_op_impl<
-      typename strip_cr<TL>::type,Op,
-      typename strip_cr<TR>::type
-   > {};
+   struct binary_op {
+      typedef typename quan::meta::impl::binary_op_impl<
+         typename strip_cr<TL>::type,Op,
+         typename strip_cr<TR>::type
+      >::type type;
+   };
 
    template <typename Lhs, typename Op,  typename Rhs>
    struct is_valid_binary_op : quan::is_model_of<
