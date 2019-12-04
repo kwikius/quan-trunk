@@ -81,38 +81,8 @@ auto get_quantities_list()
    );
 }
 
-#if 0
-auto get_si_units_list()
-{
-  using quan::meta::si_unit;
-  return quan::fusion::make_vector(
-         si_unit::yotta{},
-         si_unit::zetta{},
-         si_unit::exa{},
-         si_unit::peta{},
-         si_unit::tera{},
-         si_unit::giga{},
-         si_unit::mega{},
-         si_unit::kilo{},
-         si_unit::hecto{},
-         si_unit::deka{},
-         si_unit::none{},
-         si_unit::deci{},
-         si_unit::centi{},
-         si_unit::milli{},
-         si_unit::micro{},
-         si_unit::nano{},
-         si_unit::pico{},
-         si_unit::femto{},
-         si_unit::atto{},
-         si_unit::zepto{},
-         si_unit::yocto{}
-      ); 
-}
-#endif
-
 /*
-   we input an SiUnit and a quantity traits
+   Input an SiUnit and a quantity traits
    the si_unit is adjusted
    The resulting type may be undefined
    or an si conversion_factor
@@ -152,26 +122,6 @@ auto get_si_units_list()
   };
 
 // we have pretested the SiUnit so it is good
-//template <typename SiUnit, typename OfQ>
-//void output_unit(std::ostream & out)
-//{
-//     std::string const quantity_name = OfQ::abstract_quantity_name();
-//     std::string const quantity_symbol = OfQ:: template unprefixed_symbol<char>();
-//     
-//      typedef typename get_adjusted_si_unit::apply<
-//         SiUnit,OfQ
-//      >::type adjusted_si_unit;
-//     std::string const si_unit_name = quan::meta::si_unit::template prefix<SiUnit>::name();
-//     
-//     std::string const si_unit_prefix = quan::meta::si_unit::template prefix<adjusted_si_unit>:: template symbol<char>();
-//     out << "   struct " << si_unit_prefix << quantity_symbol << " :  quan::meta::unit<\n";
-//     out << "      quan::meta::components::of_" << quantity_name << "::abstract_quantity,\n";
-//     out << "      typename quan::meta::si_unit::" << ((si_unit_name!="")?si_unit_name:"none") << " // coherent_exponent " << SiUnit::exponent::numerator << '\n';
-//     out << "   >{};\n";
-//
-//}
-
-// we have pretested the SiUnit so it is good
 template <typename SiUnit, typename OfQ>
 void output_typedef(std::ostream & out)
 {
@@ -205,6 +155,7 @@ struct output_typedef_t{
   
 };
 
+// do nothing except print a comment on what wasnt done in the output
 struct null_fun{
    typedef null_fun type;
   
@@ -220,6 +171,7 @@ struct null_fun{
    }
 };
 
+// output the derived unit
 template <typename OfQ>
 struct output_unit_t{
    typedef output_unit_t type;
@@ -250,8 +202,8 @@ struct output_unit_t{
 };
 
 /*
- proceed if the unit is good and call F on u
-  else do nothing with u
+ proceed if the unit is good and call F on   U(i)
+  else call null_fun on  U(i)
 */
 template <typename OfQ, template <typename> class F >
 struct output_unit_if_t{
@@ -262,14 +214,17 @@ struct output_unit_if_t{
    template <typename IntegralConstant>
    void operator()(IntegralConstant const & I)const
    {
+      // make a coherent conversion factor
       typedef quan::meta::conversion_factor<
          quan::meta::rational<IntegralConstant::value>
       > si_unit;
 
+      // adjust for the quantity
       typedef typename get_adjusted_si_unit::apply<
         si_unit,OfQ
       >::type adjusted_si_unit;
 
+      // if it is good output it
       typedef typename quan::meta::eval_if<
          quan::meta::or_<
             std::is_same<adjusted_si_unit, quan::undefined>,
@@ -284,15 +239,17 @@ struct output_unit_if_t{
 
 };
 
+// output units of Q in range 
+template <int FirstExp, int LastExp>
 struct output_quantity{
    output_quantity(std::ostream & out) : m_out{out}{}
    std::ostream & m_out;
    template <typename Q>
    void operator()(Q const &)const
    {
-   
-      quan::fun::integer_range<-27,27> si_exp_range;
+      quan::fun::integer_range<FirstExp,LastExp> si_exp_range;
       std::string const quantity_name = Q::abstract_quantity_name();
+      std::cout << "Outputting units for " << quantity_name << '\n';
       m_out << "struct of_" << quantity_name <<"{\n";
       quan::fun::for_each(si_exp_range,output_unit_if_t<Q, output_unit_t >{m_out});
       m_out << "};\n";
@@ -301,42 +258,18 @@ struct output_quantity{
       m_out << "------------###############-------------\n\n";
    }
 };
+ // single output
+   //output_unit_if_t<quan::meta::components::of_area,output_unit_t>{std::cout}(std::integral_constant<int64_t,-6>{});
+   //output_unit_if_t<quan::meta::components::of_area,output_typedef_t>{std::cout}(std::integral_constant<int64_t,-6>{});
 
-
+int main()
+{  
+   std::ofstream out("quan_matters/src/generators/output.txt");
 #if 0
-struct si_fun{
-   template <typename T>
-   void operator()(T t)const
-   { 
-    std::cout << quan::meta::si_unit::prefix<T>:: name() <<'\n';
-    std::cout << quan::meta::si_unit::prefix<T>:: template symbol<char>() <<'\n';
-   }
-};
-#endif
-#if 1
-int main()
-{
-  // output_unit_if_t<quan::meta::components::of_area,output_unit_t>{std::cout}(quan::meta::si_unit::micro{});
-   std::ofstream out("output.txt");
-   output_quantity{out}(quan::meta::components::of_mass{});
-
-/*
-   typedef quan::meta::if_<
-      quan::meta::si_unit::prefix<si_unit>,
-      si_fun,
-      null_fun
-   >::type fun;
-
-   fun{}(si_unit{});
- */ 
-  
-}
-
+   output_quantity<-6,6>{out}(quan::meta::components::of_temperature{});
 #else
-int main()
-{
-   std::ofstream out("output.txt");
-
-   quan::fun::for_each(get_quantities_list(),output_quantity<output_unit_t,output_typedef_t>{out});
-}
+   // N.B takes around 2 minutes to build this version
+   quan::fun::for_each(get_quantities_list(),output_quantity<-27,27>{out});
 #endif
+}
+
