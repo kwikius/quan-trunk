@@ -43,7 +43,7 @@ namespace quan{ namespace meta{ namespace components{
         static const CharType* unprefixed_symbol();
 
         enum{
-            extent = 1,
+            extent = 4,
             prefix_offset = 0
         };
 
