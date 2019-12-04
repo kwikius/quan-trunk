@@ -35,7 +35,7 @@ namespace quan{ namespace meta{ namespace components{
 
         static const char* abstract_quantity_name()
         {
-            return "mass";
+            return "mass per area";
         }
 
         template<typename CharType>

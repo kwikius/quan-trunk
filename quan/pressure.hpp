@@ -5,7 +5,7 @@
 #endif
 
 /*
- Copyright (c) 2003-2014 Andy Little.
+ Copyright (c) 2003-2019 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -20,180 +20,230 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
-
- 
-//
-// See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/components/of_pressure.hpp>
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct pressure_ : meta::components::of_pressure{
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > yPa;
+   struct of_pressure{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zPa;
+      struct yPa : quan::meta::unit<
+         quan::meta::components::of_pressure::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > aPa;
+      struct zPa : quan::meta::unit<
+         quan::meta::components::of_pressure::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fPa;
+      struct aPa : quan::meta::unit<
+         quan::meta::components::of_pressure::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pPa;
+      struct fPa : quan::meta::unit<
+         quan::meta::components::of_pressure::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nPa;
+      struct pPa : quan::meta::unit<
+         quan::meta::components::of_pressure::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > uPa;
+      struct nPa : quan::meta::unit<
+         quan::meta::components::of_pressure::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mPa;
+      struct uPa : quan::meta::unit<
+         quan::meta::components::of_pressure::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cPa;
+      struct mPa : quan::meta::unit<
+         quan::meta::components::of_pressure::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dPa;
+      struct cPa : quan::meta::unit<
+         quan::meta::components::of_pressure::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > Pa;
+      struct dPa : quan::meta::unit<
+         quan::meta::components::of_pressure::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > daPa;
+      struct Pa : quan::meta::unit<
+         quan::meta::components::of_pressure::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hPa;
+      struct daPa : quan::meta::unit<
+         quan::meta::components::of_pressure::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > kPa;
+      struct hPa : quan::meta::unit<
+         quan::meta::components::of_pressure::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > MPa;
+      struct kPa : quan::meta::unit<
+         quan::meta::components::of_pressure::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > GPa;
+      struct MPa : quan::meta::unit<
+         quan::meta::components::of_pressure::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > TPa;
+      struct GPa : quan::meta::unit<
+         quan::meta::components::of_pressure::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > PPa;
+      struct TPa : quan::meta::unit<
+         quan::meta::components::of_pressure::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > EPa;
+      struct PPa : quan::meta::unit<
+         quan::meta::components::of_pressure::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > ZPa;
+      struct EPa : quan::meta::unit<
+         quan::meta::components::of_pressure::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
+
+      struct ZPa : quan::meta::unit<
+         quan::meta::components::of_pressure::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct YPa : quan::meta::unit<
+         quan::meta::components::of_pressure::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct pressure_ : quan::meta::components::of_pressure{
+
+      typedef quan::fixed_quantity<
+         quan::of_pressure::yPa,
+         Value_type
+      > yPa;
+
+      typedef quan::fixed_quantity<
+         quan::of_pressure::zPa,
+         Value_type
+      > zPa;
+
+      typedef quan::fixed_quantity<
+         quan::of_pressure::aPa,
+         Value_type
+      > aPa;
+
+      typedef quan::fixed_quantity<
+         quan::of_pressure::fPa,
+         Value_type
+      > fPa;
+
+      typedef quan::fixed_quantity<
+         quan::of_pressure::pPa,
+         Value_type
+      > pPa;
+
+      typedef quan::fixed_quantity<
+         quan::of_pressure::nPa,
+         Value_type
+      > nPa;
+
+      typedef quan::fixed_quantity<
+         quan::of_pressure::uPa,
+         Value_type
+      > uPa;
+
+      typedef quan::fixed_quantity<
+         quan::of_pressure::mPa,
+         Value_type
+      > mPa;
+
+      typedef quan::fixed_quantity<
+         quan::of_pressure::cPa,
+         Value_type
+      > cPa;
+
+      typedef quan::fixed_quantity<
+         quan::of_pressure::dPa,
+         Value_type
+      > dPa;
+
+      typedef quan::fixed_quantity<
+         quan::of_pressure::Pa,
+         Value_type
+      > Pa;
+
+      typedef quan::fixed_quantity<
+         quan::of_pressure::daPa,
+         Value_type
+      > daPa;
+
+      typedef quan::fixed_quantity<
+         quan::of_pressure::hPa,
+         Value_type
+      > hPa;
+
+      typedef quan::fixed_quantity<
+         quan::of_pressure::kPa,
+         Value_type
+      > kPa;
+
+      typedef quan::fixed_quantity<
+         quan::of_pressure::MPa,
+         Value_type
+      > MPa;
+
+      typedef quan::fixed_quantity<
+         quan::of_pressure::GPa,
+         Value_type
+      > GPa;
+
+      typedef quan::fixed_quantity<
+         quan::of_pressure::TPa,
+         Value_type
+      > TPa;
+
+      typedef quan::fixed_quantity<
+         quan::of_pressure::PPa,
+         Value_type
+      > PPa;
+
+      typedef quan::fixed_quantity<
+         quan::of_pressure::EPa,
+         Value_type
+      > EPa;
+
+      typedef quan::fixed_quantity<
+         quan::of_pressure::ZPa,
+         Value_type
+      > ZPa;
+
+      typedef quan::fixed_quantity<
+         quan::of_pressure::YPa,
+         Value_type
+      > YPa;
+
 
         typedef fixed_quantity<
             typename non_si_unit::atm,

@@ -5,7 +5,7 @@
 #endif
 
 /*
- Copyright (c) 2003-2014 Andy Little.
+ Copyright (c) 2003-2019 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -20,181 +20,229 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
-
- 
-//
-// See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/components/of_intensity.hpp>
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct intensity_ : meta::components::of_intensity{
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > ycd;
+   struct of_intensity{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zcd;
+      struct ycd : quan::meta::unit<
+         quan::meta::components::of_intensity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > acd;
+      struct zcd : quan::meta::unit<
+         quan::meta::components::of_intensity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fcd;
+      struct acd : quan::meta::unit<
+         quan::meta::components::of_intensity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pcd;
+      struct fcd : quan::meta::unit<
+         quan::meta::components::of_intensity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > ncd;
+      struct pcd : quan::meta::unit<
+         quan::meta::components::of_intensity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > ucd;
+      struct ncd : quan::meta::unit<
+         quan::meta::components::of_intensity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mcd;
+      struct ucd : quan::meta::unit<
+         quan::meta::components::of_intensity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > ccd;
+      struct mcd : quan::meta::unit<
+         quan::meta::components::of_intensity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dcd;
+      struct ccd : quan::meta::unit<
+         quan::meta::components::of_intensity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > cd;
+      struct dcd : quan::meta::unit<
+         quan::meta::components::of_intensity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > dacd;
+      struct cd : quan::meta::unit<
+         quan::meta::components::of_intensity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hcd;
+      struct dacd : quan::meta::unit<
+         quan::meta::components::of_intensity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > kcd;
+      struct hcd : quan::meta::unit<
+         quan::meta::components::of_intensity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > Mcd;
+      struct kcd : quan::meta::unit<
+         quan::meta::components::of_intensity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > Gcd;
+      struct Mcd : quan::meta::unit<
+         quan::meta::components::of_intensity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > Tcd;
+      struct Gcd : quan::meta::unit<
+         quan::meta::components::of_intensity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > Pcd;
+      struct Tcd : quan::meta::unit<
+         quan::meta::components::of_intensity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > Ecd;
+      struct Pcd : quan::meta::unit<
+         quan::meta::components::of_intensity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > Zcd;
+      struct Ecd : quan::meta::unit<
+         quan::meta::components::of_intensity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
 
+      struct Zcd : quan::meta::unit<
+         quan::meta::components::of_intensity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct Ycd : quan::meta::unit<
+         quan::meta::components::of_intensity::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct intensity_ : quan::meta::components::of_intensity{
+
+      typedef quan::fixed_quantity<
+         quan::of_intensity::ycd,
+         Value_type
+      > ycd;
+
+      typedef quan::fixed_quantity<
+         quan::of_intensity::zcd,
+         Value_type
+      > zcd;
+
+      typedef quan::fixed_quantity<
+         quan::of_intensity::acd,
+         Value_type
+      > acd;
+
+      typedef quan::fixed_quantity<
+         quan::of_intensity::fcd,
+         Value_type
+      > fcd;
+
+      typedef quan::fixed_quantity<
+         quan::of_intensity::pcd,
+         Value_type
+      > pcd;
+
+      typedef quan::fixed_quantity<
+         quan::of_intensity::ncd,
+         Value_type
+      > ncd;
+
+      typedef quan::fixed_quantity<
+         quan::of_intensity::ucd,
+         Value_type
+      > ucd;
+
+      typedef quan::fixed_quantity<
+         quan::of_intensity::mcd,
+         Value_type
+      > mcd;
+
+      typedef quan::fixed_quantity<
+         quan::of_intensity::ccd,
+         Value_type
+      > ccd;
+
+      typedef quan::fixed_quantity<
+         quan::of_intensity::dcd,
+         Value_type
+      > dcd;
+
+      typedef quan::fixed_quantity<
+         quan::of_intensity::cd,
+         Value_type
+      > cd;
+
+      typedef quan::fixed_quantity<
+         quan::of_intensity::dacd,
+         Value_type
+      > dacd;
+
+      typedef quan::fixed_quantity<
+         quan::of_intensity::hcd,
+         Value_type
+      > hcd;
+
+      typedef quan::fixed_quantity<
+         quan::of_intensity::kcd,
+         Value_type
+      > kcd;
+
+      typedef quan::fixed_quantity<
+         quan::of_intensity::Mcd,
+         Value_type
+      > Mcd;
+
+      typedef quan::fixed_quantity<
+         quan::of_intensity::Gcd,
+         Value_type
+      > Gcd;
+
+      typedef quan::fixed_quantity<
+         quan::of_intensity::Tcd,
+         Value_type
+      > Tcd;
+
+      typedef quan::fixed_quantity<
+         quan::of_intensity::Pcd,
+         Value_type
+      > Pcd;
+
+      typedef quan::fixed_quantity<
+         quan::of_intensity::Ecd,
+         Value_type
+      > Ecd;
+
+      typedef quan::fixed_quantity<
+         quan::of_intensity::Zcd,
+         Value_type
+      > Zcd;
+
+      typedef quan::fixed_quantity<
+         quan::of_intensity::Ycd,
+         Value_type
+      > Ycd;
     };
 
     struct intensity : intensity_<quantity_traits::default_value_type>{};

@@ -16,72 +16,73 @@
 #include <quan/fun/for_each.hpp>
 #include <quan/fun/integer_range.hpp>
 #include <string>
+#include <algorithm>
 #include <fstream>
 
 auto get_quantities_list()
 {
    return quan::fusion::make_vector(
      // quan::meta::components::of_acceleration{},
-    //  quan::meta::components::of_area{},
+     // quan::meta::components::of_area{},
      // quan::meta::components::of_area_moment_of_inertia{},
     //  quan::meta::components::of_capacitance{},
      // quan::meta::components::of_charge{},
     //  quan::meta::components::of_circulation{},
      // quan::meta::components::of_conductance{},
      // quan::meta::components::of_current{},
-    //  quan::meta::components::of_density{},
-      quan::meta::components::of_energy{},
-      quan::meta::components::of_energy_per_area_time{},
-      quan::meta::components::of_energy_per_area_time_length{},
-      quan::meta::components::of_energy_per_mass{},
-      quan::meta::components::of_energy_per_volume{},
-      quan::meta::components::of_entropy{},
-      quan::meta::components::of_force{},
-      quan::meta::components::of_force_per_area{},
-      quan::meta::components::of_force_per_length{},
-      quan::meta::components::of_force_per_mass{},
-      quan::meta::components::of_force_per_volume{},
-      quan::meta::components::of_frequency{},
-      quan::meta::components::of_fuel_consumption{},
-      quan::meta::components::of_heat_density{},
-      quan::meta::components::of_heat_flow_density{},
-      quan::meta::components::of_heat_flow{},
-      quan::meta::components::of_heat_transfer_coefficient{},
-      quan::meta::components::of_inductance{},
-      quan::meta::components::of_intensity{},
+     // quan::meta::components::of_density{},
+     // quan::meta::components::of_energy{},
+     // quan::meta::components::of_energy_per_area_time{},
+     // quan::meta::components::of_energy_per_area_time_length{},
+     // quan::meta::components::of_energy_per_mass{},
+     // quan::meta::components::of_energy_per_volume{},
+     // quan::meta::components::of_entropy{},
+     // quan::meta::components::of_force{},
+     // quan::meta::components::of_force_per_area{},
+     // quan::meta::components::of_force_per_length{},
+     // quan::meta::components::of_force_per_mass{},
+     // quan::meta::components::of_force_per_volume{},
+     // quan::meta::components::of_frequency{},
+    //  quan::meta::components::of_fuel_consumption{},
+    //  quan::meta::components::of_heat_density{},
+    //  quan::meta::components::of_heat_flow_density{},
+   //   quan::meta::components::of_heat_flow{},
+    //  quan::meta::components::of_heat_transfer_coefficient{},
+    //  quan::meta::components::of_inductance{},
+    //  quan::meta::components::of_intensity{},
      // quan::meta::components::of_length{},
-      quan::meta::components::of_magnetic_field_strength{},
-      quan::meta::components::of_magnetic_flux_density{},
-      quan::meta::components::of_magnetic_flux{},
-      quan::meta::components::of_magnetic_permeability{},
-      quan::meta::components::of_magnetomotive_force{},
-      quan::meta::components::of_mass_flow{},
-    //  quan::meta::components::of_mass{},
-      quan::meta::components::of_mass_per_area{},
-      quan::meta::components::of_permeability{},
-      quan::meta::components::of_potential_difference{},
-      quan::meta::components::of_power{},
-      quan::meta::components::of_pressure{},
-      quan::meta::components::of_reciprocal_length{},
-      quan::meta::components::of_reciprocal_mass{},
-      quan::meta::components::of_reciprocal_time{},
-      quan::meta::components::of_resistance{},
-      quan::meta::components::of_resistivity{},
-      quan::meta::components::of_specific_entropy{},
-      quan::meta::components::of_substance{},
+     // quan::meta::components::of_magnetic_field_strength{},
+     // quan::meta::components::of_magnetic_flux_density{},
+     // quan::meta::components::of_magnetic_flux{},
+    //  quan::meta::components::of_magnetic_permeability{},
+     // quan::meta::components::of_magnetomotive_force{},
+    //  quan::meta::components::of_mass_flow{},
+   //   quan::meta::components::of_mass{},
+    //  quan::meta::components::of_mass_per_area{},
+    //  quan::meta::components::of_permeability{},
+    //  quan::meta::components::of_potential_difference{},
+     // quan::meta::components::of_power{},
+     // quan::meta::components::of_pressure{},
+     // quan::meta::components::of_reciprocal_length{},
+     // quan::meta::components::of_reciprocal_mass{},
+     // quan::meta::components::of_reciprocal_time{},
+     // quan::meta::components::of_resistance{},
+     // quan::meta::components::of_resistivity{},
+     // quan::meta::components::of_specific_entropy{},
+   //   quan::meta::components::of_substance{},
      // quan::meta::components::of_temperature{},
-      quan::meta::components::of_thermal_conductivity{},
-      quan::meta::components::of_thermal_diffusivity{},
-      quan::meta::components::of_thermal_insulance{},
-      quan::meta::components::of_thermal_resistance{},
-      quan::meta::components::of_thermal_resistivity{},
+    //  quan::meta::components::of_thermal_conductivity{},
+    //  quan::meta::components::of_thermal_diffusivity{},
+    //  quan::meta::components::of_thermal_insulance{},
+     // quan::meta::components::of_thermal_resistance{},
+    //  quan::meta::components::of_thermal_resistivity{},
      // quan::meta::components::of_time{},
-      quan::meta::components::of_torque{},
-      quan::meta::components::of_velocity{},
-      quan::meta::components::of_voltage{},
-      quan::meta::components::of_volume_flow{},
-      quan::meta::components::of_volume{},
-      quan::meta::components::of_volume_per_energy{}
+     // quan::meta::components::of_torque{},
+    //  quan::meta::components::of_velocity{},
+     // quan::meta::components::of_voltage{},
+     // quan::meta::components::of_volume_flow{},
+    //  quan::meta::components::of_volume{},
+     // quan::meta::components::of_volume_per_energy{}
    );
 }
 
@@ -118,15 +119,28 @@ auto get_quantities_list()
 template <typename SiUnit, typename OfQ>
 void output_typedef(std::ostream & out)
 {
-   std::string const quantity_name = OfQ::abstract_quantity_name();
+   std::string quantity_name = OfQ::abstract_quantity_name();
+   std::replace( quantity_name.begin(), quantity_name.end(), ' ', '_');
    std::string const quantity_symbol = OfQ:: template unprefixed_symbol<char>();
+   
   // std::string const si_unit_name = quan::meta::si_unit:: template prefix<SiUnit>::name();
    std::string const si_unit_prefix = quan::meta::si_unit:: template prefix<SiUnit>:: template symbol<char>();
    
    out << "      typedef quan::fixed_quantity<\n";
    out << "         quan::of_" << quantity_name << "::" <<  si_unit_prefix << quantity_symbol << ",\n";
    out << "         Value_type\n";
-   out << "      > " <<  si_unit_prefix << quantity_symbol << ";\n\n";
+
+   static constexpr int64_t extent = OfQ::extent;
+   if ( extent >= 1 ){
+     out << "      > " << si_unit_prefix << quantity_symbol ; 
+   }else{
+      //static_assert(extent < 0, "invalid extent");
+      out << "      >  per_" << si_unit_prefix << quantity_symbol ;
+      if ( extent < -1){
+         out << -extent;
+      }
+   }
+   out << ";\n\n";
 }
 
 template <typename OfQ>
@@ -170,7 +184,8 @@ struct output_unit_t{
    template <typename SiUnit>
    void operator() (SiUnit const &) const
    {
-      std::string const quantity_name = OfQ::abstract_quantity_name();
+      std::string quantity_name = OfQ::abstract_quantity_name();
+      std::replace( quantity_name.begin(), quantity_name.end(), ' ', '_');
       std::string const quantity_symbol = OfQ:: template unprefixed_symbol<char>();
       std::string const si_unit_name = quan::meta::si_unit::template prefix<SiUnit>::name();
       std::string const si_unit_prefix = quan::meta::si_unit::template prefix<SiUnit>:: template symbol<char>();
@@ -179,8 +194,27 @@ struct output_unit_t{
          SiUnit,OfQ
       >::type adjusted_si_unit;
       typedef typename adjusted_si_unit::exponent adjusted_exponent;
-      
-      m_out << "      struct " << si_unit_prefix << quantity_symbol << " : quan::meta::unit<\n";
+
+      static constexpr int64_t extent = OfQ::extent;
+//      if ( extent >= 1 ){
+//         m_out << "      > " << si_unit_prefix << quantity_symbol ; 
+//      }else{
+//         static_assert(extent < 0, "invalid extent");
+//         m_out << "      >  per_" << si_unit_prefix << quantity_symbol ;
+//         if ( extent < -1){
+//            m_out << -extent;
+//         }
+//      }
+      if ( extent >=1){
+         m_out << "      struct " << si_unit_prefix << quantity_symbol;
+      }else{
+       //  static_assert(extent < 0, "invalid extent");
+         m_out << "      struct  per_" << si_unit_prefix << quantity_symbol;
+         if ( extent < -1){
+            m_out << -extent;
+         }
+      }
+      m_out << " : quan::meta::unit<\n";
       m_out << "         quan::meta::components::of_" << quantity_name << "::abstract_quantity,\n";
       m_out << "         quan::meta::conversion_factor<quan::meta::rational<" 
                             << quan::meta::numerator<adjusted_exponent>::value << "> >\n";
@@ -228,7 +262,8 @@ struct output_quantity{
    void operator()(Q const &)const
    {
       quan::fun::integer_range<FirstExp,LastExp> si_exp_range;
-      std::string const quantity_name = Q::abstract_quantity_name();
+      std::string quantity_name = Q::abstract_quantity_name();
+      std::replace( quantity_name.begin(), quantity_name.end(), ' ', '_');
       std::cout << "Outputting units for " << quantity_name << '\n';
 
       m_out << "\\----------------------------------------\n\n";
@@ -257,7 +292,7 @@ struct output_quantity{
 int main()
 {  
    std::ofstream out("quan_matters/src/generators/output.txt");
-#if 1
+#if 0
    output_quantity<-27,27>{out}(quan::meta::components::of_mass{});
 #else
    // N.B takes around 2 minutes to build this version

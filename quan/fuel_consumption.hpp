@@ -5,7 +5,7 @@
 #endif
 
 /*
- Copyright (c) 2003-2014 Andy Little.
+ Copyright (c) 2003-2019 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -20,181 +20,229 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
-
- 
-//
-// See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/components/of_fuel_consumption.hpp>
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct fuel_consumption_ : meta::components::of_fuel_consumption{
-// SI units...
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > ym_per_m3;
+ struct of_fuel_consumption{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zm_per_m3;
+      struct ym_per_m3 : quan::meta::unit<
+         quan::meta::components::of_fuel_consumption::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > am_per_m3;
+      struct zm_per_m3 : quan::meta::unit<
+         quan::meta::components::of_fuel_consumption::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fm_per_m3;
+      struct am_per_m3 : quan::meta::unit<
+         quan::meta::components::of_fuel_consumption::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pm_per_m3;
+      struct fm_per_m3 : quan::meta::unit<
+         quan::meta::components::of_fuel_consumption::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nm_per_m3;
+      struct pm_per_m3 : quan::meta::unit<
+         quan::meta::components::of_fuel_consumption::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > um_per_m3;
+      struct nm_per_m3 : quan::meta::unit<
+         quan::meta::components::of_fuel_consumption::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mm_per_m3;
+      struct um_per_m3 : quan::meta::unit<
+         quan::meta::components::of_fuel_consumption::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cm_per_m3;
+      struct mm_per_m3 : quan::meta::unit<
+         quan::meta::components::of_fuel_consumption::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dm_per_m3;
+      struct cm_per_m3 : quan::meta::unit<
+         quan::meta::components::of_fuel_consumption::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > m_per_m3;
+      struct dm_per_m3 : quan::meta::unit<
+         quan::meta::components::of_fuel_consumption::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > dam_per_m3;
+      struct m_per_m3 : quan::meta::unit<
+         quan::meta::components::of_fuel_consumption::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hm_per_m3;
+      struct dam_per_m3 : quan::meta::unit<
+         quan::meta::components::of_fuel_consumption::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > km_per_m3;
+      struct hm_per_m3 : quan::meta::unit<
+         quan::meta::components::of_fuel_consumption::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > Mm_per_m3;
+      struct km_per_m3 : quan::meta::unit<
+         quan::meta::components::of_fuel_consumption::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > Gm_per_m3;
+      struct Mm_per_m3 : quan::meta::unit<
+         quan::meta::components::of_fuel_consumption::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > Tm_per_m3;
+      struct Gm_per_m3 : quan::meta::unit<
+         quan::meta::components::of_fuel_consumption::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > Pm_per_m3;
+      struct Tm_per_m3 : quan::meta::unit<
+         quan::meta::components::of_fuel_consumption::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > Em_per_m3;
+      struct Pm_per_m3 : quan::meta::unit<
+         quan::meta::components::of_fuel_consumption::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > Zm_per_m3;
+      struct Em_per_m3 : quan::meta::unit<
+         quan::meta::components::of_fuel_consumption::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
+
+      struct Zm_per_m3 : quan::meta::unit<
+         quan::meta::components::of_fuel_consumption::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct Ym_per_m3 : quan::meta::unit<
+         quan::meta::components::of_fuel_consumption::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct fuel_consumption_ : quan::meta::components::of_fuel_consumption{
+
+      typedef quan::fixed_quantity<
+         quan::of_fuel_consumption::ym_per_m3,
+         Value_type
+      > ym_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_fuel_consumption::zm_per_m3,
+         Value_type
+      > zm_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_fuel_consumption::am_per_m3,
+         Value_type
+      > am_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_fuel_consumption::fm_per_m3,
+         Value_type
+      > fm_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_fuel_consumption::pm_per_m3,
+         Value_type
+      > pm_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_fuel_consumption::nm_per_m3,
+         Value_type
+      > nm_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_fuel_consumption::um_per_m3,
+         Value_type
+      > um_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_fuel_consumption::mm_per_m3,
+         Value_type
+      > mm_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_fuel_consumption::cm_per_m3,
+         Value_type
+      > cm_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_fuel_consumption::dm_per_m3,
+         Value_type
+      > dm_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_fuel_consumption::m_per_m3,
+         Value_type
+      > m_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_fuel_consumption::dam_per_m3,
+         Value_type
+      > dam_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_fuel_consumption::hm_per_m3,
+         Value_type
+      > hm_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_fuel_consumption::km_per_m3,
+         Value_type
+      > km_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_fuel_consumption::Mm_per_m3,
+         Value_type
+      > Mm_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_fuel_consumption::Gm_per_m3,
+         Value_type
+      > Gm_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_fuel_consumption::Tm_per_m3,
+         Value_type
+      > Tm_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_fuel_consumption::Pm_per_m3,
+         Value_type
+      > Pm_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_fuel_consumption::Em_per_m3,
+         Value_type
+      > Em_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_fuel_consumption::Zm_per_m3,
+         Value_type
+      > Zm_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_fuel_consumption::Ym_per_m3,
+         Value_type
+      > Ym_per_m3;
 
 // non SI units...
     };

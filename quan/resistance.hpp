@@ -27,169 +27,224 @@
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct resistance_ : meta::components::of_resistance{
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > yR;
+   struct of_resistance{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zR;
+      struct yR : quan::meta::unit<
+         quan::meta::components::of_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > aR;
+      struct zR : quan::meta::unit<
+         quan::meta::components::of_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fR;
+      struct aR : quan::meta::unit<
+         quan::meta::components::of_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pR;
+      struct fR : quan::meta::unit<
+         quan::meta::components::of_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nR;
+      struct pR : quan::meta::unit<
+         quan::meta::components::of_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > uR;
+      struct nR : quan::meta::unit<
+         quan::meta::components::of_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mR;
+      struct uR : quan::meta::unit<
+         quan::meta::components::of_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cR;
+      struct mR : quan::meta::unit<
+         quan::meta::components::of_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dR;
+      struct cR : quan::meta::unit<
+         quan::meta::components::of_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > R;
+      struct dR : quan::meta::unit<
+         quan::meta::components::of_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > daR;
+      struct R : quan::meta::unit<
+         quan::meta::components::of_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hR;
+      struct daR : quan::meta::unit<
+         quan::meta::components::of_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > kR;
+      struct hR : quan::meta::unit<
+         quan::meta::components::of_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > MR;
+      struct kR : quan::meta::unit<
+         quan::meta::components::of_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > GR;
+      struct MR : quan::meta::unit<
+         quan::meta::components::of_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > TR;
+      struct GR : quan::meta::unit<
+         quan::meta::components::of_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > PR;
+      struct TR : quan::meta::unit<
+         quan::meta::components::of_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > ER;
+      struct PR : quan::meta::unit<
+         quan::meta::components::of_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > ZR;
+      struct ER : quan::meta::unit<
+         quan::meta::components::of_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
+
+      struct ZR : quan::meta::unit<
+         quan::meta::components::of_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct YR : quan::meta::unit<
+         quan::meta::components::of_resistance::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct resistance_ : quan::meta::components::of_resistance{
+
+      typedef quan::fixed_quantity<
+         quan::of_resistance::yR,
+         Value_type
+      > yR;
+
+      typedef quan::fixed_quantity<
+         quan::of_resistance::zR,
+         Value_type
+      > zR;
+
+      typedef quan::fixed_quantity<
+         quan::of_resistance::aR,
+         Value_type
+      > aR;
+
+      typedef quan::fixed_quantity<
+         quan::of_resistance::fR,
+         Value_type
+      > fR;
+
+      typedef quan::fixed_quantity<
+         quan::of_resistance::pR,
+         Value_type
+      > pR;
+
+      typedef quan::fixed_quantity<
+         quan::of_resistance::nR,
+         Value_type
+      > nR;
+
+      typedef quan::fixed_quantity<
+         quan::of_resistance::uR,
+         Value_type
+      > uR;
+
+      typedef quan::fixed_quantity<
+         quan::of_resistance::mR,
+         Value_type
+      > mR;
+
+      typedef quan::fixed_quantity<
+         quan::of_resistance::cR,
+         Value_type
+      > cR;
+
+      typedef quan::fixed_quantity<
+         quan::of_resistance::dR,
+         Value_type
+      > dR;
+
+      typedef quan::fixed_quantity<
+         quan::of_resistance::R,
+         Value_type
+      > R;
+
+      typedef quan::fixed_quantity<
+         quan::of_resistance::daR,
+         Value_type
+      > daR;
+
+      typedef quan::fixed_quantity<
+         quan::of_resistance::hR,
+         Value_type
+      > hR;
+
+      typedef quan::fixed_quantity<
+         quan::of_resistance::kR,
+         Value_type
+      > kR;
+
+      typedef quan::fixed_quantity<
+         quan::of_resistance::MR,
+         Value_type
+      > MR;
+
+      typedef quan::fixed_quantity<
+         quan::of_resistance::GR,
+         Value_type
+      > GR;
+
+      typedef quan::fixed_quantity<
+         quan::of_resistance::TR,
+         Value_type
+      > TR;
+
+      typedef quan::fixed_quantity<
+         quan::of_resistance::PR,
+         Value_type
+      > PR;
+
+      typedef quan::fixed_quantity<
+         quan::of_resistance::ER,
+         Value_type
+      > ER;
+
+      typedef quan::fixed_quantity<
+         quan::of_resistance::ZR,
+         Value_type
+      > ZR;
+
+      typedef quan::fixed_quantity<
+         quan::of_resistance::YR,
+         Value_type
+      > YR;
 
         typedef fixed_quantity<
             typename non_si_unit::abohm,

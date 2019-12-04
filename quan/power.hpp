@@ -5,7 +5,7 @@
 #endif
 
 /*
- Copyright (c) 2003-2014 Andy Little.
+ Copyright (c) 2003-2019 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -20,180 +20,229 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
-
- 
-//
-// See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/components/of_power.hpp>
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct power_ : meta::components::of_power{
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > yW;
+   struct of_power{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zW;
+      struct yW : quan::meta::unit<
+         quan::meta::components::of_power::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > aW;
+      struct zW : quan::meta::unit<
+         quan::meta::components::of_power::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fW;
+      struct aW : quan::meta::unit<
+         quan::meta::components::of_power::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pW;
+      struct fW : quan::meta::unit<
+         quan::meta::components::of_power::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nW;
+      struct pW : quan::meta::unit<
+         quan::meta::components::of_power::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > uW;
+      struct nW : quan::meta::unit<
+         quan::meta::components::of_power::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mW;
+      struct uW : quan::meta::unit<
+         quan::meta::components::of_power::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cW;
+      struct mW : quan::meta::unit<
+         quan::meta::components::of_power::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dW;
+      struct cW : quan::meta::unit<
+         quan::meta::components::of_power::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > W;
+      struct dW : quan::meta::unit<
+         quan::meta::components::of_power::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > daW;
+      struct W : quan::meta::unit<
+         quan::meta::components::of_power::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hW;
+      struct daW : quan::meta::unit<
+         quan::meta::components::of_power::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > kW;
+      struct hW : quan::meta::unit<
+         quan::meta::components::of_power::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > MW;
+      struct kW : quan::meta::unit<
+         quan::meta::components::of_power::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > GW;
+      struct MW : quan::meta::unit<
+         quan::meta::components::of_power::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > TW;
+      struct GW : quan::meta::unit<
+         quan::meta::components::of_power::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > PW;
+      struct TW : quan::meta::unit<
+         quan::meta::components::of_power::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > EW;
+      struct PW : quan::meta::unit<
+         quan::meta::components::of_power::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > ZW;
+      struct EW : quan::meta::unit<
+         quan::meta::components::of_power::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
+
+      struct ZW : quan::meta::unit<
+         quan::meta::components::of_power::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct YW : quan::meta::unit<
+         quan::meta::components::of_power::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct power_ : quan::meta::components::of_power{
+
+      typedef quan::fixed_quantity<
+         quan::of_power::yW,
+         Value_type
+      > yW;
+
+      typedef quan::fixed_quantity<
+         quan::of_power::zW,
+         Value_type
+      > zW;
+
+      typedef quan::fixed_quantity<
+         quan::of_power::aW,
+         Value_type
+      > aW;
+
+      typedef quan::fixed_quantity<
+         quan::of_power::fW,
+         Value_type
+      > fW;
+
+      typedef quan::fixed_quantity<
+         quan::of_power::pW,
+         Value_type
+      > pW;
+
+      typedef quan::fixed_quantity<
+         quan::of_power::nW,
+         Value_type
+      > nW;
+
+      typedef quan::fixed_quantity<
+         quan::of_power::uW,
+         Value_type
+      > uW;
+
+      typedef quan::fixed_quantity<
+         quan::of_power::mW,
+         Value_type
+      > mW;
+
+      typedef quan::fixed_quantity<
+         quan::of_power::cW,
+         Value_type
+      > cW;
+
+      typedef quan::fixed_quantity<
+         quan::of_power::dW,
+         Value_type
+      > dW;
+
+      typedef quan::fixed_quantity<
+         quan::of_power::W,
+         Value_type
+      > W;
+
+      typedef quan::fixed_quantity<
+         quan::of_power::daW,
+         Value_type
+      > daW;
+
+      typedef quan::fixed_quantity<
+         quan::of_power::hW,
+         Value_type
+      > hW;
+
+      typedef quan::fixed_quantity<
+         quan::of_power::kW,
+         Value_type
+      > kW;
+
+      typedef quan::fixed_quantity<
+         quan::of_power::MW,
+         Value_type
+      > MW;
+
+      typedef quan::fixed_quantity<
+         quan::of_power::GW,
+         Value_type
+      > GW;
+
+      typedef quan::fixed_quantity<
+         quan::of_power::TW,
+         Value_type
+      > TW;
+
+      typedef quan::fixed_quantity<
+         quan::of_power::PW,
+         Value_type
+      > PW;
+
+      typedef quan::fixed_quantity<
+         quan::of_power::EW,
+         Value_type
+      > EW;
+
+      typedef quan::fixed_quantity<
+         quan::of_power::ZW,
+         Value_type
+      > ZW;
+
+      typedef quan::fixed_quantity<
+         quan::of_power::YW,
+         Value_type
+      > YW;
 
     };
 

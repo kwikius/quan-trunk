@@ -31,169 +31,224 @@
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct torque_ : meta::components::of_torque{
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > yN_m;
+   struct of_torque{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zN_m;
+      struct yN_m : quan::meta::unit<
+         quan::meta::components::of_torque::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > aN_m;
+      struct zN_m : quan::meta::unit<
+         quan::meta::components::of_torque::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fN_m;
+      struct aN_m : quan::meta::unit<
+         quan::meta::components::of_torque::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pN_m;
+      struct fN_m : quan::meta::unit<
+         quan::meta::components::of_torque::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nN_m;
+      struct pN_m : quan::meta::unit<
+         quan::meta::components::of_torque::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > uN_m;
+      struct nN_m : quan::meta::unit<
+         quan::meta::components::of_torque::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mN_m;
+      struct uN_m : quan::meta::unit<
+         quan::meta::components::of_torque::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cN_m;
+      struct mN_m : quan::meta::unit<
+         quan::meta::components::of_torque::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dN_m;
+      struct cN_m : quan::meta::unit<
+         quan::meta::components::of_torque::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > N_m;
+      struct dN_m : quan::meta::unit<
+         quan::meta::components::of_torque::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > daN_m;
+      struct N_m : quan::meta::unit<
+         quan::meta::components::of_torque::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hN_m;
+      struct daN_m : quan::meta::unit<
+         quan::meta::components::of_torque::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > kN_m;
+      struct hN_m : quan::meta::unit<
+         quan::meta::components::of_torque::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > MN_m;
+      struct kN_m : quan::meta::unit<
+         quan::meta::components::of_torque::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > GN_m;
+      struct MN_m : quan::meta::unit<
+         quan::meta::components::of_torque::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > TN_m;
+      struct GN_m : quan::meta::unit<
+         quan::meta::components::of_torque::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > PN_m;
+      struct TN_m : quan::meta::unit<
+         quan::meta::components::of_torque::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > EN_m;
+      struct PN_m : quan::meta::unit<
+         quan::meta::components::of_torque::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > ZN_m;
+      struct EN_m : quan::meta::unit<
+         quan::meta::components::of_torque::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
+
+      struct ZN_m : quan::meta::unit<
+         quan::meta::components::of_torque::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct YN_m : quan::meta::unit<
+         quan::meta::components::of_torque::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct torque_ : quan::meta::components::of_torque{
+
+      typedef quan::fixed_quantity<
+         quan::of_torque::yN_m,
+         Value_type
+      > yN_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_torque::zN_m,
+         Value_type
+      > zN_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_torque::aN_m,
+         Value_type
+      > aN_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_torque::fN_m,
+         Value_type
+      > fN_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_torque::pN_m,
+         Value_type
+      > pN_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_torque::nN_m,
+         Value_type
+      > nN_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_torque::uN_m,
+         Value_type
+      > uN_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_torque::mN_m,
+         Value_type
+      > mN_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_torque::cN_m,
+         Value_type
+      > cN_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_torque::dN_m,
+         Value_type
+      > dN_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_torque::N_m,
+         Value_type
+      > N_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_torque::daN_m,
+         Value_type
+      > daN_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_torque::hN_m,
+         Value_type
+      > hN_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_torque::kN_m,
+         Value_type
+      > kN_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_torque::MN_m,
+         Value_type
+      > MN_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_torque::GN_m,
+         Value_type
+      > GN_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_torque::TN_m,
+         Value_type
+      > TN_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_torque::PN_m,
+         Value_type
+      > PN_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_torque::EN_m,
+         Value_type
+      > EN_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_torque::ZN_m,
+         Value_type
+      > ZN_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_torque::YN_m,
+         Value_type
+      > YN_m;
 
     };
 

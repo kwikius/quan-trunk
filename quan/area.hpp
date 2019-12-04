@@ -31,377 +31,227 @@
 
 namespace quan{
 
+
    struct of_area{
-         // coherent_exponent :-27 -> N/A
-         // coherent_exponent :-26 -> N/A
-         // coherent_exponent :-25 -> N/A
-      struct pm2 :  quan::meta::unit<
+
+      struct ym2 : quan::meta::unit<
          quan::meta::components::of_area::abstract_quantity,
-         typename quan::meta::si_unit::yocto // coherent_exponent -24
+         quan::meta::conversion_factor<quan::meta::rational<-48> >
       >{};
-         // coherent_exponent :-23 -> N/A
-         // coherent_exponent :-22 -> N/A
-         // coherent_exponent :-21 -> N/A
-         // coherent_exponent :-20 -> N/A
-         // coherent_exponent :-19 -> N/A
-      struct nm2 :  quan::meta::unit<
+
+      struct zm2 : quan::meta::unit<
          quan::meta::components::of_area::abstract_quantity,
-         typename quan::meta::si_unit::atto // coherent_exponent -18
+         quan::meta::conversion_factor<quan::meta::rational<-42> >
       >{};
-         // coherent_exponent :-17 -> N/A
-         // coherent_exponent :-16 -> N/A
-         // coherent_exponent :-15 -> N/A
-         // coherent_exponent :-14 -> N/A
-         // coherent_exponent :-13 -> N/A
-      struct um2 :  quan::meta::unit<
+
+      struct am2 : quan::meta::unit<
          quan::meta::components::of_area::abstract_quantity,
-         typename quan::meta::si_unit::pico // coherent_exponent -12
+         quan::meta::conversion_factor<quan::meta::rational<-36> >
       >{};
-         // coherent_exponent :-11 -> N/A
-         // coherent_exponent :-10 -> N/A
-         // coherent_exponent :-9 -> N/A
-         // coherent_exponent :-8 -> N/A
-         // coherent_exponent :-7 -> N/A
-      struct mm2 :  quan::meta::unit<
+
+      struct fm2 : quan::meta::unit<
          quan::meta::components::of_area::abstract_quantity,
-         typename quan::meta::si_unit::micro // coherent_exponent -6
+         quan::meta::conversion_factor<quan::meta::rational<-30> >
       >{};
-         // coherent_exponent :-5 -> N/A
+
+      struct pm2 : quan::meta::unit<
+         quan::meta::components::of_area::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
+
+      struct nm2 : quan::meta::unit<
+         quan::meta::components::of_area::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
+
+      struct um2 : quan::meta::unit<
+         quan::meta::components::of_area::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
+
+      struct mm2 : quan::meta::unit<
+         quan::meta::components::of_area::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
+
       struct cm2 : quan::meta::unit<
          quan::meta::components::of_area::abstract_quantity,
-         quan::meta::conversion_factor<quan::meta::rational<-4> > // coherent_exponent -4
+         quan::meta::conversion_factor<quan::meta::rational<-4> >
       >{};
-         // coherent_exponent :-3 -> N/A
-      struct dm2 :  quan::meta::unit<
+
+      struct dm2 : quan::meta::unit<
          quan::meta::components::of_area::abstract_quantity,
-         typename quan::meta::si_unit::centi // coherent_exponent -2
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
       >{};
-         // coherent_exponent :-1 -> N/A
-      struct m2 :  quan::meta::unit<
+
+      struct m2 : quan::meta::unit<
          quan::meta::components::of_area::abstract_quantity,
-         typename quan::meta::si_unit::none // coherent_exponent 0
+         quan::meta::conversion_factor<quan::meta::rational<0> >
       >{};
-         // coherent_exponent :1 -> N/A
-      struct dam2 :  quan::meta::unit<
+
+      struct dam2 : quan::meta::unit<
          quan::meta::components::of_area::abstract_quantity,
-         typename quan::meta::si_unit::hecto // coherent_exponent 2
+         quan::meta::conversion_factor<quan::meta::rational<2> >
       >{};
-         // coherent_exponent :3 -> N/A
-         // coherent_exponent :4 -> N/A
-         // coherent_exponent :5 -> N/A
-      struct km2 :  quan::meta::unit<
+
+      struct hm2 : quan::meta::unit<
          quan::meta::components::of_area::abstract_quantity,
-         typename quan::meta::si_unit::mega // coherent_exponent 6
+         quan::meta::conversion_factor<quan::meta::rational<4> >
       >{};
-         // coherent_exponent :7 -> N/A
-         // coherent_exponent :8 -> N/A
-         // coherent_exponent :9 -> N/A
-         // coherent_exponent :10 -> N/A
-         // coherent_exponent :11 -> N/A
-      struct Mm2 :  quan::meta::unit<
+
+      struct km2 : quan::meta::unit<
          quan::meta::components::of_area::abstract_quantity,
-         typename quan::meta::si_unit::tera // coherent_exponent 12
+         quan::meta::conversion_factor<quan::meta::rational<6> >
       >{};
-         // coherent_exponent :13 -> N/A
-         // coherent_exponent :14 -> N/A
-         // coherent_exponent :15 -> N/A
-         // coherent_exponent :16 -> N/A
-         // coherent_exponent :17 -> N/A
-      struct Gm2 :  quan::meta::unit<
+
+      struct Mm2 : quan::meta::unit<
          quan::meta::components::of_area::abstract_quantity,
-         typename quan::meta::si_unit::exa // coherent_exponent 18
+         quan::meta::conversion_factor<quan::meta::rational<12> >
       >{};
-         // coherent_exponent :19 -> N/A
-         // coherent_exponent :20 -> N/A
-         // coherent_exponent :21 -> N/A
-         // coherent_exponent :22 -> N/A
-         // coherent_exponent :23 -> N/A
-      struct Tm2 :  quan::meta::unit<
+
+      struct Gm2 : quan::meta::unit<
          quan::meta::components::of_area::abstract_quantity,
-         typename quan::meta::si_unit::yotta // coherent_exponent 24
+         quan::meta::conversion_factor<quan::meta::rational<18> >
       >{};
-         // coherent_exponent :25 -> N/A
-         // coherent_exponent :26 -> N/A
-         // coherent_exponent :27 -> N/A
+
+      struct Tm2 : quan::meta::unit<
+         quan::meta::components::of_area::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+      struct Pm2 : quan::meta::unit<
+         quan::meta::components::of_area::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<30> >
+      >{};
+
+      struct Em2 : quan::meta::unit<
+         quan::meta::components::of_area::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<36> >
+      >{};
+
+      struct Zm2 : quan::meta::unit<
+         quan::meta::components::of_area::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<42> >
+      >{};
+
+      struct Ym2 : quan::meta::unit<
+         quan::meta::components::of_area::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<48> >
+      >{};
+
    };
 
-    template<
-        typename Value_type
-    >
-    struct area_ : meta::components::of_area{
+   template<
+      typename Value_type
+   >
+   struct area_ : quan::meta::components::of_area{
 
-#if 1
-      // coherent_exponent :-27 -> N/A
-      // coherent_exponent :-26 -> N/A
-      // coherent_exponent :-25 -> N/A
+      typedef quan::fixed_quantity<
+         quan::of_area::ym2,
+         Value_type
+      > ym2;
+
+      typedef quan::fixed_quantity<
+         quan::of_area::zm2,
+         Value_type
+      > zm2;
+
+      typedef quan::fixed_quantity<
+         quan::of_area::am2,
+         Value_type
+      > am2;
+
+      typedef quan::fixed_quantity<
+         quan::of_area::fm2,
+         Value_type
+      > fm2;
+
       typedef quan::fixed_quantity<
          quan::of_area::pm2,
          Value_type
       > pm2;
-      // coherent_exponent :-23 -> N/A
-      // coherent_exponent :-22 -> N/A
-      // coherent_exponent :-21 -> N/A
-      // coherent_exponent :-20 -> N/A
-      // coherent_exponent :-19 -> N/A
+
       typedef quan::fixed_quantity<
          quan::of_area::nm2,
          Value_type
       > nm2;
-      // coherent_exponent :-17 -> N/A
-      // coherent_exponent :-16 -> N/A
-      // coherent_exponent :-15 -> N/A
-      // coherent_exponent :-14 -> N/A
-      // coherent_exponent :-13 -> N/A
+
       typedef quan::fixed_quantity<
          quan::of_area::um2,
          Value_type
       > um2;
-      // coherent_exponent :-11 -> N/A
-      // coherent_exponent :-10 -> N/A
-      // coherent_exponent :-9 -> N/A
-      // coherent_exponent :-8 -> N/A
-      // coherent_exponent :-7 -> N/A
+
       typedef quan::fixed_quantity<
          quan::of_area::mm2,
          Value_type
       > mm2;
-      // coherent_exponent :-5 -> N/A
+
       typedef quan::fixed_quantity<
          quan::of_area::cm2,
          Value_type
       > cm2;
-      // coherent_exponent :-3 -> N/A
+
       typedef quan::fixed_quantity<
          quan::of_area::dm2,
          Value_type
       > dm2;
-      // coherent_exponent :-1 -> N/A
+
       typedef quan::fixed_quantity<
          quan::of_area::m2,
          Value_type
       > m2;
-      // coherent_exponent :1 -> N/A
+
       typedef quan::fixed_quantity<
          quan::of_area::dam2,
          Value_type
       > dam2;
-      // coherent_exponent :3 -> N/A
-      // coherent_exponent :4 -> N/A
-      // coherent_exponent :5 -> N/A
+
+      typedef quan::fixed_quantity<
+         quan::of_area::hm2,
+         Value_type
+      > hm2;
+
       typedef quan::fixed_quantity<
          quan::of_area::km2,
          Value_type
       > km2;
-      // coherent_exponent :7 -> N/A
-      // coherent_exponent :8 -> N/A
-      // coherent_exponent :9 -> N/A
-      // coherent_exponent :10 -> N/A
-      // coherent_exponent :11 -> N/A
+
       typedef quan::fixed_quantity<
          quan::of_area::Mm2,
          Value_type
       > Mm2;
-      // coherent_exponent :13 -> N/A
-      // coherent_exponent :14 -> N/A
-      // coherent_exponent :15 -> N/A
-      // coherent_exponent :16 -> N/A
-      // coherent_exponent :17 -> N/A
+
       typedef quan::fixed_quantity<
          quan::of_area::Gm2,
          Value_type
       > Gm2;
-      // coherent_exponent :19 -> N/A
-      // coherent_exponent :20 -> N/A
-      // coherent_exponent :21 -> N/A
-      // coherent_exponent :22 -> N/A
-      // coherent_exponent :23 -> N/A
+
       typedef quan::fixed_quantity<
          quan::of_area::Tm2,
          Value_type
       > Tm2;
-      // coherent_exponent :25 -> N/A
-      // coherent_exponent :26 -> N/A
-      // coherent_exponent :27 -> N/A
 
-#else
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                meta::conversion_factor<
-                    meta::rational<-48>
-                >
-            >,
-            Value_type
-        > ym2;
+      typedef quan::fixed_quantity<
+         quan::of_area::Pm2,
+         Value_type
+      > Pm2;
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                meta::conversion_factor<
-                    meta::rational<-42>
-                >
-            >,
-            Value_type
-        > zm2;
+      typedef quan::fixed_quantity<
+         quan::of_area::Em2,
+         Value_type
+      > Em2;
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                meta::conversion_factor<
-                    meta::rational<-36>
-                >
-            >,
-            Value_type
-        > am2;
+      typedef quan::fixed_quantity<
+         quan::of_area::Zm2,
+         Value_type
+      > Zm2;
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                meta::conversion_factor<
-                    meta::rational<-30>
-                >
-            >,
-            Value_type
-        > fm2;
+      typedef quan::fixed_quantity<
+         quan::of_area::Ym2,
+         Value_type
+      > Ym2;
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > pm2;
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > nm2;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > um2;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > mm2;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                meta::conversion_factor<
-                    meta::rational<-4>
-                >
-            >,
-            Value_type
-        > cm2;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > dm2;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > m2;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > dam2;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                meta::conversion_factor<
-                    meta::rational<4>
-                >
-            >,
-            Value_type
-        > hm2;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > km2;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > Mm2;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > Gm2;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yotta // coherent-exponent 24
-            >,
-            Value_type
-        > Tm2;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                meta::conversion_factor<
-                    meta::rational<30>
-                >
-            >,
-            Value_type
-        > Pm2;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                meta::conversion_factor<
-                    meta::rational<36>
-                >
-            >,
-            Value_type
-        > Em2;
-
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                meta::conversion_factor<
-                    meta::rational<42>
-                >
-            >,
-            Value_type
-        > Zm2;
-#endif
 
         typedef fixed_quantity<
             typename non_si_unit::acre,

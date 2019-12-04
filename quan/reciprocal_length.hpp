@@ -32,10 +32,227 @@
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct reciprocal_length_ : meta::components::of_reciprocal_length{
+   struct of_reciprocal_length{
+
+      struct  per_ym : quan::meta::unit<
+         quan::meta::components::of_reciprocal_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+      struct  per_zm : quan::meta::unit<
+         quan::meta::components::of_reciprocal_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct  per_am : quan::meta::unit<
+         quan::meta::components::of_reciprocal_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
+
+      struct  per_fm : quan::meta::unit<
+         quan::meta::components::of_reciprocal_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
+
+      struct  per_pm : quan::meta::unit<
+         quan::meta::components::of_reciprocal_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
+
+      struct  per_nm : quan::meta::unit<
+         quan::meta::components::of_reciprocal_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
+
+      struct  per_um : quan::meta::unit<
+         quan::meta::components::of_reciprocal_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
+
+      struct  per_mm : quan::meta::unit<
+         quan::meta::components::of_reciprocal_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
+
+      struct  per_cm : quan::meta::unit<
+         quan::meta::components::of_reciprocal_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
+
+      struct  per_dm : quan::meta::unit<
+         quan::meta::components::of_reciprocal_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
+
+      struct  per_m : quan::meta::unit<
+         quan::meta::components::of_reciprocal_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
+
+      struct  per_dam : quan::meta::unit<
+         quan::meta::components::of_reciprocal_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
+
+      struct  per_hm : quan::meta::unit<
+         quan::meta::components::of_reciprocal_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
+
+      struct  per_km : quan::meta::unit<
+         quan::meta::components::of_reciprocal_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
+
+      struct  per_Mm : quan::meta::unit<
+         quan::meta::components::of_reciprocal_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
+
+      struct  per_Gm : quan::meta::unit<
+         quan::meta::components::of_reciprocal_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
+
+      struct  per_Tm : quan::meta::unit<
+         quan::meta::components::of_reciprocal_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
+
+      struct  per_Pm : quan::meta::unit<
+         quan::meta::components::of_reciprocal_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
+
+      struct  per_Em : quan::meta::unit<
+         quan::meta::components::of_reciprocal_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
+
+      struct  per_Zm : quan::meta::unit<
+         quan::meta::components::of_reciprocal_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
+
+      struct  per_Ym : quan::meta::unit<
+         quan::meta::components::of_reciprocal_length::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct reciprocal_length_ : quan::meta::components::of_reciprocal_length{
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_length::per_ym,
+         Value_type
+      >  per_ym;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_length::per_zm,
+         Value_type
+      >  per_zm;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_length::per_am,
+         Value_type
+      >  per_am;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_length::per_fm,
+         Value_type
+      >  per_fm;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_length::per_pm,
+         Value_type
+      >  per_pm;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_length::per_nm,
+         Value_type
+      >  per_nm;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_length::per_um,
+         Value_type
+      >  per_um;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_length::per_mm,
+         Value_type
+      >  per_mm;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_length::per_cm,
+         Value_type
+      >  per_cm;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_length::per_dm,
+         Value_type
+      >  per_dm;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_length::per_m,
+         Value_type
+      >  per_m;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_length::per_dam,
+         Value_type
+      >  per_dam;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_length::per_hm,
+         Value_type
+      >  per_hm;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_length::per_km,
+         Value_type
+      >  per_km;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_length::per_Mm,
+         Value_type
+      >  per_Mm;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_length::per_Gm,
+         Value_type
+      >  per_Gm;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_length::per_Tm,
+         Value_type
+      >  per_Tm;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_length::per_Pm,
+         Value_type
+      >  per_Pm;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_length::per_Em,
+         Value_type
+      >  per_Em;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_length::per_Zm,
+         Value_type
+      >  per_Zm;
+
+      typedef quan::fixed_quantity<
+         quan::of_reciprocal_length::per_Ym,
+         Value_type
+      >  per_Ym;
+
+
+#if 0
 // SI units...
         typedef fixed_quantity<
             quan::meta::unit<
@@ -196,7 +413,7 @@ namespace quan{
             >,
             Value_type
         > per_Zm;
-
+#endif
 // non SI units...
     };
 

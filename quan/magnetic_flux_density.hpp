@@ -27,169 +27,224 @@
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct magnetic_flux_density_ : meta::components::of_magnetic_flux_density{
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > yT;
+   struct of_magnetic_flux_density{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zT;
+      struct yT : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > aT;
+      struct zT : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fT;
+      struct aT : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pT;
+      struct fT : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nT;
+      struct pT : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > uT;
+      struct nT : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mT;
+      struct uT : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cT;
+      struct mT : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dT;
+      struct cT : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > T;
+      struct dT : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > daT;
+      struct T : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hT;
+      struct daT : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > kT;
+      struct hT : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > MT;
+      struct kT : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > GT;
+      struct MT : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > TT;
+      struct GT : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > PT;
+      struct TT : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > ET;
+      struct PT : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > ZT;
+      struct ET : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
+
+      struct ZT : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct YT : quan::meta::unit<
+         quan::meta::components::of_magnetic_flux_density::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct magnetic_flux_density_ : quan::meta::components::of_magnetic_flux_density{
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux_density::yT,
+         Value_type
+      > yT;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux_density::zT,
+         Value_type
+      > zT;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux_density::aT,
+         Value_type
+      > aT;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux_density::fT,
+         Value_type
+      > fT;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux_density::pT,
+         Value_type
+      > pT;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux_density::nT,
+         Value_type
+      > nT;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux_density::uT,
+         Value_type
+      > uT;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux_density::mT,
+         Value_type
+      > mT;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux_density::cT,
+         Value_type
+      > cT;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux_density::dT,
+         Value_type
+      > dT;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux_density::T,
+         Value_type
+      > T;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux_density::daT,
+         Value_type
+      > daT;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux_density::hT,
+         Value_type
+      > hT;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux_density::kT,
+         Value_type
+      > kT;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux_density::MT,
+         Value_type
+      > MT;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux_density::GT,
+         Value_type
+      > GT;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux_density::TT,
+         Value_type
+      > TT;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux_density::PT,
+         Value_type
+      > PT;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux_density::ET,
+         Value_type
+      > ET;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux_density::ZT,
+         Value_type
+      > ZT;
+
+      typedef quan::fixed_quantity<
+         quan::of_magnetic_flux_density::YT,
+         Value_type
+      > YT;
 
        typedef fixed_quantity<
             typename non_si_unit::gauss,

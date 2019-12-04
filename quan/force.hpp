@@ -31,169 +31,224 @@
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct force_ : meta::components::of_force{
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > yN;
+   struct of_force{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zN;
+      struct yN : quan::meta::unit<
+         quan::meta::components::of_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > aN;
+      struct zN : quan::meta::unit<
+         quan::meta::components::of_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fN;
+      struct aN : quan::meta::unit<
+         quan::meta::components::of_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pN;
+      struct fN : quan::meta::unit<
+         quan::meta::components::of_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nN;
+      struct pN : quan::meta::unit<
+         quan::meta::components::of_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > uN;
+      struct nN : quan::meta::unit<
+         quan::meta::components::of_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mN;
+      struct uN : quan::meta::unit<
+         quan::meta::components::of_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cN;
+      struct mN : quan::meta::unit<
+         quan::meta::components::of_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dN;
+      struct cN : quan::meta::unit<
+         quan::meta::components::of_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > N;
+      struct dN : quan::meta::unit<
+         quan::meta::components::of_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > daN;
+      struct N : quan::meta::unit<
+         quan::meta::components::of_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hN;
+      struct daN : quan::meta::unit<
+         quan::meta::components::of_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > kN;
+      struct hN : quan::meta::unit<
+         quan::meta::components::of_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > MN;
+      struct kN : quan::meta::unit<
+         quan::meta::components::of_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > GN;
+      struct MN : quan::meta::unit<
+         quan::meta::components::of_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > TN;
+      struct GN : quan::meta::unit<
+         quan::meta::components::of_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > PN;
+      struct TN : quan::meta::unit<
+         quan::meta::components::of_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > EN;
+      struct PN : quan::meta::unit<
+         quan::meta::components::of_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > ZN;
+      struct EN : quan::meta::unit<
+         quan::meta::components::of_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
+
+      struct ZN : quan::meta::unit<
+         quan::meta::components::of_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct YN : quan::meta::unit<
+         quan::meta::components::of_force::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct force_ : quan::meta::components::of_force{
+
+      typedef quan::fixed_quantity<
+         quan::of_force::yN,
+         Value_type
+      > yN;
+
+      typedef quan::fixed_quantity<
+         quan::of_force::zN,
+         Value_type
+      > zN;
+
+      typedef quan::fixed_quantity<
+         quan::of_force::aN,
+         Value_type
+      > aN;
+
+      typedef quan::fixed_quantity<
+         quan::of_force::fN,
+         Value_type
+      > fN;
+
+      typedef quan::fixed_quantity<
+         quan::of_force::pN,
+         Value_type
+      > pN;
+
+      typedef quan::fixed_quantity<
+         quan::of_force::nN,
+         Value_type
+      > nN;
+
+      typedef quan::fixed_quantity<
+         quan::of_force::uN,
+         Value_type
+      > uN;
+
+      typedef quan::fixed_quantity<
+         quan::of_force::mN,
+         Value_type
+      > mN;
+
+      typedef quan::fixed_quantity<
+         quan::of_force::cN,
+         Value_type
+      > cN;
+
+      typedef quan::fixed_quantity<
+         quan::of_force::dN,
+         Value_type
+      > dN;
+
+      typedef quan::fixed_quantity<
+         quan::of_force::N,
+         Value_type
+      > N;
+
+      typedef quan::fixed_quantity<
+         quan::of_force::daN,
+         Value_type
+      > daN;
+
+      typedef quan::fixed_quantity<
+         quan::of_force::hN,
+         Value_type
+      > hN;
+
+      typedef quan::fixed_quantity<
+         quan::of_force::kN,
+         Value_type
+      > kN;
+
+      typedef quan::fixed_quantity<
+         quan::of_force::MN,
+         Value_type
+      > MN;
+
+      typedef quan::fixed_quantity<
+         quan::of_force::GN,
+         Value_type
+      > GN;
+
+      typedef quan::fixed_quantity<
+         quan::of_force::TN,
+         Value_type
+      > TN;
+
+      typedef quan::fixed_quantity<
+         quan::of_force::PN,
+         Value_type
+      > PN;
+
+      typedef quan::fixed_quantity<
+         quan::of_force::EN,
+         Value_type
+      > EN;
+
+      typedef quan::fixed_quantity<
+         quan::of_force::ZN,
+         Value_type
+      > ZN;
+
+      typedef quan::fixed_quantity<
+         quan::of_force::YN,
+         Value_type
+      > YN;
 
         typedef fixed_quantity<
             typename non_si_unit::dyn,

@@ -31,171 +31,224 @@
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct force_per_volume_ : meta::components::of_force_per_volume{
-// SI units...
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > yN_per_m3;
+   struct of_force_per_volume{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zN_per_m3;
+      struct yN_per_m3 : quan::meta::unit<
+         quan::meta::components::of_force_per_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > aN_per_m3;
+      struct zN_per_m3 : quan::meta::unit<
+         quan::meta::components::of_force_per_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fN_per_m3;
+      struct aN_per_m3 : quan::meta::unit<
+         quan::meta::components::of_force_per_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pN_per_m3;
+      struct fN_per_m3 : quan::meta::unit<
+         quan::meta::components::of_force_per_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nN_per_m3;
+      struct pN_per_m3 : quan::meta::unit<
+         quan::meta::components::of_force_per_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > uN_per_m3;
+      struct nN_per_m3 : quan::meta::unit<
+         quan::meta::components::of_force_per_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mN_per_m3;
+      struct uN_per_m3 : quan::meta::unit<
+         quan::meta::components::of_force_per_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cN_per_m3;
+      struct mN_per_m3 : quan::meta::unit<
+         quan::meta::components::of_force_per_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dN_per_m3;
+      struct cN_per_m3 : quan::meta::unit<
+         quan::meta::components::of_force_per_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > N_per_m3;
+      struct dN_per_m3 : quan::meta::unit<
+         quan::meta::components::of_force_per_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > daN_per_m3;
+      struct N_per_m3 : quan::meta::unit<
+         quan::meta::components::of_force_per_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hN_per_m3;
+      struct daN_per_m3 : quan::meta::unit<
+         quan::meta::components::of_force_per_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > kN_per_m3;
+      struct hN_per_m3 : quan::meta::unit<
+         quan::meta::components::of_force_per_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > MN_per_m3;
+      struct kN_per_m3 : quan::meta::unit<
+         quan::meta::components::of_force_per_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > GN_per_m3;
+      struct MN_per_m3 : quan::meta::unit<
+         quan::meta::components::of_force_per_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > TN_per_m3;
+      struct GN_per_m3 : quan::meta::unit<
+         quan::meta::components::of_force_per_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > PN_per_m3;
+      struct TN_per_m3 : quan::meta::unit<
+         quan::meta::components::of_force_per_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > EN_per_m3;
+      struct PN_per_m3 : quan::meta::unit<
+         quan::meta::components::of_force_per_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > ZN_per_m3;
+      struct EN_per_m3 : quan::meta::unit<
+         quan::meta::components::of_force_per_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
 
+      struct ZN_per_m3 : quan::meta::unit<
+         quan::meta::components::of_force_per_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct YN_per_m3 : quan::meta::unit<
+         quan::meta::components::of_force_per_volume::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct force_per_volume_ : quan::meta::components::of_force_per_volume{
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_volume::yN_per_m3,
+         Value_type
+      > yN_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_volume::zN_per_m3,
+         Value_type
+      > zN_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_volume::aN_per_m3,
+         Value_type
+      > aN_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_volume::fN_per_m3,
+         Value_type
+      > fN_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_volume::pN_per_m3,
+         Value_type
+      > pN_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_volume::nN_per_m3,
+         Value_type
+      > nN_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_volume::uN_per_m3,
+         Value_type
+      > uN_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_volume::mN_per_m3,
+         Value_type
+      > mN_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_volume::cN_per_m3,
+         Value_type
+      > cN_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_volume::dN_per_m3,
+         Value_type
+      > dN_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_volume::N_per_m3,
+         Value_type
+      > N_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_volume::daN_per_m3,
+         Value_type
+      > daN_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_volume::hN_per_m3,
+         Value_type
+      > hN_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_volume::kN_per_m3,
+         Value_type
+      > kN_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_volume::MN_per_m3,
+         Value_type
+      > MN_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_volume::GN_per_m3,
+         Value_type
+      > GN_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_volume::TN_per_m3,
+         Value_type
+      > TN_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_volume::PN_per_m3,
+         Value_type
+      > PN_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_volume::EN_per_m3,
+         Value_type
+      > EN_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_volume::ZN_per_m3,
+         Value_type
+      > ZN_per_m3;
+
+      typedef quan::fixed_quantity<
+         quan::of_force_per_volume::YN_per_m3,
+         Value_type
+      > YN_per_m3;
 // non SI units...
     };
 

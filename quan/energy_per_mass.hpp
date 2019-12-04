@@ -5,7 +5,7 @@
 #endif
 
 /*
- Copyright (c) 2003-2014 Andy Little.
+ Copyright (c) 2003-2019 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -20,182 +20,229 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
-
- 
-//
-// See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/components/of_energy_per_mass.hpp>
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct energy_per_mass_ : meta::components::of_energy_per_mass{
-// SI units...
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > yJ_per_kg;
+ struct of_energy_per_mass{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zJ_per_kg;
+      struct yJ_per_kg : quan::meta::unit<
+         quan::meta::components::of_energy_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > aJ_per_kg;
+      struct zJ_per_kg : quan::meta::unit<
+         quan::meta::components::of_energy_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fJ_per_kg;
+      struct aJ_per_kg : quan::meta::unit<
+         quan::meta::components::of_energy_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pJ_per_kg;
+      struct fJ_per_kg : quan::meta::unit<
+         quan::meta::components::of_energy_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nJ_per_kg;
+      struct pJ_per_kg : quan::meta::unit<
+         quan::meta::components::of_energy_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > uJ_per_kg;
+      struct nJ_per_kg : quan::meta::unit<
+         quan::meta::components::of_energy_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mJ_per_kg;
+      struct uJ_per_kg : quan::meta::unit<
+         quan::meta::components::of_energy_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cJ_per_kg;
+      struct mJ_per_kg : quan::meta::unit<
+         quan::meta::components::of_energy_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dJ_per_kg;
+      struct cJ_per_kg : quan::meta::unit<
+         quan::meta::components::of_energy_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > J_per_kg;
+      struct dJ_per_kg : quan::meta::unit<
+         quan::meta::components::of_energy_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > daJ_per_kg;
+      struct J_per_kg : quan::meta::unit<
+         quan::meta::components::of_energy_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hJ_per_kg;
+      struct daJ_per_kg : quan::meta::unit<
+         quan::meta::components::of_energy_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > kJ_per_kg;
+      struct hJ_per_kg : quan::meta::unit<
+         quan::meta::components::of_energy_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > MJ_per_kg;
+      struct kJ_per_kg : quan::meta::unit<
+         quan::meta::components::of_energy_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > GJ_per_kg;
+      struct MJ_per_kg : quan::meta::unit<
+         quan::meta::components::of_energy_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > TJ_per_kg;
+      struct GJ_per_kg : quan::meta::unit<
+         quan::meta::components::of_energy_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > PJ_per_kg;
+      struct TJ_per_kg : quan::meta::unit<
+         quan::meta::components::of_energy_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > EJ_per_kg;
+      struct PJ_per_kg : quan::meta::unit<
+         quan::meta::components::of_energy_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > ZJ_per_kg;
+      struct EJ_per_kg : quan::meta::unit<
+         quan::meta::components::of_energy_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
 
+      struct ZJ_per_kg : quan::meta::unit<
+         quan::meta::components::of_energy_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct YJ_per_kg : quan::meta::unit<
+         quan::meta::components::of_energy_per_mass::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct energy_per_mass_ : quan::meta::components::of_energy_per_mass{
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_mass::yJ_per_kg,
+         Value_type
+      > yJ_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_mass::zJ_per_kg,
+         Value_type
+      > zJ_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_mass::aJ_per_kg,
+         Value_type
+      > aJ_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_mass::fJ_per_kg,
+         Value_type
+      > fJ_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_mass::pJ_per_kg,
+         Value_type
+      > pJ_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_mass::nJ_per_kg,
+         Value_type
+      > nJ_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_mass::uJ_per_kg,
+         Value_type
+      > uJ_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_mass::mJ_per_kg,
+         Value_type
+      > mJ_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_mass::cJ_per_kg,
+         Value_type
+      > cJ_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_mass::dJ_per_kg,
+         Value_type
+      > dJ_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_mass::J_per_kg,
+         Value_type
+      > J_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_mass::daJ_per_kg,
+         Value_type
+      > daJ_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_mass::hJ_per_kg,
+         Value_type
+      > hJ_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_mass::kJ_per_kg,
+         Value_type
+      > kJ_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_mass::MJ_per_kg,
+         Value_type
+      > MJ_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_mass::GJ_per_kg,
+         Value_type
+      > GJ_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_mass::TJ_per_kg,
+         Value_type
+      > TJ_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_mass::PJ_per_kg,
+         Value_type
+      > PJ_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_mass::EJ_per_kg,
+         Value_type
+      > EJ_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_mass::ZJ_per_kg,
+         Value_type
+      > ZJ_per_kg;
+
+      typedef quan::fixed_quantity<
+         quan::of_energy_per_mass::YJ_per_kg,
+         Value_type
+      > YJ_per_kg;
 // non SI units...
     };
 

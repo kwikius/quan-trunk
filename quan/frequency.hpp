@@ -5,7 +5,7 @@
 #endif
 
 /*
- Copyright (c) 2003-2014 Andy Little.
+ Copyright (c) 2003-2019 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -20,180 +20,230 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
-
- 
-//
-// See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/components/of_frequency.hpp>
 
 namespace quan{
 
-    template<
-        typename Value_type
-    >
-    struct frequency_ : meta::components::of_frequency{
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::yocto // coherent-exponent -24
-            >,
-            Value_type
-        > yHz;
+   struct of_frequency{
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zepto // coherent-exponent -21
-            >,
-            Value_type
-        > zHz;
+      struct yHz : quan::meta::unit<
+         quan::meta::components::of_frequency::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-24> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::atto // coherent-exponent -18
-            >,
-            Value_type
-        > aHz;
+      struct zHz : quan::meta::unit<
+         quan::meta::components::of_frequency::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-21> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::femto // coherent-exponent -15
-            >,
-            Value_type
-        > fHz;
+      struct aHz : quan::meta::unit<
+         quan::meta::components::of_frequency::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-18> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::pico // coherent-exponent -12
-            >,
-            Value_type
-        > pHz;
+      struct fHz : quan::meta::unit<
+         quan::meta::components::of_frequency::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::nano // coherent-exponent -9
-            >,
-            Value_type
-        > nHz;
+      struct pHz : quan::meta::unit<
+         quan::meta::components::of_frequency::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::micro // coherent-exponent -6
-            >,
-            Value_type
-        > uHz;
+      struct nHz : quan::meta::unit<
+         quan::meta::components::of_frequency::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::milli // coherent-exponent -3
-            >,
-            Value_type
-        > mHz;
+      struct uHz : quan::meta::unit<
+         quan::meta::components::of_frequency::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::centi // coherent-exponent -2
-            >,
-            Value_type
-        > cHz;
+      struct mHz : quan::meta::unit<
+         quan::meta::components::of_frequency::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deci // coherent-exponent -1
-            >,
-            Value_type
-        > dHz;
+      struct cHz : quan::meta::unit<
+         quan::meta::components::of_frequency::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::none // coherent-exponent 0
-            >,
-            Value_type
-        > Hz;
+      struct dHz : quan::meta::unit<
+         quan::meta::components::of_frequency::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<-1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::deka // coherent-exponent 1
-            >,
-            Value_type
-        > daHz;
+      struct Hz : quan::meta::unit<
+         quan::meta::components::of_frequency::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<0> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::hecto // coherent-exponent 2
-            >,
-            Value_type
-        > hHz;
+      struct daHz : quan::meta::unit<
+         quan::meta::components::of_frequency::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<1> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::kilo // coherent-exponent 3
-            >,
-            Value_type
-        > kHz;
+      struct hHz : quan::meta::unit<
+         quan::meta::components::of_frequency::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<2> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::mega // coherent-exponent 6
-            >,
-            Value_type
-        > MHz;
+      struct kHz : quan::meta::unit<
+         quan::meta::components::of_frequency::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<3> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::giga // coherent-exponent 9
-            >,
-            Value_type
-        > GHz;
+      struct MHz : quan::meta::unit<
+         quan::meta::components::of_frequency::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<6> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::tera // coherent-exponent 12
-            >,
-            Value_type
-        > THz;
+      struct GHz : quan::meta::unit<
+         quan::meta::components::of_frequency::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<9> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::peta // coherent-exponent 15
-            >,
-            Value_type
-        > PHz;
+      struct THz : quan::meta::unit<
+         quan::meta::components::of_frequency::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<12> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::exa // coherent-exponent 18
-            >,
-            Value_type
-        > EHz;
+      struct PHz : quan::meta::unit<
+         quan::meta::components::of_frequency::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<15> >
+      >{};
 
-        typedef fixed_quantity<
-            quan::meta::unit<
-                abstract_quantity,
-                typename meta::si_unit::zetta // coherent-exponent 21
-            >,
-            Value_type
-        > ZHz;
+      struct EHz : quan::meta::unit<
+         quan::meta::components::of_frequency::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<18> >
+      >{};
+
+      struct ZHz : quan::meta::unit<
+         quan::meta::components::of_frequency::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<21> >
+      >{};
+
+      struct YHz : quan::meta::unit<
+         quan::meta::components::of_frequency::abstract_quantity,
+         quan::meta::conversion_factor<quan::meta::rational<24> >
+      >{};
+
+   };
+
+   template<
+      typename Value_type
+   >
+   struct frequency_ : quan::meta::components::of_frequency{
+
+      typedef quan::fixed_quantity<
+         quan::of_frequency::yHz,
+         Value_type
+      > yHz;
+
+      typedef quan::fixed_quantity<
+         quan::of_frequency::zHz,
+         Value_type
+      > zHz;
+
+      typedef quan::fixed_quantity<
+         quan::of_frequency::aHz,
+         Value_type
+      > aHz;
+
+      typedef quan::fixed_quantity<
+         quan::of_frequency::fHz,
+         Value_type
+      > fHz;
+
+      typedef quan::fixed_quantity<
+         quan::of_frequency::pHz,
+         Value_type
+      > pHz;
+
+      typedef quan::fixed_quantity<
+         quan::of_frequency::nHz,
+         Value_type
+      > nHz;
+
+      typedef quan::fixed_quantity<
+         quan::of_frequency::uHz,
+         Value_type
+      > uHz;
+
+      typedef quan::fixed_quantity<
+         quan::of_frequency::mHz,
+         Value_type
+      > mHz;
+
+      typedef quan::fixed_quantity<
+         quan::of_frequency::cHz,
+         Value_type
+      > cHz;
+
+      typedef quan::fixed_quantity<
+         quan::of_frequency::dHz,
+         Value_type
+      > dHz;
+
+      typedef quan::fixed_quantity<
+         quan::of_frequency::Hz,
+         Value_type
+      > Hz;
+
+      typedef quan::fixed_quantity<
+         quan::of_frequency::daHz,
+         Value_type
+      > daHz;
+
+      typedef quan::fixed_quantity<
+         quan::of_frequency::hHz,
+         Value_type
+      > hHz;
+
+      typedef quan::fixed_quantity<
+         quan::of_frequency::kHz,
+         Value_type
+      > kHz;
+
+      typedef quan::fixed_quantity<
+         quan::of_frequency::MHz,
+         Value_type
+      > MHz;
+
+      typedef quan::fixed_quantity<
+         quan::of_frequency::GHz,
+         Value_type
+      > GHz;
+
+      typedef quan::fixed_quantity<
+         quan::of_frequency::THz,
+         Value_type
+      > THz;
+
+      typedef quan::fixed_quantity<
+         quan::of_frequency::PHz,
+         Value_type
+      > PHz;
+
+      typedef quan::fixed_quantity<
+         quan::of_frequency::EHz,
+         Value_type
+      > EHz;
+
+      typedef quan::fixed_quantity<
+         quan::of_frequency::ZHz,
+         Value_type
+      > ZHz;
+
+      typedef quan::fixed_quantity<
+         quan::of_frequency::YHz,
+         Value_type
+      > YHz;
+
 
     };
 
