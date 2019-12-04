@@ -31,10 +31,254 @@
 
 namespace quan{
 
+struct of_charge{
+         // coherent_exponent :-27 -> N/A
+         // coherent_exponent :-26 -> N/A
+         // coherent_exponent :-25 -> N/A
+      struct yC :  quan::meta::unit<
+         quan::meta::components::of_charge::abstract_quantity,
+         typename quan::meta::si_unit::yocto // coherent_exponent -24
+      >{};
+         // coherent_exponent :-23 -> N/A
+         // coherent_exponent :-22 -> N/A
+      struct zC :  quan::meta::unit<
+         quan::meta::components::of_charge::abstract_quantity,
+         typename quan::meta::si_unit::zepto // coherent_exponent -21
+      >{};
+         // coherent_exponent :-20 -> N/A
+         // coherent_exponent :-19 -> N/A
+      struct aC :  quan::meta::unit<
+         quan::meta::components::of_charge::abstract_quantity,
+         typename quan::meta::si_unit::atto // coherent_exponent -18
+      >{};
+         // coherent_exponent :-17 -> N/A
+         // coherent_exponent :-16 -> N/A
+      struct fC :  quan::meta::unit<
+         quan::meta::components::of_charge::abstract_quantity,
+         typename quan::meta::si_unit::femto // coherent_exponent -15
+      >{};
+         // coherent_exponent :-14 -> N/A
+         // coherent_exponent :-13 -> N/A
+      struct pC :  quan::meta::unit<
+         quan::meta::components::of_charge::abstract_quantity,
+         typename quan::meta::si_unit::pico // coherent_exponent -12
+      >{};
+         // coherent_exponent :-11 -> N/A
+         // coherent_exponent :-10 -> N/A
+      struct nC :  quan::meta::unit<
+         quan::meta::components::of_charge::abstract_quantity,
+         typename quan::meta::si_unit::nano // coherent_exponent -9
+      >{};
+         // coherent_exponent :-8 -> N/A
+         // coherent_exponent :-7 -> N/A
+      struct uC :  quan::meta::unit<
+         quan::meta::components::of_charge::abstract_quantity,
+         typename quan::meta::si_unit::micro // coherent_exponent -6
+      >{};
+         // coherent_exponent :-5 -> N/A
+         // coherent_exponent :-4 -> N/A
+      struct mC :  quan::meta::unit<
+         quan::meta::components::of_charge::abstract_quantity,
+         typename quan::meta::si_unit::milli // coherent_exponent -3
+      >{};
+      struct cC :  quan::meta::unit<
+         quan::meta::components::of_charge::abstract_quantity,
+         typename quan::meta::si_unit::centi // coherent_exponent -2
+      >{};
+      struct dC :  quan::meta::unit<
+         quan::meta::components::of_charge::abstract_quantity,
+         typename quan::meta::si_unit::deci // coherent_exponent -1
+      >{};
+      struct C :  quan::meta::unit<
+         quan::meta::components::of_charge::abstract_quantity,
+         typename quan::meta::si_unit::none // coherent_exponent 0
+      >{};
+      struct daC :  quan::meta::unit<
+         quan::meta::components::of_charge::abstract_quantity,
+         typename quan::meta::si_unit::deka // coherent_exponent 1
+      >{};
+      struct hC :  quan::meta::unit<
+         quan::meta::components::of_charge::abstract_quantity,
+         typename quan::meta::si_unit::hecto // coherent_exponent 2
+      >{};
+      struct kC :  quan::meta::unit<
+         quan::meta::components::of_charge::abstract_quantity,
+         typename quan::meta::si_unit::kilo // coherent_exponent 3
+      >{};
+         // coherent_exponent :4 -> N/A
+         // coherent_exponent :5 -> N/A
+      struct MC :  quan::meta::unit<
+         quan::meta::components::of_charge::abstract_quantity,
+         typename quan::meta::si_unit::mega // coherent_exponent 6
+      >{};
+         // coherent_exponent :7 -> N/A
+         // coherent_exponent :8 -> N/A
+      struct GC :  quan::meta::unit<
+         quan::meta::components::of_charge::abstract_quantity,
+         typename quan::meta::si_unit::giga // coherent_exponent 9
+      >{};
+         // coherent_exponent :10 -> N/A
+         // coherent_exponent :11 -> N/A
+      struct TC :  quan::meta::unit<
+         quan::meta::components::of_charge::abstract_quantity,
+         typename quan::meta::si_unit::tera // coherent_exponent 12
+      >{};
+         // coherent_exponent :13 -> N/A
+         // coherent_exponent :14 -> N/A
+      struct PC :  quan::meta::unit<
+         quan::meta::components::of_charge::abstract_quantity,
+         typename quan::meta::si_unit::peta // coherent_exponent 15
+      >{};
+         // coherent_exponent :16 -> N/A
+         // coherent_exponent :17 -> N/A
+      struct EC :  quan::meta::unit<
+         quan::meta::components::of_charge::abstract_quantity,
+         typename quan::meta::si_unit::exa // coherent_exponent 18
+      >{};
+         // coherent_exponent :19 -> N/A
+         // coherent_exponent :20 -> N/A
+      struct ZC :  quan::meta::unit<
+         quan::meta::components::of_charge::abstract_quantity,
+         typename quan::meta::si_unit::zetta // coherent_exponent 21
+      >{};
+         // coherent_exponent :22 -> N/A
+         // coherent_exponent :23 -> N/A
+      struct YC :  quan::meta::unit<
+         quan::meta::components::of_charge::abstract_quantity,
+         typename quan::meta::si_unit::yotta // coherent_exponent 24
+      >{};
+         // coherent_exponent :25 -> N/A
+         // coherent_exponent :26 -> N/A
+         // coherent_exponent :27 -> N/A
+   };
+
     template<
         typename Value_type
     >
     struct charge_ : meta::components::of_charge{
+
+#if 1
+
+      // coherent_exponent :-27 -> N/A
+      // coherent_exponent :-26 -> N/A
+      // coherent_exponent :-25 -> N/A
+      typedef quan::fixed_quantity<
+         quan::of_charge::yC,
+         Value_type
+      > yC;
+      // coherent_exponent :-23 -> N/A
+      // coherent_exponent :-22 -> N/A
+      typedef quan::fixed_quantity<
+         quan::of_charge::zC,
+         Value_type
+      > zC;
+      // coherent_exponent :-20 -> N/A
+      // coherent_exponent :-19 -> N/A
+      typedef quan::fixed_quantity<
+         quan::of_charge::aC,
+         Value_type
+      > aC;
+      // coherent_exponent :-17 -> N/A
+      // coherent_exponent :-16 -> N/A
+      typedef quan::fixed_quantity<
+         quan::of_charge::fC,
+         Value_type
+      > fC;
+      // coherent_exponent :-14 -> N/A
+      // coherent_exponent :-13 -> N/A
+      typedef quan::fixed_quantity<
+         quan::of_charge::pC,
+         Value_type
+      > pC;
+      // coherent_exponent :-11 -> N/A
+      // coherent_exponent :-10 -> N/A
+      typedef quan::fixed_quantity<
+         quan::of_charge::nC,
+         Value_type
+      > nC;
+      // coherent_exponent :-8 -> N/A
+      // coherent_exponent :-7 -> N/A
+      typedef quan::fixed_quantity<
+         quan::of_charge::uC,
+         Value_type
+      > uC;
+      // coherent_exponent :-5 -> N/A
+      // coherent_exponent :-4 -> N/A
+      typedef quan::fixed_quantity<
+         quan::of_charge::mC,
+         Value_type
+      > mC;
+      typedef quan::fixed_quantity<
+         quan::of_charge::cC,
+         Value_type
+      > cC;
+      typedef quan::fixed_quantity<
+         quan::of_charge::dC,
+         Value_type
+      > dC;
+      typedef quan::fixed_quantity<
+         quan::of_charge::C,
+         Value_type
+      > C;
+      typedef quan::fixed_quantity<
+         quan::of_charge::daC,
+         Value_type
+      > daC;
+      typedef quan::fixed_quantity<
+         quan::of_charge::hC,
+         Value_type
+      > hC;
+      typedef quan::fixed_quantity<
+         quan::of_charge::kC,
+         Value_type
+      > kC;
+      // coherent_exponent :4 -> N/A
+      // coherent_exponent :5 -> N/A
+      typedef quan::fixed_quantity<
+         quan::of_charge::MC,
+         Value_type
+      > MC;
+      // coherent_exponent :7 -> N/A
+      // coherent_exponent :8 -> N/A
+      typedef quan::fixed_quantity<
+         quan::of_charge::GC,
+         Value_type
+      > GC;
+      // coherent_exponent :10 -> N/A
+      // coherent_exponent :11 -> N/A
+      typedef quan::fixed_quantity<
+         quan::of_charge::TC,
+         Value_type
+      > TC;
+      // coherent_exponent :13 -> N/A
+      // coherent_exponent :14 -> N/A
+      typedef quan::fixed_quantity<
+         quan::of_charge::PC,
+         Value_type
+      > PC;
+      // coherent_exponent :16 -> N/A
+      // coherent_exponent :17 -> N/A
+      typedef quan::fixed_quantity<
+         quan::of_charge::EC,
+         Value_type
+      > EC;
+      // coherent_exponent :19 -> N/A
+      // coherent_exponent :20 -> N/A
+      typedef quan::fixed_quantity<
+         quan::of_charge::ZC,
+         Value_type
+      > ZC;
+      // coherent_exponent :22 -> N/A
+      // coherent_exponent :23 -> N/A
+      typedef quan::fixed_quantity<
+         quan::of_charge::YC,
+         Value_type
+      > YC;
+      // coherent_exponent :25 -> N/A
+      // coherent_exponent :26 -> N/A
+      // coherent_exponent :27 -> N/A
+
+#else
         typedef fixed_quantity<
             quan::meta::unit<
                 abstract_quantity,
@@ -194,6 +438,7 @@ namespace quan{
             >,
             Value_type
         > ZC;
+#endif
 
         typedef fixed_quantity<
             typename non_si_unit::A_h,
