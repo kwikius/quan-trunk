@@ -32,7 +32,12 @@
     These are required to be specialised per model
 */
 
+#include <quan/meta/bool/false.hpp>
+
 namespace quan{namespace meta{
+
+    template <typename T, typename where = void >
+    struct is_conversion_factor : quan::meta::false_{};
 
     template <typename T, typename Where = void>
     struct get_nearest_si;
