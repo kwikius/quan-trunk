@@ -36,11 +36,15 @@ also stm32f0 ref man 7.2 Clocks  figure 10 Clock Tree
       static_assert(quan::is_model_of<quan::stm32::Tim,TimerModule>::value == true,"only useful for timers");
       typedef typename quan::stm32::detail::get_bus<TimerModule>::type bus_type;
     //  static_assert(std::is_same<bus_type,quan::stm32::detail::apb1>::value, "unexpected bus");
-      
+    /*  
+      c++11 requires everything to be in the return statement
       constexpr uint32_t  bus_prescaler_value = quan::stm32::get_bus_prescaler_value<bus_type>();
      // static_assert(bus_prescaler_value == 1, "unexpected precasler value");
       constexpr uint32_t multiplier = (bus_prescaler_value == 1U)?1U: 2U;
+
       return quan::stm32::get_module_bus_frequency<TimerModule>() * multiplier;
+    */
+      return quan::stm32::get_module_bus_frequency<TimerModule>() * (( quan::stm32::get_bus_prescaler_value<bus_type>() == 1)?1U:2U);
    }
 
 //#elif defined QUAN_STM32F0
