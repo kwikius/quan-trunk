@@ -35,7 +35,7 @@ namespace quan{ namespace meta{ namespace components{
 
         static const char* abstract_quantity_name()
         {
-            return "magneto-motive force";
+            return "magnetomotive force";
         }
 
         template<typename CharType>
