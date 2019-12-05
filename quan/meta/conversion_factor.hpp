@@ -41,6 +41,7 @@
 #include <quan/meta/lt.hpp>
 #include <quan/meta/eq.hpp>
 #include <quan/meta/int32.hpp>
+#include <quan/meta/bool/true.hpp>
 
 namespace quan{namespace meta{
 
@@ -55,6 +56,9 @@ namespace quan{namespace meta{
         typedef Id                            id;
         typedef conversion_factor<exponent,multiplier,id>  type;
     };
+
+    template <typename E,typename M, typename Id>
+    struct is_conversion_factor<conversion_factor<E,M,Id> > : quan::meta::true_{};
 
     template <
         typename Exponent,
@@ -196,8 +200,8 @@ namespace quan{namespace meta{
                         times,
                         typename PowType::type
                     >::type,
-                  rational<1>, 
-                  quan::meta::int32<0>
+                  rational<1>, // si 
+                  quan::meta::int32<0> // si
                 >
             >::type type;
         };
