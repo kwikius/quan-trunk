@@ -230,29 +230,29 @@ namespace quan{
                 >(10.);*/
 // use format spec here
            // ost << mux;
-        } 
-        else if( int64_t rt_exponent = quan::meta::numerator<exponent>::value){
-         if( detail::output_if<
-               // neat exponent
-               quan::meta::is_integer<exponent>
-               >() (ost, " * 1e")){
+      } else {
+         // if it isnt 0
+         if( int64_t rt_exponent = quan::meta::numerator<exponent>::value){
+            if( detail::output_if<
+            // neat exponent
+               quan::meta::is_integer<exponent> >() (ost, " * 1e")){
                ost << rt_exponent; 
-         }
-         else {
+            } else {
                // messy exponent
-               ost << " * 1e" << '(' << rt_exponent << '/' << quan::meta::numerator<exponent>::value << ')';
-// use format spec here
-               
+               ost << " * 1e" << '(' << rt_exponent << '/' << quan::meta::denominator<exponent>::value << ')';
+               // use format spec here ?
+
                /*<<   quan::pow<
-                  quan::meta::numerator<exponent>::value,
-                  quan::meta::denominator<exponent>::value
+               quan::meta::numerator<exponent>::value,
+               quan::meta::denominator<exponent>::value
                >(10.) ;*/
-         } 
-        }
-        detail::output_if<has_brackets>()(ost , ']');
-        os << ost.str(); 
-        return os;
-    }
+            } 
+          }
+      }
+       detail::output_if<has_brackets>()(ost , ']');
+       os << ost.str(); 
+       return os;
+   }
     
 }//quan
 
