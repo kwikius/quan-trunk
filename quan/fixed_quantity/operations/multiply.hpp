@@ -28,6 +28,7 @@
 */
 #include <quan/config.hpp>
 #include <quan/fixed_quantity/fixed_quantity.hpp>
+#include <quan/meta/are_fixed_quantities.hpp>
 #include <quan/meta/name_anonymous_unit.hpp>
 #include <quan/meta/binary_op.hpp>
 #include <quan/detail/united_value/operations/dimensioned_multiply.hpp>
@@ -40,6 +41,46 @@ namespace quan{ namespace meta{
     
    namespace impl{
 
+#if 0
+/*
+   though this can be defined generically as here, then it must ultimately return a  definite type
+   This metafunction is itself the best place to define that
+*/
+      template <typename Lhs, typename Rhs>
+      struct binary_op_impl<
+         Lhs,times,Rhs, 
+         typename quan::where_<are_fixed_quantities<Lhs,Rhs> >::type
+      >
+      {
+         typedef typename binary_op<
+            typename Lhs::unit ,
+            times ,
+            typename Rhs::unit
+         >::type def_unit;
+
+         typedef typename eval_if<
+            and_<
+               not_<is_named_quantity<def_unit> >,
+               is_si<def_unit>
+            >,
+            name_anonymous_unit<def_unit>,
+            def_unit
+         >::type unit;
+
+         typedef typename binary_op<
+            typename Lhs::value_type ,
+            times, 
+            typename Rhs::value_type
+         >::type value_type;
+
+         typedef typename quan::fixed_quantity<
+            unit ,
+            value_type
+         >::type type;
+      };
+
+#else
+  // define it explicitly for these types to allow others to customise
         template <
             typename StaticUnit_L ,
             typename ValueType_L ,
@@ -74,12 +115,12 @@ namespace quan{ namespace meta{
                 value_type
             >::type type;
         };
+#endif
     } // impl
 } }//quan::meta
     
-#if !(defined QUAN_SUPPRESS_VC8_ADL_BUG)
+
 namespace quan{ 
-#endif
 
     // multiply
     template< 
@@ -88,6 +129,8 @@ namespace quan{
     >
     QUAN_CONSTEXPR
     inline
+
+#if __cplusplus < 201402L
     typename quan::meta::binary_op< 
         quan::fixed_quantity<
             StaticUnit_L,ValueType_L
@@ -97,57 +140,61 @@ namespace quan{
             StaticUnit_R,ValueType_R
         >
     >::type
-    operator * ( 
-        quan::fixed_quantity<
-            StaticUnit_L,ValueType_L
-        > const & lhs ,
-        quan::fixed_quantity<
-            StaticUnit_R,ValueType_R
-        > const & rhs )
-        {
-            typedef typename quan::meta::binary_op<
-                quan::fixed_quantity<
-                    StaticUnit_L,ValueType_L
-                >,
-                quan::meta::times,
-                quan::fixed_quantity<
-                    StaticUnit_R,ValueType_R
-                >
-            >::type result_type;
-        //typename meta::get_conversion_factor
-            // could check its an si quantity here
-            typedef typename quan::meta::get_conversion_factor<
-                StaticUnit_L
-            >::type conv_factor_L;
-            typedef typename quan::meta::get_conversion_factor<
-                StaticUnit_R
-            >::type conv_factor_R;
-            typedef typename quan:: meta::eval_if<
-                quan::meta::is_dimensionless<
-                    typename quan::meta::binary_op<
-                        StaticUnit_L,
-                        quan::meta::times,
-                        StaticUnit_R
-                    >::type
-                >,
-                quan::detail::dimensionless_multiply1<
-                    conv_factor_L, conv_factor_R
-                >,
-                quan::detail::dimensioned_multiply1< 
-                    typename quan::meta::get_multiplier<
-                        conv_factor_L
-                    >::type,
-                    typename quan::meta::get_multiplier<
-                        conv_factor_R
-                    >::type
-                >
-            >::type calc_type;
-            typedef typename calc_type::template eval<ValueType_L,ValueType_R> func;
-    
-            return result_type{ func{}( lhs.numeric_value(),rhs.numeric_value())};
-        }
-
-#if !(defined QUAN_SUPPRESS_VC8_ADL_BUG)
-} //quan
+#else
+    // gives more concise error messages
+    auto
 #endif
+// as above. Can be more generic but then harder to customise
+    operator * ( 
+     quan::fixed_quantity<
+         StaticUnit_L,ValueType_L
+     > const & lhs ,
+     quan::fixed_quantity<
+         StaticUnit_R,ValueType_R
+     > const & rhs ) 
+     {
+         typedef typename quan::meta::binary_op<
+             quan::fixed_quantity<
+                 StaticUnit_L,ValueType_L
+             >,
+             quan::meta::times,
+             quan::fixed_quantity<
+                 StaticUnit_R,ValueType_R
+             >
+         >::type result_type;
+     //typename meta::get_conversion_factor
+         // could check its an si quantity here
+         typedef typename quan::meta::get_conversion_factor<
+             StaticUnit_L
+         >::type conv_factor_L;
+         typedef typename quan::meta::get_conversion_factor<
+             StaticUnit_R
+         >::type conv_factor_R;
+         typedef typename quan:: meta::eval_if<
+             quan::meta::is_dimensionless<
+                 typename quan::meta::binary_op<
+                     StaticUnit_L,
+                     quan::meta::times,
+                     StaticUnit_R
+                 >::type
+             >,
+             quan::detail::dimensionless_multiply1<
+                 conv_factor_L, conv_factor_R
+             >,
+             quan::detail::dimensioned_multiply1< 
+                 typename quan::meta::get_multiplier<
+                     conv_factor_L
+                 >::type,
+                 typename quan::meta::get_multiplier<
+                     conv_factor_R
+                 >::type
+             >
+         >::type calc_type;
+         typedef typename calc_type::template eval<ValueType_L,ValueType_R> func;
+ 
+         return result_type{ func{}( lhs.numeric_value(),rhs.numeric_value())};
+     }
+
+} //quan
+
 #endif
