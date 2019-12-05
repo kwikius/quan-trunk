@@ -60,6 +60,7 @@ namespace {
     QUAN_TEST_FUN(test_pow0)
     QUAN_TEST_FUN(test_pow1)
     QUAN_TEST_FUN(test_power_functions)
+    QUAN_TEST_FUN(test_root_quantity)
 
 #undef QUAN_TEST_FUN
 }
@@ -71,6 +72,7 @@ void pow_test()
     QUAN_TEST_FUN(test_pow0)
     QUAN_TEST_FUN(test_pow1)
     QUAN_TEST_FUN(test_power_functions)
+    QUAN_TEST_FUN(test_root_quantity)
 
 #undef QUAN_TEST_FUN
 }
@@ -89,6 +91,37 @@ namespace {
        return t1;
    }
 
+   void test_root_quantity()
+   {
+
+      auto v = quan::pow<1,4>(quan::length::mm{1});
+
+      typedef decltype(v) v_type;
+
+      QUAN_CHECK( quan::meta::is_fixed_quantity<v_type>::value )
+
+      typedef v_type::unit unit;
+
+      QUAN_CHECK(quan::meta::is_static_unit<unit>::value )
+
+      typedef unit::conversion_factor conv_factor;
+
+      QUAN_CHECK(quan::meta::is_conversion_factor<conv_factor>::value)
+
+      typedef quan::meta::get_exponent<conv_factor>::type exponent;
+
+      typedef quan::meta::numerator<exponent> numerator;
+      typedef quan::meta::denominator<exponent> denominator;
+
+
+      QUAN_CHECK(numerator::value == -3)
+      QUAN_CHECK(denominator::value == 4);
+
+      quan::length::mm xx = quan::pow<4>(v);
+
+      QUAN_CHECK(xx == quan::length::mm{1})
+
+   }
 
    void test_pow0()
    {
