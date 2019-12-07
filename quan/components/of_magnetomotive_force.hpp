@@ -5,7 +5,7 @@
 #endif
 
 /*
- Copyright (c) 2003-2014 Andy Little.
+ Copyright (c) 2003-2019 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -47,7 +47,7 @@ namespace quan{ namespace meta{ namespace components{
         };
 #if defined QUAN_META_CUSTOM_DIMENSION
          typedef meta::dimension<
-            ,quan::meta::dim_current<1> 
+            quan::meta::dim_current<1> 
          > dimension;
 #else
         typedef meta::dimension<

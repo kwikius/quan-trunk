@@ -35,6 +35,34 @@ namespace quan{ namespace  meta{
 
       template <typename DL, typename DR>
       struct binary_op_impl<
+         DL,quan::meta::plus,DR,
+         typename quan::where_<
+            quan::meta::and_<
+               quan::meta::is_dimension<DL>,
+               quan::meta::is_dimension<DR>,
+               quan::meta::dimensionally_equivalent<DL,DR>
+            >
+         >::type
+      > {
+          typedef DL type;
+      };
+
+      template <typename DL, typename DR>
+      struct binary_op_impl<
+         DL,quan::meta::minus,DR,
+         typename quan::where_<
+            quan::meta::and_<
+               quan::meta::is_dimension<DL>,
+               quan::meta::is_dimension<DR>,
+               quan::meta::dimensionally_equivalent<DL,DR>
+            >
+         >::type
+      > {
+          typedef DL type;
+      };
+
+      template <typename DL, typename DR>
+      struct binary_op_impl<
          DL,quan::meta::times,DR,
          typename quan::where_<
             quan::meta::and_<
