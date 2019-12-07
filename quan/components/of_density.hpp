@@ -46,6 +46,12 @@ namespace quan{ namespace meta{ namespace components{
             prefix_offset = 3
         };
 
+#if defined QUAN_META_CUSTOM_DIMENSION
+         typedef meta::dimension<
+            quan::meta::dim_length<-3> 
+            ,quan::meta::dim_mass<1> 
+         > dimension;
+#else
         typedef meta::dimension<
             meta::rational<-3>, // length
             meta::rational<0>, // time
@@ -55,7 +61,7 @@ namespace quan{ namespace meta{ namespace components{
             meta::rational<0>, // substance
             meta::rational<0> // intensity
         > dimension;
-
+#endif
         typedef meta::abstract_quantity<
             dimension,
             of_density
