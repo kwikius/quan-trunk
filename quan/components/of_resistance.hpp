@@ -41,7 +41,7 @@ namespace quan{ namespace meta{ namespace components{
         };
 #if defined QUAN_META_CUSTOM_DIMENSION
          typedef meta::dimension<
-            quan::meta::dim_length<-2> 
+            quan::meta::dim_length<2> 
             ,quan::meta::dim_time<-3> 
             ,quan::meta::dim_mass<1> 
             ,quan::meta::dim_current<-2> 
