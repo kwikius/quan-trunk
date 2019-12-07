@@ -37,15 +37,18 @@ namespace quan{ namespace meta{ namespace components{
         {
             return "thermal diffusivity";
         }
-
-        template<typename CharType>
-        static const CharType* unprefixed_symbol();
-
         enum{
             extent = 1,
             prefix_offset = 0
         };
-
+        template<typename CharType>
+        static const CharType* unprefixed_symbol();
+#if defined QUAN_META_CUSTOM_DIMENSION
+         typedef meta::dimension<
+            quan::meta::dim_length<2> 
+            ,quan::meta::dim_time<-1> 
+         > dimension;
+#else
         typedef meta::dimension<
             meta::rational<2>, // length
             meta::rational<-1>, // time
@@ -55,7 +58,7 @@ namespace quan{ namespace meta{ namespace components{
             meta::rational<0>, // substance
             meta::rational<0> // intensity
         > dimension;
-
+#endif
         typedef meta::abstract_quantity<
             dimension,
             of_thermal_diffusivity
