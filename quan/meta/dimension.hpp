@@ -43,6 +43,12 @@
 #include <quan/meta/not.hpp>
 #include <quan/meta/or.hpp>
 
+#if 1
+#include <quan/meta/custom_dimension/dimension_compat.hpp>
+#else
+
+
+
 namespace quan{namespace meta{
 
     template <
@@ -333,8 +339,12 @@ namespace quan{namespace meta{
         dimension<
             D1, D2, D3, D4, D5, D6, D7
         >
-    > : D7 {};
+     > : D7 {};
+
+
    
 }}//quan::meta
 
 #endif
+
+#endif  // QUAN_META_DIMENSION_HPP_INCLUDED
