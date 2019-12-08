@@ -43,7 +43,7 @@ namespace quan{ namespace meta{ namespace components{
          typedef meta::dimension<
             quan::meta::dim_length<2> 
             ,quan::meta::dim_time<-2> 
-            ,quan::meta::dim_mass<2> 
+            ,quan::meta::dim_mass<1> 
             ,quan::meta::dim_current<-1> 
          > dimension;
 #else
