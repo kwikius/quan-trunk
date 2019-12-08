@@ -1,7 +1,22 @@
 #ifndef QUAN_META_CUSTOM_DIMENSION_HPP_INCLUDED
 #define QUAN_META_CUSTOM_DIMENSION_HPP_INCLUDED
 
+/*
+ Copyright (c) 2003-2019 Andy Little.
 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see http://www.gnu.org/licenses./
+ */
 
 #include <type_traits>
 #include <quan/meta/type_sequence.hpp>
@@ -28,33 +43,10 @@ namespace quan{ namespace meta{
    template <typename ...D>
    struct is_dimension<dimension<D...> > : std::true_type{};
 
-   
-
 }}
 
-/*
-namespace quan{ namespace impl{
-
-   // 
-   template <typename ...D>
-      struct is_model_of_impl<
-         quan::meta::TypeSequence_,
-         quan::meta::dimension<D...> 
-      > : std::true_type{};
-
-}} // quan::impl
-*/
 namespace quan{ namespace meta{
-/*
-   namespace impl{
 
-       template <typename ... D>
-       struct get_num_elements_impl<
-            quan::meta::dimension<D...>
-       > : std::integral_constant<uint32_t, (sizeof...(D) )>{};
-
-   }
-*/
    template <typename T>
    struct push_back<quan::meta::dimension<>,T >{
       typedef quan::meta::dimension<T> type;
@@ -124,27 +116,6 @@ namespace quan{ namespace meta{
 
 }}//quan::meta
 
-/*
-namespace quan{ namespace meta{
-
-   template <uint32_t N, typename... List>
-   struct at<N,quan::meta::dimension<List...> >{
-       typedef quan::meta::dimension<List...> list_type;
-       static_assert(N < list_type::length,"index out of range in quan::meta::dimension");
-       typedef typename quan::meta::eval_if_c<
-            N==0,
-            quan::meta::front<list_type>,
-            quan::meta::at<N-1,typename quan::meta::pop_front<list_type>::type>
-       >::type type; 
-   };
-
-   template <uint32_t N>
-   struct at<N,quan::meta::dimension<> >{
-      typedef quan::undefined type;
-   };
-   
-}}// quan::meta
-*/
 namespace quan{ namespace meta{ namespace detail{
 
    // algorthim to extract the base_dimension from the dimension D

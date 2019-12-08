@@ -4,7 +4,7 @@
 #  pragma once
 #endif
 
-// Copyright Andrew Little 2003-20019
+// Copyright Andrew Little 2003-2019
 
 #include <quan/meta/impl/binary_op_impl.hpp>
 #if  defined __cpp_concepts
