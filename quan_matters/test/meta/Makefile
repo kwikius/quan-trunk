@@ -1,10 +1,10 @@
 
 
-.PHONY : all type_sequence rational_test find_if concepts_for_each fold test clean
+.PHONY : all type_sequence rational_test find_if concepts_for_each fold test clean dimension
 
-all: type_sequence rational_test find_if concepts_for_each fold
+all: type_sequence rational_test find_if concepts_for_each fold dimension
 
-test: type_sequence rational_test find_if concepts_for_each fold
+test: type_sequence rational_test find_if concepts_for_each fold dimension
 
 USE_CONCEPTS_VALUE ?= True
 
@@ -23,11 +23,13 @@ concepts_for_each :
 fold :
 	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) -f fold.mk test
 
+dimension :
+	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) -f dimension.mk test
+
 clean:
 	make -f type_sequence.mk clean
 	make -f rational_test.mk clean
 	make -f find_if.mk clean
 	make -f for_each.mk clean 
 	make -f fold.mk clean 
-
-
+	make -f dimension.mk clean

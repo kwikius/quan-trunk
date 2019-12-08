@@ -1,7 +1,7 @@
 #ifndef QUAN_META_CUSTOM_DIMENSION_HPP_INCLUDED
 #define QUAN_META_CUSTOM_DIMENSION_HPP_INCLUDED
 
-#define QUAN_META_CUSTOM_DIMENSION
+
 
 #include <type_traits>
 #include <quan/meta/type_sequence.hpp>

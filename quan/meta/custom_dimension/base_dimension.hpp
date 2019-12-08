@@ -5,6 +5,8 @@
 #include <type_traits>
 #include <ratio>
 
+#define QUAN_META_CUSTOM_DIMENSION
+
 namespace quan{ namespace meta{
 
    namespace detail{
