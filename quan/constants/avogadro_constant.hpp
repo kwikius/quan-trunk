@@ -47,21 +47,9 @@ namespace quan {
        typedef  fixed_quantity<
             meta::unit<
                 meta::abstract_quantity<
-#if defined QUAN_META_CUSTOM_DIMENSION
                     meta::dimension<
                         quan::meta::dim_substance<-1> 
                     >
-#else
-                    meta::dimension<
-                        meta::rational<0>,
-                        meta::rational<0>,
-                        meta::rational<0>,
-                        meta::rational<0>,
-                        meta::rational<0>,
-                        meta::rational<-1>, // per mole
-                        meta::rational<0>
-                    >
-#endif
                 >,
                 meta::conversion_factor<
                     meta::rational<23>

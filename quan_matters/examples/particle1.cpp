@@ -53,19 +53,9 @@
             quan::meta::unit< 
                 quan::meta::abstract_quantity<
                     quan::meta::dimension<
-#if defined QUAN_META_CUSTOM_DIMENSION
                         quan::meta::dim_length<3> 
                         ,quan::meta::dim_time<-2> 
                         ,quan::meta::dim_mass<-1> 
-#else
-                        quan::meta::rational<3>,
-                        quan::meta::rational<-2>,
-                        quan::meta::rational<-1>,
-                        quan::meta::rational<0>,
-                        quan::meta::rational<0>,
-                        quan::meta::rational<0>,
-                        quan::meta::rational<0> 
-#endif
                     >
                 >,
                 quan::meta::conversion_factor<

@@ -22,7 +22,7 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 
-#define QUAN_META_CUSTOM_DIMENSION
+//#define QUAN_META_CUSTOM_DIMENSION
 
 namespace quan{ namespace meta{
 

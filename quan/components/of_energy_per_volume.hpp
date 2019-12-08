@@ -39,23 +39,13 @@ namespace quan{ namespace meta{ namespace components{
             extent = 1,
             prefix_offset = 0
         };
-#if defined QUAN_META_CUSTOM_DIMENSION
+
          typedef meta::dimension<
             quan::meta::dim_length<-1> 
             ,quan::meta::dim_time<-2> 
             ,quan::meta::dim_mass<1> 
          > dimension;
-#else
-        typedef meta::dimension<
-            meta::rational<-1>, // length
-            meta::rational<-2>, // time
-            meta::rational<1>, // mass
-            meta::rational<0>, // temperature
-            meta::rational<0>, // current
-            meta::rational<0>, // substance
-            meta::rational<0> // intensity
-        > dimension;
-#endif
+
         typedef meta::abstract_quantity<
             dimension,
             of_energy_per_volume

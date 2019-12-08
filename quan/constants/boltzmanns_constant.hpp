@@ -45,20 +45,12 @@ namespace quan{
             meta::unit<
                 meta::abstract_quantity<
                     meta::dimension<
-#if defined QUAN_META_CUSTOM_DIMENSION
+
                         quan::meta::dim_length<2> 
                         ,quan::meta::dim_time<-2> 
                         ,quan::meta::dim_mass<1> 
                         ,quan::meta::dim_temperature<-1> 
-#else
-                        meta::rational<2>,  // length
-                        meta::rational<-2>,  // time
-                        meta::rational<1>,    // mass
-                        meta::rational<-1>,   // temperature
-                        meta::rational<0>,    //current
-                        meta::rational<0>,
-                        meta::rational<0>
-#endif
+
                     >
                 >,
                 meta::conversion_factor<
