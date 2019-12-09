@@ -23,7 +23,7 @@
 #include <quan/where.hpp>
 #include <quan/meta/bool/true.hpp>
 #include <quan/undefined.hpp>
-#include <quan/meta/eval_if.hpp>
+#include <quan/meta/eval_if_else.hpp>
 
 namespace quan{ namespace meta{
 
@@ -134,7 +134,7 @@ namespace quan{ namespace meta{
          typedef typename front<List>::type first_type;
          typedef typename pop_front<List>::type rest_type;
          typedef typename push_back<other_list,first_type>::type result_list_type;
-         typedef typename quan::meta::eval_if_c<
+         typedef typename quan::meta::eval_if_else_c<
             result_list_type::length == N,
             result_list_type,
             type_sequence_get_first_n<N,rest_type,result_list_type>
@@ -163,7 +163,7 @@ namespace quan{ namespace meta{
    struct at<N,type_sequence<List...> >{
        typedef type_sequence<List...> list_type;
        static_assert(N < list_type::length,"index out of range in quan::meta::type_sequence");
-       typedef typename quan::meta::eval_if_c<
+       typedef typename quan::meta::eval_if_else_c<
             N==0,
             quan::meta::front<list_type>,
             quan::meta::at<N-1,typename quan::meta::pop_front<list_type>::type>

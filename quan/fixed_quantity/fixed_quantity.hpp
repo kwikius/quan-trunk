@@ -571,6 +571,7 @@ namespace quan { namespace meta {
                 muxL, quan::meta::times,muxR
             >::type result_mux;
             typedef typename quan::meta::eq_one<result_mux>::type type;
+            static constexpr bool value = type::value;
         };
 
         template <typename StaticUnitL, typename StaticUnitR>
@@ -591,6 +592,7 @@ namespace quan { namespace meta {
                   quan::meta::eq_one<result_mux>,
                   quan::meta::eq_zero<result_exp>
             >::type type;
+            static constexpr bool value = type::value;
         };
 
         template <typename StaticUnitL,typename StaticUnitR>
@@ -660,6 +662,7 @@ namespace quan { namespace meta {
             >::type conv_factor;
             typedef typename quan::meta::get_multiplier<conv_factor>::type mux;
             typedef typename quan::meta::eq_one<mux>::type type;
+            static constexpr bool value = type::value;
         };
     }
 
@@ -686,7 +689,8 @@ namespace quan { namespace meta {
             typedef typename quan::meta::binary_op<
                 muxL, quan::meta::divides,muxR
             >::type result_mux;
-            typedef typename quan::meta::eq_one<result_mux>::type type;     
+            typedef typename quan::meta::eq_one<result_mux>::type type; 
+            static constexpr bool value = type::value;    
         };
 
         template <typename StaticUnitL, typename StaticUnitR>
@@ -708,6 +712,7 @@ namespace quan { namespace meta {
                 quan::meta::eq_one<result_mux>,
                 quan::meta::eq_zero<result_exp>
             >::type type;
+           static constexpr bool value = type::value;
         };
 
         template <typename StaticUnitL,typename StaticUnitR>
