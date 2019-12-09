@@ -21,7 +21,6 @@
 #include <quan/meta/custom_dimension/dimension.hpp>
 #include <quan/meta/rational.hpp>
 
-
 namespace quan{ namespace  meta{
 
    template <typename D>
