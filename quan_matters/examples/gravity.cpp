@@ -43,7 +43,9 @@ int main()
     using quan::mass;
     using quan::force;
     using quan::pow;
+
     std::cout.precision(5);
+
     length::km         const planet_radius(6400); //roughly !
     density::kg_per_m3 const planet_density(5487); // roughly!
     mass::kg const planet_mass = (4.0/3.0)* constant::pi * pow<3>(planet_radius) * planet_density;

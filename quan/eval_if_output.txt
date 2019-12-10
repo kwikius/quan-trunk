@@ -1,0 +1,203 @@
+find "eval_if" in  "*.hpp"
+/home/andy/cpp/projects/quan-trunk/quan/fusion/static_value/static_val_op_static_val.hpp:17:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/fun/make_fun_seq2.hpp:20:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/fun/make_fun_seq2.hpp:42:         typedef typename quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/arithmetic_convert.hpp:81:         typedef typename quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/concept_check/meta/rational_constant.hpp:90:   typedef typename quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/reflect/abstract_quantity_name.hpp:22:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/reflect/abstract_quantity_name.hpp:32:      typedef typename quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/stm32/f4/detail/system_pll_constants.hpp:32:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/stm32/f4/detail/system_pll_constants.hpp:54:          typedef typename quan::meta::eval_if_c< 
+/home/andy/cpp/projects/quan-trunk/quan/stm32/f4/detail/system_pll_constants.hpp:75:      typedef typename quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/stm32/detail/make_boolean_action.hpp:22:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/stm32/detail/make_boolean_action.hpp:51:   struct make_boolean_action : quan::meta::eval_if_c<B,make_or_action<PeriphReg,BitPos>,make_and_action<PeriphReg,BitPos> >{};
+/home/andy/cpp/projects/quan-trunk/quan/stm32/detail/periph_reg_actions.hpp:164:         typedef typename quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/stm32/detail/periph_reg_actions.hpp:167:            quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/stm32/detail/periph_reg_actions.hpp:340:      typedef typename quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/stm32/detail/periph_reg_actions.hpp:421:         typedef typename quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/stm32/tim/module.hpp:25:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/stm32/tim/module.hpp:49:   typedef typename quan::meta::eval_if< \
+/home/andy/cpp/projects/quan-trunk/quan/angle/fraction_of_revolution.hpp:48:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/angle/fraction_of_revolution.hpp:291:               typename quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/angle/fraction_of_revolution.hpp:330:               typename quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/meta/count_if.hpp:21:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/meta/count_if.hpp:31:          typedef typename quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/meta/count_if.hpp:39:          typedef typename quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/meta/count_if.hpp:49:        typedef typename quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/meta/custom_dimension/dimension.hpp:135:   typedef typename quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/meta/custom_dimension/dimension.hpp:168:       typedef typename quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/meta/custom_dimension/dimension.hpp:204:      typedef typename quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/meta/custom_dimension/dimension.hpp:238:       typedef typename quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/meta/custom_dimension/dimension.hpp:271:      typedef typename quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/meta/and.hpp:26:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/meta/and.hpp:30:   template<typename Lhs, typename... Args > struct and_ : eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/meta/and.hpp:35:   struct and_<C1,C2>: eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/meta/or.hpp:25:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/meta/or.hpp:29:   template <typename Lhs,typename ... Args> struct or_ : eval_if< Lhs, std::true_type, or_<Args...> >::type{};
+/home/andy/cpp/projects/quan-trunk/quan/meta/or.hpp:32:   struct or_<C1,C2>: eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/meta/asm/signed_add.hpp:82:   struct signed_add : quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/meta/asm/signed_add.hpp:84:      quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/meta/asm/signed_add.hpp:89:      quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/meta/asm/signed_sub.hpp:82:   struct signed_sub : quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/meta/asm/signed_sub.hpp:84:      quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/meta/asm/signed_sub.hpp:89:      quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/meta/asm/sub.hpp:26:   struct sub : quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/meta/asm/mul.hpp:26:   struct mul : quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/meta/asm/add.hpp:26:   struct add : quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/meta/asm/abs.hpp:28:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/meta/asm/abs.hpp:49:      typedef typename quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/meta/asm/detail/mul_c_impl.hpp:63:      struct fast_mul_impl : quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/meta/asm/detail/mul_c_impl.hpp:99:      struct slow_mul_impl : quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/meta/asm/reg_to_integral_constant.hpp:21:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/meta/asm/reg_to_integral_constant.hpp:47:      : quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/meta/asm/reg_to_integral_constant.hpp:63:      struct reg_to_unsigned_integral_constant_detail : quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/meta/asm/reg_to_integral_constant.hpp:91:      quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/meta/asm/reg_to_integral_constant.hpp:108:      struct reg_to_signed_integral_constant_detail : quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/meta/asm/reg_to_integral_constant.hpp:123:      struct convert_reg_to_integral_constant : quan::meta::eval_if_c< 
+/home/andy/cpp/projects/quan-trunk/quan/meta/conversion_factor.hpp:38:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/meta/conversion_factor.hpp:161:            typedef typename eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/meta/conversion_factor.hpp:194:            typedef typename eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/meta/find_if.hpp:21:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/meta/find_if.hpp:30:          typedef typename quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/meta/find_if.hpp:33:               quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/meta/find_if.hpp:44:        typedef typename quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/meta/transform.hpp:21:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/meta/transform.hpp:34:             typedef typename quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/meta/transform.hpp:44:      typedef typename quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/meta/eval_if_else.hpp:5:   simple version of eval_if
+/home/andy/cpp/projects/quan-trunk/quan/meta/eval_if_else.hpp:10:   struct eval_if_else_c{
+/home/andy/cpp/projects/quan-trunk/quan/meta/eval_if_else.hpp:15:   struct eval_if_else_c<false,TrueFunction,FalseFunction> {
+/home/andy/cpp/projects/quan-trunk/quan/meta/eval_if_else.hpp:20:   struct eval_if_else : eval_if_else_c<((C::type::value)!=0),TrueFunction,FalseFunction>{};
+/home/andy/cpp/projects/quan-trunk/quan/meta/signed_unsigned.hpp:23:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/meta/signed_unsigned.hpp:57:   struct to_unsigned : quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/meta/signed_unsigned.hpp:68:   struct to_signed : quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/meta/copy_if.hpp:21:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/meta/copy_if.hpp:32:          typedef typename quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/meta/copy_if.hpp:40:          typedef typename quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/meta/copy_if.hpp:50:        typedef typename quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/meta/eval_if.hpp:32:      struct eval_if_list;
+/home/andy/cpp/projects/quan-trunk/quan/meta/eval_if.hpp:35:      struct make_eval_if_list;
+/home/andy/cpp/projects/quan-trunk/quan/meta/eval_if.hpp:38:      struct make_eval_if_list< quan::meta::type_sequence<T...> >{
+/home/andy/cpp/projects/quan-trunk/quan/meta/eval_if.hpp:39:         typedef eval_if_list<T...> type;
+/home/andy/cpp/projects/quan-trunk/quan/meta/eval_if.hpp:45:   // eval_if_c<bool, Fun1, BoolFun2, Fun2, BooolFun3, Fun3,BoolFun4, Fun4, Fun5>
+/home/andy/cpp/projects/quan-trunk/quan/meta/eval_if.hpp:47:   struct eval_if_c {
+/home/andy/cpp/projects/quan-trunk/quan/meta/eval_if.hpp:52:   // eval_if_c<BoolFun1, Fun1, BoolFun2, Fun2, BooolFun3, Fun3,BoolFun4, Fun4, Fun5>
+/home/andy/cpp/projects/quan-trunk/quan/meta/eval_if.hpp:54:   struct eval_if : eval_if_c<C::type::value, FT, Rest...>{};
+/home/andy/cpp/projects/quan-trunk/quan/meta/eval_if.hpp:57:   struct eval_if_c<false,FT,FF> :FF{};
+/home/andy/cpp/projects/quan-trunk/quan/meta/eval_if.hpp:60:   struct eval_if_c<true, FT, quan::meta::detail::eval_if_list<FF...> > : FT{};
+/home/andy/cpp/projects/quan-trunk/quan/meta/eval_if.hpp:63:   struct eval_if_c<false, FT, quan::meta::detail::eval_if_list<FF...> > : eval_if_c<false,FT, FF...> {};
+/home/andy/cpp/projects/quan-trunk/quan/meta/eval_if.hpp:66:   struct eval_if_c<false,FT,FF...> {
+/home/andy/cpp/projects/quan-trunk/quan/meta/eval_if.hpp:72:      typedef typename detail::make_eval_if_list<next_list>::type eval_list;
+/home/andy/cpp/projects/quan-trunk/quan/meta/eval_if.hpp:74:      typedef typename eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/meta/eval_if.hpp:88:   struct eval_if_c{
+/home/andy/cpp/projects/quan-trunk/quan/meta/eval_if.hpp:93:   struct eval_if_c<false,TrueFunction,FalseFunction> {
+/home/andy/cpp/projects/quan-trunk/quan/meta/eval_if.hpp:98:   struct eval_if : eval_if_c<((C::type::value)!=0),TrueFunction,FalseFunction>{};
+/home/andy/cpp/projects/quan-trunk/quan/meta/detail/gcd_impl.hpp:31:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/meta/detail/fold_i.hpp:21:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/meta/detail/fold_i.hpp:35:         typedef typename quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/meta/type_sequence.hpp:26:#include <quan/meta/eval_if_else.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/meta/type_sequence.hpp:137:         typedef typename quan::meta::eval_if_else_c<
+/home/andy/cpp/projects/quan-trunk/quan/meta/type_sequence.hpp:166:       typedef typename quan::meta::eval_if_else_c<
+/home/andy/cpp/projects/quan-trunk/quan/meta/fold.hpp:30:      typedef typename quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/fixed_quantity/operations/power_root.hpp:61:               typedef typename eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/fixed_quantity/operations/power_root.hpp:96:            typedef typename eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/fixed_quantity/operations/power_root.hpp:99:                typename eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/fixed_quantity/operations/divide.hpp:37:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/fixed_quantity/operations/divide.hpp:66:            typedef typename eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/fixed_quantity/operations/divide.hpp:103:            typedef typename eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/fixed_quantity/operations/divide.hpp:168:        typedef typename quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/fixed_quantity/operations/scalar_divide.hpp:32:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/fixed_quantity/operations/scalar_divide.hpp:58:            typedef typename eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/fixed_quantity/operations/multiply.hpp:36:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/fixed_quantity/operations/multiply.hpp:61:         typedef typename eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/fixed_quantity/operations/multiply.hpp:99:            typedef typename eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/fixed_quantity/operations/multiply.hpp:173:         typedef typename quan:: meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/fixed_quantity/fixed_quantity.hpp:599:        struct is_lossless_mux : quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/fixed_quantity/fixed_quantity.hpp:719:        struct is_lossless_divide : quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/compute_result_type.hpp:47:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/detail/compute_result_type.hpp:117:        typedef typename quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_multiply.hpp:112:            typename  quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_multiply.hpp:117:                typename  quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_multiply.hpp:125:            typename quan::meta::eval_if< // prevent math op if maybe not in range
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_multiply.hpp:132:                quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_multiply.hpp:211:        typedef typename  quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_multiply.hpp:213:            quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_multiply.hpp:243:        typedef typename quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_multiply.hpp:251:            quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_multiply.hpp:260:               quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_multiply.hpp:269:                  quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_multiply.hpp:272:                     quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_multiply.hpp:282:        /*typedef typename quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_multiply.hpp:291:        typedef typename quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_multiply.hpp:304:        typedef typename quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_multiply.hpp:309:            quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_multiply.hpp:311:                quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_multiply.hpp:320:                quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_multiply.hpp:357:        typedef typename quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensioned_multiply.hpp:133:    struct dimensioned_multiply_function : quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensioned_multiply.hpp:136:        quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensioned_multiply.hpp:202:    struct  dimensioned_multiply1 : quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensioned_multiply.hpp:208:            typename quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensioned_multiply.hpp:219:        quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensioned_multiply.hpp:230:            quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_divide.hpp:80:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_divide.hpp:122:            typename  quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_divide.hpp:127:                quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_divide.hpp:135:            typename quan::meta::eval_if< // prevent math op if maybe not in range
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_divide.hpp:142:                quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_divide.hpp:232:        typedef typename  quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_divide.hpp:234:            quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_divide.hpp:266:        typedef typename quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_divide.hpp:274:            quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_divide.hpp:283:               quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_divide.hpp:292:                  quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_divide.hpp:295:                     quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_divide.hpp:308:        typedef typename quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_divide.hpp:321:        typedef typename quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_divide.hpp:326:            quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_divide.hpp:328:                quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensionless_divide.hpp:337:                quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensioned_divide.hpp:197:    struct dimensioned_divide_function : quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensioned_divide.hpp:200:        quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensioned_divide.hpp:299:struct  dimensioned_divide : quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensioned_divide.hpp:305:            typename quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensioned_divide.hpp:318:         quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/united_value/operations/dimensioned_divide.hpp:329:            quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_mul_exp_1mux.hpp:180:    struct dimensionless_multiply_exp_1mux : quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_mul_exp_1mux.hpp:184:        quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_mul_exp_1mux.hpp:186:            quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_mul_exp_1mux.hpp:188:                quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_mul_exp_1mux.hpp:193:                quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_div_exp_2mux.hpp:350:    struct dimensionless_divide_exp_2mux : quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_div_exp_2mux.hpp:353:        quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_div_exp_2mux.hpp:355:            quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_div_exp_2mux.hpp:360:            quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_mul_exp_2mux.hpp:200:    struct dimensionless_multiply_exp_2mux : quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_mul_exp_2mux.hpp:202:        quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_mul_exp_2mux.hpp:204:            quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_mul_exp_2mux.hpp:209:            quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_div_exp_1mux.hpp:43:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_div_exp_1mux.hpp:327:    struct dimensionless_divide_exp_1mux : quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_div_exp_1mux.hpp:330:        quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_div_exp_1mux.hpp:332:            quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_div_exp_1mux.hpp:334:                quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_div_exp_1mux.hpp:339:                quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_div_exp_only.hpp:217:    struct dimensionless_divide_exp_only_rt : quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_div_exp_only.hpp:219:        quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_div_exp_only.hpp:362:    struct  dimensionless_divide_exp_only_ct : quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_div_exp_only.hpp:375:    struct dimensionless_divide_exp_only : quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_mul_exp_only.hpp:134:    struct dimensionless_multiply_exp_only_rt : quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_mul_exp_only.hpp:136:        quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_mul_exp_only.hpp:208:    struct  dimensionless_multiply_exp_only_ct : quan::meta::eval_if<
+/home/andy/cpp/projects/quan-trunk/quan/detail/dimless_mul_exp_only.hpp:219:    struct dimensionless_multiply_exp_only : quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/stm32f4/detail/make_boolean_action.hpp:22:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/stm32f4/detail/make_boolean_action.hpp:51:   struct make_boolean_action : quan::meta::eval_if_c<B,make_or_action<PeriphReg,BitPos>,make_and_action<PeriphReg,BitPos> >{};
+/home/andy/cpp/projects/quan-trunk/quan/stm32f4/detail/periph_reg_actions.hpp:167:         typedef typename quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/stm32f4/detail/periph_reg_actions.hpp:170:            quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/stm32f4/detail/periph_reg_actions.hpp:346:      typedef typename quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/stm32f4/detail/periph_reg_actions.hpp:427:         typedef typename quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/stm32f4/detail/system_pll_constants.hpp:32:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/stm32f4/detail/system_pll_constants.hpp:54:          typedef typename quan::meta::eval_if_c< 
+/home/andy/cpp/projects/quan-trunk/quan/stm32f4/detail/system_pll_constants.hpp:85:      typedef typename quan::meta::eval_if_c<
+/home/andy/cpp/projects/quan-trunk/quan/stm32f4/tim/module.hpp:25:#include <quan/meta/eval_if.hpp>
+/home/andy/cpp/projects/quan-trunk/quan/stm32f4/tim/module.hpp:49:   typedef typename quan::meta::eval_if< \

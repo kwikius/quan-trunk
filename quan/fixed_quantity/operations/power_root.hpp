@@ -93,24 +93,24 @@ namespace quan {
             rational<N,D>
         >{
             typedef typename rational<N,D>::type exp;
+
             typedef typename eval_if<
-                eq_<exp,rational<0> >,
-                identity<int>,
-                typename eval_if<
-                   eq_<exp,rational<1> >,
-                    identity<
-                        fixed_quantity<
-                           StaticUnit,
-                           NumericType
-                        >
-                    >,
-                    detail::pow_binary_operation_impl<
-                        exp,
+               eq_<exp,rational<0> >
+                  ,identity<int>
+               ,eq_<exp,rational<1> >
+                  ,identity<
+                     fixed_quantity<
                         StaticUnit,
                         NumericType
-                    >
-                >::type
-            >::type type;    
+                     >
+                  >
+               ,detail::pow_binary_operation_impl<
+                  exp,
+                  StaticUnit,
+                  NumericType
+               >
+            >::type type;  
+  
         };
       } // impl
 
@@ -172,37 +172,6 @@ namespace quan {
         );         
     }
 
-    //template <
-    //    int64_t N,
-    //    int64_t D,
-    //    typename T
-    //>
-    //inline
-    //typename quan::where_<
-    //    quan::meta::and_<
-    //        quan::meta::is_numeric<T>,
-    //       quan::meta::not_<
-    //            std::is_fundamental<T>
-    //        >
-    //    >,
-    //    typename quan::meta::binary_op<
-    //        T,
-    //        quan::meta::pow,
-    //        quan::meta::rational<N,D>
-    //    >::type
-    //>::type
-    //pow (T const & v)
-    //{
-    //    typedef typename quan::meta::binary_op<
-    //        T,
-    //        quan::meta::pow,
-    //        quan::meta::rational<N,D>
-    //    >::type result_type;
-    //    result_type result 
-    //    = pow(v,static_cast<T>( N ) / static_cast<T>(D)); 
-    //      return result;    
-    //}
-    
     namespace detail{
 
         template <

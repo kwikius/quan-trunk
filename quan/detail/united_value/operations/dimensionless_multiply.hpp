@@ -110,36 +110,32 @@ namespace quan{namespace detail{
 
         typedef calc_triple<
             typename  quan::meta::eval_if<
-                do_neg,
-                quan::meta::binary_op<
-                    Exponent, quan::meta::plus,quan::meta::rational<1>
-                >,
-                typename  quan::meta::eval_if<
-                    do_pos,
-                    quan::meta::binary_op<
-                        Exponent, quan::meta::minus,quan::meta::rational<1>
-                    >,
-                    Exponent
-                >::type
+               do_neg
+                  ,quan::meta::binary_op<
+                     Exponent, quan::meta::plus,quan::meta::rational<1>
+                  >
+               ,do_pos
+                  ,quan::meta::binary_op<
+                     Exponent, quan::meta::minus,quan::meta::rational<1>
+                  >
+               ,Exponent
             >::type,
             typename quan::meta::eval_if< // prevent math op if maybe not in range
-                do_neg,
-                quan::meta::binary_op<
-                    Multiplier, 
-                    quan::meta::divides,
-                    quan::meta::rational<10>
-                >,
-                quan::meta::eval_if<
-                    do_pos,
-                    quan::meta::binary_op<
-                        Multiplier, 
-                        quan::meta::times,
-                        quan::meta::rational<10>
-                    >,
-                    Multiplier
-                >
-            >::type,
-            quan::undefined
+               do_neg
+                  ,quan::meta::binary_op<
+                     Multiplier, 
+                     quan::meta::divides,
+                     quan::meta::rational<10>
+                  >
+               ,do_pos
+                  ,quan::meta::binary_op<
+                     Multiplier, 
+                     quan::meta::times,
+                     quan::meta::rational<10>
+                  >
+               ,Multiplier
+            >::type
+            ,quan::undefined
         > type;
             
 #else
