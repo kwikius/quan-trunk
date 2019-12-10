@@ -323,28 +323,26 @@ namespace quan{namespace detail{
 
     // If the Multiplier is 1 then use the exponent only calculation.
     // else choose the calcualation to fit the Exponent
-    template <typename Exponent, typename Multiplier>
-    struct dimensionless_divide_exp_1mux : quan::meta::eval_if<
-        quan::meta::eq_one<Multiplier>,
-        dimensionless_divide_exp_only<Exponent>,
-        quan::meta::eval_if<
-            quan::meta::is_integer<Exponent>,
-            quan::meta::eval_if<
-                quan::meta::gt_zero<quan::meta::numerator<Exponent> >,
-                quan::meta::eval_if_c<
-                    ((quan::meta::numerator<Exponent>::value) > (quan::meta::digits10<int32_t>::value)),
-                    dimensionless_divide_rt_positive_integer_exp_1mux<Exponent,Multiplier>,
-                    dimensionless_divide_ct_positive_integer_exp_1mux<Exponent,Multiplier>
-                >,
-                quan::meta::eval_if_c<
-                    ((quan::meta::numerator<Exponent>::value) < (-quan::meta::digits10<int32_t>::value)),
-                    dimensionless_divide_rt_negative_integer_exp_1mux<Exponent,Multiplier>,
-                    dimensionless_divide_ct_negative_integer_exp_1mux<Exponent,Multiplier>
-                >
-            >,
-            dimensionless_divide_rational_exp_1mux<Exponent,Multiplier>
-        >
-    >::type {};
+   template <typename Exponent, typename Multiplier>
+   struct dimensionless_divide_exp_1mux : quan::meta::eval_if<
+      quan::meta::eq_one<Multiplier>,
+         dimensionless_divide_exp_only<Exponent>,
+      quan::meta::is_integer<Exponent>,
+         quan::meta::eval_if<
+            quan::meta::gt_zero<quan::meta::numerator<Exponent> >,
+               quan::meta::eval_if_c<
+                  ((quan::meta::numerator<Exponent>::value) > (quan::meta::digits10<int32_t>::value)),
+                  dimensionless_divide_rt_positive_integer_exp_1mux<Exponent,Multiplier>,
+                  dimensionless_divide_ct_positive_integer_exp_1mux<Exponent,Multiplier>
+               >,
+               quan::meta::eval_if_c<
+                  ((quan::meta::numerator<Exponent>::value) < (-quan::meta::digits10<int32_t>::value)),
+                  dimensionless_divide_rt_negative_integer_exp_1mux<Exponent,Multiplier>,
+                  dimensionless_divide_ct_negative_integer_exp_1mux<Exponent,Multiplier>
+               >
+        >,
+      dimensionless_divide_rational_exp_1mux<Exponent,Multiplier>
+   >::type {};
 
 }}//quan::detail
 

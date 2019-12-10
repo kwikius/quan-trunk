@@ -129,16 +129,14 @@ QUAN_CONSTEXPR
     If the multiplier is not an integer then the multipliers preferred multiplier result_type is 
     quan::quantity_traits::default_value_type, else int64_t, however the users types may override this.
 */
-    template <typename Multiplier>
-    struct dimensioned_multiply_function : quan::meta::eval_if<
-        quan::meta::eq_one<Multiplier>,
-        unitary_multiplier_function,
-        quan::meta::eval_if<
-            quan::meta::is_integer<typename Multiplier::type>,
-            non_unitary_integer_multiplier_function<typename Multiplier::type>,
-            non_unitary_float_multiplier_function<typename Multiplier::type>
-        >
-    >::type{};
+   template <typename Multiplier>
+   struct dimensioned_multiply_function : quan::meta::eval_if<
+      quan::meta::eq_one<Multiplier>,
+         unitary_multiplier_function,
+      quan::meta::is_integer<typename Multiplier::type>,
+         non_unitary_integer_multiplier_function<typename Multiplier::type>,
+      non_unitary_float_multiplier_function<typename Multiplier::type>
+   >::type{};
 
 /*
     The pair version hasnt been able to reduce the two StaticUnitMultipliers
@@ -204,46 +202,42 @@ QUAN_CONSTEXPR
             elements_in_multipliable_range<typename Multiplier_L::type>,
             elements_in_multipliable_range<typename Multiplier_R::type>
         >,
-        dimensioned_multiply_function<
-            typename quan::meta::eval_if<
-                quan::meta::and_<
-                    elements_in_multipliable_range<typename Multiplier_L::type>,
-                    elements_in_multipliable_range<typename Multiplier_R::type>
-                >,
-                quan::meta::binary_op<
-                    typename Multiplier_L::type,quan::meta::times,typename Multiplier_R::type
-                >,
-                quan::undefined
-            >::type
-        >,
-        quan::meta::eval_if<
-            quan::meta::eq_<
-               quan::meta::numerator<Multiplier_L>,
-               quan::meta::denominator<Multiplier_R>
-            >,
+            dimensioned_multiply_function<
+               typename quan::meta::eval_if<
+                   quan::meta::and_<
+                       elements_in_multipliable_range<typename Multiplier_L::type>,
+                       elements_in_multipliable_range<typename Multiplier_R::type>
+                   >,
+                      quan::meta::binary_op<
+                         typename Multiplier_L::type,quan::meta::times,typename Multiplier_R::type
+                      >,
+                   quan::undefined
+                >::type
+             >,
+         quan::meta::eq_<
+            quan::meta::numerator<Multiplier_L>,
+            quan::meta::denominator<Multiplier_R>
+         >,
             dimensioned_multiply_function< 
                 typename quan::meta::rational<
                     quan::meta::numerator<Multiplier_R>::value,
                     quan::meta::denominator<Multiplier_L>::value
                 >::type
             >,
-            quan::meta::eval_if<
-               quan::meta::eq_<
-                  quan::meta::numerator<Multiplier_R>,
-                  quan::meta::denominator<Multiplier_L>
-               >,
-               dimensioned_multiply_function< 
-                  typename quan::meta::rational<
-                     quan::meta::numerator<Multiplier_L>::value,
-                     quan::meta::denominator<Multiplier_R>::value
-                  >::type
-               >,
-               dimensioned_multiply_pair_function<
-                  typename Multiplier_L::type, 
-                  typename Multiplier_R::type 
-               >
-            >     
-        >
+         quan::meta::eq_<
+            quan::meta::numerator<Multiplier_R>,
+            quan::meta::denominator<Multiplier_L>
+         >,
+            dimensioned_multiply_function< 
+               typename quan::meta::rational<
+                  quan::meta::numerator<Multiplier_L>::value,
+                  quan::meta::denominator<Multiplier_R>::value
+               >::type
+            >,
+         dimensioned_multiply_pair_function<
+            typename Multiplier_L::type, 
+            typename Multiplier_R::type 
+         >
     >::type {}; 
 
 }}//quan::detail

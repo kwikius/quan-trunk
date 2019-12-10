@@ -241,38 +241,30 @@ namespace quan{namespace detail{
                 elements_in_multipliable_range<Multiplier_L>,
                 elements_in_multipliable_range<Multiplier_R>
             >,
-            quan::meta::binary_op<
-                    Multiplier_L,quan::meta::times,Multiplier_R
-            >,    
-            quan::meta::eval_if<
-               quan::meta::eq_<
-                  quan::meta::numerator<Multiplier_L>,
-                  quan::meta::denominator<Multiplier_R>
-               >,
+               quan::meta::binary_op<
+                       Multiplier_L,quan::meta::times,Multiplier_R
+               >,    
+            quan::meta::eq_<
+               quan::meta::numerator<Multiplier_L>,
+               quan::meta::denominator<Multiplier_R>
+            >,
                quan::meta::rational<
                   quan::meta::numerator<Multiplier_R>::value,
                   quan::meta::denominator<Multiplier_L>::value
                >,
-               quan::meta::eval_if<
-                  quan::meta::eq_<
-                     quan::meta::numerator<Multiplier_R>,
-                     quan::meta::denominator<Multiplier_L>
-                  >,
-                  quan::meta::rational<
-                     quan::meta::numerator<Multiplier_L>::value,
-                     quan::meta::denominator<Multiplier_R>::value
-                  >,
-                  quan::meta::eval_if<
-                     quan::meta::eq_one<Multiplier_R>,
-                     Multiplier_L,
-                     quan::meta::eval_if<
-                        quan::meta::eq_one<Multiplier_L>,
-                        Multiplier_R,
-                        quan::undefined
-                     >
-                  >
-               >    
-            >
+            quan::meta::eq_<
+               quan::meta::numerator<Multiplier_R>,
+               quan::meta::denominator<Multiplier_L>
+            >,
+               quan::meta::rational<
+                  quan::meta::numerator<Multiplier_L>::value,
+                  quan::meta::denominator<Multiplier_R>::value
+               >,
+            quan::meta::eq_one<Multiplier_R>,
+               Multiplier_L,
+            quan::meta::eq_one<Multiplier_L>,
+               Multiplier_R,
+            quan::undefined   
         >::type compile_time_multiplier_type;
 
         /*typedef typename quan::meta::eval_if<
@@ -288,7 +280,7 @@ namespace quan{namespace detail{
             std::is_same<
                 compile_time_multiplier_type, quan::undefined 
             >,
-            calc_triple<Exponent, Multiplier_L, Multiplier_R> ,
+               calc_triple<Exponent, Multiplier_L, Multiplier_R> ,
             calc_triple<Exponent,compile_time_multiplier_type, quan::undefined>
         >::type preprocessor_input;
         // apply preprocessing to normalise
@@ -303,26 +295,24 @@ namespace quan{namespace detail{
             >, // check whether one mux has been optimised out or not
             // If compile_time_multiplier_type == quan::undefined, then not
             quan::meta::eval_if<
-                std::is_same< compile_time_multiplier_type, quan::undefined>,
-                quan::meta::eval_if<
-                    quan::meta::eq_zero<Exponent>,
-                    dimensioned_multiply1<Multiplier_L,Multiplier_R>,
-                    dimensionless_multiply_exp_2mux<
+               std::is_same< compile_time_multiplier_type, quan::undefined>,
+                  quan::meta::eval_if<
+                     quan::meta::eq_zero<Exponent>,
+                        dimensioned_multiply1<Multiplier_L,Multiplier_R>,
+                     dimensionless_multiply_exp_2mux<
                         Exponent,
                         Multiplier_L,
                         Multiplier_R
-                    >
-                >,
-                quan::meta::eval_if<
-                    quan::meta::eq_zero<Exponent>,
-                      
+                     >
+                  >,
+               quan::meta::eq_zero<Exponent>, 
 //**********
 // add condition if mux ==1 for compile_time_multiplier_type?
 // Looks like its checked by dimensionless_multiply_exp_1mux<
 //********
-                    dimensioned_multiply_function<compile_time_multiplier_type>,
-                    dimensionless_multiply_exp_1mux<Exponent,compile_time_multiplier_type>
-                >
+                  dimensioned_multiply_function<compile_time_multiplier_type>,
+               dimensionless_multiply_exp_1mux<Exponent,compile_time_multiplier_type>
+              //  >
             >, // if preprocessing has modified the params,  recurse.
             // note that the version of dimensionless_divide_exp_mux
             // specialised on
@@ -352,10 +342,10 @@ namespace quan{namespace detail{
         >::type exponent;
         typedef typename quan::meta::eval_if<
             quan::meta::eq_zero<exponent>,
-            dimensioned_multiply1<
-                typename StaticUnit_L::multiplier::type, 
-                typename StaticUnit_R::multiplier::type 
-            >,
+               dimensioned_multiply1<
+                   typename StaticUnit_L::multiplier::type, 
+                   typename StaticUnit_R::multiplier::type 
+               >,
             dimensionless_multiply_exp_mux<
                 exponent,
                 typename StaticUnit_L::multiplier::type, 

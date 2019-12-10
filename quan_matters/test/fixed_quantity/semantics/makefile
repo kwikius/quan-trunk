@@ -5,7 +5,8 @@
 
 #  env  QUAN_ROOT is the parent of the quan directory
 ifeq ($(QUAN_ROOT),)
-$(error ****************QUAN_ROOT not defined.QUAN_ROOT must be defined to path to your quan library installation ********)
+#$(error ****************QUAN_ROOT not defined.QUAN_ROOT must be defined to path to your quan library installation ********)
+  export QUAN_ROOT = ../../../../
 endif
 
 TARGET      ?= test.exe

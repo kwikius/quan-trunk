@@ -193,16 +193,14 @@ QUAN_CONSTEXPR
     If the multiplier is not an integer then the multipliers preferred multiplier result_type is 
     quan::quantity_traits::default_value_type, else int64_t
 */
-    template <typename Multiplier>
-    struct dimensioned_divide_function : quan::meta::eval_if<
-        quan::meta::eq_one<Multiplier>,
-        unitary_divide_function,
-        quan::meta::eval_if<
-            quan::meta::is_integer<Multiplier>,
-            non_unitary_integer_divide_function<Multiplier>,
-            non_unitary_float_divide_function<Multiplier>
-        >
-    >::type{};
+   template <typename Multiplier>
+   struct dimensioned_divide_function : quan::meta::eval_if<
+      quan::meta::eq_one<Multiplier>,
+         unitary_divide_function,
+      quan::meta::is_integer<Multiplier>,
+         non_unitary_integer_divide_function<Multiplier>,
+      non_unitary_float_divide_function<Multiplier>
+   >::type{};
 
 /*
     The pair version hasnt been able to reduce the two StaticUnitMultipliers
@@ -301,48 +299,44 @@ struct  dimensioned_divide : quan::meta::eval_if<
             elements_in_dividable_range<typename Multiplier_L::type>,
             elements_in_dividable_range<typename Multiplier_R::type>
         >,
-        dimensioned_divide_function<
-            typename quan::meta::eval_if<
-                quan::meta::and_<
-                  elements_in_dividable_range<typename Multiplier_L::type>,
-                  elements_in_dividable_range<typename Multiplier_R::type>
-                >,
-                quan::meta::binary_op<
-                    typename Multiplier_L::type,
-                    quan::meta::divides,
-                    typename Multiplier_R::type
-                >,
-                quan::undefined
-            >::type
-        >,
-         quan::meta::eval_if<
-            quan::meta::eq_<
-               quan::meta::numerator<typename Multiplier_L::type>,
-               quan::meta::numerator<typename Multiplier_R::type> 
+           dimensioned_divide_function<
+               typename quan::meta::eval_if<
+                   quan::meta::and_<
+                     elements_in_dividable_range<typename Multiplier_L::type>,
+                     elements_in_dividable_range<typename Multiplier_R::type>
+                   >,
+                   quan::meta::binary_op<
+                       typename Multiplier_L::type,
+                       quan::meta::divides,
+                       typename Multiplier_R::type
+                   >,
+                   quan::undefined
+               >::type
             >,
+         quan::meta::eq_<
+            quan::meta::numerator<typename Multiplier_L::type>,
+            quan::meta::numerator<typename Multiplier_R::type> 
+         >,
             dimensioned_divide_function< 
                 typename quan::meta::rational<
-                    quan::meta::denominator<typename Multiplier_R::type>::value,
-                    quan::meta::denominator<typename Multiplier_L::type>::value
+                   quan::meta::denominator<typename Multiplier_R::type>::value,
+                   quan::meta::denominator<typename Multiplier_L::type>::value
                 >::type
             >,
-            quan::meta::eval_if<
-               quan::meta::eq_<
-                  quan::meta::denominator<typename Multiplier_R::type>,
-                  quan::meta::denominator<typename Multiplier_L::type>
-               >,
-                dimensioned_divide_function< 
-                    typename quan::meta::rational<
-                        quan::meta::numerator<typename Multiplier_L::type>::value,
-                        quan::meta::numerator<typename Multiplier_R::type>::value
-                    >::type
-                >,
-                dimensioned_divide_pair_function<
-                    typename Multiplier_L::type, 
-                    typename Multiplier_R::type
-                >
-            >     
-        >
+         quan::meta::eq_<
+            quan::meta::denominator<typename Multiplier_R::type>,
+            quan::meta::denominator<typename Multiplier_L::type>
+         >,
+             dimensioned_divide_function< 
+                 typename quan::meta::rational<
+                    quan::meta::numerator<typename Multiplier_L::type>::value,
+                    quan::meta::numerator<typename Multiplier_R::type>::value
+                 >::type
+             >,
+          dimensioned_divide_pair_function<
+             typename Multiplier_L::type, 
+             typename Multiplier_R::type
+          >
     >::type {};
 
 }}//quan::detail
