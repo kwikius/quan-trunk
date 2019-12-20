@@ -259,6 +259,16 @@ namespace quan{
          }
       }
    };
+
+   inline 
+   small_rational 
+   abs( small_rational const & in)
+   {
+      return small_rational{ 
+         static_cast<int16_t>(in.nume() >= 0?in.nume():-in.nume()),
+         static_cast<int16_t>(in.denom() >= 0?in.denom():-in.denom())
+      };
+   }
 }
 
 #endif
