@@ -28,9 +28,9 @@ namespace quan{
       auto rt_norm_value = q.numeric_value() * rt_cf;
 
       out << q_name << ".numeric_value = " << q.numeric_value() <<'\n';
-      out << q_name << ".conversion_factor.mux = " << rt_mux <<'\n';
-      out << q_name << ".conversion_factor.exp = " << rt_exp <<'\n';
-      out << "converison factor calc = " << q_name << ".conversion_factor.mux * pow(10," << "q_name"<< ".conversion_factor.exp)\n";
+      out << q_name << ".conversion_factor.mux = " << rt_mux << " rational(" << multiplier::numerator << " / " << multiplier::denominator << ")\n";
+      out << q_name << ".conversion_factor.exp = " << rt_exp << " rational(" << exponent::numerator << " / " << exponent::denominator << ")\n";
+      out << "converison factor calc = " << q_name << ".conversion_factor.mux * pow(10," << q_name << ".conversion_factor.exp)\n";
       out << q_name << ".conversion_factor = " << rt_cf << '\n';
       out << q_name << ".normalised value =  " << rt_norm_value << "\n\n";
    }

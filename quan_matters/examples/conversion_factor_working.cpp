@@ -6,14 +6,16 @@ int main()
 {
    std::cout << "show conversion factor working\n\n";
 
-   quan::length::km  qa {1};
-   quan::length::mm  qb = qa;
-   quan::length::ft  qc = qa;
-   quan::length::yd  qd = qa;
+   quan::length::m  qa {1};
+   quan::length::km  qb = qa;
+   quan::length::mm  qc = qa;
+   quan::length::ft  qd = qa;
+   quan::length::yd  qe = qa;
 
    show_working(std::cout, qa,"qa");
    show_working(std::cout, qb,"qb");
    show_working(std::cout, qc,"qc");
    show_working(std::cout, qd,"qd");
+   show_working(std::cout, qe,"qe");
 
 }
