@@ -5,7 +5,7 @@
 #endif
 
 /*
- Copyright (c) 2003-2014 Andy Little.
+ Copyright (c) 2003-2019 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -20,12 +20,6 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
- 
- 
-//
-// See QUAN_ROOT/quan_matters/index.html for documentation.
 
 /*
     Dimensionless divide 
@@ -120,34 +114,30 @@ namespace quan{namespace detail{
 
         typedef calc_triple<
             typename  quan::meta::eval_if<
-                do_neg,
-                quan::meta::binary_op<
-                    Exponent, quan::meta::plus,quan::meta::rational<1>
-                >,
-                quan::meta::eval_if<
-                    do_pos,
-                    quan::meta::binary_op<
-                        Exponent, quan::meta::minus,quan::meta::rational<1>
-                    >,
-                    Exponent
-                >
+               do_neg,
+                  quan::meta::binary_op<
+                     Exponent, quan::meta::plus,quan::meta::rational<1>
+                  >,
+               do_pos,
+                  quan::meta::binary_op<
+                     Exponent, quan::meta::minus,quan::meta::rational<1>
+                  >,
+               Exponent
             >::type,
             typename quan::meta::eval_if< // prevent math op if maybe not in range
-                do_neg,
-                quan::meta::binary_op<
-                    Multiplier, 
-                    quan::meta::divides,
-                    quan::meta::rational<10>
-                >,
-                quan::meta::eval_if<
-                    do_pos,
-                    quan::meta::binary_op<
-                        Multiplier, 
-                        quan::meta::times,
-                        quan::meta::rational<10>
-                    >,
-                    Multiplier
-                >
+               do_neg,
+                  quan::meta::binary_op<
+                     Multiplier, 
+                     quan::meta::divides,
+                     quan::meta::rational<10>
+                  >,
+               do_pos,
+                  quan::meta::binary_op<
+                     Multiplier, 
+                     quan::meta::times,
+                     quan::meta::rational<10>
+                  >,
+               Multiplier
             >::type,
             quan::undefined
         > type;
@@ -263,47 +253,41 @@ namespace quan{namespace detail{
         // Exponent is also shifted towards or to zero if possible
         // dimensionless_divide_exp_mux is a recursive function, 
         // keeps going until no change in inputs
-        typedef typename quan::meta::eval_if<
+
+         typedef typename quan::meta::eval_if<
             quan::meta::and_<
-                elements_in_dividable_range<Multiplier_L>,
-                elements_in_dividable_range<Multiplier_R>
+               elements_in_dividable_range<Multiplier_L>,
+               elements_in_dividable_range<Multiplier_R>
             >,
-            quan::meta::binary_op<
-               Multiplier_L,quan::meta::divides,Multiplier_R
-            >,    
-            quan::meta::eval_if<
-               quan::meta::eq_<
-                  quan::meta::numerator<Multiplier_L>,
-                  quan::meta::numerator<Multiplier_R>
-               >,
+               quan::meta::binary_op<
+                  Multiplier_L,quan::meta::divides,Multiplier_R
+               >,  
+            quan::meta::eq_<
+               quan::meta::numerator<Multiplier_L>,
+               quan::meta::numerator<Multiplier_R>
+            >,
                quan::meta::rational<
                   quan::meta::denominator<Multiplier_R>::value,
                   quan::meta::denominator<Multiplier_L>::value
                >,
-               quan::meta::eval_if<
-                  quan::meta::eq_<
-                     quan::meta::denominator<Multiplier_R>,
-                     quan::meta::denominator<Multiplier_L>
-                  >,
-                  quan::meta::rational<
-                     quan::meta::numerator<Multiplier_L>::value,
-                     quan::meta::numerator<Multiplier_R>::value
-                  >,
-                  quan::meta::eval_if<
-                     quan::meta::eq_one<Multiplier_R>,
-                     Multiplier_L,
-                     quan::meta::eval_if<
-                        quan::meta::eq_one<Multiplier_L>,
-                        quan::meta::unary_operation<
-                           quan::meta::reciprocal,
-                           Multiplier_R
-                        >,
-                        quan::undefined
-                     >
-                  >
-               >    
-            >
-        >::type compile_time_divider_type;
+            quan::meta::eq_<
+               quan::meta::denominator<Multiplier_R>,
+               quan::meta::denominator<Multiplier_L>
+            >,
+               quan::meta::rational<
+                  quan::meta::numerator<Multiplier_L>::value,
+                  quan::meta::numerator<Multiplier_R>::value
+               >,
+            quan::meta::eq_one<Multiplier_R>,
+               Multiplier_L,
+            quan::meta::eq_one<Multiplier_L>,
+               quan::meta::unary_operation<
+                  quan::meta::reciprocal,
+                  Multiplier_R
+               >,
+            quan::undefined
+         >::type compile_time_divider_type;
+
         // load for preprocessing
         typedef typename quan::meta::eval_if<
             std::is_same<
