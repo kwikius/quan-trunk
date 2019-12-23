@@ -3,7 +3,7 @@
 
 #include <limits>
 #include <cmath>
-#include <quan/math/to_power.hpp>
+#include <quan/math/to_power_impl.hpp>
 
 namespace quan{ namespace impl{
 
