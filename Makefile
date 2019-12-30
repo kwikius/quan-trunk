@@ -5,6 +5,7 @@ export QUAN_ROOT = $(CURDIR)
 endif
 
 FixedQuantitySemanticsTestDir = quan_matters/test/fixed_quantity/semantics/
+FixedQuantityCompileFailDir   = quan_matters/test/compile_fail/
 AngleTestDir                  = quan_matters/test/angle/
 ThreedVectTestDir             = quan_matters/test/three_d/
 TwodVectTestDir               = quan_matters/test/two_d/
@@ -21,11 +22,14 @@ USE_CONCEPTS_VALUE ?= False
 .PHONY: fixed_quantity_semantics_test angle_test three_d_test two_d_test examples qdrt meta conversion bigint \
 fusion
 
-all: fixed_quantity_semantics_test angle_test three_d_test two_d_test examples qdrt meta conversion bigint \
+all: fixed_quantity_semantics_test fixed_quantity_compile_fail_test angle_test three_d_test two_d_test examples qdrt meta conversion bigint \
 fusion
 
 fixed_quantity_semantics_test: 
 	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) -C $(FixedQuantitySemanticsTestDir) test
+
+fixed_quantity_compile_fail_test:
+	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) -C $(FixedQuantityCompileFailDir) test
 
 angle_test:
 	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) -C $(AngleTestDir) test
@@ -56,6 +60,7 @@ fusion:
 
 clean: 
 	make -C $(FixedQuantitySemanticsTestDir) clean
+	make -C $(FixedQuantityCompileFailDir) clean
 	make -C $(AngleTestDir) clean
 	make -C $(ThreedVectTestDir) clean
 	make -C $(TwodVectTestDir) clean

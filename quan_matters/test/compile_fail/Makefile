@@ -1,0 +1,16 @@
+
+all : main.exe
+
+test : main.exe
+
+main.exe : compile_fail_test.o
+	g++-6 -o main.exe  compile_fail_test.o
+	echo ............................
+	./main.exe
+	echo ............................
+
+compile_fail_test.o : compile_fail_test.cpp
+	g++-6 -c  compile_fail_test.cpp -I../../../ -o compile_fail_test.o
+
+clean:
+	-rm -rf *.o *.exe compile_fail_log.txt
