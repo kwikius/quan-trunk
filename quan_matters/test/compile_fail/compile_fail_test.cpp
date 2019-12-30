@@ -37,9 +37,9 @@ int main()
 {
    compile_info_t compile_info;
 
-   compile_info.compiler   = "g++";
+   compile_info.compiler   = "g++-7";
    compile_info.flags      = "-std=c++11 -fmax-errors=1";
-   compile_info.includes   = "-I/home/andy/cpp/projects/quan-trunk";
+   compile_info.includes   = "-I../../../";
    compile_info.log_file   = "compile_fail_log.txt";
    
    std::string header = "echo '########## starting compile fail test suite ##########\n'" ;//  > " + compile_info.log_file;
