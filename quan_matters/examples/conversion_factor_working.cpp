@@ -2,11 +2,15 @@
 #include <quan/utility/show_conversion_factor_working.hpp>
 #include <quan/out/length.hpp>
 
+namespace {
+   QUAN_QUANTITY_LITERAL(length,m)
+}
+
 int main()
 {
    std::cout << "show conversion factor working\n\n";
 
-   quan::length::m  qa {1};
+   quan::length::m  qa = 1_m;
    quan::length::km  qb = qa;
    quan::length::mm  qc = qa;
    quan::length::ft  qd = qa;

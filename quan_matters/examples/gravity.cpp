@@ -26,6 +26,7 @@
 #include <quan/out/mass.hpp>
 #include <quan/out/force.hpp>
 #include <quan/constants/constant.hpp>
+#include <quan/fixed_quantity/literal.hpp>
 
 #ifndef QUAN_DEFINE_PHYSICAL_CONSTANTS_IN_HEADERS
 #include <quan_matters/src/gravitational_constant.cpp>
@@ -33,6 +34,15 @@
 #else
 #include <quan/constants/gravitational_constant.hpp>
 #endif
+
+namespace {
+
+   // macros to create UDLs for quantities as required
+   QUAN_QUANTITY_REAL_LITERAL(length, km);
+   QUAN_QUANTITY_REAL_LITERAL(length, pc);
+   QUAN_QUANTITY_REAL_LITERAL(density, kg_per_m3);
+   QUAN_QUANTITY_REAL_LITERAL(mass, kg);
+}
 
 int main()
 {
@@ -46,28 +56,31 @@ int main()
 
     std::cout.precision(5);
 
-    length::km         const planet_radius(6400); //roughly !
-    density::kg_per_m3 const planet_density(5487); // roughly!
-    mass::kg const planet_mass = (4.0/3.0)* constant::pi * pow<3>(planet_radius) * planet_density;
+    auto constexpr planet_radius = 6400.0_km;
+    auto constexpr planet_density = 5487.0_kg_per_m3;
+    mass::kg constexpr planet_mass = (4.0/3.0) * constant::pi * pow<3>(planet_radius) * planet_density;
 
     std::cout << "mass of planet is roughly " << planet_mass <<'\n';
 
-    //an object
-    mass::kg const object_mass(1);
+    // An object...
+    mass::kg constexpr object_mass = 1.0_kg;
 
     // ...on the planet surface
-    force::N const exerted_force_at_surface 
+    force::N constexpr exerted_force_at_surface 
        = (object_mass * planet_mass * gravitational_constant::G)
        / pow<2>(planet_radius);
 
-    std::cout << "force on object at surface is roughly " 
-    << exerted_force_at_surface <<'\n';
+    std::cout << "force on object at surface is roughly " << exerted_force_at_surface <<'\n';
 
     // ...and a long way away
-    length::pc object_distance(64e13/3.085678); // pc =  3.085678e16 m
+   //2.074098464e14 = 64e13/3.085678); // 1 pc =  3.085678e16 m
+    length::pc constexpr object_distance = 2.074098464e14_pc;
+   
+    force::yN constexpr force_at_distance = 
+      (object_mass * planet_mass * gravitational_constant::G)
+           / pow<2>(object_distance);
 
-    std::cout << "force on object at " << object_distance << " is roughly "
-       << force::yN((object_mass * planet_mass * gravitational_constant::G)
-           / pow<2>(object_distance)) <<'\n';
+    std::cout << "force on object at a distance of " << object_distance 
+              << " is roughly " << force_at_distance << '\n';
 }
 

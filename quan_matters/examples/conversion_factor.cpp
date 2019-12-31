@@ -50,10 +50,17 @@ namespace quan{
 
 }//quan
 
+namespace {
+
+   QUAN_QUANTITY_REAL_LITERAL(length,mm)
+   QUAN_QUANTITY_REAL_LITERAL(length,m)
+}
+
 int main()
 {
-    quan::length::m plankA(2);
-    quan::length::mm plankB(1000);
+    quan::length::m constexpr plankA = 2.0_m;
+    quan::length::mm constexpr plankB = 1000.0_mm;
+
     std::cout << "ratio  plankA / plankB = " << plankA / plankB << '\n'; 
 
     std::cout << "conversion factor to convert from vS in " << units_str(plankA) ;

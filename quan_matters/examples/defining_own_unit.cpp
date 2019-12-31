@@ -26,8 +26,8 @@ Copyright (c) 2003-2014 Andy Little.
 // is 10^ exponent * multiplier.
 // Here we create a half a meter type
 typedef quan::meta::conversion_factor<
-    quan::meta::rational<-1>,
-    quan::meta::rational<5>
+    quan::meta::rational<-1>, // base 10 exponent
+    quan::meta::rational<5>  // multiplier
 > half_si_unit;
 
 // Now create a fixed_quantity
@@ -60,16 +60,38 @@ namespace quan{namespace meta{
 
 }}//quan::meta
 
-// now use ...
+namespace {
+   // add a UDL
+   constexpr inline half_a_meter operator""_half_a_meter( long double v) \
+   { 
+      return half_a_meter{static_cast<double>(v)}; \
+   } 
+
+}
+
+namespace {
+   // standard UDL for length m
+   QUAN_QUANTITY_REAL_LITERAL(length,m)
+}
+
+// now use custom length type ...
 int main()
 {   
+    // test odd length functionality 
+    // create from UDL...
+    auto constexpr odd_length1 = 1.0_half_a_meter;
+    // output...
+    std::cout << "odd length1 = " << odd_length1 <<'\n';
+
+    //-----------------------------
+    // test compat
     // create a variable of
     // a Quan predefined length type
     // for comparison
-    quan::length::m si_length(10);
+    quan::length::m constexpr si_length = 10.0_m;
 
     // create a variable of
-    // user define half a meter length type...
+    // user defined half a meter length type inited by si length
     half_a_meter odd_length = si_length;
 
     // and use..
@@ -84,12 +106,4 @@ int main()
 
     std::cout << "Area of a square of side " << odd_length
     << " = " << area << ".\n";
-    
 }
-/*output:
-SI length of: 10 m = 20 half meter.
-Ratio of SI length to odd length = 1.
-Area of a square of side 20 half meter = 100 m2.
-*/
-
-

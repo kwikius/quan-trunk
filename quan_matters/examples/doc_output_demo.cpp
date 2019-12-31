@@ -15,17 +15,9 @@
  along with this program. If not, see http://www.gnu.org/licenses./
 */
 
-//
- 
- 
- 
-//
-// See QUAN_ROOT/quan_matters/index.html for documentation.
-
 /*
-    Demo of output of anonymous_quantity, 
-    and two dimensionally_equivalent 
-    but distinct quantities.
+    Demo of output of three dimensionally_equivalent but distinct quantities :
+    an anonymous_quantity, and  2 named quantities.
 */
 
 #include <quan/out/force.hpp>
