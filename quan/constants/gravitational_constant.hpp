@@ -46,11 +46,9 @@ namespace quan {
             meta::unit< 
                 meta::abstract_quantity<
                     meta::dimension<
-
                         quan::meta::dim_length<3> 
                         ,quan::meta::dim_time<-2> 
                         ,quan::meta::dim_mass<-1> 
-
                     >
                 >,
                 meta::conversion_factor<
@@ -60,18 +58,18 @@ namespace quan {
             typename std::add_const<Value_type>::type
         > G_type;
    
-        static G_type const G;
+        static G_type constexpr G{static_cast<Value_type>(6.6726)};
     };
 
     struct gravitational_constant : gravitational_constant_<
         quantity_traits::default_value_type
     >{};
 
-#ifdef QUAN_DEFINE_PHYSICAL_CONSTANTS_IN_HEADERS
-template<typename T>
-typename gravitational_constant_<T>::G_type const 
-gravitational_constant_<T>::G(static_cast<T>(6.6726));
-#endif
+//#ifdef QUAN_DEFINE_PHYSICAL_CONSTANTS_IN_HEADERS
+//template<typename T>
+//typename gravitational_constant_<T>::G_type constexpr 
+//gravitational_constant_<T>::G(static_cast<T>(6.6726));
+//#endif
 
 } //quan
 
