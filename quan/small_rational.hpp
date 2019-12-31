@@ -33,7 +33,7 @@ namespace quan{
    struct small_rational{
       typedef int16_t   int16;
       typedef int32_t   int32;
-   private:
+ //  private:
       static int32 range_check(int32 v)
       {
          int32 abs_v = v >=0 ? v : -v;
@@ -226,7 +226,7 @@ namespace quan{
    private:
          int16 m_nume;
          int16 m_denom;
-         
+        
       void normalise()
       {
 
