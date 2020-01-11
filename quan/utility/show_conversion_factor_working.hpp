@@ -23,7 +23,7 @@ namespace quan{
       typedef typename conversion_factor::exponent exponent;
       auto rt_mux = quan::fusion::to_runtime{}(multiplier{});
       auto rt_exp = quan::fusion::to_runtime{}(exponent{});
-      auto rt_cf = rt_mux * pow(10,rt_exp);
+      auto rt_cf = rt_mux * std::pow(10,rt_exp);
 
       auto rt_norm_value = q.numeric_value() * rt_cf;
 
