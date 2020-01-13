@@ -23,7 +23,7 @@ box_example.exe  johnson_noise.exe  SI_units_syntax.exe \
 capacitor_time_curve.exe  defining_own_unit.exe lab_example.exe synthetic_dims.exe \
 gravity.exe  particle.exe windturbine.exe clcpp_response.exe doc_output_demo.exe house_plan.exe  \
 conversion_factor.exe electronics_example.exe ideal_gas_law.exe rad_per_s.exe dom fusion conversion_factor_working.exe \
-log10_Incoherent_units_idea.exe
+log10_Incoherent_units_idea.exe high_power_quantities.exe
 
 %.exe : %.o
 	$(CXX) $(CXXFLAGS) -O3 -o $@  $<
