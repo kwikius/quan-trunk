@@ -9,6 +9,9 @@ namespace quan{ namespace three_d{
    struct sphere{
       typedef LengthType length_type;
       typedef quan::three_d::vect<length_type> point_type;
+      constexpr sphere(length_type const & radius_in, point_type const & centre_in = point_type{})
+      : centre{centre_in},radius{radius_in}{}
+
       point_type  centre;
       length_type radius;
    };

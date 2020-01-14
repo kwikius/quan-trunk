@@ -15,8 +15,6 @@
  along with this program. If not, see http://www.gnu.org/licenses./
 */
 
-// See QUAN_ROOT/quan_matters/index.html for documentation.
-
 /*
     calculate very small force due to gravity
 */
@@ -27,6 +25,7 @@
 #include <quan/out/force.hpp>
 #include <quan/constants/constant.hpp>
 #include <quan/fixed_quantity/literal.hpp>
+#include <quan/three_d/sphere_volume.hpp>
 
 #ifndef QUAN_DEFINE_PHYSICAL_CONSTANTS_IN_HEADERS
 #include <quan_matters/src/gravitational_constant.cpp>
@@ -42,6 +41,7 @@ namespace {
    QUAN_QUANTITY_REAL_LITERAL(length, pc);
    QUAN_QUANTITY_REAL_LITERAL(density, kg_per_m3);
    QUAN_QUANTITY_REAL_LITERAL(mass, kg);
+
 }
 
 int main()
@@ -58,8 +58,9 @@ int main()
 
     auto constexpr planet_radius = 6400.0_km;
     auto constexpr planet_density = 5487.0_kg_per_m3;
-    mass::kg constexpr planet_mass = (4.0/3.0) * constant::pi * pow<3>(planet_radius) * planet_density;
+    auto constexpr planet = quan::three_d::sphere<length::km>{planet_radius};
 
+    mass::kg constexpr planet_mass = get_volume( planet) * planet_density;
     std::cout << "mass of planet is roughly " << planet_mass <<'\n';
 
     // An object...
