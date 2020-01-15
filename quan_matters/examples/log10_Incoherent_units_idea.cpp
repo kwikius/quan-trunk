@@ -4,12 +4,13 @@
 #include <quan/utility/show_conversion_factor_working.hpp>
 #include <cmath>
 #include <iostream>
+#include <fstream>
 
 template <typename Q>
-void convert_to_log10(Q const& q)
+void convert_to_log10(Q const& q, std::ostream & out)
 {
  //  show_working(std::cout,q, "");
-   std::cout.precision(20);
+   out.precision(20);
    typedef typename std::remove_reference<decltype(q)>::type q_type;
    typedef typename q_type::unit unit;
    typedef typename unit::conversion_factor conversion_factor;
@@ -30,48 +31,68 @@ void convert_to_log10(Q const& q)
    typedef typename std::ratio_add<ratio_log10a,std::ratio<expnume,expdenom> >::type ratio_log10;
    // test raising to power
    typedef typename std::ratio_multiply<ratio_log10,std::ratio<1000> >::type mul_test;
-   std::cout << "mul test " << mul_test::num << " / " << mul_test::den << '\n';
+   out << "mul test " << mul_test::num << " / " << mul_test::den << '\n';
    typedef typename std::ratio_divide<ratio_log10,std::ratio<1000> >::type div_test;
-   std::cout << "div test " << div_test::num << " / " << div_test::den << '\n';
+   out << "div test " << div_test::num << " / " << div_test::den << '\n';
     
-    std::cout << "--------------- " << units_str(q) << " ------------\n";
+    out << "--------------- " << units_str(q) << " ------------\n";
     if ( (muxnume == 1) && (muxdenom ==1) ) {
-      std::cout << "(S.I.)";
+      out << "(S.I.)";
     }else{
-      std::cout << "(non S.I.)";
+      out << "(non S.I.)";
     }
-    std::cout << "non log version ....\n";
-    std::cout << "conversion_factor { mux = " << muxnume << " / " << muxdenom << " , exp = " << expnume << " / " << expdenom << " }\n";
+    out << "non log version ....\n";
+    out << "conversion_factor { mux = " << muxnume << " / " << muxdenom << " , exp = " << expnume << " / " << expdenom << " }\n";
     auto constexpr non_log_eval = static_cast<double>(muxnume)/ muxdenom * std::pow(10,static_cast<double>(expnume)/expdenom);
-    std::cout << "conversion factor (eval) = " << non_log_eval <<'\n';
-    std::cout << "exp10                     = " << ratio_log10::num;
-    if ( ratio_log10::den != 1) std::cout << " / " <<  ratio_log10::den;
-    std::cout <<'\n';
-    std::cout << "log version .....\n";
-    std::cout << "conversion_factor = { exp = " << ratio_log10::num << " / " << ratio_log10::den << " }\n";
+    out << "conversion factor (eval) = " << non_log_eval <<'\n';
+    out << "exp10                     = " << ratio_log10::num;
+    if ( ratio_log10::den != 1) out << " / " <<  ratio_log10::den;
+    out <<'\n';
+    out << "log version .....\n";
+    out << "conversion_factor = { exp = " << ratio_log10::num << " / " << ratio_log10::den << " }\n";
     auto constexpr log_eval = std::pow(10,static_cast<double>(ratio_log10::num)/ ratio_log10::den);
-    std::cout << "conversion factor (eval) = " << log_eval << '\n';
+    out << "conversion factor (eval) = " << log_eval << '\n';
+    auto constexpr error = std::abs(non_log_eval - log_eval);
+    if ( error == 0){
+      out << "EXACT same result for log non log\n";
+    }else{
+      out << "DIFFERENCE (log - non-log eval) = " <<  error << '\n';
+      out << "difference error/value = " <<  ( error / log_eval) << '\n';
+    }
 
 }
 
+
 int main()
 {
-   convert_to_log10(quan::length::nm{});
-   convert_to_log10(quan::length::um{});
-   convert_to_log10(quan::length::mil{});
-   convert_to_log10(quan::length::thou{});
-   convert_to_log10(quan::length::mm{});
-   convert_to_log10(quan::length::cm{});
-   convert_to_log10(quan::length::in{});
-   convert_to_log10(quan::length::dm{});
-   convert_to_log10(quan::length::ft{});
-   convert_to_log10(quan::length::ft_us{});
-   convert_to_log10(quan::length::yd{});
-   convert_to_log10(quan::length::m{});
-   convert_to_log10(quan::length::fathom{});
-   convert_to_log10(quan::length::fathom_us{});
-   convert_to_log10(quan::length::ch{});
-   convert_to_log10(quan::length::mi{});
-   convert_to_log10(quan::length::l_y_{});
-
+#if 0
+   std::ofstream out("output.txt");
+#else
+   auto & out = std::cout;
+#endif
+   convert_to_log10(quan::length::nm{},out);
+   convert_to_log10(quan::length::um{},out);
+   convert_to_log10(quan::length::mil{},out);
+   convert_to_log10(quan::length::thou{},out);
+   convert_to_log10(quan::length::mm{},out);
+   convert_to_log10(quan::length::cm{},out);
+   convert_to_log10(quan::length::in{},out);
+   convert_to_log10(quan::length::dm{},out);
+   convert_to_log10(quan::length::ft{},out);
+   convert_to_log10(quan::length::ft_us{},out);
+   convert_to_log10(quan::length::yd{},out);
+   convert_to_log10(quan::length::m{},out);
+   convert_to_log10(quan::length::fathom{},out);
+   convert_to_log10(quan::length::fathom_us{},out);
+   convert_to_log10(quan::length::ch{},out);
+   convert_to_log10(quan::length::mi{},out);
+   convert_to_log10(quan::length::l_y_{},out);
+   convert_to_log10(quan::length::pc{},out);
+   convert_to_log10(quan::length::AU{},out);
+   convert_to_log10(quan::length::naut_mile{},out);
+   convert_to_log10(quan::length::pica_comp{},out);
+   convert_to_log10(quan::length::pica_prn{},out);
+   convert_to_log10(quan::length::point_comp{},out);
+   convert_to_log10(quan::length::point_prn{},out);
+   convert_to_log10(quan::length::angstrom{},out);
 }
