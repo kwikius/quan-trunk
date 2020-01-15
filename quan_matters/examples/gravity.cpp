@@ -57,14 +57,15 @@ int main()
     std::cout.precision(5);
 
     auto constexpr planet_radius = 6400.0_km;
-    auto constexpr planet_density = 5487.0_kg_per_m3;
-    auto constexpr planet = quan::three_d::sphere<length::km>{planet_radius};
+    auto constexpr planet_sphere = quan::three_d::sphere<length::km>{planet_radius};
 
-    mass::kg constexpr planet_mass = get_volume( planet) * planet_density;
+    auto constexpr planet_density = 5487.0_kg_per_m3;
+    mass::kg constexpr planet_mass = get_volume( planet_sphere ) * planet_density;
+
     std::cout << "mass of planet is roughly " << planet_mass <<'\n';
 
     // An object...
-    mass::kg constexpr object_mass = 1.0_kg;
+    auto constexpr object_mass = 1.0_kg;
 
     // ...on the planet surface
     force::N constexpr exerted_force_at_surface 
@@ -75,7 +76,7 @@ int main()
 
     // ...and a long way away
    //2.074098464e14 = 64e13/3.085678); // 1 pc =  3.085678e16 m
-    length::pc constexpr object_distance = 2.074098464e14_pc;
+    auto constexpr object_distance = 2.074098464e14_pc;
    
     force::yN constexpr force_at_distance = 
       (object_mass * planet_mass * gravitational_constant::G)
