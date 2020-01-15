@@ -21,18 +21,36 @@ void convert_to_log10(Q const& q)
    auto constexpr expdenom = exponent::denominator;
    auto constexpr ratio_digits10 = std::numeric_limits<intmax_t>::digits10 -3;
    auto constexpr pow10digits10 = static_cast<intmax_t>(pow(10,ratio_digits10));
-   auto constexpr log10_value = std::log10(static_cast<double>(muxnume)/ muxdenom) ;// + 
+   auto constexpr log10_value = std::log10(static_cast<double>(muxnume)/ muxdenom) ;
    auto constexpr ratio_log10_nume_float = log10_value * pow10digits10;
    auto constexpr ratio_log10_nume = static_cast<intmax_t>(std::round(ratio_log10_nume_float));
+   // get log10 of multiplier
    typedef typename std::ratio<ratio_log10_nume,pow10digits10>::type ratio_log10a;
+   // add log10 exponent
    typedef typename std::ratio_add<ratio_log10a,std::ratio<expnume,expdenom> >::type ratio_log10;
-
+   // test raising to power
+   typedef typename std::ratio_multiply<ratio_log10,std::ratio<1000> >::type mul_test;
+   std::cout << "mul test " << mul_test::num << " / " << mul_test::den << '\n';
+   typedef typename std::ratio_divide<ratio_log10,std::ratio<1000> >::type div_test;
+   std::cout << "div test " << div_test::num << " / " << div_test::den << '\n';
+    
     std::cout << "--------------- " << units_str(q) << " ------------\n";
-    std::cout << "conversion factor (mux)   = " << static_cast<double>(muxnume)/ muxdenom * std::pow(10,static_cast<double>(expnume)/expdenom) <<'\n';
+    if ( (muxnume == 1) && (muxdenom ==1) ) {
+      std::cout << "(S.I.)";
+    }else{
+      std::cout << "(non S.I.)";
+    }
+    std::cout << "non log version ....\n";
+    std::cout << "conversion_factor { mux = " << muxnume << " / " << muxdenom << " , exp = " << expnume << " / " << expdenom << " }\n";
+    auto constexpr non_log_eval = static_cast<double>(muxnume)/ muxdenom * std::pow(10,static_cast<double>(expnume)/expdenom);
+    std::cout << "conversion factor (eval) = " << non_log_eval <<'\n';
     std::cout << "exp10                     = " << ratio_log10::num;
     if ( ratio_log10::den != 1) std::cout << " / " <<  ratio_log10::den;
     std::cout <<'\n';
-    std::cout << "conversion factor (log10) = " << std::pow(10,static_cast<double>(ratio_log10::num)/ ratio_log10::den) << '\n';
+    std::cout << "log version .....\n";
+    std::cout << "conversion_factor = { exp = " << ratio_log10::num << " / " << ratio_log10::den << " }\n";
+    auto constexpr log_eval = std::pow(10,static_cast<double>(ratio_log10::num)/ ratio_log10::den);
+    std::cout << "conversion factor (eval) = " << log_eval << '\n';
 
 }
 
