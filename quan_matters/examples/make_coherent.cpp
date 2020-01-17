@@ -15,7 +15,7 @@ namespace quan{
    // require custom output functions
    inline std::ostream & operator<< (std::ostream & os, decltype(make_coherent(quan::length::fathom{})) const & q)
    {
-      return os << q.numeric_value() << "fathom(coherent)";
+      return os << q.numeric_value() << " fathom(coherent)";
    }
    
    
