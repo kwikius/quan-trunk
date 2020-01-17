@@ -18,11 +18,17 @@ namespace quan{
       return os << q.numeric_value() << " fathom(coherent)";
    }
    
-   
    inline std::ostream & operator<< (std::ostream & os, decltype(quan::pow<1,3>(make_coherent(quan::length::fathom{}))) const & q)
    {
       return os << q.numeric_value() << " fathom(coherent)^(1/3)";
    }
+
+   inline std::ostream & operator<< (std::ostream & os, decltype(quan::pow<101,3>(make_coherent(quan::length::fathom{}))) const & q)
+   {
+      return os << q.numeric_value() << " fathom(coherent)^(101/3)";
+   }
+
+   
 }
 
 int main()
@@ -44,5 +50,13 @@ int main()
    auto v2 = quan::pow<1,3>(v1);
 
    std::cout << "cube root of coherent fathom : " << v2 <<  "\n\n";
+
+   auto vN = quan::pow<101,3>( v1 );
+
+   std::cout << "raise to power 101/3 : "  << vN  <<'\n';
+
+   auto vNN = quan::pow<3,101>(vN);
+
+   std::cout << "and back : " << vNN <<'\n';
 
 }
