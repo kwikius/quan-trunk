@@ -5,7 +5,7 @@
 #include <iostream>
 #include <cmath>
 #include <string>
-
+#include <type_traits>
 #include <quan/fixed_quantity/fixed_quantity.hpp>
 #include <quan/fusion/meta_rational_to_runtime.hpp>
 
@@ -21,6 +21,7 @@ namespace quan{
       typedef typename unit::conversion_factor conversion_factor;
       typedef typename conversion_factor::multiplier multiplier;
       typedef typename conversion_factor::exponent exponent;
+
       auto rt_mux = quan::fusion::to_runtime{}(multiplier{});
       auto rt_exp = quan::fusion::to_runtime{}(exponent{});
       auto rt_cf = rt_mux * std::pow(10,rt_exp);
@@ -30,7 +31,7 @@ namespace quan{
       out << q_name << ".numeric_value = " << q.numeric_value() <<'\n';
       out << q_name << ".conversion_factor.mux = " << rt_mux << " rational(" << multiplier::numerator << " / " << multiplier::denominator << ")\n";
       out << q_name << ".conversion_factor.exp = " << rt_exp << " rational(" << exponent::numerator << " / " << exponent::denominator << ")\n";
-      out << "converison factor calc = " << q_name << ".conversion_factor.mux * pow(10," << q_name << ".conversion_factor.exp)\n";
+      out << "conversion factor calc = " << q_name << ".conversion_factor.mux * pow(10," << q_name << ".conversion_factor.exp)\n";
       out << q_name << ".conversion_factor = " << rt_cf << '\n';
       out << q_name << ".normalised value =  " << rt_norm_value << "\n\n";
    }
