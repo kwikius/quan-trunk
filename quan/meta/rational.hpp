@@ -26,7 +26,7 @@
 */
 
 #include <quan/config.hpp>
-
+#include <type_traits>
 #include <quan/meta/rational_fwd.hpp>
 #include <quan/meta/numerator.hpp>
 #include <quan/meta/denominator.hpp>
@@ -73,7 +73,7 @@ namespace quan{namespace meta{
     > 
     struct numerator<
         rational<N,D>
-    > : int32<rational<N,D>::numerator>{};
+    > : std::integral_constant<int64_t, rational<N,D>::numerator>{};
 
     template<
        int64_t N,
@@ -81,7 +81,8 @@ namespace quan{namespace meta{
     > 
     struct denominator<
         rational<N,D>
-    > : int32<rational<N,D>::denominator>{};
+    > : std::integral_constant<int64_t, rational<N,D>::denominator>{};
+
 
     template<
        int64_t N,
@@ -277,6 +278,7 @@ namespace quan{namespace meta{
            plus,
            rational<Nrhs,Drhs>
        >{
+#if 0
            typedef typename rational<Nlhs,Dlhs>::type lhs;
            typedef typename rational<Nrhs,Drhs>::type rhs;
    #ifndef QUAN_HAS_LONG_LONG
@@ -294,6 +296,7 @@ namespace quan{namespace meta{
                static_cast<int64_t>(lhsd) * rhsd
            >::type type;
    #else
+
            static const long long lhsn = lhs::numerator;
            static const long long lhsd = lhs::denominator;
            static const long long rhsn = rhs::numerator;
@@ -312,13 +315,21 @@ namespace quan{namespace meta{
            static const long long abs_denom = denom<0?-denom:denom;
            static_assert( abs_denom < INT_MAX,"rational value too big");
 
-           typedef typename rational<
+            typedef typename rational<
                static_cast<int64_t>(nume),
                static_cast<int64_t>(denom)
            >::type type;
-           
-   #endif
 
+         
+  #endif  
+#else
+// implememnt using std:::ratio
+        typedef typename std::ratio_add<std::ratio<Nlhs,Dlhs>,std::ratio<Nrhs,Drhs> >::type std_ratio_type;
+        typedef typename rational<
+            std_ratio_type::num,
+            std_ratio_type::den
+        >::type type;
+#endif
        };
 
        
@@ -331,6 +342,7 @@ namespace quan{namespace meta{
            minus,
            rational<Nrhs,Drhs>
        >{
+#if 0
            typedef typename rational<Nlhs,Dlhs>::type lhs;
            typedef typename rational<Nrhs,Drhs>::type rhs;
            typedef is_lossless_calculation<lhs,minus,rhs> lossless;
@@ -347,6 +359,15 @@ namespace quan{namespace meta{
                    - static_cast<int64_t>(rhsn) * lhsd, 
                static_cast<int64_t>(lhsd) * rhsd
            >::type type;
+#else
+// implement using std:::ratio
+        typedef typename std::ratio_subtract<std::ratio<Nlhs,Dlhs>,std::ratio<Nrhs,Drhs> >::type std_ratio_type;
+        typedef typename rational<
+            std_ratio_type::num,
+            std_ratio_type::den
+        >::type type;
+
+#endif
        };
        
        template <

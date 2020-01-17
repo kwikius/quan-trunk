@@ -36,6 +36,9 @@ namespace quan{namespace meta{
     struct denominator;
 #endif
 
+    template <intmax_t N, intmax_t D>
+    struct denominator<std::ratio<N,D> > : std::integral_constant<intmax_t,std::ratio<N,D>::type::den>{};
+
 }}//quan::meta
 
 #endif
