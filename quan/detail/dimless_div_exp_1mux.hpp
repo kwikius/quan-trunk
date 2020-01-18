@@ -60,15 +60,13 @@ namespace quan{namespace detail{
             >::type constant_arg_type;
            
 
-            result_type operator()(ValueType_L const & lhs, ValueType_R const & rhs) const
+            constexpr result_type operator()(ValueType_L const & lhs, ValueType_R const & rhs) const
             {
-                pow10_integer_exponent<constant_arg_type,quan::meta::numerator<Exponent>::value>
-                pow10;
-                 result_type result = (static_cast<value_type_L>(lhs) / static_cast<value_type_R>(rhs))
-                * (pow10()
+               typedef pow10_integer_exponent<constant_arg_type,quan::meta::numerator<Exponent>::value> pow10;
+               return (static_cast<value_type_L>(lhs) / static_cast<value_type_R>(rhs))
+                * (pow10{}()
                 * ((static_cast<constant_arg_type>(quan::meta::numerator<Multiplier>::value)
                     /(quan::meta::denominator<Multiplier>::value))));
-                return result;
             }
             typedef eval type;
         };
@@ -84,15 +82,13 @@ namespace quan{namespace detail{
                 constant_arg_type
             >::type result_type;
 
-            result_type operator()(ValueType const & v) const
+            constexpr result_type operator()(ValueType const & v) const
             {
-                pow10_integer_exponent<constant_arg_type,quan::meta::numerator<Exponent>::value>
-                pow10;
-                 result_type result = v
-                * (pow10()
+              typedef pow10_integer_exponent<constant_arg_type,quan::meta::numerator<Exponent>::value> pow10;
+                return v
+                * (pow10{}()
                 * ((static_cast<constant_arg_type>(quan::meta::numerator<Multiplier>::value)
                     / (quan::meta::denominator<Multiplier>::value))));
-                return result;
             }
             typedef convert type;
         };
@@ -114,15 +110,14 @@ namespace quan{namespace detail{
                 ValueType_L,ValueType_R,preferred_result_type
             >::type constant_arg_type;
            
-            result_type operator()(ValueType_L const & lhs, ValueType_R const & rhs)const
+            constexpr result_type operator()(ValueType_L const & lhs, ValueType_R const & rhs)const
             {
-                result_type result = (static_cast<value_type_L>(lhs) / static_cast<value_type_R>(rhs))
+              return (static_cast<value_type_L>(lhs) / static_cast<value_type_R>(rhs))
                 *   (( static_cast<constant_arg_type>(quan::meta::pow_c<
                         int32_t,10,quan::meta::numerator<Exponent>::value
                     >::value))
                 *   ((static_cast<constant_arg_type>(quan::meta::numerator<Multiplier>::value))
                         / (quan::meta::denominator<Multiplier>::value)));
-                return result;
             }
             typedef eval type;
          };
@@ -137,15 +132,14 @@ namespace quan{namespace detail{
                 quan::meta::times,
                 constant_arg_type
             >::type result_type;
-            result_type operator()(ValueType const & v)const
+            constexpr result_type operator()(ValueType const & v)const
             {
-                result_type result = v
+               return  v
                 *   (( static_cast<constant_arg_type>(quan::meta::pow_c<
                         int32_t,10,quan::meta::numerator<Exponent>::value
                     >::value))
                 *   ((static_cast<constant_arg_type>(quan::meta::numerator<Multiplier>::value))
                         / (quan::meta::denominator<Multiplier>::value)));
-                return result;
             }
             typedef convert type;
          };
@@ -168,15 +162,13 @@ namespace quan{namespace detail{
                 ValueType_L,ValueType_R,preferred_result_type
             >::type constant_arg_type;
 
-            result_type operator()(ValueType_L const & lhs, ValueType_R const & rhs) const
+            constexpr result_type operator()(ValueType_L const & lhs, ValueType_R const & rhs) const
             {
-                pow10_integer_exponent<constant_arg_type,-quan::meta::numerator<Exponent>::value>
-                pow10;
-                result_type result = (static_cast<value_type_L>(lhs) / static_cast<value_type_R>(rhs))
+                typedef pow10_integer_exponent<constant_arg_type,-quan::meta::numerator<Exponent>::value>  pow10;
+                return (static_cast<value_type_L>(lhs) / static_cast<value_type_R>(rhs))
                 * ((static_cast<constant_arg_type>(quan::meta::numerator<Multiplier>::value)
                         / (quan::meta::denominator<Multiplier>::value))
-                        / pow10());
-                return result;
+                        / pow10{}());
             }
             typedef eval type;
         };
@@ -192,15 +184,13 @@ namespace quan{namespace detail{
                 constant_arg_type
             >::type result_type;
 
-            result_type operator()(ValueType const & v) const
+            constexpr result_type operator()(ValueType const & v) const
             {
-                pow10_integer_exponent<constant_arg_type,-quan::meta::numerator<Exponent>::value>
-                pow10;
-                result_type result = v
+                typedef pow10_integer_exponent<constant_arg_type,-quan::meta::numerator<Exponent>::value>  pow10;
+                return v
                 * ((static_cast<constant_arg_type>(quan::meta::numerator<Multiplier>::value)
                         / (quan::meta::denominator<Multiplier>::value))
-                        / pow10());
-                return result;
+                        / pow10{}());
             }
             typedef convert type;
         };
@@ -221,15 +211,14 @@ namespace quan{namespace detail{
             typedef typename compute_divide_constant_arg_type<
                 ValueType_L,ValueType_R,preferred_result_type
             >::type constant_arg_type;
-            result_type operator()(ValueType_L const & lhs, ValueType_R const & rhs)const
+            constexpr result_type operator()(ValueType_L const & lhs, ValueType_R const & rhs)const
             {
-                result_type result = (static_cast<value_type_L>(lhs) / static_cast<value_type_R>(rhs))
+               return (static_cast<value_type_L>(lhs) / static_cast<value_type_R>(rhs))
                 * ((static_cast<constant_arg_type>(quan::meta::numerator<Multiplier>::value)
                         / quan::meta::denominator<Multiplier>::value)
                             / static_cast<constant_arg_type>(quan::meta::pow_c<
                                 int32_t,10,-quan::meta::numerator<Exponent>::value
                                 >::value ));
-                return result;
             }
             typedef eval type;
         };
@@ -244,14 +233,13 @@ namespace quan{namespace detail{
                 quan::meta::times,
                 constant_arg_type
             >::type result_type;
-            result_type operator()(ValueType const & v)const
+            constexpr result_type operator()(ValueType const & v)const
             {
-                result_type result = v 
+               return  v 
                 * ((static_cast<constant_arg_type>(quan::meta::numerator<Multiplier>::value)
                     / (quan::meta::denominator<Multiplier>::value))
                     / (static_cast<constant_arg_type>(quan::meta::pow_c<
                         int32_t,10,-quan::meta::numerator<Exponent>::value>::value)) );
-                return result;
             }
             typedef convert type;
         };
@@ -273,20 +261,18 @@ namespace quan{namespace detail{
             typedef typename compute_divide_constant_arg_type<
                 ValueType_L,ValueType_R,preferred_result_type
             >::type constant_arg_type;
-            result_type operator()(ValueType_L const & lhs, ValueType_R const & rhs)const
+            constexpr result_type operator()(ValueType_L const & lhs, ValueType_R const & rhs)const
             {
 
  #ifndef QUAN_AVR_NO_CPP_STDLIB
-           using std::pow;
+               using std::pow;
 #endif
-
-                result_type result = (static_cast<value_type_L>(lhs) / static_cast<value_type_R>(rhs))
+               return (static_cast<value_type_L>(lhs) / static_cast<value_type_R>(rhs))
                 * (pow(static_cast<constant_arg_type>(10),
                     static_cast<constant_arg_type>(quan::meta::numerator<Exponent>::value)
                     /quan::meta::denominator<Exponent>::value)
                 * (static_cast<constant_arg_type>(quan::meta::numerator<Multiplier>::value)
                         / (quan::meta::denominator<Multiplier>::value)));
-                return result;
             }
             typedef eval type;
         };
@@ -301,18 +287,16 @@ namespace quan{namespace detail{
                 quan::meta::times,
                 constant_arg_type
             >::type result_type;
-            result_type operator()(ValueType const & v)const
+            constexpr result_type operator()(ValueType const & v)const
             {
  #ifndef QUAN_AVR_NO_CPP_STDLIB
            using std::pow;
 #endif
-                result_type result = v 
-                * (pow(static_cast<constant_arg_type>(10),
+         return v  * (pow(static_cast<constant_arg_type>(10),
                     static_cast<constant_arg_type>(quan::meta::numerator<Exponent>::value)
                     /quan::meta::denominator<Exponent>::value)
                 * (static_cast<constant_arg_type>(quan::meta::numerator<Multiplier>::value)
                         / (quan::meta::denominator<Multiplier>::value)));
-                return result;
             }
             typedef convert type;
         };

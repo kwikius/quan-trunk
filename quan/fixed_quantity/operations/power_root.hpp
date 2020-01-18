@@ -123,7 +123,7 @@ namespace quan {
         int64_t N,
         int64_t D
     >
-    inline
+    QUAN_CONSTEXPR inline
     double
     pow( double const& v)
     {
@@ -140,7 +140,7 @@ namespace quan {
         int64_t N,
         int64_t D
     >
-    inline
+    QUAN_CONSTEXPR inline
     double
     pow( int64_t const& v)
     {
@@ -158,7 +158,7 @@ namespace quan {
         int64_t N,
         int64_t D
     >
-    inline
+    QUAN_CONSTEXPR inline 
     double
     pow( int32_t const& v)
     {

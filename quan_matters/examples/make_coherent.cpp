@@ -6,7 +6,6 @@
 #include <quan/fixed_quantity/operations/make_coherent.hpp>
 
 /*
-   Sometimes it is usefult to treat incoherent quantities as coherent quantities.
    The make_coherent function turns incoherent quantities into coherent quantities.
 */
 
@@ -28,7 +27,6 @@ namespace quan{
       return os << q.numeric_value() << " fathom(coherent)^(101/3)";
    }
 
-   
 }
 
 int main()
@@ -39,23 +37,23 @@ int main()
 
    std::cout << "standard fathom : " << v << "\n\n";
 
-   auto va = quan::pow<1,3>(v);
+   auto constexpr va = quan::pow<1,3>(v);
 
    std::cout << "cube root of standard fathom (quan semantic) : " << va << "\n\n";
 
-   auto  v1 = make_coherent(v);
+   auto constexpr v1 = make_coherent(v);
 
    std::cout << "coherent fathom : " << v1 <<  "\n\n";
 
-   auto v2 = quan::pow<1,3>(v1);
+   auto constexpr v2 = quan::pow<1,3>(v1);
 
    std::cout << "cube root of coherent fathom : " << v2 <<  "\n\n";
 
-   auto vN = quan::pow<101,3>( v1 );
+   auto constexpr vN = quan::pow<101,3>( v1 );
 
    std::cout << "raise to power 101/3 : "  << vN  <<'\n';
 
-   auto vNN = quan::pow<3,101>(vN);
+   auto constexpr vNN = quan::pow<3,101>(vN);
 
    std::cout << "and back : " << vNN <<'\n';
 

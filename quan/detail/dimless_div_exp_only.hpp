@@ -55,7 +55,7 @@ namespace quan{ namespace detail{
             typedef typename compute_divide_constant_arg_type<
                 ValueType_L,ValueType_R,preferred_result_type
             >::type constant_arg_type;
-            result_type operator()(ValueType_L const & lhs,ValueType_R const & rhs) const
+            constexpr result_type operator()(ValueType_L const & lhs,ValueType_R const & rhs) const
             {
 #ifndef QUAN_AVR_NO_CPP_STDLIB
                   using std::pow;
@@ -81,7 +81,7 @@ namespace quan{ namespace detail{
                     quan::meta::times,
                     constant_arg_type
             >::type result_type;
-            result_type operator()(ValueType const & v) const
+            constexpr result_type operator()(ValueType const & v) const
             {
 
 #ifndef QUAN_AVR_NO_CPP_STDLIB

@@ -237,7 +237,7 @@ namespace quan {namespace impl_detail {
    template <>
    struct arithmetic_convert_impl<float,double,void>
    {
-      float operator()(double const & s) const
+      constexpr float operator()(double const & s) const
       {
          return static_cast<float>(s);
       }

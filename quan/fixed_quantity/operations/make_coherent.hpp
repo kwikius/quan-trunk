@@ -17,37 +17,33 @@ namespace quan{ namespace meta{
          Q,
          typename quan::where_<quan::meta::is_fixed_quantity<Q> >::type
       >{
-
-         typedef Q q_type;
-         typedef typename q_type::unit unit;
-         typedef typename q_type::value_type value_type;
+         typedef typename Q::unit unit;
+         typedef typename Q::value_type value_type;
          typedef typename unit::conversion_factor conversion_factor;
-         typedef typename unit::abstract_quantity  abstract_quantity;
-         typedef typename conversion_factor::multiplier multiplier;
-         // do log10(multiplier) 
-         typedef typename log10_ratio<typename conversion_factor::multiplier>::type ratio_log10_mux;
-         
-         typedef typename conversion_factor::exponent exponent;
-         static constexpr auto expnume = quan::meta::numerator<exponent>::value;
-         static constexpr auto expdenom = quan::meta::denominator<exponent>::value;
+         typedef typename log10_ratio<typename conversion_factor::multiplier>::type log10_ratio_multiplier;
+         // TODO: move quan from quan::meta::rational to std::ratio
+         // meanwhile convert to std::ratio
+         typedef typename std::ratio<
+            quan::meta::numerator<typename conversion_factor::exponent>::value,
+            quan::meta::denominator<typename conversion_factor::exponent>::value
+         >::type exponent;
 
-         // add mux to exponent to make a coherent conversion factor with multiplier of 1
-         typedef typename std::ratio_add<ratio_log10_mux,std::ratio<expnume,expdenom> >::type ratio_log10;
+         // add log10 of multiplier to exponent to make a coherent conversion factor with multiplier of 1
+         typedef typename std::ratio_add<exponent,log10_ratio_multiplier>::type ratio_log10;
 
          // assemble the coherent quantity
          typedef quan::fixed_quantity<
-             quan::meta::unit<
-               abstract_quantity,
+            quan::meta::unit<
+               typename unit::abstract_quantity,
                quan::meta::conversion_factor<
                   quan::meta::rational<ratio_log10::num, ratio_log10::den>
                >
-             >,
+            >,
             value_type
          > type;
       };
-   } //impl
 
-} // meta
+   }} // meta::impl
 
    template <typename Q>
    inline constexpr
@@ -60,6 +56,6 @@ namespace quan{ namespace meta{
       return q;
    }
 
-} // quan::meta
+} // quan
 
 #endif // QUAN_FIXED_QUANTITY_OPERATIONS_MAKE_COHERENT_HPP_INCLUDED
