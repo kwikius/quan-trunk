@@ -30,6 +30,7 @@
 
 #include <quan/config.hpp>
 #include <quan/where.hpp>
+#include <quan/meta/binary_op.hpp>
 #include <type_traits>
 #include <stdexcept>
 
