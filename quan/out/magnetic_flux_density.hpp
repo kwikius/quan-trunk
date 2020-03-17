@@ -43,5 +43,16 @@ namespace quan{ namespace meta{
         return os;
     }
 
+    inline
+    std::ostream&
+    operator <<(
+        std::ostream & os,
+        quan::meta::components::of_magnetic_flux_density::non_si_unit::milli_gauss
+    )
+    {
+        os << "milli_gauss";
+        return os;
+    }
+
 }}//quan::meta
 #endif
