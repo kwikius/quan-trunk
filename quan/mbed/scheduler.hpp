@@ -74,6 +74,8 @@ namespace  quan{ namespace mbed{
       int32_t get_num_repeats() const { return m_num_repeats;}
       quan::time_<uint32_t>::ms get_update_rate() const { return m_update_rate;}
       void run() { m_task_fun();}
+      
+      void set_task_fun(task_fun fun){ m_task_fun = fun;}
      private:
       template <
             typename Task,
