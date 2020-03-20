@@ -209,11 +209,11 @@ namespace quan{namespace three_d{
         quan::three_d::quat<T1> const & lhs,
         quan::three_d::quat<T2> const & rhs
     ){
-        typedef typename quan::meta::binary_op< 
-            T1,
-            quan::meta::times,
-            T2
-        >::type result_type;
+//        typedef typename quan::meta::binary_op< 
+//            T1,
+//            quan::meta::times,
+//            T2
+//        >::type result_type;
        //result_type result 
         return  lhs.w * rhs.w + lhs.x * rhs.x + lhs.y * rhs.y  + lhs.z * rhs.z;
 //        result_type result = lhs.w * rhs.w;

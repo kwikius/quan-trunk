@@ -25,10 +25,11 @@
 /*
     quaternion definition
 */
-
+#include <quan/config.hpp>
 #include <quan/implicit_cast.hpp>
-
+#if ! defined QUAN_NO_EXCEPTIONS
 #include <stdexcept>
+#endif
 
 namespace quan{ namespace three_d{
  
@@ -86,26 +87,36 @@ namespace quan{ namespace three_d{
         T & operator[](int n)
         {
             static_assert( (sizeof(quat) == 4 * sizeof(T)), "array operator malformed" );
+#if  defined QUAN_NO_EXCEPTIONS
+            T* p = & x;
+            return p[n % 3];
+#else
             if( (n < 0) || (n >3)){
+             return 
                 throw std::length_error("array subscript out of range in quat");
             }
             
             T* p = & x;
             return p[n];
+#endif
         }
+
         T const & operator[](int n)const
         {
             static_assert( (sizeof(quat) == 4 * sizeof(T)) ,"array operator malformed");
+#if  defined QUAN_NO_EXCEPTIONS
+            T* p = & x;
+            return p[n % 3];
+#else
             if( (n < 0) || (n >3)){
                 throw std::length_error("array subscript out of range in quat");
             }
             
             T const * p = & x;
             return p[n];
+#endif
         }
-        
-    };
-
+    }; // quat
 }}//quan::three_d
 
 #endif
