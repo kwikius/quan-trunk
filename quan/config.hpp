@@ -20,7 +20,7 @@
 // sort for  __CYGWIN__
 // and   __MINGW32__
 
-//#define QUAN_MED_ONLINE_COMPILER
+#define QUAN_MED_ONLINE_COMPILER
 
 #if defined (__linux__)
 #define QUAN_OS_LINUX
