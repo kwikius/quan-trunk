@@ -227,17 +227,25 @@ namespace{
        typedef quan::detail::dimensionless_multiply1<
            conversion_factor_L, conversion_factor_R
        > mul;
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK((typeid(mul::eval<int,int>()(1,1)) == typeid(int)));
+#endif
+       QUAN_CHECK((std::is_same<decltype(mul::eval<int,int>()(1,1)),int>::value))
        int val1 = mul::eval<int,int>()(100,200);
        int val1_chk = 100 * 200;
        QUAN_CHECK_EQUAL(val1,val1_chk);
        
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK( (typeid(mul::eval<int,double>()(1,1)) == typeid(double)));
+#endif
+       QUAN_CHECK((std::is_same<decltype(mul::eval<int,double>()(1,1)),double>::value))
        double val2 = mul::eval<int,double>()(100,200);
        double val2_chk = 100. * 200.;
        QUAN_CHECK_EQUAL(val2,val2_chk);
-
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK( (typeid(mul::eval<float, float>()(1,1)) == typeid(float)));
+#endif
+       QUAN_CHECK((std::is_same<decltype(mul::eval<float,float>()(1,1)),float>::value))
        float val3 = mul::eval<float,float>()(-0.1f,33);
        float val3_chk = -0.1f * 33.f;
        QUAN_CHECK_EQUAL(val3,val3_chk); 
@@ -276,7 +284,9 @@ namespace{
        int val1 = mul::eval<int,int>()(1,1);
        int val1_chk = (1 * 1) * ((7 / 1) * (9 / 1));
        QUAN_CHECK_EQUAL(val1,val1_chk);
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK((typeid(mul::eval<float,int>()(1,1)) == typeid(float)));
+#endif
        float in2 = -.1f;
        float val2 =mul::eval<float,int>()(in2,val1);
        float val2_chk = (in2 * val1) * ((7.f / 1.f) * (9.f / 1.f));
@@ -303,12 +313,16 @@ namespace{
        typedef quan::detail::dimensionless_multiply1<
            conversion_factor_L, conversion_factor_R
        > mul;
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK((typeid(mul::eval<int,int>()(1,1)) == typeid(quan::quantity_traits::default_value_type)));
+#endif
        quan::quantity_traits::default_value_type val1 = mul::eval<int,int>()(10,7);
        quan::quantity_traits::default_value_type val1_chk = (10. * 7.) * (91. / 15.);
        QUAN_CHECK_EQUAL(val1,val1_chk);
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK((typeid(mul::eval<float,float>()(1,1)) == typeid(float)));
        QUAN_CHECK((typeid(mul::eval<float,int>()(1,1)) == typeid(float)));
+#endif
        float in2 = -.1f;
        float in2a = -333.3f;
        float val2 = mul::eval<float,float>()(in2,in2a);
@@ -336,8 +350,10 @@ namespace{
        typedef quan::detail::dimensionless_multiply1<
            conversion_factor_L, conversion_factor_R
        > mul;
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK((typeid(mul::eval<int,int>()(1,1)) == typeid(quan::quantity_traits::default_value_type)));
         QUAN_CHECK((typeid(mul::eval<int,double>()(1,1)) == typeid(double)));
+#endif
        double in1 = 97865.31;
        double in2 = 12345.;
        double result = mul::eval<double,double>()(in1,in2);
@@ -364,6 +380,7 @@ namespace{
        double value = mul::eval<int,double>()(1,1);
        double value_chk = (1. * 1.) * (1.e15 * ( (2000001./700000) * (2000001. / 700000)));
        QUAN_CHECK_EQUAL(value,value_chk);
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK( (typeid(mul::eval<int,int>()(1,1)) == typeid(quan::quantity_traits::default_value_type)));
        QUAN_CHECK( (typeid(mul::eval<int,float>()(1,1)) == typeid(float)));
        QUAN_CHECK( (typeid(mul::eval<float,int>()(1,1)) == typeid(float)));
@@ -379,6 +396,7 @@ namespace{
    #endif
        QUAN_CHECK( (typeid(mul::eval<long double,double>()(1,1)) == typeid(long double))); 
        QUAN_CHECK( (typeid(mul::eval<int,long double>()(1,1)) == typeid(long double))); 
+#endif
    }
    void test_ct_positive_integer_exp_2mul()
    {
@@ -393,7 +411,9 @@ namespace{
        typedef quan::detail::dimensionless_multiply1<
            conversion_factor_L, conversion_factor_R
        > mul;
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK( (typeid(mul::eval<int,int>()(1,1)) == typeid(quan::quantity_traits::default_value_type)));
+#endif
        double in_L = 29.807;
        double in_R = 77.894;
        double result = mul::eval<double,double>()(in_L,in_R);
@@ -414,7 +434,9 @@ namespace{
        typedef quan::detail::dimensionless_multiply1<
            conversion_factor_L, conversion_factor_R
        > mul;
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK( (typeid(mul::eval<int,int>()(1,1)) == typeid(quan::quantity_traits::default_value_type)));
+#endif
        double in_L = 29.807;
        double in_R = 77.894;
        double result = mul::eval<double,double>()(in_L,in_R);
@@ -434,7 +456,9 @@ namespace{
        typedef quan::detail::dimensionless_multiply1<
            conversion_factor_L, conversion_factor_R
        > mul;
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK( (typeid(mul::eval<int,int>()(1,1)) == typeid(quan::quantity_traits::default_value_type)));
+#endif
        double in_L = 29.807;
        double in_R = 77.894;
        double result = mul::eval<double,double>()(in_L,in_R);
@@ -464,7 +488,9 @@ namespace{
        typedef quan::detail::dimensionless_multiply1<
            conversion_factor_L, conversion_factor_R
        > mul;
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK( (typeid(mul::eval<int,int>()(1,1)) == typeid(quan::quantity_traits::default_value_type)));
+#endif
        double in_L = 29.807;
        double in_R = 77.894;
        double result = mul::eval<double,double>()(in_L,in_R);
@@ -486,7 +512,9 @@ namespace{
        typedef quan::detail::dimensionless_multiply1<
            conversion_factor_L, conversion_factor_R
        > mul;
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK( (typeid(mul::eval<int,int>()(1,1)) == typeid(quan::quantity_traits::default_value_type)));
+#endif
        double in_L = -29.807;
        double in_R = 77.894;
        double result = mul::eval<double,double>()(in_L,in_R);
@@ -508,7 +536,9 @@ namespace{
        typedef quan::detail::dimensionless_multiply1<
            conversion_factor_L, conversion_factor_R
        > mul;
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK( (typeid(mul::eval<int,float>()(1,1)) == typeid(float)));
+#endif
        float in_L = -29.807f;
        float in_R = 77.894f;
        float result = mul::eval<float,float>()(in_L,in_R);
@@ -536,7 +566,9 @@ namespace{
            conversion_factor_R::multiplier
        >::type rat;
        std::cout << rat::numerator << "/ " << rat::denominator <<'\n';*/
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK( (typeid(mul::eval<int,float>()(1,1)) == typeid(float)));
+#endif
        float in_L = -2.807f;
        float in_R = 77.894f;
        float result = mul::eval<float,float>()(in_L,in_R);
@@ -564,7 +596,9 @@ namespace{
        //    conversion_factor_R::multiplier
        //>::type rat;
        //std::cout << rat::numerator << "/ " << rat::denominator <<'\n';
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK( (typeid(mul::eval<int,float>()(1,1)) == typeid(float)));
+#endif
        float in_L = 2.8f;
        float in_R = 7.2f;
        float result = mul::eval<float,float>()(in_L,in_R);
@@ -592,7 +626,9 @@ namespace{
            conversion_factor_R::multiplier
        >::type rat;
      //  std::cout << rat::numerator << "/ " << rat::denominator <<'\n';
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK( (typeid(mul::eval<int,double>()(1,1)) == typeid(double)));
+#endif
        double in_L = 2.8f;
        double in_R = 7.2f;
        double result = mul::eval<double,double>()(in_L,in_R);
@@ -651,7 +687,9 @@ namespace{
            conversion_factor_R::multiplier
        >::type rat;
      //  std::cout << rat::numerator << "/ " << rat::denominator <<'\n';
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK( (typeid(mul::eval<int,int>()(1,1)) == typeid(quan::quantity_traits::default_value_type)));
+#endif
        double in_L = 2.8f;
        double in_R = 7.2f;
        double result = mul::eval<double,double>()(in_L,in_R);
@@ -680,7 +718,9 @@ namespace{
            conversion_factor_R::multiplier
        >::type rat;
      //  std::cout << rat::numerator << "/ " << rat::denominator <<'\n';
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK( (typeid(mul::eval<int,int>()(1,1)) == typeid(quan::quantity_traits::default_value_type)));
+#endif
        double in_L = 2.8f;
        double in_R = 7.2f;
        double result = mul::eval<double,double>()(in_L,in_R);
@@ -709,7 +749,9 @@ namespace{
            conversion_factor_R::multiplier
        >::type rat;
      //  std::cout << rat::numerator << "/ " << rat::denominator <<'\n';
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK( (typeid(mul::eval<int,int>()(1,1)) == typeid(quan::quantity_traits::default_value_type)));
+#endif
        double in_L = 2.8f;
        double in_R = 7.2f;
        double result = mul::eval<double,double>()(in_L,in_R);
@@ -737,7 +779,9 @@ namespace{
            conversion_factor_R::multiplier
        >::type rat;
      //  std::cout << rat::numerator << "/ " << rat::denominator <<'\n';
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK( (typeid(mul::eval<int,int>()(1,1)) == typeid(quan::quantity_traits::default_value_type)));
+#endif
        double in_L = 2.8f;
        double in_R = 7.2f;
        double result = mul::eval<double,double>()(in_L,in_R);

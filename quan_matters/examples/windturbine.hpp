@@ -132,7 +132,12 @@ chord_omega RotorDialog::getChordOmega(quan::length::m const& r)const
 
     auto const tip_r = this->m_outer_dia / 2.0;
     if (r > tip_r){
-        throw std::out_of_range{"getChordOmega Input radius is out of range"};
+#if  defined QUAN_NO_EXCEPTIONS
+   //fail
+    return chord_omega{length::mm{0.0},angle::rad{0.0}};
+#else
+    throw std::out_of_range{"getChordOmega Input radius is out of range"};
+#endif
     }
 
 // input air flow velocity vector

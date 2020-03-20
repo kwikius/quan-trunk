@@ -61,7 +61,7 @@ void matrix_translation_test()
          quan::operator_logical_and, quan::operator_equal_to
       >::type result_type;
 
-   std::cout << typeid(result_type).name() <<'\n';
+  // std::cout << typeid(result_type).name() <<'\n';
    
    auto res = lseq == rseq;
    QUAN_CHECK(res);

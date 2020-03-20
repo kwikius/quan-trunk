@@ -65,9 +65,9 @@ namespace {
       QUAN_CHECK((res_view.at<0,0>() == result.at<0,0>() ))
 
       typedef quan::fun::as_value_matrix<res_view_type>::type alt_result_type;
-
+#if ! defined QUAN_NO_RTTI
       QUAN_CHECK( ( typeid(alt_result_type).name() == typeid(result_type).name() ) );
-
+#endif
       QUAN_CHECK( (std::is_same<result_type,alt_result_type>::value));
 
       typedef quan::fun::matrix_as_sequence<res_view_type> mat_as_seq1;

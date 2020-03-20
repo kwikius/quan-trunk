@@ -399,9 +399,14 @@ namespace quan{
          
       void normalise()
       {
+#if defined QUAN_NO_EXCEPTIONS
+      assert(m_denom.eq_zero() == false);
+#else
          if( m_denom.eq_zero()){
+
             throw std::runtime_error("big_rational 0 denom");
          }
+#endif
          if (m_nume.eq_zero()) {
             m_denom = 1;
             return;

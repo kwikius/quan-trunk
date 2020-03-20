@@ -17,6 +17,14 @@ ifeq ($(USE_CONCEPTS),True)
 CXXFLAGS    += -fconcepts
 endif
 
+ifneq ($(USE_EXCEPTIONS),True)
+CXXFLAGS    += -fno-exceptions -DQUAN_NO_EXCEPTIONS
+endif
+
+ifneq ($(USE_RTTI),True)
+CXXFLAGS    += -fno-rtti -DQUAN_NO_RTTI
+endif
+
 BIGINT_FILES  = assign assign_from_string bigint comp ctor ll_bigint 
 
 LL_BIGINT_FILES = bitand_eq bitor_eq bitxor_eq compact compare div_eq div_mod dump_rep extend \

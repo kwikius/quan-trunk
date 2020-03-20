@@ -42,11 +42,15 @@ namespace {
   void default_ctor();
   void value_init();
   void down_cast_value_init();
+#if ! defined QUAN_NO_EXCEPTIONS
   void out_of_range_value_init();
+#endif
   void down_cast_copy_ctor();
   void anonymous_copy_ctor();
   void copy_ctor();
+#if !defined QUAN_NO_EXCEPTIONS
   void value_type_cast_copy_ctor();
+#endif
 
 }
 void construction_test()
@@ -54,11 +58,15 @@ void construction_test()
    default_ctor();
    value_init();
    down_cast_value_init();
+#if ! defined QUAN_NO_EXCEPTIONS
    out_of_range_value_init();
+#endif
    down_cast_copy_ctor();
    anonymous_copy_ctor();
    copy_ctor();
+#if !defined QUAN_NO_EXCEPTIONS
    value_type_cast_copy_ctor();
+#endif
 
 }
 namespace {
@@ -94,7 +102,7 @@ namespace {
        quan::energy_<int>::kJ  E4(-99.49999999);
        QUAN_CHECK(E4.numeric_value() == -99);
    }
-
+#if ! defined QUAN_NO_EXCEPTIONS
    void out_of_range_value_init()
    {
        bool caught = false;
@@ -134,6 +142,7 @@ namespace {
        }
        QUAN_CHECK(caught);
    }
+#endif
 
    void copy_ctor()
    {
@@ -211,6 +220,7 @@ namespace {
             
    }
 
+#if ! defined QUAN_NO_EXCEPTIONS
    void value_type_cast_copy_ctor()
    {
        bool caught = false;
@@ -254,5 +264,6 @@ namespace {
        }
        QUAN_CHECK(caught);
    }
+#endif
 
 }//anon

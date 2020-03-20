@@ -25,7 +25,10 @@
 
 int main()
 {
- 
+ #if defined QUAN_NO_EXCEPTIONS
+  std::cout << "This example requires exceptions to be enabled\n";
+  return 0;
+#else
     try {
         quan::length_<double>::m L1( INT_MAX);
         quan::length_<int>::m L2 = L1;
@@ -42,6 +45,6 @@ int main()
     catch ( std::exception & e){
         std::cout << "OK (expected) out of range conversion failed with \"" << e.what() << "\"\n";
     }
-
+#endif
 }
 

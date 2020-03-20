@@ -19,6 +19,9 @@
 // TODO 
 // sort for  __CYGWIN__
 // and   __MINGW32__
+
+//#define QUAN_MED_ONLINE_COMPILER
+
 #if defined (__linux__)
 #define QUAN_OS_LINUX
 #else
@@ -31,14 +34,24 @@
 #  pragma once
 #endif
 
-#if defined __AVR__ 
+#if (defined __AVR__) 
 #define QUAN_NO_EXCEPTIONS
+#define QUAN_NO_RTTI
 #if defined abs
 #undef abs
 #endif
 #if ! defined (QUAN_AVR_HAS_CPP_STDLIB)
 #define QUAN_AVR_NO_CPP_STDLIB
 #endif
+#endif
+
+#if (defined QUAN_MED_ONLINE_COMPILER)
+   #ifndef QUAN_NO_EXCEPTIONS
+      #define QUAN_NO_EXCEPTIONS
+   #endif
+   #ifndef QUAN_NO_RTTI
+      #define QUAN_NO_RTTI
+   #endif
 #endif
 
 #ifndef QUAN_AVR_NO_CPP_STDLIB

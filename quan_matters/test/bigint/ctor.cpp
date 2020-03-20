@@ -52,7 +52,7 @@ namespace quan{ namespace test{
       str = "-1";
       quan::bigint v2 = str;
       QUAN_CHECK(( v2.to_string()== "-1"))
-
+#if ! defined QUAN_NO_EXCEPTIONS
       bool throw_check = false;
       try{
          str = "x";
@@ -61,6 +61,7 @@ namespace quan{ namespace test{
       catch ( std::runtime_error & ){ throw_check = true;}
       QUAN_CHECK(throw_check)
       throw_check = false;
+#endif
       quan::bigint v4 =              "1000000000000000000000000000000";
       QUAN_CHECK(( v4.to_string() == "1000000000000000000000000000000"))
    }
@@ -82,7 +83,7 @@ namespace quan{ namespace test{
 
       quan::bigint v2 = "-1";
       QUAN_CHECK(( v2.to_string()== "-1"))
-
+#if ! defined QUAN_NO_EXCEPTIONS
       bool throw_check = false;
       try{
          quan::bigint v3 = "x";
@@ -90,6 +91,7 @@ namespace quan{ namespace test{
       catch ( std::runtime_error & ){ throw_check = true;}
       QUAN_CHECK(throw_check)
       throw_check = false;
+#endif
    }
 
    void test_int_ctor()

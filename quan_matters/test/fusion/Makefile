@@ -18,6 +18,14 @@ ifeq ($(USE_CONCEPTS),True)
 CXXFLAGS    += -fconcepts
 endif
 
+ifneq ($(USE_EXCEPTIONS),True)
+CXXFLAGS    += -fno-exceptions -DQUAN_NO_EXCEPTIONS
+endif
+
+ifneq ($(USE_RTTI),True)
+CXXFLAGS    += -fno-rtti -DQUAN_NO_RTTI
+endif
+
 TEST_FILES = test static_value static_monoid fold inner_product matrix sequence matrix_mux \
 transpose_matrix matrix1 adjunct_matrix inverse_matrix matrix_compare matrix_add matrix_translation_test \
 matrix_as_sequence_test

@@ -16,7 +16,12 @@ Copyright (c) 2003-2014 Andy Little.
 */
 #include <quan/detail/ll_bigint.hpp>
 #include <quan/meta/char_to_digit.hpp>
+#if defined QUAN_NO_EXCEPTIONS
+#include <cassert>
+#else
 #include <stdexcept>
+#endif
+
 using quan::detail::ll_bigint;
 
 template <int N>
@@ -40,9 +45,13 @@ void ll_bigint::from_string_base(std::string const & str)
         this->mul_eq(mult);
       } 
       int digit = quan::meta::character_to_digit<N>{}(str.at(i));
+#if defined QUAN_NO_EXCEPTIONS
+      assert( digit != -1);
+#else
       if ( digit == -1 ) {
          throw std::runtime_error("invalid integer digit");
       }
+#endif
       this->plus_eq(digit);
    }
    if ( minus_sign){

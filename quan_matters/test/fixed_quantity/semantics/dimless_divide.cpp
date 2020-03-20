@@ -213,18 +213,24 @@ namespace {
        typedef quan::detail::dimensionless_divide1<
            conversion_factor_L, conversion_factor_R
        > mul;
-       
+       #if !defined QUAN_NO_RTTI 
        QUAN_CHECK((typeid(mul::eval<int,int>()(1,1)) == typeid(double)));
+       #endif
+       QUAN_CHECK((std::is_same<decltype(mul::eval<int,int>()(1,1)),double>::value));
        double val1 = mul::eval<int,int>()(100,200);
        double val1_chk = 100. / 200.;
        QUAN_CHECK_EQUAL(val1,val1_chk);
-       
+       #if !defined QUAN_NO_RTTI
        QUAN_CHECK( (typeid(mul::eval<int,double>()(1,1)) == typeid(double)));
+       #endif
+       QUAN_CHECK((std::is_same<decltype(mul::eval<int,double>()(1,1)),double>::value));
        double val2 = mul::eval<int,double>()(100,200);
        double val2_chk = 100. / 200.;
        QUAN_CHECK_EQUAL(val2,val2_chk);
-
+       #if !defined QUAN_NO_RTTI
        QUAN_CHECK( (typeid(mul::eval<float, float>()(1,1)) == typeid(float)));
+       #endif
+       QUAN_CHECK((std::is_same<decltype(mul::eval<float,float>()(1,1)),float>::value));
        float val3 = mul::eval<float,float>()(-0.1f,33);
        float val3_chk = -0.1f / 33.f;
        QUAN_CHECK_EQUAL(val3,val3_chk); 
@@ -243,11 +249,17 @@ namespace {
        typedef quan::detail::dimensionless_divide1<
            conversion_factor_L, conversion_factor_R
        > div;
+       #if !defined QUAN_NO_RTTI
        QUAN_CHECK((typeid(div::eval<int,int>()(1,1)) == typeid(double)));
+       #endif
+       QUAN_CHECK((std::is_same<decltype(div::eval<int,int>()(1,1)),double>::value))
        double val1 = div::eval<int,int>()(100,3);
        double val1_chk = (100 /3.) * (63.);
        QUAN_CHECK_EQUAL(val1,val1_chk);
+       #if !defined QUAN_NO_RTTI
        QUAN_CHECK((typeid(div::eval<float,int>()(1,1)) == typeid(double)));
+       #endif
+       QUAN_CHECK((std::is_same<decltype(div::eval<float,int>()(1,1)),double>::value))
        float in2 = -5.f;
        float val2 =div::eval<float,int>()(in2, 4);
        float val2_chk = (in2 / 4) * (63.f);
@@ -267,11 +279,17 @@ namespace {
        typedef quan::detail::dimensionless_divide1<
            conversion_factor_L, conversion_factor_R
        > div;
+#if !defined QUAN_NO_RTTI
        QUAN_CHECK((typeid(div::eval<int,int>()(1,1)) == typeid(double)));
+#endif
+       QUAN_CHECK((std::is_same<decltype(div::eval<int,int>()(1,1)),double>::value))
        double val1 = div::eval<int,int>()(100,3);
        double val1_chk = (100 /3.) * (7./ 9.);
        QUAN_CHECK_EQUAL(val1,val1_chk);
+#if !defined QUAN_NO_RTTI
        QUAN_CHECK((typeid(div::eval<float,int>()(1,1)) == typeid(double)));
+#endif
+       QUAN_CHECK((std::is_same<decltype(div::eval<float,int>()(1,1)),double>::value))
        float in2 = -.1f;
        float val2 =div::eval<float,float>()(in2, 3.f);
        float val2_chk = (in2 / 3.f) * (7.f/9.f);
@@ -296,17 +314,25 @@ namespace {
        typedef quan::detail::dimensionless_divide1<
            conversion_factor_L, conversion_factor_R
        >::type div;
+#if !defined QUAN_NO_RTTI
        QUAN_CHECK((typeid(div::eval<int,int>()(1,1)) == typeid(double)));
+#endif
+       QUAN_CHECK((std::is_same<decltype(div::eval<int,int>()(1,1)),double>::value))
        double val1 = div::eval<int,int>()(100,200);
        double val1_chk = 100. / 200 * (9999999. * 9999999.) / (1000000. * 1000000.);
        QUAN_CHECK_EQUAL(val1,val1_chk);
        
+#if !defined QUAN_NO_RTTI
        QUAN_CHECK( (typeid(div::eval<int,double>()(1,1)) == typeid(double)));
+#endif
+       QUAN_CHECK((std::is_same<decltype(div::eval<int,double>()(1,1)),double>::value))
        double val2 = div::eval<int,double>()(100,200);
        double val2_chk = 100. / 200 * (9999999. * 9999999.) / (1000000. * 1000000.);
        QUAN_CHECK_EQUAL(val2,val2_chk);
-
+#if !defined QUAN_NO_RTTI
        QUAN_CHECK( (typeid(div::eval<float, float>()(1,1)) == typeid(float)));
+#endif
+       QUAN_CHECK((std::is_same<decltype(div::eval<float,float>()(1,1)),float>::value))
        float val3 = div::eval<float,float>()(-0.1f,33);
        float val3_chk = -0.1f / 33.f * (9999999.f * 9999999.f) / (1000000.f * 1000000.f);
        QUAN_CHECK_CLOSE(val3,val3_chk,1e-5); 
@@ -325,7 +351,10 @@ namespace {
        typedef quan::detail::dimensionless_divide1<
            conversion_factor_L, conversion_factor_R
        >::type div;
+#if !defined QUAN_NO_RTTI
        QUAN_CHECK((typeid(div::eval<int,int>()(1,1)) == typeid(double)));
+#endif
+       QUAN_CHECK((std::is_same<decltype(div::eval<int,int>()(1,1)),double>::value))
        double val1 = div::eval<int,int>()(100,200);
        double val2 = check_div<conversion_factor_L,conversion_factor_R>::func<double>(100,200);
        QUAN_CHECK_EQUAL(val1,val2);
@@ -344,7 +373,10 @@ namespace {
        typedef quan::detail::dimensionless_divide1<
            conversion_factor_L, conversion_factor_R
        >::type div;
+#if !defined QUAN_NO_RTTI
        QUAN_CHECK((typeid(div::eval<int,int>()(1,1)) == typeid(double)));
+#endif
+       QUAN_CHECK((std::is_same<decltype(div::eval<int,int>()(1,1)),double>::value))
        double val1 = div::eval<int,int>()(100,200);
        double val2 = check_div<conversion_factor_L,conversion_factor_R>::func<double>(100,200);
        QUAN_CHECK_EQUAL(val1,val2);

@@ -149,7 +149,9 @@ bool DATA_STRUCT ::particle::start = true;
 
 void QUAN_MACRO_CAT(DATA_STRUCT,function)(){ 
     DATA_STRUCT::particle*  myParticles= 0;
+#if ! defined QUAN_NO_EXCEPTIONS
     try{
+#endif
         myParticles = new DATA_STRUCT::particle[DATA_STRUCT::num_particles];
         for( DATA_STRUCT::itime simulation_time
             = DATA_STRUCT::itime(0);
@@ -173,11 +175,13 @@ void QUAN_MACRO_CAT(DATA_STRUCT,function)(){
             
         }
         delete [] myParticles;
+#if ! defined QUAN_NO_EXCEPTIONS
    }
     catch (...){
         if (myParticles) delete [] myParticles;
         std::cout << "exception" <<'\n';
     }
+#endif
 } 
 
 void DATA_STRUCT::particle::apply_force(quan::three_d::vect<DATA_STRUCT::force> const & f)
