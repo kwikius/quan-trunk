@@ -195,6 +195,8 @@ namespace quan{
          }
       }
     }
+
+    T  * get_array(){return m_array;}
  
     private:
     T m_array[R * C];
@@ -293,32 +295,69 @@ namespace quan{
 
    template <typename M>
    typename quan::where_<quan::is_basic_matrix<M> >::type
-   display( M const & m, const char * const text)
+   display( M const & m, const char * const text, std::ostream & out = std::cout)
    {
       if (text != nullptr){
-         std::cout << text <<'\n';
+         out << text <<'\n';
       }
       int cell_length = 10;
       quan::format_print fp{cell_length,5,4,3};
-      std::cout << "/ ";
+      out << "/ ";
       for ( int32_t i = 0; i < (cell_length ) * M::cols -2; ++i){
-         std::cout << " ";
+         out << " ";
       }
-      std::cout << " \\\n";
+      out << " \\\n";
       for ( int r = 0; r < M::rows; ++r){
 
-         std::cout << '|';
+         out << '|';
          for ( int c = 0; c < M::cols; ++c){
-            fp(m.at(r,c));
+            fp(m.at(r,c),out);
          }
-         std::cout << "|\n";
+         out << "|\n";
       }
 
-      std::cout << "\\ ";
+      out << "\\ ";
       for ( int32_t i = 0; i < (cell_length ) * M::cols -2; ++i){
-         std::cout << " ";
+         out << " ";
       }
-      std::cout << " /\n";
+      out << " /\n";
+   }
+
+   template <typename M>
+   typename quan::where_<quan::is_basic_matrix<M> >::type
+   output( M const & m, const char * const text, std::ostream & out = std::cout)
+   {
+      if (text != nullptr){
+         out << text ;
+      }
+      int cell_length = 10;
+      quan::format_print fp{cell_length,5,4,3};
+      out << "{\n";
+//      for ( int32_t i = 0; i < (cell_length ) * M::cols -2; ++i){
+//         out << " ";
+//      }
+   //   out << " \\\n";
+      for ( int r = 0; r < M::rows; ++r){
+         
+         for ( int c = 0; c < M::cols; ++c){
+            
+            fp(m.at(r,c),out);
+            if ( ((c == (M::cols -1)) && ( r== (M::rows -1))) == false){
+               out << ", ";
+            }
+            
+         }
+         out << "\n";
+//        if ( r < (M::rows -1) {
+//            out << ",\n";
+//        }
+      }
+
+    //  out << "\\ ";
+//      for ( int32_t i = 0; i < (cell_length ) * M::cols -2; ++i){
+//         out << " ";
+//      }
+      out << "};\n";
    }
 
    template <

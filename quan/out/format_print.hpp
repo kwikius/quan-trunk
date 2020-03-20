@@ -44,7 +44,7 @@ namespace quan{
       char m_format_str[7];
       char * m_buf;
       public:
-      void operator()(double const & v)const
+      void operator()(double const & v,std::ostream & out = std::cout)const
       {
          memset(m_buf,' ',m_cell_length);
          int result = snprintf(m_buf + m_start_idx,m_rep_length+1,m_format_str, v);
@@ -53,7 +53,7 @@ namespace quan{
             if ( (m_start_idx + result) < m_cell_length){
                m_buf[m_start_idx + result] = ' ';
             }
-            std::cout << m_buf ;
+            out << m_buf ;
          }
       }
       private:
