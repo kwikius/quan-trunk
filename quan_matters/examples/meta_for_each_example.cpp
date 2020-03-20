@@ -20,7 +20,11 @@ namespace my{
       template <typename T>
       void operator()() const
       {
+#if  defined QUAN_NO_RTTI
+        std::cout << T{} << '\n';
+#else
          std::cout << "v1[" << typeid(T).name() << "] ";
+#endif
       }
    };
 

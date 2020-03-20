@@ -13,6 +13,14 @@ ifeq ($(USE_CONCEPTS),True)
 CXXFLAGS    += -fconcepts
 endif
 
+ifneq ($(USE_EXCEPTIONS),True)
+CXXFLAGS    += -fno-exceptions -DQUAN_NO_EXCEPTIONS
+endif
+
+ifneq ($(USE_RTTI),True)
+CXXFLAGS    += -fno-rtti -DQUAN_NO_RTTI
+endif
+
 TARGET = fusion.exe
 
 objs = kalman1.o fun_vector_example.o main.o

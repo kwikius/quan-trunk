@@ -1,6 +1,12 @@
 #ifndef QUAN_DOM_IS_BRANCH_NODE_HPP_INCLUDED
 #define QUAN_DOM_IS_BRANCH_NODE_HPP_INCLUDED
 
+#include <quan/config.hpp>
+#if defined QUAN_NO_EXCEPTIONS
+#endif
+#if defined QUAN_NO_RTTI
+#error requires rtti
+#endif
 #include <quan/dom/branch.hpp>
 
 namespace quan{ namespace dom{

@@ -16,8 +16,17 @@ TARGET      = dimension_test.exe
 
 CXX         = g++-7
 CXXFLAGS    = -std=c++14 -I${QUAN_ROOT}
+
 ifeq ($(USE_CONCEPTS),True)
 CXXFLAGS    += -fconcepts
+endif
+
+ifneq ($(USE_EXCEPTIONS),True)
+CXXFLAGS    += -fno-exceptions -DQUAN_NO_EXCEPTIONS
+endif
+
+ifneq ($(USE_RTTI),True)
+CXXFLAGS    += -fno-rtti -DQUAN_NO_RTTI
 endif
 
 SRCS =    $(patsubst %,%.cpp,$(MEMBER_FILES)) 

@@ -298,9 +298,13 @@ namespace quan{
         }
         void throw_on_out_of_range() const
         {
+#if defined QUAN_NO_EXCEPTIONS
+         assert (!m_out_of_range);
+#else
           if ( m_out_of_range){
             throw std::out_of_range("quan::integer out of range");
           }
+#endif
         }
    };
 

@@ -2,9 +2,13 @@
 /*
 dom tests
 */
+#include <quan_matters/test/simple_test.hpp>
+#include <quan/config.hpp>
+
+#if !defined QUAN_NO_RTTI
 
 #include <quan/dom/dom.hpp>
-#include <quan_matters/test/simple_test.hpp>
+
 #include <quan/out/length.hpp>
 #include <quan/atomicstring.hpp>
 
@@ -186,3 +190,12 @@ int test_main()
 
   QUAN_EPILOGUE
 }
+
+#else
+int errors = 0;
+int test_main(){
+QUAN_EPILOGUE
+}
+
+#endif
+

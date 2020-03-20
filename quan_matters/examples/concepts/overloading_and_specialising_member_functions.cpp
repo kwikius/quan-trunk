@@ -1,4 +1,5 @@
 
+#if defined __cpp_concepts
 
 #include <quan/meta/type_sequence.hpp>
 #include <quan/concepts/meta/type_sequence/for_each.hpp>
@@ -24,7 +25,9 @@ namespace my{
       template <typename T>
       static void apply()
       {
+#if ! defined QUAN_NO_RTTI
          std::cout << "apply[" << typeid(T).name() << "] ";
+#endif
       }
    };
 
@@ -163,3 +166,4 @@ int main()
    std::cout << "done\n";
 
 }
+#endif

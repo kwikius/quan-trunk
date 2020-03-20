@@ -1,4 +1,8 @@
 
+
+#include <quan/config.hpp>
+#if ! defined QUAN_MBED_ONLINE_COMPILER
+
 #include <quan/out/length.hpp>
 #include <quan/math/powerof10.hpp>
 #include <quan/utility/show_conversion_factor_working.hpp>
@@ -96,3 +100,13 @@ int main()
    convert_to_log10(quan::length::point_prn{},out);
    convert_to_log10(quan::length::angstrom{},out);
 }
+
+#else
+#include <iostream>
+int main()
+{
+   std::cout << "not supported on mbed compiler\n";
+}
+
+#endif
+

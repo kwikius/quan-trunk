@@ -20,14 +20,16 @@
 // sort for  __CYGWIN__
 // and   __MINGW32__
 
-#define QUAN_MED_ONLINE_COMPILER
-
 #if defined (__linux__)
-#define QUAN_OS_LINUX
+   #define QUAN_OS_LINUX
 #else
-#if (defined (_WIN16) || defined (_WIN32))
-#define QUAN_OS_WINDOWS
-#endif
+   #if (defined (_WIN16) || defined (_WIN32))
+      #define QUAN_OS_WINDOWS
+   #else
+      #if defined __MBED__
+         #define QUAN_MBED_ONLINE_COMPILER
+      #endif
+   #endif
 #endif
 
 #if (defined _MSC_VER) && (_MSC_VER >= 1200)
@@ -45,7 +47,7 @@
 #endif
 #endif
 
-#if (defined QUAN_MED_ONLINE_COMPILER)
+#if (defined QUAN_MBED_ONLINE_COMPILER)
    #ifndef QUAN_NO_EXCEPTIONS
       #define QUAN_NO_EXCEPTIONS
    #endif

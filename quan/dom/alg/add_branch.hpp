@@ -1,8 +1,11 @@
 #ifndef QUAN_DOM_ADD_BRANCH_HPP_INCLUDED
 #define QUAN_DOM_ADD_BRANCH_HPP_INCLUDED
 
+#include <quan/config.hpp>
 
-//#include <quan/dom/container_data.hpp>
+#if defined QUAN_NO_EXCEPTIONS
+#include <cassert>
+#endif
 #include <quan/dom/branch.hpp>
 #include <quan/dom/alg/get_full_path_string.hpp>
 #include <quan/dom/alg/normalise_id.hpp>
@@ -29,18 +32,26 @@ namespace quan{ namespace dom{
    branch<ID>*
    add_branch(node<ID> * p, ChildID const & child_branch_id)
    {
+#if defined QUAN_NO_EXCEPTIONS
+      assert( (p != nullptr) && "add_branch: bad branch_node");
+#else
       if (!p){
          std::string str = "add_branch: bad branch_node";
          throw bad_branch_node(str);
       }
+#endif
 
       auto br = as_branch_node(p);
       auto id = normalise_id(child_branch_id);
+
+#if defined QUAN_NO_EXCEPTIONS
+      assert( (br->get_child(id) == nullptr )  && "add_branch: id  already_exists");
+#else
       if(br->get_child(id)){
          std::string str = "add_branch: id  already_exists";
          throw element_id_already_exists(str);
       }
-
+#endif
       auto child_branch = new branch<ID>{id};
       br->add_child(child_branch);
       return child_branch;

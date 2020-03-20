@@ -1,5 +1,11 @@
 
+
 #include <fstream>
+
+#include <quan/config.hpp>
+
+#if !defined QUAN_NO_RTTI
+
 #include <quan/dom/dom.hpp>
 #include <quan_matters/test/simple_test.hpp>
 #include <quan/out/length.hpp>
@@ -81,3 +87,11 @@ int aerofoil_example ()
 
    return EXIT_SUCCESS;
 }
+
+#else 
+int aerofoil_example ()
+{
+  return EXIT_SUCCESS;
+}
+#endif
+

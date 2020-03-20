@@ -43,10 +43,10 @@ log10_Incoherent_units_idea.exe high_power_quantities.exe make_coherent.exe
 	$(CXX) $(CXXFLAGS) -O3 -c $<
 
 dom:
-	make USE_CONCEPTS=$(USE_CONCEPTS) -C $(DomDir) test
+	make USE_CONCEPTS=$(USE_CONCEPTS) USE_EXCEPTIONS=$(USE_EXCEPTIONS) USE_RTTI=$(USE_RTTI) -C $(DomDir) test
 
 fusion:
-	make USE_CONCEPTS=$(USE_CONCEPTS) -C $(FusionDir) test
+	make USE_CONCEPTS=$(USE_CONCEPTS) USE_EXCEPTIONS=$(USE_EXCEPTIONS) USE_RTTI=$(USE_RTTI) -C $(FusionDir) test
 
 clean :
 	rm -rf *.o

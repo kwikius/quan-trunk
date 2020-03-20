@@ -1,7 +1,11 @@
 #ifndef QUAN_DOM_DATA_NODE_HPP_INCLUDED
 #define QUAN_DOM_DATA_NODE_HPP_INCLUDED
 
+#include <quan/config.hpp>
+
+#if ! defined QUAN_NO_RTTI
 #include <typeinfo>
+#endif
 #include <iomanip>
 
 #include <quan/dom/leaf.hpp>
@@ -66,10 +70,14 @@ namespace quan{ namespace dom{
 
       std::string get_type_id() const
       {
+#if defined QUAN_NO_RTTI
+        return "data_node; type_id N/A without RTTI";
+#else
          std::string str = "data_node{";
          str += typeid(data_type).name();
          str += '}';
          return str;
+#endif
       }
 
       private:
@@ -147,7 +155,11 @@ namespace quan{ namespace dom{
       >::type
       do_output( std::ostream & os, V const &)
       {
+#if defined QUAN_NO_RTTI
+         os << "do_output : typeid N/A without RTTI";
+#else
          os << typeid(V).name();
+#endif
          return os;
       }
 

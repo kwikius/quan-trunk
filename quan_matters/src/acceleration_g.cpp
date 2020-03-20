@@ -25,7 +25,11 @@
 #ifndef QUAN_FIXED_QUANTITY_ACCELERATION_G_CPP_INCLUDED
 #define QUAN_FIXED_QUANTITY_ACCELERATION_G_CPP_INCLUDED
 
+#include <quan/config.hpp>
+#if ! defined QUAN_MBED_ONLINE_COMPILER
 #include <quan/acceleration.hpp>
+
+
 
 
 namespace quan{
@@ -48,6 +52,6 @@ namespace quan{
 
 }
 
-
+#endif
 #endif
 
