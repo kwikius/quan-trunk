@@ -17,7 +17,7 @@
 
 //
  
- 
+ #if ! defined __MBED__
  
 //
 // See QUAN_ROOT/quan_matters/index.html for documentation.
@@ -76,6 +76,4 @@ quan::angle_<long double>::two_pi
 
 #endif
 
-
-
-
+#endif

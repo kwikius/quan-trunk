@@ -17,6 +17,7 @@
 */
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
+ #if ! defined __MBED__
 /*
     avogadros constant definition required to link
 */
@@ -38,5 +39,8 @@ quan::avogadro_constant_<float>::Na_type const
 quan::avogadro_constant_<float>::Na
 = quan::avogadro_constant_<float>::Na_type(6.0221415f);
 #endif
+
+#endif
+
 
 

@@ -1,3 +1,5 @@
+#if ! defined __MBED__
+
 #include <quan/two_d/rotation.hpp>
 #include <quan/uav/osd/api.hpp>
 
@@ -48,3 +50,6 @@ void quan::uav::osd::draw_bitmap(bitmap_ptr bitmap,pxp_type const & pos, pxp_typ
       }
    }
 }
+
+#endif
+

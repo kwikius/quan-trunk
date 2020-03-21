@@ -1,3 +1,5 @@
+
+ #if ! defined __MBED__
 /*
 Copyright (c) 2003-2014 Andy Little.
 
@@ -66,3 +68,4 @@ std::ostream & quan::html2::document::output(std::ostream & os)
    return os;
 }
 
+#endif

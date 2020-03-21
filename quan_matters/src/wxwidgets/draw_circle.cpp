@@ -1,3 +1,5 @@
+
+#if ! defined __MBED__
 /*
 Copyright (c) 2003-2014 Andy Little.
 
@@ -61,3 +63,4 @@ void quan::gx::wxwidgets::graphics_context::draw_circle(
    this->draw_polyline(poly);
 }
 
+#endif

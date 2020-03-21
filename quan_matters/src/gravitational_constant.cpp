@@ -17,7 +17,7 @@
 
 //
  
- 
+  #if ! defined __MBED__
  
 //
 // See QUAN_ROOT/quan_matters/index.html for documentation.
@@ -42,4 +42,7 @@ quan::gravitational_constant_<float>::G_type const
 quan::gravitational_constant_<float>::G
 = quan::gravitational_constant_<float>::G_type(6.6726F);
 #endif
+
+#endif
+
 

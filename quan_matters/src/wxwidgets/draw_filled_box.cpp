@@ -1,3 +1,5 @@
+
+#if ! defined __MBED__
 /*
 Copyright (c) 2003-2014 Andy Little.
 
@@ -69,3 +71,5 @@ void quan::gx::wxwidgets::graphics_context::draw_filled_box(
    m_pDC->SetPen(wxNullPen);
    m_pDC->SetBrush(wxNullBrush);
 }
+
+#endif

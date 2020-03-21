@@ -1,4 +1,7 @@
 
+
+ #if ! defined __MBED__
+
 #include <quan/malloc_free.hpp>
 
 
@@ -14,6 +17,9 @@ namespace quan{
     ::free(p);
   }
 }
+
+#endif
+
 
 
 

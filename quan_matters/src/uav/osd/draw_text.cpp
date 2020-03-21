@@ -1,4 +1,6 @@
 
+#if ! defined __MBED__
+
 #include <quan/uav/osd/api.hpp>
 
 // pos in transformed coords
@@ -19,4 +21,7 @@ void quan::uav::osd::draw_text(text_ptr str,  pxp_type const & pos_in, font_ptr 
       }
    }
 }
+
+#endif
+
 

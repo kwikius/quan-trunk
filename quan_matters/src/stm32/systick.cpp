@@ -1,3 +1,6 @@
+
+#if ! defined __MBED__
+
 /*
 Copyright (c) 2003-2014 Andy Little.
 
@@ -43,4 +46,6 @@ extern "C" void SysTick_Handler()
    }
 #endif
 }
+#endif
+
 

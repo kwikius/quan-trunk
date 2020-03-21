@@ -58,7 +58,7 @@ namespace quan {namespace stm32 {namespace flash {
    protected:
       symbol_table(){}
       virtual quan::stm32::flash::symtab_entry_t const * get_symbol_table()const =0;
-   private:
+public:
        // requires valid symbol_index -- not checked
       pfn_check_function get_check_function(int32_t symbol_index)const;
       uint32_t get_typeid_no_check(int32_t symbol_index)const
@@ -71,7 +71,7 @@ namespace quan {namespace stm32 {namespace flash {
       bool is_valid_symbol_index(int32_t symbol_index) const ;
       bool is_valid_symbol_name(const char* symbol_name) const;
       static bool flash_init();
-
+   private:
       static int32_t ll_flash_get_symtab_index (quan::stm32::flash::symbol_table const & symtab,const char* name);
       static bool ll_flash_write_symbol (quan::stm32::flash::symbol_table const & symtab,uint16_t symidx,  const uint8_t* buf,
                             int32_t write_page_num);                 

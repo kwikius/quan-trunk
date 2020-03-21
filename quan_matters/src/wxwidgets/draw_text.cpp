@@ -1,3 +1,5 @@
+
+#if ! defined __MBED__
 /*
 Copyright (c) 2003-2014 Andy Little.
 
@@ -30,3 +32,6 @@ void quan::gx::wxwidgets::graphics_context::draw_text(
       ,quan::arithmetic_convert<int>(pos.y)
    );
 }
+
+#endif
+

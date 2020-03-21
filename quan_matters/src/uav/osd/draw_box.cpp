@@ -1,4 +1,7 @@
 
+
+#if ! defined __MBED__
+
 #include <cmath>
 #include <cstdlib>
 #include <utility>
@@ -76,5 +79,8 @@ void quan::uav::osd::draw_box(
    }
 #endif
 }
+
+#endif
+
 
 

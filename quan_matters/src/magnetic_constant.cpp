@@ -17,7 +17,7 @@
 
 //
  
- 
+  #if ! defined __MBED__
  
 //
 // See libs/pqs for documentation.
@@ -44,3 +44,6 @@ quan::magnetic_constant_<float>::mu0_type const
 quan::magnetic_constant_<float>::mu0
 = quan::magnetic_constant_<float>::mu0_type(12.566370614f);
 #endif
+
+#endif
+

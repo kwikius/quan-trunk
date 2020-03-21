@@ -30,7 +30,7 @@ int main()
 {
    constexpr quan::angle::rad alpha = 1_rev;
 
-   if ( compare(alpha, quan::angle::two_pi, 0_rad) ==0){
+   if ( compare(alpha, quan::angle::two_pi, 0.0_rad) ==0){
       std::cout << "alpha == 2 * pi\n";
    }
    else {

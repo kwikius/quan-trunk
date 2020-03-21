@@ -1,4 +1,7 @@
 
+
+#if ! defined __MBED__
+
 #include <quan/uav/osd/api.hpp>
 
 /*
@@ -42,4 +45,7 @@ void  quan::uav::osd::draw_circle(int32_t radius,pxp_type const & centre, colour
      }
   }
 }
+
+#endif
+
 

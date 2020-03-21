@@ -15,6 +15,7 @@ Copyright (c) 2003-2014 Andy Little.
  along with this program. If not, see http://www.gnu.org/licenses.
 */
 
+#if ! defined __MBED__
 
 #include <quan/uav/frsky2wsp/protocol.hpp>
 #include <cstdio>
@@ -243,5 +244,8 @@ bool FrSky2WSP::basic_protocol::get_frame(unsigned char(& destbuf)[9])
       } // synced
    }// (continuous loop)
 }
+
+#endif
+
 
 

@@ -1,3 +1,5 @@
+
+ #if ! defined __MBED__
 /*
 Copyright (c) 2003-2014 Andy Little.
 
@@ -18,7 +20,15 @@ Copyright (c) 2003-2014 Andy Little.
 from https://mail.python.org/pipermail/python-list/2012-October/633871.html
 */
 
+#include <quan/config.hpp>
+
+#if defined QUAN_OS_LINUX
+
 #include <termios.h>
 #include <sys/ioctl.h>
 #include <quan/serial_port.hpp>
+#endif
+
+#endif
+
 

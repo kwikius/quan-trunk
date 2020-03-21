@@ -1,3 +1,5 @@
+
+#if ! defined __MBED__
 /*
 Copyright (c) 2003-2014 Andy Little.
 
@@ -159,6 +161,4 @@ bool graphics_context::clip_into (
       return false;
    }
 }
-
-
-
+#endif

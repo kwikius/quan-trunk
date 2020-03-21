@@ -1,3 +1,5 @@
+#if ! defined __MBED__
+
 namespace {
 quan::two_d::vect<int> vect_mm_to_px(quan::two_d::vect<quan::length::mm> const & in)
 {
@@ -12,3 +14,5 @@ quan::two_d::vect<int> vect_mm_to_px(quan::two_d::vect<quan::length::mm> const &
    return result;
 }
 }
+
+#endif

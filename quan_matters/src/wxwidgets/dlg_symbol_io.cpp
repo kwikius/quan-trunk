@@ -1,3 +1,5 @@
+
+#if ! defined __MBED__
 /*
 Copyright (c) 2003-2014 Andy Little.
 
@@ -325,5 +327,4 @@ template struct quan::gx::wxwidgets::dialog_symbol_io<quan::angle::deg>;
 template struct quan::gx::wxwidgets::dialog_symbol_io<quan::two_d::vect<double> >;
 template struct quan::gx::wxwidgets::dialog_symbol_io<quan::two_d::vect<quan::length::mm> >;
 
-
-
+#endif

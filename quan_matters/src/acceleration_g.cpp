@@ -18,7 +18,7 @@
 //
  
  
- 
+ #if ! defined __MBED__
 //
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
@@ -26,11 +26,8 @@
 #define QUAN_FIXED_QUANTITY_ACCELERATION_G_CPP_INCLUDED
 
 #include <quan/config.hpp>
-#if ! defined QUAN_MBED_ONLINE_COMPILER
+
 #include <quan/acceleration.hpp>
-
-
-
 
 namespace quan{
 // gravitational constant S.I units

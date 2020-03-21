@@ -18,7 +18,7 @@
  */
 //
  
- 
+ #if ! defined __MBED__
  
 //
 // See QUAN_ROOT/quan_matters/index.html for documentation.
@@ -84,4 +84,5 @@ namespace quan{ namespace gx{ namespace rgb{
 
 }}}
 
+#endif
 #endif

@@ -16,6 +16,10 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
+#if ! defined __MBED__
+
+#include <quan/config.hpp>
+
 #include <cstring>
 #include <cctype>
 #include <quan/user.hpp>
@@ -382,3 +386,6 @@ bool quan::stm32::flash::flash_menu()
    }
    return true;
 }
+
+#endif
+

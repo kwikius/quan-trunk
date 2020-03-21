@@ -1,3 +1,6 @@
+
+#include <quan/config.hpp>
+#if defined QUAN_OS_LINUX
 // Linux impl
 #include <termios.h>
 #include <cstdio>
@@ -34,3 +37,6 @@ namespace quan{
      return input;
    }
 }
+
+#endif
+

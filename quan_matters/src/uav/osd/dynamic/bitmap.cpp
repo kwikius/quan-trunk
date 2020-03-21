@@ -1,3 +1,6 @@
+
+#if ! defined __MBED__
+
 #include <wx/bitmap.h>
 #include <wx/rawbmp.h>
 
@@ -62,4 +65,6 @@ bool quan::uav::osd::dynamic::bitmap::set_pixel_colour (pos_type const & p, quan
    return true;
 }
 #endif
+#endif
+
  

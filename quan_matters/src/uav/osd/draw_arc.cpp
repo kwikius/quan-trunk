@@ -1,4 +1,7 @@
 
+
+#if ! defined __MBED__
+
 #include <quan/uav/osd/api.hpp>
 #include <quan/constrain.hpp>
 
@@ -431,3 +434,6 @@ void  quan::uav::osd::draw_arc(
       }
    }
 }
+
+#endif
+

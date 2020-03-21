@@ -1,3 +1,5 @@
+
+#if ! defined __MBED__
 // N.B. need alternative to stack
 // malloc a fixed size stack
 #include <quan/utility/rt_stack.hpp>
@@ -62,3 +64,6 @@ void quan::uav::osd::flood_fill(
      }
    }
 }
+
+#endif
+

@@ -15,6 +15,10 @@ Copyright (c) 2003-2014 Andy Little.
  along with this program. If not, see http://www.gnu.org/licenses.
 */
 
+#if ! defined __MBED__
+#include <quan/config.hpp>
+
+
 #include <quan/stm32/flash.hpp>
 #include <quan/stm32/detail/flash.hpp>
 #include <quan/stm32/flash/flash_error.hpp>
@@ -772,3 +776,6 @@ bool quan::stm32::flash::symbol_table::get_typeid(int32_t symbol_index, uint32_t
       return false;
     }
 }
+
+#endif
+

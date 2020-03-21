@@ -1,4 +1,6 @@
 
+#if ! defined __MBED__
+
 #include <iostream>
 #include <quan/uav/osd/detail/output_image.hpp>
 #include <quan/uav/osd/basic_bitmap.hpp>
@@ -41,3 +43,5 @@ void quan::uav::osd::detail::output_image (bitmap_ptr pic, std::ostream & out)
       out << "\n";
    }
 }
+#endif
+

@@ -14,6 +14,7 @@ Copyright (c) 2003-2014 Andy Little.
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses.
 */
+ #if ! defined __MBED__
 #include <quan/dynarray.hpp>
 
 template <typename T>
@@ -82,6 +83,9 @@ bool quan::dynarray<T>::realloc (size_t N, void (*pferror) ())
       return false;
    }
 }
+
+#endif
+
  
  
  

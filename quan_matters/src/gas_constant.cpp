@@ -17,7 +17,7 @@
 
 //
  
- 
+  #if ! defined __MBED__
  
 //
 // See QUAN_ROOT/quan_matters/index.html for documentation.
@@ -44,3 +44,6 @@ quan::gas_constant_<float>::R_type const
 quan::gas_constant_<float>::R
 = quan::gas_constant_<float>::R_type(8.3145f);
 #endif
+
+#endif
+

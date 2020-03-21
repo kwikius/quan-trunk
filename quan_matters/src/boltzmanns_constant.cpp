@@ -17,7 +17,7 @@
 
 //
  
- 
+  #if ! defined __MBED__
  
 //
 // See QUAN_ROOT/quan_matters/index.html for documentation.
@@ -44,5 +44,6 @@ quan::boltzmanns_constant_<float>::K_type const
 quan::boltzmanns_constant_<float>::K 
 = quan::boltzmanns_constant_<float>::K_type(1.380658f);
 
+#endif
 #endif
 

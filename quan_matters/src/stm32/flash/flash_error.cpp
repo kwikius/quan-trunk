@@ -16,6 +16,10 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
+#if ! defined __MBED__
+
+#include <quan/config.hpp>
+
 #include <quan/error.hpp>
 #include <quan/user.hpp>
 #include <quan/utility/fifo.hpp>
@@ -130,3 +134,6 @@ void main_alloc_failed()
 {
    quan::error (fn_main,quan::detail::out_of_heap_memory);
 }
+
+#endif
+

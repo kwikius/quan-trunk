@@ -1,4 +1,6 @@
 
+#if ! defined __MBED__
+
 #include <cassert>
 
 #include <quan/uav/osd/dynamic/display_device.hpp>
@@ -252,3 +254,5 @@ extern "C" QUAN_DLL_EXPORT void osd_on_draw( quan::uav::osd::dynamic::display_de
       quan::uav::osd::on_draw();
     }
 }
+
+#endif

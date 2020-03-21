@@ -1,3 +1,5 @@
+
+#if ! defined __MBED__
 /*
 Copyright (c) 2003-2014 Andy Little.
 
@@ -79,6 +81,9 @@ bool quan::stm32::flash::detail::read (uint8_t* buf,const volatile uint8_t * src
    memcpy (buf, (uint8_t const *) src,bytes);
    return true;
 }
+
+#endif
+
  
 
  

@@ -1,4 +1,5 @@
 
+#if ! defined __MBED__
 #include <quan/malloc_free.hpp>
 
 #if (defined QUAN_FREERTOS)
@@ -34,6 +35,7 @@ namespace quan{
   }
 }
 
+#endif
 #endif
 
 

@@ -117,6 +117,7 @@ void f_pqs()
 void calcs_comparison()
 {
     std::cout.precision(20);
+    
     std::cout << "\nA distinct unit for each type";
     std::cout << " is efficient and accurate when adding"
     " two values of the same very big or very small type:\n\n";

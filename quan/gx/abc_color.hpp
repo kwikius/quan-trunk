@@ -19,7 +19,9 @@
 
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
+#if ! defined __MBED__
 #include <quan/config.hpp>
+
 #include <quan/gx/rgb_color.hpp>
 #include <memory>
 
@@ -34,4 +36,5 @@ namespace quan{ namespace gx{
 
 }}
 
+#endif
 #endif

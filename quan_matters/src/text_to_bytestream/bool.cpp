@@ -1,4 +1,5 @@
 
+#if ! defined __MBED__
 
 #include <cstring>
 #include <quan/conversion/text_to_bytestream/bool.hpp>
@@ -41,3 +42,5 @@ bool quan::text_to_bytestream<bool>::apply(quan::dynarray<uint8_t>& dest, quan::
      *dest.get() = val;
      return true;
 }
+
+#endif

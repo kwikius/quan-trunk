@@ -16,6 +16,9 @@ Copyright (c) 2003-2014 Andy Little.
 */
 // flash routines for stm32f4
 
+#if ! defined __MBED__
+#include <quan/config.hpp>
+
 #include <stm32f4xx.h>
 #include <quan/stm32/detail/flash.hpp>
 #include <quan/error.hpp>
@@ -229,6 +232,9 @@ bool quan::stm32::flash::detail::read
    memcpy (buf, (uint8_t const *) src,bytes);
    return true;
 }
+
+#endif
+
  
 
 

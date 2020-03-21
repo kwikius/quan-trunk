@@ -1,3 +1,6 @@
+
+#if ! defined __MBED__
+
 /*
 Copyright (c) 2003-2014 Andy Little.
 
@@ -76,5 +79,7 @@ template struct quan::uav::frsky::create_msg<quan::uav::frsky::msgID::GPSLON,qua
 
 template struct quan::uav::frsky::create_msg<quan::uav::frsky::msgID::GPSALT,quan::length::mm,int32_t>;
 template struct quan::uav::frsky::create_msg<quan::uav::frsky::msgID::BAROALT,quan::length::mm,int32_t>;
+
+#endif
 
 

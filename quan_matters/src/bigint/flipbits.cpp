@@ -15,6 +15,7 @@ Copyright (c) 2003-2014 Andy Little.
  along with this program. If not, see http://www.gnu.org/licenses.
 */
 
+#if 0
 #include <quan/bigint.hpp>
 
 
@@ -22,4 +23,7 @@ void quan::bigint::flipbits()
 {
   m_rep.flipbits();
 }
+
+#endif
+
 

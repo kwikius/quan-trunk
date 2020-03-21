@@ -15,6 +15,7 @@ Copyright (c) 2003-2014 Andy Little.
  along with this program. If not, see http://www.gnu.org/licenses.
 */
 
+#if ! defined __MBED__
 
 #include <quan/gx/static_rgb_color.hpp>
 
@@ -27,3 +28,5 @@ std::shared_ptr<quan::gx::abc_color> quan::gx::rgb::colors::yellow { new  quan::
 std::shared_ptr<quan::gx::abc_color> quan::gx::rgb::colors::aqua {new  quan::gx::static_rgb_color<unsigned char,0,0xff,0xff>};
 std::shared_ptr<quan::gx::abc_color> quan::gx::rgb::colors::silver{ new   quan::gx::static_rgb_color<unsigned char,0xC0,0xC0,0xC0>};
 std::shared_ptr<quan::gx::abc_color> quan::gx::rgb::colors::gray { new  quan::gx::static_rgb_color<unsigned char,0x80,0x80,0x80> };
+
+#endif

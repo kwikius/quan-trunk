@@ -15,7 +15,7 @@
  along with this program. If not, see http://www.gnu.org/licenses./
 */
 
-
+ #if ! defined __MBED__
 
 #ifndef  QUAN_MATH_CONSTANT_LIB_SRC_CPP_INCLUDED
 #define  QUAN_MATH_CONSTANT_LIB_SRC_CPP_INCLUDED
@@ -68,3 +68,4 @@ float const  quan::constant_<float>::sqrt2
 #endif
 
 
+#endif

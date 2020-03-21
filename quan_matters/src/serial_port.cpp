@@ -15,6 +15,7 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
+ #if ! defined __MBED__
 
 #include <sys/ioctl.h>
 #include <termios.h>
@@ -333,8 +334,4 @@ int quan::serial_port::set_baud( uint32_t baudrate)
 
 }
 
-
-
-
-
-
+#endif

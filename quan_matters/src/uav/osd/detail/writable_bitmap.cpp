@@ -1,4 +1,6 @@
 
+#if ! defined __MBED__
+
 #include <iostream>
 #include <malloc.h>
 #include <cstring>
@@ -162,3 +164,5 @@ void  quan::uav::osd::detail::writable_bitmap::pixel_remap( uint8_t (*pfn_remap)
 
    return true;
 }
+
+#endif

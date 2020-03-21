@@ -1,3 +1,6 @@
+
+#if ! defined __MBED__
+
 #include <quan/uav/osd/api.hpp>
 #include <quan/min.hpp>
 #include <quan/max.hpp>
@@ -87,4 +90,7 @@ void quan::uav::osd::draw_horizontal_line(pxp_type from , uint32_t len, colour_t
       set_display_buffer(start_w32_offset,mask,colour);
    }
 }
+
+#endif
+
 

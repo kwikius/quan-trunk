@@ -53,11 +53,13 @@ namespace quan{
         {
             start_time = std::clock();
         }
+
         void restart() 
         {
             running = true;
             start_time = std::clock();
         }
+
         void stop() 
         {
             if (running){
