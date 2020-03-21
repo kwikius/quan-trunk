@@ -20,7 +20,7 @@ namespace quan{ namespace fun{
          >
       >::type
    >{
-    #if defined (__cpp_decltype_auto) &&  ( (__cpp_decltype_auto) >= 201304)
+    #if (defined (__cpp_decltype_auto)) &&  ( (__cpp_decltype_auto) >= 201304) && (! defined __MBED__ )
 
       constexpr auto operator()( M const & m)const
       {

@@ -42,8 +42,11 @@ namespace  {
 void fusion_inverse_matrix_test1()
 {
    std::cout << "fusion_inverse_matrix_test1()\n";
-
+#if defined __MBED__
+   auto const m = quan::fusion::make_matrix<4>
+#else
    auto constexpr m = quan::fusion::make_matrix<4>
+#endif
    (
        5.0, -2.0, 2.0, 7.0,
        1.0, 0.0, 0.0, 3.0,
@@ -69,7 +72,11 @@ void fusion_inverse_matrix_test1()
 
    display(identity_synth,"m * m_inverse (should be identity) :");
 
+#if defined __MBED__
+   auto const identity = quan::fusion::make_matrix<4>
+#else
    auto constexpr identity = quan::fusion::make_matrix<4>
+#endif
    (
        1, 0, 0, 0,
        0, 1, 0, 0,

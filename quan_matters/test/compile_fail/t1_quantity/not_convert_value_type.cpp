@@ -17,7 +17,7 @@
 
 //
  
- 
+#if ! defined __MBED__ 
  
 //
 // See QUAN_ROOT/quan_matters/index.html for documentation.
@@ -65,3 +65,6 @@ int main()
 /////////////////////////////
 //#################################
 }
+
+#endif
+

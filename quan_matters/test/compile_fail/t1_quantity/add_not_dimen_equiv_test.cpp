@@ -1,4 +1,6 @@
 
+
+#if ! defined __MBED__
 /*
  Copyright (c) 2003-2014 Andy Little.
 
@@ -40,3 +42,6 @@ int main()
     v + a;
 
 }
+
+#endif
+

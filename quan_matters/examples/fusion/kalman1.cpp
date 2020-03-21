@@ -39,7 +39,11 @@ int kalman1()
     quan::three_d::vect<quan::acceleration::m_per_s2> a{0.0_m_per_s2,0.1_m_per_s2,0_m_per_s2};
 
     auto constexpr dt = 1.0_s;
+#if defined __MBED__
+    auto const m1 = quan::fusion::make_matrix<3>
+#else
     auto constexpr m1 = quan::fusion::make_matrix<3>
+#endif
     (
        1.0                  ,      dt  ,  quan::pow<2>(dt)/2.0,
        0.0/dt               ,     1.0  ,                dt  ,

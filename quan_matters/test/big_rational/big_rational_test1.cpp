@@ -196,7 +196,10 @@ namespace quan{ namespace test{
 
    void big_rational_test1()
    {
+
+#if ! defined QUAN_NO_EXCEPTIONS 
       try{
+#endif
          typedef quan::big_rational rat;
          rat v1("2","4");
        //  std::cout << v1.nume().to_string() << "\n";
@@ -228,10 +231,12 @@ namespace quan{ namespace test{
          minus_test();
          mul_test();
          div_test();
+#if ! defined QUAN_NO_EXCEPTIONS 
       }
       catch (std::exception & e){
          std::cout << e.what() <<'\n';
       }
+#endif
    }
 
 }}

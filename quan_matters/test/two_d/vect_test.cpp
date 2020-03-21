@@ -28,12 +28,17 @@
 #include <quan/area.hpp>
 #include <quan/fixed_quantity/literal.hpp>
 
-void vect_test1();
-void vect_t1_quantity_test1();
-void vect_test3();
-void vect_valid_binary_op_test();
-void complex_test1();
-void complex_test2();
+
+   void complex_test1();
+   void complex_test2();
+
+namespace {
+   void vect_test1();
+   void vect_t1_quantity_test1();
+   void vect_test3();
+   void vect_valid_binary_op_test();
+
+}
 
 int errors = 0;
 int main()
@@ -52,7 +57,7 @@ namespace {
 
    QUAN_QUANTITY_LITERAL(length,mm) 
    QUAN_QUANTITY_LITERAL(length,m) 
-}
+
 
 void vect_test3()
 {
@@ -224,6 +229,8 @@ void  vect_valid_binary_op_test()
     QUAN_CHECK( (quan::meta::is_valid_binary_op<vect_d, quan::meta::greater_equal,vect_d>::value ==false))
 
 }
+
+} // namepace
 
  
 

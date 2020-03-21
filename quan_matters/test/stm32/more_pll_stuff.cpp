@@ -1,4 +1,5 @@
 
+#if ! defined __MBED__
 #define QUAN_STM32F4
 //#define QUAN_STM32_SYSCLK_Hz 168000000
 #define QUAN_STM32_SYSCLK_Hz 72000000
@@ -71,3 +72,5 @@ int main()
    
    EPILOGUE
 }
+
+#endif

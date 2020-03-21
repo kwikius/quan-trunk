@@ -5,7 +5,11 @@
 
 void adjunct_matrix_test1()
 {
+#if defined __MBED__
+   auto const m = quan::fusion::make_matrix<2>
+#else
    auto constexpr m = quan::fusion::make_matrix<2>
+#endif
    (
       1.0,2.0,
       3.0, 4.0

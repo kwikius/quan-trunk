@@ -17,7 +17,7 @@
 
 //
  
- 
+ #if ! defined __MBED__
  
 //
 // See QUAN_ROOT/quan_matters/index.html for documentation.
@@ -44,5 +44,5 @@ int main()
     check dimensionally_invalid calcs fail
     example from rationale section in documentation
 */
-
+#endif
 

@@ -11,6 +11,12 @@
 #include <quan/fixed_quantity/literal.hpp>
 #include <quan/fusion/static_value/out/static_value.hpp>
 
+   #if defined __MBED__ 
+      #define  QUAN_X_CONSTEXPR const
+   #else
+      #define  QUAN_X_CONSTEXPR constexpr
+   #endif
+
 namespace {
 
    template <int64_t N, int64_t D = 1>
@@ -38,14 +44,14 @@ namespace {
    using static_float = quan::fusion::static_value< double,quan::meta::rational<N,D> >;
 
    template <typename T>
-   constexpr bool is_static_value = quan::fusion::is_static_value<T>::value;
+   QUAN_X_CONSTEXPR bool is_static_value = quan::fusion::is_static_value<T>::value;
 
 } // namespace
 
  void qty_matrix_test()
  {
 
-      auto constexpr m = quan::fusion::make_matrix<4>
+      auto QUAN_X_CONSTEXPR m = quan::fusion::make_matrix<4>
       (
          static_float<1>{}, static_float<2>{}, static_float<3>{}, static_float<0>{},
          static_float<2>{}, static_float<2>{}, static_float<3>{}, static_float<0>{},
@@ -53,32 +59,32 @@ namespace {
          static_float<1>{}, static_float<2>{}, static_float<1>{}, static_float<1>{}
       );
 
-      constexpr auto v = quan::fusion::determinant(m);
+      QUAN_X_CONSTEXPR auto v = quan::fusion::determinant(m);
 
       QUAN_CHECK(is_static_value<decltype(v)>)
       QUAN_CHECK(quan::fusion::to_runtime{}(v) == 1)
 
-      auto constexpr m1 = quan::fusion::make_matrix<2>
+      auto QUAN_X_CONSTEXPR m1 = quan::fusion::make_matrix<2>
       (  
           static_per_mm<2>{}, static_mm<0>{},
           static_per_mm<0>{}, static_mm<2>{}
       );
 
-      constexpr auto v1 = quan::fusion::determinant(m1);
+      QUAN_X_CONSTEXPR auto v1 = quan::fusion::determinant(m1);
       QUAN_CHECK(is_static_value<decltype(v1)>)
       QUAN_CHECK(quan::fusion::to_runtime{}(v1) == 4.f)
  }
 
  void test_sub_matrix_of_m3()
  {
-      auto constexpr m = quan::fusion::make_matrix<3>
+      auto QUAN_X_CONSTEXPR m = quan::fusion::make_matrix<3>
       ( 
          static_float<56>{},  static_float<90>{},  static_float<72>{},
          static_float<2>{},   static_float<4>{},   static_float<7>{},
          static_float<-3>{},   static_float<1>{},   static_float<5>{}
       );
 
-      constexpr auto v = quan::fusion::determinant(m);
+      QUAN_X_CONSTEXPR auto v = quan::fusion::determinant(m);
 
       QUAN_CHECK(is_static_value<decltype(v)>)
       QUAN_CHECK(quan::fusion::to_runtime{}(v) == -1054)

@@ -1,4 +1,6 @@
 
+
+#if ! defined __MBED__
 #include <quan/serial_port.hpp>
 #include <iostream>
 
@@ -20,3 +22,4 @@ int main()
   std::cout << "done\n";
    
 }
+#endif

@@ -17,7 +17,7 @@
 
 //
  
- 
+ #if ! defined __MBED__
  
 //
 // See QUAN_ROOT/quan_matters/index.html for documentation.
@@ -34,3 +34,6 @@ int main()
     quan::voltage::uV     v(1);
     v -= 1.;
 }
+
+#endif
+

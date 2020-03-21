@@ -298,7 +298,7 @@ namespace quan{ namespace meta{ namespace detail{
   
    template <typename DL, typename DR> 
    struct are_not_equal_dimensions : quan::meta::not_< are_equal_dimensions<DL,DR> >{};
-       
+
 }}} // quan::meta::detail
 
 #endif // QUAN_META_CUSTOM_DIMENSION_HPP_INCLUDED

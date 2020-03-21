@@ -26,13 +26,11 @@ CXXFLAGS    += -fno-rtti -DQUAN_NO_RTTI
 endif
 
 MEMBER_FILES = abs anonymous_cast compare construction assignment conversion \
- dim_checks dimless_divide dimless_multiply divide divide_assignment incoh_corner_case \
- io_test minus minus_assignment multiply multiply_assignment plus plus_assignment \
+ converting_assignment converting_constructor default_assignment \
+ dim_checks dimless_divide dimless_multiply divide divide_assignment fixed_quantity_concepts incoh_corner_case \
+ io_test minus minus_assignment multiply multiply_assignment not numeric_value_access plus plus_assignment \
  post_decrement post_increment pow pre_decrement pre_increment scalar_divide \
- scalar_multiply test_units_data test_units_data1 unary_minus unary_plus \
- fixed_quantity_concepts
-
-# udt_value_type 
+ scalar_multiply test_units_data test_units_data1 unary_minus unary_plus value_initialiser \
 
 SRCS =    $(patsubst %,%.cpp,$(MEMBER_FILES)) test.cpp
 

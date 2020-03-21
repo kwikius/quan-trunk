@@ -82,10 +82,7 @@ namespace quan{ namespace detail{
 				return num_type::UNKNOWN;
           }
 			 int sign = 1;
-#ifndef QUAN_AVR_NO_CPP_STDLIB
-      using std::size_t;
-#endif
-			 size_t pos = 0;
+          int pos = 0;
 			// float result = 0;
           while(isspace(str[pos])){
             ++pos;

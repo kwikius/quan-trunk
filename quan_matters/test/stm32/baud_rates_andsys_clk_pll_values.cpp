@@ -16,6 +16,7 @@ Copyright (c) 2003-2014 Andy Little.
 */
 //
 
+#if ! defined __MBED__
 #include <iostream>
 
 #define QUAN_STM32F4
@@ -87,4 +88,5 @@ int main()
 }
 
 #endif
- 
+#endif
+

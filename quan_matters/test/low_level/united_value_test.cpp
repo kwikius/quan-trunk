@@ -27,7 +27,10 @@
 #include <quan_matters/test/test.hpp>
 #include <quan/length.hpp>
 #include <quan/meta/min_type.hpp>
+#include <quan/config.hpp>
+#if ! defined QUAN_NO_RTTI
 #include <typeinfo>
+#endif
 
 namespace {
 
@@ -175,6 +178,7 @@ namespace{
        QUAN_CHECK(( func0::eval<int,int>()(-2,1) == -2.0f));
        QUAN_CHECK(( func0::eval<int,int>()(1000,2) == 500.0));
        QUAN_CHECK(( func0::eval<int,int>()(1000,-2) == -500.0));
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK( (typeid(func0::eval<int,int>()(1,1)) == typeid(quan::meta::min_default_value_type<int>::type)) );
        QUAN_CHECK( (typeid(func0::eval<unsigned int,unsigned int>()(1,1)) == typeid(quan::meta::min_default_value_type<unsigned int>::type)) );
        QUAN_CHECK( (typeid(func0::eval<long,long>()(1,1)) == typeid(quan::meta::min_default_value_type<long>::type)) );
@@ -186,10 +190,11 @@ namespace{
        QUAN_CHECK( (typeid(func0::eval<double,double>()(1,1)) == typeid(double)) );
        QUAN_CHECK( (typeid(func0::eval<double,float>()(1,1)) == typeid(double)) );
        QUAN_CHECK( (typeid(func0::eval<long double,int>()(1,1)) == typeid(long double)) );
+#endif
 
        //constant resolves to 2.54
        typedef quan::detail::dimensioned_divide<
-           quan::meta::get_conversion_factor<quan::length::in::unit>::multiplier,
+           quan::meta::get_conversion_factor<quan::length::in::unit>::type::multiplier::type,
            si_unit::none::multiplier
        > func1;
 
@@ -204,6 +209,7 @@ namespace{
        QUAN_CHECK_CLOSE( (func1::eval<float,float>()(3,-6) ) , -2.54f / 2, 1e-12f);
        QUAN_CHECK_CLOSE( (func1::eval<double,double>()(-200,100) ) , -2 * 2.54, 1e-12);
        QUAN_CHECK_CLOSE( (func1::eval<double,double>()(200,-100) ) , 2 * -2.54, 1e-12);
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK( (typeid(func1::eval<int,int>()(1,1)) ==typeid(quan::meta::min_default_value_type<int>::type)) );
        QUAN_CHECK( (typeid(func1::eval<float,int>()(1,1)) ==typeid(quan::meta::min_default_value_type<int>::type)) );
        QUAN_CHECK( (typeid(func1::eval<double,int>()(1,1)) ==typeid(double)) );
@@ -219,11 +225,11 @@ namespace{
        QUAN_CHECK( (typeid(func1::eval<double,float>()(1,1)) ==typeid(double)) );
        QUAN_CHECK( (typeid(func1::eval<double,long double>()(1,1)) ==typeid(long double)) );
        QUAN_CHECK( (typeid(func1::eval<long double,double>()(1,1)) ==typeid(long double)) );
-
+#endif
        //constant resolves to 1/2.54
        typedef quan::detail::dimensioned_divide<
             si_unit::none::multiplier,
-           quan::meta::get_conversion_factor<quan::length::in::unit>::multiplier
+           quan::meta::get_conversion_factor<quan::length::in::unit>::type::multiplier::type
        > func1r;
 
        QUAN_CHECK_CLOSE( (func1r::eval<float,float>()(1,1) ) , 1/2.54F, 1e-12F);
@@ -232,6 +238,7 @@ namespace{
        QUAN_CHECK_CLOSE( (func1r::eval<float,float>()(3,-6) ) , 1/(-2.54F * 2), 1e-12F);
        QUAN_CHECK_CLOSE( (func1r::eval<double,double>()(-200,100) ) , -2 * 1/2.54, 1e-12);
        QUAN_CHECK_CLOSE( (func1r::eval<double,double>()(200,-100) ) , 2 * 1/-2.54, 1e-12);
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK( (typeid(func1r::eval<int,int>()(1,1)) ==typeid(quan::meta::min_default_value_type<int>::type)) );
        QUAN_CHECK( (typeid(func1r::eval<float,int>()(1,1)) ==typeid(quan::meta::min_default_value_type<int>::type)) );
        QUAN_CHECK( (typeid(func1r::eval<double,int>()(1,1)) ==typeid(double)) );
@@ -247,11 +254,11 @@ namespace{
        QUAN_CHECK( (typeid(func1r::eval<double,float>()(1,1)) ==typeid(double)) );
        QUAN_CHECK( (typeid(func1r::eval<double,long double>()(1,1)) ==typeid(long double)) );
        QUAN_CHECK( (typeid(func1r::eval<long double,double>()(1,1)) ==typeid(long double)) );
-
+#endif
        //constant resolves to 1
        typedef quan::detail::dimensioned_divide<
-          quan::meta::get_conversion_factor<quan::length::ft::unit>::multiplier,
-          quan::meta::get_conversion_factor<quan::length::ft::unit>::multiplier
+          quan::meta::get_conversion_factor<quan::length::ft::unit>::type::multiplier::type,
+          quan::meta::get_conversion_factor<quan::length::ft::unit>::type::multiplier::type
        > func2;
        QUAN_CHECK(( func2::eval<int,int>()(1,1) == 1));
        QUAN_CHECK(( func2::eval<int,int>()(1,2) == 0.5f));
@@ -259,6 +266,7 @@ namespace{
        QUAN_CHECK(( func2::eval<int,int>()(-2,1) ==-2));
        QUAN_CHECK(( func2::eval<int,int>()(1000,2) == 500));
        QUAN_CHECK(( func2::eval<int,int>()(1000,-2) == -500));
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK( (typeid(func2::eval<int,int>()(1,1)) ==typeid(quan::meta::min_default_value_type<int>::type)) );
        QUAN_CHECK( (typeid(func2::eval<unsigned int,unsigned int>()(1,1)) ==typeid(quan::meta::min_default_value_type<unsigned int>::type)) );
        QUAN_CHECK( (typeid(func2::eval<long,long>()(1,1)) ==typeid(quan::meta::min_default_value_type<long>::type)) );
@@ -270,11 +278,11 @@ namespace{
        QUAN_CHECK( (typeid(func2::eval<double,double>()(1,1)) ==typeid(double)) );
        QUAN_CHECK( (typeid(func2::eval<double,float>()(1,1)) ==typeid(double)) );
        QUAN_CHECK( (typeid(func2::eval<long double,int>()(1,1)) ==typeid(long double)) );
-     
+ #endif
        // uses runtime constant division (usually resolved to a constant by the compiler)
        typedef quan::detail::dimensioned_divide<
-          quan::meta::get_conversion_factor<quan::length::pica_comp::unit>::multiplier::type,
-          quan::meta::get_conversion_factor<quan::length::ft_us::unit>::multiplier::type
+          quan::meta::get_conversion_factor<quan::length::pica_comp::unit>::type::multiplier::type,
+          quan::meta::get_conversion_factor<quan::length::ft_us::unit>::type::multiplier::type
        > func3;
        float const constf = 4233333.F/3048006.F;
        typedef quan::quantity_traits::default_value_type real;
@@ -289,6 +297,7 @@ namespace{
            (static_cast<real>(1001)/2 ) * constd );
        QUAN_CHECK_EQUAL(( func3::eval<int,int>()(1000,-2)), 
            (static_cast<real>(1000)/-2) * constd);
+#if ! defined QUAN_NO_RTTI
        QUAN_CHECK( (typeid(func3::eval<int,int>()(1,1)) ==typeid(real)) );
        QUAN_CHECK( (typeid(func3::eval<unsigned int,unsigned int>()(1,1)) ==typeid(real)) );
        QUAN_CHECK( (typeid(func3::eval<long,long>()(1,1)) ==typeid(real)) );
@@ -300,7 +309,7 @@ namespace{
        QUAN_CHECK( (typeid(func3::eval<double,double>()(1,1)) ==typeid(double)) );
        QUAN_CHECK( (typeid(func3::eval<double,float>()(1,1)) ==typeid(double)) );
        QUAN_CHECK( (typeid(func3::eval<long double,int>()(1,1)) ==typeid(long double)) );
-
+#endif
    }
    void uv_dimensionless_multiply_test()
    {

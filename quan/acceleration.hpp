@@ -454,7 +454,7 @@ namespace quan{
             Value_type
         > in_per_s2;
 
-        static constexpr m_per_s2 g{Value_type{9.80665}};
+        static constexpr m_per_s2 g{static_cast<Value_type>(9.80665)};
 
     };
 

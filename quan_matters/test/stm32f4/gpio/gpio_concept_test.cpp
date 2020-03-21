@@ -14,7 +14,7 @@ Copyright (c) 2003-2014 Andy Little.
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses.
 */
-
+#if ! defined __MBED__
 
 //!-!-!start
 #include <quan/stm32f4/gpio.hpp>
@@ -29,3 +29,5 @@ int main()
    EPILOGUE
 }
 //!-!-!end
+
+#endif

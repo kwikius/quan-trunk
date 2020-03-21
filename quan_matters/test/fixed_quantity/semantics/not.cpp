@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2003-2014 Andy Little.
+Copyright (c) 2003-2014 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -12,27 +12,27 @@
  GNU General Public License for more details.
 
  You should have received a copy of the GNU General Public License
- along with this program. If not, see http://www.gnu.org/licenses./
+ along with this program. If not, see http://www.gnu.org/licenses.
 */
 
-//
- 
- #if ! defined __MBED__
- 
-//
-// See QUAN_ROOT/quan_matters/index.html for documentation.
 
-#include <quan/velocity.hpp>
+#include <quan_matters/test/test.hpp>
+#include <quan/length.hpp>
 
-/*
-    should fail to compile
-*/
-
-int main()
+void not_test()
 {
-    quan::velocity::m_per_s      v(1);
-    v += 20;
+   quan::length::mm var1;
+
+   QUAN_CHECK( !var1 );
+
+   quan::length::ft var2(0);
+   QUAN_CHECK( !var2 );
+
+   QUAN_CHECK( !!var2 ==false );
+
+   quan::length::mi var3(1.5);
+
+   QUAN_CHECK( !var3 ==false );
+   QUAN_CHECK( !!var3 );
+   
 }
-
-#endif
-

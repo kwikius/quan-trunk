@@ -17,7 +17,7 @@
 
 //
  
- 
+ #if ! defined __MBED__
  
 //
 // See QUAN_ROOT/quan_matters/index.html for documentation.
@@ -31,3 +31,5 @@ int main()
     quan::area::ft2 A(1);
     A *= quan::area::ft2(1); 
 }
+
+#endif

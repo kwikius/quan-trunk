@@ -17,7 +17,7 @@
 
 //
  
-  #if ! defined __MBED__
+
  
 //
 // See QUAN_ROOT/quan_matters/index.html for documentation.
@@ -26,8 +26,10 @@
 /*
     boltzmanns constant definition
 */
-
+#include <quan/config.hpp>
 #include <quan/constants/boltzmanns_constant.hpp>
+
+#if ! defined __MBED__
 #ifndef QUAN_DEFINE_PHYSICAL_CONSTANTS_IN_HEADERS
 template<>
 quan::boltzmanns_constant_<double>::K_type const

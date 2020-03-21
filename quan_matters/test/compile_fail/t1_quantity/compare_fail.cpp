@@ -17,7 +17,7 @@
 
 //
  
- 
+ #if ! defined __MBED__
  
 //
 // See QUAN_ROOT/quan_matters/index.html for documentation.
@@ -44,3 +44,5 @@ int main()
     //Error: couldnt find compare
     compare(f1,e);
 }
+#endif
+

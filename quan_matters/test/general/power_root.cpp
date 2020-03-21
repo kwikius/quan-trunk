@@ -1,5 +1,6 @@
 
 
+#if ! defined __MBED__
 #include <quan/math/root.hpp>
 
 #include <iostream>
@@ -25,3 +26,6 @@ int main()
    show_root<3>(1000.f);
 
 }
+
+#endif
+

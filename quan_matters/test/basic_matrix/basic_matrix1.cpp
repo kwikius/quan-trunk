@@ -5,7 +5,11 @@
 int errors =0;
 int main()
 {
+#if defined __MBED__
+   auto const m1 = quan::basic_matrix<2,3>
+#else
    auto constexpr m1 = quan::basic_matrix<2,3>
+#endif
    {
      2, 5, 4,
      6, 7, 7
@@ -17,8 +21,12 @@ int main()
    auto s1 = quan::make_sub_matrix_view(m1,0,0);
 
    display(s1, "\nsubmatrix 0,0 ");
-
+   
+#if defined __MBED__
+    auto const m2 = quan::basic_matrix<3,2>
+#else
    auto constexpr m2 = quan::basic_matrix<3,2>
+#endif
    {
       2, 2,
       3, 3,
@@ -39,7 +47,11 @@ int main()
    
    display( m4 - m4, "\nm4 - m4");
 
+#if defined __MBED__
+   auto const m5 = quan::basic_matrix<2,2>
+#else
    auto constexpr m5 = quan::basic_matrix<2,2>
+#endif
    {
       1,2,
       3,4

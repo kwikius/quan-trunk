@@ -16,10 +16,6 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
 */
--2006
-//
- 
- 
  
 //
 // See QUAN_ROOT/quan_matters/index.html for documentation.
@@ -28,7 +24,7 @@
     Check that following define (in <quan/config.hpp>
     prevents cross unit conversions
 */
-
+#if ! defined __MBED__
 #define QUAN_DISALLOW_IMPLICIT_UNIT_CONVERSIONS
 #include <quan/length.hpp>
 
@@ -41,4 +37,7 @@ int main()
 // ###########Should fail here ###########
 
 }
+
+#endif
+
 

@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2003-2014 Andy Little.
+ Copyright (c) 2003-2014 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -12,24 +12,21 @@ Copyright (c) 2003-2014 Andy Little.
  GNU General Public License for more details.
 
  You should have received a copy of the GNU General Public License
- along with this program. If not, see http://www.gnu.org/licenses.
+ along with this program. If not, see http://www.gnu.org/licenses./
 */
 
-/*
-   fixed_quantity semantics tests
-*/
 
-#include <quan_matters/test/fixed_quantity/test.hpp>
+// See QUAN_ROOT/quan_matters/index.html for documentation.
 
-int errors =0;
+#include <quan_matters/test/test.hpp>
+#include <quan/mass.hpp>
 
-int main()
+void default_assignment_test()
 {
-   default_constructor();
+   quan::mass::lb mass1;
+   quan::mass::lb mass2(100.5);
+   mass1 = mass2;
 
-   value_init();
-   down_cast_value_init();
-   out_of_range_value_init();
+   QUAN_CHECK(mass1.numeric_value() == mass2.numeric_value());
 
-   EPILOGUE
 }

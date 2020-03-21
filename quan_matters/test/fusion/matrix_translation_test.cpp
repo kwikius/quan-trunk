@@ -19,15 +19,21 @@ namespace {
    typedef quan::three_d::vect<mm> vect;
 }
 
+   #if defined __MBED__ 
+      #define  QUAN_X_CONSTEXPR const
+   #else
+      #define  QUAN_X_CONSTEXPR constexpr
+   #endif
+
 void matrix_translation_test()
 {
-   auto constexpr v1 = quan::fusion::make_row_matrix(vect{mm{1},mm{2},mm{3}});
+   auto QUAN_X_CONSTEXPR v1 = quan::fusion::make_row_matrix(vect{mm{1},mm{2},mm{3}});
    QUAN_CHECK(quan::fusion::num_rows<decltype(v1)> == 1);
    QUAN_CHECK(quan::fusion::num_columns<decltype(v1)> == 4);
 
    display(v1,"v1 = ");
 
-   auto constexpr v2 = quan::fusion::make_translation_matrix(vect{mm{10},mm{20},mm{30}});
+   auto QUAN_X_CONSTEXPR v2 = quan::fusion::make_translation_matrix(vect{mm{10},mm{20},mm{30}});
    QUAN_CHECK(quan::fusion::num_rows<decltype(v2)> == 4);
    QUAN_CHECK(quan::fusion::num_columns<decltype(v2)> == 4);
 

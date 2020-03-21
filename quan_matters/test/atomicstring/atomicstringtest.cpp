@@ -17,7 +17,7 @@ Copyright (c) 2003-2014 Andy Little.
 
 /*  atomicstring test */
 
-#include <quan/gc.hpp>
+//#include <quan/gc.hpp>
 #include <quan/atomicstring.hpp>
 #include <quan_matters/test/simple_test.hpp>
 #include <iostream>
@@ -27,7 +27,7 @@ int errors = 0;
 
 int main()
 {
-   quan::gc_init();
+   //quan::gc_init();
    typedef quan::atomicstring<char> atom_str;
 
    // try to avoid string concatting by gcc

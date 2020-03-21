@@ -25,10 +25,13 @@
 #include <quan/three_d/vect.hpp>
 #include <quan/length.hpp>
 
-void vect_test1();
-void vect_t1_quantity_test1();
-void vect_valid_binary_op_test();
-void quat_test();
+   void quat_test();
+namespace {
+   void vect_test1();
+   void vect_t1_quantity_test1();
+   void vect_valid_binary_op_test();
+
+}
 
 int errors = 0;
 int main()
@@ -42,6 +45,7 @@ int main()
    EPILOGUE
 }
 
+namespace {
 void  vect_valid_binary_op_test()
 {
     typedef quan::three_d::vect<double> vect_d;
@@ -192,3 +196,4 @@ void vect_t1_quantity_test1()
     QUAN_CHECK(v6.z.numeric_value() == 6.); 
 }
 
+} // namespace

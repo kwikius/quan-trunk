@@ -17,7 +17,7 @@
  along with this program. If not, see http://www.gnu.org/licenses./
 */
 
-
+#if ! defined __MBED__
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 /*
     Static Unit Concept check
@@ -46,5 +46,7 @@ int main()
    EPILOGUE
 }
 #endif
+#endif
+
 
 

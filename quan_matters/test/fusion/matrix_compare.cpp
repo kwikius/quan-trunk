@@ -4,9 +4,15 @@
 
 namespace {
 
+   #if defined __MBED__ 
+      #define  QUAN_X_CONSTEXPR const
+   #else
+      #define  QUAN_X_CONSTEXPR constexpr
+   #endif
+
    void fusion_compare_equal_seq()
    {
-      auto constexpr m1 = quan::fusion::make_matrix<4>
+      auto QUAN_X_CONSTEXPR m1 = quan::fusion::make_matrix<4>
       (
          1.0 ,2.0 ,3.0 ,4.0 ,
          1.0 ,2.0 ,3.0 ,4.0 ,
@@ -14,7 +20,7 @@ namespace {
          1.0 ,2.0 ,3.0 ,4.0
       );
 
-      auto constexpr m2 = quan::fusion::make_matrix<4>
+      auto QUAN_X_CONSTEXPR m2 = quan::fusion::make_matrix<4>
       (
          1,0,0,0,
          0,1,0,0,
@@ -22,7 +28,7 @@ namespace {
          0,0,0,2
       );
 
-      auto constexpr m3 = quan::fusion::make_matrix<4>
+      auto QUAN_X_CONSTEXPR m3 = quan::fusion::make_matrix<4>
       (
          1,2,3,4,
          1,2,3,4,
@@ -38,7 +44,7 @@ namespace {
 
    void fusion_compare_not_equal_seq()
    {
-      auto constexpr m1 = quan::fusion::make_matrix<4>
+      auto QUAN_X_CONSTEXPR m1 = quan::fusion::make_matrix<4>
       (
          1.0 ,2.0 ,3.0 ,4.0 ,
          1.0 ,2.0 ,3.0 ,4.0 ,
@@ -46,7 +52,7 @@ namespace {
          1.0 ,2.0 ,3.0 ,4.0
       );
 
-      auto constexpr m2 = quan::fusion::make_matrix<4>
+      auto QUAN_X_CONSTEXPR m2 = quan::fusion::make_matrix<4>
       (
          1,0,0,0,
          0,1,0,0,
@@ -54,7 +60,7 @@ namespace {
          0,0,0,2
       );
 
-      auto constexpr m3 = quan::fusion::make_matrix<4>
+      auto QUAN_X_CONSTEXPR m3 = quan::fusion::make_matrix<4>
       (
          1,2,3,4,
          1,2,3,4,
@@ -70,7 +76,7 @@ namespace {
 
    void binary_op_test()
    {
-      auto constexpr m1 = quan::fusion::make_matrix<4>
+      auto QUAN_X_CONSTEXPR m1 = quan::fusion::make_matrix<4>
       (
          1.0 ,2.0 ,3.0 ,4.0 ,
          1.0 ,2.0 ,3.0 ,4.0 ,
@@ -78,7 +84,7 @@ namespace {
          1.0 ,2.0 ,3.0 ,4.0
       );
 
-      auto constexpr m2 = quan::fusion::make_matrix<4>
+      auto QUAN_X_CONSTEXPR m2 = quan::fusion::make_matrix<4>
       (
          1,0,0,0,
          0,1,0,0,

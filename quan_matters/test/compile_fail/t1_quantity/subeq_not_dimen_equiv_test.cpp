@@ -17,7 +17,7 @@
 
 //
  
- 
+ #if ! defined __MBED__
  
 //
 // See QUAN_ROOT/quan_matters/index.html for documentation.
@@ -36,3 +36,6 @@ int main()
     quan::resistance::kR  r(2); 
     v -= r;
 }
+
+#endif
+

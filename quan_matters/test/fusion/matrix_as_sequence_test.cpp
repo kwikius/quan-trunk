@@ -11,7 +11,11 @@
 
 void matrix_as_sequence_test()
 {
+#if defined __MBED__
+   auto const m2 = quan::fusion::make_matrix<4>
+#else
    auto constexpr m2 = quan::fusion::make_matrix<4>
+#endif
    (
       1,0,0,0,
       0,1,0,0,

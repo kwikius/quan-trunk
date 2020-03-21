@@ -1,4 +1,5 @@
 
+#if ! defined __MBED__
 #define QUAN_STM32F4
 //#define QUAN_STM32_SYSCLK_Hz 168000000
 #define QUAN_STM32_SYSCLK_Hz 84000000
@@ -35,3 +36,4 @@ int main()
   std::cout << "apb1_divisor = " << get_apb1_divider() <<'\n';
   std::cout << "apb2_divisor = " << get_apb2_divider() <<'\n';
 }
+#endif
