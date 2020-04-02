@@ -1,10 +1,8 @@
 #ifndef QUAN_STD_TR1_IMPL_DETAIL_IS_INTEGRAL_IMPL_HPP_INCLUDED
 #define QUAN_STD_TR1_IMPL_DETAIL_IS_INTEGRAL_IMPL_HPP_INCLUDED
 
-// Copyright Andrew Little 2006
-
 /*
- Copyright (c) 2005 - 2013 Andy Little 
+ Copyright (c) 2005 - 2020 Andy Little 
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by

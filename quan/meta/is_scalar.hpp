@@ -26,18 +26,24 @@
 */
 
 #include <quan/config.hpp>
-#ifndef QUAN_AVR_NO_CPP_STDLIB
+#if ! defined QUAN_USE_QUAN_STD_TR1
 #include <type_traits>
 #else
-#include <quan/std/tr1/is_arithmetic.hpp>
-#include <quan/std/tr1/remove_const.hpp>
-#include <quan/std/tr1/remove_reference.hpp>
+   #include <quan/std/tr1/is_arithmetic.hpp>
+   #include <quan/std/tr1/remove_const.hpp>
+   #include <quan/std/tr1/remove_reference.hpp>
+
+namespace std{
+   template <typename T> struct is_arithmetic;
+}
 #endif
+
 namespace quan{ namespace meta{
 
     namespace impl{
+
         template <typename T>
-        struct is_scalar_impl : std::is_arithmetic<T>{};
+        struct is_scalar_impl : std::is_arithmetic<T> {};
     };
 
     template <typename T>

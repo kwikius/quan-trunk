@@ -2,7 +2,7 @@
 #define QUAN_META_CUSTOM_DIMENSION_COMPAT_HPP_INCLUDED
 
 /*
- Copyright (c) 2003-2019 Andy Little.
+ Copyright (c) 2003-2020 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -19,6 +19,8 @@
  */
 
 #include <quan/meta/custom_dimension/dimension.hpp>
+
+//TODO Replace with std::ratio
 #include <quan/meta/rational.hpp>
 
 namespace quan{ namespace  meta{
@@ -115,6 +117,7 @@ namespace quan{ namespace  meta{
       reciprocal, D, typename quan::where_< quan::meta::is_dimension<D> >::type
   > : quan::meta::detail::negate_dimension<D>{};
 
+//TODO Replace quan::meta::rational with std::ratio
    #define QUAN_META_GET_DIMENSION(base_dim) template <typename D> \
    struct get_ ## base_dim ## _dimension< \
       D,typename quan::where_< quan::meta::is_dimension<D> >::type \

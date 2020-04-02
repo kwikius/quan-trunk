@@ -27,6 +27,9 @@
 */
 
 #include <quan/config.hpp>
+#if defined QUAN_USE_QUAN_STD_TR1
+#include <quan/std/tr1/is_base_of.hpp>
+#endif
 #include <quan/meta/unit_fwd.hpp>
 #include <quan/archetypes/meta/static_unit_concept.hpp>
 #include <quan/meta/binary_op.hpp>

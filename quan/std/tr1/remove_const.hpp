@@ -19,7 +19,7 @@
 */
 
 #include <quan/config.hpp>
-#ifdef QUAN_USE_QUAN_STD_TR1
+#if defined QUAN_USE_QUAN_STD_TR1
 
 namespace std{ 
 

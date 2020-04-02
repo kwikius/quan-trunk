@@ -1,11 +1,8 @@
 #ifndef QUAN_STD_TR1_IMPL_DETAIL_IS_ARITHMETIC_IMPL_HPP_INCLUDED
 #define QUAN_STD_TR1_IMPL_DETAIL_IS_ARITHMETIC_IMPL_HPP_INCLUDED
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
-#  pragma once
-#endif
 
 /*
- Copyright (c) 2006 - 2013 Andy Little 
+ Copyright (c) 2006 - 2020 Andy Little 
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -21,6 +18,9 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
+#include <quan/config.hpp>
+
+#if defined QUAN_USE_QUAN_STD_TR1
 
 #include <quan/std/tr1/is_integral.hpp>
 #include <quan/std/tr1/is_float.hpp>
@@ -34,6 +34,11 @@ namespace quan{ namespace impl_detail{
    >{};
 }}
 
+#else
+
+#include <type_traits>
+
+#endif
 #endif
 
 

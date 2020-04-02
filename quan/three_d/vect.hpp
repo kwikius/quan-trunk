@@ -121,7 +121,28 @@ namespace quan{ namespace meta{
       struct binary_op_impl<
         quan::three_d::vect<T1>, divides, T2,
         typename quan::where_<
-            is_valid_binary_op<T1,divides,T2>
+            quan::meta::and_<
+               is_valid_binary_op<T1,divides,T2>,
+               is_scalar<T2>
+            >
+        >::type
+      >
+      {
+        typedef quan::three_d::vect<
+            typename quan::meta::binary_op<
+                T1,divides, T2
+            >::type
+        > type;
+      };
+
+      template <typename T1, typename T2>
+      struct binary_op_impl<
+        T1, divides, quan::three_d::vect<T2>,
+        typename quan::where_<
+           quan::meta::and_<
+              is_scalar<T1>,
+              is_valid_binary_op<T1,divides,T2>
+            >
         >::type
       >
       {
@@ -289,6 +310,28 @@ namespace quan{namespace three_d{
         return result_type{lhs.x / rhs, lhs.y / rhs, lhs.z / rhs};
 
     }
+
+    template <typename TL, typename TR>
+    inline constexpr
+    quan::three_d::vect<
+        typename quan::meta::binary_op< 
+            TL,
+            quan::meta::divides,
+            TR
+        >::type
+    > 
+    operator /( TL const & lhs, quan::three_d::vect<TR> const & rhs)
+    {
+        typedef quan::three_d::vect<
+            typename quan::meta::binary_op< 
+                TL,
+                quan::meta::divides,
+                TR
+            >::type
+        > result_type;
+        return result_type{lhs / rhs.x, lhs / rhs.y, lhs / rhs.z};
+    }
+
 
     template <typename Value_type>
     inline constexpr

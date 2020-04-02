@@ -19,7 +19,8 @@
 */
 
 #include <quan/config.hpp>
-#ifdef QUAN_USE_QUAN_STD_TR1
+
+#if defined QUAN_USE_QUAN_STD_TR1
 
 #include <quan/std/tr1/impl_detail/is_integral_impl.hpp>
 

@@ -17,6 +17,7 @@
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
 
+#include <quan/config.hpp>
 #include <quan/where.hpp>
 #include <quan/is_model_of.hpp>
 #include <quan/meta/is_scalar.hpp>

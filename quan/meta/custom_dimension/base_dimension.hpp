@@ -1,12 +1,21 @@
 #ifndef QUAN_META_BASE_DIMENSION_HPP_INCLUDED
 #define QUAN_META_BASE_DIMENSION_HPP_INCLUDED
 
-#include <cstdint>
-#include <type_traits>
-#include <ratio>
+#include <quan/config.hpp>
+
+#if defined  QUAN_USE_QUAN_STD_TR1
+   #include <stdint.h>
+   #include <quan/std/tr1/is_base_of.hpp>
+   #include <quan/std/tr1/ratio.hpp>
+   #include <quan/std/tr1/conditional.hpp>
+#else
+   #include <cstdint>
+   #include <type_traits>
+   #include <ratio>
+#endif
 
 /*
- Copyright (c) 2003-2019 Andy Little.
+ Copyright (c) 2003-2020 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by

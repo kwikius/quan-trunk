@@ -1,8 +1,5 @@
 #ifndef QUAN_STD_TR1_IS_ARITHMETIC_HPP_INCLUDED
 #define QUAN_STD_TR1_IS_ARITHMETIC_HPP_INCLUDED
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
-#  pragma once
-#endif
 
 /*
  Copyright (c) 2005 - 2013 Andy Little 
@@ -22,7 +19,8 @@
 */
 
 #include <quan/config.hpp>
-#ifdef QUAN_USE_QUAN_STD_TR1
+
+#if defined QUAN_USE_QUAN_STD_TR1
 
 #include <quan/std/tr1/impl_detail/is_arithmetic_impl.hpp>
 
@@ -35,4 +33,5 @@ namespace std{
 #else
 #include <type_traits>
 #endif
+
 #endif

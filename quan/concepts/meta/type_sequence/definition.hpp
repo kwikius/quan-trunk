@@ -1,7 +1,6 @@
 #ifndef QUAN_CONCEPTS_META_TYPE_SEQUENCE_DEFINITION_HPP_INCLUDED
 #define QUAN_CONCEPTS_META_TYPE_SEQUENCE_DEFINITION_HPP_INCLUDED
 
-#include <type_traits>
 #include <quan/is_model_of.hpp>
 
 namespace quan{ namespace meta{

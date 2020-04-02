@@ -26,7 +26,14 @@
 */
 
 #include <quan/config.hpp>
+#include <quan/meta/rational_fwd.hpp>
+
+#if defined QUAN_USE_QUAN_STD_TR1
+#include <quan/std/tr1/integral_constant.hpp>
+#else
 #include <type_traits>
+#endif
+
 #include <quan/meta/rational_fwd.hpp>
 #include <quan/meta/numerator.hpp>
 #include <quan/meta/denominator.hpp>
@@ -278,7 +285,7 @@ namespace quan{namespace meta{
            plus,
            rational<Nrhs,Drhs>
        >{
-#if 0
+#if defined QUAN_USE_QUAN_STD_TR1
            typedef typename rational<Nlhs,Dlhs>::type lhs;
            typedef typename rational<Nrhs,Drhs>::type rhs;
    #ifndef QUAN_HAS_LONG_LONG
@@ -319,11 +326,9 @@ namespace quan{namespace meta{
                static_cast<int64_t>(nume),
                static_cast<int64_t>(denom)
            >::type type;
-
-         
   #endif  
 #else
-// implememnt using std:::ratio
+// implement using std:::ratio
         typedef typename std::ratio_add<std::ratio<Nlhs,Dlhs>,std::ratio<Nrhs,Drhs> >::type std_ratio_type;
         typedef typename rational<
             std_ratio_type::num,
@@ -342,7 +347,8 @@ namespace quan{namespace meta{
            minus,
            rational<Nrhs,Drhs>
        >{
-#if 0
+
+#if defined QUAN_USE_QUAN_STD_TR1
            typedef typename rational<Nlhs,Dlhs>::type lhs;
            typedef typename rational<Nrhs,Drhs>::type rhs;
            typedef is_lossless_calculation<lhs,minus,rhs> lossless;
