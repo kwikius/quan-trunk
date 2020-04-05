@@ -24,14 +24,12 @@
 
 #include <quan/std/tr1/is_integral.hpp>
 #include <quan/std/tr1/is_float.hpp>
-#include <quan/meta/or.hpp>
 
 namespace quan{ namespace impl_detail{
 
-   template <typename T>
-   struct is_arithmetic_impl : quan::meta::or_<
-      std::is_integral<T>,std::is_floating_point<T>
-   >{};
+    template <typename T>  struct is_arithmetic_impl : std::integral_constant<
+         bool,(std::is_floating_point<T>::value || std::is_integral<T>::value)
+     >{};
 }}
 
 #else
