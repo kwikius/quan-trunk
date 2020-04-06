@@ -26,6 +26,7 @@
 #include <quan/length.hpp>
 
    void quat_test();
+   void quat_rot_test();
 namespace {
    void vect_test1();
    void vect_t1_quantity_test1();
@@ -41,6 +42,7 @@ int main()
    vect_valid_binary_op_test();
 
    quat_test();
+   quat_rot_test();
 
    EPILOGUE
 }

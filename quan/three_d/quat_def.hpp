@@ -37,14 +37,14 @@ namespace quan{ namespace three_d{
     struct quat
     {
         typedef T value_type;
-        quat() 
+        constexpr quat() 
         : w( static_cast<T>(0) )
         , x( static_cast<T>(0) )
         , y( static_cast<T>(0) )
         , z( static_cast<T>(0) )
         {}
         template <typename Tw, typename Tx, typename Ty, typename Tz>
-        quat(Tw const & w_in, Tx const & x_in, Ty const & y_in, Tz const & z_in)
+        constexpr quat(Tw const & w_in, Tx const & x_in, Ty const & y_in, Tz const & z_in)
         : w( quan::implicit_cast<T>(w_in) )
         , x( quan::implicit_cast<T>(x_in) )
         , y( quan::implicit_cast<T>(y_in) )

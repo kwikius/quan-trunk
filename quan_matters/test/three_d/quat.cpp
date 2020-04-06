@@ -17,10 +17,12 @@ Copyright (c) 2003-2014 Andy Little.
 
 
 #include <quan_matters/test/test.hpp>
+#include <iomanip>
 #include <quan/three_d/quat.hpp>
 #include <quan/three_d/vect.hpp>
 #include <quan/length.hpp>
 #include <quan/current.hpp>
+#include <quan/angle.hpp>
 
 /*
     Basic go-no-go of quan::three_d::quat
@@ -54,11 +56,47 @@ void quat_test()
     );
 }
 
+/*
+  Using quaternion to perform rotation
+*/
+
+void quat_rot_test()
+{
+
+   typedef quan::three_d::quat<double> quat;
+ 
+   // point to rotate, expressed as a quaternion ( w part is 0)
+   quat pt{0,1,0,0};
+   
+   //axis to rotate around (unit vector)
+   auto axis = unit_vector(quan::three_d::vect<double>{0,0,1}); // rotate around z
+
+   // angle to rotate by around above axis
+   quan::angle::deg angle{90}; 
+
+   // calculate the rotation quaternion
+   quat rot{cos(angle/2),axis.x * sin(angle/2),axis.y * sin(angle/2),axis.z * sin(angle/2)};
+   //std::cout << std::fixed << std::setprecision(3) << "rotation quat = " <<  rot <<'\n';
+
+   //calculate the resulting pont
+   quat result = hamilton_product(hamilton_product(rot,pt),conjugate(rot));
+
+   //std::cout << std::fixed << std::setprecision(3) << "result = " << result << '\n';
+   double constexpr epsilon = 1e-6;
+   QUAN_CHECK(
+         (quan::compare(result.w,0,epsilon) == 0) &&
+         (quan::compare(result.x,0,epsilon) == 0) &&
+         (quan::compare(result.y,1,epsilon) == 0) &&
+         (quan::compare(result.z,0,epsilon) == 0)
+   )
+}
+
 #if 0
 int errors = 0;
 int main()
 {
    quat_test();
+   quat_rot_test();
    EPILOGUE
 }
 #endif

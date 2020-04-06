@@ -24,18 +24,17 @@
 /*
     quaternion definition + operations
 */
-
-#include <quan/meta/binary_op.hpp>
-#include <quan/three_d/quat_def.hpp>
 #include <quan/where.hpp>
-
+#include <quan/meta/binary_op.hpp>
+#include <quan/meta/is_scalar.hpp>
 #include <quan/three_d/vect.hpp>
+#include <quan/three_d/quat_def.hpp>
 
 namespace quan{namespace three_d{
 
 
     template <typename TL, typename TR>
-    inline
+    inline constexpr
     quan::three_d::quat<
         typename quan::meta::binary_op< 
             TL,
@@ -48,20 +47,11 @@ namespace quan{namespace three_d{
         quan::three_d::quat<TR> const & rhs
     )
     {
-        typedef quan::three_d::quat<
-            typename quan::meta::binary_op< 
-                TL,
-                quan::meta::plus,
-                TR
-            >::type
-        > result_type;
-        result_type result = lhs;
-        result += rhs;
-        return result;
+       return { lhs.w + rhs.w,lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z};
     }
 
     template <typename TL, typename TR>
-    inline
+    inline constexpr
     quan::three_d::quat<
         typename quan::meta::binary_op< 
             TL,
@@ -73,24 +63,14 @@ namespace quan{namespace three_d{
          quan::three_d::quat<TL> const & lhs,
          quan::three_d::quat<TR> const & rhs)
     {
-        typedef quan::three_d::quat<
-            typename quan::meta::binary_op< 
-                TL,
-                quan::meta::minus,
-                TR
-            >::type
-        > result_type;
-        result_type result = lhs;
-        result -= rhs;
-        return result;
+       return { lhs.w - rhs.w,lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z};
     }
 
 // multiplication by scalar
     template <typename TL, typename TR>
-    inline
-// can be constrained but quan::meta::is_scalar is not in previous release
- //   typename quan::where_<
- //       quan::meta::is_scalar<TR>,
+    inline constexpr
+    typename quan::where_<
+        quan::meta::is_scalar<TR>,
         quan::three_d::quat<
             typename quan::meta::binary_op< 
                 TL,
@@ -98,28 +78,20 @@ namespace quan{namespace three_d{
                 TR
             >::type
         >
-  //  >::type
+    >::type
     operator *( 
         quan::three_d::quat<TL> const & lhs, 
         TR const & rhs
     ) 
     {
-        typedef typename quan::meta::binary_op< 
-            TL,
-            quan::meta::times,
-            TR
-        >::type value_type;
-        quan::three_d::quat<value_type> result(
-            lhs.w * rhs,lhs.x * rhs,lhs.y * rhs, lhs.z * rhs 
-        ); 
-        return result;
+        return {lhs.w * rhs,lhs.x * rhs,lhs.y * rhs, lhs.z * rhs};
     }
 
  // multiplication by scalar, reversed order
     template <typename TL, typename TR>
-    inline
-//    typename quan::where_<
-//        quan::meta::is_scalar<TL>,
+    inline constexpr 
+    typename quan::where_<
+        quan::meta::is_scalar<TL>,
         quan::three_d::quat<
             typename quan::meta::binary_op< 
                 TL,
@@ -127,48 +99,35 @@ namespace quan{namespace three_d{
                 TR
             >::type
         >
- //   >::type
+    >::type
     operator  *( 
         TL const & lhs, 
         quan::three_d::quat<TR> const & rhs
     )
     {
-         quan::three_d::quat<
-            typename quan::meta::binary_op< 
-                TL,
-                quan::meta::times,
-                TR
-            >::type
-        > result(lhs *rhs.w, lhs *rhs.x, lhs * rhs.y,lhs * rhs.z); 
-       // question: why the implentation differs?
-       // Answer: No reason. I should format them all for best legibility
-        return result;
+       return {lhs * rhs.w, lhs * rhs.x, lhs * rhs.y,lhs * rhs.z};
     }
 
- template <typename TL, typename TR>
-    inline
-    quan::three_d::quat<
-        typename quan::meta::binary_op< 
-            TL,
-            quan::meta::divides,
-            TR
-        >::type
-    > 
-    operator  /( quan::three_d::quat<TL> const & lhs, TR const & rhs)
+    template <typename TL, typename TR>
+    inline constexpr 
+    typename quan::where_<
+       quan::meta::is_scalar<TR>,
+       quan::three_d::quat<
+           typename quan::meta::binary_op< 
+               TL,
+               quan::meta::divides,
+               TR
+           >::type
+       >
+    >::type
+    operator /( quan::three_d::quat<TL> const & lhs, TR const & rhs)
     {
-        quan::three_d::quat<
-            typename quan::meta::binary_op< 
-                TL,
-                quan::meta::divides,
-                TR
-            >::type
-        > result(lhs.w / rhs, lhs.x / rhs, lhs.y / rhs, lhs.z / rhs);
-        return result;
+       return {lhs.w / rhs, lhs.x / rhs, lhs.y / rhs, lhs.z / rhs};
     }
 
     // might be best to decide if norm is a more appropriate name?
     template <typename ValueType>
-    inline
+    inline constexpr
     typename quan::meta::binary_op<
         ValueType,
         quan::meta::times,
@@ -176,52 +135,59 @@ namespace quan{namespace three_d{
     >::type
     squared_magnitude( quan::three_d::quat<ValueType> const & v) 
     {
-        typedef typename quan::meta::binary_op<
-            ValueType,
-            quan::meta::times,
-            ValueType
-        >::type result_type;
-       // result_type result(v.w * v.w + v.x * v.x + v.y * v.y + v.z * v.z);
-        result_type result = quan::pow<2>(v.w);
-        result += quan::pow<2>(v.x);
-        result += quan::pow<2>(v.y);
-        result += quan::pow<2>(v.z);
-        return result;
+       return {  quan::pow<2>(v.w) + 
+                 quan::pow<2>(v.x) + 
+                 quan::pow<2>(v.y) +
+                 quan::pow<2>(v.z)
+       };
     }
 
-    template <typename ValueType>
-    inline
-    ValueType
-    magnitude( quan::three_d::quat<ValueType> const & v)
-    {
-        ValueType result = sqrt(squared_magnitude(v));
-        return result;
-    }
+   template <typename ValueType>
+   inline constexpr 
+   ValueType
+   magnitude( quan::three_d::quat<ValueType> const & v)
+   {
+      return sqrt(squared_magnitude(v));
+   }
 
-    template <typename T1,typename T2>
-    inline 
-    typename quan::meta::binary_op< 
-        T1,
-        quan::meta::times,
-        T2
-    >::type
-    dot_product( 
-        quan::three_d::quat<T1> const & lhs,
-        quan::three_d::quat<T2> const & rhs
-    ){
-//        typedef typename quan::meta::binary_op< 
-//            T1,
-//            quan::meta::times,
-//            T2
-//        >::type result_type;
-       //result_type result 
-        return  lhs.w * rhs.w + lhs.x * rhs.x + lhs.y * rhs.y  + lhs.z * rhs.z;
-//        result_type result = lhs.w * rhs.w;
-//        result += lhs.x * rhs.x;
-//        result += lhs.y * rhs.y;
-//        result += lhs.z * rhs.z;
-//        return result;
-    }
+   template <typename T1,typename T2>
+   inline constexpr 
+   typename quan::meta::binary_op< 
+      T1,
+      quan::meta::times,
+      T2
+   >::type
+   dot_product( 
+      quan::three_d::quat<T1> const & lhs,
+      quan::three_d::quat<T2> const & rhs
+   ){
+      return lhs.w * rhs.w + lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z;
+   }
+
+   template <typename TL, typename TR>
+   inline constexpr
+   quat<
+      typename quan::meta::binary_op<
+         TL,quan::meta::times,TR
+      >::type
+   >  
+   hamilton_product(quat<TL> const & lhs, quat<TR> const & rhs)
+   {
+      return {
+         lhs.w * rhs.w - lhs.x * rhs.x - lhs.y * rhs.y - lhs.z * rhs.z,
+         lhs.w * rhs.x + lhs.x * rhs.w + lhs.y * rhs.z - lhs.z * rhs.y,
+         lhs.w * rhs.y - lhs.x * rhs.z + lhs.y * rhs.w + lhs.z * rhs.x,
+         lhs.w * rhs.z + lhs.x * rhs.y - lhs.y * rhs.x + lhs.z * rhs.w
+      };
+   }
+
+   template <typename T>
+   quat<T>  
+   inline
+   conjugate(quat<T> const & q)
+   {
+      return { q.w, -q.x,-q.y,-q.z};
+   }
 
     // multiplication of quaternion by vector
 
