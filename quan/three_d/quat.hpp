@@ -6,6 +6,7 @@
 
 /*
  Copyright (c) 2003-2014 Andy Little.
+ Copyright Janek Kozicki 2006
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -29,6 +30,7 @@
 #include <quan/meta/is_scalar.hpp>
 #include <quan/three_d/vect.hpp>
 #include <quan/three_d/quat_def.hpp>
+#include <quan/angle.hpp>
 
 namespace quan{namespace three_d{
 
@@ -142,12 +144,47 @@ namespace quan{namespace three_d{
        };
     }
 
+
+   template <typename TL, typename TR>
+   inline constexpr 
+   bool operator == (quan::three_d::quat<TL> const & lhs, TR const & rhs)
+   {
+      return (lhs.w == rhs.w) &&
+            ( lhs.x == rhs.x) &&
+            ( lhs.y == rhs.y) &&
+            ( lhs.z == rhs.z);
+   }
+
+
+   template <typename TL, typename TR>
+   inline constexpr 
+   bool operator != (quan::three_d::quat<TL> const & lhs, TR const & rhs)
+   {
+      return (lhs.w != rhs.w) ||
+            ( lhs.x != rhs.x) ||
+            ( lhs.y != rhs.y) ||
+            ( lhs.z != rhs.z);
+   }
+
    template <typename ValueType>
    inline constexpr 
    ValueType
    magnitude( quan::three_d::quat<ValueType> const & v)
    {
       return sqrt(squared_magnitude(v));
+   }
+
+   template <typename T>
+   inline constexpr
+   quat<
+      typename quan::meta::binary_op<
+         T,
+         quan::meta::times,
+         T
+      >::type
+   > unit_quat(quat<T> const & q)
+   {
+      return q / magnitude(q);
    }
 
    template <typename T1,typename T2>
@@ -187,6 +224,22 @@ namespace quan{namespace three_d{
    conjugate(quat<T> const & q)
    {
       return { q.w, -q.x,-q.y,-q.z};
+   }
+
+   template <typename T, typename Angle>
+   constexpr inline 
+     typename quan::where_<
+      quan::meta::is_angle<Angle>,
+      quat<
+         typename quan::meta::binary_op<
+            T,
+            quan::meta::times, 
+            typename Angle::value_type
+         >::type
+       >
+   >::type quatFrom(quan::three_d::vect<T> const & axis, Angle const & angle)
+   {
+      return {cos(angle/2),axis.x * sin(angle/2),axis.y * sin(angle/2),axis.z * sin(angle/2)};
    }
 
     // multiplication of quaternion by vector
