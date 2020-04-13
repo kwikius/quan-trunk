@@ -332,6 +332,19 @@ namespace quan{namespace three_d{
         return result_type{lhs / rhs.x, lhs / rhs.y, lhs / rhs.z};
     }
 
+    template <typename T1,typename T2>
+    inline constexpr
+    typename quan::meta::binary_op< 
+        T1,
+        quan::meta::times,
+        T2
+    >::type
+    dot_product( 
+        quan::three_d::vect<T1> const & lhs,
+        quan::three_d::vect<T2> const & rhs
+    ){
+        return lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z;
+    }
 
     template <typename Value_type>
     inline constexpr
@@ -342,7 +355,7 @@ namespace quan{namespace three_d{
     >::type
     norm( quan::three_d::vect<Value_type> const & v)
     {
-        return v.x * v.x + v.y * v.y + v.z * v.z;
+       return dot_product(v,v);
     }
 
     template <typename Value_type>
@@ -358,21 +371,7 @@ namespace quan{namespace three_d{
     Value_type
     magnitude( quan::three_d::vect<Value_type> const & v)
     {
-        return sqrt(quan::three_d::norm(v));
-    }
-
-    template <typename T1,typename T2>
-    inline constexpr
-    typename quan::meta::binary_op< 
-        T1,
-        quan::meta::times,
-        T2
-    >::type
-    dot_product( 
-        quan::three_d::vect<T1> const & lhs,
-        quan::three_d::vect<T2> const & rhs
-    ){
-        return lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z;
+       return sqrt(norm(v));
     }
 
     template<typename T1, typename T2>
