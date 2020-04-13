@@ -23,7 +23,7 @@
      0, 0, -1]      z ]
 */
 
-int main()
+void basic_matrix_enu_to_ned_test()
 {
    quan::basic_matrix<3,3> constexpr ENUtoNED{
       0,1,0,
@@ -45,9 +45,14 @@ int main()
    QUAN_CHECK( (res.at(0,0) == 2) );
    QUAN_CHECK( (res.at(0,1) == 1) );
    QUAN_CHECK( (res.at(0,2) == -3) );
-
-   QUAN_EPILOGUE
-
 }
 
+#if 0
+int main()
+{
+  basic_matrix_enu_to_ned_test();
+  QUAN_EPILOGUE
+}
 int errors = 0;
+#endif
+

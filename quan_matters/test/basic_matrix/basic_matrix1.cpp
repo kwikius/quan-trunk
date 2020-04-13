@@ -3,6 +3,8 @@
 #include <quan/basic_matrix/basic_matrix.hpp>
 
 int errors =0;
+
+void basic_matrix_enu_to_ned_test();
 int main()
 {
 #if defined __MBED__
@@ -85,6 +87,8 @@ int main()
    QUAN_CHECK((std::is_same<decltype(m8), quan::basic_matrix<2,2,double> >::value))
   
    QUAN_CHECK( (m8.at(0,0) == m5.at(0,0)))
+
+   basic_matrix_enu_to_ned_test();
 
    QUAN_EPILOGUE
 

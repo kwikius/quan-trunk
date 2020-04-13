@@ -15,6 +15,7 @@ MetaDir                       = quan_matters/test/meta/
 ConversionDir                 = quan_matters/test/conversion/
 BigintDir                     = quan_matters/test/bigint/
 FusionDir                     = quan_matters/test/fusion/
+BasicMatrixDir                = quan_matters/test/basic_matrix/
 
 #USE_CONCEPTS_VALUE = True
 USE_CONCEPTS_VALUE ?= False
@@ -25,7 +26,7 @@ USE_RTTI_VALUE  ?= True
 fusion
 
 all: fixed_quantity_semantics_test fixed_quantity_compile_fail_test angle_test three_d_test two_d_test examples qdrt meta conversion bigint \
-fusion
+fusion basic_matrix
 
 fixed_quantity_semantics_test: 
 	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) USE_EXCEPTIONS=$(USE_EXCEPTIONS_VALUE) USE_RTTI=$(USE_RTTI_VALUE) -C $(FixedQuantitySemanticsTestDir) test
@@ -60,6 +61,9 @@ bigint:
 fusion:
 	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) USE_EXCEPTIONS=$(USE_EXCEPTIONS_VALUE) USE_RTTI=$(USE_RTTI_VALUE) -C $(FusionDir) test 
 
+basic_matrix:
+	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) USE_EXCEPTIONS=$(USE_EXCEPTIONS_VALUE) USE_RTTI=$(USE_RTTI_VALUE) -C $(BasicMatrixDir) test 
+
 clean: 
 	make -C $(FixedQuantitySemanticsTestDir) clean
 	make -C $(FixedQuantityCompileFailDir) clean
@@ -72,3 +76,4 @@ clean:
 	make -C $(ConversionDir) clean
 	make -C $(BigintDir) clean
 	make -C $(FusionDir) clean
+	make -C $(BasicMatrixDir) clean
