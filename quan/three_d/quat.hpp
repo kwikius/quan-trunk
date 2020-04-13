@@ -226,6 +226,24 @@ namespace quan{namespace three_d{
       return { q.w, -q.x,-q.y,-q.z};
    }
 
+   namespace detail{
+
+      template <typename T, typename Float>
+      constexpr inline 
+      quat<
+         typename quan::meta::binary_op<
+            T,
+            quan::meta::times, 
+            Float
+         >::type
+      >
+      ll_quatFrom(quan::three_d::vect<T> const & axis, Float const &sin__angle_div_2, Float const & cos__angle_div_2)
+      {
+         return {cos__angle_div_2,axis.x * sin__angle_div_2,axis.y * sin__angle_div_2,axis.z * sin__angle_div_2};
+      }
+      
+   } // detail
+
    template <typename T, typename Angle>
    constexpr inline 
      typename quan::where_<
@@ -234,12 +252,12 @@ namespace quan{namespace three_d{
          typename quan::meta::binary_op<
             T,
             quan::meta::times, 
-            typename Angle::value_type
+            QUAN_FLOAT_TYPE
          >::type
        >
    >::type quatFrom(quan::three_d::vect<T> const & axis, Angle const & angle)
    {
-      return {cos(angle/2),axis.x * sin(angle/2),axis.y * sin(angle/2),axis.z * sin(angle/2)};
+      return detail::ll_quatFrom<QUAN_FLOAT_TYPE>(axis,sin(angle/static_cast<QUAN_FLOAT_TYPE>(2)),cos(angle/static_cast<QUAN_FLOAT_TYPE>(2)));
    }
 
     // multiplication of quaternion by vector
