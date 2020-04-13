@@ -109,6 +109,8 @@ namespace quan{ namespace detail{
         inline
         QUAN_CONSTEXPR
         explicit united_value(value_type const & in) ;
+         
+        constexpr united_value():m_value{}{}
       
         template<typename Value_typeIn>
         inline 

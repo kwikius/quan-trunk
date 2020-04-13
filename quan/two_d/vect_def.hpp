@@ -39,7 +39,7 @@ namespace quan{ namespace two_d{
     template <typename T>
     struct vect{
         typedef T value_type;
-        constexpr vect() : x( static_cast<T>(0) ),  y( static_cast<T>(0) ){}
+        constexpr vect():x{},y{} {}
 
         template <typename Ta, typename Tb>
         constexpr vect(Ta const & x_in, Tb const & y_in)

@@ -45,9 +45,9 @@ namespace quan{ namespace three_d{
     {
         typedef T value_type;
         constexpr vect() 
-        : x( static_cast<T>(0) )
-        , y( static_cast<T>(0) )
-        , z( static_cast<T>(0) )
+        : x{}
+        , y{}
+        , z{}
         {}
 
         template <typename Tx, typename Ty, typename Tz>

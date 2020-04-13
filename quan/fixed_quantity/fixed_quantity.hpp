@@ -134,7 +134,6 @@ namespace quan {
         >{};
 
     public:
-
         // A dimensionless type is replaced by
         // its value_type;
         typedef typename meta::if_<
@@ -147,7 +146,7 @@ namespace quan {
 
 
        QUAN_CONSTEXPR
-       fixed_quantity() :  m_united_value(static_cast<NumericType>(0)){}
+       fixed_quantity():m_united_value{}{}
 
         // value initialisation ctor
         template<typename NumericType_In>
