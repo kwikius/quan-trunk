@@ -1265,7 +1265,16 @@ namespace quan{ //quan
         Extent,
         ReciprocalFraction,
         ValueType
-    > const & fr)
+    > const & fr, 
+    quan::fraction_of_revolution<
+        Extent,
+        ReciprocalFraction,
+        ValueType
+    > const & epsilon = quan::fraction_of_revolution<
+        Extent,
+        ReciprocalFraction,
+        ValueType
+    >{0})
     {
       constexpr auto one_rev = quan::meta::eval_rational<ReciprocalFraction>()();
 
@@ -1276,12 +1285,18 @@ namespace quan{ //quan
               ValueType,decltype(quan::meta::eval_rational<ReciprocalFraction>()())
            >::type
         > result_type;
-      
+      result_type result;
       if ( fr.numeric_value() >= ValueType{0}){
-        return result_type{quan::modulus(fr.numeric_value(),one_rev )};
+        result =result_type{quan::modulus(fr.numeric_value(),one_rev )};
       }else{
-         return result_type{quan::modulus(fr.numeric_value(), one_rev) + one_rev};
+         result = result_type{quan::modulus(fr.numeric_value(), one_rev) + one_rev};
       }
+      auto v = result.numeric_value() - one_rev;
+      auto absv = (v>=0)?v:-v;
+      if ( absv < epsilon.numeric_value() ){
+         result = result_type{0};
+      }
+      return result;
     }
 
     template<
