@@ -6,6 +6,7 @@
 #include <type_traits>
 #include <quan/where.hpp>
 #include <quan/meta/and.hpp>
+#include <quan/meta/or.hpp>
 #include <quan/out/format_print.hpp>
 #include <quan/operators/binary_operator_functors.hpp>
 #include <quan/meta/binary_op.hpp>
