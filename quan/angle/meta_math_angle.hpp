@@ -338,11 +338,11 @@ namespace quan{namespace meta{
 
     };
     // r to power rational<int,N,D>
-    template <typename Extent,typename Value_type, int N, int D>
+    template <typename Extent,typename Value_type, int64_t N, int64_t D>
     struct binary_op_impl<
          quan::mathematic_angle<Extent,Value_type>,
          pow,
-         rational<N,D>
+         quan::meta::rational<N,D>
     >
     {
         typedef typename quan::mathematic_angle<
