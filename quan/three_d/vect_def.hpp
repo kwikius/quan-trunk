@@ -56,12 +56,22 @@ namespace quan{ namespace three_d{
         : x( quan::implicit_cast<T>(x_in) )
         , y( quan::implicit_cast<T>(y_in) )
         , z( quan::implicit_cast<T>(z_in) ){}
+
+        template <typename Tx, typename Ty, typename Tz>
+        constexpr 
+        vect(Tx && x_in, Ty && y_in, Tz && z_in)
+        : x( quan::implicit_cast<T>(x_in) )
+        , y( quan::implicit_cast<T>(y_in) )
+        , z( quan::implicit_cast<T>(z_in) ){}
+
         T x,y,z;
 
         template <typename T1>
         constexpr
         vect( vect<T1> const & in)
-        : x(in.x),y(in.y),z(in.z){}
+        : x{quan::implicit_cast<T>(in.x)},
+          y{quan::implicit_cast<T>(in.y)},
+          z{quan::implicit_cast<T>(in.z)}{}
 
         template <typename T1>
         vect &

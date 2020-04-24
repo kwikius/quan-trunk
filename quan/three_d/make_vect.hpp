@@ -8,8 +8,16 @@ namespace quan{ namespace three_d{
 
    template <typename T>
    inline constexpr
-   vect< T>
+   quan::three_d::vect<T>
    make_vect( T && x, T&& y, T&& z)
+   {
+      return {x,y,z};
+   }
+
+   template <typename T>
+   inline constexpr
+   quan::three_d::vect<T>
+   make_vect( T const& x, T const& y, T const& z)
    {
       return {x,y,z};
    }

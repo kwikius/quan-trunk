@@ -14,6 +14,14 @@ namespace quan{ namespace two_d{
       return {x,y};
    }
 
+   template <typename T>
+   inline constexpr
+   vect<T>
+   make_vect( T const& x, T const& y)
+   {
+      return {x,y};
+   }
+
 }}
 
 #endif // QUAN_TWO_D_MAKE_VECT_HPP_INCLUDED

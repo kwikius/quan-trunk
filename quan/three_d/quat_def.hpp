@@ -43,6 +43,7 @@ namespace quan{ namespace three_d{
         , y( static_cast<T>(0) )
         , z( static_cast<T>(0) )
         {}
+
         template <typename Tw, typename Tx, typename Ty, typename Tz>
         constexpr quat(Tw const & w_in, Tx const & x_in, Ty const & y_in, Tz const & z_in)
         : w( quan::implicit_cast<T>(w_in) )
@@ -72,6 +73,7 @@ namespace quan{ namespace three_d{
             this->z += in.z;
             return * this;
         }
+
         template <typename T1>
         quat &
         operator -= (quat<T1> const & in)
@@ -83,7 +85,9 @@ namespace quan{ namespace three_d{
             return * this;
         }
 
-        
+        quat constexpr operator - () const 
+        { return { -this->w, -this->x, -this->y,-this->z};}
+
         T & operator[](int n)
         {
             static_assert( (sizeof(quat) == 4 * sizeof(T)), "array operator malformed" );
