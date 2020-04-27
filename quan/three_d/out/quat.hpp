@@ -30,7 +30,7 @@
     quaternion output
 */
 
-#include "quan/three_d/quat.hpp"
+#include <quan/three_d/quat.hpp>
 #include <iostream>
 
 namespace quan{namespace three_d{

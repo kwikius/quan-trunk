@@ -23,10 +23,22 @@ Copyright (c) 2003-2014 Andy Little.
 #include <quan/length.hpp>
 #include <quan/current.hpp>
 #include <quan/angle.hpp>
+#include <quan/three_d/slerp.hpp>
+#include <quan/three_d/out/quat.hpp>
+#include <quan/two_d/out/vect.hpp>
+#include <quan/three_d/out/vect.hpp>
+#include <quan/three_d/make_vect.hpp>
+#include <quan/three_d/rotation.hpp>
+#include <quan/three_d/rotation_from.hpp>
+#include <quan/out/angle.hpp>
+#include <quan/fixed_quantity/literal.hpp>
 
 #include <quan/three_d/rotation_from.hpp>
 
 namespace {
+
+   QUAN_QUANTITY_LITERAL(angle,deg)
+   QUAN_QUANTITY_LITERAL(angle,rad)
 
    void rotation_from_id_test()
    {
@@ -175,6 +187,21 @@ namespace {
             (quan::compare(result.z,0,epsilon) == 0)
       )
    }
+/*
+    do hamilton_product of q1, q2 --> qResult
+    to find q2 do hamilton_product(conjugate(q1),qResult) -> q2
+*/
+   void quat_hamilton_diff_test()
+   {
+       auto q1 = quatFrom(quan::three_d::make_vect(1.0,0.0,0.0),1.0_rad);
+       auto q2 = quatFrom(unit_vector(quan::three_d::make_vect(1.0,1.0,0.0)),0.5_rad);
+
+       auto qR = hamilton_product(q1,q2);
+
+       auto q2a = hamilton_product(conjugate(q1),qR);
+
+       QUAN_CHECK( (magnitude(q2a - q2) < 1.e-6))
+   }
 }
 
 
@@ -190,6 +217,7 @@ void quat_test()
     rotation_from_opposite_test_x();
     rotation_from_opposite_test_y();
     rotation_from_opposite_test_z();
+    quat_hamilton_diff_test();
 }
 
 #if 0

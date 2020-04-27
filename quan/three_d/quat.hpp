@@ -242,7 +242,6 @@ namespace quan{namespace three_d{
    template <typename T>
    inline quan::three_d::quat<T> exp(quan::three_d::quat<T> const & q)
    {
-      // check that vm != 0;
       auto const vm = magnitude(quan::three_d::vect<T>{q.x,q.y,q.z});
       if ( vm > 0.0){
          auto const s = sin(vm)/ vm;
@@ -252,6 +251,9 @@ namespace quan{namespace three_d{
       }
    }
 
+   /**
+      N.B that axis is not made into a unit_vector inside the function
+   */
    template <typename T, typename Angle>
    constexpr inline 
      typename quan::where_<

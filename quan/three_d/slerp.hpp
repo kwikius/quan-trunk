@@ -3,17 +3,38 @@
 
 #include <quan/three_d/quat.hpp>
 #include <cmath>
+/*
+© 1985 A C M
+Permission to copy without fee all or part of this material is granted
+provided that the copics arc not made or distributed for direct
+commercial advantage, the ACM copyright notice and the title of the
+publication and its date appear, and notice is given that copying is by
+permission of the Association for Computing Machinery. To copy
+otherwise, or to republish, requires a fee and/or specific permission.© 1985 A C M
+*/
 
 namespace quan{ namespace three_d{
-// from wikipedia
+
+  /*  Sperical linear inter
+   *from https://en.wikipedia.org/wiki/Slerp#Source_code
+   * https://web.archive.org/web/20150306165022/http://run.usc.edu/cs520-s15/assign2/p245-shoemake.pdf
+   *
+   * \param[in] v0 noramlised quaternion
+   * \param[in] v1In normalised quaternion
+   * \param[in] y interplation ratio between 0 and 1
+   */
    template <typename T, typename Float>
    inline
-   quan::three_d::quat<T> slerp(quan::three_d::quat<T> const & v0In, quan::three_d::quat<T> const & v1In, Float const & t) 
+   quan::three_d::quat<
+      typename quan::meta::binary_op<
+         T,
+         quan::meta::divides,
+         T
+      >::type
+   >
+   slerp(quan::three_d::quat<T> const & v0, quan::three_d::quat<T> const & v1In, Float const & t) 
   {
-       // Only unit quaternions are valid rotations.
-       // Normalize to avoid undefined behavior.
-       auto const v0 = unit_quat(v0In);
-       auto v1 = unit_quat(v1In);
+       auto v1 = v1In;
 
        // Compute the cosine of the angle between the two vectors.
        auto dot = dot_product(v0, v1);
@@ -46,6 +67,5 @@ namespace quan{ namespace three_d{
        return unit_quat( s0 * v0 + s1 * v1);
    }
 }}// quan::three_d
-
 
 #endif // QUAN_THREE_D_SLERP_HPP_INCLUDED
