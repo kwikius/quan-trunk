@@ -23,7 +23,10 @@
 */
 
 #include <quan_matters/test/test.hpp>
+#include <quan/three_d/out/vect.hpp>
+#include <quan/out/acceleration.hpp>
 #include <quan/out/angle.hpp>
+#include <quan/out/reciprocal_time.hpp>
 #include <quan/angle/literal.hpp>
 #include <quan/fixed_quantity/operations/atan2.hpp>
 #include <quan/length.hpp>
@@ -39,12 +42,45 @@ namespace {
 // declare some literal angle functions
    QUAN_ANGLE_LITERAL(rad)
    QUAN_ANGLE_LITERAL(deg)
+
+  // QUAN_QUANTITY_LITERAL(angle,deg);
+   QUAN_QUANTITY_LITERAL(acceleration,m_per_s2);
+
+   typedef quan::reciprocal_time_<
+      quan::angle::deg 
+   >::per_s deg_per_s;
+
+   typedef quan::reciprocal_time_<
+      quan::angle::rad 
+   >::per_s rad_per_s;
+
+   constexpr inline 
+   deg_per_s operator "" _deg_per_s ( long double v)
+   {
+      return deg_per_s{quan::angle::deg{v}};
+   }
+
+   constexpr inline 
+   rad_per_s operator "" _rad_per_s ( long double v)
+   {
+      return rad_per_s{quan::angle::rad{v}};
+   }
+
+   quan::three_d::vect<quan::acceleration::m_per_s2>
+   constexpr acc_sensor{0.0_m_per_s2,0.0_m_per_s2,-quan::acceleration::g};
+
+
+   quan::three_d::vect<
+      rad_per_s
+   > constexpr gyr_sensor{1.0_rad_per_s,0.0_rad_per_s,0.0_rad_per_s};
+
 }
 
 void angle_test1();
 void angle_test2();
 void deg_modulo_test();
 void rad_modulo_test();
+void quan_vect_angle_test();
 
 int errors = 0;
 
@@ -54,6 +90,7 @@ int main()
    angle_test2();
    deg_modulo_test();
    rad_modulo_test();
+   quan_vect_angle_test();
 
    EPILOGUE
 }
@@ -211,6 +248,31 @@ void angle_test1()
     double sina = sin(a);
     double cosa = cos(a);
     double tana = tan(a);
+}
+
+void quan_vect_angle_test()
+{
+
+   auto constexpr a1x = norm(acc_sensor);
+   auto constexpr ad = quan::pow<1,2>(a1x);
+
+   QUAN_CHECK( ad == quan::acceleration::g)
+
+   QUAN_CHECK( ad == magnitude(acc_sensor) )
+
+   auto constexpr g0x = norm(gyr_sensor);
+   auto constexpr gd = quan::pow<1,2>(g0x);
+   auto constexpr g1x = magnitude(gyr_sensor);
+
+   QUAN_CHECK( g1x == 1.0_rad_per_s)
+   QUAN_CHECK( g1x == gd)
+   
+   typedef quan::meta::strip_cr<decltype(g1x)>::type g1x_type;
+
+   g1x_type constexpr t{quan::angle::rad{1.0}};
+
+   QUAN_CHECK(t == 1.0_rad_per_s)
+
 }
 
 

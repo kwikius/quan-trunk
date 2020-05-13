@@ -57,6 +57,7 @@
 #include <quan/constants/constant.hpp>
 #include <quan/arithmetic_convert.hpp>
 #include <quan/modulus.hpp>
+#include <quan/fixed_quantity/operations/power_root.hpp>
 
 namespace quan{
 

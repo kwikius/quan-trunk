@@ -79,7 +79,7 @@ namespace quan {
         {
              return this->m_united_value;  
         }
-    
+    public:
         // maybe add a check for a const value_type
         template <typename NumericType_In>
         struct is_compatible_value_type : meta::and_<
@@ -89,7 +89,7 @@ namespace quan {
             >,
             quan::meta::is_numeric<NumericType_In>
         >{};
-
+   private:
         template <
             typename StaticUnit_In,
             typename NumericType_In

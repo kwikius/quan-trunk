@@ -189,11 +189,11 @@ namespace quan {
             >::type result_type;
             QUAN_CONSTEXPR result_type operator()(Q const & in) const
             {
-              //  coherent_pq t = in;
                 return result_type{
-                    quan ::pow<
-                        Rational::numerator,Rational::denominator
-                    >(coherent_pq{in}.numeric_value())
+                   static_cast<typename result_type::value_type>( 
+                      quan ::pow<
+                         Rational::numerator,Rational::denominator
+                       >(coherent_pq{in}.numeric_value()))
                 };
             }
         };
@@ -287,9 +287,7 @@ namespace quan {
             orig_quantity_type,
             typename meta::rational<N,D>::type
         > pow_impl;
-       // typename pow_impl::result_type result
         return pow_impl{}(pq);
-       // return result;
     }
 
     template <
@@ -304,7 +302,7 @@ namespace quan {
     >::type
     pow( T const & t)
     {
-         return quan ::pow<N,1>(t);
+       return quan ::pow<N,1>(t);
     }
 
     template <typename T>
@@ -316,7 +314,7 @@ namespace quan {
     >::type
     sqrt(T const & v)
     {
-      return quan ::pow<1,2>(v);
+       return quan ::pow<1,2>(v);
     }
   
 #ifdef QUAN_TR1_COMPLIANT
@@ -330,7 +328,7 @@ namespace quan {
     >::type
     cbrt(T const & v)
     {
-      return quan ::pow<1,3>(v);
+       return quan ::pow<1,3>(v);
     }
 
 #endif
