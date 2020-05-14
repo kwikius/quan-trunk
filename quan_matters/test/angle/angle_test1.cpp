@@ -183,8 +183,6 @@ void deg_modulo_test()
 }
 
 
-
-
 void angle_test1()
 {
     quan::angle::deg a{90};
@@ -194,25 +192,38 @@ void angle_test1()
     a += quan::angle::s(1);
     a = 90.0_deg;
     QUAN_CHECK(a == quan::angle::pi/2);
+
     quan::angle::rad b = a;
     QUAN_CHECK(b == a);
+
     quan::angle::rad c = quan::angle::deg(180);
     QUAN_CHECK( c == 2 * a);
 
     QUAN_CHECK(c == quan::angle::pi);
     
-   
     c = quan::angle::min{1};
+    QUAN_CHECK ( c == quan::angle::min{1})
 
     c += quan::angle::min{1};
+    QUAN_CHECK ( c == quan::angle::min{2})
+
     c -= quan::angle::min{1};
+    QUAN_CHECK ( c == quan::angle::min{1})
     c = quan::angle::pi;
+    QUAN_CHECK ( c == quan::angle::pi)
+
     a = quan::angle::two_pi;
+    QUAN_CHECK ( a == c * 2)
     quan::angle::sr d = b * c;
-//   b = b + 1; // should wotk and promote to mathematic_angle
+
+    QUAN_CHECK((d.numeric_value() == b.numeric_value() * c.numeric_value()))
+
+    
+//   b = b + 1; // should wotk and promote to mathematic_angle?
     b *= 1;  
+    QUAN_CHECK(b == quan::angle::pi/2)
  
- //   b = b - 1; //should work and promote to math_angle
+ //   b = b - 1; //should work and promote to math_angle?
     b + c;
     b - c;
     a + b;
@@ -223,7 +234,11 @@ void angle_test1()
  // maybe should work
 //    b * a;
 //    a * b;
-    b / c;
+    auto ra = b / c;
+    QUAN_CHECK( ( quan::meta::is_angle<
+                     quan::meta::strip_cr<decltype(ra)>::type
+                  >::value == false)
+    )
     b / a;
     a / b;
     b -=c;
