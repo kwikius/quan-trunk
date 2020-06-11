@@ -1,10 +1,10 @@
 
 
-.PHONY : all type_sequence rational_test find_if concepts_for_each fold test clean dimension
+.PHONY : all type_sequence rational_test find_if concepts_for_each fold test clean dimension binary_op
 
 all: type_sequence rational_test find_if concepts_for_each fold dimension
 
-test: type_sequence rational_test find_if concepts_for_each fold dimension
+test: type_sequence rational_test find_if concepts_for_each fold dimension binary_op
 
 
 ifeq ($(USE_CONCEPTS),True)
@@ -37,6 +37,9 @@ fold :
 dimension :
 	make USE_CONCEPTS=$(USE_CONCEPTS) USE_EXCEPTIONS=$(USE_EXCEPTIONS) USE_RTTI=$(USE_RTTI) -f dimension.mk test
 
+binary_op :
+	make USE_CONCEPTS=$(USE_CONCEPTS) USE_EXCEPTIONS=$(USE_EXCEPTIONS) USE_RTTI=$(USE_RTTI) -f binary_op.mk test
+
 clean:
 	make -f type_sequence.mk clean
 	make -f rational_test.mk clean
@@ -44,3 +47,4 @@ clean:
 	make -f for_each.mk clean 
 	make -f fold.mk clean 
 	make -f dimension.mk clean
+	make -f binary_op.mk clean

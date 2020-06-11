@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <cstdio>
 #include <quan/min.hpp>
+#include <quan/max.hpp>
 
 namespace {
    QUAN_ANGLE_LITERAL(rad)
@@ -146,10 +147,24 @@ void angular_position_conversion_test()
     QUAN_CHECK(get_angular_position(1,4).numeric_value() == quan::angle::pi / 2.f);
 }
 
+void min_max_test()
+{
+   QUAN_CHECK( (quan::min(-1,2) == -1))
+   QUAN_CHECK( (quan::max(2,-1) == 2))
+
+   QUAN_CHECK( (quan::min(5.0,2.0,70.0) == 2.0))
+   QUAN_CHECK( (quan::max(5.0,2.0,70.0) == 70.0))
+
+   QUAN_CHECK( (quan::min(5.0,2.0,70.0,-1,'a') == -1))
+   QUAN_CHECK( (quan::max(5.0,2.0,70.0,-1,'a',1270) == 1270))
+
+}
+
 int errors = 0;
 void test_all_channels();
 int main()
 {
+    min_max_test();
     angular_position_conversion_test();
     count_diff_test();
     angle_diff_test();

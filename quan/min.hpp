@@ -21,17 +21,28 @@
 #warning "undefining min macro"
 #undef min
 #endif
-#include <quan/meta/binary_op.hpp>
+
+#include <quan/meta/binary_op_seq.hpp>
+
 namespace quan{
 
    template <typename TL, typename TR>
    inline 
    constexpr 
    typename quan::meta::binary_op<TL,quan::meta::minus,TR>::type 
-   min ( TL const & lhs, TR const & rhs) 
+   min (TL const & lhs, TR const & rhs) 
    {
       typedef typename quan::meta::binary_op<TL,quan::meta::minus,TR>::type result_type;
       return ( lhs < rhs ) ? static_cast<result_type>(lhs):static_cast<result_type>(rhs);
+   }
+
+   template <typename TL, typename... TR>
+   inline
+   constexpr
+   typename quan::meta::binary_op_seq<TL,quan::meta::minus,TR...>::type
+   min (TL const & lhs, TR const & ... rhs)
+   {
+      return quan::min(lhs,quan::min(rhs...));
    }
 
 }// quan
