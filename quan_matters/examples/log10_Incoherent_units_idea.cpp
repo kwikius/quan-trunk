@@ -26,7 +26,8 @@ void convert_to_log10(Q const& q, std::ostream & out)
    auto constexpr expdenom = exponent::denominator;
    auto constexpr ratio_digits10 = std::numeric_limits<intmax_t>::digits10 -3;
    auto constexpr pow10digits10 = static_cast<intmax_t>(pow(10,ratio_digits10));
-   auto constexpr log10_value = std::log10(static_cast<double>(muxnume)/ muxdenom) ;
+  // auto constexpr log10_value = std::log10(static_cast<double>(muxnume)/ muxdenom) ;
+   auto constexpr log10_value = std::log10(muxnume )  -  std::log10(muxdenom) ;
    auto constexpr ratio_log10_nume_float = log10_value * pow10digits10;
    auto constexpr ratio_log10_nume = static_cast<intmax_t>(std::round(ratio_log10_nume_float));
    // get log10 of multiplier
