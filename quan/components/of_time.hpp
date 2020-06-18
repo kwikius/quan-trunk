@@ -20,12 +20,6 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
-
- 
-//
-// See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/components/of_named_quantity.hpp>
 

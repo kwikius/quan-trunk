@@ -18,7 +18,6 @@
  */
 
 #include <quan/asm/nibble.hpp>
-#include <quan/static_assert.hpp>
 #include <type_traits>
 #include <type_traits>
 #include <quan/meta/signed_unsigned.hpp>
@@ -31,7 +30,7 @@ namespace quan{ namespace asm_{
    inline
    extended_reg<T> extended_mul_unsigned(T  lhs, T rhs)
    {
-      QUAN_STATIC_ASSERT((std::is_unsigned<T>::value));
+      static_assert(std::is_unsigned<T>::value,"");
       static const T shift = quan::meta::asm_::nibble_shift<T>::value;
       static const T lo_mask = quan::meta::asm_::lo_nibble_mask<T>::value;
       extended_reg<T> res;
@@ -64,7 +63,7 @@ namespace quan{ namespace asm_{
       typename quan::meta::signed_to_unsigned<T>::type
    > extended_mul_signed(T  lhs, T rhs)
    {
-      QUAN_STATIC_ASSERT((std::is_signed<T>::value));
+      static_assert(std::is_signed<T>::value,"");
       typedef typename quan::meta::signed_to_unsigned<
          T
       >::type unsigned_type;

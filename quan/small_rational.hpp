@@ -229,13 +229,12 @@ namespace quan{
         
       void normalise()
       {
-
          if( m_denom ==0){
 #ifndef QUAN_NO_EXCEPTIONS
             throw std::runtime_error("small_rational 0 denom");
 #else
-        m_denom = 1;
-        m_nume = INT16_MAX;
+            m_denom = 1;
+            m_nume = INT16_MAX;
 #endif
          }
          if (m_nume == 0) {

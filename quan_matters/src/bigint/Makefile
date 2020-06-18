@@ -46,6 +46,6 @@ $(LL_BIGINT_OBJECTS) : %_ll_bigint_src.o : $(QUAN_ROOT)/quan_matters/src/bigint/
 	$(CXX) -c $(CXXFLAGS) $< -o $@
 
 clean :
-	rm -f *.o
+	rm -f *.o ll_bigint/*.o
 	rm -f $(TARGET)
 

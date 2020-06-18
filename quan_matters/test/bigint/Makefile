@@ -67,6 +67,6 @@ test : $(TARGET)
 	./$(TARGET)
 
 clean :
-	rm -f *.o
+	rm -f *.o ll_bigint/*.o
 	rm -f $(TARGET)
 
