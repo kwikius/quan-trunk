@@ -18,7 +18,6 @@
  */
 
 #include <quan/asm/nibble.hpp>
-#include <quan/static_assert.hpp>
 #include <type_traits>
 #include <quan/meta/signed_unsigned.hpp>
 #include <quan/asm/extended_reg.hpp>
@@ -29,7 +28,7 @@ namespace quan{ namespace asm_{
    inline 
    extended_reg<T> extended_sub_unsigned(T lhs, T rhs)
    {
-       QUAN_STATIC_ASSERT((std::is_unsigned<T>::value));
+       static_assert(std::is_unsigned<T>::value,"");
        extended_reg<T> res;
        res.hi =0;
        if ( lhs >= rhs){

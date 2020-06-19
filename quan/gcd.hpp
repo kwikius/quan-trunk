@@ -17,20 +17,30 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 
+#include <quan/meta/binary_op.hpp>
+
 namespace quan {
 
-  template <typename TL, typename TR> 
-   inline typename quan::meta::binary_op<TL,quan::meta::divides,TR>::type gcd(TL  n, TR  m)
-   {
-      if (n < TL{0})n = -n;
-      if (m < TR{0})m = -m;
+   namespace detail{
 
-      for(;;) {
-         if(m == TL{0})return n;
-         n %= m;
-         if(n == TR{0} )return m;
-         m %= n;
+      template <typename TL, typename TR> 
+      constexpr 
+      typename quan::meta::binary_op<TL,quan::meta::divides,TR>::type
+      gcd_impl(TL && n, TR &&  d)
+      {
+         return ( d == 0)
+         ? n
+         : gcd_impl(d,n % d );     
       }
    }
+
+   template <typename TL, typename TR> 
+   inline constexpr
+   typename quan::meta::binary_op<TL,quan::meta::divides,TR>::type 
+   gcd(TL const &  n, TR const & d)
+   {
+      return quan::detail::gcd_impl( (n < TL{0}) ? -n: n , (d < TR{0}) ? -d: d );
+   }
 }
+
 #endif // QUAN_GCD_HPP_INCLUDED

@@ -20,18 +20,32 @@
 #include <quan/asm/get_bit.hpp>
 #include <quan/meta/numbits.hpp>
 #include <quan/meta/max.hpp>
+#include <type_traits>
 
 namespace quan{ namespace asm_{
 
+   /*
+      T is always unsigned
+      sign of value is represented in sign bit
+   */
    template <typename T>
    struct extended_reg{
 
-      extended_reg() : hi{0},lo{0},sign{1}{}
-      extended_reg(T hiIn, T loIn,int signIn = 1): hi{hiIn},lo{loIn},sign{signIn}{}
+      static_assert(std::is_unsigned<T>::value,"");
+      constexpr extended_reg() : hi{0},lo{0},sign{1}{}
+      constexpr extended_reg(T const & hiIn, T const & loIn,int signIn = 1)
+      : hi{hiIn},lo{loIn},sign{(loIn || hiIn)?signIn:1}{}
+
+      constexpr extended_reg(extended_reg const &) = default;
+      constexpr extended_reg(extended_reg &&) = default;
+
+      constexpr extended_reg & operator = (extended_reg const &) = default;
+      constexpr extended_reg & operator = (extended_reg &&) = default;
+
       enum sign_enum{ undefined =0, positive = 1,negative = -1};
       T hi;
       T lo; 
-      int sign; // 1 == +, -1 == -
+      int sign; // 1 == +, -1 == -  n.b 0 is always positive
 
       bool shift_left()
       {
@@ -45,7 +59,7 @@ namespace quan{ namespace asm_{
          return res;
       }
 
-      bool get_bit( unsigned i) const
+      constexpr bool get_bit( unsigned i) const
       {
          auto constexpr nT = quan::meta::numbits<T>::value;
 
@@ -72,22 +86,59 @@ namespace quan{ namespace asm_{
       
       int compare(T const & v) const
       {
-         if ( hi == 0){
-            return (lo > v)
-               ? 1 
-               : ((lo < v) ? -1 : 0);
+         // sign of v is always positive
+         if ( sign == 1){
+            if ( hi == 0){
+               return (lo > v)
+                  ? 1 
+                  : ((lo < v) ? -1 : 0);
+            }else{
+               return 1;
+            }
          }else{
-            return 1;
+            return -1;
          }
+      }
+
+      int compare(extended_reg<T> const & v) const
+      {
+        // TODO sign
+        if ( hi == v.hi){
+            return compare(v.lo);
+        }else{
+            return (hi > v.hi)? 1 : -1; 
+        }
       }
 
       extended_reg & operator -= (T const & v)
       {
-          if ( v <= lo){
-            lo -= v;
+         // TODO sign
+         if( *this >= v){
+             if ( v <= lo){
+               lo -= v;
+             }else{
+               lo = quan::meta::max_<T>::value - v + (lo + 1);
+               hi -= 1;
+             }
           }else{
-            lo = quan::meta::max_<T>::value - v + (lo + 1);
-            hi -= 1;
+              assert(false && "todo");
+          }
+          return *this;
+      }
+
+      extended_reg & operator -= (extended_reg<T> const & v)
+      {
+          // TODO sign
+          if( *this >= v){
+             if( v.lo <= lo){
+                lo -= v.lo;
+                hi -= v.hi;
+             }else{
+                lo = quan::meta::max_<T>::value - v.lo + (lo + 1);
+                hi -= (v.hi + 1);
+             }
+          }else{
+              assert(false && "todo");
           }
           return *this;
       }
@@ -97,7 +148,17 @@ namespace quan{ namespace asm_{
          return compare(v) < 0;
       }
 
+      bool operator < (extended_reg<T> const & v)const
+      {
+         return compare(v) < 0;
+      }
+
       bool operator <= (T const & v)const
+      {
+         return compare(v) <= 0;
+      }
+
+      bool operator <= (extended_reg<T> const & v)const
       {
          return compare(v) <= 0;
       }
@@ -107,7 +168,17 @@ namespace quan{ namespace asm_{
          return compare(v) == 0;
       }
 
+      bool operator == (extended_reg<T> const & v)const
+      {
+         return compare(v) == 0;
+      }
+
       bool operator != (T const & v)const
+      {
+         return compare(v) != 0;
+      }
+
+      bool operator != (extended_reg<T> const & v)const
       {
          return compare(v) != 0;
       }
@@ -117,16 +188,21 @@ namespace quan{ namespace asm_{
          return compare(v) >= 0;
       }
 
+      bool operator >= (extended_reg<T> const & v)const
+      {
+         return compare(v) >= 0;
+      }
+
       bool operator > (T const & v)const
       {
          return compare(v) > 0;
       }
+
+      bool operator > (extended_reg<T> const & v)const
+      {
+         return compare(v) > 0;
+      }
    };
-
-   
-
-   
-
 }}//quan::asm_
 
 #endif

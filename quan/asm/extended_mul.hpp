@@ -17,22 +17,26 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 
+#include <type_traits>
 #include <quan/asm/nibble.hpp>
-#include <type_traits>
-#include <type_traits>
 #include <quan/meta/signed_unsigned.hpp>
 #include <quan/asm/extended_reg.hpp>
 #include <quan/where.hpp>
 
 namespace quan{ namespace asm_{
 
+   /*
+      result always positive
+   */
    template <typename T>
    inline
    extended_reg<T> extended_mul_unsigned(T  lhs, T rhs)
    {
       static_assert(std::is_unsigned<T>::value,"");
-      static const T shift = quan::meta::asm_::nibble_shift<T>::value;
-      static const T lo_mask = quan::meta::asm_::lo_nibble_mask<T>::value;
+      static constexpr T shift = quan::meta::asm_::nibble_shift<T>::value;
+      static constexpr T lo_mask = quan::meta::asm_::lo_nibble_mask<T>::value;
+
+
       extended_reg<T> res;
       res.sign = 1;
       //lo
@@ -85,7 +89,7 @@ namespace quan{ namespace asm_{
    typename quan::where_<
       std::is_signed<T>,
       extended_reg<
-      typename quan::meta::signed_to_unsigned<T>::type
+         typename quan::meta::signed_to_unsigned<T>::type
       >
    >::type extended_mul(T lhs, T rhs)
    {
