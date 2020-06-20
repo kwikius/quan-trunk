@@ -36,7 +36,7 @@ namespace quan{ namespace asm_{
       static constexpr T shift = quan::meta::asm_::nibble_shift<T>::value;
       static constexpr T lo_mask = quan::meta::asm_::lo_nibble_mask<T>::value;
 
-
+#if 0
       extended_reg<T> res;
       res.sign = 1;
       //lo
@@ -44,6 +44,14 @@ namespace quan{ namespace asm_{
       //mid1
       T reg = lo_nibble(lhs) * hi_nibble(rhs);
       res.hi = hi_nibble(reg);
+#else
+      T reg = lo_nibble(lhs) * hi_nibble(rhs);
+      extended_reg<T> res{
+         static_cast<T>(hi_nibble(reg)),
+         static_cast<T>(lo_nibble(lhs) * lo_nibble(rhs)),
+         1
+      };
+#endif
       reg &= lo_mask;
       reg += hi_nibble(res.lo);
       res.lo = lo_nibble(res.lo) | (lo_nibble(reg) << shift);
