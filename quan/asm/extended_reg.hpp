@@ -39,8 +39,8 @@ namespace quan{ namespace asm_{
       constexpr extended_reg(extended_reg const &) = default;
       constexpr extended_reg(extended_reg &&) = default;
 
-      constexpr extended_reg & operator = (extended_reg const &) = default;
-      constexpr extended_reg & operator = (extended_reg &&) = default;
+      extended_reg & operator = (extended_reg const &) = default;
+      extended_reg & operator = (extended_reg &&) = default;
 
       enum sign_enum{ undefined =0, positive = 1,negative = -1};
       T hi;
@@ -61,12 +61,12 @@ namespace quan{ namespace asm_{
 
       constexpr bool get_bit( unsigned i) const
       {
-         auto constexpr nT = quan::meta::numbits<T>::value;
+        // auto constexpr nT = quan::meta::numbits<T>::value;
 
-         return ( i < nT)
+         return ( i < quan::meta::numbits<T>::value)
             ? quan::asm_::get_bit(lo,i)
-            : ( (i < (2U * nT))
-                 ? quan::asm_::get_bit(hi,i - nT)
+            : ( (i < (2U * quan::meta::numbits<T>::value))
+                 ? quan::asm_::get_bit(hi,i - quan::meta::numbits<T>::value)
                  : false
                )
           ;

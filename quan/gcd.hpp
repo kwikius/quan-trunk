@@ -18,6 +18,7 @@
  */
 
 #include <quan/meta/binary_op.hpp>
+#include <quan/abs.hpp>
 
 namespace quan {
 
@@ -39,7 +40,7 @@ namespace quan {
    typename quan::meta::binary_op<TL,quan::meta::divides,TR>::type 
    gcd(TL const &  n, TR const & d)
    {
-      return quan::detail::gcd_impl( (n < TL{0}) ? -n: n , (d < TR{0}) ? -d: d );
+      return quan::detail::gcd_impl( quan::abs(n), quan::abs(d) );
    }
 }
 
