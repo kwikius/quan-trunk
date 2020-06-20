@@ -102,12 +102,14 @@ namespace quan{ namespace asm_{
 
       int compare(extended_reg<T> const & v) const
       {
-        // TODO sign
-        if ( hi == v.hi){
-            return compare(v.lo);
-        }else{
+         // TODO sign
+         if ( hi == v.hi){
+            return (lo > v.lo)
+               ? 1 
+               : ((lo < v.lo) ? -1 : 0);
+         }else{
             return (hi > v.hi)? 1 : -1; 
-        }
+         }
       }
 
       extended_reg & operator -= (T const & v)
