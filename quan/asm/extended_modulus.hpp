@@ -6,6 +6,9 @@
 #include <quan/meta/numbits.hpp>
 #include <quan/asm/get_bit.hpp>
 #include <quan/asm/extended_reg.hpp>
+#include <quan/asm/extended_divide.hpp>
+#include <quan/asm/extended_mul.hpp>
+#include <quan/asm/extended_sub.hpp>
 
 /*
    https://en.wikipedia.org/wiki/Division_algorithm#Long_division
@@ -25,7 +28,7 @@ namespace quan{ namespace asm_{
    extended_modulus_unsigned ( quan::asm_::extended_reg<T> const & n, T const & d)
    {
       static_assert(std::is_unsigned<T>::value,"");
-     // std::cout << "umu1\n";
+
       if ( n.hi == 0){
          return {T{0},static_cast<T>(n.lo%d),1};
       }else{
@@ -61,7 +64,6 @@ namespace quan{ namespace asm_{
    extended_modulus_unsigned ( quan::asm_::extended_reg<T> const & n, quan::asm_::extended_reg<T> const & d)
    {
       static_assert(std::is_unsigned<T>::value,"");
-     // std::cout << "umu\n";
       if (d.hi == 0){
          return extended_modulus_unsigned(n,d.lo);
       }else{
@@ -82,10 +84,10 @@ namespace quan{ namespace asm_{
             }
          }
          return r;  
+
       }
    }
 
-   // signed using extended_reg<unsigned_type> / signed_type
 
 }}//quan::asm
 
