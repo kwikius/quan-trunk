@@ -34,7 +34,7 @@ namespace quan{ namespace asm_{
       static_assert(std::is_unsigned<T>::value,"");
       constexpr extended_reg() : hi{0},lo{0},sign{1}{}
       constexpr extended_reg(T const & hiIn, T const & loIn,int signIn = 1)
-      : hi{hiIn},lo{loIn},sign{(loIn || hiIn)?signIn:1}{}
+      : hi{hiIn},lo{loIn},sign{((loIn != 0) || (hiIn != 0))?signIn:1}{}
 
       constexpr extended_reg(extended_reg const &) = default;
       constexpr extended_reg(extended_reg &&) = default;
@@ -47,22 +47,25 @@ namespace quan{ namespace asm_{
       T lo; 
       int sign; // 1 == +, -1 == -  n.b 0 is always positive
 
-      bool shift_left()
+      constexpr void shift_left()
       {
-         int constexpr nT = quan::meta::numbits<T>::value;
-         bool const res = quan::asm_::get_bit<nT-1>(hi);
-         hi <<= 1;
-         if ( quan::asm_::get_bit<nT-1>(lo)){
-            hi |= 1;
-         }
-         lo <<= 1;
-         return res;
+          hi = (quan::asm_::get_bit<quan::meta::numbits<T>::value - 1>(lo) )
+             ? (hi << 1) | 1
+             : (hi << 1)
+          ;  
+          lo <<= 1U;
+      }
+
+      friend constexpr extended_reg shift_left(extended_reg const & in)
+      {
+         return ( quan::asm_::get_bit<quan::meta::numbits<T>::value -1>(in.lo) )
+            ?  extended_reg{ static_cast<T>((in.hi << 1) | 1), static_cast<T>(in.lo << 1) , 1}
+            :  extended_reg{ static_cast<T>(in.hi << 1) ,static_cast<T>( in.lo << 1) , 1}
+          ;  
       }
 
       constexpr bool get_bit( unsigned i) const
       {
-        // auto constexpr nT = quan::meta::numbits<T>::value;
-
          return ( i < quan::meta::numbits<T>::value)
             ? quan::asm_::get_bit(lo,i)
             : ( (i < (2U * quan::meta::numbits<T>::value))
@@ -72,19 +75,18 @@ namespace quan{ namespace asm_{
           ;
       }
 
-      void set_bit( unsigned i)
+      void constexpr set_bit( unsigned i)
       {
-         auto constexpr nT = quan::meta::numbits<T>::value;
-         if ( i < nT){
+         if ( i < quan::meta::numbits<T>::value){
             lo |= (1U << i);
          }else{
-            if ( i < 2U * nT){
-               hi |= ( 1U << ( i - nT));
+            if ( i < (2U * quan::meta::numbits<T>::value)){
+               hi |= ( 1U << ( i - quan::meta::numbits<T>::value));
             }
          }
       }
       
-      int compare(T const & v) const
+      int constexpr compare(T const & v) const
       {
          // sign of v is always positive
          if ( sign == 1){
@@ -100,7 +102,7 @@ namespace quan{ namespace asm_{
          }
       }
 
-      int compare(extended_reg<T> const & v) const
+      int constexpr compare(extended_reg const & v) const
       {
          // TODO sign
          if ( hi == v.hi){
@@ -112,6 +114,18 @@ namespace quan{ namespace asm_{
          }
       }
 
+      friend constexpr extended_reg operator - ( extended_reg const & lhs, extended_reg const & rhs)
+      {
+          return (lhs >= rhs )
+             ? (lhs.lo >= rhs.lo)
+                  ? extended_reg{static_cast<T>(lhs.hi - rhs.hi),static_cast<T>(lhs.lo - rhs.lo),1}
+                  : extended_reg{static_cast<T>(lhs.hi - (rhs.hi + 1 )), static_cast<T>((quan::meta::max_<T>::value - rhs.lo) + (lhs.lo + 1)),1}
+             : (rhs.lo >= lhs.lo)
+                  ? extended_reg{static_cast<T>(rhs.hi - lhs.hi),static_cast<T>(rhs.lo - lhs.lo),-1}
+                  : extended_reg{static_cast<T>(rhs.hi - (lhs.hi + 1)), static_cast<T>((quan::meta::max_<T>::value - lhs.lo) + (rhs.lo + 1)),-1}
+            ;
+      }
+/*
       extended_reg & operator -= (T const & v)
       {
          // TODO sign
@@ -136,7 +150,7 @@ namespace quan{ namespace asm_{
                 lo -= v.lo;
                 hi -= v.hi;
              }else{
-                lo = quan::meta::max_<T>::value - v.lo + (lo + 1);
+                lo = (quan::meta::max_<T>::value - v.lo) + (lo + 1);
                 hi -= (v.hi + 1);
              }
           }else{
@@ -144,63 +158,63 @@ namespace quan{ namespace asm_{
           }
           return *this;
       }
-
-      bool operator < (T const & v)const
+*/
+      bool constexpr operator < (T const & v)const
       {
          return compare(v) < 0;
       }
 
-      bool operator < (extended_reg<T> const & v)const
+      bool constexpr operator < (extended_reg<T> const & v)const
       {
          return compare(v) < 0;
       }
 
-      bool operator <= (T const & v)const
+      bool constexpr operator <= (T const & v)const
       {
          return compare(v) <= 0;
       }
 
-      bool operator <= (extended_reg<T> const & v)const
+      bool constexpr operator <= (extended_reg<T> const & v)const
       {
          return compare(v) <= 0;
       }
 
-      bool operator  == (T const & v)const
+      bool constexpr operator  == (T const & v)const
       {
          return compare(v) == 0;
       }
 
-      bool operator == (extended_reg<T> const & v)const
+      bool constexpr operator == (extended_reg<T> const & v)const
       {
          return compare(v) == 0;
       }
 
-      bool operator != (T const & v)const
+      bool constexpr operator != (T const & v)const
       {
          return compare(v) != 0;
       }
 
-      bool operator != (extended_reg<T> const & v)const
+      bool constexpr operator != (extended_reg<T> const & v)const
       {
          return compare(v) != 0;
       }
 
-      bool operator >= (T const & v)const
+      bool constexpr operator >= (T const & v)const
       {
          return compare(v) >= 0;
       }
 
-      bool operator >= (extended_reg<T> const & v)const
+      bool constexpr operator >= (extended_reg<T> const & v)const
       {
          return compare(v) >= 0;
       }
 
-      bool operator > (T const & v)const
+      bool constexpr operator > (T const & v)const
       {
          return compare(v) > 0;
       }
 
-      bool operator > (extended_reg<T> const & v)const
+      bool constexpr operator > (extended_reg<T> const & v)const
       {
          return compare(v) > 0;
       }

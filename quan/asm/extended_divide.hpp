@@ -20,7 +20,7 @@ namespace quan{ namespace asm_{
    */
 
    template <typename T>
-   inline
+   inline constexpr 
    quan::asm_::extended_reg<T> 
    extended_divide_unsigned ( quan::asm_::extended_reg<T> const & n, T const & d)
    {
@@ -41,7 +41,7 @@ namespace quan{ namespace asm_{
                r.lo |= 1;
             }
             if( r >= d){
-               r -= d;
+               r = r - extended_reg<T>{0,d,1};
                q.set_bit(i);
             }
          }
@@ -56,7 +56,7 @@ namespace quan{ namespace asm_{
    */
 
    template <typename T>
-   inline
+   inline constexpr
    quan::asm_::extended_reg<T> 
    extended_divide_unsigned ( quan::asm_::extended_reg<T> const & n, quan::asm_::extended_reg<T> const & d)
    {
@@ -77,7 +77,7 @@ namespace quan{ namespace asm_{
                r.lo |= 1;
             }
             if( r >= d){
-               r -= d;
+               r = r - d;
                q.set_bit(i);
             }
          }

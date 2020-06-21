@@ -25,13 +25,13 @@
 namespace quan{ namespace asm_{
 
    template <typename T>
-   inline
+   inline constexpr
    T lo_nibble ( T const & v){
-      return  v & quan::meta::asm_::lo_nibble_mask<T>::value;
+      return v & quan::meta::asm_::lo_nibble_mask<T>::value;
    };
 
    template <typename T>
-   inline 
+   inline constexpr
    T hi_nibble (T const & v){
      /* return static_cast<T>(
       (v & quan::meta::asm_::hi_nibble_mask<T>::value) 

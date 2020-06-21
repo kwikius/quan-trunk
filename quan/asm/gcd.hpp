@@ -9,7 +9,7 @@ namespace quan{ namespace asm_{
    namespace detail {
 
       template <typename T>
-      inline  
+      inline  constexpr
       quan::asm_::extended_reg<T>
       gcd_impl(quan::asm_::extended_reg<T> const & nIn, quan::asm_::extended_reg<T> const & dIn)
       {
@@ -34,7 +34,7 @@ namespace quan{ namespace asm_{
    }//detail
 
    template <typename T>
-   inline 
+   inline constexpr
    quan::asm_::extended_reg<T>
    gcd(quan::asm_::extended_reg<T> const & n, quan::asm_::extended_reg<T> const & d)
    {

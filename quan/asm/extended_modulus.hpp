@@ -6,9 +6,6 @@
 #include <quan/meta/numbits.hpp>
 #include <quan/asm/get_bit.hpp>
 #include <quan/asm/extended_reg.hpp>
-#include <quan/asm/extended_divide.hpp>
-#include <quan/asm/extended_mul.hpp>
-#include <quan/asm/extended_sub.hpp>
 
 /*
    https://en.wikipedia.org/wiki/Division_algorithm#Long_division
@@ -23,7 +20,7 @@ namespace quan{ namespace asm_{
    */
 
    template <typename T>
-   inline
+   inline constexpr
    quan::asm_::extended_reg<T> 
    extended_modulus_unsigned ( quan::asm_::extended_reg<T> const & n, T const & d)
    {
@@ -39,12 +36,12 @@ namespace quan{ namespace asm_{
          int constexpr msb = quan::meta::numbits<T>::value * 2 - 1;
 
          for (int i = msb ; i >= 0 ; --i){
-            r.shift_left();
+            r = shift_left(r);
             if( n.get_bit(i)  ){
                r.lo |= 1;
             }
             if( r >= d){
-               r -= d;
+               r = r - extended_reg<T>{0,d,1};
                q.set_bit(i);
             }
          }
@@ -59,7 +56,7 @@ namespace quan{ namespace asm_{
    */
 
    template <typename T>
-   inline
+   inline constexpr
    quan::asm_::extended_reg<T> 
    extended_modulus_unsigned ( quan::asm_::extended_reg<T> const & n, quan::asm_::extended_reg<T> const & d)
    {
@@ -74,12 +71,12 @@ namespace quan{ namespace asm_{
          int constexpr msb = quan::meta::numbits<T>::value * 2 - 1;
 
          for (int i = msb ; i >= 0 ; --i){
-            r.shift_left();
+            r = shift_left(r);
             if( n.get_bit(i)  ){
                r.lo |= 1;
             }
             if( r >= d){
-               r -= d;
+               r = r - d;
                q.set_bit(i);
             }
          }

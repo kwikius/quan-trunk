@@ -18,6 +18,8 @@
  */
 
 #include <type_traits>
+#include <quan/sign.hpp>
+#include <quan/abs.hpp>
 #include <quan/asm/nibble.hpp>
 #include <quan/meta/signed_unsigned.hpp>
 #include <quan/asm/extended_reg.hpp>
@@ -25,52 +27,42 @@
 
 namespace quan{ namespace asm_{
 
-   /*
-      result always positive
-   */
+   // always positive
    template <typename T>
-   inline
-   extended_reg<T> extended_mul_unsigned(T  lhs, T rhs)
+   inline constexpr
+   extended_reg<T> extended_mul_unsigned(T const & lhs, T const & rhs)
    {
       static_assert(std::is_unsigned<T>::value,"");
-      static constexpr T shift = quan::meta::asm_::nibble_shift<T>::value;
-      static constexpr T lo_mask = quan::meta::asm_::lo_nibble_mask<T>::value;
 
-#if 0
-      extended_reg<T> res;
-      res.sign = 1;
-      //lo
-      res.lo = lo_nibble(lhs) * lo_nibble(rhs);
-      //mid1
-      T reg = lo_nibble(lhs) * hi_nibble(rhs);
-      res.hi = hi_nibble(reg);
-#else
-      T reg = lo_nibble(lhs) * hi_nibble(rhs);
-      extended_reg<T> res{
-         static_cast<T>(hi_nibble(reg)),
-         static_cast<T>(lo_nibble(lhs) * lo_nibble(rhs)),
-         1
-      };
-#endif
-      reg &= lo_mask;
-      reg += hi_nibble(res.lo);
-      res.lo = lo_nibble(res.lo) | (lo_nibble(reg) << shift);
-      res.hi += hi_nibble(reg);
-      //mid2
-      reg = hi_nibble(lhs) * lo_nibble(rhs);
-      res.hi += hi_nibble(reg);
-      reg &= lo_mask;
-      reg += hi_nibble(res.lo);
-      res.lo = lo_nibble(res.lo) | (lo_nibble(reg) << shift);
-      res.hi += hi_nibble(reg);
-      //hi
-      res.hi += hi_nibble(lhs) * hi_nibble(rhs);
+      const T low  = lo_nibble(lhs) * lo_nibble(rhs);
+      const T midL = lo_nibble(lhs) * hi_nibble(rhs);
+      const T midR = hi_nibble(lhs) * lo_nibble(rhs);
+      const T hi   = hi_nibble(lhs) * hi_nibble(rhs);
+
+      constexpr T nibble_shift = quan::meta::asm_::nibble_shift<T>::value;
+
+      const T lo_msb_r1 = hi_nibble(low) + lo_nibble(midL);
+      const T lo_msb_r2 = lo_nibble(lo_msb_r1) + lo_nibble(midR);
+      const T hi_lsb_r1 = lo_nibble(hi) + hi_nibble(midL);
+      const T hi_lsb_r2 = lo_nibble(hi_lsb_r1) + hi_nibble(midR);
+
+      const T hi_lsb_r3 = hi_nibble(lo_msb_r1) + lo_nibble(hi_lsb_r2);
+      const T hi_lsb_r4  = hi_nibble(lo_msb_r2) + lo_nibble(hi_lsb_r3);
+      const T hi_msb_r1  = hi_nibble(hi) + hi_nibble(hi_lsb_r1);
+      const T hi_msb_r2  = lo_nibble(hi_msb_r1) + hi_nibble(hi_lsb_r2);
+
+      const T hi_msb_r3  = lo_nibble(hi_msb_r2) + hi_nibble(hi_lsb_r3);
+      const T hi_msb_r4 = lo_nibble(hi_msb_r3) + hi_nibble(hi_lsb_r4);
+      const T lo_reg = lo_nibble(low) | (lo_nibble(lo_msb_r2) << nibble_shift);
+      const T hi_reg = (lo_nibble(hi_lsb_r4)) | (lo_nibble(hi_msb_r4) << nibble_shift);
+
+      return {hi_reg,lo_reg,1};
       
-      return res;
    }
 
+
    template <typename T>
-   inline
+   inline constexpr
    extended_reg<
       typename quan::meta::signed_to_unsigned<T>::type
    > extended_mul_signed(T  lhs, T rhs)
@@ -80,20 +72,16 @@ namespace quan{ namespace asm_{
          T
       >::type unsigned_type;
 
-      int lhs_sign = lhs >=0?1:-1;
-      unsigned_type lhs_u = static_cast<unsigned_type>((lhs_sign > 0)?lhs:-lhs);
+      auto const u_reg = extended_mul_unsigned(
+         static_cast<unsigned_type>(quan::abs(lhs)),
+         static_cast<unsigned_type>(quan::abs(rhs))
+      );
 
-      int rhs_sign = rhs >=0? 1:-1;
-      unsigned_type rhs_u = static_cast<unsigned_type>((rhs_sign > 0)?rhs:-rhs);
-
-      extended_reg<unsigned_type> u_reg 
-      = extended_mul_unsigned(lhs_u,rhs_u);
-      u_reg.sign = lhs_sign * rhs_sign;
-
-      return u_reg;
+      return {u_reg.hi, u_reg.lo, quan::sign(lhs) * quan::sign(rhs)};
    }
 
    template <typename T>
+   inline constexpr
    typename quan::where_<
       std::is_signed<T>,
       extended_reg<
@@ -105,6 +93,7 @@ namespace quan{ namespace asm_{
    }
 
    template <typename T>
+   inline constexpr
    typename quan::where_<
       std::is_unsigned<T>,
       extended_reg<T>
