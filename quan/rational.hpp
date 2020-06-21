@@ -1,6 +1,10 @@
 #ifndef QUAN_RATIONAL_HPP_INCLUDED
 #define QUAN_RATIONAL_HPP_INCLUDED
 
+/*
+   requires c++20 ?
+*/
+
 #include <cstdint>
 #include <cassert>
 #include <type_traits>
@@ -28,17 +32,18 @@ namespace quan{
 
    template <typename T>
    struct rational{
-
       typedef T int_type;
-      constexpr rational(): num{static_cast<T>(0U)},den{static_cast<T>(1U)}{}
+      constexpr rational()
+      :  num{static_cast<T>(0U)},
+         den{static_cast<T>(1U)}{}
       constexpr rational(rational const &) = default;
       constexpr rational(rational &&) = default;
       constexpr rational(T const & n, T const & d) 
-      : num{static_cast<T>((n * quan::sign(d)) / quan::gcd(n,d))},
-        den{static_cast<T>(quan::abs(d) / quan::gcd(n,d))}{}
-
-      rational & operator = (rational const & ) = default;
-      rational & operator = (rational && ) = default;
+      :  num{static_cast<T>((n * quan::sign(d)) / quan::gcd(n,d))},
+         den{static_cast<T>(quan::abs(d) / quan::gcd(n,d))}
+      {}
+      constexpr rational & operator=(rational const &) = default;
+      constexpr rational & operator=(rational &&) = default;
 
       constexpr T nume() const { return num;}
       constexpr T denom() const { return den;}

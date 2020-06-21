@@ -85,8 +85,6 @@ namespace quan{ namespace asm_{
       }
    }
 
-   // signed using extended_reg<unsigned_type> / signed_type
-
 }}//quan::asm
 
 #endif // QUAN_ASM_EXTENDED_DIVIDE_HPP_INCLUDED
