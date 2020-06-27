@@ -16,12 +16,6 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
- 
- 
-//
-// See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/config.hpp>
 #include <quan/meta/asm/nibble_shift.hpp>
@@ -36,12 +30,12 @@ namespace quan{ namespace meta{namespace asm_{
 
       template<>
       struct lo_nibble_mask_c<1>{
-         enum {value = 0x10};
+         static constexpr uintmax_t value = static_cast<uintmax_t>(0x10);
       };
 
       template<int N>
       struct lo_nibble_mask_c{
-         enum {value = 0x10 * (lo_nibble_mask_c<N-1>::value)};
+        static constexpr uintmax_t value = static_cast<uintmax_t>(0x10) * lo_nibble_mask_c<N-1>::value ;
       };
       
    }

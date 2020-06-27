@@ -34,7 +34,7 @@ namespace quan{ namespace asm_{
    {
       static_assert( B < quan::meta::numbits<I>::value,"Bit out of range");
      // constexpr I bitmask = static_cast<I>( 1 << B );
-      return ( reg & static_cast<I>( 1 << B ) ) != 0 ;
+      return ( reg & ( static_cast<I>(1) << B )) != 0 ;
    }
 
    template < typename I>
@@ -48,7 +48,7 @@ namespace quan{ namespace asm_{
      // assert( B < quan::meta::numbits<I>::value);
      // I const bitmask = static_cast<I>( 1 << B  );
       return (B < quan::meta::numbits<I>::value) 
-         ? (( reg & static_cast<I>( 1 << B  ) ) != 0) 
+         ? ( (reg & ( static_cast<I>(1) << B ) ) != 0) 
          : false;
    }
 

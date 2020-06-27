@@ -7,7 +7,7 @@
 vector_view test
 */
 
-int main()
+void vector_view_test()
 {
   // view of a std::vector
 

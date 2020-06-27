@@ -47,10 +47,10 @@ namespace quan{
 
       constexpr T nume() const { return num;}
       constexpr T denom() const { return den;}
-private:
+
       T num;
       T den;
-
+private:
       friend constexpr rational abs( rational const & in)
       {
          return rational{quan::abs(in.num),in.den};

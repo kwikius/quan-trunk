@@ -16,6 +16,7 @@ ConversionDir                 = quan_matters/test/conversion/
 BigintDir                     = quan_matters/test/bigint/
 FusionDir                     = quan_matters/test/fusion/
 BasicMatrixDir                = quan_matters/test/basic_matrix/
+GeneralDir                    = quan_matters/test/general/
 
 #USE_CONCEPTS_VALUE = True
 USE_CONCEPTS_VALUE ?= False
@@ -64,6 +65,9 @@ fusion:
 basic_matrix:
 	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) USE_EXCEPTIONS=$(USE_EXCEPTIONS_VALUE) USE_RTTI=$(USE_RTTI_VALUE) -C $(BasicMatrixDir) test 
 
+general : 
+	make USE_CONCEPTS=$(USE_CONCEPTS_VALUE) USE_EXCEPTIONS=$(USE_EXCEPTIONS_VALUE) USE_RTTI=$(USE_RTTI_VALUE) -C $(GeneralDir) test 
+
 clean: 
 	make -C $(FixedQuantitySemanticsTestDir) clean
 	make -C $(FixedQuantityCompileFailDir) clean
@@ -77,3 +81,4 @@ clean:
 	make -C $(BigintDir) clean
 	make -C $(FusionDir) clean
 	make -C $(BasicMatrixDir) clean
+	make -C $(GeneralDir) clean
