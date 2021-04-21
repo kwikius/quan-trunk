@@ -69,9 +69,11 @@ namespace quan{ namespace stm32{
       quan::stm32::periph_reg<type, 0x90>     bdcr;
       quan::stm32::periph_reg<type, 0x94>     csr;
       quan::stm32::periph_reg<type, 0x98>     crrcr;
-
+#if defined __MBED__
+      static rcc* get(){ return reinterpret_cast<rcc*>(address);}
+#else
       static constexpr rcc* get(){ return reinterpret_cast<rcc*>(address);}
-
+#endif
       private:
          rcc() = delete;
          rcc(rcc const &) = delete;
@@ -82,4 +84,5 @@ namespace quan{ namespace stm32{
 
 
 #endif	/* QUAN_STM32_F4_RCC_HPP_INCLUDED */
+
 
