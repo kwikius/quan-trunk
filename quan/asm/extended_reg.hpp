@@ -78,10 +78,10 @@ namespace quan{ namespace asm_{
       void constexpr set_bit( unsigned i)
       {
          if ( i < quan::meta::numbits<T>::value){
-            lo |= (1U << i);
+            lo |= (static_cast<T>(1U) << i);
          }else{
             if ( i < (2U * quan::meta::numbits<T>::value)){
-               hi |= ( 1U << ( i - quan::meta::numbits<T>::value));
+               hi |= ( static_cast<T>(1U) << ( i - quan::meta::numbits<T>::value));
             }
          }
       }
