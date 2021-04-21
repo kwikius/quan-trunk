@@ -637,6 +637,7 @@ namespace quan{ //quan
         typename Value_typeR
     >
     inline
+    QUAN_CONSTEXPR
     typename quan::meta::binary_op<
         quan::fraction_of_revolution<
             Extent,
@@ -683,7 +684,7 @@ namespace quan{ //quan
                 ReciprocalFractionL,
                 Value_typeL
             >,
-            quan::meta::plus,
+            quan::meta::minus,
             quan::fraction_of_revolution<
                 Extent,
                 ReciprocalFractionR,

@@ -414,7 +414,7 @@ namespace quan {
         typename ReciprocalFractionR,
         typename Value_typeR
     >
-    inline
+    inline QUAN_CONSTEXPR
     typename quan::meta::binary_op<
         quan::mathematic_angle<
             Extent,
@@ -480,7 +480,7 @@ namespace quan {
         typename ReciprocalFractionR,
         typename Value_typeR
     >
-    inline
+    inline QUAN_CONSTEXPR
     typename quan::meta::binary_op<
         quan::mathematic_angle<
             Extent,
@@ -543,7 +543,7 @@ namespace quan {
         typename Value_typeL,
         typename Value_typeR
     >
-    inline
+    inline QUAN_CONSTEXPR
     typename quan::meta::binary_op<
         quan::fraction_of_revolution<
             Extent,
@@ -608,7 +608,7 @@ namespace quan {
         typename ReciprocalFractionR,
         typename Value_typeR
     >
-    inline
+    inline QUAN_CONSTEXPR
     typename quan::meta::binary_op<
         quan::mathematic_angle<
             ExtentL,
@@ -681,7 +681,7 @@ namespace quan {
         typename ExtentR,
         typename Value_typeR
     >
-    inline
+    inline QUAN_CONSTEXPR
     typename quan::meta::binary_op<
          quan::fraction_of_revolution<
             ExtentL,
@@ -748,7 +748,7 @@ namespace quan {
         typename ReciprocalFractionR,
         typename Value_typeR
     >
-    inline
+    inline QUAN_CONSTEXPR
     typename quan::meta::binary_op<
         quan::mathematic_angle<ExtentL,Value_typeL>,
         quan::meta::divides,
@@ -807,7 +807,7 @@ namespace quan {
         typename ExtentR,
         typename Value_typeR
     >
-    inline
+    inline QUAN_CONSTEXPR
     typename quan::meta::binary_op<
          quan::fraction_of_revolution<
             ExtentL,
@@ -860,7 +860,7 @@ namespace quan {
     }
 
     template<typename ReciprocalFraction,typename Value_type>
-    inline
+    inline QUAN_CONSTEXPR
     Value_type cos(
         quan::fraction_of_revolution<quan::meta::rational<1>,ReciprocalFraction,Value_type>const& r)
     {
@@ -868,14 +868,14 @@ namespace quan {
         return cos(t);
     }
     template<typename ReciprocalFraction,typename Value_type>
-    inline
+    inline QUAN_CONSTEXPR
     Value_type sin(quan::fraction_of_revolution<quan::meta::rational<1>,ReciprocalFraction,Value_type>const& r)
     {
         quan::mathematic_angle<quan::meta::rational<1>,Value_type> t(r);
         return sin(t);
     }
     template<typename ReciprocalFraction,typename Value_type>
-    inline
+    inline QUAN_CONSTEXPR
     Value_type
     tan(
         quan::fraction_of_revolution<
@@ -898,7 +898,7 @@ namespace quan {
         typename ReciprocalFractionR,
         typename Value_typeR
     >
-    inline int compare(
+    inline QUAN_CONSTEXPR int compare(
         quan::mathematic_angle<Extent,Value_typeL>const& lhs,
         quan::fraction_of_revolution<Extent,ReciprocalFractionR,Value_typeR>const& rhs,
         typename quan::meta::binary_op<
@@ -933,7 +933,7 @@ namespace quan {
         typename Value_typeL,
         typename Value_typeR
     >
-    inline int compare(
+    inline QUAN_CONSTEXPR int compare(
         quan::fraction_of_revolution<Extent,ReciprocalFractionL, Value_typeL>const& lhs,
         quan::mathematic_angle<Extent, Value_typeR>const& rhs,
         typename quan::meta::binary_op<
@@ -968,7 +968,7 @@ namespace quan {
         typename ReciprocalFractionR,
         typename Value_typeR
     >
-    inline bool operator <(
+    inline QUAN_CONSTEXPR bool operator <(
         quan::mathematic_angle<Extent, Value_typeL>const& lhs,
         quan::fraction_of_revolution<Extent,ReciprocalFractionR, Value_typeR>const& rhs)
     {
@@ -981,7 +981,7 @@ namespace quan {
         typename Value_typeL,
         typename Value_typeR
     >
-    inline bool operator <(
+    inline QUAN_CONSTEXPR bool operator <(
         quan::fraction_of_revolution<Extent,ReciprocalFractionL, Value_typeL>const& lhs,
         quan::mathematic_angle<Extent, Value_typeR>const& rhs)
     {
@@ -996,7 +996,7 @@ namespace quan {
         typename ReciprocalFractionR,
         typename Value_typeR
     >
-    inline bool operator <=(
+    inline QUAN_CONSTEXPR bool operator <=(
         quan::mathematic_angle<Extent, Value_typeL>const& lhs,
         quan::fraction_of_revolution<Extent,ReciprocalFractionR, Value_typeR>const& rhs)
     {
@@ -1009,7 +1009,7 @@ namespace quan {
         typename Value_typeL,
         typename Value_typeR
     >
-    inline bool operator <=(
+    inline QUAN_CONSTEXPR bool operator <=(
         quan::fraction_of_revolution<Extent,ReciprocalFractionL, Value_typeL>const& lhs,
         quan::mathematic_angle<Extent, Value_typeR>const& rhs)
     {
@@ -1022,7 +1022,7 @@ namespace quan {
         typename ReciprocalFractionR,
         typename Value_typeR
     >
-    inline bool operator ==(
+    inline QUAN_CONSTEXPR bool operator ==(
         quan::mathematic_angle<Extent, Value_typeL>const& lhs,
         quan::fraction_of_revolution<Extent,ReciprocalFractionR, Value_typeR>const& rhs)
     {
@@ -1035,7 +1035,7 @@ namespace quan {
         typename Value_typeL,
         typename Value_typeR
     >
-    inline bool operator ==(
+    inline  QUAN_CONSTEXPR bool operator ==(
         quan::fraction_of_revolution<Extent,ReciprocalFractionL, Value_typeL>const& lhs,
         quan::mathematic_angle<Extent, Value_typeR>const& rhs)
     {
@@ -1049,7 +1049,7 @@ namespace quan {
         typename ReciprocalFractionR,
         typename Value_typeR
     >
-    inline bool operator !=(
+    inline QUAN_CONSTEXPR bool operator !=(
         quan::mathematic_angle<Extent, Value_typeL>const& lhs,
         quan::fraction_of_revolution<Extent,ReciprocalFractionR,Value_typeR>const& rhs)
     {
@@ -1062,7 +1062,7 @@ namespace quan {
         typename Value_typeL,
         typename Value_typeR
     >
-    inline bool operator !=(
+    inline QUAN_CONSTEXPR bool operator !=(
         quan::fraction_of_revolution<Extent,ReciprocalFractionL,Value_typeL>const& lhs,
         quan::mathematic_angle<Extent, Value_typeR>const& rhs)
     {
@@ -1076,7 +1076,7 @@ namespace quan {
         typename ReciprocalFractionR,
         typename Value_typeR
     >
-    inline bool operator >=(
+    inline QUAN_CONSTEXPR bool operator >=(
         quan::mathematic_angle<Extent, Value_typeL>const& lhs,
         quan::fraction_of_revolution<Extent,ReciprocalFractionR, Value_typeR>const& rhs)
     {
@@ -1089,7 +1089,7 @@ namespace quan {
         typename Value_typeL,
         typename Value_typeR
     >
-    inline bool operator >=(
+    inline QUAN_CONSTEXPR bool operator >=(
         quan::fraction_of_revolution<Extent,ReciprocalFractionL, Value_typeL>const& lhs,
         quan::mathematic_angle<Extent, Value_typeR>const& rhs)
     {
@@ -1103,7 +1103,7 @@ namespace quan {
         typename ReciprocalFractionR,
         typename Value_typeR
     >
-    inline bool operator >(
+    inline QUAN_CONSTEXPR bool operator >(
         quan::mathematic_angle<Extent, Value_typeL>const& lhs,
         quan::fraction_of_revolution<Extent,ReciprocalFractionR, Value_typeR>const& rhs)
     {
@@ -1116,7 +1116,7 @@ namespace quan {
         typename Value_typeL,
         typename Value_typeR
     >
-    inline bool operator >(
+    inline QUAN_CONSTEXPR  bool operator >(
         quan::fraction_of_revolution<Extent,ReciprocalFractionL, Value_typeL>const& lhs,
         quan::mathematic_angle<Extent, Value_typeR>const& rhs)
     {

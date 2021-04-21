@@ -676,6 +676,7 @@ namespace quan {
 
     template<typename Value_type>
     inline
+    QUAN_CONSTEXPR
     Value_type cos(
         quan::mathematic_angle<
             quan::meta::rational<1>,
@@ -692,6 +693,7 @@ namespace quan {
 
     template<typename Value_type>
     inline
+    QUAN_CONSTEXPR
     Value_type sin(quan::mathematic_angle<quan::meta::rational<1>,Value_type>const& r)
     {
 #ifndef QUAN_AVR_NO_CPP_STDLIB
@@ -705,6 +707,7 @@ namespace quan {
 
     template<typename Value_type>
     inline
+    QUAN_CONSTEXPR
     Value_type tan(quan::mathematic_angle<quan::meta::rational<1>,Value_type>const& r)
     {
 #ifndef QUAN_AVR_NO_CPP_STDLIB
@@ -722,12 +725,12 @@ namespace quan {
         typename Value_type
     >
     inline
+    QUAN_CONSTEXPR
     typename quan::meta::binary_op<
         typename quan::mathematic_angle<Extent,Value_type>::type,
         quan::meta::pow,
         typename quan::meta::rational<N,D>::type
     >::type
-
     pow(quan::mathematic_angle<Extent,Value_type> const& r)
     {
         typedef  typename quan::meta::binary_op<
@@ -745,6 +748,7 @@ namespace quan {
         typename Value_type
     >
     inline
+    QUAN_CONSTEXPR
     typename quan::meta::binary_op<
         typename quan::mathematic_angle<Extent,Value_type>::type,
         quan::meta::pow,
