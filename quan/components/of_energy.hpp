@@ -52,6 +52,11 @@ namespace quan{ namespace meta{ namespace components{
         > abstract_quantity;
 
         struct non_si_unit{
+          /*
+               natural onits
+               mass
+               
+          */
         };
 
         typedef  of_energy type;
