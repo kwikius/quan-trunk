@@ -1,0 +1,12 @@
+
+A microcontroller library specialising in moving stuff into rom using modern C++ idioms 
+
+
+concept periph_reg
+
+ a micontroller register used for configuring and controlling a peripheral register
+
+periph_map
+
+ a set of periperal addresses
+

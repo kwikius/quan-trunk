@@ -1,0 +1,27 @@
+setting up peripherals
+
+A peripheral is set up by setting values in its registers
+
+The values to be modified in a register can be composed
+
+see <quan/stm32/periph_reg_actions/apply.hpp>
+
+<quan/stm32/gpio/get_module.hpp>
+
+The ModuleElement
+
+for example the ModulElement of the gpio module  is the gpio pin
+
+ModuleElements of a Timer might be a capture channel, compare_channel
+
+
+ModuleElement concept
+
+requires 
+
+M get_module<eM>
+
+
+
+
+
