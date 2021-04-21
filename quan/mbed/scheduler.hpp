@@ -58,9 +58,14 @@ namespace  quan{ namespace mbed{
    // or derived ?
    // wont lose much
 
+   // Task concept
+   // If not using std list then must be derived from dlist_element
+   // must have destroy member to deal with lifetime
+
 #if defined QUAN_MBED_SCHEDULER_USE_STD_LIST
    struct task 
 #else
+   // dlist_element can be on 2 lists
    struct task : quan::mbed::dlist_element<task,2>
 #endif  
    {
@@ -146,6 +151,7 @@ namespace  quan{ namespace mbed{
             m_elapsed += interval + m_slot_time;
             process_next_task();
          }
+         // if there are no tasks in the scheduler, presumably sleep until a task is inserted?
       }
 
       void show_slots(std::ostream & out)const
@@ -219,6 +225,7 @@ namespace  quan{ namespace mbed{
 
       /*
          find next non-empty slot
+         return true if a non empty slot was found
       */
       bool find_next_slot(uint32_t & result)const
       {
@@ -240,6 +247,8 @@ namespace  quan{ namespace mbed{
           return false;
       }
 
+      // if the first slot is before the second in the list,
+      // then loop around the list
       uint32_t get_slot_diff(uint32_t first, uint32_t second)const
       {
          if ( first <= second){

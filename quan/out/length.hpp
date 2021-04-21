@@ -188,6 +188,7 @@ namespace quan{ namespace meta{
         os << "point (comp)";
         return os;
     }
+
     inline
     std::ostream&
     operator <<(
@@ -198,6 +199,7 @@ namespace quan{ namespace meta{
         os << "point (prn)";
         return os;
     }
+
     inline
     std::ostream&
     operator <<(
@@ -208,6 +210,7 @@ namespace quan{ namespace meta{
         os << "rd";
         return os;
     }
+
     inline
     std::ostream&
     operator <<(
@@ -218,6 +221,7 @@ namespace quan{ namespace meta{
         os << "yd";
         return os;
     }
+
     inline
     std::ostream&
     operator <<(
@@ -228,5 +232,7 @@ namespace quan{ namespace meta{
         os << "angstrom";
         return os;
     }
+
+    
 }}//quan::meta
 #endif

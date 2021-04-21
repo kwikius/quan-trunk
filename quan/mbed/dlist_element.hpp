@@ -14,6 +14,7 @@
 
 /*
  double linked list element which can be on multiple lists
+ The number of lists it can be on is a template parameter
 */
 namespace quan {namespace mbed {
 
