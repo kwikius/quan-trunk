@@ -47,6 +47,7 @@
 namespace quan {
 
    inline
+   QUAN_CONSTEXPR
    quan::angle::rad atan2(QUAN_FLOAT_TYPE const & lhs, QUAN_FLOAT_TYPE const & rhs)
    {
    #ifndef QUAN_AVR_NO_CPP_STDLIB
@@ -64,6 +65,9 @@ namespace quan {
       typename NumericType_R
    >
    inline
+//#if ! defined QUAN_STM32L4
+//   QUAN_CONSTEXPR
+//#endif
    typename quan::where_<
       quan::meta::and_<
          quan::meta::dimensionally_equivalent<StaticUnit_L, StaticUnit_R>,
