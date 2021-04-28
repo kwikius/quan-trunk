@@ -832,12 +832,13 @@ namespace quan {
         ////////////////////CONCEPT CHECK////////////////////////////////
         // only multiplication  by non rad angles
         // with resulting Extent of 0 is valid currently
-          quan::concept_checking::Assert<
-            std::is_same<
+
+         // quan::concept_checking::Assert<
+          static_assert(  std::is_same<
                 extent_type,
                 quan::meta::rational<0>
-            >::value
-        >();
+            >::value,"");
+
         //////////////////////CONCEPT CHECK/////////////////////////////
 /*
         typedef typename quan::meta::binary_op<
@@ -855,8 +856,11 @@ namespace quan {
             quan::meta::divides,
             Value_typeR
         >::type result_value_type;
-        quan::mathematic_angle<ExtentL,result_value_type> t(lhs);
-        return result_value_type(t.numeric_value() / rhs.numeric_value()  );
+       // quan::mathematic_angle<ExtentL,result_value_type> t(lhs);
+       // return result_value_type(t.numeric_value() / rhs.numeric_value()  );
+       return result_value_type{
+          quan::mathematic_angle<ExtentL,result_value_type>{lhs}.numeric_value() / rhs.numeric_value()  
+       };
     }
 
     template<typename ReciprocalFraction,typename Value_type>
@@ -864,15 +868,18 @@ namespace quan {
     Value_type cos(
         quan::fraction_of_revolution<quan::meta::rational<1>,ReciprocalFraction,Value_type>const& r)
     {
-        quan::mathematic_angle<quan::meta::rational<1>,Value_type> t(r);
-        return cos(t);
+      
+      //  quan::mathematic_angle<quan::meta::rational<1>,Value_type> t(r);
+       // return cos(t);
+       return cos(quan::mathematic_angle<quan::meta::rational<1>,Value_type>{r});
     }
     template<typename ReciprocalFraction,typename Value_type>
     inline QUAN_CONSTEXPR
     Value_type sin(quan::fraction_of_revolution<quan::meta::rational<1>,ReciprocalFraction,Value_type>const& r)
     {
-        quan::mathematic_angle<quan::meta::rational<1>,Value_type> t(r);
-        return sin(t);
+       // quan::mathematic_angle<quan::meta::rational<1>,Value_type> t(r);
+       // return sin(t);
+       return sin(quan::mathematic_angle<quan::meta::rational<1>,Value_type>{r});
     }
     template<typename ReciprocalFraction,typename Value_type>
     inline QUAN_CONSTEXPR
@@ -885,8 +892,9 @@ namespace quan {
         >const& r
     )
     {
-        quan::mathematic_angle<quan::meta::rational<1>,Value_type> t(r);
-        return tan(t);
+       // quan::mathematic_angle<quan::meta::rational<1>,Value_type> t(r);
+       // return tan(t);
+        return tan(quan::mathematic_angle<quan::meta::rational<1>,Value_type>{r});
     }
 
 
