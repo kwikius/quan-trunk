@@ -64,7 +64,7 @@ namespace quan{ namespace detail{
 
   public:
 
-		float operator()(const char* str, size_t maxlen = 100U )
+		float operator()(const char* str, std::size_t maxlen = 100U )
 		{
           reset();
           m_conversion_error=0;

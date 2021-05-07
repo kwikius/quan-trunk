@@ -22,11 +22,13 @@
 #include <climits>
 #include <cstdint>
 #include <cctype>
+#include <cstring>
 #else
 #include <limits.h>
 #include <stdint.h>
 #include <stddef.h>
 #include <ctype.h>
+#include <string.h>
 #endif
 
 #include <quan/conversion/basic_char_ptr_converter.hpp>
@@ -59,7 +61,7 @@ namespace quan{ namespace detail{
 			}
 		}
       
-		num_type operator()(const char* str,  double * double_result, int64_t * int_result,long maxlen = LONG_MAX )
+		num_type operator()(const char* str1,  double * double_result, int64_t * int_result,int32_t maxlen = 0xffff )
 		{
 // state1
           reset();
@@ -72,7 +74,14 @@ namespace quan{ namespace detail{
           u.float_value = 0.0;
           num_type number_type = num_type::INT;
           m_conversion_error=0;
-			 int length = strnlen(str, maxlen); // length - terminating0
+    // #if defined (QUAN_DETAIL_FLOAT_CONVERT_DEBUG)
+        #if defined (QUAN_DETAIL_FLOAT_CONVERT_DEBUG)
+            if (!str1){
+            std::cout << "invalid string length 0\n";
+            }
+        #endif
+      //  #endif
+			 int length = basic_char_ptr_converter::strnlen(str1, maxlen); // length - terminating0
           
           if ( length < 1){
             m_conversion_error = -1 ; 
@@ -84,7 +93,7 @@ namespace quan{ namespace detail{
 			 int sign = 1;
           int pos = 0;
 			// float result = 0;
-          while(isspace(str[pos])){
+          while(isspace(str1[pos])){
             ++pos;
             --length;
           }
@@ -95,7 +104,7 @@ namespace quan{ namespace detail{
          #endif
 				return num_type::UNKNOWN;
 			 }
-			 auto curtok = get_tok(str[pos]);
+			 auto curtok = get_tok(str1[pos]);
 			 if (curtok == num_tok::SIGN){
             if ( length < 2){
                m_conversion_error = -1;
@@ -104,10 +113,10 @@ namespace quan{ namespace detail{
             #endif
                return num_type::UNKNOWN;
             }
-            if (str[pos] == '-' ){
+            if (str1[pos] == '-' ){
 					sign = -1;
 				}
-				curtok = get_tok(str[++pos]);
+				curtok = get_tok(str1[++pos]);
 			 }
           // startpos to chek digits
           uint32_t before_digit_count=0;
@@ -122,20 +131,20 @@ namespace quan{ namespace detail{
                   #endif
 				     return num_type::UNKNOWN;
               }
-				  u.int_value = u.int_value * 10 + atoi(str[pos]);
-				  curtok = get_tok(str[++pos]);
+				  u.int_value = u.int_value * 10 + atoi(str1[pos]);
+				  curtok = get_tok(str1[++pos]);
 			 }
 			 
 			 if (curtok == num_tok::POINT){
              number_type = num_type::FLOAT;
              u.float_value = u.int_value;
-				 curtok = get_tok(str[++pos]);  
+				 curtok = get_tok(str1[++pos]);  
 				 if ( curtok == num_tok::DIGIT){
 					uint64_t divisor = 1;
 					uint64_t ifract = 0;
 					while ( (curtok == num_tok::DIGIT) && (++ after_digit_count < 20) ){
-						ifract = ifract * 10 + atoi(str[pos]);
-						curtok = get_tok(str[++pos]);
+						ifract = ifract * 10 + atoi(str1[pos]);
+						curtok = get_tok(str1[++pos]);
 						divisor *= 10;
 					}
 					u.float_value += static_cast<double>(ifract)/divisor;
@@ -165,12 +174,12 @@ namespace quan{ namespace detail{
 				int64_t exp_val = 0;
 				int powsign = 1;
 				int pow_count = 0;
-				curtok = get_tok(str[++pos]);  
+				curtok = get_tok(str1[++pos]);  
 				if ( curtok == num_tok::SIGN){
-					if (str[pos] == '-'){
+					if (str1[pos] == '-'){
 						 powsign = -1;
 					}
-					curtok = get_tok(str[++pos]);  
+					curtok = get_tok(str1[++pos]);  
 				}
 				while (curtok == num_tok::DIGIT){
 					if (++pow_count == 20){
@@ -180,8 +189,8 @@ namespace quan{ namespace detail{
                   #endif
 						return num_type::UNKNOWN;
 					}
-					exp_val = exp_val * 10 + atoi(str[pos]);
-					curtok = get_tok(str[++pos]);
+					exp_val = exp_val * 10 + atoi(str1[pos]);
+					curtok = get_tok(str1[++pos]);
 				}
 				double power = 1;
 				while (exp_val-- > 0){

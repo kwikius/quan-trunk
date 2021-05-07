@@ -35,13 +35,26 @@ namespace quan{ namespace detail{
 
       static int32_t strnlen( const char* str, int32_t maxlen)
       {
-         if ( str){
-            for (int32_t i =0; i < maxlen; ++i){
-               if ( str[i] =='\0'){
+  
+         if ( str != nullptr){
+            for (int32_t i = 0; i < maxlen; ++i){
+               if ( str[i] == '\0'){
                   return i;
-                }
+               }
             }
+         }else{
+      #if defined (QUAN_DETAIL_FLOAT_CONVERT_DEBUG)
+         if ( str == nullptr){
+            std::cout << "null string\n";
          }
+        #endif
+         }
+      #if defined (QUAN_DETAIL_FLOAT_CONVERT_DEBUG)
+       
+            std::cout << "unterminated \n";
+
+        #endif
+
          return -1;
       }
 
