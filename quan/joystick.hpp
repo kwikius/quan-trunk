@@ -14,6 +14,7 @@
 #include <thread>    
 #include <chrono> 
 #include <atomic> 
+#include <functional>
 
 /*
   link with pthread
