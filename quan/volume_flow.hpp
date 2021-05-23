@@ -244,6 +244,11 @@ namespace quan{
          Value_type
       > Ym3_per_s;
 // non SI units...
+      typedef quan::fixed_quantity<
+         typename non_si_unit::gal_per_hr,
+         Value_type
+      > gal_per_hr;
+       
     };
 
     struct volume_flow : volume_flow_<quantity_traits::default_value_type>{};

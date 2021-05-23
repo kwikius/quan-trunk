@@ -32,5 +32,16 @@
 
 namespace quan{ namespace meta{
 
+    inline 
+    std::ostream&
+    operator <<(
+        std::ostream & os,
+        quan::meta::components::of_volume_flow::non_si_unit::gal_per_hr
+    )
+    {
+        os << "gal_per_hr";
+        return os;
+    }
+
 }}//quan::meta
 #endif

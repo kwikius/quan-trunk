@@ -50,7 +50,19 @@ namespace quan{ namespace meta{ namespace components{
             of_volume_flow
         > abstract_quantity;
 
-        typedef  of_volume_flow type;
+       struct non_si_unit{
+
+          typedef meta::unit<
+             abstract_quantity,
+             meta::conversion_factor<
+                 meta::rational<-7>,
+                 meta::rational<454609,36000>::type,
+                 quan::meta::int32<0>
+             >
+          > gal_per_hr;
+       };
+
+       typedef  of_volume_flow type;
 
     };
 
@@ -62,8 +74,7 @@ namespace quan{ namespace meta{ namespace components{
         return "m3.s-1";
     }
 
-    struct non_si_unit_of_volume_flow{
-    };
+
 
 }}}//quan::meta::components
 
