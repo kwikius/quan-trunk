@@ -5,8 +5,19 @@
 #endif
 
 /*
- Copyright (c) 2003-2014 Andy Little.
- Copyright Janek Kozicki 2006
+  Copyright (c) 2003-2021 Andy Little.
+  Copyright Janek Kozicki 2006
+
+  Copyright (C) David Calkin
+  https://sourceforge.net/p/flightgear/flightgear/ci/next/tree/examples/netfdm/
+
+  Copyright (C) 2006-2009  Mathias Froehlich - Mathias.Froehlich@web.de
+  simgear https://github.com/FlightGear/simgear/math/SGQuat.hxx
+
+  Copyright (C) Jens Wilhelm Wulf
+  crrcsim https://sourceforge.net/projects/crrcsim
+
+*/
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -29,6 +40,7 @@
 #include <quan/meta/binary_op.hpp>
 #include <quan/meta/is_scalar.hpp>
 #include <quan/three_d/vect.hpp>
+#include <quan/three_d/make_vect.hpp>
 #include <quan/three_d/quat_def.hpp>
 #include <quan/angle.hpp>
 #include <cmath>
@@ -444,6 +456,85 @@ PQS's own mechanism of throwing
         quan::three_d::vect<TR> result(x,y,z);
         return result;
     }
+
+   template <typename Tout, typename Angle>
+    typename quan::where_<
+      quan::meta::and_<
+         std::is_arithmetic<Tout>,
+         quan::meta::or_<
+            quan::meta::is_angle<Angle>,
+            std::is_floating_point<Angle>
+         >
+      >,
+      quan::three_d::quat<Tout>
+   >::type
+   quat_from_euler(quan::three_d::vect<Angle> const & pose)
+   {
+
+      auto const v = 0.5 * pose;
+      auto const s = make_vect( sin(v.x),sin(v.y),sin(v.z));
+      auto const c = make_vect( cos(v.x),cos(v.y),cos(v.z));
+
+      Tout const cXcZ = c.x * c.z;
+      Tout const cXsZ = c.x * s.z;
+      Tout const sXsZ = s.x * s.z;
+      Tout const sXcZ = s.x * c.x;
+
+      return { 
+         cXcZ * c.y + sXsZ * s.y,
+         sXcZ * c.y - cXsZ * s.y,
+         cXcZ * s.y + sXsZ * c.y,
+         cXsZ * c.y - sXcZ * s.y
+      };
+   }
+
+   template <typename T>
+   typename quan::where_<
+      std::is_floating_point<T>,
+      quan::three_d::vect<quan::angle::rad> 
+   >::type
+   euler_from_quat(quan::three_d::quat<T> const & q)
+   {
+      quan::three_d::quat<T> q2 {q.w*q.w,q.x*q.x,q.y * q.y, q.z * q.z};
+
+      T constexpr lim = std::numeric_limits<T>::min();
+      quan::three_d::vect<quan::angle::rad> result;
+      {
+         T const numx = 2.0 * ( q.y * q.z + q.w * q.x);
+         T const denx = q2.w - q2.x - q2.y + q2.z;
+         if ( (std::abs(denx) <= lim) && (std::abs(numx) <= lim) ){
+           result.x = 0.0;
+         }else{
+           result.x = atan2(numx,denx);
+         }
+      }
+      {
+         T const tmp = 2.0 * (q.x * q.z - q.w * q.y);
+         if ( tmp <= -1.0 ){
+            result.y = quan::constant::pi/2.0;
+         }else {
+            if ( tmp >= 1.0 ){
+               result.y = -quan::constant::pi/2.0;
+            }else{
+               result.y = -asin(tmp);
+            }
+         }
+      }
+      {
+         T const numz = 2.0 * (q.x * q.y + q.w * q.z);
+         T const denz = q2.w + q2.x - q2.y - q2.z;
+         if( (std::abs(denz) <= lim) && (std::abs(numz) <= lim) ){
+            result.z = 0;
+         }else{
+            T psi = atan2(numz, denz);
+            if (psi < 0){
+               psi += 2.0*quan::constant::pi;
+            }
+            result.z = psi;
+         }
+      }
+      return result;
+   }
 
 //#################################################################
 

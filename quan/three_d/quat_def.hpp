@@ -96,7 +96,6 @@ namespace quan{ namespace three_d{
             return p[n % 3];
 #else
             if( (n < 0) || (n >3)){
-             return 
                 throw std::length_error("array subscript out of range in quat");
             }
             
