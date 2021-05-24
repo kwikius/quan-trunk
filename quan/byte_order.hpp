@@ -200,7 +200,8 @@ namespace quan{
       typename quan::where_<
          quan::meta::or_<
             quan::meta::is_fixed_quantity<T>,
-            quan::meta::is_angle<T>
+            quan::meta::is_angle<T>,
+            quan::meta::is_incoherent_temperature<T>
          >
      >::type
    >{
@@ -217,7 +218,8 @@ namespace quan{
       typename quan::where_<
          quan::meta::or_<
             quan::meta::is_fixed_quantity<T>,
-            quan::meta::is_angle<T>
+            quan::meta::is_angle<T>,
+            quan::meta::is_incoherent_temperature<T>
          >
      >::type
    >{

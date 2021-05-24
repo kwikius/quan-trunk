@@ -23,6 +23,11 @@
 
 #include <quan/components/of_named_quantity.hpp>
 
+namespace quan{
+
+
+}
+
 namespace quan{ namespace meta{ namespace components{
 
     struct of_temperature{

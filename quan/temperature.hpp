@@ -112,6 +112,74 @@ namespace quan{
       >{};
    };
 
+   
+    template <typename T>
+    struct centigrade;
+
+    template <typename T>
+    struct fahrenheit{
+      static_assert(std::is_arithmetic<T>::value ,"");
+      constexpr fahrenheit(T v) : m_numeric_value{v}{}
+
+      typedef quan::fixed_quantity<
+         quan::of_temperature::K,
+         T
+      > kelvin;
+
+      constexpr fahrenheit(): m_numeric_value{ static_cast<T>(0)}{}
+      constexpr explicit fahrenheit(kelvin const & v) : m_numeric_value{ static_cast<T>( (v.numeric_value() - 273.15) * 1.8 + 32.0 ) }{}
+      constexpr operator kelvin () const
+      {
+         return kelvin{ static_cast<T>(((m_numeric_value - 32.0)/1.8 + 273.15))};
+      }
+
+      constexpr inline operator centigrade<T>() const;
+      
+      constexpr T numeric_value() const { return m_numeric_value;}
+      private:
+      T m_numeric_value;
+    };
+
+
+    template <typename T>
+    struct centigrade{
+      static_assert(std::is_arithmetic<T>::value ,"");
+      constexpr centigrade(): m_numeric_value{ static_cast<T>(0)}{}
+      constexpr explicit centigrade(T v) : m_numeric_value{v}{}
+
+      typedef quan::fixed_quantity<
+         quan::of_temperature::K,
+         T
+      > kelvin;
+
+
+      constexpr centigrade(kelvin const & v) : m_numeric_value{ static_cast<T>( v.numeric_value() - 273.15 ) }{}
+      constexpr operator kelvin () const
+      {
+         return kelvin{ static_cast<T>(m_numeric_value + 273.15)};
+      }
+
+      constexpr operator fahrenheit<T>() const 
+      { return fahrenheit<T>{ static_cast<T>(m_numeric_value * 1.8 + 32.0) }; }
+
+      constexpr T numeric_value() const { return m_numeric_value;}
+      private:
+      T m_numeric_value;
+    };
+
+    namespace meta{
+
+       template <typename T>
+       struct is_incoherent_temperature<quan::fahrenheit<T> > : quan::meta::true_{};
+       template <typename T>
+       struct is_incoherent_temperature<quan::centigrade<T> > : quan::meta::true_{};
+
+    }
+
+    template <typename T>
+    inline constexpr fahrenheit<T>::operator centigrade<T>() const
+    { return centigrade<T>{ static_cast<T>( (m_numeric_value -32.0)/1.8 ) };}
+
     template<
         typename Value_type
     >
@@ -201,6 +269,10 @@ namespace quan{
          quan::of_temperature::yK,
          Value_type
       > yK;
+
+      typedef fahrenheit<Value_type> F;
+
+      typedef centigrade<Value_type> C;
     };
 
     struct temperature : temperature_<quantity_traits::default_value_type>{};

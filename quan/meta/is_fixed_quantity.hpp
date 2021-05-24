@@ -33,6 +33,9 @@ namespace quan{namespace meta{
     template <typename T>
     struct is_fixed_quantity : quan::meta::false_{};
 
+    template <typename T>
+    struct is_incoherent_temperature : quan::meta::false_{};
+
     template<
         typename StaticUnit,
         typename ValueType

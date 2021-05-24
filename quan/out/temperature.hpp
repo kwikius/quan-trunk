@@ -20,16 +20,34 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
 
- 
-//
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 #include <quan/temperature.hpp>
 #include <quan/fixed_quantity/io/output.hpp>
 
-namespace quan{ namespace meta{
-}}//quan::meta
+namespace quan{ 
+
+    template <typename T>
+    inline
+    std::ostream&
+    operator <<(std::ostream & os,fahrenheit<T> const & v
+    )
+    {
+       os << v.numeric_value() << " deg F";
+       return os;
+    }
+
+    template <typename T>
+    inline
+    std::ostream&
+    operator <<(std::ostream & os,centigrade<T> const & v
+    )
+    {
+       os << v.numeric_value() << " deg C";
+       return os;
+    }
+
+}//quan
+
 #endif
