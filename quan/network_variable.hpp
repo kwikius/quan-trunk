@@ -18,10 +18,20 @@ namespace quan{
          return quan::detail::network_to_host<T>{}(m_value);
       }
 
+      T get() const 
+      {
+          return quan::detail::network_to_host<T>{}(m_value);
+      }
+
       network_variable & operator = (T v)
       { 
          m_value = quan::detail::host_to_network<T>{}(v);
          return *this;
+      }
+
+      void set(T const & v)
+      {
+         m_value = quan::detail::host_to_network<T>{}(v);
       }
       private:
       T m_value;
