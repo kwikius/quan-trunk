@@ -75,7 +75,7 @@ namespace quan{
             }
             if( (errno != EAGAIN) || m_want_thread_quit) {
                if ( errno != EAGAIN){
-                  printf("joystick device read failed\n");
+                  perror("joystick device read failed\n");
                }
                m_thread_running = false;
                return;
