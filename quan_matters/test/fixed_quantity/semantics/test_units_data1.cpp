@@ -262,6 +262,8 @@ void test_units_data1()
     QUAN_CHECK(units_str(quan::volume::gal()) == "gal");
 //mark
 
+    QUAN_CHECK(units_str(quan::moment_of_inertia::slug_ft2()) == "slug.ft2");
+
     QUAN_CHECK(units_str(quan::volume::gal_US()) == "gal (U.S.)");
     QUAN_CHECK(units_str(quan::acceleration::ym_per_s2()) == "ym.s-2");
     QUAN_CHECK(units_str(quan::acceleration::zm_per_s2()) == "zm.s-2");

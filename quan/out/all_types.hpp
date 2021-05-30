@@ -24,6 +24,7 @@
 
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
+#include <quan/out/moment_of_inertia.hpp>
 #include <quan/out/area_moment_of_inertia.hpp>
 #include <quan/out/energy_per_area_time_length.hpp>
 #include <quan/out/energy_per_area_time.hpp>
