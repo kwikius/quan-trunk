@@ -16,11 +16,11 @@
 
 namespace quan{ 
 
-  namespace impl{
+   namespace impl{
 
-     template <typename T, typename Where = void >
-     struct is_basic_matrix_impl : quan::meta::false_{};
- };
+      template <typename T, typename Where = void >
+      struct is_basic_matrix_impl : quan::meta::false_{};
+   }
 
  template <typename T>
  struct is_basic_matrix : impl::is_basic_matrix_impl<typename quan::meta::strip_cr<T>::type>{};
