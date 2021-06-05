@@ -27,8 +27,8 @@ namespace quan { namespace uav {
 	struct position {
        typedef LengthType length_type;
        typedef AngleType angle_type;
-       position():lat{0.f},lon{0.f},alt{0.f}{}
-		 position(
+      constexpr position():lat{0.f},lon{0.f},alt{0.f}{}
+		constexpr position(
          angle_type const & lat_in, 
          angle_type const & lon_in,
          length_type const & h_in )
@@ -37,7 +37,7 @@ namespace quan { namespace uav {
 		 angle_type    lon;
 		 length_type   alt;
        template <typename LengthType1, typename AngleType1>
-       position & operator = (position<LengthType1,AngleType1> const & in)
+       constexpr position & operator = (position<LengthType1,AngleType1> const & in)
        {
          this->lat = in.lat;
          this->lon = in.lon;
@@ -45,7 +45,7 @@ namespace quan { namespace uav {
          return *this;
        }
        template <typename LengthType1, typename AngleType1>
-       position (position<LengthType1,AngleType1> const & in)
+       constexpr position (position<LengthType1,AngleType1> const & in)
        : lat{quan::implicit_cast<angle_type>(in.lat)},
          lon{quan::implicit_cast<angle_type>(in.lon)},
          alt{quan::implicit_cast<length_type>(in.alt)}{}
