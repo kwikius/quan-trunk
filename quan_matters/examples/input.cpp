@@ -39,26 +39,27 @@ int main()
 {  
    constexpr char const* const inputs[] = { "12 in", "20 in", "20.1 in", "24 in","0.1 in", "-12 in"};
 
-   quan::length::in L;
+   std::cout << "quan input demo\n";
 
-   auto constexpr wait_time = 1_s;
+   auto constexpr wait_time = 2_s;
 
    for(auto str : inputs){
       quan::timer<quan::time::s> t;
 
-      while ( t() < wait_time){ asm volatile ("nop":::);}
+      std::istringstream is{str};
+      quan::length::in L;
+      is >> L;
 
-      std::istringstream in{str};
-      in >> L;
-
-      if (in.bad()){
+      if (is.bad()){
          std::cout << "bad input... quitting\n";
          break;
       }
       else{
-         quan::length::cm cm = L;
+         quan::length::cm const cm = L;
          std::cout << "value is now : " << L << " ( or " << cm << ")\n";
       }
+
+      while ( t() < wait_time){ asm volatile ("nop":::);}
    }
    return EXIT_SUCCESS;
 }
