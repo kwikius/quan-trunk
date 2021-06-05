@@ -28,6 +28,9 @@ namespace quan{ namespace meta{
    struct is_valid_binary_op : quan::is_model_of<
       quan::AnyType_, typename binary_op<Lhs,Op,Rhs>::type
    >{};
+
+   template <typename TL, typename Op, typename TR>
+   using binary_op_t = typename binary_op<TL,Op,TR>::type;
   
 }}//quan::meta
 
