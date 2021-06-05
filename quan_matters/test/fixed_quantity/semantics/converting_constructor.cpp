@@ -22,6 +22,11 @@
 //#include <quan_matters/test/utility/eval_rational.hpp>
 #include <quan/meta/eval_rational.hpp>
 #include <quan_matters/test/utility/eval_exponent.hpp>
+
+#include <quan/angle.hpp>
+#include <quan/reciprocal_time.hpp>
+
+#include <quan/time.hpp>
 #ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <utility>
 #else
@@ -52,6 +57,8 @@ namespace {
    QUAN_TEST_FUN(incoh_gt_inco_int)
    QUAN_TEST_FUN(incoh_less_inco)
    QUAN_TEST_FUN(incoh_less_inco_int)
+   QUAN_TEST_FUN(angle_rate_test)
+   
 
 #undef QUAN_TEST_FUN
 }
@@ -72,8 +79,10 @@ void converting_constructor_test()
    QUAN_TEST_FUN(incoh_gt_inco_int)
    QUAN_TEST_FUN(incoh_less_inco)
    QUAN_TEST_FUN(incoh_less_inco_int)
+   QUAN_TEST_FUN(angle_rate_test)
 
 #undef QUAN_TEST_FUN
+
 }
 
 
@@ -106,6 +115,27 @@ this->numeric_value() == ( from.numeric_value()
 */
 
 namespace {
+
+   QUAN_QUANTITY_LITERAL(time,s)
+
+/**
+ * @brief test angular rate conversions
+  **/
+   void angle_rate_test()
+   {
+      using rad_per_s = quan::reciprocal_time_<
+         quan::angle_<float>::rad
+      >::per_s ;
+
+      using deg_per_s = quan::reciprocal_time_<
+         quan::angle_<float>::deg
+      >::per_s ;
+
+      rad_per_s g1 = deg_per_s{quan::angle_<float>::deg{0.04f}};
+      rad_per_s g2 = quan::angle_<float>::rad{quan::angle_<float>::deg{0.04f}} / 1_s;
+
+      QUAN_CHECK( g1 == g2 )
+   }
 
    template < typename To, typename From>
 
