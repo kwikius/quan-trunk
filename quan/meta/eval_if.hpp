@@ -21,8 +21,6 @@
 #  pragma once
 #endif
 
-#if 1
-
 #include <quan/meta/type_sequence.hpp>
 
 namespace quan{ namespace meta{
@@ -41,15 +39,14 @@ namespace quan{ namespace meta{
 
    }
 
-     // e,g
-   // eval_if_c<bool, Fun1, BoolFun2, Fun2, BooolFun3, Fun3,BoolFun4, Fun4, Fun5>
+   // e,g : eval_if_c<bool, Fun1, BoolFun2, Fun2, BooolFun3, Fun3,BoolFun4, Fun4, Fun5>
    template <bool b, typename FT, typename... Rest>
    struct eval_if_c {
       typedef typename FT::type type;
    };
 
    // e,g
-   // eval_if_c<BoolFun1, Fun1, BoolFun2, Fun2, BooolFun3, Fun3,BoolFun4, Fun4, Fun5>
+   // eval_if<BoolFun1, Fun1, BoolFun2, Fun2, BooolFun3, Fun3,BoolFun4, Fun4, Fun5>
    template <typename C, typename FT, typename... Rest>
    struct eval_if : eval_if_c<C::type::value, FT, Rest...>{};
 
@@ -78,27 +75,9 @@ namespace quan{ namespace meta{
       >::type type;
    };
 
+   template <typename C, typename FT, typename... Rest>
+   using eval_if_t = typename eval_if<C,FT,Rest...>::type;
+
 }} // quan::meta
-
-#else
-
-namespace quan{ namespace meta{
-   
-   template <bool B, typename TrueFunction, typename FalseFunction>
-   struct eval_if_c{
-      typedef typename TrueFunction::type type;
-   };
-
-   template <typename TrueFunction,typename FalseFunction>
-   struct eval_if_c<false,TrueFunction,FalseFunction> {
-      typedef typename FalseFunction::type type;
-   };
-
-   template<typename C, typename TrueFunction, typename FalseFunction>
-   struct eval_if : eval_if_c<((C::type::value)!=0),TrueFunction,FalseFunction>{};
-   
-}}//quan::meta
-
-#endif
 
 #endif
