@@ -31,8 +31,12 @@
 #include <quan/config.hpp>
 #include <quan/angle/mathematic_angle.hpp>
 #include <quan/angle/fraction_of_revolution.hpp>
+//#######deprecated use fixed_quantity_literal
 #include <quan/angle/literal.hpp>
+//#####################################
+#include <quan/fixed_quantity/literal.hpp>
 #include <quan/concept_checking.hpp>
+
 
 namespace quan{
 
