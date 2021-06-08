@@ -37,26 +37,12 @@ namespace quan{
     static constexpr int rows = R;
     static constexpr int cols = C;
 
-    basic_matrix( basic_matrix const & in)  
-    {
-        std::memcpy(m_array, in.m_array, R * C * sizeof(T));
-    }
-   
-    basic_matrix & operator =( basic_matrix const & in)
-    { 
-       if ( this != &in){
-          std::memcpy(m_array, in.m_array, R * C * sizeof(T));
-       }
-       return *this;
-    }
-
     template <typename... Args>
     constexpr basic_matrix( Args ... args)
     : m_array{quan::implicit_cast<T>(args)...}
     {
       static_assert(sizeof...(Args) == R * C, "invalid args");
     }
-
 
     template <
       typename  M,
@@ -67,6 +53,9 @@ namespace quan{
          >
       >::type
     >
+#if __cpp_constexpr >= 201304
+    constexpr 
+#endif
     basic_matrix( M const & m)
     {
       for ( uint32_t r = 0U; r < R; ++r){
@@ -84,7 +73,10 @@ namespace quan{
        >
       ,basic_matrix&
     >::type
-    operator = ( M const & m)
+#if __cpp_constexpr >= 201304
+    constexpr 
+#endif
+   operator = ( M const & m)
     {
       for ( uint32_t r = 0U; r < R; ++r){
          for ( uint32_t c = 0U; c < C; ++c){
@@ -99,7 +91,7 @@ namespace quan{
        return m_array[r * C + c];
     }
 
-    T const & at(uint32_t r, uint32_t c) const &
+    constexpr T const & at(uint32_t r, uint32_t c) const &
     {
        return m_array[r * C + c];
     }
@@ -125,7 +117,10 @@ namespace quan{
          >
       >::type
     >
-    basic_matrix(Lhs const & lhs, quan::operator_times, Rhs const & rhs )
+#if __cpp_constexpr >= 201304
+    constexpr 
+#endif
+    basic_matrix(Lhs const & lhs, quan::operator_times op, Rhs const & rhs )
     {
       int constexpr M = Lhs::cols;
       for ( uint32_t r = 0U; r < R; ++r){
@@ -159,6 +154,9 @@ namespace quan{
          >
       >::type
     >
+#if __cpp_constexpr >= 201304
+    constexpr 
+#endif
     basic_matrix(Lhs const & lhs, quan::operator_plus, Rhs const & rhs )
     {
       for ( uint32_t r = 0U; r < R; ++r){
@@ -188,6 +186,9 @@ namespace quan{
          >
       >::type
     >
+#if __cpp_constexpr >= 201304
+    constexpr 
+#endif
     basic_matrix(Lhs const & lhs, quan::operator_minus, Rhs const & rhs )
     {
       for ( uint32_t r = 0U; r < R; ++r){
@@ -211,6 +212,9 @@ namespace quan{
 
    template <typename Lhs, typename Rhs>
    inline  
+#if __cpp_constexpr >= 201304
+    constexpr 
+#endif
    typename quan::where_< 
       quan::meta::and_< 
          are_basic_matrices<Lhs,Rhs>
@@ -233,6 +237,7 @@ namespace quan{
          >::type
       >
    >::type
+
    operator * (Lhs const & lhs,Rhs const & rhs)
    {
       return {lhs, quan::operator_times{},rhs};
@@ -240,6 +245,9 @@ namespace quan{
 
    template <typename Lhs, typename Rhs>
    inline
+#if __cpp_constexpr >= 201304
+    constexpr 
+#endif
    typename quan::where_< 
       quan::meta::and_< 
          are_basic_matrices<Lhs,Rhs>
@@ -268,6 +276,9 @@ namespace quan{
 
    template <typename Lhs, typename Rhs>
    inline
+#if __cpp_constexpr >= 201304
+    constexpr 
+#endif
    typename quan::where_< 
       quan::meta::and_< 
          are_basic_matrices<Lhs,Rhs>
@@ -379,11 +390,16 @@ namespace quan{
       static constexpr int rows = src_matrix_type::cols ;
       static constexpr int cols = src_matrix_type::rows ;
 
+#if __cpp_constexpr >= 201304
+    constexpr 
+#endif
       transpose_view(src_matrix_type const & in)
       : m_src_matrix{in}
       {
       }
-
+#if __cpp_constexpr >= 201304
+    constexpr 
+#endif
       value_type at(int r, int c) const
       {
          assert( (r < rows) && (c < cols) );
