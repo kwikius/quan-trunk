@@ -551,12 +551,38 @@ namespace quan{namespace meta{
                >::type
            >::type  type;
        };
-    } // impl
+
+      template <
+         typename Extent,
+         typename ReciprocalFraction,
+         typename ValueType,
+         typename Rational
+      > struct binary_op_impl<
+         quan::fraction_of_revolution<Extent,ReciprocalFraction,ValueType>,
+         quan::meta::pow,
+         Rational
+      >{
+         static_assert(Rational::numerator == 1 && Rational::denominator == 2,"");
+         using extent = quan::meta::binary_op_t<Extent, quan::meta::times,Rational >;
+         using reciprocalFraction = typename quan::meta::rational<
+            static_cast<int64_t>(sqrt(ReciprocalFraction::type::numerator)),
+            static_cast<int64_t>(sqrt(ReciprocalFraction::type::denominator))
+         >::type;
+         using value_type = quan::meta::binary_op_t<ValueType, quan::meta::divides,ValueType>;
+
+         static_assert( 
+            std::is_same<
+            quan::meta::binary_op_t< reciprocalFraction, quan::meta::times,reciprocalFraction>,
+            ReciprocalFraction
+         >::value,"");
+         using type = quan::fraction_of_revolution<extent,reciprocalFraction,value_type>;
+      };
+
+   } // impl
+
 }}//quan::meta
 
-
 namespace quan{ //quan
-
 
 // fr + fr
     template<
@@ -592,24 +618,7 @@ namespace quan{ //quan
             Value_typeR
         > const& rhs)
     {
-#if 0
-//old style...
 
-        return typename quan::meta::binary_op<
-            quan::fraction_of_revolution<
-                Extent,
-                ReciprocalFractionL,
-                Value_typeL
-            >,
-            quan::meta::plus,
-            quan::fraction_of_revolution<
-                Extent,
-                ReciprocalFractionR,
-                Value_typeR
-            >
-        >::type (lhs)+= rhs;
-#else
-//new style...
         typedef typename quan::meta::binary_op<
             quan::fraction_of_revolution<
                 Extent,
@@ -624,8 +633,6 @@ namespace quan{ //quan
             >
         >::type result_type;
        return result_type{result_type{lhs}.numeric_value() + result_type{rhs}.numeric_value()};
-#endif
-      
     }
 
 // fr - fr
@@ -663,21 +670,7 @@ namespace quan{ //quan
             Value_typeR
         > const& rhs)
     {
-#if 0
-        return typename quan::meta::binary_op<
-            quan::fraction_of_revolution<
-                Extent,
-                ReciprocalFractionL,
-                Value_typeL
-            >,
-            quan::meta::minus,
-            quan::fraction_of_revolution<
-                Extent,
-                ReciprocalFractionR,
-                Value_typeR
-            >
-        >::type (lhs)-= rhs;
-#else
+
    typedef typename quan::meta::binary_op<
             quan::fraction_of_revolution<
                 Extent,
@@ -692,11 +685,9 @@ namespace quan{ //quan
             >
         >::type result_type;
        return result_type{result_type{lhs}.numeric_value() - result_type{rhs}.numeric_value()};
-
-#endif
     }
 
-// fr * fr
+// fr * fr ( to numeric
     template <
         typename ExtentL,
         typename ReciprocalFractionL,
@@ -706,7 +697,6 @@ namespace quan{ //quan
         typename Value_typeR
     >
     inline QUAN_CONSTEXPR
-//#if 0
    typename quan::where_<
       std::is_same<
 			typename quan::meta::binary_op<
@@ -716,7 +706,6 @@ namespace quan{ //quan
 			  >::type,
 			quan::meta::rational<0>
       >,
-//#endif
     typename quan::meta::binary_op<
         quan::fraction_of_revolution<
             ExtentL,
@@ -744,24 +733,6 @@ namespace quan{ //quan
         > const & rhs
     )
     {
-#if 0
-        typedef typename quan::meta::binary_op<
-            ExtentL,
-            quan::meta::plus,
-            ExtentR
-        >::type extent;
-        ////////////////////CONCEPT CHECK////////////////////////////////
-        // unlike radians for fraction-of-revolution types
-        // only multiplication by fraction_of_revolution;s
-        // with resulting Extent of 0 is valid
-        quan::concept_checking::Assert<
-            std::is_same<
-                extent,
-                quan::meta::rational<0>
-            >::value
-        >();
-#endif
-        //////////////////////CONCEPT CHECK/////////////////////////////
 
         typedef typename quan::meta::binary_op<
             ReciprocalFractionL,
@@ -787,6 +758,45 @@ namespace quan{ //quan
             >()()
         );
     }
+
+//fr * fr
+   template <
+      typename ExtentLhs,
+      typename ReciprocalFractionLhs,
+      typename ValueTypeLhs,
+      typename ExtentRhs,
+      typename ReciprocalFractionRhs,
+      typename ValueTypeRhs
+   >
+   inline constexpr 
+   typename quan::where_<
+      quan::meta::not_<
+         std::is_same<
+            typename quan::meta::binary_op<
+               ExtentLhs,
+               quan::meta::plus,
+               ExtentRhs
+            >::type,
+            quan::meta::rational<0>
+         >
+      >,
+      quan::meta::binary_op_t <
+         quan::fraction_of_revolution<ExtentLhs,ReciprocalFractionLhs,ValueTypeLhs>,
+         quan::meta::times,
+         quan::fraction_of_revolution<ExtentRhs,ReciprocalFractionRhs,ValueTypeRhs>     
+      >
+   >::type
+   operator * (
+      quan::fraction_of_revolution<ExtentLhs,ReciprocalFractionLhs,ValueTypeLhs> const & lhs,
+      quan::fraction_of_revolution<ExtentRhs,ReciprocalFractionRhs,ValueTypeRhs> const & rhs
+   ){
+      using result_type = quan::meta::binary_op_t <
+         quan::fraction_of_revolution<ExtentLhs,ReciprocalFractionLhs,ValueTypeLhs>,
+         quan::meta::times,
+         quan::fraction_of_revolution<ExtentRhs,ReciprocalFractionRhs,ValueTypeRhs>  
+      >;
+      return result_type{ lhs.numeric_value() * rhs.numeric_value()};
+   }
 
     template <
         typename ExtentL,
@@ -832,22 +842,7 @@ namespace quan{ //quan
             Value_typeR
         > const & rhs)
     {
-#if 0
-        typedef typename quan::meta::binary_op<
-            ExtentL,
-            quan::meta::minus,
-            ExtentR
-        >::type extent;
-        ////////////////////CONCEPT CHECK////////////////////////////////
-        // only division by fraction_of_revolution;s
-        // with resulting extent of 0 is valid
-        quan::concept_checking::Assert<
-            std::is_same<
-                extent,
-                quan::meta::rational<0>
-            >::value
-        >();
-#endif
+
         //////////////////////CONCEPT CHECK/////////////////////////////
 
         typedef typename quan::meta::binary_op<
@@ -912,18 +907,8 @@ namespace quan{ //quan
             ValueType
         >::type result_type;
        return result_type{ result_type{lhs}.numeric_value() * rhs};
-/*
-       return typename quan::meta::binary_op<
-            quan::fraction_of_revolution<
-                ExtentL,
-                ReciprocalFractionL,
-                Value_typeL
-            >,
-            quan::meta::times,
-            ValueType
-        >::type (lhs) *= rhs;
-      */
     }
+
 // v * fr
     template<
         typename ValueType,
@@ -1037,6 +1022,28 @@ namespace quan{ //quan
         >::type ( lhs / rhs.numeric_value());
     }
 
+  template <
+         int64_t N, int64_t D,
+         typename Extent,
+         typename ReciprocalFraction,
+         typename ValueType
+      > 
+   inline constexpr 
+   typename quan::meta::binary_op<
+      quan::fraction_of_revolution<Extent,ReciprocalFraction,ValueType>,
+      quan::meta::pow,
+      quan::meta::rational<N,D>
+   >::type
+   pow(fraction_of_revolution<Extent,ReciprocalFraction,ValueType> const & v)
+   {
+      return quan::meta::binary_op_t<
+         quan::fraction_of_revolution<Extent,ReciprocalFraction,ValueType>, 
+         quan::meta::pow,
+         quan::meta::rational<N,D>
+      >
+      {quan::pow<N,D>(v.numeric_value())};
+   }
+   
     // abs
     template<
         typename Extent,
@@ -1367,7 +1374,7 @@ namespace quan{ //quan
       };
    }
 
-
+   
 } //quan
 
 #endif // QUAN_ANGLE_FRACTION_OF_REVOLUTION_HPP_INCLUDED

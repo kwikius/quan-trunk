@@ -21,6 +21,8 @@
 #include <quan_matters/test/test.hpp>
 #include <quan/length.hpp>
 #include <quan/area.hpp>
+#include <quan/angle.hpp>
+#include <quan/reciprocal_time.hpp>
 #include <quan/volume.hpp>
 #include <quan/where.hpp>
 #include <type_traits>
@@ -61,6 +63,7 @@ namespace {
     QUAN_TEST_FUN(test_pow1)
     QUAN_TEST_FUN(test_power_functions)
     QUAN_TEST_FUN(test_root_quantity)
+    QUAN_TEST_FUN(test_pow_deg_per_s)
 
 #undef QUAN_TEST_FUN
 }
@@ -73,6 +76,7 @@ void pow_test()
     QUAN_TEST_FUN(test_pow1)
     QUAN_TEST_FUN(test_power_functions)
     QUAN_TEST_FUN(test_root_quantity)
+    QUAN_TEST_FUN(test_pow_deg_per_s)
 
 #undef QUAN_TEST_FUN
 }
@@ -122,6 +126,8 @@ namespace {
       QUAN_CHECK(xx == quan::length::mm{1})
 
    }
+
+
 
    void test_pow0()
    {
@@ -249,3 +255,34 @@ namespace {
    }
 
 }//anon
+
+namespace {
+   QUAN_QUANTITY_LITERAL(angle,deg)
+
+    using deg_per_s = quan::reciprocal_time_<
+        quan::angle::deg 
+      >::per_s ;
+
+   constexpr inline 
+   deg_per_s operator "" _deg_per_s ( long double v)
+   {
+     return deg_per_s {quan::angle::deg{v}};
+   }
+
+   void test_pow_deg_per_s()
+   {
+
+      deg_per_s constexpr r{90_deg};
+
+      auto constexpr r1 = r*r;
+      QUAN_CHECK(r1.numeric_value().numeric_value() == 90 * 90);
+
+      auto r2 = quan::pow<1,2>(r1);
+
+      QUAN_CHECK(r2.numeric_value() == 90_deg);
+
+   }
+
+}
+
+

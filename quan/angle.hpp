@@ -70,10 +70,10 @@ namespace quan{
      ){
     ///////////////////////////Concept Check//////////////////////////////////////
     // limit conversion to mathematic_angle and mathematic_angle ^-1
-#if 0
-        quan::concept_checking::Assert<
+#if 1
+        static_assert(
              (((Extent::numerator == 1) && (Extent::denominator == 1))
-            ||  ((Extent::numerator == -1) && (Extent::denominator == 1))) >();
+            ||  ((Extent::numerator == -1) && (Extent::denominator == 1))),"");
 #endif
     //////////////////////Concept Check //////////////////////////////////////////
     }

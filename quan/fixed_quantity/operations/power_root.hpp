@@ -187,14 +187,13 @@ namespace quan {
                 quan ::meta::pow,
                 typename Rational::type
             >::type result_type;
-            QUAN_CONSTEXPR result_type operator()(Q const & in) const
+            static QUAN_CONSTEXPR result_type apply(Q const & in) 
             {
-                return result_type{
-                   static_cast<typename result_type::value_type>( 
-                      quan ::pow<
-                         Rational::numerator,Rational::denominator
-                       >(coherent_pq{in}.numeric_value()))
-                };
+               return result_type{
+                  pow<Rational::numerator,Rational::denominator>(
+                     coherent_pq{in}.numeric_value()
+                  )
+               };
             }
         };
 
@@ -205,7 +204,7 @@ namespace quan {
             Q, quan ::meta::rational<0>
         >{
             typedef int result_type;
-            QUAN_CONSTEXPR result_type operator()(Q const & in) const
+            static QUAN_CONSTEXPR result_type apply(Q const & in) 
             {
                 return 1;
             }
@@ -218,12 +217,11 @@ namespace quan {
             Q,quan ::meta::rational<1>
         >{
             typedef Q result_type;
-            QUAN_CONSTEXPR result_type operator()(Q const & in) const
+            static QUAN_CONSTEXPR result_type apply(Q const & in) 
             {
                 return in;
             }
         };
-
 
         template <
            typename Q
@@ -234,7 +232,7 @@ namespace quan {
             typedef  typename quan::meta::binary_op<
                 Q, quan::meta::pow, quan::meta::rational<2>
             >::type result_type;
-            QUAN_CONSTEXPR result_type operator()(Q const & in) const
+           static QUAN_CONSTEXPR result_type apply(Q const & in)
             {
                return in * in;
             }
@@ -249,7 +247,7 @@ namespace quan {
             typedef  typename quan::meta::binary_op<
                 Q, quan::meta::pow, quan::meta::rational<3>
             >::type result_type;
-            QUAN_CONSTEXPR result_type operator()(Q const & in) const
+            static QUAN_CONSTEXPR result_type apply(Q const & in)
             {
                 return in * in * in;
             }
@@ -287,7 +285,7 @@ namespace quan {
             orig_quantity_type,
             typename meta::rational<N,D>::type
         > pow_impl;
-        return pow_impl{}(pq);
+        return pow_impl::apply(pq);
     }
 
     template <
