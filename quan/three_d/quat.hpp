@@ -468,7 +468,9 @@ PQS's own mechanism of throwing
    >::type
    quat_from_euler(quan::three_d::vect<Angle> const & pose)
    {
-
+        /*
+            x = roll, y = pitch, z = yaw
+        */
       auto const v = 0.5 * pose;
       auto const s = make_vect( sin(v.x),sin(v.y),sin(v.z));
       auto const c = make_vect( cos(v.x),cos(v.y),cos(v.z));
@@ -476,7 +478,7 @@ PQS's own mechanism of throwing
       Tout const cXcZ = c.x * c.z;
       Tout const cXsZ = c.x * s.z;
       Tout const sXsZ = s.x * s.z;
-      Tout const sXcZ = s.x * c.x;
+      Tout const sXcZ = s.x * c.z;
 
       return { 
          cXcZ * c.y + sXsZ * s.y,
