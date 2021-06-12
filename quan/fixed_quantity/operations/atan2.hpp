@@ -64,7 +64,7 @@ namespace quan {
       typename StaticUnit_R,
       typename NumericType_R
    >
-   inline
+   inline constexpr
 //#if ! defined QUAN_STM32L4
 //   QUAN_CONSTEXPR
 //#endif
