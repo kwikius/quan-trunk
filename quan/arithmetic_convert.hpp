@@ -246,8 +246,7 @@ namespace quan {namespace impl_detail {
 }//impl_detail
  
 template <typename TargetType,typename SourceType>
- 
-QUAN_CONSTEXPR typename quan::where_<
+inline QUAN_CONSTEXPR typename quan::where_<
    quan::meta::and_<
       std::is_arithmetic<SourceType>,
       quan::meta::and_<
@@ -261,8 +260,19 @@ TargetType
     return impl_detail::arithmetic_convert_impl<TargetType,SourceType>{}(s);
 }
 
+template <typename TargetType,typename SourceType>
+inline QUAN_CONSTEXPR 
+typename quan::where_<
+   quan::meta::and_<
+      std::is_arithmetic<SourceType>,
+      quan::meta::is_mathematic_angle<TargetType>
+   >,
+   TargetType
+>::type arithmetic_convert(SourceType const & s)
+{
+   return TargetType(s);
+}
 
- 
 template <typename TargetType,typename SourceType>
 inline
  
