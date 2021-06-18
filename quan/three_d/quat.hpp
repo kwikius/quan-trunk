@@ -292,9 +292,15 @@ namespace quan{namespace three_d{
   
     template <typename TL, typename TR>
     inline
-    // The ValueType of the result (TR) could be
-    // promoted to float-type here, which would be useful if TR is an integer
-    quan::three_d::vect<TR>
+    typename quan::where_<
+         quan::meta::and_<
+            quan::meta::is_scalar<TL>,
+            quan::meta::is_scalar<TR>
+        >,
+       // The ValueType of the result (TR) could be
+       // promoted to float-type here, which would be useful if TR is an integer
+       quan::three_d::vect<quan::meta::binary_op_t<TL,quan::meta::times,TR> >
+    >::type
     operator *( 
         quan::three_d::quat<TL> const & lhs, 
         quan::three_d::vect<TR> const & rhs
