@@ -30,4 +30,9 @@ namespace quan{ namespace angular_velocity{
 
 }}//quan::angular_velocity
 
+#define QUAN_USING_ANGULAR_VELOCITY \
+using rad_per_s = quan::angular_velocity::rad_per_s; \
+using deg_per_s = quan::angular_velocity::deg_per_s; \
+using namespace quan::angular_velocity::literals;
+
 #endif // QUAN_ANGULAR_VELOCITY_HPP_INCLUDED

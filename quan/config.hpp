@@ -104,10 +104,9 @@
 
 #ifndef QUAN_VERSION_MESSAGE
 #define QUAN_VERSION_MESSAGE
-//#pragma message ("quan version 1")
 #endif
-//increment this number on major changes
-#define QUAN_VERSION 2
+
+#define QUAN_VERSION 1204210621
 
 //-------------------------------------------------------
 //Default epsilon used by compare function
