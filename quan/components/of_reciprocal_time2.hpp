@@ -49,25 +49,6 @@ namespace quan{ namespace meta{ namespace components{
             of_reciprocal_time2
         > abstract_quantity;
 
-//        struct non_si_unit{
-//            typedef meta::unit<
-//                abstract_quantity,
-//                meta::conversion_factor<
-//                    meta::rational<-2>,
-//                    meta::rational<5,3>::type,
-//                    quan::meta::int32<0>
-//                >
-//            > per_min;
-//            typedef meta::unit<
-//                abstract_quantity,
-//                meta::conversion_factor<
-//                    meta::rational<-4>,
-//                    meta::rational<25,9>::type,
-//                    quan::meta::int32<0>
-//                >
-//            > per_hour;
-//        };
-
         typedef  of_reciprocal_time2 type;
 
     };

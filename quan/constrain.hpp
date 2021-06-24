@@ -1,7 +1,9 @@
 #ifndef QUAN_CONSTRAIN_HPP_INCLUDED
 #define QUAN_CONSTRAIN_HPP_INCLUDED
+
+#include <quan/implicit_cast.hpp>
 /*
- Copyright (c) 2003-2014 Andy Little.
+ Copyright (c) 2003-2021 Andy Little.
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -19,25 +21,13 @@
 
 namespace quan{
 
-   template <typename T>
-   inline constexpr T constrain(T const & val, T const & min_val, T const & max_val)
+   template <typename T, typename Tmin, typename Tmax>
+   inline constexpr T constrain(T const & val, Tmin const & min_val, Tmax const & max_val)
    {
-#if 1
-   return (val >= max_val )
-      ? max_val
-      :(( val <= min_val)? min_val: val)
-   ;
-#else
-      if ( val > max_val){
-         return max_val;
-      }else{
-         if ( val < min_val){
-            return min_val;
-         }else{
-            return val;
-         }
-      }
-#endif
+      return (val >= max_val)
+         ? implicit_cast<T>(max_val)
+         :(( val <= min_val)? implicit_cast<T>(min_val): val)
+      ;
    }
 
 } // quan
