@@ -29,20 +29,64 @@
     operator ()() 
     gives either duration to last stop(0 if stopped
     or duration from init or start() if running;
-    Nominally Correct for one overflow period of system timer.
-    ( using difftime )
+
    *** now templated on required time units ***
     
 */
 
 #include <quan/time.hpp>
-#include <quan/meta/eval_rational.hpp>
-#include <quan/static_assert.hpp>
-#include <type_traits>
-#include <ctime>
+
+
+#if defined (__cpp_lib_chrono)
+   #include <quan/conversion/chrono.hpp>
+#else
+   #include <quan/meta/eval_rational.hpp>
+   #include <quan/static_assert.hpp>
+   #include <type_traits>
+   #include <ctime>
+#endif
 
 namespace quan{
- 
+
+#if defined (__cpp_lib_chrono)
+
+   template <typename TimeType = quan::time::ms>
+   struct timer{
+    static_assert(std::is_convertible<TimeType,quan::time::ms>::value, "TimeType must be a quan::time type");
+      timer()
+      :start_time{std::chrono::steady_clock::now()}
+      ,stop_time{std::chrono::steady_clock::now()}
+      ,running {true}
+      {}
+
+      TimeType operator()()const
+      {
+         return quan::from_chrono(std::chrono::steady_clock::now() - start_time);
+      }
+
+      void restart() 
+      {
+         running = true;
+         start_time = std::chrono::steady_clock::now();
+      }
+
+      void stop() 
+      {
+         if (running){
+            stop_time = std::chrono::steady_clock::now();
+            running = false;
+         }
+      }
+
+      bool is_running() const {return running;}
+      bool is_stopped() const {return !running;}
+   private:
+      std::chrono::steady_clock::time_point start_time, stop_time;
+      bool running;
+   };
+
+#else
+    // old v using std::clock
     template <typename TimeType = quan::time::ms>
     class timer{
         
@@ -90,7 +134,8 @@ namespace quan{
         bool running;
         std::clock_t start_time,stop_time;
     };
+#endif
 
 }//quan
 
-#endif
+#endif // QUAN_TIMER_HPP_INCLUDED

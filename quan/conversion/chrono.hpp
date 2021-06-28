@@ -105,5 +105,4 @@ namespace quan{
    }
 }
 
-
 #endif // QUAN_CONVERSION_CHRONO_HPP_INCLUDED
