@@ -4,6 +4,8 @@
 #ifndef QUAN_TIMER_HPP_INCLUDED
 #define QUAN_TIMER_HPP_INCLUDED
 
+
+
 /*
  Copyright (c) 2003-2014 Andy Little.
 
@@ -35,9 +37,10 @@
 */
 
 #include <quan/time.hpp>
-
-
 #if defined (__cpp_lib_chrono)
+#define QUAN_USE_CHRONO_TIMER
+#endif
+#if defined (QUAN_USE_CHRONO_TIMER)
    #include <quan/conversion/chrono.hpp>
 #else
    #include <quan/meta/eval_rational.hpp>
@@ -48,32 +51,32 @@
 
 namespace quan{
 
-#if defined (__cpp_lib_chrono)
+#if defined (QUAN_USE_CHRONO_TIMER)
 
    template <typename TimeType = quan::time::ms>
    struct timer{
     static_assert(std::is_convertible<TimeType,quan::time::ms>::value, "TimeType must be a quan::time type");
       timer()
-      :start_time{std::chrono::steady_clock::now()}
-      ,stop_time{std::chrono::steady_clock::now()}
+      :start_time{std::chrono::system_clock::now()}
+      ,stop_time{std::chrono::system_clock::now()}
       ,running {true}
       {}
 
       TimeType operator()()const
       {
-         return quan::from_chrono(std::chrono::steady_clock::now() - start_time);
+         return quan::from_chrono(std::chrono::system_clock::now() - start_time);
       }
 
       void restart() 
       {
          running = true;
-         start_time = std::chrono::steady_clock::now();
+         start_time = std::chrono::system_clock::now();
       }
 
       void stop() 
       {
          if (running){
-            stop_time = std::chrono::steady_clock::now();
+            stop_time = std::chrono::system_clock::now();
             running = false;
          }
       }
@@ -81,7 +84,7 @@ namespace quan{
       bool is_running() const {return running;}
       bool is_stopped() const {return !running;}
    private:
-      std::chrono::steady_clock::time_point start_time, stop_time;
+      std::chrono::system_clock::time_point start_time, stop_time;
       bool running;
    };
 
