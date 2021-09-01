@@ -40,28 +40,24 @@ namespace quan{
         
         typedef Q value_type;
 
-        value_type real() const {return m_array[0];}
-        value_type imag() const {return m_array[1];}
-        complex()
+        value_type constexpr real() const {return m_array[0];}
+        value_type constexpr imag() const {return m_array[1];}
+        constexpr complex()
         : m_array{static_cast<Q>(0),static_cast<Q>(0)}
-        {
-           // m_array[0] = static_cast<Q>(0);
-           // m_array[1] = static_cast<Q>(0);
-        }
+        {}
 
         template <typename Q1>
+        constexpr 
         complex( Q1 const & in,
             typename quan::where_<
                 std::is_convertible<Q1, Q>,
                 void*
             >::type =0
-        )
-        {
-            m_array[0] = in;
-            m_array[1] = static_cast<Q>(0);
-        }
+        ): m_array{in,static_cast<Q>(0)}
+        {}
 
         template <typename Q1, typename Q2>
+        constexpr 
         complex( Q1 const & in1,Q2 const & in2,
             typename quan::where_<
                 quan::meta::and_<
@@ -70,23 +66,18 @@ namespace quan{
                 >,
                 void*
             >::type =0
-        )
-        {
-            m_array[0] = in1;
-            m_array[1] = in2;
-        } 
+        ): m_array{static_cast<Q>(in1),static_cast<Q>(in2)}
+        {} 
 
         template <typename Q1>
+        constexpr 
         complex( complex<Q1> const & in,
             typename quan::where_<
                 std::is_convertible<Q1, Q>,
                 void*
             >::type =0
-        )
-        {
-            m_array[0] = in.real();
-            m_array[1] = in.imag();
-        } 
+        ): m_array{in.real(),in.imag()}
+        { } 
 
         template <typename Q1>
         typename quan::where_<
@@ -295,13 +286,34 @@ namespace quan {
       typename quan::meta::binary_op<
          quan::complex<QL>,quan::meta::times,quan::complex<QR>
       >::type
-      operator *(quan::complex<QL> const & lhs,quan::complex<QR> const & ths);
+      constexpr inline 
+      operator *(quan::complex<QL> const & lhs,quan::complex<QR> const & rhs)
+      {
+         return { 
+            lhs.real() * rhs.real() - lhs.imag() * rhs.imag(),
+            lhs.imag() * rhs.real() + lhs.real() * rhs.imag()
+         };
+      }
 
       template <typename QL, typename QR>
       typename quan::meta::binary_op<
          quan::complex<QL>,quan::meta::divides,quan::complex<QR>
       >::type
-      operator /(quan::complex<QL> const & lhs,quan::complex<QR> const & ths);
+      inline  
+      operator /(quan::complex<QL> const & lhs,quan::complex<QR> const & rhs)
+      {
+         auto const a = lhs.real();
+         auto const b = lhs.imag();
+         auto const c = rhs.real();
+         auto const d = rhs.imag();
+
+         auto const denom = c * c + d * d;
+         return { 
+            (a * c + b * d)/denom, 
+            (b * c - a * d)/denom
+         };
+         
+      }
 
 } //quan
 

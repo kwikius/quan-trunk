@@ -21,6 +21,7 @@
      some basic electronics calcs
 */
 
+#include <quan/complex/complex.hpp>
 #include <quan/out/voltage.hpp>
 #include <quan/out/resistance.hpp>
 #include <quan/out/current.hpp>
@@ -28,10 +29,20 @@
 #include <quan/out/power.hpp>
 #include <quan/out/energy.hpp>
 
+namespace quan{
+   
+   template <typename QReal, typename QImag>
+   inline std::ostream &  operator << (std::ostream & os, quan::complex<QReal,QImag> const & q)
+   {
+      return os << '(' << q.real() << ", " << q.imag() << ')';
+   }
+}
+
 namespace {
    QUAN_QUANTITY_LITERAL(voltage,V)
    QUAN_QUANTITY_LITERAL(resistance,kR)
    QUAN_QUANTITY_LITERAL(time,s)
+   QUAN_QUANTITY_LITERAL(current, mA)
 }
 
 int main()
@@ -53,4 +64,11 @@ int main()
     std::cout
        << "total energy used in " << t
        << " is " <<  e  << '\n';
+
+    
+   quan::complex<quan::voltage::V> V ={ 0_V, 1_V};
+   quan::complex<quan::current::mA> I ={ 1_mA, 0_mA};
+   quan::complex<quan::resistance::kR> Z = V / I;
+
+   std::cout << Z <<'\n';
 }

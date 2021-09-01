@@ -186,7 +186,7 @@ namespace quan{namespace fusion{
     )
     {
        // typedef quan::fusion::static_value<RL,SL> suL;
-        return to_runtime(lhs) / rhs;
+        return to_runtime{}(lhs) / rhs;
     }
 
     //zero so move all to ct

@@ -28,6 +28,9 @@ http://www.cl.cam.ac.uk/~rmf25/papers/Understanding%20the%20Basis%20of%20the%20K
 #include <quan/fixed_quantity/literal.hpp>
 #include <quan/three_d/out/vect.hpp>
 
+#include <quan/fixed_quantity/io/input.hpp>
+#include <fstream>
+
 namespace {
 
   QUAN_QUANTITY_LITERAL(time,s)
@@ -42,27 +45,14 @@ namespace {
   constexpr auto static_ = quan::fusion::static_value<T,quan::meta::rational<V> >{};
 }
 
-int kalman1() 
+int static_value_test(quan::length::m const & s) 
 {
-    quan::three_d::vect<quan::length::m>  constexpr             s{1.0_m,1.0_m,1.0_m};
-    quan::three_d::vect<quan::velocity::m_per_s> constexpr      u{0.0_m_per_s,0_m_per_s,0_m_per_s};
-    quan::three_d::vect<quan::acceleration::m_per_s2> constexpr a{0.0_m_per_s2,0.0_m_per_s2,-0.0_m_per_s2};
 
     auto constexpr dt = static_<quan::time::s,1>;
     auto constexpr _0 = static_<int,0>;
     auto constexpr _1 = static_<int,1>;
     auto constexpr _2 = static_<int,2>;
 
-    /*
-      matrix is upper_triangular
-     if (r > c) then type = reciprocal type at c,r
-     and numeric_value is 0
-    (0,0),(0,1),(0,2)
-          (1,1),(1,2)
-                 (2,2)
-     (1,0)
-     (2,0) (2,1)
-    */
     auto constexpr m1 = quan::fusion::make_matrix<3>
     (
        // s <-         s * 1 +  u * dt  + a *dt^2/2
@@ -75,43 +65,34 @@ int kalman1()
                   _0/(dt*dt) ,    _0/dt ,      _1
     );
 
+    auto constexpr s0 = (_0/dt) * s;
+std::cout << "s0 = " << s0 <<'\n';
+    auto constexpr s1 = _1 *  static_<quan::velocity::m_per_s,0>;
+std::cout << "s1 = " << s1 <<'\n';
+    auto constexpr s2 =  dt * static_<quan::acceleration::m_per_s2,0>;
+std::cout << "s2 = " << s2 <<'\n';
+    auto constexpr sr = s0 + s1 + s2;
+std::cout << "sr = " << sr <<'\n';
+
+   // int zz = v0;
+
     std::cout << "sizeof m1 = " << sizeof(m1) << '\n';
 
     display(m1, "m1 = ");
 
-    // can use a matrix of vectors if each vector represents a different dimension
-    auto x = quan::fusion::make_matrix<3>(
-       s,  // distance
-       u,  // velocity
-       a   // accleration
+    auto const v1 = quan::fusion::make_matrix<3>(
+       s,
+       static_<quan::velocity::m_per_s,0>,
+       static_<quan::acceleration::m_per_s2,0>
     );
 
-    std::cout << "sizeof x = " << sizeof(x) << '\n';
+    auto const  vr = m1 * v1;
 
-    display(x, "x = ");
 
-    auto x1 = m1 * x;
+    std::cout << "sizeof vr = " << sizeof(vr) << '\n';
+    display(vr, "v2 = ");
 
-    std::cout << "sizeof x1 = " << sizeof(x1) << '\n';
-
-    display(x1,"x1 = ");
-
-    // or put values in direct
-    auto alt_x = quan::fusion::make_matrix<3>(
-      s.x,s.y,s.z,
-      u.x,u.y,u.z,
-      a.x,a.y,a.z
-    );
-
-    std::cout << "sizeof alt_x = " << sizeof(alt_x) << '\n';
-
-    display(alt_x,"alt_x = ");
-
-    auto x2 = m1 * alt_x;
-
-    std::cout << "sizeof x2 = " << sizeof(x2) << '\n';
-
-    display(x2, "res1 = ");
+   // int dummy = v2;
 
     return 0;
 }
@@ -119,7 +100,15 @@ int kalman1()
 #if defined QUAN_STANDALONE
 int main()
 {
-   kalman1();
+
+   quan::length::m x;
+
+   std::ifstream in("input.txt");
+
+   in >> x;
+
+   std::cout << "x = " << x << '\n';
+   static_value_test(x);
 }
 int errors = 0;
 #endif

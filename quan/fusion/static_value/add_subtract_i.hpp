@@ -15,6 +15,16 @@ namespace quan{namespace fusion{
      zero sv op rv
      rv op non zero sv
      rv op zero sv
+
+    could do is_lossles_static_value_calculation for +
+      where is lossles calc rt or static value == 0
+       // for units problemtic where the result type has changed unit
+       
+       0 + x  -> static_cast<result_type>(x)
+       x + 0   -> static_cast<result_type>(x)
+
+       0 - x -->  static_cast<result_type>(-x)
+       x - 0 -->  static cast<result_type>(x)
 */
 
 
@@ -25,7 +35,7 @@ namespace quan{namespace fusion{
    typename quan::where_<
       quan::meta::and_<
          quan::meta::is_valid_binary_op<RL,QUAN_FUSION_META_OP,RR>
-         ,quan::meta::is_lossless_calculation<RL,QUAN_FUSION_META_OP,RR>
+         ,quan::meta::is_lossless_calculation<RL,QUAN_FUSION_META_OP,RR> 
          ,quan::meta::is_lossless_calculation<SL,QUAN_FUSION_META_OP,SR>
       >,
       typename quan::meta::binary_op<
