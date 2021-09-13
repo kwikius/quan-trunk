@@ -838,10 +838,10 @@ namespace quan {
         // with resulting Extent of 0 is valid currently
 
          // quan::concept_checking::Assert<
-          static_assert(  std::is_same<
+          static_assert(  (std::is_same<
                 extent_type,
                 quan::meta::rational<0>
-            >::value,"");
+            >::value ),"");
 
         //////////////////////CONCEPT CHECK/////////////////////////////
 /*

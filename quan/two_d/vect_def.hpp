@@ -28,7 +28,12 @@
 
 #include <quan/implicit_cast.hpp>
 #include <quan/where.hpp>
+
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <type_traits>
+#else
+
+#endif
 
 #if ! defined QUAN_NO_EXCEPTIONS
 #include <stdexcept>

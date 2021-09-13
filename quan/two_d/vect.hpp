@@ -34,7 +34,11 @@
 #include <quan/meta/bool/true.hpp>
 #include <quan/meta/get_num_elements.hpp>
 #include <quan/meta/int32.hpp>
+#ifndef QUAN_AVR_NO_CPP_STDLIB
 #include <cmath>
+#else
+#include <math.h>
+#endif
 
 namespace quan{namespace meta{
 

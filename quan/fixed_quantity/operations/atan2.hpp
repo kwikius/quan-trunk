@@ -64,10 +64,10 @@ namespace quan {
       typename StaticUnit_R,
       typename NumericType_R
    >
-   inline constexpr
-//#if ! defined QUAN_STM32L4
-//   QUAN_CONSTEXPR
-//#endif
+   inline 
+#if (!defined (QUAN_STM32L4)  && !defined(__AVR__))
+   constexpr
+#endif
    typename quan::where_<
       quan::meta::and_<
          quan::meta::dimensionally_equivalent<StaticUnit_L, StaticUnit_R>,

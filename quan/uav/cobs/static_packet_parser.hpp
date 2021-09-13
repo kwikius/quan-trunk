@@ -1,7 +1,11 @@
 #ifndef QUAN_UAV_COBS_STATIC_PACKET_PARSER_HPP_INCLUDED
 #define QUAN_UAV_COBS_STATIC_PACKET_PARSER_HPP_INCLUDED
 
+#if defined __AVR__
+#include <stdint.h>
+#else
 #include <cstdint>
+#endif
 #include <quan/uav/cobs/protocol.hpp>
 
 namespace quan{ namespace uav{ namespace cobs{

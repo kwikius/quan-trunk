@@ -570,11 +570,11 @@ namespace quan{namespace meta{
          >::type;
          using value_type = quan::meta::binary_op_t<ValueType, quan::meta::divides,ValueType>;
 
-         static_assert( 
+         static_assert( (
             std::is_same<
             quan::meta::binary_op_t< reciprocalFraction, quan::meta::times,reciprocalFraction>,
             ReciprocalFraction
-         >::value,"");
+         >::value),"");
          using type = quan::fraction_of_revolution<extent,reciprocalFraction,value_type>;
       };
 
