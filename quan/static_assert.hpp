@@ -47,7 +47,9 @@ namespace quan{ namespace static_assertion{
 #endif
 
 #if defined QUAN_AVR_NO_CPP_STDLIB
+#if !defined (__cpp_static_assert) ||  (__cpp_static_assert < 200410 ) 
  #define static_assert( cond, text) QUAN_STATIC_ASSERT(( cond ) && text);
+#endif
 #endif
 
 #endif
