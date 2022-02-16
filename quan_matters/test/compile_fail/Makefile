@@ -16,13 +16,13 @@ CXXFLAGS    += -fno-rtti -DQUAN_NO_RTTI
 endif
 
 main.exe : compile_fail_test.o
-	g++-7 -o main.exe  compile_fail_test.o
+	g++ -o main.exe  compile_fail_test.o
 	echo ............................
 	./main.exe
 	echo ............................
 
 compile_fail_test.o : compile_fail_test.cpp
-	g++-7 -c  $(CXXFLAGS) compile_fail_test.cpp -I../../../ -o compile_fail_test.o
+	g++ -c  $(CXXFLAGS) compile_fail_test.cpp -I../../../ -o compile_fail_test.o
 
 clean:
 	-rm -rf *.o *.exe compile_fail_log.txt
