@@ -42,23 +42,24 @@ namespace quan {
 
     template <typename Value_type>
     struct gravitational_constant_{
-        typedef  fixed_quantity< 
-            meta::unit< 
+        typedef  fixed_quantity<
+            meta::unit<
                 meta::abstract_quantity<
                     meta::dimension<
-                        quan::meta::dim_length<3> 
-                        ,quan::meta::dim_time<-2> 
-                        ,quan::meta::dim_mass<-1> 
+                        quan::meta::dim_length<3>
+                        ,quan::meta::dim_time<-2>
+                        ,quan::meta::dim_mass<-1>
                     >
                 >,
                 meta::conversion_factor<
                     meta::rational<-11>
                 >
             >,
-            typename std::add_const<Value_type>::type
+           // typename std::add_const<Value_type>::type
+             Value_type
         > G_type;
-   
-        static G_type constexpr G{static_cast<Value_type>(6.6726)};
+
+       static G_type constexpr G = G_type{static_cast<Value_type>(6.6726)};
     };
 
     struct gravitational_constant : gravitational_constant_<
@@ -67,7 +68,7 @@ namespace quan {
 
 //#ifdef QUAN_DEFINE_PHYSICAL_CONSTANTS_IN_HEADERS
 //template<typename T>
-//typename gravitational_constant_<T>::G_type constexpr 
+//typename gravitational_constant_<T>::G_type constexpr
 //gravitational_constant_<T>::G(static_cast<T>(6.6726));
 //#endif
 
