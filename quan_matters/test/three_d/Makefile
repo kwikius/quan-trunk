@@ -9,7 +9,7 @@ $(error ****************QUAN_ROOT not defined.QUAN_ROOT must be defined to path 
 endif
 
 TARGET      ?= test.exe
-CXX         = g++-7
+CXX         = g++
 CXXFLAGS    = -std=c++14 -I${QUAN_ROOT}
 
 ifeq ($(USE_CONCEPTS),True)

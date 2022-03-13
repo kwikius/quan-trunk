@@ -9,7 +9,7 @@ QUAN_ROOT = ../../../
 endif
 
 TARGET      ?= test.exe
-CXX         = g++-7
+CXX         = g++
 CXXFLAGS    = -std=c++14 -I${QUAN_ROOT}
 
 ifeq ($(USE_CONCEPTS),True)

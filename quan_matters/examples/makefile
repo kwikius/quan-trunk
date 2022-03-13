@@ -3,7 +3,7 @@ ifeq ($(QUAN_ROOT),)
 QUAN_ROOT = ../../
 endif
 
-CXX         = g++-7
+CXX         = g++
 CXXFLAGS    = -std=c++14 -I${QUAN_ROOT}
 
 ifeq ($(USE_CONCEPTS),True)
