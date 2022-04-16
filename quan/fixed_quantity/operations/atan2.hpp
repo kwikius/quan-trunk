@@ -64,10 +64,10 @@ namespace quan {
       typename StaticUnit_R,
       typename NumericType_R
    >
-   inline 
-#if (!defined (QUAN_STM32L4)  && !defined(__AVR__))
-   constexpr
-#endif
+   inline
+//#if (!defined (QUAN_STM32L4)  && !defined(__AVR__))
+   QUAN_CONSTEXPR
+//#endif
    typename quan::where_<
       quan::meta::and_<
          quan::meta::dimensionally_equivalent<StaticUnit_L, StaticUnit_R>,
@@ -123,19 +123,16 @@ namespace quan {
    #else
        using ::atan2;
    #endif
-   
    #if (__cpp_constexpr >= 201304)
        return result_type {atan2(ty.numeric_value(), tx.numeric_value())};
-    #else  
+    #else
        return result_type {
            atan2(
-             finest_grained_type{y}.numeric_value(), 
+             finest_grained_type{y}.numeric_value(),
              finest_grained_type{x}.numeric_value()
            )
         };
      #endif
-      // ty.numeric_value(), tx.numeric_value())};
-    //return result_type {atan2(endif
    }
 
 } //quan

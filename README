@@ -1,0 +1,11 @@
+quan is a library written in C++, originally for creating C++ types representing physical quantities.
+
+Now the library has expanded to include many other features.
+
+The library has been tested in Linux under gcc4.7 on Intelx86, AVR (Arduino) and ARM hardware and requires the -std=c++11 switch
+
+See http://www.zoomworks.org/quan-trunk/quan_matters/doc/index.html for more information.
+
+
+
+

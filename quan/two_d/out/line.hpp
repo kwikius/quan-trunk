@@ -21,12 +21,11 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 //
- 
- 
- 
 
 #include <quan/two_d/line.hpp>
+#include <quan/two_d/out/vect.hpp>
 #include <iostream>
+
 namespace quan{ namespace two_d{
 
     template <typename T>
@@ -34,7 +33,7 @@ namespace quan{ namespace two_d{
     {
         os << t.from << "->" << t.to ;
         return os;
-    }   
+    }
 }}
 
 

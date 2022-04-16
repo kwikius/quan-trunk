@@ -26,6 +26,8 @@
 #include <quan/stm32/f3/i2c/module.hpp>
 #elif defined QUAN_STM32F0
 #include <quan/stm32/f0/i2c/module.hpp>
+#elif defined QUAN_STM32L4
+#include <quan/stm32/l4/i2c/module.hpp>
 #else
 #error need to define stm32 processor
 #endif

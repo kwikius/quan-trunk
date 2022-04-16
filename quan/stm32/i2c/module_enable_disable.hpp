@@ -18,13 +18,15 @@
  */
 
 #include <quan/stm32/i2c/module.hpp>
-//#include <quan/stm32/i2c/detail/module_enable_disable.hpp>
+
 #if defined QUAN_STM32F4
 #include <quan/stm32/f4/i2c/module_enable_disable.hpp>
 #elif defined QUAN_STM32F3
 #include <quan/stm32/f3/i2c/module_enable_disable.hpp>
 #elif defined QUAN_STM32F0
 #include <quan/stm32/f0/i2c/module_enable_disable.hpp>
+#elif defined QUAN_STM32L4
+#include <quan/stm32/l4/i2c/module_enable_disable.hpp>
 #else
 #error need to define stm32 processor
 #endif
