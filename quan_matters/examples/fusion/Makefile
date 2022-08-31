@@ -6,7 +6,7 @@ ifeq ($(QUAN_ROOT),)
 QUAN_ROOT = ../../../
 endif
 
-CXX         = g++-7
+CXX         = g++
 CXXFLAGS    = -std=c++14  -I${QUAN_ROOT}
 
 ifeq ($(USE_CONCEPTS),True)
@@ -35,7 +35,7 @@ $(TARGET) : ${objs}
 test: $(TARGET)
 	./$(TARGET)
 
-${objs} : %.o : %.cpp 
+${objs} : %.o : %.cpp
 	$(CXX) $(CXXFLAGS) -c $<
 
 clean :
@@ -44,5 +44,5 @@ clean :
 
 
 
- 
+
 

@@ -1,7 +1,7 @@
 
 # quan bigint test makefile
 # builds the.o and .exe in the makefile dir
-# should depend also on quan headers to trigger build? 
+# should depend also on quan headers to trigger build?
 
 #  env  QUAN_ROOT is the parent of the quan directory
 #ifeq ($(QUAN_ROOT),)
@@ -11,8 +11,8 @@
 QUAN_ROOT ?= ../../../../quan-trunk
 
 TARGET      = test.exe
-CXX         = g++-7
-CXXFLAGS    = -std=c++14 -fmax-errors=1 -I${QUAN_ROOT} 
+CXX         = g++
+CXXFLAGS    = -std=c++14 -fmax-errors=1 -I${QUAN_ROOT}
 
 ifeq ($(USE_CONCEPTS),True)
 CXXFLAGS    += -fconcepts
@@ -30,14 +30,14 @@ TEST_FILES = test static_value static_monoid fold inner_product matrix sequence 
 transpose_matrix matrix1 adjunct_matrix inverse_matrix matrix_compare matrix_add matrix_translation_test \
 matrix_as_sequence_test
 
-TEST_SRCS =  $(patsubst %,%.cpp,$(TEST_FILES)) 
+TEST_SRCS =  $(patsubst %,%.cpp,$(TEST_FILES))
 TEST_OBJECTS = $(patsubst %,%.o,$(TEST_FILES))
 
 OBJECTS  = $(TEST_OBJECTS)
 
 PHONY : all test clean
 
-all : $(TARGET) 
+all : $(TARGET)
 
 $(TARGET) : $(OBJECTS)
 	$(CXX) -o $(TARGET) $(CXXFLAGS) $(OBJECTS)

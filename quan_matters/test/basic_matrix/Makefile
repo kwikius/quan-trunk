@@ -1,7 +1,7 @@
 
 # quan fixed_quantity test makefile
 # builds the.o and .exe in the makefile dir
-# should depend also on quan headers to trigger build? 
+# should depend also on quan headers to trigger build?
 
 #  env  QUAN_ROOT is the parent of the quan directory
 ifeq ($(QUAN_ROOT),)
@@ -10,7 +10,7 @@ QUAN_ROOT = ../../../
 endif
 
 TARGET      ?= test.exe
-CXX         = g++-7
+CXX         = g++
 CXXFLAGS    = -std=c++14 -I${QUAN_ROOT}
 
 ifeq ($(USE_CONCEPTS),True)
@@ -27,11 +27,11 @@ endif
 
 MEMBER_FILES = basic_matrix1 enu_to_ned
 
-# udt_value_type 
+# udt_value_type
 
-SRCS =    $(patsubst %,%.cpp,$(MEMBER_FILES)) 
+SRCS =    $(patsubst %,%.cpp,$(MEMBER_FILES))
 
-OBJECTS = $(patsubst %,%.o,$(MEMBER_FILES)) 
+OBJECTS = $(patsubst %,%.o,$(MEMBER_FILES))
 
 PHONY : all
 
