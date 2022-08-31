@@ -101,10 +101,10 @@ namespace quan {
        typedef typename quan::meta::binary_op<
          arg_type1, quan::meta::minus, arg_type2
        >::type finest_grained_type;
-
+#if (__cpp_constexpr >= 201304)
        finest_grained_type ty = y;
        finest_grained_type tx = x;
-
+#endif
        // 'type' of result of division must be a numeric
        typedef typename quan::meta::binary_op<
           finest_grained_type,
@@ -123,7 +123,19 @@ namespace quan {
    #else
        using ::atan2;
    #endif
+   
+   #if (__cpp_constexpr >= 201304)
        return result_type {atan2(ty.numeric_value(), tx.numeric_value())};
+    #else  
+       return result_type {
+           atan2(
+             finest_grained_type{y}.numeric_value(), 
+             finest_grained_type{x}.numeric_value()
+           )
+        };
+     #endif
+      // ty.numeric_value(), tx.numeric_value())};
+    //return result_type {atan2(endif
    }
 
 } //quan
