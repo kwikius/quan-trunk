@@ -30,12 +30,9 @@ namespace quan{ namespace dom{
       branch(identifier_type const & id):m_id{id},m_parent{nullptr}{}
       ~branch()
        {
-         auto iter = m_container.begin();
-         while (iter != m_container.end()){
-            delete iter->second;
-            m_container.erase(iter);
-             ++iter ;
-         }
+          for ( auto & elem : m_container){
+               delete elem.second;
+          }
        }
 
       void add_child(node_ptr in )
@@ -103,7 +100,7 @@ namespace quan{ namespace dom{
         }
 
       identifier_type const & get_id()const {return m_id;}
-      branch* get_parent() const 
+      branch* get_parent() const
       {
          return m_parent;
       }
