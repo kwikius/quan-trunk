@@ -10,7 +10,7 @@ namespace quan{ namespace meta{
 #if defined __cpp_concepts
 
    template <typename T>
-   concept bool TypeSequence = quan::is_model_of<quan::meta::TypeSequence_,T>::value;
+   concept TypeSequence = quan::is_model_of<quan::meta::TypeSequence_,T>::value;
 
 #endif
 

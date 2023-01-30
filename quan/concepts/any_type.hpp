@@ -23,10 +23,10 @@
 
 #if defined __cpp_concepts
 
-namespace quan{ 
+namespace quan{
 
    template <typename T>
-   concept bool AnyType = quan::meta::is_any_type<T>::value;
+   concept AnyType = quan::meta::is_any_type<T>::value;
 
 }//quan
 
