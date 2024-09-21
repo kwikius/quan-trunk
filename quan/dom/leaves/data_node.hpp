@@ -21,8 +21,8 @@
 
 namespace quan{ namespace dom{
 
-   inline 
-   std::ostream & 
+   inline
+   std::ostream &
    do_output(std::ostream & os, std::string const & str)
    {
       return os << '"' << str << '"' ;
@@ -89,13 +89,12 @@ namespace quan{ namespace dom{
       >::type
       do_output(std::ostream & os, V const & v)
       {
-         
+         //using value_type = typename V::value_type;
          os << "[ ";
          for (typename V::const_iterator iter = v.begin(); iter != v.end() ; ++iter){
             if (iter != v.begin()){
                os << ", ";
             }
-            //os << *iter;
             do_output(os,*iter);
          }
          os << " ]";
@@ -153,12 +152,12 @@ namespace quan{ namespace dom{
       >,
       std::ostream &
       >::type
-      do_output( std::ostream & os, V const &)
+      do_output( std::ostream & os, V const & v)
       {
 #if defined QUAN_NO_RTTI
          os << "do_output : typeid N/A without RTTI";
 #else
-         os << typeid(V).name();
+        os << v;// os << typeid(V).name();
 #endif
          return os;
       }
