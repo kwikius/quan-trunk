@@ -55,6 +55,19 @@ namespace quan{ namespace two_d{
         : x( quan::implicit_cast<T>(in.x) ),  y( quan::implicit_cast<T>(in.y) ){}
         T x,y;
 
+
+#if __cpp_designated_initializers >= 201707
+
+private:
+        struct params{
+            T x;
+            T y;
+        };
+public:
+        vect(params p)
+        : x{p.x},y{p.y}{}
+#endif
+
         template <typename T1>
         vect& operator =( vect<T1> const & in)
         {

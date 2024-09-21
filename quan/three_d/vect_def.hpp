@@ -39,30 +39,43 @@
 #endif
 
 namespace quan{ namespace three_d{
- 
+
    template <typename T>
     struct vect
     {
         typedef T value_type;
-        constexpr vect() 
+        constexpr vect()
         : x{}
         , y{}
         , z{}
         {}
 
         template <typename Tx, typename Ty, typename Tz>
-        constexpr 
+        constexpr
         vect(Tx const & x_in, Ty const & y_in, Tz const & z_in)
         : x( quan::implicit_cast<T>(x_in) )
         , y( quan::implicit_cast<T>(y_in) )
         , z( quan::implicit_cast<T>(z_in) ){}
 
         template <typename Tx, typename Ty, typename Tz>
-        constexpr 
+        constexpr
         vect(Tx && x_in, Ty && y_in, Tz && z_in)
         : x( quan::implicit_cast<T>(x_in) )
         , y( quan::implicit_cast<T>(y_in) )
         , z( quan::implicit_cast<T>(z_in) ){}
+
+#if __cpp_designated_initializers >= 201707
+
+private:
+        struct params{
+            T x;
+            T y;
+            T z;
+        };
+public:
+        vect(params p)
+        : x{p.x},y{p.y},z{p.z}{}
+#endif
 
         T x,y,z;
 
@@ -79,12 +92,12 @@ namespace quan{ namespace three_d{
         {
             return * this = vect{in} ;
         }
-        
+
         constexpr vect operator -()const
         {
             return vect(-x,-y,-z);
         }
-        
+
         template <typename T1>
         vect &
         operator += (vect<T1> const & in)
@@ -140,7 +153,7 @@ namespace quan{ namespace three_d{
 #endif
            return (&x)[n];
         }
-        
+
     };
 
 }}//quan::three_d
