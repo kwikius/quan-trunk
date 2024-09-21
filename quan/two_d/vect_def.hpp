@@ -64,7 +64,7 @@ private:
             T y;
         };
 public:
-        vect(params p)
+        constexpr vect(params p)
         : x{p.x},y{p.y}{}
 #endif
 

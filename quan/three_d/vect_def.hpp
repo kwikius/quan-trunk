@@ -73,7 +73,7 @@ private:
             T z;
         };
 public:
-        vect(params p)
+        constexpr vect(params p)
         : x{p.x},y{p.y},z{p.z}{}
 #endif
 
