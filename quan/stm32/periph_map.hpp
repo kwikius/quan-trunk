@@ -23,6 +23,8 @@
 #include <quan/stm32/l4/periph_map.hpp>
 #elif defined QUAN_STM32F0
 #include <quan/stm32/f0/periph_map.hpp>
+#elif defined QUAN_STM32G4
+#include <quan/stm32/g0/periph_map.hpp>
 #else
 #error need to define stm32 processor
 #endif
