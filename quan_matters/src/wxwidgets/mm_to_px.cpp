@@ -1,11 +1,17 @@
 #if ! defined __MBED__
 
+#include <wx/wx.h>
+#include <quan/two_d/vect.hpp>
+#include <quan/arithmetic_convert.hpp>
+#include <quan/length.hpp>
+#include <quan/reciprocal_length.hpp>
+
 namespace {
 quan::two_d::vect<int> vect_mm_to_px(quan::two_d::vect<quan::length::mm> const & in)
 {
   wxSize dsmm = wxGetDisplaySizeMM();
   wxSize dspx = wxGetDisplaySize();
-  quan::two_d::vect<quan::reciprocal_length::per_mm> 
+  quan::two_d::vect<quan::reciprocal_length::per_mm>
   mm_to_px{dspx.x/quan::length::mm{dsmm.x},dspx.y/quan::length::mm{dsmm.y}};
   quan::two_d::vect<int> result{
      quan::arithmetic_convert<int>(in.x * mm_to_px.x)
