@@ -35,12 +35,12 @@ namespace quan{ namespace meta{ namespace impl{
 #if defined __cpp_concepts
 
       template <
-         typename Sequence, 
-         typename Fun, 
+         typename Sequence,
+         typename Fun,
          bool B = (quan::meta::get_num_elements<Sequence>::value > 0)
       >
       struct for_each_type_sequence_impl;
-     
+
       // overload impl for type_sequence
       template <quan::meta::TypeSequence Sequence, typename Fun>
       struct for_each_impl<
@@ -56,14 +56,14 @@ namespace quan{ namespace meta{ namespace impl{
           template <typename T> struct apply{
               typedef void type;
           };
-          
+
           void operator()() const{}
       };
 
-#else     
+#else
       template <
-         typename Sequence, 
-         typename Fun, 
+         typename Sequence,
+         typename Fun,
          bool B = (quan::meta::get_num_elements<Sequence>::value > 0),
          typename Where = void
       >
@@ -78,14 +78,14 @@ namespace quan{ namespace meta{ namespace impl{
           template <typename T> struct apply{
               typedef void type;
           };
-          
+
           void operator()() const{}
       };
 
       // overload impl for type_sequence
       template <typename Sequence, typename Fun>
       struct for_each_impl<
-         Sequence, Fun, 
+         Sequence, Fun,
          typename quan::where_<quan::is_model_of<quan::meta::TypeSequence_, Sequence> >::type
        > : for_each_type_sequence_impl<Sequence, Fun> {};
 
@@ -101,7 +101,7 @@ namespace quan{ namespace meta{ namespace impl{
           template <typename T> struct apply{
               typedef void type;
           };
-          
+
           void operator()() const{}
       };
 
@@ -112,14 +112,14 @@ namespace quan{ namespace meta{ namespace impl{
       // n.b would prob be better as apply
       template <quan::meta::TypeSequence Sequence, typename Fun>
       requires requires (void (Fun::* p)() const)
-      { 
+      {
          { p = &Fun:: template operator() <quan::AnyType_> };
       }
       struct for_each_type_sequence_impl<Sequence, Fun, true
        //  typename quan::where_<quan::is_model_of<quan::meta::PolymorphicFunctor<1,0>,Fun> >::type
       >{
           typedef for_each_type_sequence_impl type;
-      
+
           template <typename T> struct apply{
               typedef void type;
           };
@@ -137,15 +137,15 @@ namespace quan{ namespace meta{ namespace impl{
       template <quan::meta::TypeSequence Sequence, typename Fun>
         // N.B think anytype should be auto but fails atm
       requires requires ( void (Fun::* p)(quan::AnyType_ const &) const )
-      { 
+      {
          {p = &Fun::operator()};
-      } 
+      }
       struct for_each_type_sequence_impl<Sequence, Fun, true
-     
+
       //   typename quan::where_<quan::is_model_of<quan::meta::PolymorphicFunctor<1,1>,Fun> >::type
       >{
           typedef for_each_type_sequence_impl type;
-      
+
           template <typename T> struct apply{
               typedef void type;
           };
@@ -159,17 +159,19 @@ namespace quan{ namespace meta{ namespace impl{
           }
       };
 
+
       template <quan::meta::TypeSequence Sequence, typename Fun>
       requires requires (  void (* p )( ) )
-      { 
-         p = &Fun:: template apply<auto> ;
+      {
+         {p = &Fun:: template apply<typename quan::meta::front<Sequence>::type> };
+        // {p = &Fun:: template apply< auto> };
       }
        struct for_each_type_sequence_impl<Sequence, Fun, true
-     
+
       //   typename quan::where_<quan::is_model_of<quan::meta::PolymorphicFunctor<1,1>,Fun> >::type
       >{
           typedef for_each_type_sequence_impl type;
-      
+
           template <typename T> struct apply{
               typedef void type;
           };
@@ -183,8 +185,8 @@ namespace quan{ namespace meta{ namespace impl{
           }
       };
 
-#else     
- 
+#else
+
 
       // add versions for various flavours of SimplePolymorphicFunctor
       // the first should cover it
@@ -195,7 +197,7 @@ namespace quan{ namespace meta{ namespace impl{
          typename quan::where_<quan::is_model_of<quan::meta::PolymorphicFunctor<1,0>,Fun> >::type
       >{
           typedef for_each_type_sequence_impl type;
-      
+
           template <typename T> struct apply{
               typedef void type;
           };
@@ -215,7 +217,7 @@ namespace quan{ namespace meta{ namespace impl{
          typename quan::where_<quan::is_model_of<quan::meta::PolymorphicFunctor<1,1>,Fun> >::type
       >{
           typedef for_each_type_sequence_impl type;
-      
+
           template <typename T> struct apply{
               typedef void type;
           };
