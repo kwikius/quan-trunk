@@ -19,6 +19,8 @@
 
 #if defined QUAN_STM32F4 || defined QUAN_STM32L4
 #include <quan/stm32/f4/bitband.hpp>
+#elif defined QUAN_STM32G4
+#include <quan/stm32/g4/bitband.hpp>
 #elif defined QUAN_STM32F3
 #include <quan/stm32/f3/bitband.hpp>
 #else

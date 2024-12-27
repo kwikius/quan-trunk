@@ -23,7 +23,7 @@
 #include <quan/stm32/gpio/archetype.hpp>
 #include <quan/bit.hpp>
 
-namespace quan{ namespace stm32{ 
+namespace quan{ namespace stm32{
 
    namespace gpio{
 
@@ -40,8 +40,8 @@ namespace quan{ namespace impl{
   struct is_model_of_impl<
       quan::stm32::gpio::Pin,quan::mcu::pin<P,Pos>,
       typename quan::where_<
-         quan::is_model_of<quan::stm32::Gpio,P> 
-      >::type 
+         quan::is_model_of<quan::stm32::Gpio,P>
+      >::type
    > : quan::meta::true_{};
 
 }}
@@ -65,7 +65,7 @@ namespace quan{ namespace stm32{
        bool
    >::type get()
    {
-#if (QUAN_STM32_HAS_BITBANDING && ! defined (QUAN_STM32L4))
+#if (QUAN_STM32_HAS_BITBANDING && ! (defined (QUAN_STM32L4) || defined(QUAN_STM32G4)) )
       return P::port_type::get()-> idr.template bb_getbit<P::pin_value>();
 #else
       return P::port_type::get()-> idr.template getbit<P::pin_value>();
@@ -78,8 +78,8 @@ namespace quan{ namespace stm32{
        void
    >::type set()
    {
- // could  do P::port_type::get()-> bsrr = 1U << P::pin_value;
-#if (QUAN_STM32_HAS_BITBANDING && !defined(QUAN_STM32L4))
+ // probably do second ve for all?
+#if (QUAN_STM32_HAS_BITBANDING && !(defined (QUAN_STM32L4) || defined(QUAN_STM32G4)))
        P::port_type::get()-> odr.template bb_setbit<P::pin_value>();
 #else
    //  #if defined(QUAN_STM32L4) || defined(QUAN_STM32F0)
@@ -96,8 +96,8 @@ namespace quan{ namespace stm32{
        void
    >::type clear()
    {
-    
-#if (QUAN_STM32_HAS_BITBANDING && !defined (QUAN_STM32L4))
+
+#if (QUAN_STM32_HAS_BITBANDING && !(defined (QUAN_STM32L4) || defined(QUAN_STM32G4)))
      // could  do P::port_type::get()-> bsrr = 0x10000 << P::pin_value;
        P::port_type::get()-> odr.template bb_clearbit<P::pin_value>();
 #else
@@ -111,12 +111,16 @@ namespace quan{ namespace stm32{
        void
    >::type put( bool value)
    {
-#if QUAN_STM32_HAS_BITBANDING && ! defined (QUAN_STM32L4)
-     // no gain here 
+/*
+ could do
+   uint32_t const bitpos = value? 0x10000 ? 0x1U;
+    P::port_type::get()-> bsrr = bitpos << shift;
+*/
+#if QUAN_STM32_HAS_BITBANDING && ! (defined (QUAN_STM32L4) || defined(QUAN_STM32G4))
      P::port_type::get()-> odr.template bb_putbit<P::pin_value>(value);
 #else
-     
-    #if defined(QUAN_STM32L4) || defined(QUAN_STM32F0)
+
+    #if defined(QUAN_STM32L4) || defined(QUAN_STM32F0) || defined(QUAN_STM32G4)
       uint32_t const shift = (value)? P::pin_value:(P::pin_value+16U);
       P::port_type::get()-> bsrr = 1U << shift;
     #else

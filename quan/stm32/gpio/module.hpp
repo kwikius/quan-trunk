@@ -8,12 +8,12 @@
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
@@ -24,13 +24,13 @@
 #include <quan/is_model_of.hpp>
 #include <quan/meta/type_sequence.hpp>
 
-namespace quan{ namespace stm32{ 
+namespace quan{ namespace stm32{
 
     struct Gpio; // Archetype
 
     namespace gpio{
 
-      template <uint32_t Address> 
+      template <uint32_t Address>
       struct module{
 
          typedef uint32_t value_type;
@@ -48,7 +48,7 @@ namespace quan{ namespace stm32{
          typedef quan::stm32::periph_reg<type,0x1C> lckr_type;
          typedef quan::stm32::periph_reg<type,0x20> afrl_type;
          typedef quan::stm32::periph_reg<type,0x24> afrh_type;
-#if defined(QUAN_STM32F0) || defined (QUAN_STM32L4)
+#if defined(QUAN_STM32F0) || defined (QUAN_STM32L4) || defined (QUAN_STM32G4)
          typedef quan::stm32::periph_reg<type,0x28> brr_type;
 #endif
          moder_type     moder;
@@ -61,10 +61,10 @@ namespace quan{ namespace stm32{
          lckr_type      lckr;
          afrl_type      afrl;
          afrh_type      afrh;
-#if defined(QUAN_STM32F0) || defined (QUAN_STM32L4)
+#if defined(QUAN_STM32F0) || defined (QUAN_STM32L4) || defined (QUAN_STM32G4)
          brr_type       brr;
 #endif
-         typedef quan::meta::type_sequence<  
+         typedef quan::meta::type_sequence<
             moder_type ,
             otyper_type ,
             ospeedr_type ,
@@ -74,16 +74,16 @@ namespace quan{ namespace stm32{
             bsrr_type ,
             lckr_type ,
             afrl_type ,
-            afrh_type 
-#if defined(QUAN_STM32F0) || defined (QUAN_STM32L4)
-           , brr_type 
+            afrh_type
+#if defined(QUAN_STM32F0) || defined (QUAN_STM32L4) || defined (QUAN_STM32G4)
+           , brr_type
 #endif
          > periph_reg_list;
 
          static constexpr module* get(){ return reinterpret_cast<module*>(Address);}
 
       private:
-         
+
          module() = delete;
          module(module const &) = delete;
          module& operator = (module const & ) = delete;
@@ -97,7 +97,7 @@ namespace quan{ namespace impl{
    template <uint32_t Address>
    struct is_model_of_impl<
       quan::stm32::Gpio,
-      quan::stm32::gpio::module<Address> 
+      quan::stm32::gpio::module<Address>
 	> : quan::meta::true_{};
 
 }}

@@ -31,9 +31,10 @@ namespace quan{ namespace stm32{
 
    struct periph_map{
 
+      //----------------------- AHB3 -----------------------
       static constexpr uint32_t quadspi         = 0xA0001000;
       static constexpr uint32_t fsmc            = 0xA0000000;
-
+      //----------------------- ~AHB3 -----------------------
       //----------------------- AHB2 -----------------------
       static constexpr uint32_t rng             = 0x50060800;
       static constexpr uint32_t aes             = 0x50060000;
@@ -48,7 +49,7 @@ namespace quan{ namespace stm32{
       static constexpr uint32_t gpioe           = 0x48001000;
       static constexpr uint32_t gpiod           = 0x48000C00;
       static constexpr uint32_t gpioc           = 0x48000800;
-      static constexpr uint32_t gpiob           = 0x40800400;
+      static constexpr uint32_t gpiob           = 0x48000400;
       static constexpr uint32_t gpioa           = 0x48000000;
       //---------------------- ~AHB2 -----------------------
       //- --------------------- AHB1 -----------------------
