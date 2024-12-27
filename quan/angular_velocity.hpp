@@ -4,27 +4,37 @@
 #include <quan/angle.hpp>
 #include <quan/reciprocal_time.hpp>
 
-namespace quan{ namespace angular_velocity{ 
+namespace quan{ namespace angular_velocity{
 
    using rad_per_s = quan::reciprocal_time_<
-      quan::angle::rad 
+      quan::angle::rad
    >::per_s ;
 
    using deg_per_s = quan::reciprocal_time_<
-      quan::angle::deg 
+      quan::angle::deg
+   >::per_s ;
+
+   using rev_per_s = quan::reciprocal_time_<
+      quan::angle::rev
    >::per_s ;
 
   namespace literals{
-      constexpr inline 
+      constexpr inline
       deg_per_s operator "" _deg_per_s ( long double v)
       {
          return deg_per_s{quan::angle::deg{v}};
       }
 
-      constexpr inline 
+      constexpr inline
       rad_per_s operator "" _rad_per_s ( long double v)
       {
-         return deg_per_s{quan::angle::rad{v}};
+         return rad_per_s{quan::angle::rad{v}};
+      }
+
+      constexpr inline
+      rev_per_s operator "" _rev_per_s ( long double v)
+      {
+         return rev_per_s{quan::angle::rev{v}};
       }
    }//literals
 
