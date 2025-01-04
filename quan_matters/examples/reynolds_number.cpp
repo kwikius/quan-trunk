@@ -27,7 +27,7 @@ namespace {
     };
 
     std::map<std::string,decltype(quan::pressure::Pa{} * quan::time::s{}) > viscosity_map = {
-         {"water",quan::pressure::Pa{1} * quan::time::s{1} * 1.e-6},
+         {"water",quan::pressure::mPa{1} * quan::time::s{1} * 1.0518}, // at 18 degrees celsius
          {"air",quan::pressure::uPa{1} * quan::time::s{1} * 18.12}
     };
 }
@@ -42,11 +42,15 @@ double reynolds_number(std::string const & material,quan::length::m const & L, q
 
 int main()
 {
-
+#if 1
     auto  medium = "water";
     auto  L = quan::length::m{0.025};
     auto  u = quan::velocity::knot{1};
+#else
+    auto  medium = "air";
+    auto  L = quan::length::m{0.1};
+    auto  u = quan::velocity::mi_per_h{10};
+#endif
+    std::cout << "At "  << L << " and " << u << " in " << medium << ", RE = " << reynolds_number(medium,L,u) << '\n';
 
-    std::cout << "At "  << L << " and " << u << " in " << medium << ", RE = " << reynolds_number(medium,L,u) << '\n'; 
-   
 }
