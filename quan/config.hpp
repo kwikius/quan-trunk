@@ -1,22 +1,22 @@
 #ifndef QUAN_CONFIG_HPP_INCLUDED
 #define QUAN_CONFIG_HPP_INCLUDED
 /*
- Copyright (c) 2003-2013 Andy Little 
+ Copyright (c) 2003-2013 Andy Little
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
-// TODO 
+// TODO
 // sort for  __CYGWIN__
 // and   __MINGW32__
 
@@ -36,7 +36,7 @@
 #  pragma once
 #endif
 
-#if (defined __AVR__) 
+#if (defined __AVR__)
 #define QUAN_NO_EXCEPTIONS
 #define QUAN_NO_RTTI
 #if defined abs
@@ -67,6 +67,11 @@
 #include <quan/stm32/config.hpp>
 #endif
 
+#if (defined ARDUPILOT_BUILD)
+#define QUAN_USE_SINGLE_PRECISION_CONSTANTS
+#define QUAN_NO_EXCEPTIONS
+#define QUAN_NO_RTTI
+#endif
 /*
     Various Configuration options for Quan
 */
@@ -78,7 +83,7 @@
 #define QUAN_HAS_CONSTEXPR
 #define QUAN_CONSTEXPR constexpr
 #else
-#define QUAN_CONSTEXPR 
+#define QUAN_CONSTEXPR
 #endif
 
 #ifndef QUAN_HAS_CONSTEXPR
@@ -236,7 +241,7 @@
 
 //prevent conversion of math angle to numeric
 //#define QUAN_NO_MATH_ANGLE_NUMERIC_CONVERSION
-// may not have if 
+// may not have if
 #ifndef QUAN_AVR_NO_CPP_STDLIB
    #define QUAN_HAS_LONG_LONG
    #if defined __AVR__

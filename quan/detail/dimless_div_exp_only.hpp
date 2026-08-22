@@ -30,6 +30,12 @@
  *  as they evaluate to 1. We also know that the Exponent is non zero.
  *  ( If the Exponent is 0 then the calculation is the same as for a dimensioned divide)
 */
+#if defined (ARDUPILOT_BUILD)
+   // pow etc macros are defined in ardupilot
+   #if defined pow
+      #undef pow
+   #endif
+#endif
 
 #include <quan/detail/united_value/operations/dimensioned_divide.hpp>
 #include <quan/meta/pow_c.hpp>
@@ -44,7 +50,7 @@ namespace quan{ namespace detail{
     template <typename Exponent>
     struct dimensionless_divide_exp_only_rational_rt{
         typedef typename quan::quantity_traits::default_value_type preferred_result_type;
-        
+
         template <typename ValueType_L,typename ValueType_R>
         struct eval{
             typedef typename min_float_or_udt<ValueType_L>::type value_type_L;
@@ -66,7 +72,7 @@ namespace quan{ namespace detail{
                         static_cast<constant_arg_type>(quan::meta::numerator<Exponent>::value)
                             /quan::meta::denominator<Exponent>::value
                     );
-               
+
             }
             typedef eval type;
         };
@@ -122,8 +128,8 @@ namespace quan{ namespace detail{
 //                pow10_integer_exponent<
 //                    constant_arg_type,-(quan::meta::numerator<Exponent>::value)
 //                > pow10;
-                   
-//                result_type result 
+
+//                result_type result
 //                = (static_cast<value_type_L>(lhs) / static_cast<value_type_R>(rhs)) / pow10();
 //                return result;
                  typedef  pow10_integer_exponent<
@@ -164,7 +170,7 @@ namespace quan{ namespace detail{
     template <typename Exponent>
     struct dimensionless_divide_exp_only_positive_integer_rt{
         typedef typename quan::quantity_traits::default_value_type preferred_result_type;
-       
+
         template <typename ValueType_L,typename ValueType_R>
         struct eval{
             typedef typename min_float_or_udt<ValueType_L>::type value_type_L;
@@ -208,8 +214,8 @@ namespace quan{ namespace detail{
         typedef dimensionless_divide_exp_only_positive_integer_rt type;
     };
 
-    /** 
-    * Run time evaluate Exponent. 
+    /**
+    * Run time evaluate Exponent.
     * Decide whether Exponent is a Rational or Integer
     * and if integer + or -.
     */
@@ -217,7 +223,7 @@ namespace quan{ namespace detail{
     struct dimensionless_divide_exp_only_rt : quan::meta::eval_if<
         quan::meta::is_integer<Exponent>,
         quan::meta::eval_if_c<
-            (quan::meta::numerator<Exponent>::value > 0),  
+            (quan::meta::numerator<Exponent>::value > 0),
             dimensionless_divide_exp_only_positive_integer_rt<Exponent>,
             dimensionless_divide_exp_only_negative_integer_rt<Exponent>
         >,
@@ -266,7 +272,7 @@ namespace quan{ namespace detail{
                 quan::meta::times,
                 constant_arg_type
             >::type result_type;
-        
+
            /* typedef typename compute_divide_result_type<
                 ValueType,ValueType,preferred_result_type
             >::type result_type;*/
@@ -338,16 +344,16 @@ namespace quan{ namespace detail{
             >::type result_type;
             constexpr result_type operator()(ValueType const & v) const
             {
-//                result_type result = v / 
+//                result_type result = v /
 //                    static_cast<constant_arg_type>(quan::meta::pow_c<
 //                        int32_t,10, -quan::meta::numerator<Exponent>::value
 //                    >::value);
 //                return result;
-                return v / 
+                return v /
                     static_cast<constant_arg_type>(quan::meta::pow_c<
                         int32_t,10, -quan::meta::numerator<Exponent>::value
                     >::value);
-  
+
             }
             typedef convert type;
         };
@@ -373,7 +379,7 @@ namespace quan{ namespace detail{
     */
     template <typename Exponent>
     struct dimensionless_divide_exp_only : quan::meta::eval_if_c<
-        (quan::meta::is_integer<Exponent>::value 
+        (quan::meta::is_integer<Exponent>::value
       //  && quan::meta::numerator<Exponent>::value >= -std::numeric_limits<int32_t>::digits10
        // && quan::meta::numerator<Exponent>::value <= std::numeric_limits<int32_t>::digits10),
            && quan::meta::numerator<Exponent>::value >= - quan::meta::digits10<int32_t>::value
@@ -381,7 +387,7 @@ namespace quan{ namespace detail{
         dimensionless_divide_exp_only_ct<Exponent>,
         dimensionless_divide_exp_only_rt<Exponent>
     >::type {};
-    
+
 }}//quan::detail
 
 #endif

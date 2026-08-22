@@ -5,18 +5,18 @@
 #endif
 
 /*
- Copyright (c) 2003 - 2013 Andy Little 
+ Copyright (c) 2003 - 2013 Andy Little
 
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
- 
+
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>
 */
@@ -59,6 +59,23 @@
 #include <quan/modulus.hpp>
 #include <quan/fixed_quantity/operations/power_root.hpp>
 
+
+#if defined (ARDUPILOT_BUILD)
+
+   #if defined sin
+      #undef sin
+   #endif
+
+   #if defined cos
+      #undef cos
+   #endif
+
+   #if defined tan
+      #undef tan
+   #endif
+
+#endif
+
 namespace quan{
 
     template <
@@ -90,10 +107,10 @@ namespace quan{
                 void*
             >::type = 0 )
         : m_value{implicit_cast<Value_type>(v)}{}
-
+/*
       QUAN_CONSTEXPR  mathematic_angle(const mathematic_angle& in)
         :m_value{in.m_value}{}
-
+*/
         template<
             typename Value_type1
         >
@@ -107,7 +124,7 @@ namespace quan{
             typename ReciprocalFraction,
             typename Value_type1
         >
-        
+
         inline QUAN_CONSTEXPR mathematic_angle(
             fraction_of_revolution<
                 Extent,
@@ -290,7 +307,7 @@ namespace quan { //quan
             quan::meta::plus,
             quan::mathematic_angle<Extent,Value_typeB>
         >::type  result_type;
-       return result_type{result_type{ra}.numeric_value() + result_type{rb}.numeric_value()} ; 
+       return result_type{result_type{ra}.numeric_value() + result_type{rb}.numeric_value()} ;
     }
 
    template<
@@ -466,7 +483,7 @@ namespace quan { //quan
             quan::meta::times,
             Value_type1
         >::type{ra.numeric_value() * b};
-       
+
     }
 
     template<
@@ -672,7 +689,7 @@ namespace quan{ namespace impl_detail{
 
 namespace quan {
 
-    
+
 
     template<typename Value_type>
     inline
@@ -770,19 +787,19 @@ namespace quan {
     quan::mathematic_angle<Extent,Value_type>
     abs(quan::mathematic_angle<Extent,Value_type> const& r)
     {
-       return 
+       return
         ( r.numeric_value() < static_cast<Value_type>(0))
         ? -r : r;
-     
+
     }
 
    template<
       typename Extent,
       typename Value_type
    >
-   inline 
+   inline
    quan::mathematic_angle<
-      Extent, 
+      Extent,
       typename std::common_type<
          Value_type,QUAN_FLOAT_TYPE
       >::type
@@ -790,7 +807,7 @@ namespace quan {
    modulo( quan::mathematic_angle<Extent,Value_type> const & fr)
    {
       typedef quan::mathematic_angle<
-         Extent, 
+         Extent,
          typename std::common_type<
             Value_type,QUAN_FLOAT_TYPE
          >::type
@@ -802,9 +819,9 @@ namespace quan {
       typename Extent,
       typename Value_type
    >
-   inline 
+   inline
    quan::mathematic_angle<
-      Extent, 
+      Extent,
       typename std::common_type<
          Value_type,QUAN_FLOAT_TYPE
       >::type
@@ -812,7 +829,7 @@ namespace quan {
    unsigned_modulo( quan::mathematic_angle<Extent,Value_type> const & fr)
    {
       typedef quan::mathematic_angle<
-         Extent, 
+         Extent,
          typename std::common_type<
             Value_type,QUAN_FLOAT_TYPE
          >::type
@@ -833,9 +850,9 @@ namespace quan {
       typename Extent,
       typename Value_type
    >
-   inline 
+   inline
    quan::mathematic_angle<
-      Extent, 
+      Extent,
       typename std::common_type<
          Value_type,QUAN_FLOAT_TYPE
       >::type
@@ -844,7 +861,7 @@ namespace quan {
    {
       static_assert(std::is_unsigned<Value_type>::value == false,"not useful for unsigned types");
       typedef quan::mathematic_angle<
-         Extent, 
+         Extent,
          typename std::common_type<
             Value_type,QUAN_FLOAT_TYPE
          >::type

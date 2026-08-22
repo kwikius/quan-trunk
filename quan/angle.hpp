@@ -863,7 +863,7 @@ namespace quan {
        // quan::mathematic_angle<ExtentL,result_value_type> t(lhs);
        // return result_value_type(t.numeric_value() / rhs.numeric_value()  );
        return result_value_type{
-          quan::mathematic_angle<ExtentL,result_value_type>{lhs}.numeric_value() / rhs.numeric_value()  
+          quan::mathematic_angle<ExtentL,result_value_type>{lhs}.numeric_value() / rhs.numeric_value()
        };
     }
 
@@ -872,7 +872,7 @@ namespace quan {
     Value_type cos(
         quan::fraction_of_revolution<quan::meta::rational<1>,ReciprocalFraction,Value_type>const& r)
     {
-      
+
       //  quan::mathematic_angle<quan::meta::rational<1>,Value_type> t(r);
        // return cos(t);
        return cos(quan::mathematic_angle<quan::meta::rational<1>,Value_type>{r});
@@ -930,11 +930,11 @@ namespace quan {
             quan::meta::minus,
             quan::fraction_of_revolution<Extent,ReciprocalFractionR, Value_typeR>
         >::type comp_type;
-        comp_type rhs1(rhs);
+      //  comp_type rhs1(rhs);
         typedef typename comp_type::value_type comp_value_type;
-        return ((abs(lhs-rhs1)).numeric_value() <= abs(eps).numeric_value())
+        return ((abs(comp_type{lhs}-rhs)).numeric_value() <= abs(eps).numeric_value())
         ? 0
-        :(((lhs-rhs1).numeric_value() < static_cast<comp_value_type>(0))
+        :(((comp_type{lhs}-rhs).numeric_value() < static_cast<comp_value_type>(0))
             ? -1
             : 1);
     }
@@ -966,10 +966,10 @@ namespace quan {
             quan::mathematic_angle<Extent, Value_typeR>
         >::type comp_type;
         typedef typename comp_type::value_type comp_value_type;
-        comp_type lhs1(lhs);
-        return ((abs(lhs1-rhs)).numeric_value() <= eps.numeric_value() )
+    //    comp_type lhs1(lhs);
+        return ((abs(comp_type{lhs}-rhs)).numeric_value() <= eps.numeric_value() )
         ? 0
-        :(((lhs1-rhs).numeric_value() < static_cast<comp_value_type>(0))
+        :(((comp_type{lhs}-rhs).numeric_value() < static_cast<comp_value_type>(0))
             ? -1
             : 1);
     }
@@ -1166,7 +1166,7 @@ namespace quan { //quan
             quan::meta::rational<3600000000>,
             Value_type
         > deg10e7;
-    
+
         typedef fraction_of_revolution<
             quan::meta::rational<1>,
             quan::meta::rational<400>,
@@ -1222,7 +1222,7 @@ namespace quan { //quan
             quan::meta::rational<2>,
             Value_type
         > sr;
-        
+
       //  static const rad   one;
         static constexpr rad   pi  = rad{3.141592653589793238462643383279502884197};
         static constexpr rad   two_pi = rad{2 * 3.141592653589793238462643383279502884197};

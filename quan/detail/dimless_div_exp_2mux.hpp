@@ -4,6 +4,12 @@
 #  pragma once
 #endif
 
+// pow etc macros are defined in ardupilot
+#if defined (ARDUPILOT_BUILD)
+   #if defined pow
+      #undef pow
+   #endif
+#endif
 /*
  Copyright (c) 2003-2014 Andy Little.
 
@@ -21,9 +27,9 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 //
- 
- 
- 
+
+
+
 //
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
@@ -90,7 +96,7 @@ namespace quan{namespace detail{
             }
             typedef convert type;
         };
-    
+
         typedef dimensionless_divide_rt_positive_integer_exp_2mux type;
     };
 
@@ -174,7 +180,7 @@ namespace quan{namespace detail{
                 ValueType_L,ValueType_R,preferred_result_type
             >::type constant_arg_type;
 
-           
+
             result_type operator()(ValueType_L const & lhs, ValueType_R const & rhs)const
             {
                 result_type result = (static_cast<value_type_L>(lhs) / static_cast<value_type_R>(rhs))
@@ -277,7 +283,7 @@ namespace quan{namespace detail{
 
         typedef dimensionless_divide_ct_negative_integer_exp_2mux type;
     };
-   
+
     /*
             2 Multipliers
             Rational Exponent- use std::pow

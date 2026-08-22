@@ -21,9 +21,9 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 //
- 
- 
- 
+
+
+
 //
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
@@ -31,11 +31,18 @@
 * @file dimless_div_exp_1mux.hpp
 *    In these versions of the dimensionless divide calculation , the Multipliers
 *   have been reduced from 2 Multipliers to one multiplier.
-*    We also know that the Exponent is non zero, as if it is zero the calculation 
+*    We also know that the Exponent is non zero, as if it is zero the calculation
 *    is the same as dimensioned_divide.
 *    If The multiplier is one then it can be eliminated too.
 *    In that case we use the dimensionless divide exponent only functors.
 */
+
+#if defined (ARDUPILOT_BUILD)
+   // pow etc macros are defined in ardupilot
+   #if defined pow
+      #undef pow
+   #endif
+#endif
 
 #include <quan/detail/dimless_mul_exp_only.hpp>
 #include <quan/detail/united_value/operations/dimensioned_divide.hpp>
@@ -44,7 +51,7 @@
 #include <quan/meta/digits10.hpp>
 
 namespace quan{namespace detail{
-    
+
     template <typename Exponent, typename Multiplier>
     struct  dimensionless_divide_rt_positive_integer_exp_1mux{
         typedef typename quan::quantity_traits::default_value_type preferred_result_type;
@@ -58,7 +65,7 @@ namespace quan{namespace detail{
             typedef typename compute_divide_constant_arg_type<
                 ValueType_L,ValueType_R,preferred_result_type
             >::type constant_arg_type;
-           
+
 
             constexpr result_type operator()(ValueType_L const & lhs, ValueType_R const & rhs) const
             {
@@ -109,7 +116,7 @@ namespace quan{namespace detail{
             typedef typename compute_divide_constant_arg_type<
                 ValueType_L,ValueType_R,preferred_result_type
             >::type constant_arg_type;
-           
+
             constexpr result_type operator()(ValueType_L const & lhs, ValueType_R const & rhs)const
             {
               return (static_cast<value_type_L>(lhs) / static_cast<value_type_R>(rhs))
@@ -121,7 +128,7 @@ namespace quan{namespace detail{
             }
             typedef eval type;
          };
-    
+
         template <typename ValueType>
         struct convert{
             typedef typename compute_divide_constant_arg_type<
@@ -235,7 +242,7 @@ namespace quan{namespace detail{
             >::type result_type;
             constexpr result_type operator()(ValueType const & v)const
             {
-               return  v 
+               return  v
                 * ((static_cast<constant_arg_type>(quan::meta::numerator<Multiplier>::value)
                     / (quan::meta::denominator<Multiplier>::value))
                     / (static_cast<constant_arg_type>(quan::meta::pow_c<
@@ -246,7 +253,7 @@ namespace quan{namespace detail{
 
         typedef dimensionless_divide_ct_negative_integer_exp_1mux type;
     };
-            
+
     // We know that the Exponent is a a rational
     template <typename Exponent, typename Multiplier>
     struct dimensionless_divide_rational_exp_1mux{
@@ -302,7 +309,7 @@ namespace quan{namespace detail{
         };
 
         typedef dimensionless_divide_rational_exp_1mux type;
-        
+
     };
 
     // If the Multiplier is 1 then use the exponent only calculation.

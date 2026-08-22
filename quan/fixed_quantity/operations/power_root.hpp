@@ -35,13 +35,24 @@
 #include <quan/meta/not.hpp>
 #include <quan/meta/identity.hpp>
 
+#if defined (ARDUPILOT_BUILD)
+   // pow etc macros are defined in ardupilot
+   #if defined pow
+      #undef pow
+   #endif
+
+   #if defined sqrt
+      #undef sqrt
+   #endif
+#endif
+
 #if defined  QUAN_AVR_NO_CPP_STDLIB
   #include <math.h>
 #else
 #include <cmath>
 #endif
 
-namespace quan { 
+namespace quan {
 
     namespace meta{
 
@@ -76,7 +87,7 @@ namespace quan {
                >::type type;
             };
          }
- 
+
        namespace impl{
         template <
             int64_t N,
@@ -109,8 +120,8 @@ namespace quan {
                   StaticUnit,
                   NumericType
                >
-            >::type type;  
-  
+            >::type type;
+
         };
       } // impl
 
@@ -127,14 +138,14 @@ namespace quan {
     double
     pow( double const& v)
     {
-#ifndef QUAN_AVR_NO_CPP_STDLIB  
+#ifndef QUAN_AVR_NO_CPP_STDLIB
         return std::pow(
-#else   
+#else
         return ::pow(
 #endif
              v ,
             static_cast<double>( N ) / D
-        );      
+        );
     }
     template <
         int64_t N,
@@ -151,14 +162,14 @@ namespace quan {
 #endif
             static_cast<double>( v ),
             static_cast<double>( N ) / D
-        );         
+        );
     }
 
         template <
         int64_t N,
         int64_t D
     >
-    QUAN_CONSTEXPR inline 
+    QUAN_CONSTEXPR inline
     double
     pow( int32_t const& v)
     {
@@ -169,7 +180,7 @@ namespace quan {
 #endif
             static_cast<double>( v ),
             static_cast<double>( N ) / D
-        );         
+        );
     }
 
     namespace detail{
@@ -187,7 +198,7 @@ namespace quan {
                 quan ::meta::pow,
                 typename Rational::type
             >::type result_type;
-            static QUAN_CONSTEXPR result_type apply(Q const & in) 
+            static QUAN_CONSTEXPR result_type apply(Q const & in)
             {
                return result_type{
                   pow<Rational::numerator,Rational::denominator>(
@@ -204,7 +215,7 @@ namespace quan {
             Q, quan ::meta::rational<0>
         >{
             typedef int result_type;
-            static QUAN_CONSTEXPR result_type apply(Q const & in) 
+            static QUAN_CONSTEXPR result_type apply(Q const & in)
             {
                 return 1;
             }
@@ -217,7 +228,7 @@ namespace quan {
             Q,quan ::meta::rational<1>
         >{
             typedef Q result_type;
-            static QUAN_CONSTEXPR result_type apply(Q const & in) 
+            static QUAN_CONSTEXPR result_type apply(Q const & in)
             {
                 return in;
             }
@@ -274,9 +285,9 @@ namespace quan {
         fixed_quantity<
             StaticUnit,
             NumericType
-        > const & pq 
+        > const & pq
     )
-    {   
+    {
         typedef fixed_quantity<
                 StaticUnit,
                 NumericType
@@ -294,7 +305,7 @@ namespace quan {
     >
     inline QUAN_CONSTEXPR
     typename meta::binary_op<
-        T, 
+        T,
         meta::pow,
         meta::rational<N,1>
     >::type
@@ -314,7 +325,7 @@ namespace quan {
     {
        return quan ::pow<1,2>(v);
     }
-  
+
 #ifdef QUAN_TR1_COMPLIANT
 
     template <typename T>
@@ -330,7 +341,7 @@ namespace quan {
     }
 
 #endif
-  
+
 } //quan
 
 #endif

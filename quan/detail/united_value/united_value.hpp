@@ -34,6 +34,13 @@
 #include <quan/meta/is_numeric.hpp>
 #include <quan/where.hpp>
 
+#if defined (ARDUPILOT_BUILD)
+// pow etc macros are defined in ardupilot
+   #if defined pow
+      #undef pow
+   #endif
+#endif
+
 namespace quan{ namespace meta{
 
   namespace impl{
@@ -69,14 +76,14 @@ namespace quan{ namespace meta{
 #undef QUAN_UNITED_VALUE_BINOP
 
     template<
-        typename ConversionFactor, 
-        typename NumericType, 
+        typename ConversionFactor,
+        typename NumericType,
         typename PowType
     >
     struct binary_op_impl<
         quan ::detail::united_value<ConversionFactor,NumericType>,
         pow,
-        PowType 
+        PowType
     >{
         typedef quan ::detail::united_value<
             typename binary_op<
@@ -91,14 +98,14 @@ namespace quan{ namespace meta{
             >::type
         > type;
     };
-        
-   } // impl 
+
+   } // impl
 } }//quan::meta
 
 namespace quan{ namespace detail{
 
     template <
-        typename ConversionFactor, 
+        typename ConversionFactor,
         typename NumericType
     >
     class united_value{
@@ -109,11 +116,11 @@ namespace quan{ namespace detail{
         inline
         QUAN_CONSTEXPR
         explicit united_value(value_type const & in) ;
-         
+
         constexpr united_value():m_value{}{}
-      
+
         template<typename Value_typeIn>
-        inline 
+        inline
          QUAN_CONSTEXPR
          explicit united_value(Value_typeIn const & in) ;
       //  inline united_value(united_value const & in);
@@ -157,8 +164,8 @@ namespace quan{ namespace detail{
 #undef QUAN_UNITED_VALUE_ASSIGNMENT_OP
 
         QUAN_CONSTEXPR
-        typename std::remove_const<value_type>::type 
-        raw_value() const {return m_value;} 
+        typename std::remove_const<value_type>::type
+        raw_value() const {return m_value;}
         value_type & raw_value_ref()
         {
            return  m_value;
@@ -169,7 +176,7 @@ namespace quan{ namespace detail{
            return  m_value;
         }
     private:
-        value_type m_value; 
+        value_type m_value;
     };
 
 ///////////////united_value definitions/////////////////
@@ -177,19 +184,19 @@ namespace quan{ namespace detail{
 
 // value ctor where in.type == NumericType
     template <
-        typename ConversionFactor, 
+        typename ConversionFactor,
         typename NumericType
     >
     inline
-    QUAN_CONSTEXPR   
+    QUAN_CONSTEXPR
     united_value<ConversionFactor,NumericType>::united_value(
-        NumericType const& in 
-    ) 
+        NumericType const& in
+    )
     : m_value(in)
     {}
     // value ctor where in.type implicit convertible to NumericType
     template <
-        typename ConversionFactor, 
+        typename ConversionFactor,
         typename NumericType
     >
     template<
@@ -214,7 +221,7 @@ QUAN_CONSTEXPR
         typename UnitsIn,
         typename NumericTypeIn
     >
-    inline  
+    inline
     QUAN_CONSTEXPR
     united_value<ConversionFactor,NumericType>::united_value(
         united_value<UnitsIn,NumericTypeIn> const & in
@@ -244,10 +251,10 @@ QUAN_CONSTEXPR
     inline united_value<ConversionFactor,NumericType>&\
     united_value<ConversionFactor, NumericType>:: operator = (
         united_value<UnitsIn,NumericTypeIn> const & in
-    ) 
-    { 
-        this->m_value = united_value{in}.m_value; 
-        return *this; 
+    )
+    {
+        this->m_value = united_value{in}.m_value;
+        return *this;
     }
 
 QUAN_UNITED_VALUE_ASSIGNMENT_OP(+=)
@@ -255,55 +262,55 @@ QUAN_UNITED_VALUE_ASSIGNMENT_OP(-=)
 
 #undef QUAN_UNITED_VALUE_ASSIGNMENT_OP
 
-    template < 
-        typename ConversionFactor_L , 
-        typename NumericType_L , 
-        typename ConversionFactor_R , 
-        typename NumericType_R 
-    > 
+    template <
+        typename ConversionFactor_L ,
+        typename NumericType_L ,
+        typename ConversionFactor_R ,
+        typename NumericType_R
+    >
 QUAN_CONSTEXPR
-    typename quan ::meta::binary_op< 
-        united_value<ConversionFactor_L , NumericType_L> , 
-        quan ::meta::plus , 
-        united_value<ConversionFactor_R , NumericType_R> 
-    >::type 
-    operator  + ( 
-        united_value<ConversionFactor_L , NumericType_L> const & lhs 
-        , 
-        united_value<ConversionFactor_R , NumericType_R> const & rhs ) 
-    {   
+    typename quan ::meta::binary_op<
+        united_value<ConversionFactor_L , NumericType_L> ,
+        quan ::meta::plus ,
+        united_value<ConversionFactor_R , NumericType_R>
+    >::type
+    operator  + (
+        united_value<ConversionFactor_L , NumericType_L> const & lhs
+        ,
+        united_value<ConversionFactor_R , NumericType_R> const & rhs )
+    {
 
-       typedef typename quan ::meta::binary_op< 
-        united_value<ConversionFactor_L , NumericType_L> , 
-        quan ::meta::plus , 
-        united_value<ConversionFactor_R , NumericType_R> 
+       typedef typename quan ::meta::binary_op<
+        united_value<ConversionFactor_L , NumericType_L> ,
+        quan ::meta::plus ,
+        united_value<ConversionFactor_R , NumericType_R>
         >::type result_type;
 
        return result_type{ result_type{lhs}.numeric_value() + result_type{rhs}.numeric_value()};
 
     }
 
-    template < 
-        typename ConversionFactor_L , 
-        typename NumericType_L , 
-        typename ConversionFactor_R , 
-        typename NumericType_R 
-    > 
+    template <
+        typename ConversionFactor_L ,
+        typename NumericType_L ,
+        typename ConversionFactor_R ,
+        typename NumericType_R
+    >
    QUAN_CONSTEXPR
-    typename quan ::meta::binary_op< 
-        united_value<ConversionFactor_L , NumericType_L> , 
-        quan ::meta::minus , 
-        united_value<ConversionFactor_R , NumericType_R> 
-    >::type 
-    operator  - ( 
-        united_value<ConversionFactor_L , NumericType_L> const & lhs, 
-        united_value<ConversionFactor_R , NumericType_R> const & rhs ) 
-    {   
+    typename quan ::meta::binary_op<
+        united_value<ConversionFactor_L , NumericType_L> ,
+        quan ::meta::minus ,
+        united_value<ConversionFactor_R , NumericType_R>
+    >::type
+    operator  - (
+        united_value<ConversionFactor_L , NumericType_L> const & lhs,
+        united_value<ConversionFactor_R , NumericType_R> const & rhs )
+    {
 
-      typedef typename quan ::meta::binary_op< 
-         united_value<ConversionFactor_L , NumericType_L> , 
-         quan ::meta::plus , 
-         united_value<ConversionFactor_R , NumericType_R> 
+      typedef typename quan ::meta::binary_op<
+         united_value<ConversionFactor_L , NumericType_L> ,
+         quan ::meta::plus ,
+         united_value<ConversionFactor_R , NumericType_R>
       >::type result_type;
 
        return result_type{ result_type{lhs}.numeric_value() - result_type{rhs}.numeric_value() };

@@ -21,26 +21,33 @@
  along with this program. If not, see http://www.gnu.org/licenses./
  */
 //
- 
- 
- 
+
+
+
 //
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 /*
     In these versions of the dimensionless multiply calculation , the Multipliers
     have been reduced from 2 Multipliers to one multiplier.
-    We also know that the Exponent is non zero, as if it is zero the calculation 
+    We also know that the Exponent is non zero, as if it is zero the calculation
     is the same as dimensioned_multiply.
     If The multiplier is one then it can be eliminated too.
     In that case we use the dimensionless multiply exponent only functors.
 */
 
+#if defined (ARDUPILOT_BUILD)
+// pow etc macros are defined in ardupilot
+   #if defined pow
+      #undef pow
+   #endif
+#endif
+
 #include <quan/detail/dimless_mul_exp_only.hpp>
 #include <quan/meta/digits10.hpp>
 
 namespace quan{namespace detail{
-    
+
     template <typename Exponent, typename Multiplier>
     struct  dimensionless_multiply_rt_positive_integer_exp_1mux{
         typedef typename quan::quantity_traits::default_value_type preferred_result_type;
@@ -50,7 +57,7 @@ namespace quan{namespace detail{
                     ValueType_L,ValueType_R,preferred_result_type
             >::type result_type;
             typedef typename compute_multiply_constant_arg_type<
-                ValueType_L,ValueType_R,preferred_result_type 
+                ValueType_L,ValueType_R,preferred_result_type
             >::type  constant_arg_type;
             result_type operator()(ValueType_L const & lhs, ValueType_R const & rhs) const
             {
@@ -75,7 +82,7 @@ namespace quan{namespace detail{
                     ValueType_L,ValueType_R,preferred_result_type
             >::type result_type;
             typedef typename compute_multiply_constant_arg_type<
-                ValueType_L,ValueType_R,preferred_result_type 
+                ValueType_L,ValueType_R,preferred_result_type
             >::type  constant_arg_type;
             result_type operator()(ValueType_L const & lhs, ValueType_R const & rhs)const
             {
@@ -101,7 +108,7 @@ namespace quan{namespace detail{
                     ValueType_L,ValueType_R,preferred_result_type
             >::type result_type;
             typedef typename compute_multiply_constant_arg_type<
-                ValueType_L,ValueType_R,preferred_result_type 
+                ValueType_L,ValueType_R,preferred_result_type
             >::type  constant_arg_type;
             result_type operator()(ValueType_L const & lhs, ValueType_R const & rhs) const
             {
@@ -127,7 +134,7 @@ namespace quan{namespace detail{
                     ValueType_L,ValueType_R,preferred_result_type
             >::type result_type;
             typedef typename compute_multiply_constant_arg_type<
-                ValueType_L,ValueType_R,preferred_result_type 
+                ValueType_L,ValueType_R,preferred_result_type
             >::type  constant_arg_type;
             result_type operator()(ValueType_L const & lhs, ValueType_R const & rhs)const
             {
@@ -142,7 +149,7 @@ namespace quan{namespace detail{
         };
         typedef dimensionless_multiply_ct_negative_integer_exp_1mux type;
     };
-            
+
     // We know that the Exponent is a a rational
     template <typename Exponent, typename Multiplier>
     struct dimensionless_multiply_rational_exp_1mux{
@@ -153,7 +160,7 @@ namespace quan{namespace detail{
                     ValueType_L,ValueType_R,preferred_result_type
             >::type result_type;
             typedef typename compute_multiply_constant_arg_type<
-                ValueType_L,ValueType_R,preferred_result_type 
+                ValueType_L,ValueType_R,preferred_result_type
             >::type  constant_arg_type;
             result_type operator()(ValueType_L const & lhs, ValueType_R const & rhs)const
             {
@@ -171,7 +178,7 @@ namespace quan{namespace detail{
             typedef eval type;
         };
         typedef dimensionless_multiply_rational_exp_1mux type;
-        
+
     };
 
     // If the Multiplier is 1 then use the exponent only calculation.

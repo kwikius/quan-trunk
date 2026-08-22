@@ -4,6 +4,13 @@
 #  pragma once
 #endif
 
+#if defined (ARDUPILOT_BUILD)
+// pow etc macros are defined in ardupilot
+   #if defined pow
+      #undef pow
+   #endif
+#endif
+
 /*
  Copyright (c) 2003-2014 Andy Little.
 
@@ -20,11 +27,7 @@
  You should have received a copy of the GNU General Public License
  along with this program. If not, see http://www.gnu.org/licenses./
  */
-//
- 
- 
- 
-//
+
 // See QUAN_ROOT/quan_matters/index.html for documentation.
 
 /*
@@ -53,9 +56,9 @@ namespace quan{ namespace detail{
                 ValueType_L,ValueType_R,preferred_result_type
             >::type result_type;
             typedef typename compute_multiply_constant_arg_type<
-                ValueType_L,ValueType_R,preferred_result_type 
-            >::type  constant_arg_type;   
-            
+                ValueType_L,ValueType_R,preferred_result_type
+            >::type  constant_arg_type;
+
             result_type operator()(ValueType_L const & lhs,ValueType_R const & rhs) const
             {
  #ifndef QUAN_AVR_NO_CPP_STDLIB
@@ -85,8 +88,8 @@ namespace quan{ namespace detail{
                 ValueType_L,ValueType_R,preferred_result_type
             >::type result_type;
             typedef typename compute_multiply_constant_arg_type<
-                ValueType_L,ValueType_R,preferred_result_type 
-            >::type  constant_arg_type; 
+                ValueType_L,ValueType_R,preferred_result_type
+            >::type  constant_arg_type;
             QUAN_CONSTEXPR result_type operator()(ValueType_L const & lhs,ValueType_R const & rhs) const
             {
                 typedef pow10_integer_exponent<
@@ -113,8 +116,8 @@ namespace quan{ namespace detail{
                     ValueType_L,ValueType_R,preferred_result_type
             >::type result_type;
             typedef typename compute_multiply_constant_arg_type<
-                ValueType_L,ValueType_R,preferred_result_type 
-            >::type  constant_arg_type; 
+                ValueType_L,ValueType_R,preferred_result_type
+            >::type  constant_arg_type;
             QUAN_CONSTEXPR result_type operator()(ValueType_L const & lhs,ValueType_R const & rhs) const
             {
                 typedef pow10_integer_exponent<constant_arg_type,quan::meta::numerator<Exponent>::value> pow10;
@@ -127,14 +130,14 @@ namespace quan{ namespace detail{
         typedef dimensionless_multiply_exp_only_positive_integer_rt type;
     };
 
-    // run time evaluate Exponent 
+    // run time evaluate Exponent
     // decide whether Exponent is a Rational or Integer
     // and if integer + or -.
     template <typename Exponent>
     struct dimensionless_multiply_exp_only_rt : quan::meta::eval_if<
         quan::meta::is_integer<Exponent>,
         quan::meta::eval_if_c<
-            (quan::meta::numerator<Exponent>::value > 0),  
+            (quan::meta::numerator<Exponent>::value > 0),
             dimensionless_multiply_exp_only_positive_integer_rt<Exponent>,
             dimensionless_multiply_exp_only_negative_integer_rt<Exponent>
         >,
@@ -152,8 +155,8 @@ namespace quan{ namespace detail{
                 ValueType_L,ValueType_R,preferred_result_type
             >::type result_type;
             typedef typename compute_multiply_constant_arg_type<
-                ValueType_L,ValueType_R,preferred_result_type 
-            >::type  constant_arg_type; 
+                ValueType_L,ValueType_R,preferred_result_type
+            >::type  constant_arg_type;
             // ideally warn if the value_types are 32 bit integers
             // as overflow is very likeley then.
             // OTOH provide a check option
@@ -185,7 +188,7 @@ namespace quan{ namespace detail{
                 ValueType_L,ValueType_R,preferred_result_type
             >::type result_type;
             typedef typename compute_multiply_constant_arg_type<
-                ValueType_L,ValueType_R,preferred_result_type 
+                ValueType_L,ValueType_R,preferred_result_type
             >::type  constant_arg_type;
             QUAN_CONSTEXPR result_type operator()(ValueType_L const & lhs,ValueType_R const & rhs) const
             {
@@ -217,13 +220,13 @@ namespace quan{ namespace detail{
     // only integer non integer checked here
     template <typename Exponent>
     struct dimensionless_multiply_exp_only : quan::meta::eval_if_c<
-        (quan::meta::is_integer<Exponent>::value 
+        (quan::meta::is_integer<Exponent>::value
         && quan::meta::numerator<Exponent>::value >= quan::meta::digits10<int32_t>::value
         && quan::meta::numerator<Exponent>::value <= quan::meta::digits10<int32_t>::value),
         dimensionless_multiply_exp_only_ct<Exponent>,
         dimensionless_multiply_exp_only_rt<Exponent>
     >::type {};
-    
+
 }}//quan::detail
 
 #endif
