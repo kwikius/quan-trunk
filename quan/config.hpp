@@ -71,6 +71,7 @@
 #define QUAN_USE_SINGLE_PRECISION_CONSTANTS
 #define QUAN_NO_EXCEPTIONS
 #define QUAN_NO_RTTI
+#define QUAN_FLOAT_TYPE float
 #endif
 /*
     Various Configuration options for Quan
