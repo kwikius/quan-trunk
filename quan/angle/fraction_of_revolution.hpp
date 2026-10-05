@@ -82,9 +82,9 @@ QUAN_CONSTEXPR
 fraction_of_revolution(Value_type1 const & v)
         :m_value{quan::arithmetic_convert<ValueType>(v)}{}
 
-QUAN_CONSTEXPR
+/* QUAN_CONSTEXPR
         fraction_of_revolution(fraction_of_revolution const& fr)
-        :m_value(fr.m_value){}
+        :m_value(fr.m_value){} */
 
         template<
             typename ReciprocalFraction1,
